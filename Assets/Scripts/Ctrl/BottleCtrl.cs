@@ -1243,7 +1243,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 spineGo.gameObject.SetActive(false);
             }
 
-            if (hideWaters[spinePosIdx])
+            if (spinePosIdx < hideWaters.Count && hideWaters[spinePosIdx])
             {
                 spine.AnimationState.SetAnimation(0, "ruchanghuangdong_mask", false);
             }
