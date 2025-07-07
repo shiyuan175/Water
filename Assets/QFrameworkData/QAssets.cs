@@ -77,6 +77,16 @@ namespace QAssetBundle
         public const string BundleName = "uiguideanimpop_prefab";
         public const string UIGuideAnimPop = "UIGuideAnimPop";
     }
+    public class Uiguidelevel1_prefab
+    {
+        public const string BundleName = "uiguidelevel1_prefab";
+        public const string UIGuideLevel1 = "UIGuideLevel1";
+    }
+    public class Uiguidelevel2_prefab
+    {
+        public const string BundleName = "uiguidelevel2_prefab";
+        public const string UIGuideLevel2 = "UIGuideLevel2";
+    }
     public class Uilessstar_prefab
     {
         public const string BundleName = "uilessstar_prefab";

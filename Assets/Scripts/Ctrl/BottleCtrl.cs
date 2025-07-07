@@ -23,7 +23,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     public bool isFinish, isFreeze, isClearHide, isNearHide, isPlayAnim;
     //  播放去除动画、正在解锁
     [SerializeField] private bool isClearHideAnim, hasUnlockHidePlayed = false;
-    [SerializeField] private Image bottleClickMask;
 
     // 区分上下排
     public bool isUp;       
@@ -1337,6 +1336,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
     public void MoveToOtherAnim(BottleCtrl other, int topIndex, int numWater, int useColor = -1)
     {
+        Image bottleClickMask = bottle.GetComponent<Image>();
+
         //获取移动终点
         var (_targetPos, _dir) = GetMoveToPos(transform, other.transform ,other.leftMovePlace);
 

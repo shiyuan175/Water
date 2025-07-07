@@ -87,7 +87,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     {
         //UIKit.OpenPanel<UIBegin>(UILevel.Common);
         AudioKit.PlayMusic("resources://Audio/BG_BGM");
-
+        
         //清空携带道具
         StringEventSystem.Global.Register("ClearTakeItem", () =>
         {
@@ -105,6 +105,10 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         {
             StartGame(levelId);
             UIKit.OpenPanel<UIGameNode>();
+            ActionKit.DelayFrame(1, () =>
+            {
+                AudioKit.PauseMusic();
+            }).Start(this);
         }
     }
 
@@ -375,7 +379,8 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
             isFinish = true;
             //Debug.Log("胜利");
             UIKit.OpenPanel<UIMask>(UILevel.PopUI);
-            yield return new WaitForSeconds(4);
+            float waitTime = levelId < 5 ? 3f : 2f;
+            yield return new WaitForSeconds(waitTime);
 
             //Debug.Log("开始播放胜利结算");
             AudioKit.PlaySound("resources://Audio/Victory");
@@ -828,19 +833,26 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
                 StringEventSystem.Global.Send("StreakWinItem", WinNum);
         }*/
 
+        CheckGuideLevel();
+    }
+
+    public void CheckGuideLevel()
+    {
+        if (levelId == 1)
+            UIKit.OpenPanel<UIGuideLevel1>();
+
+        else if (levelId == 2)
+            UIKit.OpenPanel<UIGuideLevel2>();
+
         //关卡引导判断
-        if (GameDefine.GameConst.GuideLevelInfo.TryGetValue(levelId ,out (string guideText,string guideAnimName) value))
+        else if (GameDefine.GameConst.GuideLevelInfo.TryGetValue(levelId, out (string guideText, string guideAnimName) value))
         {
-            UIKit.OpenPanel<UIGuideAnimPop>(UILevel.PopUI, new UIGuideAnimPopData
+            //UILevel.PopUI, 
+            UIKit.OpenPanel<UIGuideAnimPop>(new UIGuideAnimPopData
             {
                 GuideText = value.guideText,
                 GuideAnimName = value.guideAnimName
             });
-
-            ActionKit.Delay(5f, () =>
-            {
-                UIKit.ClosePanel<UIGuideAnimPop>();
-            }).Start(this);
         }
     }
 
@@ -973,7 +985,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         {
             // 先检查，后更新
             bottle.CheckFailure();
-            bottle.SetBottleColor();
+            //bottle.SetBottleColor();
         }
     }
 

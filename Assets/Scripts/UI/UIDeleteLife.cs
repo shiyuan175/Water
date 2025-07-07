@@ -40,6 +40,8 @@ namespace QFramework.Example
                 AnalyticsManager.Instance.SendLevelEvent(_del);
 
                 HealthManager.Instance.UseHp();
+				//避免引导关退出的UI残留
+				UIKit.ClosePanel<UIGuideAnimPop>();
 				UIKit.ClosePanel<UIGameNode>();
                 this.GetModel<StageModel>().ResetCountinueWinNum();
                 this.SendEvent<ReturnMainEvent>(new ReturnMainEvent());

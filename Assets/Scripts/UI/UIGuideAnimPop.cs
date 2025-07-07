@@ -27,7 +27,11 @@ namespace QFramework.Example
 		
 		protected override void OnShow()
 		{
-		}
+            ActionKit.Delay(5f, () =>
+            {
+                CloseSelf();
+            }).Start(this);
+        }
 		
 		protected override void OnHide()
 		{

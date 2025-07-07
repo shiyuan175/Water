@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1766004694
+CRC: 1302155285
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -93,3 +93,11 @@ AssetBundleManifest:
       Name: uiretry_prefab
       Dependencies:
         Dependency_0: fontall_asset
+    Info_24:
+      Name: uiguidelevel2_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_25:
+      Name: uiguidelevel1_prefab
+      Dependencies:
+        Dependency_0: font

@@ -54,9 +54,18 @@ namespace QFramework.Example
                 potionActivityModel.AddPotionActivityGoal();
             }
 
+			BtnSkip.onClick.AddListener(() =>
+			{
+                if (!mRankingEnd)
+                    UIKit.OpenPanel<UIRankA>(new UIRankAData { LastRankScore = mLastRankingScore });
+                else
+                    UIKit.OpenPanel<UIGetCoin>();
+                CloseSelf();
+            });
+
             ShowAnim();
 			TxtLevel.text = (this.GetUtility<SaveDataUtility>().GetLevelClear() - 1).ToString();
-			StartCoroutine(WaitClose());
+			WaitClose();
         }
 
 		protected override void OnHide()
@@ -65,9 +74,10 @@ namespace QFramework.Example
 
 		protected override void OnClose()
 		{
-		}
+            BtnSkip.onClick.RemoveAllListeners();
+        }
 
-		void ShowAnim()
+		private	void ShowAnim()
 		{
 			//目前不播放
 			//AnimGo.Play("victoryAnim");
@@ -82,15 +92,18 @@ namespace QFramework.Example
 			HornSpine4.AnimationState.SetAnimation(0, "animation", false);
 		}
 
-		IEnumerator WaitClose()
+		private void WaitClose()
         {
-			yield return new WaitForSeconds(3f);
-			if (!mRankingEnd)
+			ActionKit.Delay(3f, () =>
 			{
-				UIKit.OpenPanel<UIRankA>(new UIRankAData { LastRankScore = mLastRankingScore});
-			}else
-				UIKit.OpenPanel<UIGetCoin>();
-			CloseSelf();
+                if (!mRankingEnd)
+                {
+                    UIKit.OpenPanel<UIRankA>(new UIRankAData { LastRankScore = mLastRankingScore });
+                }
+                else
+                    UIKit.OpenPanel<UIGetCoin>();
+                CloseSelf();
+            }).Start(this);
         }
     }
 }

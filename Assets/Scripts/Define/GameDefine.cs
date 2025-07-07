@@ -24,8 +24,6 @@ namespace GameDefine
         //关卡引导
         public static readonly Dictionary<int, (string, string)> GuideLevelInfo = new Dictionary<int, (string, string)>
         {
-            { 1, ("Make the water in the water bottle the same color", "GuideAnim_1") },
-            { 2, ("Only pour water into the same color", "GuideAnim_2") },
             { 3, ("Sort the gemstone color to lift the cloth", "GuideAnim_3") },
             { 11, ("Combining two brooms can remove water of the same color", "GuideAnim_11") },
             { 16, ("Combining two potion bottles can change 4 water of the same color", "GuideAnim_16") },

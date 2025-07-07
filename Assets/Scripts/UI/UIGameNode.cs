@@ -15,7 +15,11 @@ namespace QFramework.Example
 
 	public partial class UIGameNode : UIPanel ,IController
 	{
+        [SerializeField] private Sprite[] mRankLevelSprites;
+
         private StageModel stageModel;
+        private const int WIN_STREAK_RANKLEVEL_INTERVAL = 5;
+        private const int MAX_SPRITE_INDEX = 8;
         private const string CLEAR_BWATER_PARTICLE_PATH = "Prefab/BlackMaskItem";
 
         public IArchitecture GetArchitecture()
@@ -39,6 +43,7 @@ namespace QFramework.Example
 		
 		protected override void OnShow()
 		{
+            InitRankLevel();
             SetTakeItem();
             SetItem();
             BindBtn();
@@ -61,6 +66,17 @@ namespace QFramework.Example
             BtnItem1.onClick.RemoveAllListeners();
             BtnItem2.onClick.RemoveAllListeners();
             BtnItem3.onClick.RemoveAllListeners();
+        }
+
+        private void InitRankLevel()
+        {
+            if (this.GetUtility<SaveDataUtility>().GetLevelClear() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
+            {
+                ImgRankLevel.Show();
+                var _spriteIndex = Mathf.Max(0, (stageModel.CountinueWinNum - 1) / WIN_STREAK_RANKLEVEL_INTERVAL);
+                _spriteIndex = _spriteIndex >= MAX_SPRITE_INDEX ? MAX_SPRITE_INDEX : _spriteIndex;
+                ImgRankLevel.sprite = mRankLevelSprites[_spriteIndex];
+            }
         }
 
         private void BindBtn()

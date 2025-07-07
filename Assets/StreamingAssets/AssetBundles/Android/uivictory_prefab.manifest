@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3621003488
+CRC: 3228876698
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1c6f698783d998a5d03b0e5ebb3cb813
+    Hash: 41fd073b0e91c94f3219bbf03353accc
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 8700a7bea4490c58372b9a9538378cd2
+    Hash: e3256af6bb5e50b0c3342597cd43dac0
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 1c6f698783d998a5d03b0e5ebb3cb813
+    Hash: 41fd073b0e91c94f3219bbf03353accc
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -34,6 +34,8 @@ ClassTypes:
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: d85b887af7e6c3f45a2e2d2920d641bc, type: 3}
 - Class: 114
@@ -60,7 +62,17 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.CoreModule
   ClassName: UnityEngine.Events.PersistentCallGroup
 - AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.AnimationTriggers
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Button/ButtonClickedEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.ColorBlock
+- AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Navigation
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.SpriteState
 - AssemblyName: spine-unity
   ClassName: Spine.Unity.BlendModeMaterials
 - AssemblyName: spine-unity
