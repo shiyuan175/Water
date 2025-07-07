@@ -1113,7 +1113,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         StartCoroutine(ShowMahoujinCoroutine());
     }
 
-    IEnumerator ShowMahoujinCoroutine()
+    public IEnumerator ShowMahoujinCoroutine()
     {
         AudioKit.PlaySound("resources://Audio/MagicCircle");
         

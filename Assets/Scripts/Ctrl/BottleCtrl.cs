@@ -1596,6 +1596,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                                 if (itemId == waterColor && i - itemPlace == 1)
                                 {
                                     items.Add(waters[i]);
+                                    StringEventSystem.Global.Send("CacheMagnetWater", waterImg[i - 1]);
                                     waterImg[i - 1].PlayUseMagnet(waterImg[i]);
                                     waters[i] = 0;
                                     waters[itemPlace] = 0;

@@ -238,46 +238,80 @@ public class BottleWaterCtrl : MonoBehaviour
     }
 
 
+    #region 魔法阵动画
+
+    private Coroutine playMagnetCoroutine;
+    private GameObject magnetGo;
+    private GameObject magnetGo1;
+
     public void PlayUseMagnet(BottleWaterCtrl hide)
     {
-        StartCoroutine(CoroutinePlayUseMagnet(hide));
+        playMagnetCoroutine = StartCoroutine(CoroutinePlayUseMagnet(hide));
+    }
+
+    /// <summary>
+    /// 提供外部终止动画播放的方法
+    /// </summary>
+    public void StopPlayUseMagnet()
+    {
+        if (playMagnetCoroutine != null)
+        {
+            StopCoroutine(playMagnetCoroutine);
+            playMagnetCoroutine = null;
+        }
+
+        if (magnetGo != null)
+        {
+            Destroy(magnetGo);
+            magnetGo = null;
+        }
+
+        if (magnetGo1 != null)
+        {
+            Destroy(magnetGo1);
+            magnetGo1 = null;
+        }
+
+        isPlayItemAnim = false;
     }
 
     IEnumerator CoroutinePlayUseMagnet(BottleWaterCtrl hide)
     {
         isPlayItemAnim = true;
         //broomItemGo.SetActive(true);
-        var go = Instantiate(magnetItemGo);
-        var go1 = Instantiate(hide.magnetItemGo);
-        go.transform.parent = transform;
-        go.transform.localScale = magnetItemGo.transform.localScale;
-        go.transform.localPosition = magnetItemGo.transform.localPosition;
-        go1.transform.parent = transform;
-        go1.transform.localScale = magnetItemGo.transform.localScale;
-        go1.transform.localPosition = magnetItemGo.transform.localPosition + new Vector3(0, 83.4f, 0);
+        magnetGo = Instantiate(magnetItemGo);
+        magnetGo1 = Instantiate(hide.magnetItemGo);
+        magnetGo.transform.parent = transform;
+        magnetGo.transform.localScale = magnetItemGo.transform.localScale;
+        magnetGo.transform.localPosition = magnetItemGo.transform.localPosition;
+        magnetGo1.transform.parent = transform;
+        magnetGo1.transform.localScale = magnetItemGo.transform.localScale;
+        magnetGo1.transform.localPosition = magnetItemGo.transform.localPosition + new Vector3(0, 83.4f, 0);
 
-        var useSpine = go.GetComponent<SkeletonGraphic>();
-        var useSpine1 = go1.GetComponent<SkeletonGraphic>();
+        var useSpine = magnetGo.GetComponent<SkeletonGraphic>();
+        var useSpine1 = magnetGo1.GetComponent<SkeletonGraphic>();
         yield return new WaitForEndOfFrame();
-        go.transform.parent = LevelManager.Instance.gameCanvas;
-        go1.transform.parent = LevelManager.Instance.gameCanvas;
+        magnetGo.transform.parent = LevelManager.Instance.gameCanvas;
+        magnetGo1.transform.parent = LevelManager.Instance.gameCanvas;
         useSpine1.AnimationState.SetAnimation(0, magnetSpine.AnimationState.ExpandToIndex(0).Animation.name, false);
 
-        go1.transform.DOLocalMove(go.transform.localPosition, 0.2f).SetEase(Ease.Linear).OnComplete(() =>
+        magnetGo1.transform.DOLocalMove(magnetGo.transform.localPosition, 0.2f).SetEase(Ease.Linear).OnComplete(() =>
         {
-            Destroy(go1);
+            if (magnetGo1 != null) Destroy(magnetGo1);
         });
         magnetItemGo.SetActive(false);
-        go.transform.Find("Top").gameObject.SetActive(false);
+        magnetGo.transform.Find("Top").gameObject.SetActive(false);
         useSpine.AnimationState.SetAnimation(0, "combine", false);
         isPlayItemAnim = false;
         hide.gameObject.SetActive(false);
         yield return new WaitForSeconds(2f);
         isPlayItemAnim = false;
         //gameObject.SetActive(false);
-        Destroy(go);
+        if (magnetGo != null) Destroy(magnetGo);
         gameObject.SetActive(false);
+        playMagnetCoroutine = null;
     }
+    #endregion
 
     public void PlayFillAnimConnect()
     {

@@ -42,7 +42,12 @@ namespace QFramework.Example
                 HealthManager.Instance.UseHp();
 				//避免引导关退出的UI残留
 				UIKit.ClosePanel<UIGuideAnimPop>();
-				UIKit.ClosePanel<UIGameNode>();
+				if (saveData.GetLevelClear() == 1 || saveData.GetLevelClear() == 2)
+				{
+					UIKit.ClosePanel<UIGuideLevel1>();
+                    UIKit.ClosePanel<UIGuideLevel2>();
+                }
+                UIKit.ClosePanel<UIGameNode>();
                 this.GetModel<StageModel>().ResetCountinueWinNum();
                 this.SendEvent<ReturnMainEvent>(new ReturnMainEvent());
                 CloseSelf();

@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:0ac67219-03db-4cc5-965b-74610b4ee183
+	// Generate Id:fea019e8-33c2-4efb-8580-3fd8e62e8e24
 	public partial class UIGuideLevel1
 	{
 		public const string Name = "UIGuideLevel1";
@@ -13,14 +13,17 @@ namespace QFramework.Example
 		[SerializeField]
 		public Spine.Unity.SkeletonGraphic SpineHandle;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnBottle;
+		public UnityEngine.UI.Button BtnBottle1;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnBottle2;
 		
 		private UIGuideLevel1Data mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
 			SpineHandle = null;
-			BtnBottle = null;
+			BtnBottle1 = null;
+			BtnBottle2 = null;
 			
 			mData = null;
 		}

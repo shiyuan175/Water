@@ -27,12 +27,13 @@ namespace QFramework.Example
         {
             SpineHandle.AnimationState.SetAnimation(0, "animation", true);
             //模拟点击左侧瓶子
-            ActionKit.DelayFrame(1, () =>
+            BtnBottle1.onClick.AddListener(() =>
             {
                 LevelManager.Instance.nowBottles[0].bottle.onClick.Invoke();
-
-            }).Start(this);
-            BtnBottle.onClick.AddListener(() =>
+                SpineHandle.transform.localPosition = new Vector3(115, 0, 0);
+            });
+           
+            BtnBottle2.onClick.AddListener(() =>
             {
                 //模拟点击右侧瓶子
                 LevelManager.Instance.nowBottles[1].bottle.onClick.Invoke();
@@ -46,8 +47,8 @@ namespace QFramework.Example
 
         protected override void OnClose()
         {
-            BtnBottle.onClick.RemoveAllListeners();
-
+            BtnBottle1.onClick.RemoveAllListeners();
+            BtnBottle2.onClick.RemoveAllListeners();
         }
     }
 }

@@ -28099,13 +28099,14 @@ GameObject:
   - component: {fileID: 1377963004}
   - component: {fileID: 1377963003}
   - component: {fileID: 1377963005}
+  - component: {fileID: 1377963006}
   m_Layer: 0
   m_Name: Mahoujin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1377963002
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28225,6 +28226,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 3
   m_TargetDisplay: 0
+--- !u!114 &1377963006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377963001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb80bee0a351e340b1ff4e69a10fc84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1434040434
 GameObject:
   m_ObjectHideFlags: 0
@@ -39108,6 +39121,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 441977252875342326, guid: 5c0746996e1124049bc7344d3ee3530d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 455600473952837438, guid: 5c0746996e1124049bc7344d3ee3530d, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -39243,6 +39260,10 @@ PrefabInstance:
     - target: {fileID: 4068692151727057423, guid: 5c0746996e1124049bc7344d3ee3530d, type: 3}
       propertyPath: m_text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4182164958891750363, guid: 5c0746996e1124049bc7344d3ee3530d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4324820972718141438, guid: 5c0746996e1124049bc7344d3ee3530d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -39408,9 +39429,17 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6455021207357496051, guid: 5c0746996e1124049bc7344d3ee3530d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6680175752331025645, guid: 5c0746996e1124049bc7344d3ee3530d, type: 3}
       propertyPath: m_text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124714920908826388, guid: 5c0746996e1124049bc7344d3ee3530d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7343266376775342222, guid: 5c0746996e1124049bc7344d3ee3530d, type: 3}
       propertyPath: m_AnchorMax.y
