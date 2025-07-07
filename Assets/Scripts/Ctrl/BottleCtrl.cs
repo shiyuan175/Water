@@ -998,7 +998,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             //将隐藏水块显示
             if (hideWaters.Count > 0)
             {
-                SetHideShow(nowaitHide, i);
+                SetHideShow(true, i);
             }
             waterImg[i].waterColor = useColor;
         }
@@ -1242,6 +1242,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             {
                 spineGo.gameObject.SetActive(false);
             }
+
+            if (hideWaters[spinePosIdx])
+            {
+                spine.AnimationState.SetAnimation(0, "ruchanghuangdong_mask", false);
+            }
         }
 
         CheckHide();
@@ -1330,8 +1335,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         GameCtrl.Instance.ReducePouringCount();
 
         SetBottleColor();
-        PlaySpineWaitAnim();
-
     }
 
     public void MoveToOtherAnim(BottleCtrl other, int topIndex, int numWater, int useColor = -1)
@@ -1381,6 +1384,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                         isPlayAnim = false;
                         bottleRenderUpdate.SetMoveBottleRenderState(false);
                         bottleClickMask.raycastTarget = true;
+                        //回归原点时更新(此处调用则注释CoroutinePlayOutAnim 中的调用)
+                        //SetBottleColor();
                     });
                 }).Start(this);
             }
@@ -1395,6 +1400,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                         isPlayAnim = false;
                         bottleRenderUpdate.SetMoveBottleRenderState(false);
                         bottleClickMask.raycastTarget = true;
+                        //SetBottleColor();
                     });
                 }).Start(this);
             }

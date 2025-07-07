@@ -5,11 +5,13 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:ee457644-c688-4082-a8d4-69567dbd5d6f
+	// Generate Id:0ac67219-03db-4cc5-965b-74610b4ee183
 	public partial class UIGuideLevel1
 	{
 		public const string Name = "UIGuideLevel1";
 		
+		[SerializeField]
+		public Spine.Unity.SkeletonGraphic SpineHandle;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnBottle;
 		
@@ -17,6 +19,7 @@ namespace QFramework.Example
 		
 		protected override void ClearUIComponents()
 		{
+			SpineHandle = null;
 			BtnBottle = null;
 			
 			mData = null;

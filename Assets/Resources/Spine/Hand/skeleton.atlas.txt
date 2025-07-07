@@ -1,0 +1,10 @@
+skeleton.png
+size:303,184
+filter:Linear,Linear
+pma:true
+hand
+bounds:117,2,180,184
+offsets:12,7,200,200
+rotate:90
+shou-yuan
+bounds:2,69,113,113

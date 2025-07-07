@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using QFramework;
 using UnityEngine.Events;
 using System.Reflection;
+using Spine.Unity;
 
 namespace QFramework.Example
 {
@@ -24,6 +25,7 @@ namespace QFramework.Example
 
         protected override void OnShow()
         {
+            SpineHandle.AnimationState.SetAnimation(0, "animation", true);
             //Ä£Äâµã»÷×ó²àÆ¿×Ó
             ActionKit.DelayFrame(1, () =>
             {

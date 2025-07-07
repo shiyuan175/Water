@@ -9,9 +9,8 @@ namespace QFramework.Example
 	}
 	public partial class UIGuideLevel2 : UIPanel
 	{
-		private readonly Vector3 mMidHandlePos = new(25, -50, 0);
-        private readonly Vector3 mStep2HandlePos = new(-160, -50, 0);
-		private readonly Vector3 mStep3HandlePos = new (215, -50, 0);
+        private readonly Vector3 mStep2HandlePos = new(-190, -50, 0);
+		private readonly Vector3 mStep3HandlePos = new (190, -50, 0);
 
         private bool mIsStep2;
 
@@ -28,6 +27,7 @@ namespace QFramework.Example
 		protected override void OnShow()
 		{
 			mIsStep2 = true;
+            SpineHandle.AnimationState.SetAnimation(0, "animation", true);
 
             BtnBottle1.onClick.AddListener(() =>
             {
@@ -38,12 +38,12 @@ namespace QFramework.Example
                 if (mIsStep2)
 				{
                     Step2.Show();
-                    AnimHandle.transform.localPosition = mStep2HandlePos;
+                    SpineHandle.transform.localPosition = mStep2HandlePos;
                 }
 				else
 				{
 					Step3.Show();
-                    AnimHandle.transform.localPosition = mStep3HandlePos;
+                    SpineHandle.transform.localPosition = mStep3HandlePos;
                 }
                 
             });
@@ -52,15 +52,15 @@ namespace QFramework.Example
             {
                 //触发左边瓶子点击
                 LevelManager.Instance.nowBottles[0].bottle.onClick.Invoke();
-                AnimHandle.transform.localPosition = mMidHandlePos;
-                AnimHandle.Hide();
+                SpineHandle.transform.localPosition = Vector3.zero;
+                SpineHandle.Hide();
 				Step2.Hide();
 				mIsStep2 = false;
 
 				//等待倒完水
 				ActionKit.Delay(2.2f, () =>
 				{
-					AnimHandle.Show();
+                    SpineHandle.Show();
                     BtnBottle1.Show();
                 }).Start(this);
             });
