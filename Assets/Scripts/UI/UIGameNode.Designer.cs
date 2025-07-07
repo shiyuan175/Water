@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:c29c5466-87e2-4309-a708-1cc1c0179791
+	// Generate Id:c1deadc5-da84-471f-8b6e-2c9b90281205
 	public partial class UIGameNode
 	{
 		public const string Name = "UIGameNode";
@@ -45,6 +45,10 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Image ImgRankLevel;
 		[SerializeField]
+		public UnityEngine.UI.Text TxtRankLevel;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgRankLevel_Label;
+		[SerializeField]
 		public UnityEngine.UI.Button BtnReturn;
 		[SerializeField]
 		public UnityEngine.UI.Image BtnItemBg;
@@ -82,6 +86,8 @@ namespace QFramework.Example
 			BtnAddRemoveBottle = null;
 			TxtLevel = null;
 			ImgRankLevel = null;
+			TxtRankLevel = null;
+			ImgRankLevel_Label = null;
 			BtnReturn = null;
 			BtnItemBg = null;
 			BtnItem1 = null;

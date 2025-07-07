@@ -70,9 +70,20 @@ namespace QFramework.Example
 
         private void InitRankLevel()
         {
-            if (this.GetUtility<SaveDataUtility>().GetLevelClear() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
+            int level = this.GetUtility<SaveDataUtility>().GetLevelClear();
+            if (level == GameConst.WIN_STREAK_BEGIN_LEVEL)
+            {
+                ImgRankLevel_Label.Show();
+                ActionKit.Delay(5f, () =>
+                {
+                    ImgRankLevel_Label.Hide();
+
+                }).Start(this);
+            }
+            if (level >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             {
                 ImgRankLevel.Show();
+                TxtRankLevel.text = stageModel.CountinueWinNum.ToString();
                 var _spriteIndex = Mathf.Max(0, (stageModel.CountinueWinNum - 1) / WIN_STREAK_RANKLEVEL_INTERVAL);
                 _spriteIndex = _spriteIndex >= MAX_SPRITE_INDEX ? MAX_SPRITE_INDEX : _spriteIndex;
                 ImgRankLevel.sprite = mRankLevelSprites[_spriteIndex];
