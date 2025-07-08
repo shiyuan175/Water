@@ -984,7 +984,11 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         foreach (var bottle in bottles)
         {
             // 先检查，后更新
-            bottle.CheckFailure();
+            bottle.CheckBoomFailure();
+           
+                
+           
+            bottle.UpdateBomb();
             //bottle.SetBottleColor();
         }
     }

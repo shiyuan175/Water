@@ -48,6 +48,7 @@ public class LevelCreateCtrl : ScriptableObject
         public bool isFinish;
         public List<int> bombCounts = new List<int>();
 
+        public bool hidePriority = false;
 
     }
     // 需要清除的颜色列表（关卡目标）

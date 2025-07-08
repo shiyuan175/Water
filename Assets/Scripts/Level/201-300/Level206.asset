@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottles: []
   gameType: 0
-  clearList: 
+  clearList: 010000000200000003000000040000000600000007000000080000000a000000
   hideList: 
   bombNum: 0
   countDownNum: 0

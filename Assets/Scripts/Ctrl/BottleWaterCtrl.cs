@@ -25,6 +25,7 @@ public class BottleWaterCtrl : MonoBehaviour
     public GameObject fireRuneGo;
     public BottleCtrl bottle;
 
+    public BombAni bombIcon; 
     public Color color
     {
         get
@@ -48,6 +49,14 @@ public class BottleWaterCtrl : MonoBehaviour
 
     }
 
+    public void Boom()
+    {
+        bombIcon.BombBoom();
+    }
+    public void SetBomb(bool isBomb = false)
+    {
+        bombIcon.SetBomb(isBomb);
+    }
 
     public void SetSpineActive(bool active)
     {
@@ -312,8 +321,51 @@ public class BottleWaterCtrl : MonoBehaviour
                 wenhaoFxGo.SetActive(true);
             }
 
-
             HideGo.SetActive(isHide);
+
+        }
+        else
+        {
+            StartCoroutine(PlayHide(isHide, noWait));
+        }
+    }
+
+    public void SetHide(bool isHide, bool noWait,GameDefine.ItemType itemType)
+    {
+        if (isHide || (!isHide && noWait) || !gameObject.activeSelf)
+        {
+            if (!isHide && HideGo.activeSelf)
+            {
+                wenhaoFxGo.SetActive(false);
+                wenhaoFxGo.SetActive(true);
+            }
+            HideGo.SetActive(isHide);
+            var type = itemType.GetType();
+            var fieldName = Enum.GetName(type, itemType);
+
+            if (fieldName == null)
+                return;
+            var fieldInfo = type.GetField(fieldName);
+            
+            if (fieldInfo.GetCustomAttribute(typeof(WaterColorState), false) is not WaterColorState attribute)
+                return;
+
+            switch (attribute.SpineType)
+            {
+                case EColorStateSpineType.EBroomSpine:
+                    broomItemGo.SetActive(!isHide);
+                    break;
+                case EColorStateSpineType.EMagnetSpine:
+                    magnetItemGo.SetActive(!isHide);
+                    break;
+                case EColorStateSpineType.ECreateSpine:
+                    createItemGo.SetActive(!isHide);
+                    break;
+                case EColorStateSpineType.EChangeSpine:
+                    changeItemGo.SetActive(!isHide);
+                    break;
+            }
+
         }
         else
         {

@@ -39,6 +39,11 @@ public class LevelObjectCreator : EditorWindow
         endNum = EditorGUILayout.IntField("End Number:", endNum);
         folderPath = EditorGUILayout.TextField("Folder Path:", folderPath);
         objectType = EditorGUILayout.TextField("Object Type:", objectType);
+        levelManager = (LevelManager)EditorGUILayout.ObjectField(
+            "Level Manager:",
+            levelManager,
+            typeof(LevelManager),
+            true);
         if (GUILayout.Button("Create Level Data Assets"))
         {
             CreateLevelObject();
@@ -77,8 +82,17 @@ public class LevelObjectCreator : EditorWindow
             
             // 创建新的 ScriptableObject
             LevelCreateCtrl levelObject = CreateInstance<LevelCreateCtrl>();
+
+            // 默认值
             levelObject.topNum = 5;
             levelObject.bottomNum = 5;
+            levelObject.clearList = new List<int>();
+            for(int j=1;j<=10;j++)
+            {
+                if (!(j == 5 || j == 9))
+                    levelObject.clearList.Add(j);
+            }
+                
            
 
             // 保存资产
@@ -90,18 +104,23 @@ public class LevelObjectCreator : EditorWindow
         Debug.Log($"Successfully created {endNum-startNum+1} LevelCreateCtrl assets in {folderPath}");
     }
     /// <summary>
-    /// 批量给脚本赋值object，未完成
+    /// 批量给脚本赋值object
     /// </summary>
     private void BatchLevelToManager()
     {
+     
+        
 
+        while (levelManager.levels.Count < endNum)
+            levelManager.levels.Add(new LevelCreateCtrl());
 
-
-        for(int i= startNum;i<=endNum;i++)
-        {
-
-
+        for (int i= startNum;i<=endNum;i++)
+        {  
+            string objectPath = $"{folderPath}/{baseName}{i}.asset";
+         
+            levelManager.levels[i-1] = AssetDatabase.LoadAssetAtPath<LevelCreateCtrl>(objectPath);
         }
+        Debug.Log("赋值完成");
     }
 }
 
