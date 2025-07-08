@@ -119,6 +119,9 @@ namespace QFramework.Example
                     }
                 }
             }
+            else
+                ImgBoxProcessNode.Hide();
+
             TxtCoin.text = ((int)(GameDefine.GameConst.WIN_COINS * stageModel.GoldCoinsMultiple)).ToString();
             TxtLevel.text = "Level " + curLevel.ToString();
         }

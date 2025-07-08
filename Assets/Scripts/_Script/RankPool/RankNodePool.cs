@@ -231,7 +231,7 @@ public class RankNodePool : MonoSingleton<RankNodePool>, ICanGetModel
                 var node = frontNodesNew[i];
                 if (node.TryGetComponent<RankNode>(out var rankNode))
                 {
-                    rankNode.RankingChangeOther(nodeRank, () =>
+                    rankNode.RankingChangeOther(nodeRank, false, () =>
                     {
                         ApplyRankSprite(node.GetComponent<Image>(), nodeRank, mDefaultSprite);
                     });
@@ -241,11 +241,19 @@ public class RankNodePool : MonoSingleton<RankNodePool>, ICanGetModel
             // Tween后面节点排名
             for (int i = 0; i < backNodesNew.Count; i++)
             {
-                int nodeRank = playerTargetRank + i + 1; // 目标排名
+                //+1会跳过玩家原先所在节点,这会造成目标排名数据被顶替效果
+                //按玩家原先排名取后面的数据,并做动画,在动画完成时,往下顺延一位排名
+                //且UI的更新传入后一名的(针对于前三名UI不同,如玩家顶替了前三名,则原第三名UI要更改)
+                int nodeRank = playerTargetRank + i; //+1 // 目标排名
                 var node = backNodesNew[i];
                 if (node.TryGetComponent<RankNode>(out var rankNode))
                 {
-                    ApplyRankSprite(node.GetComponent<Image>(), nodeRank, mDefaultSprite);
+                    rankNode.RankingChangeOther(nodeRank, true, () =>
+                    {
+                        //回调
+                        ApplyRankSprite(node.GetComponent<Image>(), nodeRank + 1, mDefaultSprite);
+                    });
+                    //ApplyRankSprite(node.GetComponent<Image>(), nodeRank, mDefaultSprite);
                 }
             }
             #endregion

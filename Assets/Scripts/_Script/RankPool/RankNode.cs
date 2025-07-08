@@ -31,10 +31,11 @@ public class RankNode : MonoBehaviour ,ICanGetModel
     {
         TxtRank.text = rank.ToString();
         TxtName.text = "YOU";
+        TxtName.color = Color.yellow;
         TxtScore.text = score.ToString();
     }
 
-    public void RankingChangeOther(int rank, System.Action complete)
+    public void RankingChangeOther(int rank, bool isBackNode, System.Action complete)
     {
         if (!int.TryParse(TxtRank.text, out int startRank))
         {
@@ -55,6 +56,9 @@ public class RankNode : MonoBehaviour ,ICanGetModel
         }, rank, 2f)
         .OnComplete(() =>
         {
+            //后排节点排名向下顺延
+            if (isBackNode)
+                TxtRank.text = (rank + 1).ToString();
             complete?.Invoke();
         });
 
@@ -64,6 +68,7 @@ public class RankNode : MonoBehaviour ,ICanGetModel
     {
         TxtRank.text = "";
         TxtName.text = "";
+        TxtName.color = Color.white;
         TxtScore.text = "";
     }
 

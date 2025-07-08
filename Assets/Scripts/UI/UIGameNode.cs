@@ -80,6 +80,7 @@ namespace QFramework.Example
 
                 }).Start(this);
             }
+            else ImgRankLevel_Label.Hide();
             if (level >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             {
                 ImgRankLevel.Show();
@@ -88,6 +89,7 @@ namespace QFramework.Example
                 _spriteIndex = _spriteIndex >= MAX_SPRITE_INDEX ? MAX_SPRITE_INDEX : _spriteIndex;
                 ImgRankLevel.sprite = mRankLevelSprites[_spriteIndex];
             }
+            else ImgRankLevel.Hide();
         }
 
         private void BindBtn()
