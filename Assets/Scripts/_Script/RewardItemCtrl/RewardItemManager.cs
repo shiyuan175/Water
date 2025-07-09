@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using QFramework;
 using UnityEngine.UI;
-using Unity.VisualScripting;
 
 public class RewardItemManager : MonoSingleton<RewardItemManager>
 {
@@ -34,7 +33,7 @@ public class RewardItemManager : MonoSingleton<RewardItemManager>
         RewardPool = new SimpleObjectPool<Image>(
         () =>
         {
-            var par = Resources.Load("Prefab/PropPoolNode");
+            var par = Resources.Load<GameObject>("Prefab/PropPoolNode");
             var image = Instantiate(par, mRectTransformPar).GetComponent<Image>();
             return image;
 

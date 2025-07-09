@@ -11,13 +11,18 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
     private const float RECOVERTIME = 1800;
     private const float SECOND = 60;
 
-    [SerializeField] private int nowHp;
+    private int nowHp;
     private DateTime recoverEndTime;        // 体力完全恢复的时间点
-    [SerializeField] private string recoverTimeStr;
+    private string recoverTimeStr;
 
     private DateTime unLimitHpEndTime;      // 无限体力截止的时间点
-    [SerializeField] private string unLimitHpTimeStr;
-    [SerializeField] private bool unLimitHp;                
+    private string unLimitHpTimeStr;
+    private bool unLimitHp;                
+    
+    /// <summary>
+    /// 离线通知用
+    /// </summary>
+    public DateTime RecoverEndTime => recoverEndTime;
 
     /// <summary>
     /// 当前体力恢复剩余时间
