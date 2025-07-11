@@ -48,7 +48,7 @@ public class SaveDataUtility : IUtility, ICanSendEvent
     /// 当前关卡/已获得的总星星数
     /// </summary>
     /// <returns></returns>
-    public int GetLevelClear()
+    public int GetCurrentLevel()
     {
         int clearLevel = PlayerPrefs.GetInt("g_ClearWaterLevel", 1);
         return clearLevel;

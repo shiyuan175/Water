@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class PotionActivityModel : AbstractModel, ICanGetModel
 {
+    //Îåµµ½±Àø
+    private const int MAX_PROGRESS = 5;
+    private const string POTION_ACTIVITY_GOAL_SIGN = "PotionActivityGoal";
+    private const string POTION_ACTIVITY_PROGRESS_SIGN = "PotionActivityProgress";
+    private const string POTION_ACTIVITY_TOTAL_GOAL_SIGN = "PotionActivityTotalGoal";
+
     private StageModel stageModel;
     private SaveDataUtility saveDataUtility;
 
@@ -44,12 +50,6 @@ public class PotionActivityModel : AbstractModel, ICanGetModel
         1 => 0,
         _ => 0
     };
-
-    //Îåµµ½±Àø
-    private const int MAX_PROGRESS = 5;
-    private const string POTION_ACTIVITY_GOAL_SIGN = "PotionActivityGoal";
-    private const string POTION_ACTIVITY_PROGRESS_SIGN = "PotionActivityProgress";
-    private const string POTION_ACTIVITY_TOTAL_GOAL_SIGN = "PotionActivityTotalGoal";
 
     protected override void OnInit()
     {

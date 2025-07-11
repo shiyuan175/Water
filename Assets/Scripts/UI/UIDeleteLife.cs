@@ -35,14 +35,14 @@ namespace QFramework.Example
             });
 			BtnQuit.onClick.AddListener(() =>
 			{
-                string _del = $"用户退出关卡:{saveData.GetLevelClear()}," +
-                $"当前关卡进度:{saveData.GetLevelClear()}";
+                string _del = $"用户退出关卡:{saveData.GetCurrentLevel()}," +
+                $"当前关卡进度:{saveData.GetCurrentLevel()}";
                 AnalyticsManager.Instance.SendLevelEvent(_del);
 
                 HealthManager.Instance.UseHp();
 				//避免引导关退出的UI残留
 				UIKit.ClosePanel<UIGuideAnimPop>();
-				if (saveData.GetLevelClear() == 1 || saveData.GetLevelClear() == 2)
+				if (saveData.GetCurrentLevel() == 1 || saveData.GetCurrentLevel() == 2)
 				{
 					UIKit.ClosePanel<UIGuideLevel1>();
                     UIKit.ClosePanel<UIGuideLevel2>();

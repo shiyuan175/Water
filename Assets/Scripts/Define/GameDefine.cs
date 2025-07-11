@@ -8,18 +8,26 @@ namespace GameDefine
     public static class GameConst
     {
         public const int ITEM_COUNT = 8;
+        //十连胜1.5倍金币buff
         public const int CONTINUE_WIN_NUM_COIN = 10;
+        //过关基础金币
         public const int WIN_COINS = 20;
         public const int ADD_BOTTLE_COST = 900;
 
-        //场景建筑
         public const int SCENE_PART_COUNT = 5;
+        //第八关开启连胜相关功能(连胜段位\连胜去黑\主页连胜活动...)
         public const int WIN_STREAK_BEGIN_LEVEL = 8;
+
+        //连胜去黑(最高三档)
         public const int MAX_GIFT_STREAK_WIN = 3;
+
         public const string DOUBLE_COIN_SIGN = "DoubleCoin";
         public const string POTION_ACTIVITY_SIGN = "PotionActivity";
         public const string UNLIMIT_ITEM_SIGN = "UnLimitItenEndTime";
         public const string RANKA_ACTIVITY_SIGN = "RankAActivity";
+
+        //活动开启目标关卡
+        public const int VA_BEGIN_LEVEL = 0;//开启火山活动的关卡(未定)
 
         //关卡引导
         public static readonly Dictionary<int, (string, string)> GuideLevelInfo = new Dictionary<int, (string, string)>

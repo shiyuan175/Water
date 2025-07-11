@@ -86,7 +86,7 @@ namespace QFramework.Example
         private void UpdateBoxProcessNode()
         {
             //过关后会记录当前关卡为下一关(减一表示通过的关卡)
-            int curLevel = saveDataUtility.GetLevelClear() - 1;
+            int curLevel = saveDataUtility.GetCurrentLevel() - 1;
             //6-97关显示(通过97关之后不显示)
             if (curLevel >= STAR_LEVEL && curLevel < END_LEVEL)
             {
@@ -128,7 +128,7 @@ namespace QFramework.Example
 
         private void UpdateUnlockProcessNode()
         {
-            int curLevel = saveDataUtility.GetLevelClear();
+            int curLevel = saveDataUtility.GetCurrentLevel();
 
             // 找到下一个解锁目标
             for (int i = 0; i < UNLOCKLEVEL.Length; i++)

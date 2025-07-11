@@ -55,7 +55,7 @@ public class UnlockItemCtrl : MonoBehaviour, ICanGetUtility, ICanSendEvent, ICan
         BtnUnlock.onClick.RemoveAllListeners();
         BtnUnlock.onClick.AddListener(() =>
         {
-            var nowStar = this.GetUtility<SaveDataUtility>().GetLevelClear() - 1;
+            var nowStar = this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1;
             var sceneNow = this.GetUtility<SaveDataUtility>().GetSceneRecord();
             var partNow = this.GetUtility<SaveDataUtility>().GetScenePartRecord();
             var offset = nowStar - LevelManager.Instance.GetUnlockNeedStar(sceneNow, partNow);

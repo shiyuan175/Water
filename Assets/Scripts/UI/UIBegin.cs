@@ -64,13 +64,13 @@ namespace QFramework.Example
             mTxtCoinAdd = TxtCoinAdd.GetComponent<TextMeshProUGUI>();
            
 
-            if (saveData.GetLevelClear() <= 5)
+            if (saveData.GetCurrentLevel() <= 5)
             {
                 BottomMenuBtns.Hide();
                 HomeNode.Hide();
             }
 
-            else if (saveData.GetLevelClear() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
+            else if (saveData.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             {
                 PotionActivity();
             }
@@ -103,6 +103,11 @@ namespace QFramework.Example
                     HealthManager.Instance.UnLimitHpTimeStr :
                     HealthManager.Instance.RecoverTimerStr;
             }
+        }
+
+        private void OnEnable()
+        {
+            
         }
 
         //按钮监听
@@ -241,7 +246,7 @@ namespace QFramework.Example
             {
                 UIKit.OpenPanel<UIGameNode>();
                 AudioKit.PauseMusic();
-                LevelManager.Instance.StartGame(saveData.GetLevelClear());
+                LevelManager.Instance.StartGame(saveData.GetCurrentLevel());
                 BottomMenuBtns.Hide();
                 HomeNode.Hide();
 
@@ -318,7 +323,7 @@ namespace QFramework.Example
         /// </summary>
         void SetStar()
         {
-            var nowStar = saveData.GetLevelClear() - 1;
+            var nowStar = saveData.GetCurrentLevel() - 1;
             var sceneNow = saveData.GetSceneRecord();
             var partNow = saveData.GetScenePartRecord();
             //可以记录一个已使用星星数量

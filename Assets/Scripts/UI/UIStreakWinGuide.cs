@@ -10,7 +10,7 @@ namespace QFramework.Example
 	}
 	public partial class UIStreakWinGuide : UIPanel, ICanGetModel
 	{
-		private StageModel stageModel;
+        private StageModel stageModel;
         protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UIStreakWinGuideData ?? new UIStreakWinGuideData();

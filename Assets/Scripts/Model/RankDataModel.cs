@@ -23,6 +23,8 @@ namespace A_PlayerRankData
 
 public class RankDataModel : AbstractModel
 {
+    private readonly string FILE_PATH_RELATIVE = "RankExcel/Rank.csv";
+
     //可以使用索引来做排名
     private List<PlayerRankData> mRankListData;
     public IReadOnlyList<PlayerRankData> RankDataList => mRankListData;
@@ -30,8 +32,6 @@ public class RankDataModel : AbstractModel
     //还需记录一个排行榜宝箱是否开启的状态
     //启动时，排行榜活动结束且宝箱未开启
     //打开排行榜面板，做一个领取奖励动画，领取完关闭，标记已领取
-
-    private readonly string FILE_PATH_RELATIVE = "RankExcel/Rank.csv";
 
     protected async override void OnInit()
     {

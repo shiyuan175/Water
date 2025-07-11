@@ -55,12 +55,12 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
     public bool HasHp => nowHp > 0;
 
     /// <summary>
-    /// 无限体力状态(道具同用)
+    /// 无限体力状态
     /// </summary>
     public bool UnLimitHp => unLimitHp;
 
     /// <summary>
-    /// 无限体力剩余时长(道具同用)
+    /// 无限体力剩余时长
     /// </summary>
     public string UnLimitHpTimeStr => unLimitHpTimeStr;
 

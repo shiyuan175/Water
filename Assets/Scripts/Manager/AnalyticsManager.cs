@@ -34,7 +34,7 @@ public class AnalyticsManager : MonoSingleton<AnalyticsManager>, ICanGetUtility,
     {
         Dictionary<string, object> _levelEvent = new Dictionary<string, object>
         {
-            { LEVEL, this.GetUtility<SaveDataUtility>().GetLevelClear()},
+            { LEVEL, this.GetUtility<SaveDataUtility>().GetCurrentLevel()},
             { DETAILS, del}
         };
         SendServerEvent(ANALYTICS_EVENT_LEVEL_COMPLETE, _levelEvent);

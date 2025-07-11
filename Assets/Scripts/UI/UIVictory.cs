@@ -28,15 +28,15 @@ namespace QFramework.Example
 
 		protected override void OnOpen(IUIData uiData = null)
 		{
-			string _del = $"用户通过关卡:{this.GetUtility<SaveDataUtility>().GetLevelClear() - 1}," +
-				$"当前关卡进度:{this.GetUtility<SaveDataUtility>().GetLevelClear()}";
+			string _del = $"用户通过关卡:{this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1}," +
+				$"当前关卡进度:{this.GetUtility<SaveDataUtility>().GetCurrentLevel()}";
 			AnalyticsManager.Instance.SendLevelEvent(_del);
         }
 
 		protected override void OnShow()
 		{
             //通过第七关开启连胜活动
-            if (this.GetUtility<SaveDataUtility>().GetLevelClear() == GameConst.WIN_STREAK_BEGIN_LEVEL)
+            if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameConst.WIN_STREAK_BEGIN_LEVEL)
             {
                 StringEventSystem.Global.Send("StartPotionActivity");
                 //开启排行榜活动
@@ -64,7 +64,7 @@ namespace QFramework.Example
             });
 
             ShowAnim();
-			TxtLevel.text = (this.GetUtility<SaveDataUtility>().GetLevelClear() - 1).ToString();
+			TxtLevel.text = (this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1).ToString();
 			WaitClose();
         }
 

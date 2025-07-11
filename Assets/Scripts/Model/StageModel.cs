@@ -6,6 +6,14 @@ using GameDefine;
 
 public class StageModel : AbstractModel
 {
+    private const string ITEM_SIGN = "g_WaterSceneItem";
+    private const string COUNTINUE_WIN_NUM_SIGN = "g_WaterCountinueWinNum";
+    private const string VOLUME_SETTING_SIGN = "g_WaterVolumeSetting";
+    private const string SCENE_UNLOCK_BOX_SIGN = "g_WaterSceneLockBox";
+    private const int DOUBLE_COIN = 2;
+
+    private SaveDataUtility stroge;
+
     //道具字典
     public BindableDictionary<int, int> ItemDic;
 
@@ -39,15 +47,6 @@ public class StageModel : AbstractModel
         get => stroge.LoadBoolValue(SCENE_UNLOCK_BOX_SIGN, false);
         set => stroge.SaveBool(SCENE_UNLOCK_BOX_SIGN, value);
     }
-
-    private const string ITEM_SIGN = "g_WaterSceneItem";
-    private const string COUNTINUE_WIN_NUM_SIGN = "g_WaterCountinueWinNum";
-    private const string VOLUME_SETTING_SIGN = "g_WaterVolumeSetting";
-    private const string SCENE_UNLOCK_BOX_SIGN = "g_WaterSceneLockBox";
-
-    private const int DOUBLE_COIN = 2;
-
-    private SaveDataUtility stroge;
 
     protected override void OnInit()
     {
@@ -109,7 +108,7 @@ public class StageModel : AbstractModel
 
     public void AddCountinueWinNum()
     {
-        if (stroge.GetLevelClear() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
+        if (stroge.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             mCountinueWinNum.Value++;
         
         //大于10连胜生效(不含10连胜/本次过关不生效)

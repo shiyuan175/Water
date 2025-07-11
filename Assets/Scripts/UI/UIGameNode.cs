@@ -70,7 +70,7 @@ namespace QFramework.Example
 
         private void InitRankLevel()
         {
-            int level = this.GetUtility<SaveDataUtility>().GetLevelClear();
+            int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
             if (level == GameConst.WIN_STREAK_BEGIN_LEVEL)
             {
                 ImgRankLevel_Label.Show();

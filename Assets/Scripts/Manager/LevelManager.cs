@@ -97,14 +97,14 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
 
      
         emptyBottle.numCake = 4;
-        levelId = this.GetUtility<SaveDataUtility>().GetLevelClear();
+        levelId = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
         UIKit.OpenPanel<UIBegin>();
 
         if (levelId <= 5)
         {
-            StartGame(levelId);
             UIKit.OpenPanel<UIGameNode>();
+            StartGame(levelId);
             ActionKit.DelayFrame(1, () =>
             {
                 AudioKit.PauseMusic();

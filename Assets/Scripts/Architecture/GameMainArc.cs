@@ -23,6 +23,7 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterModel(new StageModel());
         RegisterModel(new PotionActivityModel());
         RegisterModel(new RankDataModel());
+        RegisterModel(new VolcanicActivityModel());
     }
 
     private void RegisterUtilitys()
@@ -63,9 +64,12 @@ public class GameMainArc : Architecture<GameMainArc>
     //活动开启
     private void ActivityStart()
     {
+        //连胜活动
         var saveData = this.GetUtility<SaveDataUtility>();
-        if (saveData.GetLevelClear() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
+        if (saveData.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             CountDownTimerManager.Instance.StartTimer(GameConst.RANKA_ACTIVITY_SIGN, 1440f);
+
+        //火山活动
 
     }
 }

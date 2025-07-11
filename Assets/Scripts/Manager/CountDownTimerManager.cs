@@ -103,6 +103,16 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
         }
     }
 
+    //删除计时器
+    public void DeleteTimer(string id)
+    {
+        string key = COUNTDOWN_TIMER_SIGN + id;
+        if (PlayerPrefs.HasKey(key))
+        {
+            PlayerPrefs.DeleteKey(key);
+        }
+    }
+
     //获取计时器是否结束
     public bool IsTimerFinished(string id)
     {
