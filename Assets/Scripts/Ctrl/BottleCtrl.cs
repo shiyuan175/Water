@@ -304,23 +304,25 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
     public void UpdateBomb()
     {
-        int moveNum = LevelManager.Instance.moveNum;
+       
+        /*int moveNum = LevelManager.Instance.moveNum;
         for(int i =0;i<bombCounts.Count;i++)
         {
             // 设置时间
             // waterImg[i].textItem.text = bombCounts[i] - moveNum > 0 && hideWaters[i] == false ? (bombCounts[i] - moveNum).ToString() : "";
             if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false)
             {
-                waterImg[i].textItem.text = (bombCounts[i] - moveNum).ToString();
-                waterImg[i].bombIcon.SetBomb(true);
+                
+                waterImg[i].bombIcon.SetBomb(true, (bombCounts[i] - moveNum).ToString());
             }
             else
             {
-                Debug.Log(bombCounts.Count);
+                if (bombCounts.Count > waters.Count)
+                    Debug.LogError("危险");
                 waterImg[i].bombIcon.SetBomb(); 
                 waterImg[i].textItem.text = "";
             }
-        }
+        }*/
     }
 
     /// <summary>
@@ -719,7 +721,15 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 waterItems.RemoveAt(idx);
                 hideWaters.RemoveAt(idx);
 
-                waterImg[idx].SetBomb();
+                /*if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false)
+                {
+                    waterImg[i].bombIcon.SetBomb(true, (bombCounts[i] - moveNum).ToString());
+                }
+                else
+                {
+                    waterImg[i].bombIcon.SetBomb();
+                    waterImg[i].textItem.text = "";
+                };*/
 
                 // 炸弹为空的时候，直接不进行移动
                 if (bombCounts.Count>idx)
@@ -989,6 +999,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     {
         CheckHide(isFirst);
 
+
         //已完成，清除黑水块
         if (isFinish)
         {
@@ -1001,6 +1012,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         // 遍历每层水块，设置颜色和状态
         for (int i = 0; i < waters.Count; i++)
         {
+           
+
+
+
+
             // 计算颜色索引，减一是因为颜色编号从 1 开始，而数组索引从 0 开始
             var useColor = waters[i] - 1;
             // 普通颜色水块
@@ -1022,6 +1038,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             {
                 SetHideShow(nowaitHide, i);
             }
+       
             waterImg[i].waterColor = useColor;
         }
 
@@ -1041,6 +1058,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         SetNowSpinePos(spinePosIdx);
         // 播放等待动画
         PlaySpineWaitAnim();
+
+
+
+
+
+
     }
 
     /// <summary>
@@ -1091,7 +1114,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// </summary>
     public void CheckWaterItem()
     {
-        var moveNum = LevelManager.Instance.moveNum;
+      
         for (int i = 0; i < waterItems.Count; i++)
         {
             if (!waterImg[i].isPlayItemAnim)
@@ -1110,16 +1133,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 case WaterItem.Bomb:
                     // 设置时间
                     //  waterImg[i].textItem.text = bombCounts[i] - moveNum>0 && hideWaters[i]==false ?(bombCounts[i]- moveNum).ToString() :"";
-                    if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false)
-                    {
-                        waterImg[i].textItem.text = (bombCounts[i] - moveNum).ToString();
-                        waterImg[i].bombIcon.SetBomb(true);
-                    }
-                    else
-                    {                  
-                        waterImg[i].bombIcon.SetBomb();
-                        waterImg[i].textItem.text = "";
-                    }
+                    UpdateBomb();
                     
 
                     break;

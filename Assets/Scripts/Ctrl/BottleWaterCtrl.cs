@@ -51,11 +51,13 @@ public class BottleWaterCtrl : MonoBehaviour
 
     public void Boom()
     {
-        bombIcon.BombBoom();
+        if(bombIcon!=null)
+            bombIcon.BombBoom();
     }
     public void SetBomb(bool isBomb = false)
     {
-        bombIcon.SetBomb(isBomb);
+        if (bombIcon != null)
+            bombIcon.SetBomb(isBomb);
     }
 
     public void SetSpineActive(bool active)

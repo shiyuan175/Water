@@ -24,6 +24,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 020000000500000001000000
+    hidePriority: 0
   - waterSet: 02000000
     isHide: 00
     waterItem: 00000000
@@ -35,6 +36,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 02000000
     isHide: 00
     waterItem: 03000000
@@ -46,9 +48,10 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 34000000
-  - waterSet: 
-    isHide: 
-    waterItem: 
+    hidePriority: 0
+  - waterSet: 0c000000040000000200000001000000
+    isHide: 00000000
+    waterItem: 00000000030000000200000001000000
     numCake: 4
     limitColor: 0
     lockType: 0
@@ -57,12 +60,25 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
+  - waterSet: 0c000000040000000200000001000000
+    isHide: 00000000
+    waterItem: 00000000000000000000000000000000
+    numCake: 4
+    limitColor: 0
+    lockType: 0
+    isClearHide: 0
+    isNearHide: 0
+    isFreeze: 0
+    isFinish: 0
+    bombCounts: 
+    hidePriority: 0
   gameType: 0
-  clearList: 02000000
+  clearList: 0a000000
   hideList: 
   bombNum: 0
   countDownNum: 0
   timeCountDown: 0
-  topNum: 4
+  topNum: 5
   bottomNum: 0
   changeList: []
