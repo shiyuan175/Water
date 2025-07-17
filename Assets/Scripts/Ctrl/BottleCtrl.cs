@@ -293,7 +293,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             {
                 Debug.Log("炸弹爆炸");
                 bombCounts[i] = 0;
-                waterImg[i].Boom();
+                waterImg[i].bombCtrl.BombBoom();
                 return true;
             }
         }
@@ -304,25 +304,25 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
     public void UpdateBomb()
     {
-       
-        /*int moveNum = LevelManager.Instance.moveNum;
-        for(int i =0;i<bombCounts.Count;i++)
+
+        int moveNum = LevelManager.Instance.moveNum;
+        for (int i = 0; i < bombCounts.Count; i++)
         {
             // 设置时间
             // waterImg[i].textItem.text = bombCounts[i] - moveNum > 0 && hideWaters[i] == false ? (bombCounts[i] - moveNum).ToString() : "";
-            if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false)
+            if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false&&bombCounts[i]!=0)
             {
-                
-                waterImg[i].bombIcon.SetBomb(true, (bombCounts[i] - moveNum).ToString());
+
+                waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - moveNum).ToString());
             }
             else
             {
                 if (bombCounts.Count > waters.Count)
                     Debug.LogError("危险");
-                waterImg[i].bombIcon.SetBomb(); 
+                waterImg[i].bombCtrl.SetBomb();
                 waterImg[i].textItem.text = "";
             }
-        }*/
+        }
     }
 
     /// <summary>
@@ -367,6 +367,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         {
             waterItems[i] = WaterItem.None;
         }
+        for(int i = 0;i<bombCounts.Count;i++)
+        {
+            // 0表示爆炸后的状态
+            bombCounts[i] = 0;
+
+        }
 
         if (isFreeze)
         {
@@ -387,6 +393,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         isNearHide = false;
         isClearHide = false;
         StartCoroutine(CoroutinePlayNearHide(true));
+        
         SetBottleColor(false, true);
         CheckFinish();
     }
@@ -998,7 +1005,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     public void SetBottleColor(bool isFirst = false, bool nowaitHide = false) 
     {
         CheckHide(isFirst);
-
+        UpdateBomb();
 
         //已完成，清除黑水块
         if (isFinish)

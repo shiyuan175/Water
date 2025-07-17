@@ -23,9 +23,9 @@ public class BottleWaterCtrl : MonoBehaviour
     public bool isPlayItemAnim;
     public TextMeshProUGUI textItem;
     public GameObject fireRuneGo;
-    public BottleCtrl bottle;
-
-    public BombAni bombIcon; 
+    public BottleCtrl bottle; 
+    public BombCtrl bombCtrl;
+    
     public Color color
     {
         get
@@ -49,16 +49,7 @@ public class BottleWaterCtrl : MonoBehaviour
 
     }
 
-    public void Boom()
-    {
-        if(bombIcon!=null)
-            bombIcon.BombBoom();
-    }
-    public void SetBomb(bool isBomb = false)
-    {
-        if (bombIcon != null)
-            bombIcon.SetBomb(isBomb);
-    }
+    
 
     public void SetSpineActive(bool active)
     {
