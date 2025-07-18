@@ -322,7 +322,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 
     private void onAdIntersLoadFail(object sender, ATAdErrorEventArgs e)
     {
-        Debug.Log("≤Â∆¡π„∏Ê111111º”‘ÿ ß∞‹");
+        //Debug.Log("≤Â∆¡π„∏Ê111111º”‘ÿ ß∞‹");
     }
 
     #endregion
@@ -343,7 +343,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 
     private void onAdVideoLoadFail(object sender, ATAdErrorEventArgs e)
     {
-        Debug.Log("º§¿¯ ”∆µ2222222º”‘ÿ ß∞‹");
+        //Debug.Log("º§¿¯ ”∆µ2222222º”‘ÿ ß∞‹");
     }
 
     #endregion

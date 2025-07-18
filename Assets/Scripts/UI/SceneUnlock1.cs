@@ -112,10 +112,7 @@ namespace QFramework.Example
                 
                 if (mSceneUnlockModel.RemainingStar >= mUnitMes[_index].Item1)
                 {
-                    //暂时注释
                     mSceneUnlockModel.AddUnitIndex();
-                    //由关闭界面的时候发送事件
-                    //this.SendEvent(new UnlockSceneEvent());
                     mSceneUnlockModel.UseStar(mUnitMes[_index].Item1);
                     BtnUnitUnlock.interactable = false;
 
