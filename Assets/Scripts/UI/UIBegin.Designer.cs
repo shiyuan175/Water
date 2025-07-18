@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:4706d08e-b10d-4e14-b383-355c6dca0bae
+	// Generate Id:614f7558-e014-4abe-a83d-771157b174c0
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
@@ -41,14 +41,6 @@ namespace QFramework.Example
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtStar;
 		[SerializeField]
-		public Transform RewardNode;
-		[SerializeField]
-		public UnityEngine.UI.Button BtnGetReward;
-		[SerializeField]
-		public RectTransform Target;
-		[SerializeField]
-		public ParticleTargetMoveCtrl RewardCoinFx;
-		[SerializeField]
 		public UnityEngine.Animator TxtCoinAdd;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnHead;
@@ -80,10 +72,6 @@ namespace QFramework.Example
 			TxtCoin = null;
 			BtnStar = null;
 			TxtStar = null;
-			RewardNode = null;
-			BtnGetReward = null;
-			Target = null;
-			RewardCoinFx = null;
 			TxtCoinAdd = null;
 			BtnHead = null;
 			ImgHeadFrame = null;

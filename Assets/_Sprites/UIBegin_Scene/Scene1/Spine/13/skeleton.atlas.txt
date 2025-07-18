@@ -1,0 +1,15 @@
+skeleton.png
+size:2166,2166
+filter:Linear,Linear
+pma:true
+thb_new
+bounds:1084,842,1080,1322
+offsets:0,34,1080,1356
+thb_old
+bounds:2,808,1080,1356
+光斑
+bounds:2,598,36,36
+offsets:3,3,42,42
+扫光
+bounds:2,636,170,1327
+rotate:90

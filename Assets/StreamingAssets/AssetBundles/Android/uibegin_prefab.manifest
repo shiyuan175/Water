@@ -1,20 +1,18 @@
 ManifestFileVersion: 0
-CRC: 1853428755
+CRC: 1237542062
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 444b5ff21b1446df6f86a26a6f09f7dd
+    Hash: 1083d7f0986e37d66aa942d41d7fadd9
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 4989536f9d26624e48b61a67de896bf7
+    Hash: bbf20d667d0793e7f7a6401047c23b4a
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 444b5ff21b1446df6f86a26a6f09f7dd
+    Hash: 1083d7f0986e37d66aa942d41d7fadd9
 HashAppended: 0
 ClassTypes:
 - Class: 1
-  Script: {instanceID: 0}
-- Class: 4
   Script: {instanceID: 0}
 - Class: 21
   Script: {instanceID: 0}
@@ -69,7 +67,7 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 09018318629d7004b8c84ee642580439, type: 3}
+  Script: {fileID: 11500000, guid: 11d126f4803be714e8ae3cf1ac777571, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 23b3b3021db960d499ee0aaab9643d7c, type: 3}
 - Class: 115

@@ -1,0 +1,10 @@
+skeleton.png
+size:662,662
+filter:Linear,Linear
+pma:true
+光斑
+bounds:2,63,42,42
+椅子_new
+bounds:2,107,328,553
+椅子_old
+bounds:332,107,328,553

@@ -27,6 +27,11 @@ namespace QAssetBundle
         public const string BundleName = "fontall_asset";
         public const string FontAll = "FontAll";
     }
+    public class Sceneunlock1_prefab
+    {
+        public const string BundleName = "sceneunlock1_prefab";
+        public const string SceneUnlock1 = "SceneUnlock1";
+    }
     public class Uibegin_prefab
     {
         public const string BundleName = "uibegin_prefab";
@@ -132,14 +137,19 @@ namespace QAssetBundle
         public const string BundleName = "uistreakwinguide_prefab";
         public const string UIStreakWinGuide = "UIStreakWinGuide";
     }
-    public class Uiunlockscene_prefab
-    {
-        public const string BundleName = "uiunlockscene_prefab";
-        public const string UIUnlockScene = "UIUnlockScene";
-    }
     public class Uivictory_prefab
     {
         public const string BundleName = "uivictory_prefab";
         public const string UIVictory = "UIVictory";
+    }
+    public class Uivolcanicactivity_prefab
+    {
+        public const string BundleName = "uivolcanicactivity_prefab";
+        public const string UIVolcanicActivity = "UIVolcanicActivity";
+    }
+    public class Uivolcanicactivityentrance_prefab
+    {
+        public const string BundleName = "uivolcanicactivityentrance_prefab";
+        public const string UIVolcanicActivityEntrance = "UIVolcanicActivityEntrance";
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5889072048976713412}
   - component: {fileID: 6875425656211795096}
   - component: {fileID: 7951107612856237894}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 6034313272421844174}
   - component: {fileID: 1190296593283308310}
   - component: {fileID: 5028428296847355388}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TxtGuide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 7790850775672775242}
   - component: {fileID: 2258187302296979777}
   - component: {fileID: 900281075677023273}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GuideBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 5096653030107907155}
   - component: {fileID: 3512080807456806787}
   - component: {fileID: 7445222217770273804}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GuideAni
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1667788886034548287}
   - component: {fileID: 8724347661046924525}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIGuideAnimPop
   m_TagString: Untagged
   m_Icon: {fileID: 0}

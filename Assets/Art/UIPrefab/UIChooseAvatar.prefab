@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1932632303497647381}
   - component: {fileID: 779865728052853778}
   - component: {fileID: 2071113230270182876}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatar7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 1951739757982136875}
   - component: {fileID: 566675936189109453}
   - component: {fileID: 4843235363721221064}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 6025020626237626879}
   - component: {fileID: 977644962251167189}
   - component: {fileID: 7614228466797171929}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 4546707833637426174}
   - component: {fileID: 1723663727388214502}
   - component: {fileID: 7055228501059757329}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 349158968667836409}
   - component: {fileID: 2055138456121840547}
   - component: {fileID: 5940198800679384765}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatar4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 7318988081446805133}
   - component: {fileID: 8912876137093046175}
   - component: {fileID: 4124875035443285601}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,7 +562,7 @@ GameObject:
   - component: {fileID: 5821256527911316209}
   - component: {fileID: 1898104753538491039}
   - component: {fileID: 8367254162760118964}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatar6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -686,7 +686,7 @@ GameObject:
   - component: {fileID: 870381108194683732}
   - component: {fileID: 518419511035091336}
   - component: {fileID: 4819211460926515529}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -760,7 +760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2292055726212359709}
   - component: {fileID: -4358882291627367074}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIChooseAvatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -831,7 +831,7 @@ GameObject:
   - component: {fileID: 1507851661150651890}
   - component: {fileID: 6524218373051978185}
   - component: {fileID: 5904349663141370085}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -906,7 +906,7 @@ GameObject:
   - component: {fileID: 7962315399909944765}
   - component: {fileID: 4784480602003629231}
   - component: {fileID: 999251743247361769}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -981,7 +981,7 @@ GameObject:
   - component: {fileID: 1071810950579182506}
   - component: {fileID: 5693853851325112343}
   - component: {fileID: 7144275603532345098}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1116,7 +1116,7 @@ GameObject:
   - component: {fileID: 6067862497794533185}
   - component: {fileID: 4086670591262573459}
   - component: {fileID: 6846804489663805799}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatar2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1240,7 +1240,7 @@ GameObject:
   - component: {fileID: 5731405520306319157}
   - component: {fileID: 6073811687113306073}
   - component: {fileID: 1460091964181194717}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1315,7 +1315,7 @@ GameObject:
   - component: {fileID: 7201852653611333843}
   - component: {fileID: 128941378230513152}
   - component: {fileID: 7327592587609348455}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1390,7 +1390,7 @@ GameObject:
   - component: {fileID: 4122482767562335003}
   - component: {fileID: 7384390208059246092}
   - component: {fileID: 3134599449110535111}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1465,7 +1465,7 @@ GameObject:
   - component: {fileID: 5356810971823397223}
   - component: {fileID: 6970428755085537134}
   - component: {fileID: 7248530521846231054}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1540,7 +1540,7 @@ GameObject:
   - component: {fileID: 7098051773277530}
   - component: {fileID: 789221141761760213}
   - component: {fileID: 2494322559690202587}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1615,7 +1615,7 @@ GameObject:
   - component: {fileID: 3202384838794554050}
   - component: {fileID: 4902318485335312353}
   - component: {fileID: 8298529229400792256}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1691,7 +1691,7 @@ GameObject:
   - component: {fileID: 8478306869048715818}
   - component: {fileID: 8960132883752812803}
   - component: {fileID: 5474049722880211585}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatar1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1817,7 +1817,7 @@ GameObject:
   - component: {fileID: 1773645275215877579}
   - component: {fileID: 5767024591131070240}
   - component: {fileID: 8585934474932369992}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnSave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1965,7 +1965,7 @@ GameObject:
   - component: {fileID: 972013341136813798}
   - component: {fileID: 7726967203294077762}
   - component: {fileID: 626638908386151034}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TxtSave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2099,7 +2099,7 @@ GameObject:
   - component: {fileID: 4907858935938727453}
   - component: {fileID: 8911424314801293412}
   - component: {fileID: 3712800801563700883}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2175,7 +2175,7 @@ GameObject:
   - component: {fileID: 4919346312600497449}
   - component: {fileID: 6969350272759768694}
   - component: {fileID: 952724198563745944}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatarFrame5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2300,7 +2300,7 @@ GameObject:
   - component: {fileID: 7979315088819684314}
   - component: {fileID: 4283840102796736873}
   - component: {fileID: 1532832109582134665}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatar10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2424,7 +2424,7 @@ GameObject:
   - component: {fileID: 7877415350150345650}
   - component: {fileID: 2684283811264826773}
   - component: {fileID: 8824610818706446871}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2500,7 +2500,7 @@ GameObject:
   - component: {fileID: 7728173800245217991}
   - component: {fileID: 8364718186672636634}
   - component: {fileID: 9153873775055439276}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatarFrame4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2625,7 +2625,7 @@ GameObject:
   - component: {fileID: 5725579932379501694}
   - component: {fileID: 27905186545837495}
   - component: {fileID: 5259986863607979701}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatar11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2751,7 +2751,7 @@ GameObject:
   - component: {fileID: 8634021967183836476}
   - component: {fileID: 2446391215569534877}
   - component: {fileID: 4554795629029498929}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnClose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2899,7 +2899,7 @@ GameObject:
   - component: {fileID: 7628387110653025710}
   - component: {fileID: 8429840955990786697}
   - component: {fileID: 8966344868252871181}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatar8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3024,7 +3024,7 @@ GameObject:
   - component: {fileID: 5554193694224761548}
   - component: {fileID: 1948156187712665405}
   - component: {fileID: 656925446859454876}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatar9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3148,7 +3148,7 @@ GameObject:
   - component: {fileID: 8915988705865058058}
   - component: {fileID: 1107343711595731116}
   - component: {fileID: 4166145699705670743}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3225,7 +3225,7 @@ GameObject:
   - component: {fileID: 97423144760476612}
   - component: {fileID: 787815141271088258}
   - component: {fileID: 8571144958042484916}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AvatarNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3348,7 +3348,7 @@ GameObject:
   - component: {fileID: 6567079691737621719}
   - component: {fileID: 3599621776249811617}
   - component: {fileID: 6912602555422457104}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ChooseAvatarFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3427,7 +3427,7 @@ GameObject:
   - component: {fileID: 5003906129206383853}
   - component: {fileID: 3900241315174687412}
   - component: {fileID: 4919671633612702441}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatarFrame3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3551,7 +3551,7 @@ GameObject:
   - component: {fileID: 7781556746513548787}
   - component: {fileID: 8435499222782408301}
   - component: {fileID: 1430192776045251797}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ImgBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3631,7 +3631,7 @@ GameObject:
   - component: {fileID: 5795914580553192500}
   - component: {fileID: 8209507753625251982}
   - component: {fileID: 7512644033407951365}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AvatarFrameNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3749,7 +3749,7 @@ GameObject:
   - component: {fileID: 956002793213453186}
   - component: {fileID: 7016064334148929256}
   - component: {fileID: 7378520461845981289}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatar5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3873,7 +3873,7 @@ GameObject:
   - component: {fileID: 4889579481203598607}
   - component: {fileID: 8753226173703653757}
   - component: {fileID: 843769460846309950}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Seleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3949,7 +3949,7 @@ GameObject:
   - component: {fileID: 1967735047636848951}
   - component: {fileID: 2087069144284485028}
   - component: {fileID: 7882112514042825245}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatarFrame2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4073,7 +4073,7 @@ GameObject:
   - component: {fileID: 2248228999505559562}
   - component: {fileID: 1038542984080717006}
   - component: {fileID: 8624097966223994631}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4150,7 +4150,7 @@ GameObject:
   - component: {fileID: 6383673348142848611}
   - component: {fileID: 6077004599431599090}
   - component: {fileID: 2185548574957635479}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatarFrame1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4275,7 +4275,7 @@ GameObject:
   - component: {fileID: 3535707659781672694}
   - component: {fileID: 8815629074738094979}
   - component: {fileID: 4228217846287752668}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnAvatar3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

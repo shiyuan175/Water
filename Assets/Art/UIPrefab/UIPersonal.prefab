@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1446143742604756183}
   - component: {fileID: 1072733522058291523}
   - component: {fileID: 8256050496827414154}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ImgHeadFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 8467303729319703343}
   - component: {fileID: 3000508793487982402}
   - component: {fileID: 6308764508280865712}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ImgBg2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 8750866867222169437}
   - component: {fileID: 6652937002162841278}
   - component: {fileID: 1579980989356522521}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TxtName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 4960176549308408284}
   - component: {fileID: 839058356843786820}
   - component: {fileID: 4426784891589104087}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ImgFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 264482333116067542}
   - component: {fileID: 6848094069493022692}
   - component: {fileID: 1259022100167871923}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,7 +501,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 264482333116067542}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ButtonSoundExtension, Assembly-CSharp
+        m_MethodName: PlayButtonClickSound
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1259022100167871923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,7 +541,7 @@ GameObject:
   - component: {fileID: 3935008428124431854}
   - component: {fileID: 2261935083158774925}
   - component: {fileID: 4140042485125925217}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ImgBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -606,7 +618,7 @@ GameObject:
   - component: {fileID: 351870999071516403}
   - component: {fileID: 2210576858458897063}
   - component: {fileID: 6418869360296844931}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -682,7 +694,7 @@ GameObject:
   - component: {fileID: 6120376439943784489}
   - component: {fileID: 2406345883517309127}
   - component: {fileID: 4796004261022837167}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,7 +828,7 @@ GameObject:
   - component: {fileID: 4542478186431521580}
   - component: {fileID: 4943408035807467055}
   - component: {fileID: 4397447399177893075}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -892,7 +904,7 @@ GameObject:
   - component: {fileID: 4233157064959172915}
   - component: {fileID: 6171939194260034468}
   - component: {fileID: 8276899493103077741}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TxtName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1026,7 +1038,7 @@ GameObject:
   - component: {fileID: 858122662242492372}
   - component: {fileID: 2157905393220074676}
   - component: {fileID: 7727652202735326128}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1101,7 +1113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3247940900882610684}
   - component: {fileID: -8741243987963666659}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIPersonal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1155,7 +1167,7 @@ GameObject:
   - component: {fileID: 5116210209140214283}
   - component: {fileID: 6772416469723369741}
   - component: {fileID: 8676598426329346712}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1231,7 +1243,7 @@ GameObject:
   - component: {fileID: 2129963523334697495}
   - component: {fileID: 9083813968333800305}
   - component: {fileID: 8114162739402768331}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1367,7 +1379,7 @@ GameObject:
   - component: {fileID: 5485916935306061500}
   - component: {fileID: 4007859676029584091}
   - component: {fileID: 4207259390226778998}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnClose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1514,7 +1526,7 @@ GameObject:
   - component: {fileID: 1116675464401902090}
   - component: {fileID: 3038454039533897579}
   - component: {fileID: 5340740268900502585}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PersonalBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}

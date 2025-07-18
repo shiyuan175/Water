@@ -95,7 +95,10 @@ public class RewardItemManager : MonoSingleton<RewardItemManager>
         }
 
         if (addCoin)
+        {
             CoinParticle.Play(100);
+            AudioKit.PlaySound("resources://Audio/AddCoin");
+        }
     }
 
     private IEnumerator ContinueClickEvent()
@@ -129,12 +132,29 @@ public class RewardItemManager : MonoSingleton<RewardItemManager>
         int slotIndex = availableSlots[Random.Range(0, availableSlots.Count)];
         availableSlots.Remove(slotIndex);
 
-        // 每个道具间隔 210，整体居中
+        // 每行最大个数
+        int maxPerRow = 5;  
+        // 道具间隔 210，整体居中
         float spacing = 210f;
-        float x = slotIndex * spacing - (slotCount - 1) * spacing * 0.5f;
+        // 行间隔
+        float rowSpacing = 250f;
 
-        // 超过5个道具分两排补充位置
+        int row = slotIndex / maxPerRow;
+        int indexInRow = slotIndex % maxPerRow;
+        // 当前行要摆多少个
+        int totalRows = Mathf.CeilToInt((float)slotCount / maxPerRow);
+        int itemsInThisRow = maxPerRow;
+        if (row == totalRows - 1 && slotCount % maxPerRow != 0)
+        {
+            itemsInThisRow = slotCount % maxPerRow;
+        }
+        // 该排 X 轴中心居中
+        float x = indexInRow * spacing - (itemsInThisRow - 1) * spacing * 0.5f;
+        float y = YAXIS - row * rowSpacing;
 
-        return new Vector2(x, YAXIS);
+        return new Vector2(x, y);
+
+        //float x = slotIndex * spacing - (slotCount - 1) * spacing * 0.5f;
+        //return new Vector2(x, YAXIS);
     }
 }

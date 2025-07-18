@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameDefine;
 using System;
-using Google.Play.Review;
 using QFramework.Example;
 using static LevelCreateCtrl;
 using System.Collections;
@@ -15,29 +14,21 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour,IController, ICanSendEvent
 {
     public static LevelManager Instance;
-    public ReviewManager _reviewManager;
-    //public List<GameObject> bottleNodes = new List<GameObject>();
     public List<LevelCreateCtrl> levels = new List<LevelCreateCtrl>();
     public List<int> clearList = new List<int>();
     //带有阻碍的颜色(魔法布，藤曼，冰冻)
-    //public List<int> cantClearColorList = new List<int>();
     public List<int> cantChangeColorList = new List<int>();
     public List<BottleCtrl> nowBottles = new List<BottleCtrl>();
-
     public List<BottleCtrl> iceBottles = new List<BottleCtrl>();
-    [SerializeField] private HorizontalLayoutGroup BottomBottleLayoutGroup;
-    [SerializeField] private HorizontalLayoutGroup TopBottleLayoutGroup;
-    [SerializeField] private List<BottleCtrl> bottles = new List<BottleCtrl>();
+    
     public List<BottleCtrl> topBottle = new List<BottleCtrl>();
     public List<BottleCtrl> bottomBottle = new List<BottleCtrl>();
     public List<BottleCtrl> hideBottleList = new List<BottleCtrl>();
 
     public List<int> hideColor = new List<int>();
-    //水块颜色
     public List<Color> waterColor = new List<Color>();
     public List<Sprite> waterTopSp;
     public List<Sprite> waterSp;
-    public int VictoryBottle;
     public BottleProperty emptyBottle = new BottleProperty();
     public Transform gameCanvas;
     public List<ChangePair> changeList;
@@ -45,39 +36,45 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     public LevelCreateCtrl nowLevel;
     public Color ItemColor;
 
-    public Material shineMaterial;// 材质
-    //public float speed = 3.0f; // 光带移动速度
+    public Material shineMaterial;
 
     public int levelId = 1, bombMaxNum, countDownNum, playingHideAnimCount;
+    public bool ISPlayingHideAnim => playingHideAnimCount == 0;
 
     public int moveNum = 0;
+    
+    #region 之后维护清理
     public float timeCountDown, timeNow;
-    public GameObject mahoujinGo, broomBullet;
+    bool isCountDown = false, isTimeCountDown = false;
+    #endregion
+
+    public GameObject broomBullet;
     public SkeletonGraphic mahoujinSpine;
-    bool isFinish = false, isBomb = false, isCountDown = false, isTimeCountDown = false;
+    bool isFinish = false, isBomb = false;
     public bool isPlayAnim, isPlayFxAnim;
-    public bool ISPlayingHideAnim => playingHideAnimCount == 0;//playingHideAnimCount 播放计数
+    
     public BottleCtrl nowHalf;
-
-    public List<SceneUnLockSO> SceneUnLockSOs;
-
     public Material selectMaterial;
     public GameObject hideBg;
     //携带的道具
     public List<int> takeItem = new List<int>();
     public List<LevelManagerRecord> LevelManagerRecords = new List<LevelManagerRecord>();
 
+    [SerializeField] private HorizontalLayoutGroup BottomBottleLayoutGroup;
+    [SerializeField] private HorizontalLayoutGroup TopBottleLayoutGroup;
+    [SerializeField] private List<BottleCtrl> bottles = new List<BottleCtrl>();
+
+    private StageModel stageModel;
+
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;
     }
 
-    private StageModel stageModel;
 
     private void Awake()
     {
         Instance = this;
-        _reviewManager = new ReviewManager();
         stageModel = this.GetModel<StageModel>();
 
         InitBottle();
@@ -85,7 +82,6 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
 
     private void Start()
     {
-        //UIKit.OpenPanel<UIBegin>(UILevel.Common);
         AudioKit.PlayMusic("resources://Audio/BG_BGM");
         
         //清空携带道具
@@ -137,6 +133,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         {
             case ItemType.ClearItem:
                 ////////随机色块
+                ///________后续维护删除随机色块相关方法
                 var clearlist = CheckCanClearList();
                 int clearColorIdx = UnityEngine.Random.Range(0, clearlist.Count);
                 int clearColor = clearlist[clearColorIdx];
@@ -535,9 +532,6 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     {
         moveNum++;
     }
-    
-
-    
 
     #region Add Bottle
 
@@ -762,7 +756,6 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         cantChangeColorList.Clear();
         hideBottleList.Clear();
         levelId = id;
-        VictoryBottle = -1;
         var levelInfo = levels[levelId - 1];
         iceBottles.Clear();
         nowLevel = levelInfo;
@@ -943,13 +936,11 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
 
     public void Update()
     {
-        TimeCountDown();
-
-
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            ShareManager.Instance.ShareScreen();
-        }
+        //TimeCountDown();
+        //if (Input.GetKeyDown(KeyCode.F3))
+        //{
+        //    ShareManager.Instance.ShareScreen();
+        //}
     }
 
     /// <summary>
@@ -1118,7 +1109,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         AudioKit.PlaySound("resources://Audio/MagicCircle");
         
         isPlayFxAnim = true;
-        mahoujinGo.SetActive(true);
+        mahoujinSpine.Show();
         mahoujinSpine.AnimationState.SetEmptyAnimation(0, 0f);
         yield return new WaitForSeconds(2f);
         mahoujinSpine.AnimationState.SetAnimation(0, "attack", false);
@@ -1127,64 +1118,10 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         UIKit.ClosePanel<UIMask>();
         //Debug.Log("去除遮罩");
         RemoveAll();
-        mahoujinGo.SetActive(false);
+        mahoujinSpine.Hide();
         isPlayFxAnim = false;
     }
-
-    /// <summary>
-    /// 判断需要多少星星解锁场景部件(已使用多少星星数)
-    /// </summary>
-    /// <param name="scene">场景编号</param>
-    /// <param name="num">当前场景部件编号</param>
-    /// <returns></returns>
-    public int GetUnlockNeedStar(int scene, int num)
-    {
-        IReadOnlyList<int> _useList = null;
-        int _index = scene - 1;
-        if (_index >= 0 && _index < SceneUnLockSOs.Count)
-        {
-            _useList = SceneUnLockSOs[_index].SceneNeedStarCount;
-        }
-
-        // num==0时，首场景返回0，其它场景返回上一个场景的最后一个部件总需星数
-        if (num == 0)
-        {
-            if (scene == 1)
-                return 0;
-
-            int prevIndex = _index - 1;
-            if (prevIndex >= 0 && prevIndex < SceneUnLockSOs.Count)
-            {
-                var prevList = SceneUnLockSOs[prevIndex].SceneNeedStarCount;
-                return prevList[prevList.Count - 1];
-            }
-        }
-
-        // 正常返回当前部件所需星数(可能越界)
-        return _useList[num - 1];
-    }
-
-    /// <summary>
-    /// 判断下一场景需要多少星星解锁场景第一部件(判断需要多少星星解锁下一部件)
-    /// </summary>
-    /// <param name="scene">当前场景编号</param>
-    /// <param name="num">当前部件编号</param>
-    /// <returns></returns>
-    public int GetPartNeedStar(int scene, int num)
-    {
-        IReadOnlyList<int> _useList = null;
-        int _index = scene - 1;
-        if (_index >= 0 && _index < SceneUnLockSOs.Count)
-            _useList = SceneUnLockSOs[_index].ScenePartNeedStar;
-        else
-        {
-            //Debug.Log("越界，设为最后一个场景");
-            _useList = SceneUnLockSOs[SceneUnLockSOs.Count - 1].ScenePartNeedStar;
-        }
-
-        return num == 0 ? _useList[0] : _useList[num - 1];
-    }
-   
+    
     /// <summary>
     /// 道具选择(替换背景，更换瓶子材质)
     /// </summary>

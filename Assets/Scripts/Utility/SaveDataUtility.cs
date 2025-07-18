@@ -45,7 +45,7 @@ public class SaveDataUtility : IUtility, ICanSendEvent
     }
 
     /// <summary>
-    /// 当前关卡/已获得的总星星数
+    /// 当前关卡(只用于判断关卡,和星星相关的用SceneUnlockModel)
     /// </summary>
     /// <returns></returns>
     public int GetCurrentLevel()
@@ -117,43 +117,5 @@ public class SaveDataUtility : IUtility, ICanSendEvent
         }
 
         return false;
-    }
-
-    public bool GetOverUnLock()
-    {
-        if (GetSceneRecord() > LevelManager.Instance.SceneUnLockSOs.Count)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public void SetSceneRecord(int scene)
-    {
-        PlayerPrefs.SetInt("g_WaterSceneRecord", scene);
-    }
-
-    /// <summary>
-    /// 当前玩家所在的场景编号
-    /// </summary>
-    /// <returns></returns>
-    public int GetSceneRecord()
-    {
-        int scene = PlayerPrefs.GetInt("g_WaterSceneRecord", 1);
-        return scene;
-    }
-
-    public void SetScenePartRecord(int scene)
-    {
-       PlayerPrefs.SetInt("g_WaterScenePartRecord", scene);
-    }
-
-    /// <summary>
-    /// 当前场景中所解锁的建筑编号
-    /// </summary>
-    /// <returns></returns>
-    public int GetScenePartRecord()
-    {
-        return PlayerPrefs.GetInt("g_WaterScenePartRecord", 0); 
     }
 }

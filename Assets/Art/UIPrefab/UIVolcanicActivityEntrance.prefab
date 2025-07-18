@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4156039127401464246}
   - component: {fileID: 7511240131740071476}
   - component: {fileID: 6000985458465607061}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 6000899559819529019}
   - component: {fileID: 1354785155962572995}
   - component: {fileID: 604110418995390365}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5643084531389159043}
   - component: {fileID: 8515517452160338673}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIVolcanicActivityEntrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 6132276486674591044}
   - component: {fileID: 5686767147362390440}
   - component: {fileID: 4520694821473186659}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 5408568324873172751}
   - component: {fileID: 9182605338051813355}
   - component: {fileID: 8417827808510879376}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -645,7 +645,7 @@ GameObject:
   - component: {fileID: 376351641188399301}
   - component: {fileID: 4057052806667869931}
   - component: {fileID: 2092663879936478338}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Entrance_BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}

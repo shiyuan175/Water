@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5999130749709795320}
   - component: {fileID: 3292925093288101729}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Step2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 653880160075180808}
   - component: {fileID: 6150518489424152799}
   - component: {fileID: 2593920942186849926}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 8141443489401412520}
   - component: {fileID: 6299584896053771365}
   - component: {fileID: 2408428008208538462}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnBottle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3084331386790644262}
   - component: {fileID: 1187830569569698446}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Step3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 6549467888431164363}
   - component: {fileID: 2460885535593216401}
   - component: {fileID: 4315289170450285930}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnBottle2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 7953019589644640521}
   - component: {fileID: 7788370274618020540}
   - component: {fileID: 1584732250755876746}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TxtGuide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +604,7 @@ GameObject:
   - component: {fileID: 8571891235522081879}
   - component: {fileID: 8496891754361867212}
   - component: {fileID: 7262693633241265379}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Img_F
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 8177893358365028968}
   - component: {fileID: 7275917835384261295}
   - component: {fileID: 6149135223293159895}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnBottle3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,7 +816,7 @@ GameObject:
   - component: {fileID: 7402766900643693015}
   - component: {fileID: 6611620466839869421}
   - component: {fileID: 6555379601601150005}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Img_F
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -891,7 +891,7 @@ GameObject:
   - component: {fileID: 2543862114894461909}
   - component: {fileID: 1736081760627321575}
   - component: {fileID: 888091932458759588}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Img_T
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -966,7 +966,7 @@ GameObject:
   - component: {fileID: 1280673942793392605}
   - component: {fileID: 579029742902596312}
   - component: {fileID: 257831074612921385}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Img_T
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1042,7 +1042,7 @@ GameObject:
   - component: {fileID: 5235472701667099039}
   - component: {fileID: 7047299232819703835}
   - component: {fileID: 7046105626478239884}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SpineHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1165,7 +1165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8147077096773665383}
   - component: {fileID: 2542048660473619864}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIGuideLevel2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1210,7 +1210,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpineHandle: {fileID: 7047299232819703835}
-  AnimHandle: {fileID: 0}
   BtnBottle1: {fileID: 6299584896053771365}
   Step2: {fileID: 5999130749709795320}
   BtnBottle2: {fileID: 2460885535593216401}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2427769984698579916}
   - component: {fileID: 7553747279896824372}
   - component: {fileID: 366070049111740336}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 1596733694545689054}
   - component: {fileID: -850052615035147081}
   - component: {fileID: 2706992142526518460}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIPropMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -22,7 +22,7 @@ namespace QFramework.Example
         //五档积分底框位置
         private readonly int[] TARGER_POSX = new int[] { -280, -140, 0, 140, 280 };
 
-        [SerializeField] private PotionActivityPackSO[] potionActivityPackSO;
+        [SerializeField] private RewardPackSO[] potionActivityPackSO;
 
         private void Awake()
         {

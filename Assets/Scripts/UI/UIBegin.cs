@@ -16,17 +16,6 @@ namespace QFramework.Example
     }
     public partial class UIBegin : UIPanel, ICanRegisterEvent, ICanGetUtility, ICanGetModel
     {
-        public IArchitecture GetArchitecture()
-        {
-            return GameMainArc.Interface;
-        }
-
-        public GameObject[] SceneNodes;
-        public ScenePartCtrl[] scenePartCtrls;
-
-        public RectTransform[] ItemBeginPos;
-        public Image[] ImgItems;
-
         public ParticleTargetMoveCtrl coinFx, starFx;
 
         #region BottomMenuSetting
@@ -44,9 +33,17 @@ namespace QFramework.Example
         private readonly float initPosY = 15f;                      // 按钮的初始位置
         #endregion
 
+        [SerializeField] private GameObject[] mSceneUnlockPanels;
+
         private TextMeshProUGUI mTxtCoinAdd;
         private StageModel stageModel;
         private SaveDataUtility saveData;
+        private SceneUnlockModel mSceneUnlockModel;
+
+        public IArchitecture GetArchitecture()
+        {
+            return GameMainArc.Interface;
+        }
 
         protected override void OnInit(IUIData uiData = null)
         {
@@ -60,6 +57,8 @@ namespace QFramework.Example
             //TxtImgprogress.font.material.shader = Shader.Find(TxtImgprogress.font.material.shader.name);
             stageModel = this.GetModel<StageModel>();
             saveData = this.GetUtility<SaveDataUtility>();
+            mSceneUnlockModel = this.GetModel<SceneUnlockModel>();
+
             LevelManager.Instance.InitBottle();
             mTxtCoinAdd = TxtCoinAdd.GetComponent<TextMeshProUGUI>();
            
@@ -128,15 +127,18 @@ namespace QFramework.Example
             BtnArea.onClick.RemoveAllListeners();
             BtnArea.onClick.AddListener(() =>
             {
-                UIKit.OpenPanel<UIUnlockScene>();
-            });
-
-            BtnGetReward.onClick.RemoveAllListeners();
-            //获取完奖励回调 
-            BtnGetReward.onClick.AddListener(() =>
-            {
-                SetScene();
-                StartCoroutine(FlyReward());
+                string _sceneName;
+                if(mSceneUnlockModel.SceneIndex >= GameConst.SceneUnlock.Count)
+                {
+                    int maxKey = GameConst.SceneUnlock.Keys.Max();
+                    _sceneName = GameConst.SceneUnlock[maxKey];
+                }
+                else
+                {
+                    _sceneName = GameConst.SceneUnlock[mSceneUnlockModel.SceneIndex];
+                }
+                this.Hide();
+                UIKit.OpenPanel(_sceneName);
             });
 
             BtnHead.onClick.RemoveAllListeners();
@@ -233,13 +235,8 @@ namespace QFramework.Example
 
             this.RegisterEvent<UnlockSceneEvent>(e =>
             {
+                Show();
                 SetScene();
-                ShowFx(e.scene, e.part);
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-            this.RegisterEvent<RewardSceneEvent>(e =>
-            {
-                ShowReward();
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             this.RegisterEvent<GameStartEvent>(e =>
@@ -323,14 +320,7 @@ namespace QFramework.Example
         /// </summary>
         void SetStar()
         {
-            var nowStar = saveData.GetCurrentLevel() - 1;
-            var sceneNow = saveData.GetSceneRecord();
-            var partNow = saveData.GetScenePartRecord();
-            //可以记录一个已使用星星数量
-            var useStar = LevelManager.Instance.GetUnlockNeedStar(sceneNow, partNow);
-            TxtStar.text = (nowStar - useStar).ToString();
-
-            //Debug.Log("更新星星数量");
+            TxtStar.text = mSceneUnlockModel.RemainingStar.ToString();
         }
 
         /// <summary>
@@ -355,6 +345,7 @@ namespace QFramework.Example
             coinFx.Play(10);
             yield return new WaitForSeconds(0.5f);
             CoinManager.Instance.AddCoin((int)(GameConst.WIN_COINS * stageModel.GoldCoinsMultiple));
+            AudioKit.PlaySound("resources://Audio/AddCoin");
 
             starFx.Play(10);
             yield return new WaitForSeconds(0.5f);
@@ -362,114 +353,41 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// 更新主页场景建筑和部分UI
+        /// 更新主页场景建筑
         /// </summary>
         void SetScene()
         {
-            SetStar();
-            var sceneNow = saveData.GetSceneRecord();
-            var partNow = saveData.GetScenePartRecord();
+            var _unitUnlockProgress = mSceneUnlockModel.SceneUnlockUnitIndex;
+            var _sceneIndex = mSceneUnlockModel.SceneIndex;
 
-            TxtArea.text = "Area " + sceneNow;
+            //最后一个场景判断
+            bool isLastScene = _sceneIndex >= GameConst.SceneUnlock.Count;
 
-            //解锁完成(锁定最后一个场景)
-            if (saveData.GetOverUnLock())
+            if (isLastScene)
+                _sceneIndex = GameConst.SceneUnlock.Keys.Max();
+
+            var _unitCount = mSceneUnlockPanels[_sceneIndex].GetComponent<SceneUnlockCtrl>().UnitCount;
+
+            if (isLastScene)
+                _unitUnlockProgress = _unitCount;
+
+            for (int i = 0; i < mSceneUnlockPanels.Length; i++)
             {
-                ImgProgress.fillAmount = 0;
-                TxtImgprogress.text = 0 + " / 5";
-
-                var _scene = LevelManager.Instance.SceneUnLockSOs.Count() - 1;
-                SceneNodes[_scene].Show();
-                SetScenePart(_scene, partNow);
-                return;
-            }
-
-            //未全部解锁
-            for (int i = 0; i < SceneNodes.Length; i++)
-            {
-                //场景从1开始计算
-                if ((i + 1) == sceneNow)
-                    SceneNodes[i].Show();
-                else
-                    SceneNodes[i].Hide();
-            }
-
-            ImgProgress.fillAmount = partNow / 5f;
-            TxtImgprogress.text = partNow + " / 5";
-
-            SetScenePart(sceneNow, partNow);
-        }
-
-        /// <summary>
-        /// 解锁场景建筑
-        /// </summary>
-        /// <param name="scene"></param>
-        /// <param name="partNow"></param>
-        void SetScenePart(int scene, int partNow)
-        {
-            //场景从1开始计算
-            int _index = scene - 1;
-            if (_index >= 0 && _index < scenePartCtrls.Length)
-            {
-                for (int j = 0; j < scenePartCtrls[_index].SceneParts.Length; j++)
+                mSceneUnlockPanels[i].Hide();
+                if (i == _sceneIndex)
                 {
-                    scenePartCtrls[_index].SceneParts[j].SetActive(partNow > j);
+                    mSceneUnlockPanels[i].Show();
                 }
             }
-        }
 
-        /// <summary>
-        /// 解锁场景建筑触发特效
-        /// </summary>
-        /// <param name="scene"></param>
-        /// <param name="num"></param>
-        void ShowFx(int scene, int num)
-        {
-            //场景从1开始计算
-            int _index = scene - 1;
-            if (_index >= 0 && _index < scenePartCtrls.Length)
-            {
-                StartCoroutine(scenePartCtrls[_index].ShowUnlock(num));
-            }
-        }
+            mSceneUnlockPanels[_sceneIndex].GetComponent<SceneUnlockCtrl>().UpdateUnitSprite(_unitUnlockProgress);
 
-        /// <summary>
-        /// 解锁建筑宝箱奖励
-        /// </summary>
-        void ShowReward()
-        {
-            RewardNode.gameObject.SetActive(true);
+            SetStar();
 
-            foreach (var item in ImgItems)
-            {
-                item.Show();
-            }
-        }
-
-        /// <summary>
-        /// 道具飞行效果(完成回调)
-        /// </summary>
-        /// <returns></returns>
-        IEnumerator FlyReward()
-        {
-            RewardNode.gameObject.SetActive(false);
-
-            for (int i = 0; i < ImgItems.Length; i++)
-            {
-                int index = i;
-                ImgItems[index].transform.DOMove(Target.transform.position, 1f).SetEase(Ease.Linear)
-                    .OnComplete(() =>
-                    {
-                        ImgItems[index].Hide();
-                        ImgItems[index].transform.position = ItemBeginPos[index].transform.position;
-                    });
-
-                yield return new WaitForSeconds(0.2f);
-            }
-
-            RewardCoinFx.Play(10);
-            yield return new WaitForSeconds(1.5f);
-            CoinManager.Instance.AddCoin(200);
+            //索引从0开始计算(显示时+1)
+            TxtArea.text = "Area " + (_sceneIndex + 1);
+            ImgProgress.fillAmount = (float)_unitUnlockProgress / _unitCount;
+            TxtImgprogress.text = $"{_unitUnlockProgress} / {_unitCount}";
         }
 
         /// <summary>

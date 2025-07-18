@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 766732936641642752}
   - component: {fileID: 3711892902024112803}
   - component: {fileID: 1736743647494939431}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnClose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 7188397456385789565}
   - component: {fileID: 7290979539950112393}
   - component: {fileID: 6261730152727306082}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8048488834541881730}
   - component: {fileID: -5038520887124647705}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIStreakWinGuide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 6954793931780974331}
   - component: {fileID: 821617606472197023}
   - component: {fileID: 7286119166386938785}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtnPlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 8890566018043551857}
   - component: {fileID: 6327187462100214279}
   - component: {fileID: 2831566440495686812}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}

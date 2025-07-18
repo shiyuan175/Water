@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3488567172
+CRC: 1165976984
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 63683832b6dd89b06144e85d81cff76a
+    Hash: 53765a7fccd7f1735d8c248db3681f12
   TypeTreeHash:
     serializedVersion: 2
-    Hash: a3acc0f4de8a85a6be0cf62980868583
+    Hash: 7ba11ac150973e7466ae18a1fbdc244b
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 63683832b6dd89b06144e85d81cff76a
+    Hash: 53765a7fccd7f1735d8c248db3681f12
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -19,6 +19,8 @@ ClassTypes:
 - Class: 21
   Script: {instanceID: 0}
 - Class: 28
+  Script: {instanceID: 0}
+- Class: 48
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -34,13 +36,19 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 718fd38e395bc4440b3ea4cc6040aab7, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 115
+  Script: {instanceID: 0}
+- Class: 128
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
 - Class: 222
   Script: {instanceID: 0}
 - Class: 224
+  Script: {instanceID: 0}
+- Class: 687078895
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
 - AssemblyName: Unity.TextMeshPro
@@ -80,6 +88,8 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.ColorBlock
 - AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.FontData
+- AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.Navigation
@@ -88,4 +98,5 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Art/UIPrefab/UIGameNode.prefab
 Dependencies:
+- E:/U GitHub Project/Water/AssetBundles/Android/font
 - E:/U GitHub Project/Water/AssetBundles/Android/fontall_asset

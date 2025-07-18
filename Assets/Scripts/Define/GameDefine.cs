@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using GameAttributes;
 
 namespace GameDefine
@@ -41,6 +42,12 @@ namespace GameDefine
             { 51, ("Water with Fire Emblem can thaw ice after being crafted", "GuideAnim_51") },
             { 61, ("Synthesizing a magic book can remove all negative effects", "GuideAnim_61") },
             { 91, ("Bottles with gemstone emblems can only be filled with water of the same color as the gemstone", "GuideAnim_91")},
+        };
+
+        //场景解锁界面(索引对应AB包名)
+        public static readonly Dictionary<int, string> SceneUnlock = new Dictionary<int, string>
+        {
+            {0, "SceneUnlock1"}
         };
     }
 
@@ -343,6 +350,29 @@ namespace GameDefine
             var field = value.GetType().GetField(value.ToString());
             var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), false);
             return attributes.Length > 0 ? attributes[0].Description : value.ToString();
+        }
+    }
+
+    public static class GameUtils
+    {
+        public static void SotrArray<T>(T[] array) where T : UnityEngine.Component
+        {
+            System.Array.Sort(array, (a, b) =>
+            {
+                int aIndex = ExtractNumber(a.name);
+                int bIndex = ExtractNumber(b.name);
+                return aIndex.CompareTo(bIndex);
+            });
+        }
+
+        private static int ExtractNumber(string name)
+        {
+            Match match = Regex.Match(name, @"(\d+)$");
+            if (match.Success)
+            {
+                return int.Parse(match.Groups[1].Value);
+            }
+            return 0;
         }
     }
 }

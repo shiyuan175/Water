@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 164106194741476671}
   - component: {fileID: 9188033709199510083}
   - component: {fileID: 6302252098924887920}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TxtPlayers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 2795979272408564992}
   - component: {fileID: 5157062655380066346}
   - component: {fileID: 2801004549466544018}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TxtLevels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 743423050123826581}
   - component: {fileID: 3228515724898493259}
   - component: {fileID: 5034693848085785906}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Txt_Prompt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 2386779186040673184}
   - component: {fileID: 7902660736083248739}
   - component: {fileID: 2283785207063085006}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Frame2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,7 +508,7 @@ GameObject:
   - component: {fileID: 1739388763851160181}
   - component: {fileID: 5437609966265084470}
   - component: {fileID: 7393652492072336816}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Txt_Players
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,7 +658,7 @@ GameObject:
   - component: {fileID: 6530383621079787796}
   - component: {fileID: 482532182368745818}
   - component: {fileID: 4943999886871722493}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Step1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -881,7 +881,7 @@ GameObject:
   m_Component:
   - component: {fileID: 966351154529708390}
   - component: {fileID: 5927264057303488179}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIVolcanicActivity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -931,7 +931,7 @@ GameObject:
   - component: {fileID: 630367561300067033}
   - component: {fileID: 3953140199953712088}
   - component: {fileID: 4745191705446183647}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1011,7 +1011,7 @@ GameObject:
   - component: {fileID: 7983269845819844873}
   - component: {fileID: 544298264772388356}
   - component: {fileID: 8017830734698235858}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Txt_Levels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1161,7 +1161,7 @@ GameObject:
   - component: {fileID: 2198469745597462417}
   - component: {fileID: 8035789978398367023}
   - component: {fileID: 8816048714477317757}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1238,7 +1238,7 @@ GameObject:
   - component: {fileID: 4202371028732849834}
   - component: {fileID: 8303125391539937678}
   - component: {fileID: 8410405247186519489}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Frame1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -38445,7 +38445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11.8204, y: -410.91113}
+  m_AnchoredPosition: {x: 11.8204, y: -450}
   m_SizeDelta: {x: 700.0936, y: 104.5556}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1850652402
@@ -38746,25 +38746,6 @@ MonoBehaviour:
   cantChangeColorList: 
   nowBottles: []
   iceBottles: []
-  BottomBottleLayoutGroup: {fileID: 1191291129}
-  TopBottleLayoutGroup: {fileID: 1608939698}
-  bottles:
-  - {fileID: 2021720499}
-  - {fileID: 262944524}
-  - {fileID: 791358598}
-  - {fileID: 534638771}
-  - {fileID: 191614174}
-  - {fileID: 1240283460}
-  - {fileID: 1363943769}
-  - {fileID: 1201305361}
-  - {fileID: 1094742157}
-  - {fileID: 883262345}
-  - {fileID: 1005958839}
-  - {fileID: 1065823105}
-  - {fileID: 167742975}
-  - {fileID: 1014392099}
-  - {fileID: 110124248}
-  - {fileID: 872438214}
   topBottle:
   - {fileID: 2021720499}
   - {fileID: 262944524}
@@ -38824,7 +38805,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 178628f9c0d9ad84b895711e734f89fb, type: 3}
   - {fileID: 21300000, guid: 56209813df2bbf2489cabd4021741a0f, type: 3}
   - {fileID: 21300000, guid: 895cc3e4c4c53f84284c3481011eb099, type: 3}
-  VictoryBottle: 0
   emptyBottle:
     waterSet: 
     isHide: 
@@ -38862,21 +38842,34 @@ MonoBehaviour:
   moveNum: 0
   timeCountDown: 0
   timeNow: 0
-  mahoujinGo: {fileID: 1377963001}
   broomBullet: {fileID: 2768198876783416694, guid: adff4f81b2aa6ed49a500a58bc625fd2, type: 3}
   mahoujinSpine: {fileID: 1377963003}
   isPlayAnim: 0
   isPlayFxAnim: 0
   nowHalf: {fileID: 0}
-  SceneUnLockSOs:
-  - {fileID: 11400000, guid: 0f46be4a8e375f14c8b572bd79630d85, type: 2}
-  - {fileID: 11400000, guid: f4445e0e732f18b48b6d0a95cbd6155c, type: 2}
-  - {fileID: 11400000, guid: 85cf8e47ec85b684e8db7c4b123aa9db, type: 2}
-  - {fileID: 11400000, guid: e9c6d3bb8796ddd48a6b0147dbf72ad0, type: 2}
   selectMaterial: {fileID: 2100000, guid: 832f7e60693e6b04b925463a993436cb, type: 2}
   hideBg: {fileID: 720305107}
   takeItem: 
   LevelManagerRecords: []
+  BottomBottleLayoutGroup: {fileID: 1191291129}
+  TopBottleLayoutGroup: {fileID: 1608939698}
+  bottles:
+  - {fileID: 2021720499}
+  - {fileID: 262944524}
+  - {fileID: 791358598}
+  - {fileID: 534638771}
+  - {fileID: 191614174}
+  - {fileID: 1240283460}
+  - {fileID: 1363943769}
+  - {fileID: 1201305361}
+  - {fileID: 1094742157}
+  - {fileID: 883262345}
+  - {fileID: 1005958839}
+  - {fileID: 1065823105}
+  - {fileID: 167742975}
+  - {fileID: 1014392099}
+  - {fileID: 110124248}
+  - {fileID: 872438214}
 --- !u!4 &1954153133
 Transform:
   m_ObjectHideFlags: 0

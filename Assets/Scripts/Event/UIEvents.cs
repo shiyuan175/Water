@@ -43,10 +43,6 @@ public struct UnlockSceneEvent
     public int part;
 }
 
-public struct RewardSceneEvent
-{
-}
-
 public struct ReturnMainEvent
 {
 }
