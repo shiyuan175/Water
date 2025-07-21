@@ -428,6 +428,7 @@ MonoBehaviour:
   UnLimitNode: {fileID: 2023465755174901909}
   ImgReward: {fileID: 3035538247676303048}
   BtnStart: {fileID: 1984736924844508966}
+  TxtWinProcess: {fileID: 653153729423445515}
 --- !u!1 &568836771324731076
 GameObject:
   m_ObjectHideFlags: 0
@@ -4471,6 +4472,7 @@ GameObject:
   - component: {fileID: 1893313400544664104}
   - component: {fileID: 1824234842813595437}
   - component: {fileID: 653153729423445515}
+  - component: {fileID: 1899601863075614963}
   m_Layer: 5
   m_Name: TxtWinProcess
   m_TagString: Untagged
@@ -4527,8 +4529,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0/10
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4594,6 +4596,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1899601863075614963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8024070775454352862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: TxtWinProcess
+  CustomComment: 
+  mComponentName: TMPro.TextMeshProUGUI
 --- !u!1 &8322688018351594215
 GameObject:
   m_ObjectHideFlags: 0

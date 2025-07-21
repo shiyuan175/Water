@@ -57,6 +57,7 @@ MonoBehaviour:
   SpineHandle: {fileID: 958334181637322209}
   BtnBottle1: {fileID: 8746643086547175985}
   BtnBottle2: {fileID: 3992530462745216183}
+  TxtGuide: {fileID: 8296115035685993789}
 --- !u!114 &6238530784288932332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +555,7 @@ GameObject:
   - component: {fileID: 4365273160657654633}
   - component: {fileID: 7207489446343303161}
   - component: {fileID: 8296115035685993789}
+  - component: {fileID: 3395790151404179963}
   m_Layer: 5
   m_Name: TxtGuide
   m_TagString: Untagged
@@ -610,8 +612,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Tap the right bottle to pour
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0d820a8e9bff07940a4639533827f1c6, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: 0d820a8e9bff07940a4639533827f1c6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -677,3 +679,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3395790151404179963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6543941631815752907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: 
+  CustomComment: 
+  mComponentName: TMPro.TextMeshProUGUI

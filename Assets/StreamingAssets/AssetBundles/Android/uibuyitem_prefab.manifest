@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 4167227988
+CRC: 801207803
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: fd1b6cc81698539d9cc2bc30e94f3233
+    Hash: bee7144cef4280575a437d3b76606156
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 6a5a67feb3148908991884f55be54c8a
+    Hash: 61e9778f83303ad7135056de8c4639fe
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: fd1b6cc81698539d9cc2bc30e94f3233
+    Hash: bee7144cef4280575a437d3b76606156
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -25,11 +25,11 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 213
@@ -65,4 +65,3 @@ Assets:
 - Assets/Art/UIPrefab/UIBuyItem.prefab
 Dependencies:
 - E:/U GitHub Project/Water/AssetBundles/Android/font
-- E:/U GitHub Project/Water/AssetBundles/Android/fontall_asset

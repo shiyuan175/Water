@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3044686334
+CRC: 2607042076
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: cd91af7997ddf29be27f3da4c7504258
+    Hash: d10bcdc6dffced385c033576353bbcee
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 533ddedb5ba977670584d2c1db0f7fc3
+    Hash: a6bef0f79125f712b8f5feb6d30cb405
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: cd91af7997ddf29be27f3da4c7504258
+    Hash: d10bcdc6dffced385c033576353bbcee
 HashAppended: 0
 ClassTypes:
 - Class: 21
@@ -18,9 +18,13 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
+- Class: 49
+  Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 115
+  Script: {instanceID: 0}
+- Class: 128
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
 - AssemblyName: Unity.TextMeshPro
@@ -44,5 +48,12 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.TextCoreFontEngineModule
   ClassName: UnityEngine.TextCore.GlyphRect
 Assets:
-- Assets/Resources/Font/SourceHanSansCN-Bold SDF Blue.asset
+- Assets/Fonts/Font/SourceHanSansCN-Bold SDF Blue.asset
+- Assets/Fonts/Font/DefaultFontAsset.txt
+- Assets/Fonts/Font/SourceHanSansCN-Bold.otf
+- Assets/Fonts/Font/FontAll.asset
+- Assets/Fonts/Font/KoCharacter.txt
+- Assets/Fonts/Font/hanzi.txt
+- Assets/Fonts/Font/SourceHanSansCN-Bold SDF Red.asset
+- Assets/Fonts/Font/SourceHanSansCN-Bold SDF Green.asset
 Dependencies: []

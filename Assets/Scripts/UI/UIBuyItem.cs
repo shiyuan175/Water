@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using System.Collections.Generic;
+using TMPro;
 
 namespace QFramework.Example
 {
@@ -23,6 +24,7 @@ namespace QFramework.Example
 	public partial class UIBuyItem : UIPanel, ICanGetUtility, ICanSendEvent, ICanGetModel
     {
         private StageModel stageModel;
+
         [SerializeField] private List<BuyItemInfo> buyItemInfos;
 
         public IArchitecture GetArchitecture()
@@ -38,7 +40,10 @@ namespace QFramework.Example
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{
-		}
+            TxtTitle.font = LevelManager.Instance.blueFont;
+            TxtNum.font = LevelManager.Instance.blueFont;
+            TxtDesc.font = LevelManager.Instance.blueFont;
+        }
 		
 		protected override void OnShow()
 		{

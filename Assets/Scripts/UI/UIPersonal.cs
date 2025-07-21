@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
+using Unity.Collections;
+using TMPro;
 
 namespace QFramework.Example
 {
@@ -9,7 +11,7 @@ namespace QFramework.Example
 	}
 	public partial class UIPersonal : UIPanel, ICanRegisterEvent
 	{
-		protected override void OnInit(IUIData uiData = null)
+        protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UIPersonalData ?? new UIPersonalData();
 			// please add init code here
@@ -17,8 +19,13 @@ namespace QFramework.Example
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{
-			//注册修改事件
-			this.RegisterEvent<AvatarEvent>(e =>
+            TxtName1.font = LevelManager.Instance.redFont;
+			TxtName2.font = LevelManager.Instance.redFont;
+            TxtTitle1_Blue.font = LevelManager.Instance.blueFont;
+            TxtTitle2_Blue.font = LevelManager.Instance.blueFont;
+
+            //注册修改事件
+            this.RegisterEvent<AvatarEvent>(e =>
 			{
                 BtnHead.GetComponent<Image>().sprite = AvatarManager.Instance.GetAvatarSprite(true, e.AvatarId);
                 ImgHeadFrame.sprite = AvatarManager.Instance.GetAvatarSprite(false, e.AvatarFrameId);

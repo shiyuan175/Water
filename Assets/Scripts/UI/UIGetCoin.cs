@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
 using GameDefine;
+using TMPro;
 
 namespace QFramework.Example
 {
@@ -38,6 +39,11 @@ namespace QFramework.Example
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{
+            TxtContinue.font = LevelManager.Instance.greenFont;
+            TxtLevel.font = LevelManager.Instance.blueFont;
+            TxtProcess.font = LevelManager.Instance.blueFont;
+            TxtUnlockProcess.font = LevelManager.Instance.blueFont;
+
             stageModel = this.GetModel<StageModel>();
             saveDataUtility = this.GetUtility<SaveDataUtility>();
         }

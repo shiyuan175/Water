@@ -1,111 +1,107 @@
 ManifestFileVersion: 0
-CRC: 2030471444
+CRC: 3857397912
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: uigamenode_prefab
-      Dependencies:
-        Dependency_0: font
-        Dependency_1: fontall_asset
+      Name: font
+      Dependencies: {}
     Info_1:
-      Name: uiranka_prefab
+      Name: coinfx_prefab
       Dependencies: {}
     Info_2:
-      Name: uibegin_prefab
+      Name: uivolcanicactivity_prefab
       Dependencies:
         Dependency_0: font
-        Dependency_1: fontall_asset
     Info_3:
-      Name: uivictory_prefab
+      Name: uiguideanimpop_prefab
       Dependencies:
         Dependency_0: font
     Info_4:
-      Name: uistreakwinguide_prefab
-      Dependencies: {}
+      Name: uibegin_prefab
+      Dependencies:
+        Dependency_0: font
     Info_5:
-      Name: uideletelife_prefab
+      Name: uivolcanicactivityentrance_prefab
       Dependencies:
-        Dependency_0: fontall_asset
+        Dependency_0: font
     Info_6:
-      Name: uigetcoin_prefab
-      Dependencies:
-        Dependency_0: font
-        Dependency_1: fontall_asset
-    Info_7:
-      Name: uilessstar_prefab
-      Dependencies:
-        Dependency_0: fontall_asset
-    Info_8:
-      Name: uimorelife_prefab
-      Dependencies:
-        Dependency_0: fontall_asset
-    Info_9:
-      Name: uipropmask_prefab
-      Dependencies: {}
-    Info_10:
-      Name: uibeginselect_prefab
-      Dependencies:
-        Dependency_0: fontall_asset
-    Info_11:
-      Name: uibuypacksuccess_prefab
-      Dependencies: {}
-    Info_12:
-      Name: uishop_prefab
-      Dependencies:
-        Dependency_0: font
-    Info_13:
-      Name: uichooseavatar_prefab
-      Dependencies:
-        Dependency_0: font
-    Info_14:
-      Name: uipersonal_prefab
-      Dependencies:
-        Dependency_0: font
-    Info_15:
-      Name: font
-      Dependencies: {}
-    Info_16:
-      Name: uiguideanimpop_prefab
-      Dependencies: {}
-    Info_17:
-      Name: fontall_asset
-      Dependencies: {}
-    Info_18:
-      Name: coinfx_prefab
-      Dependencies: {}
-    Info_19:
-      Name: uicontinue_prefab
-      Dependencies:
-        Dependency_0: fontall_asset
-    Info_20:
-      Name: uimask_prefab
-      Dependencies: {}
-    Info_21:
-      Name: uibuyitem_prefab
-      Dependencies:
-        Dependency_0: font
-        Dependency_1: fontall_asset
-    Info_22:
-      Name: uiretry_prefab
-      Dependencies:
-        Dependency_0: fontall_asset
-    Info_23:
       Name: uiguidelevel2_prefab
       Dependencies:
         Dependency_0: font
+    Info_7:
+      Name: uistreakwinguide_prefab
+      Dependencies: {}
+    Info_8:
+      Name: uilessstar_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_9:
+      Name: uigamenode_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_10:
+      Name: uibeginselect_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_11:
+      Name: uimorelife_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_12:
+      Name: sceneunlock1_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_13:
+      Name: uivictory_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_14:
+      Name: uimask_prefab
+      Dependencies: {}
+    Info_15:
+      Name: uibuyitem_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_16:
+      Name: uicontinue_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_17:
+      Name: uipersonal_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_18:
+      Name: uigetcoin_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_19:
+      Name: uiretry_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_20:
+      Name: uipropmask_prefab
+      Dependencies: {}
+    Info_21:
+      Name: uibuypacksuccess_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_22:
+      Name: uishop_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_23:
+      Name: uiranka_prefab
+      Dependencies:
+        Dependency_0: font
     Info_24:
-      Name: uiguidelevel1_prefab
+      Name: uichooseavatar_prefab
       Dependencies:
         Dependency_0: font
     Info_25:
-      Name: uivolcanicactivityentrance_prefab
+      Name: uiguidelevel1_prefab
       Dependencies:
-        Dependency_0: fontall_asset
+        Dependency_0: font
     Info_26:
-      Name: uivolcanicactivity_prefab
+      Name: uideletelife_prefab
       Dependencies:
-        Dependency_0: fontall_asset
-    Info_27:
-      Name: sceneunlock1_prefab
-      Dependencies:
-        Dependency_0: fontall_asset
+        Dependency_0: font

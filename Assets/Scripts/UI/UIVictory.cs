@@ -4,6 +4,7 @@ using QFramework;
 using System.Collections;
 using System.Collections.Generic;
 using GameDefine;
+using TMPro;
 
 namespace QFramework.Example
 {
@@ -28,7 +29,9 @@ namespace QFramework.Example
 
 		protected override void OnOpen(IUIData uiData = null)
 		{
-			string _del = $"用户通过关卡:{this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1}," +
+            TxtLevel.font = LevelManager.Instance.blueFont;
+
+            string _del = $"用户通过关卡:{this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1}," +
 				$"当前关卡进度:{this.GetUtility<SaveDataUtility>().GetCurrentLevel()}";
 			AnalyticsManager.Instance.SendLevelEvent(_del);
         }

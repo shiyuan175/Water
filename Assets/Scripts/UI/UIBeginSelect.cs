@@ -42,6 +42,7 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
+            TxtWinProcess.font = LevelManager.Instance.redFont;
         }
 
         protected override void OnShow()

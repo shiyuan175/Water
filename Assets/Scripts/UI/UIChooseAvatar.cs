@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using System;
+using TMPro;
 
 namespace QFramework.Example
 {
@@ -25,7 +26,9 @@ namespace QFramework.Example
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{
-		}
+            TxtSave.font = LevelManager.Instance.greenFont;
+            TxtTitle_Blue.font = LevelManager.Instance.blueFont;
+        }
 		
 		protected override void OnShow()
 		{

@@ -20,12 +20,14 @@ namespace QAssetBundle
     public class Font
     {
         public const string BundleName = "font";
-        public const string SourceHanSansCNBold_SDF_Blue = "SourceHanSansCN-Bold SDF Blue";
-    }
-    public class Fontall_asset
-    {
-        public const string BundleName = "fontall_asset";
+        public const string DefaultFontAsset = "DefaultFontAsset";
         public const string FontAll = "FontAll";
+        public const string hanzi = "hanzi";
+        public const string KoCharacter = "KoCharacter";
+        public const string SourceHanSansCNBold_SDF_Blue = "SourceHanSansCN-Bold SDF Blue";
+        public const string SourceHanSansCNBold_SDF_Green = "SourceHanSansCN-Bold SDF Green";
+        public const string SourceHanSansCNBold_SDF_Red = "SourceHanSansCN-Bold SDF Red";
+        public const string SourceHanSansCNBold = "SourceHanSansCN-Bold";
     }
     public class Sceneunlock1_prefab
     {

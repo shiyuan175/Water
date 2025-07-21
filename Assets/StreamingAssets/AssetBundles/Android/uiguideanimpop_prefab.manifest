@@ -1,24 +1,20 @@
 ManifestFileVersion: 0
-CRC: 1193250765
+CRC: 2679284575
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: e332d5b4a5c32dfb73809ce1587bf5db
+    Hash: 4d3812397b151f0e2b40c4947c0c90fd
   TypeTreeHash:
     serializedVersion: 2
-    Hash: a906e07ba807cbc7256b1d003da03660
+    Hash: e1f44c32d8b7cc8cf981a89d9205f60d
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: e332d5b4a5c32dfb73809ce1587bf5db
+    Hash: 4d3812397b151f0e2b40c4947c0c90fd
 HashAppended: 0
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
-- Class: 21
-  Script: {instanceID: 0}
 - Class: 28
-  Script: {instanceID: 0}
-- Class: 48
   Script: {instanceID: 0}
 - Class: 74
   Script: {instanceID: 0}
@@ -27,13 +23,13 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0209be462b94e044ca63306e689fabf2, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -53,4 +49,5 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
 Assets:
 - Assets/Art/UIPrefab/UIGuideAnimPop.prefab
-Dependencies: []
+Dependencies:
+- E:/U GitHub Project/Water/AssetBundles/Android/font

@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1165976984
+CRC: 3867385476
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 53765a7fccd7f1735d8c248db3681f12
+    Hash: 3b67ea7a4f4c5fab4c45c8f288cff226
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 7ba11ac150973e7466ae18a1fbdc244b
+    Hash: 04b77e946d19d2c1bc8c8912885c3c96
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 53765a7fccd7f1735d8c248db3681f12
+    Hash: 3b67ea7a4f4c5fab4c45c8f288cff226
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -25,19 +25,19 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 718fd38e395bc4440b3ea4cc6040aab7, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 718fd38e395bc4440b3ea4cc6040aab7, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -52,18 +52,6 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
 - AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.FaceInfo_Legacy
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.FontAssetCreationSettings
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.KerningTable
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_Character
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_FontFeatureTable
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_FontWeightPair
-- AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.VertexGradient
 - AssemblyName: UnityEngine.CoreModule
   ClassName: UnityEngine.Events.ArgumentCache
@@ -73,14 +61,6 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.Events.PersistentListenerMode
 - AssemblyName: UnityEngine.CoreModule
   ClassName: UnityEngine.RectOffset
-- AssemblyName: UnityEngine.TextCoreFontEngineModule
-  ClassName: UnityEngine.TextCore.FaceInfo
-- AssemblyName: UnityEngine.TextCoreFontEngineModule
-  ClassName: UnityEngine.TextCore.Glyph
-- AssemblyName: UnityEngine.TextCoreFontEngineModule
-  ClassName: UnityEngine.TextCore.GlyphMetrics
-- AssemblyName: UnityEngine.TextCoreFontEngineModule
-  ClassName: UnityEngine.TextCore.GlyphRect
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.AnimationTriggers
 - AssemblyName: UnityEngine.UI
@@ -99,4 +79,3 @@ Assets:
 - Assets/Art/UIPrefab/UIGameNode.prefab
 Dependencies:
 - E:/U GitHub Project/Water/AssetBundles/Android/font
-- E:/U GitHub Project/Water/AssetBundles/Android/fontall_asset

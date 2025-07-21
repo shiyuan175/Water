@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
+using TMPro;
 
 namespace QFramework.Example
 {
@@ -22,7 +23,8 @@ namespace QFramework.Example
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{
-		}
+            TxtGuide.font = LevelManager.Instance.blueFont;
+        }
 		
 		protected override void OnShow()
 		{
@@ -81,7 +83,6 @@ namespace QFramework.Example
 		{
 			BtnBottle1.onClick.RemoveAllListeners();
             BtnBottle2.onClick.RemoveAllListeners();
-
         }
 	}
 }

@@ -9,6 +9,7 @@ using System.Collections;
 using Spine.Unity;
 using System.Linq;
 using UnityEngine.UI;
+using TMPro;
 
 [MonoSingletonPath("[Level]/LevelManager")]
 public class LevelManager : MonoBehaviour,IController, ICanSendEvent
@@ -66,6 +67,14 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
 
     private StageModel stageModel;
 
+    private ResLoader mResLoader = ResLoader.Allocate();
+    [HideInInspector]
+    public TMP_FontAsset redFont;
+    [HideInInspector]
+    public TMP_FontAsset blueFont;
+    [HideInInspector]
+    public TMP_FontAsset greenFont;
+
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;
@@ -76,6 +85,10 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     {
         Instance = this;
         stageModel = this.GetModel<StageModel>();
+
+        redFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Red");
+        blueFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Blue");
+        greenFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Green");
 
         InitBottle();
     }
@@ -106,6 +119,12 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
                 AudioKit.PauseMusic();
             }).Start(this);
         }
+    }
+
+    private void OnDestroy()
+    {
+        mResLoader.Recycle2Cache();
+        mResLoader = null;
     }
 
     /// <summary>

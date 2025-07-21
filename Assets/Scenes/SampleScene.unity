@@ -38870,6 +38870,9 @@ MonoBehaviour:
   - {fileID: 1014392099}
   - {fileID: 110124248}
   - {fileID: 872438214}
+  redFont: {fileID: 0}
+  blueFont: {fileID: 0}
+  greenFont: {fileID: 0}
 --- !u!4 &1954153133
 Transform:
   m_ObjectHideFlags: 0

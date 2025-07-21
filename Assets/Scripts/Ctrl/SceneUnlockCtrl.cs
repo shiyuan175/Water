@@ -11,13 +11,10 @@ public class SceneUnlockCtrl : MonoBehaviour
 
     public int UnitCount => mUnitImgs.Length;
 
-    private void Awake()
-    {
-        GameDefine.GameUtils.SotrArray(mUnitImgs);
-    }
-
     public void UpdateUnitSprite(int targetIndex)
     {
+        GameDefine.GameUtils.SotrArray(mUnitImgs);
+
         for (int i = 0; i < targetIndex; i++)
         {
             mUnitImgs[i].sprite = mUnitSprites[i];

@@ -4,6 +4,7 @@ using QFramework;
 using UnityEngine.Events;
 using System.Reflection;
 using Spine.Unity;
+using TMPro;
 
 namespace QFramework.Example
 {
@@ -20,7 +21,7 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-
+            TxtGuide.font = LevelManager.Instance.blueFont;
         }
 
         protected override void OnShow()

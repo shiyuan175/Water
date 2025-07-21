@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
+using TMPro;
 
 namespace QFramework.Example
 {
@@ -9,7 +10,7 @@ namespace QFramework.Example
 	}
 	public partial class UIBuyPackSuccess : UIPanel
 	{
-		protected override void OnInit(IUIData uiData = null)
+        protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UIBuyPackSuccessData ?? new UIBuyPackSuccessData();
 			// please add init code here
@@ -17,7 +18,10 @@ namespace QFramework.Example
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{
-		}
+            TxtTopDel.font = LevelManager.Instance.redFont;
+            TxtTopTitle.font = LevelManager.Instance.redFont;
+			TxtContinue.font = LevelManager.Instance.greenFont;
+        }
 		
 		protected override void OnShow()
 		{

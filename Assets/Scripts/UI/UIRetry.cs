@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
+using TMPro;
 
 namespace QFramework.Example
 {
@@ -22,7 +23,10 @@ namespace QFramework.Example
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{
-		}
+            TxtGiveUp.font = LevelManager.Instance.redFont;
+            TxtRetry.font = LevelManager.Instance.greenFont;
+            TxtCoin.font = LevelManager.Instance.greenFont;
+        }
 		
 		protected override void OnShow()
         {

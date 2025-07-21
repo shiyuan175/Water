@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1474550059
+CRC: 307858042
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a818de1eaec20354d0b6cb3a32443bb0
+    Hash: f9342af42635e050675b19fb53c031fc
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 47700ca20fb7ebf311cad8495a7cfaf0
+    Hash: 29f23a2bdc5441628691bbf49e47e3bd
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: a818de1eaec20354d0b6cb3a32443bb0
+    Hash: f9342af42635e050675b19fb53c031fc
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -23,13 +23,13 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 3b8afd57ed62fb643ba369d38fb027e5, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 213
@@ -62,4 +62,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Art/UIPrefab/UIDeleteLife.prefab
 Dependencies:
-- E:/U GitHub Project/Water/AssetBundles/Android/fontall_asset
+- E:/U GitHub Project/Water/AssetBundles/Android/font
