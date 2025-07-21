@@ -137,7 +137,7 @@ namespace QFramework.Example
                 {
                     _sceneName = GameConst.SceneUnlock[mSceneUnlockModel.SceneIndex];
                 }
-                this.Hide();
+                this.gameObject.Hide();
                 UIKit.OpenPanel(_sceneName);
             });
 
@@ -235,7 +235,7 @@ namespace QFramework.Example
 
             this.RegisterEvent<UnlockSceneEvent>(e =>
             {
-                Show();
+                this.gameObject.Show();
                 SetScene();
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 

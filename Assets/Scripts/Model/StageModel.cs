@@ -26,7 +26,7 @@ public class StageModel : AbstractModel
         get
         {
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.DOUBLE_COIN_SIGN))
-                return DOUBLE_COIN;
+                return DOUBLE_COIN * mGoldCoinsMultiple;
 
             else return mGoldCoinsMultiple;
         }
