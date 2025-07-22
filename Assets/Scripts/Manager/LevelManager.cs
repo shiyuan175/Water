@@ -989,14 +989,21 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     /// <summary>
     /// 炸弹更新
     /// </summary>
-    public void BombUpdate()
+    public bool BombUpdate()
     {
         foreach (var bottle in bottles)
-        {
-            // 先检查，后更新
-            bottle.CheckFailure();
+        { 
+            bottle.UpdateBomb();
+
+            if (bottle.CheckBoomFailure())
+                return true;
+           
+                
+           
+           
             //bottle.SetBottleColor();
         }
+        return false;
     }
 
 

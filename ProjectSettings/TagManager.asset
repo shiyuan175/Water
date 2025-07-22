@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floor
   - RopeButton
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -57,4 +58,7 @@ TagManager:
     locked: 0
   - name: New Layer 5
     uniqueID: 3531788221
+    locked: 0
+  - name: New Layer 6
+    uniqueID: 105997993
     locked: 0
