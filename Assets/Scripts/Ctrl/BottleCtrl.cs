@@ -1855,6 +1855,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         record.waters = new List<int>(waters);
         record.hideWaters = new List<bool>(hideWaters);
         record.waterItems = new List<WaterItem>(waterItems);
+        record.bombCount = new List<int>(bombCounts);
 
         moveRecords.Add(record);
     }
@@ -1882,6 +1883,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         temp.waterSet = new List<int>(record.waters);
         temp.isHide = new List<bool>(record.hideWaters);
         temp.waterItem = new List<WaterItem>(record.waterItems);
+        temp.bombCounts = new List<int>(record.bombCount);
 
         temp.numCake = originProperty.numCake;
         //temp.limitColor = originProperty.limitColor;

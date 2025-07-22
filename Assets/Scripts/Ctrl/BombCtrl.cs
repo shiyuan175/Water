@@ -20,25 +20,30 @@ public class BombCtrl : MonoBehaviour
     [SerializeField]
     GameObject skeletonAnimation;
     Transform originTransfomer;
- 
+    SkeletonAnimation skeletonAnimationCom;
     // 炸弹爆炸，通过spineui和ani实现，ani负责动画渲染，ui复杂游戏渲染
+
+    private void Start()
+    {
+        skeletonAnimationCom = skeletonAnimation.GetComponent<SkeletonAnimation>();
+    }
     public void BombBoom()
     {
+         skeletonAnimation.SetActive(true);
+
+        skeletonAnimationCom.AnimationState.Event += CloseUI;
+        skeletonAnimationCom.AnimationState.SetAnimation(0, "attack", false);
+
+
+        skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
        
-        // UIKit.OpenPanel<UIRetry>();
-        skeletonGraphic.AnimationState.Complete += CloseUI;
-        // 可以优化回调为spine事件
-   
-        bombSpine.SetActive(true);
-        skeletonAnimation.SetActive(true);
-        skeletonAnimation.GetComponent<SkeletonAnimation>().GetComponent<MeshRenderer>().sortingOrder += 10;
-        bombSpine.transform.localScale=new(0.1f,0.1f,0.1f);
-        skeletonGraphic.AnimationState.SetAnimation(0, "attack", true);
+        
         Camera mainCamera = Camera.main;
         Vector3 targetPosition = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, mainCamera.nearClipPlane));
-        bombSpine.transform.DOMove(targetPosition, 0.3f).SetEase(Ease.OutQuad);
+       
         skeletonAnimation.transform.DOMove(targetPosition, 0.3f).SetEase(Ease.OutQuad);
-        Debug.Log("yesyesyes");
+        bombSpine.SetActive(false);
+      
 
     }
     public void SetBomb(bool isBomb= false, string time="")
@@ -47,28 +52,35 @@ public class BombCtrl : MonoBehaviour
         if (currentTrackEntry != null&& currentTrackEntry.Animation.Name == "attack")
         {
             
-            Debug.Log(currentTrackEntry.Animation.Name);
+           
             return;
         }
-        Debug.Log("当前播放的动画名称: " + currentTrackEntry);
+    
         bombSpine.SetActive(isBomb);
         timeText.text = time;
-        skeletonGraphic.AnimationState.SetAnimation(0, "idle", false);
+        // skeletonGraphic.AnimationState.SetAnimation(0, "idle", false);
 
 
     }
 
-    public void CloseUI(Spine.TrackEntry trackEntry)
+    public void CloseUI(Spine.TrackEntry trackEntry, Spine.Event e)
     {
-        Debug.Log("123");
-        UIKit.OpenPanel<UIRetry>();
-        skeletonGraphic.AnimationState.SetAnimation(0, "idle", false);
-        bombSpine.SetActive(false);
-        bombSpine.transform.localPosition = Vector3.zero;
-        bombSpine.transform.localScale = new(0.8f, 0.8f, 0.8f);
-        skeletonAnimation.transform.localPosition = Vector3.zero;
-        skeletonGraphic.AnimationState.Complete -= CloseUI;
         
+        if (e.Data.Name != "any_bottle_remove")
+            return ;
+        UIKit.OpenPanel<UIRetry>();
+
+        skeletonAnimationCom.AnimationState.SetAnimation(0, "idle", false);
+      
+        
+        bombSpine.transform.localPosition = Vector3.zero;
+        
+       
+        skeletonAnimation.transform.localPosition = Vector3.zero;
+        skeletonAnimation.SetActive(false);
+
+        skeletonAnimationCom.AnimationState.Event -= CloseUI;
+
 
     }
 }

@@ -1016,6 +1016,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         record.clearList = new List<int>(clearList);
         record.hideColor = new List<int>(hideColor);
         record.changeList = new List<ChangePair>(changeList);
+
         LevelManagerRecords.Add(record);
 
         foreach (var bottle in nowBottles)
@@ -1044,6 +1045,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
             hideColor = record.hideColor;
             changeList = record.changeList;
             LevelManagerRecords.Remove(record);
+            moveNum--;
         }
         return ret;
     }
@@ -1181,6 +1183,7 @@ public class BottleRecord
     public List<int> waters = new List<int>();
     public List<bool> hideWaters = new List<bool>();
     public List<WaterItem> waterItems = new List<WaterItem>();
+    public List<int> bombCount = new List<int>();
 }
 
 [Serializable]
