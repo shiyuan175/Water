@@ -29,7 +29,7 @@ public class BombCtrl : MonoBehaviour
     }
     public void BombBoom()
     {
-         skeletonAnimation.SetActive(true);
+        skeletonAnimation.SetActive(true);
 
         skeletonAnimationCom.AnimationState.Event += CloseUI;
         skeletonAnimationCom.AnimationState.SetAnimation(0, "attack", false);

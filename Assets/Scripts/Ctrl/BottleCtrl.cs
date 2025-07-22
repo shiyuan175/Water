@@ -127,7 +127,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         waterItems = new List<WaterItem>(property.waterItem);
         bombCounts = new List<int>(property.bombCounts);
 
-        // 对炸弹队列进行补录
+      // 对炸弹队列进行补录
         while (waters.Count> bombCounts.Count)
             bombCounts.Add(0);
 
@@ -308,6 +308,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         int moveNum = LevelManager.Instance.moveNum;
         for (int i = 0; i < bombCounts.Count; i++)
         {
+           
+            
             // 设置时间
             // waterImg[i].textItem.text = bombCounts[i] - moveNum > 0 && hideWaters[i] == false ? (bombCounts[i] - moveNum).ToString() : "";
             if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false&&bombCounts[i]!=0)
@@ -319,6 +321,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             {
                 if (bombCounts.Count > waters.Count)
                     Debug.LogError("危险");
+              
                 waterImg[i].bombCtrl.SetBomb();
                 waterImg[i].textItem.text = "";
             }
@@ -616,7 +619,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 StartCoroutine(HideClearHide());
             }
         }
-    }
+    } 
 
     /// <summary>
     /// 颜色解锁动画

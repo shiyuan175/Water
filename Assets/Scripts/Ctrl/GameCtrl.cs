@@ -100,8 +100,9 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                       
                         //Debug.Log("移动 " + FirstCake.gameObject.name + "->" + SecondCake.gameObject.name);
                         LevelManager.Instance.RecordLast();
-                        ++pouringCount; 
+                        ++pouringCount;
                         // 炸弹的判断优先于水瓶的内容，固将计数移动到前面
+                     
                         LevelManager.Instance.AddMoveNum();
                         // 炸弹更新并进行失败检测
                         bool flag = LevelManager.Instance.BombUpdate();  

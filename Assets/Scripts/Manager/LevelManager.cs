@@ -1033,19 +1033,24 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     public bool ReturnLast()
     {
         bool ret = false;
+        moveNum--;
         foreach (var bottle in nowBottles)
         {
             var needRet = bottle.ReturnLast();
             ret = ret || needRet;
         }
         if (ret)
-        {
+        {   
             var record = LevelManagerRecords.LastOrDefault();
             clearList = record.clearList;
             hideColor = record.hideColor;
             changeList = record.changeList;
             LevelManagerRecords.Remove(record);
-            moveNum--;
+           
+        }
+        else
+        {
+            moveNum++;
         }
         return ret;
     }

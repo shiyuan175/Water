@@ -22,6 +22,9 @@ MonoBehaviour:
     isClearHide: 0
     isNearHide: 0
     isFreeze: 0
+    isFinish: 0
+    bombCounts: 
+    hidePriority: 0
   - waterSet: 02000000
     isHide: 00
     waterItem: 00000000
@@ -31,10 +34,13 @@ MonoBehaviour:
     isClearHide: 0
     isNearHide: 0
     isFreeze: 0
+    isFinish: 0
+    bombCounts: 
+    hidePriority: 0
   gameType: 0
   clearList: 02000000
   hideList: 
-  bombNum: 0
+  bombNum: -588
   countDownNum: 0
   timeCountDown: 0
   topNum: 2
