@@ -304,7 +304,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
     public void UpdateBomb()
     {
-
         int moveNum = LevelManager.Instance.moveNum;
         for (int i = 0; i < bombCounts.Count; i++)
         {

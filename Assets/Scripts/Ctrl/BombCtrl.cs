@@ -68,7 +68,7 @@ public class BombCtrl : MonoBehaviour
         
         if (e.Data.Name != "any_bottle_remove")
             return ;
-        UIKit.OpenPanel<UIRetry>();
+       UIKit.OpenPanel<UIRetry>();
 
         skeletonAnimationCom.AnimationState.SetAnimation(0, "idle", false);
       

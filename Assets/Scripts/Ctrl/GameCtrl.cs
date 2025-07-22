@@ -111,6 +111,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                         {
                             control = false;
                             FirstBottle.OnCancelSelect();
+                            InitPouringCount();
                             FirstBottle = null;
                             SecondBottle = null;
                             return;
