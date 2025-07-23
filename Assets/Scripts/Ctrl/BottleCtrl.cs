@@ -38,7 +38,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     // 用于接水次数计数
     // 修正（待确认）用于动画播放的锁问题
     private int ReceiveCount = 0;
-
+    // 标记本瓶子是否有炸弹
+    [SerializeField]
+    private bool isBomb =false;
     // 水块颜色、黑水块标志、每层水块的附加状态(结冰、破冰)、水块脚本引用
     public List<int> waters = new List<int>();
     public List<bool> hideWaters = new List<bool>();
@@ -96,7 +98,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     void Start()
     {
         bottle.onClick.AddListener(OnSelectedClick);
-
         //初始化瓶子位置
         this.RegisterEvent<GameStartEvent>(e =>
         {
@@ -126,8 +127,16 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         hideWaters = new List<bool>(property.isHide);
         waterItems = new List<WaterItem>(property.waterItem);
         bombCounts = new List<int>(property.bombCounts);
+        foreach (var i in bombCounts)
+        { 
+            if(i!=0)
+            {
+                isBomb = true;
+                break;
+            }
+        }
 
-      // 对炸弹队列进行补录
+        // 对炸弹队列进行补录
         while (waters.Count> bombCounts.Count)
             bombCounts.Add(0);
 
@@ -151,10 +160,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             }
 
         }
-
-
-
-
         nearHide.gameObject.SetActive(isNearHide);
         if (nearHide)
         {
@@ -299,28 +304,37 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         }
         return false;
     }
+    /// <summary>
+    /// 设置为真
+    /// </summary>
+    public void SetIsBomb()
+    {
+        isBomb = true;
+    }
 
-    
-
-    public void UpdateBomb()
+    public void UpdateBomb(BottleCtrl bottleCtrl =null)
     {
         int moveNum = LevelManager.Instance.moveNum;
+
+        if (bottleCtrl != null)
+            bottleCtrl.SetIsBomb();
+
+        if (!isBomb)
+            return;
+      
+        isBomb = false;
         for (int i = 0; i < bombCounts.Count; i++)
         {
-           
-            
             // 设置时间
             // waterImg[i].textItem.text = bombCounts[i] - moveNum > 0 && hideWaters[i] == false ? (bombCounts[i] - moveNum).ToString() : "";
             if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false&&bombCounts[i]!=0)
             {
-
                 waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - moveNum).ToString());
+                isBomb = true;
             }
             else
             {
-                if (bombCounts.Count > waters.Count)
-                    Debug.LogError("危险");
-              
+                // 可能会在水中道具出现问题          
                 waterImg[i].bombCtrl.SetBomb();
                 waterImg[i].textItem.text = "";
             }
@@ -1041,6 +1055,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 // 根据道具类型设置对应的显示和动画
                 waterImg[i].SetColorState((ItemType)waters[i], LevelManager.Instance.ItemColor, topIdx == i);
             }
+            
 
             //将隐藏水块显示
             if (hideWaters.Count > 0)

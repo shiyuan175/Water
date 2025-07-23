@@ -784,6 +784,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         timeNow = 0;
         changeList = new List<ChangePair>(nowLevel.changeList);
 
+        // 关卡道具的开关可以移动到每个瓶子
         if (bombMaxNum > 0)
         {
             isBomb = true;
@@ -989,11 +990,12 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     /// <summary>
     /// 炸弹更新
     /// </summary>
-    public bool BombUpdate()
+    public bool BombUpdate(BottleCtrl bottleCtrl = null)
     {
+
         foreach (var bottle in bottles)
         { 
-            bottle.UpdateBomb();
+            bottle.UpdateBomb(bottleCtrl);
 
             if (bottle.CheckBoomFailure())
                 return true;

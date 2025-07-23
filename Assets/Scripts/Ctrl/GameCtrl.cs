@@ -46,7 +46,6 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
         if (isSelectedItem)
         {
             //可以将道具ID传入，根据道具ID在区分不同情况
-
             //能被选中、水块大于1且不同色、不含结冰水块
             if (bottle.OnSelect(false)
             && bottle.waters.Count > 1 && !bottle.waters.All(x => x == bottle.waters[0])
@@ -104,8 +103,9 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                         // 炸弹的判断优先于水瓶的内容，固将计数移动到前面
                      
                         LevelManager.Instance.AddMoveNum();
+                        
                         // 炸弹更新并进行失败检测
-                        bool flag = LevelManager.Instance.BombUpdate();  
+                        bool flag = LevelManager.Instance.BombUpdate(bottle);  
                         // 炸弹爆炸要中断去执行瓶子的相关事件和动画
                         if(flag==true)
                         {
@@ -120,10 +120,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                         FirstBottle = null;
                         SecondBottle = null;
                         AudioKit.PlaySound("resources://Audio/PourWaterSound");
-                        //LevelManager.Instance.AddMoveNum();//步数统计.暂时无用
-
-                       
-                      
+                        //LevelManager.Instance.AddMoveNum();//步数统计.暂时无用                
                     }
                     else
                     {
