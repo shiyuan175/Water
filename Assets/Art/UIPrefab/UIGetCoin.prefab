@@ -161,14 +161,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b1f675aeb6ab282478747886c357687c, type: 2}
   unlockSprites:
   - {fileID: 21300000, guid: bf089931358e68a48a96b861f913d9dd, type: 3}
-  - {fileID: 21300000, guid: 96a0e5c4591c93a418f9361a490c1ec8, type: 3}
-  - {fileID: 21300000, guid: 8f7c851d20b94174dbec919baac46bd6, type: 3}
-  - {fileID: 21300000, guid: e07f4357534b2774eb321b11188fdbc3, type: 3}
-  - {fileID: 21300000, guid: 8894ab81a4ccc18419015ce4a9c28a56, type: 3}
-  - {fileID: 21300000, guid: a591cfbb28ca9904e881ccc895fa361e, type: 3}
-  - {fileID: 21300000, guid: ed36ec1e4be9215479b730bf7851c1c6, type: 3}
-  - {fileID: 21300000, guid: 45d289fd444627f4587309e0a93a3fc9, type: 3}
-  - {fileID: 21300000, guid: ca5e2e7e503da514cbcf792e37075fcc, type: 3}
+  - {fileID: 21300000, guid: 37a1221b346507e44a70b940bb0b9d14, type: 3}
+  - {fileID: 21300000, guid: 6a996ae7c2771a14b9edde30747ae4d7, type: 3}
+  - {fileID: 21300000, guid: 04e398c181aaed541809b4d181995cbe, type: 3}
+  - {fileID: 21300000, guid: 3161c7d2a0db9294e98f3fba0a5aadb8, type: 3}
+  - {fileID: 21300000, guid: 9e136b8cecc1b0e44bd789ee6ff88ec9, type: 3}
+  - {fileID: 21300000, guid: 8bd62902d17d4b34ba15680e5b9c2284, type: 3}
+  - {fileID: 21300000, guid: 08add5b3a6216fd488474e6598f7a24b, type: 3}
+  - {fileID: 21300000, guid: ef2dc272c58aa34499f8d172750f85db, type: 3}
   BtnClose: {fileID: 5821182617835892991}
   TxtLevel: {fileID: 7868696725972223795}
   TxtCoin: {fileID: 6360206476417884229}
@@ -1087,8 +1087,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 7 / 7
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: 0d820a8e9bff07940a4639533827f1c6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1151,7 +1151,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &3954138769431625683

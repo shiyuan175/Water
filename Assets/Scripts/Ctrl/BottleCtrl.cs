@@ -1062,7 +1062,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         // 更新水块的显示状态
         for (int i = 0; i < waterImg.Count; i++)
         {
-           
             waterImg[i].gameObject.SetActive(i < waters.Count || waterImg[i].isPlayItemAnim);
         }
         // 检查水块的道具状态
@@ -1075,12 +1074,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         SetNowSpinePos(spinePosIdx);
         // 播放等待动画
         PlaySpineWaitAnim();
-
-
-
-
-
-
     }
 
     /// <summary>
@@ -1308,15 +1301,14 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             {
                 spineGo.gameObject.SetActive(false);
             }
-
-            if (spinePosIdx < hideWaters.Count && hideWaters[spinePosIdx])
-            {
-                spine.AnimationState.SetAnimation(0, "ruchanghuangdong_mask", false);
-            }
         }
 
         CheckHide();
-
+        //黑色水面特判
+        if (topIdx >= 0 && spinePosIdx < hideWaters.Count && hideWaters[spinePosIdx])
+        {
+            spine.AnimationState.SetAnimation(0, "ruchanghuangdong_mask", false);
+        }
     }
 
     /// <summary>
