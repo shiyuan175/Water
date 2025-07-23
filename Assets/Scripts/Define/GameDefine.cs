@@ -34,14 +34,14 @@ namespace GameDefine
         public static readonly Dictionary<int, (string, string)> GuideLevelInfo = new Dictionary<int, (string, string)>
         {
             { 3, ("Sort the gemstone color to lift the cloth", "GuideAnim_3") },
-            { 11, ("Combining two brooms can remove water of the same color", "GuideAnim_11") },
-            { 16, ("Combining two potion bottles can change 4 water of the same color", "GuideAnim_16") },
-            { 21, ("Combining two magic hats can generate 4 missing water", "GuideAnim_21") },
-            { 24, ("The water bottle entangled by the vines cannot be moved", "GuideAnim_24") },
-            { 31, ("The vine water bottle can break the entangled vines after the adjacent water bottles are combined", "GuideAnim_31") },
-            { 51, ("Water with Fire Emblem can thaw ice after being crafted", "GuideAnim_51") },
-            { 61, ("Synthesizing a magic book can remove all negative effects", "GuideAnim_61") },
-            { 91, ("Bottles with gemstone emblems can only be filled with water of the same color as the gemstone", "GuideAnim_91")},
+            { 11, ("The bomb will explode when the countdown ends. Please synthesize water with bombs as soon as possible.", "GuideAnim_11") },
+            { 21, ("Water with Fire Emblem can thaw ice after being crafted", "GuideAnim_21") },
+            { 31, ("The water bottle entangled by the vines cannot be moved", "GuideAnim_31") },
+            { 41, ("The vine water bottle can break the entangled vines after the adjacent water bottles are combined", "GuideAnim_41") },
+            { 51, ("Combining two brooms can remove water of the same color", "GuideAnim_51") },
+            { 61, ("Bottles with gemstone emblems can only be filled with water of the same color as the gemstone", "GuideAnim_61") },
+            { 71, ("Combining two potion bottles can change 4 water of the same color", "GuideAnim_71") },
+            { 81, ("Synthesizing a magic book can remove all negative effects", "GuideAnim_81")},
         };
 
         //场景解锁界面(索引对应AB包名)
