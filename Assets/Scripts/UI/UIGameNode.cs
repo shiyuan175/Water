@@ -95,14 +95,11 @@ namespace QFramework.Example
         private void BindBtn()
 		{
             BtnStepBack.onClick.AddListener(() =>
-            {
-                Debug.Log(1);
+            {              
                 if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-                {
-                    Debug.Log(2);
+                {                  
                     if (stageModel.ItemDic[1] <= 0)
-                    {
-                        Debug.Log(3);
+                    {                        
                         UIBuyItemData data = new UIBuyItemData() { item = 1 };
                         UIKit.OpenPanel<UIBuyItem>(data);
                         return;

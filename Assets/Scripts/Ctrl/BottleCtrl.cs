@@ -296,7 +296,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
             if (bombCounts[i] < moveNum + 1 && bombCounts[i] != 0)
             {
-                Debug.Log("炸弹爆炸");
+               
                 bombCounts[i] = 0;
                 waterImg[i].bombCtrl.BombBoom();
                 return true;
@@ -1035,11 +1035,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         // 遍历每层水块，设置颜色和状态
         for (int i = 0; i < waters.Count; i++)
         {
-           
-
-
-
-
             // 计算颜色索引，减一是因为颜色编号从 1 开始，而数组索引从 0 开始
             var useColor = waters[i] - 1;
             // 普通颜色水块
@@ -1050,12 +1045,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             }
             // 特殊道具水块
             else
-            {
-               
+            {      
                 // 根据道具类型设置对应的显示和动画
                 waterImg[i].SetColorState((ItemType)waters[i], LevelManager.Instance.ItemColor, topIdx == i);
-            }
-            
+            }         
 
             //将隐藏水块显示
             if (hideWaters.Count > 0)
@@ -1069,7 +1062,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         // 更新水块的显示状态
         for (int i = 0; i < waterImg.Count; i++)
         {
-            //Debug.Log(name + "显示水 " + (i < waters.Count || waterImg[i].isPlayItemAnim) + " i " + i + "  waters.Count " + waters.Count + " isPlayItemAnim " + waterImg[i].isPlayItemAnim);
+           
             waterImg[i].gameObject.SetActive(i < waters.Count || waterImg[i].isPlayItemAnim);
         }
         // 检查水块的道具状态
@@ -1719,18 +1712,20 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         List<int> temp = new List<int>();
         List<WaterItem> tempItem = new List<WaterItem>();
-
+        List<int> bombTemp = new List<int>();
         for (int i = 0; i < waters.Count; i++)
         {
             if (waters[i] != 0)
             {
                 temp.Add(waters[i]);
                 tempItem.Add(waterItems[i]);
+                bombTemp.Add(bombCounts[i]);
             }
         }
+        // 
         waters = temp;
         waterItems = tempItem;
-
+        bombCounts = bombTemp;
         for (int i = 0; i < items.Count; i++)
         {
             int useItem = items[i];

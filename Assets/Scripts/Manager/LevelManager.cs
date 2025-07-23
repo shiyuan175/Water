@@ -547,9 +547,12 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     /// <summary>
     /// 移动步数记录
     /// </summary>
-    public void AddMoveNum()
+    public void AddMoveNum(bool flag=true)
     {
-        moveNum++;
+        if (flag)
+            moveNum++;
+        else
+            moveNum--;
     }
 
     #region Add Bottle

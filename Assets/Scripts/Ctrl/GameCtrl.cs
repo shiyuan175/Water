@@ -98,7 +98,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                     {
                       
                         //Debug.Log("移动 " + FirstCake.gameObject.name + "->" + SecondCake.gameObject.name);
-                        LevelManager.Instance.RecordLast();
+                     
                         ++pouringCount;
                         // 炸弹的判断优先于水瓶的内容，固将计数移动到前面
                      
@@ -114,8 +114,10 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                             InitPouringCount();
                             FirstBottle = null;
                             SecondBottle = null;
+                            LevelManager.Instance.AddMoveNum(false);
                             return;
-                        }
+                        } 
+                        LevelManager.Instance.RecordLast();
                         FirstBottle.MoveTo(SecondBottle);
                         FirstBottle = null;
                         SecondBottle = null;
