@@ -74,7 +74,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 04000000070000000c00000007000000
-    isHide: 00000000
+    isHide: 01010100
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 02000000010000000200000007000000
-    isHide: 00000000
+    isHide: 01010100
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 02000000060000000c00000007000000
-    isHide: 00000000
+    isHide: 01010100
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 04000000010000000400000002000000
-    isHide: 00000000
+    isHide: 01010100
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0

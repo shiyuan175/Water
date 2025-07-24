@@ -127,6 +127,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         hideWaters = new List<bool>(property.isHide);
         waterItems = new List<WaterItem>(property.waterItem);
         bombCounts = new List<int>(property.bombCounts);
+
+        // 清空可能存在的残影？原理未知 
+        foreach (var i  in waterImg)
+        {
+            i.bombCtrl.SetBomb();
+        }
         foreach (var i in bombCounts)
         { 
             if(i!=0)
@@ -148,6 +154,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         bottleIdx = idx;
         hasUnlockHidePlayed = false;
         hidePriority = property.hidePriority;
+
+
 
         // 针对炸弹是否存在，将对应的位置修改为炸弹。
         if (bombCounts.Count>0)
@@ -312,11 +320,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         isBomb = true;
     }
 
-    public void UpdateBomb(BottleCtrl bottleCtrl =null)
+    public void UpdateBomb(BottleCtrl bottleCtrl =null,bool Init = false)
     {
         int moveNum = LevelManager.Instance.moveNum;
 
-        if (bottleCtrl != null)
+        if (bottleCtrl != null||Init)
             bottleCtrl.SetIsBomb();
 
         if (!isBomb)
@@ -330,7 +338,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false&&bombCounts[i]!=0)
             {
                 waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - moveNum).ToString());
-                isBomb = true;
+               
             }
             else
             {
@@ -338,6 +346,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 waterImg[i].bombCtrl.SetBomb();
                 waterImg[i].textItem.text = "";
             }
+            if(bombCounts[i]>0)
+                isBomb = true;
         }
     }
 
@@ -1021,7 +1031,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     public void SetBottleColor(bool isFirst = false, bool nowaitHide = false) 
     {
         CheckHide(isFirst);
-        UpdateBomb();
+        
 
         //已完成，清除黑水块
         if (isFinish)

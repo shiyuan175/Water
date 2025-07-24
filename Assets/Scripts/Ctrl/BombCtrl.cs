@@ -51,9 +51,7 @@ public class BombCtrl : MonoBehaviour
         var currentTrackEntry = skeletonGraphic.AnimationState.GetCurrent(0);
         if (currentTrackEntry != null&& currentTrackEntry.Animation.Name == "attack")
         {
-            
-           
-            return;
+             return;
         }
     
         bombSpine.SetActive(isBomb);

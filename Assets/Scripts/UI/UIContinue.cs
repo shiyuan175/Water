@@ -8,8 +8,9 @@ namespace QFramework.Example
 	public class UIContinueData : UIPanelData
 	{
 	}
-	public partial class UIContinue : UIPanel, ICanGetUtility, ICanRegisterEvent
+	public partial class UIContinue : UIPanel, ICanGetUtility, ICanRegisterEvent,ICanSendEvent, IController
     {
+        private SaveDataUtility saveData;
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;
@@ -73,8 +74,27 @@ namespace QFramework.Example
             });
             BtnClose.onClick.AddListener(() =>
             {
+                saveData = this.GetUtility<SaveDataUtility>();
+                /* CloseSelf();
+                 UIKit.OpenPanel<UIDeleteLife>();*/
+                string _del = $"用户退出关卡:{saveData.GetCurrentLevel()}," +
+                 $"当前关卡进度:{saveData.GetCurrentLevel()}";
+                AnalyticsManager.Instance.SendLevelEvent(_del);
+
+                HealthManager.Instance.UseHp();
+                //避免引导关退出的UI残留
+                UIKit.ClosePanel<UIGuideAnimPop>();
+                if (saveData.GetCurrentLevel() == 1 || saveData.GetCurrentLevel() == 2)
+                {
+                    UIKit.ClosePanel<UIGuideLevel1>();
+                    UIKit.ClosePanel<UIGuideLevel2>();
+                }
+                UIKit.ClosePanel<UIGameNode>();
+                this.GetModel<StageModel>().ResetCountinueWinNum();
+                this.SendEvent<ReturnMainEvent>(new ReturnMainEvent());
                 CloseSelf();
-                UIKit.OpenPanel<UIDeleteLife>();
+
+
             });
             BtnAddCoin.onClick.AddListener(() =>
             {

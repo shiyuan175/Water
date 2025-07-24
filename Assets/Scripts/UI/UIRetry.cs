@@ -81,7 +81,7 @@ namespace QFramework.Example
 
             BtnClose.onClick.AddListener(() =>
             {
-                CloseSelf();
+              /*  CloseSelf();*/
             });
 
             BtnAddCoin.onClick.AddListener(() =>

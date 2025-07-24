@@ -24,8 +24,9 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: d1070000070000000700000001000000
-    isHide: 01000100
+    isHide: 00000100
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -35,6 +36,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 060000000a000000060000000a000000
     isHide: 01000100
     waterItem: 00000000000000000000000000000000
@@ -46,6 +48,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 02000000d10700000100000002000000
     isHide: 01000100
     waterItem: 00000000000000000000000000000000
@@ -57,6 +60,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 0a00000001000000040000000a000000
     isHide: 01000100
     waterItem: 00000000000000000000000000000000
@@ -68,6 +72,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 0b0000000c0000000b00000006000000
     isHide: 01000100
     waterItem: 00000000000000000000000000000000
@@ -79,6 +84,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 0c0000000600000007000000
     isHide: 010100
     waterItem: 000000000000000000000000
@@ -90,6 +96,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 
     isHide: 
     waterItem: 
@@ -101,6 +108,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 040000000c00000002000000
     isHide: 010100
     waterItem: 000000000000000000000000
@@ -112,6 +120,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 0b0000000b000000040000000c000000
     isHide: 01000100
     waterItem: 00000000000000000000000000000000
@@ -123,6 +132,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   gameType: 0
   clearList: 010000000400000007000000020000000a000000060000000b000000
   hideList: 
