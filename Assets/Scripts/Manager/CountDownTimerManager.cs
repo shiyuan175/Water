@@ -162,6 +162,7 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
         if (PlayerPrefs.HasKey(key))
         {
             var str = PlayerPrefs.GetString(key);
+            //解析现有的结束时间
             if (!DateTime.TryParse(str, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out endTime))
             {
                 endTime = DateTime.UtcNow + duration;

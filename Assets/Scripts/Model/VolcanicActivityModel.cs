@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using QFramework;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class VolcanicActivityModel : AbstractModel, ICanGetModel
@@ -9,6 +10,7 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
     private const string VA_COUNT_PLAY_NUM_SIGN = "g_VolcanicActivityCountPlayerNum";
     private const int VA_REWARD_COUNT_COINS = 10000;
 
+    private bool isInit = false;
     private SaveDataUtility stroge;
 
     //火山活动连胜次数
@@ -23,24 +25,31 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
 
     protected override void OnInit()
     {
-        stroge = this.GetUtility<SaveDataUtility>();
-        mVAStreakWinNum = new BindableProperty<int>();
-        mVACountPlayerNum = new BindableProperty<int>();
+        if (!isInit)
+        {
+            stroge = this.GetUtility<SaveDataUtility>();
+            mVAStreakWinNum = new BindableProperty<int>();
+            mVACountPlayerNum = new BindableProperty<int>();
 
-        mVAStreakWinNum.SetValueWithoutEvent(stroge.LoadIntValue(VA_STREAK_WIN_NUM_SIGN));
-        mVAStreakWinNum.Register(value =>
-        {
-            stroge.SaveInt(VA_STREAK_WIN_NUM_SIGN, value);
-        });
-        mVACountPlayerNum.SetValueWithoutEvent(stroge.LoadIntValue("g_VolcanicActivityCountPlayNum", 100));
-        mVACountPlayerNum.Register(value =>
-        {
-            stroge.SaveInt(VA_COUNT_PLAY_NUM_SIGN, value);
-        });
+            mVAStreakWinNum.SetValueWithoutEvent(stroge.LoadIntValue(VA_STREAK_WIN_NUM_SIGN));
+            mVAStreakWinNum.Register(value =>
+            {
+                stroge.SaveInt(VA_STREAK_WIN_NUM_SIGN, value);
+            });
+            mVACountPlayerNum.SetValueWithoutEvent(stroge.LoadIntValue(VA_COUNT_PLAY_NUM_SIGN, 100));
+            //Debug.Log(mVACountPlayerNum.Value);
+            mVACountPlayerNum.Register(value =>
+            {
+                stroge.SaveInt(VA_COUNT_PLAY_NUM_SIGN, value);
+            });
+            isInit = true;
+        }
     }
 
     public void ReloadVolcanicActivity()
     {
+        //启用时注册活动初始化数据会因生命周期问题还没初始化数据
+        //OnInit();
         mVAStreakWinNum.Value = 0;
         mVACountPlayerNum.Value = 100;
     }
@@ -48,7 +57,53 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
     public void AddVAStreakWin()
     {
         ++mVAStreakWinNum.Value;
-        //每次通过一关，随机减少人数，可能基于当前连胜次数计算
-        //然后保证最后通关的人数在一个区间内
+        RandomReducePlayerNum();
+    }
+
+    public void VA_Fail()
+    {
+        RandomReducePlayerNum();
+        mVAStreakWinNum.Value = 0;
+    }
+
+    private void RandomReducePlayerNum()
+    {
+        //策划文档
+        //7	  6到12人
+        //6   14到23人
+        //5   27到35人
+        //4   37到44人
+        //3   48到53人
+        //2   56到64人
+        //1   66到72人
+
+        // mVAStreakWinNum 由活动逻辑限制在 [0,7] 范围内
+        switch (mVAStreakWinNum.Value)
+        {
+            case 1:
+                mVACountPlayerNum.Value = Random.Range(66, 73); 
+                break;
+            case 2:
+                mVACountPlayerNum.Value = Random.Range(56, 65);
+                break;
+            case 3:
+                mVACountPlayerNum.Value = Random.Range(48, 54);
+                break;
+            case 4:
+                mVACountPlayerNum.Value = Random.Range(37, 45); 
+                break;
+            case 5:
+                mVACountPlayerNum.Value = Random.Range(27, 36); 
+                break;
+            case 6:
+                mVACountPlayerNum.Value = Random.Range(14, 24);
+                break;
+            case 7:
+                mVACountPlayerNum.Value = Random.Range(6, 13); 
+                break;
+            default:
+                Debug.Log("Unexpected StreakWinNum!");
+                break;
+        }
     }
 }

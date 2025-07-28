@@ -1,19 +1,45 @@
+using System;
+
 public enum GameActivityStatus
 {
     Locked,
     Active,
-    CoolingDown
+    CoolingDown,
+    WaitStart,
 }
 
-public interface IGameActivity
+public interface IGameActivity 
 {
     string ActivityID { get; }
     GameActivityStatus ActivityStatus { get; }
 
-    void StartActivity();
-    void FailActivity();
-    void RestartActivity();
+    /// <summary>
+    /// 连胜
+    /// </summary>
     void StreakWin();
 
+    /// <summary>
+    /// 失败
+    /// </summary>
+    void Fail();
+
+    /// <summary>
+    /// 活动冷却
+    /// </summary>
+    void CoolDownActivity();
+
+    /// <summary>
+    /// 重启活动
+    /// </summary>
+    void RestartActivity();
+
+    void StartActivity()
+    {
+        
+    }
+
+    /// <summary>
+    /// 动态重启活动
+    /// </summary>
     void Tick();
 }

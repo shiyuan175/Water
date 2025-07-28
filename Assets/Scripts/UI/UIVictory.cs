@@ -38,10 +38,16 @@ namespace QFramework.Example
 
 		protected override void OnShow()
 		{
+            int currentLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+            if (currentLevel == GameConst.VA_BEGIN_LEVEL)
+			{
+				GameActivityManager.Instance.RegisterActivity<VolcanicActivity>();
+			}
+
             //通过第七关开启连胜活动
-            if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameConst.WIN_STREAK_BEGIN_LEVEL)
+            if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)
             {
-                StringEventSystem.Global.Send("StartPotionActivity");
+                StringEventSystem.Global.Send(GameConst.START_POTION_ACTIVITY);
                 //开启排行榜活动
                 CountDownTimerManager.Instance.StartTimer(GameConst.RANKA_ACTIVITY_SIGN, 1440f);
             }
@@ -99,14 +105,29 @@ namespace QFramework.Example
         {
 			ActionKit.Delay(3f, () =>
 			{
+                //暂时这么用,加新活动进来后需要写一个面板管理 
+                //不然很多面板是否打开不知道的会很臃肿
+
+                //设计一个面板管理器堆栈，
+				//将需要打开的面板都注册进去，然后每次关闭某一个面板时发送事件，事件响应就开启下一个面板，
+				//然后事件判断这个面板能否打开，不能打开就跳过开启下一关，直到堆栈为空
                 if (!mRankingEnd)
-                {
-                    UIKit.OpenPanel<UIRankA>(new UIRankAData { LastRankScore = mLastRankingScore });
-                }
-                else
-                    UIKit.OpenPanel<UIGetCoin>();
-                CloseSelf();
-            }).Start(this);
+				{
+					UIKit.OpenPanel<UIRankA>(new UIRankAData { LastRankScore = mLastRankingScore });
+				}
+				else if (GameActivityManager.Instance.GetActivity<VolcanicActivity>() is VolcanicActivity volcanicActivity
+				&& volcanicActivity.ActivityStatus == GameActivityStatus.Active)
+				{
+					UIKit.OpenPanel<UIVolcanicActivity>(new UIVolcanicActivityData()
+					{
+						isSuceed = true
+					});
+				}
+				else
+					UIKit.OpenPanel<UIGetCoin>();
+
+				CloseSelf();
+			}).Start(this);
         }
     }
 }

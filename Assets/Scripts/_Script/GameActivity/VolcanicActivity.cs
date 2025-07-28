@@ -1,26 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using QFramework;
 using UnityEngine;
 
-public class VolcanicActivity : IGameActivity ,ICanGetModel ,ICanGetUtility
+public class VolcanicActivity : BaseGameActivity
 {
-    private const string VOLCANIC_ACTIVITY_SIGN = "VolcanicActivity";
-    private const string VOLCANIC_ACTIVITY_RESTART_SIGN = "VolcanicActivityRestart";
     private const int VA_MAX_STREAK_WIN_NUM = 7;
-
-    private readonly SaveDataUtility mSaveUtility;
-    private readonly VolcanicActivityModel mVolcanicActivityModel;
 
     public int RewardCoins => mVolcanicActivityModel.GetVARewardCoins;
     public int VAStreakWinNum => mVolcanicActivityModel.VAStreakWinNum;
     public int VACurrentPlayerNum => mVolcanicActivityModel.VACurrentPlayerNum;
+    //闯关胜利结束
     public bool EndWin => VAStreakWinNum >= VA_MAX_STREAK_WIN_NUM;
 
-    public string ActivityID => GetType().Name;
-
-    public GameActivityStatus ActivityStatus
+    public override GameActivityStatus ActivityStatus
     {
         get
         {
@@ -29,66 +23,70 @@ public class VolcanicActivity : IGameActivity ,ICanGetModel ,ICanGetUtility
                 return GameActivityStatus.Locked;
             }
 
-            if (!CountDownTimerManager.Instance.IsTimerFinished(VOLCANIC_ACTIVITY_SIGN))
+            if (!CountDownTimerManager.Instance.IsTimerFinished(ActivitySign))
             {
                 return GameActivityStatus.Active;
             }
 
-            else
+            if (!CountDownTimerManager.Instance.IsTimerFinished(ActivityCooldownSign))
             {
                 return GameActivityStatus.CoolingDown;
             }
+
+            else
+            {
+                return GameActivityStatus.WaitStart;
+            }
         }
     }
+    public override string ActivityID => GetType().Name;
+    public override string ActivitySign => "VolcanicActivity";
+    public override string ActivityCooldownSign => "VolcanicActivityCoolDown";
+    public override float ActivityDurationMinutes => 1440;//0.2f;
+    public override float ActivityCooldownMinutes => 60;//0.2f;
+
+
+    private SaveDataUtility mSaveUtility;
+    private VolcanicActivityModel mVolcanicActivityModel;
 
     public VolcanicActivity()
     {
         mSaveUtility = this.GetUtility<SaveDataUtility>();
         mVolcanicActivityModel = this.GetModel<VolcanicActivityModel>();
+        if (ActivityStatus == GameActivityStatus.WaitStart)
+        {
+            //如果已有计时器则会失效(会由Tick驱动重启)
+            StartActivity();
+        }
     }
 
-    public IArchitecture GetArchitecture()
-    {
-        return GameMainArc.Interface;
-    }
-
-    public void StartActivity()
-    {
-        //开启活动
-        CountDownTimerManager.Instance.StartTimer(VOLCANIC_ACTIVITY_SIGN, 1440f);
-    }
-
-    public void FailActivity()
-    {
-        CountDownTimerManager.Instance.DeleteTimer(VOLCANIC_ACTIVITY_SIGN);
-        CountDownTimerManager.Instance.ResetTimer(VOLCANIC_ACTIVITY_RESTART_SIGN, 60);
-    }
-
-    public void StreakWin()
+    public override void StreakWin()
     {
         mVolcanicActivityModel.AddVAStreakWin();
         if (EndWin)
         {
-            CountDownTimerManager.Instance.DeleteTimer(VOLCANIC_ACTIVITY_SIGN);
-            CountDownTimerManager.Instance.ResetTimer(VOLCANIC_ACTIVITY_RESTART_SIGN, 60);
+            CoolDownActivity();
         }
     }
 
-    public void RestartActivity()
+    public override void Fail()
+    {
+        mVolcanicActivityModel.VA_Fail();
+        CoolDownActivity();
+    }
+   
+    public override void RestartActivityInit()
     {
         mVolcanicActivityModel.ReloadVolcanicActivity();
-        CountDownTimerManager.Instance.ResetTimer(VOLCANIC_ACTIVITY_SIGN, 1440);
     }
 
-    public void Tick()
+    public override void CoolDownActivityInit()
     {
-        if (ActivityStatus == GameActivityStatus.CoolingDown)
-        {
-            if (CountDownTimerManager.Instance.IsTimerFinished(VOLCANIC_ACTIVITY_RESTART_SIGN))
-            {
-                RestartActivity();
-            }
-        }
+       
     }
 
+    public override void Tick() 
+    {
+        base.Tick();
+    }
 }

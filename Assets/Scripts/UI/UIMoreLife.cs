@@ -70,7 +70,7 @@ namespace QFramework.Example
                 {
                     UIKit.ClosePanel<UIBeginSelect>();
                     CloseSelf();
-                    StringEventSystem.Global.Send("OpenShopPanel");
+                    StringEventSystem.Global.Send(GameConst.OPEN_SHOP_PANEL_EVENT);
                     return;
                 }
                 CoinManager.Instance.CostCoin(MAX_HP_COST, () =>

@@ -39,6 +39,8 @@ namespace QFramework.Example
         private StageModel stageModel;
         private SaveDataUtility saveData;
         private SceneUnlockModel mSceneUnlockModel;
+        private VolcanicActivity mVolcanicActivity;
+
 
         public IArchitecture GetArchitecture()
         {
@@ -58,18 +60,19 @@ namespace QFramework.Example
             stageModel = this.GetModel<StageModel>();
             saveData = this.GetUtility<SaveDataUtility>();
             mSceneUnlockModel = this.GetModel<SceneUnlockModel>();
-
+            mVolcanicActivity = GameActivityManager.Instance.GetActivity<VolcanicActivity>();
             LevelManager.Instance.InitBottle();
             mTxtCoinAdd = TxtCoinAdd.GetComponent<TextMeshProUGUI>();
            
-
-            if (saveData.GetCurrentLevel() <= 5)
+            int currentLevel = saveData.GetCurrentLevel();
+            if (currentLevel <= 5)
             {
                 BottomMenuBtns.Hide();
                 HomeNode.Hide();
             }
 
-            else if (saveData.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
+            //连胜活动
+            if (currentLevel >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             {
                 PotionActivity();
             }
@@ -96,17 +99,20 @@ namespace QFramework.Example
 
         private void Update()
         {
+            //后续改成异步线程(一秒触发一次)
+
             if (HealthManager.Instance.UnLimitHp || !HealthManager.Instance.IsMaxHp)
             {
                 TxtTime.text = HealthManager.Instance.UnLimitHp ?
                     HealthManager.Instance.UnLimitHpTimeStr :
                     HealthManager.Instance.RecoverTimerStr;
             }
-        }
 
-        private void OnEnable()
-        {
-            
+            //更新火山活动的剩余时间
+            if (BtnVANode.gameObject.activeSelf && mVolcanicActivity != null)
+            {
+                TxtVolcanicActivity.text = mVolcanicActivity.GetActivityReamingTime();
+            }
         }
 
         //按钮监听
@@ -152,6 +158,12 @@ namespace QFramework.Example
             {
                 //跳转商店
                 InitBeginMenuButton(0);
+            });
+
+            BtnVANode.onClick.RemoveAllListeners();
+            BtnVANode.onClick.AddListener(() =>
+            {
+                UIKit.OpenPanel<UIVolcanicActivityEntrance>();
             });
 
             //底部区域按钮监听
@@ -255,15 +267,26 @@ namespace QFramework.Example
                 ImgHeadFrame.sprite = AvatarManager.Instance.GetAvatarSprite(false, e.AvatarFrameId);
             }).UnRegisterWhenGameObjectDestroyed(this);
 
-            StringEventSystem.Global.Register("OpenShopPanel", () =>
+            this.RegisterEvent<OnActivityStatusChanged>(e =>
+            {
+                SetActivity(e);
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            StringEventSystem.Global.Register(GameConst.OPEN_SHOP_PANEL_EVENT, () =>
             {
                 InitBeginMenuButton(0);
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
-            StringEventSystem.Global.Register("StartPotionActivity", () =>
+            StringEventSystem.Global.Register(GameConst.START_POTION_ACTIVITY, () =>
             {
                 PotionActivity();
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            StringEventSystem.Global.Register(GameConst.CLOSE_VOLCANIC_ACTIVITY_EVENT, () =>
+            {
+                BtnVANode.Hide();
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
@@ -332,6 +355,23 @@ namespace QFramework.Example
 
             if (!HealthManager.Instance.UnLimitHp && HealthManager.Instance.IsMaxHp)
                 TxtTime.text = "FULL";
+        }
+
+        /// <summary>
+        /// 设置活动入口状态
+        /// </summary>
+        private void SetActivity(OnActivityStatusChanged eventData)
+        {
+            //统一由所有活动Tick状态变更发送事件驱动活动入口开关
+            //Debug.Log("收到事件、状态：" + eventData.Status);
+            var _activity = eventData.Sender;
+            if (_activity is VolcanicActivity)
+            {
+                if (mVolcanicActivity == null)
+                    mVolcanicActivity = _activity as VolcanicActivity;
+                BtnVANode.gameObject.SetActive(eventData.Status == GameActivityStatus.Active);
+            }
+            //...Other Activity
         }
 
         /// <summary>

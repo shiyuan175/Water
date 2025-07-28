@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
-using QFramework;
 using UnityEngine;
+using QFramework;
 
 public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetModel, ICanGetUtility
 {
@@ -30,6 +30,7 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<VolcanicActivity>();
         }
+        //Other Activities can be registered here based on level or other conditions
 
     }
 

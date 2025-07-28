@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:4f14aabf-5750-45b4-b2ca-05b03d7feeed
+	// Generate Id:219fd4ef-66a1-4fae-bd27-3e0eaf21d08f
 	public partial class UIVolcanicActivity
 	{
 		public const string Name = "UIVolcanicActivity";
@@ -22,6 +22,10 @@ namespace QFramework.Example
 		public TMPro.TextMeshProUGUI TxtPlayers;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI Txt_Players;
+		[SerializeField]
+		public Spine.Unity.SkeletonGraphic Spine_rongyanpaopao;
+		[SerializeField]
+		public RectTransform HeadNodesPar;
 		
 		private UIVolcanicActivityData mPrivateData = null;
 		
@@ -33,6 +37,8 @@ namespace QFramework.Example
 			Txt_Levels = null;
 			TxtPlayers = null;
 			Txt_Players = null;
+			Spine_rongyanpaopao = null;
+			HeadNodesPar = null;
 			
 			mData = null;
 		}

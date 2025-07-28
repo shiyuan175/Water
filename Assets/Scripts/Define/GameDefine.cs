@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,17 +19,23 @@ namespace GameDefine
         public const int SCENE_PART_COUNT = 5;
         //第八关开启连胜相关功能(连胜段位\连胜去黑\主页连胜活动...)
         public const int WIN_STREAK_BEGIN_LEVEL = 8;
+        //活动开启目标关卡
+        public const int VA_BEGIN_LEVEL = 7;
+        //...
 
         //连胜去黑(最高三档)
         public const int MAX_GIFT_STREAK_WIN = 3;
 
+        //存档标记
         public const string DOUBLE_COIN_SIGN = "DoubleCoin";
         public const string POTION_ACTIVITY_SIGN = "PotionActivity";
         public const string UNLIMIT_ITEM_SIGN = "UnLimitItenEndTime";
         public const string RANKA_ACTIVITY_SIGN = "RankAActivity";
 
-        //活动开启目标关卡
-        public const int VA_BEGIN_LEVEL = 0;//开启火山活动的关卡(未定)
+        //事件标记
+        public const string CLOSE_VOLCANIC_ACTIVITY_EVENT = "CloseVolcanicActivity";
+        public const string START_POTION_ACTIVITY = "StartPotionActivity";
+        public const string OPEN_SHOP_PANEL_EVENT = "OpenShopPanel";
 
         //关卡引导
         public static readonly Dictionary<int, (string, string)> GuideLevelInfo = new Dictionary<int, (string, string)>

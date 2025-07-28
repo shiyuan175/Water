@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using QFramework;
 using System.Collections.Generic;
 using TMPro;
+using GameDefine;
 
 namespace QFramework.Example
 {
@@ -72,7 +73,7 @@ namespace QFramework.Example
                     {
                         UIKit.ClosePanel<UIBeginSelect>();
                         CloseSelf();
-                        StringEventSystem.Global.Send("OpenShopPanel");
+                        StringEventSystem.Global.Send(GameConst.OPEN_SHOP_PANEL_EVENT);
                     }
                     else
                     {

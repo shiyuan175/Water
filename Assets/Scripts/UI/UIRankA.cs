@@ -55,7 +55,18 @@ namespace QFramework.Example
 		protected override void OnClose()
 		{
             RankNodePool.Instance.ClearRankNode();
-            UIKit.OpenPanel<UIGetCoin>();
+
+            if (GameActivityManager.Instance.GetActivity<VolcanicActivity>() is VolcanicActivity volcanicActivity
+                && volcanicActivity.ActivityStatus == GameActivityStatus.Active)
+            {
+                UIKit.OpenPanel<UIVolcanicActivity>(new UIVolcanicActivityData()
+                {
+                    isSuceed = true
+                });
+            }
+            else
+                UIKit.OpenPanel<UIGetCoin>();
+
             Close.onClick.RemoveAllListeners();
             mRankPool = null;
             mRankDataModel = null;

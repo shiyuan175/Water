@@ -21,7 +21,12 @@ namespace QFramework.Example
 		
 		protected override void OnShow()
 		{
-		}
+			BtnStart.onClick.AddListener(() =>
+            {
+                UIKit.OpenPanel<UIVolcanicActivity>();
+                CloseSelf();
+            });
+        }
 		
 		protected override void OnHide()
 		{

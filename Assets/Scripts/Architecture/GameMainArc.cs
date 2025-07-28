@@ -60,6 +60,7 @@ public class GameMainArc : Architecture<GameMainArc>
         TenjinManager tenjinManager = TenjinManager.Instance;
         TopOnADManager topOnADManager = TopOnADManager.Instance;
         AvatarManager avatarManager = AvatarManager.Instance;
+        GameActivityManager gameActivityManager = GameActivityManager.Instance;
     }
 
     //»î¶¯¿ªÆô

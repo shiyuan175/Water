@@ -50,6 +50,16 @@ namespace QFramework.Example
                 UIKit.ClosePanel<UIGameNode>();
                 this.GetModel<StageModel>().ResetCountinueWinNum();
                 this.SendEvent<ReturnMainEvent>(new ReturnMainEvent());
+
+                if (GameActivityManager.Instance.GetActivity<VolcanicActivity>() is VolcanicActivity volcanicActivity
+                && volcanicActivity.ActivityStatus == GameActivityStatus.Active)
+				{
+                    UIKit.OpenPanel<UIVolcanicActivity>(new UIVolcanicActivityData()
+                    {
+                        isSuceed = false
+                    });
+                }
+                    
                 CloseSelf();
             });
 		}
@@ -60,7 +70,8 @@ namespace QFramework.Example
 		
 		protected override void OnClose()
 		{
-			BtnQuit.onClick.RemoveAllListeners();
+			BtnClose.onClick.RemoveAllListeners();
+            BtnQuit.onClick.RemoveAllListeners();
             saveData = null;
         }
     }

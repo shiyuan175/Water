@@ -5,16 +5,19 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:222a7e38-669b-4a54-b230-9d8d101c4198
+	// Generate Id:7e98fbf6-fba3-4588-a3b9-53384edbfc59
 	public partial class UIVolcanicActivityEntrance
 	{
 		public const string Name = "UIVolcanicActivityEntrance";
 		
+		[SerializeField]
+		public UnityEngine.UI.Button BtnStart;
 		
 		private UIVolcanicActivityEntranceData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
+			BtnStart = null;
 			
 			mData = null;
 		}
