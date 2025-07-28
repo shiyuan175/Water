@@ -51,7 +51,7 @@ public class StageModel : AbstractModel
         for (int i = 1; i <= GameDefine.GameConst.ITEM_COUNT; i++)
         {
             var key = $"{ITEM_SIGN}{i}";
-            ItemDic[i] = storage.LoadIntValue(key, 0);
+            ItemDic[i] = storage.LoadIntValue(key, 4);
         }
         ItemDic.OnReplace.Register((itemID, oldValue, newValue) =>
         {
