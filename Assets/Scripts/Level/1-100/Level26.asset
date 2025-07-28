@@ -47,7 +47,7 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 14000000
+    bombCounts: 19000000
     hidePriority: 0
   - waterSet: 07000000050000000600000002000000
     isHide: 00000000

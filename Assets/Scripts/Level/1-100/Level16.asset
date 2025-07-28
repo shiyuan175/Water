@@ -24,6 +24,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 04000000030000000100000006000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
@@ -35,6 +36,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 0100000006000000040000000a000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
@@ -46,6 +48,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 0800000001000000010000000a000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
@@ -56,7 +59,8 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 0000000014000000
+    bombCounts: 0000000017000000
+    hidePriority: 0
   - waterSet: 02000000060000000400000008000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
@@ -68,6 +72,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 03000000080000000400000002000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
@@ -78,7 +83,8 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 0000000014000000
+    bombCounts: 0000000017000000
+    hidePriority: 0
   - waterSet: 03000000020000000800000006000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
@@ -90,6 +96,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 
     isHide: 
     waterItem: 
@@ -101,6 +108,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   - waterSet: 
     isHide: 
     waterItem: 
@@ -112,6 +120,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
     bombCounts: 
+    hidePriority: 0
   gameType: 0
   clearList: 0a000000030000000200000006000000010000000400000008000000
   hideList: 
