@@ -56,7 +56,8 @@ public class VolcanicActivity : BaseGameActivity
 
         //只在活动首次解锁时手动开启
         if (ActivityStatus == GameActivityStatus.WaitStart
-            && !PlayerPrefs.HasKey(ActivityCooldownSign))
+            //CountDownTimer_为所有计时器前缀
+            && !PlayerPrefs.HasKey("CountDownTimer_" + ActivityCooldownSign))
         {
             //如果已有计时器则会失效(会由Tick驱动重启)
             StartActivity();
@@ -85,7 +86,7 @@ public class VolcanicActivity : BaseGameActivity
 
     public override void CoolDownActivityInit()
     {
-       
+        mVolcanicActivityModel.ReloadVolcanicActivity();
     }
 
     public override void Tick() 
