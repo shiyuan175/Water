@@ -179,6 +179,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             bottle.waterImg.fillAmount = 1;
         }
 
+        LevelManager.Instance.iceBottles.RemoveAll(b => b == this);
         for (int i = 0; i < waters.Count; i++)
         {
             var color = waters[i];
