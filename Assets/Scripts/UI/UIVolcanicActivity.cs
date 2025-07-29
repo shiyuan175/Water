@@ -7,13 +7,13 @@ namespace QFramework.Example
 {
     public class UIVolcanicActivityData : UIPanelData
     {
-        //可空bool
-        //由首页打开，空bool，不播动画,同时可以表示不开启下一关面板(多活动时会使用)
+        //由首页打开，空bool，不播动画
         //闯关成功/退出打开，传入非空值播放动画
         public bool? isSuceed;
+        public bool? IsManagedOpen;
     }
 
-    public partial class UIVolcanicActivity : UIPanel
+    public partial class UIVolcanicActivity : UIPanel, ICanSendEvent
     {
         private const int VA_MAX_STREAK_WIN_NUM = 7;
         private const int VA_MAX_PLAYER_NUM = 100;
@@ -117,10 +117,13 @@ namespace QFramework.Example
             mLevelTween?.Kill();
             mPlayerTween?.Kill();
 
-            //有新活动在这去开启面板,然后传入mData.isSuceed(最后一个优先级的面板去调用UIGetCoin)
-            if (mData.isSuceed != null)
-                UIKit.OpenPanel<UIGetCoin>();
+            if (mData.IsManagedOpen ?? false)
+                StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);
+        }
 
+        public IArchitecture GetArchitecture()
+        {
+            return GameMainArc.Interface;
         }
     }
 }

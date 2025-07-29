@@ -94,15 +94,7 @@ namespace QFramework.Example
                 this.GetModel<StageModel>().ResetCountinueWinNum();
                 this.SendEvent<ReturnMainEvent>(new ReturnMainEvent());
 
-                if (GameActivityManager.Instance.GetActivity<VolcanicActivity>() is VolcanicActivity volcanicActivity
-                && volcanicActivity.ActivityStatus == GameActivityStatus.Active)
-                {
-                    UIKit.OpenPanel<UIVolcanicActivity>(new UIVolcanicActivityData()
-                    {
-                        isSuceed = false
-                    });
-                }
-
+                EnqueueAllPanels();
                 CloseSelf();
             });
             BtnAddCoin.onClick.AddListener(() =>
@@ -117,6 +109,29 @@ namespace QFramework.Example
             TxtCoin.text = coin.ToString();
 
             TxtCoinCost.color = coin < GameDefine.GameConst.ADD_BOTTLE_COST ? Color.red : Color.white;
+        }
+
+        private void EnqueueAllPanels()
+        {
+            //火山活动
+            PanelQueueManager.Instance.Enqueue(() =>
+            {
+                if (GameActivityManager.Instance.GetActivity<VolcanicActivity>() is VolcanicActivity volcanicActivity &&
+                volcanicActivity.ActivityStatus == GameActivityStatus.Active)
+                {
+                    UIKit.OpenPanel<UIVolcanicActivity>(new UIVolcanicActivityData()
+                    {
+                        isSuceed = false,
+                        IsManagedOpen = true
+                    });
+                    return true;
+                }
+                return false;
+            });
+            //...其他活动等
+
+            //开启
+            PanelQueueManager.Instance.PopFirstPanel();
         }
     }
 }

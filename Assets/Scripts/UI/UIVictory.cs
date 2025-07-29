@@ -65,10 +65,7 @@ namespace QFramework.Example
 
 			BtnSkip.onClick.AddListener(() =>
 			{
-                if (!mRankingEnd)
-                    UIKit.OpenPanel<UIRankA>(new UIRankAData { LastRankScore = mLastRankingScore });
-                else
-                    UIKit.OpenPanel<UIGetCoin>();
+                EnqueueAllPanels();
                 CloseSelf();
             });
 
@@ -105,29 +102,52 @@ namespace QFramework.Example
         {
 			ActionKit.Delay(3f, () =>
 			{
-                //暂时这么用,加新活动进来后需要写一个面板管理 
-                //不然很多面板是否打开不知道的会很臃肿
-
-                //设计一个面板管理器堆栈，
-				//将需要打开的面板都注册进去，然后每次关闭某一个面板时发送事件，事件响应就开启下一个面板，
-				//然后事件判断这个面板能否打开，不能打开就跳过开启下一关，直到堆栈为空
-                if (!mRankingEnd)
-				{
-					UIKit.OpenPanel<UIRankA>(new UIRankAData { LastRankScore = mLastRankingScore });
-				}
-				else if (GameActivityManager.Instance.GetActivity<VolcanicActivity>() is VolcanicActivity volcanicActivity
-				&& volcanicActivity.ActivityStatus == GameActivityStatus.Active)
-				{
-					UIKit.OpenPanel<UIVolcanicActivity>(new UIVolcanicActivityData()
-					{
-						isSuceed = true
-					});
-				}
-				else
-					UIKit.OpenPanel<UIGetCoin>();
-
-				CloseSelf();
+                EnqueueAllPanels();
+                CloseSelf();
 			}).Start(this);
+        }
+
+        private void EnqueueAllPanels()
+        {
+            //排行榜
+            PanelQueueManager.Instance.Enqueue(() =>
+            {
+                if (!mRankingEnd)
+                {
+                    UIKit.OpenPanel<UIRankA>(new UIRankAData
+                    {
+                        LastRankScore = mLastRankingScore,
+                        IsManagedOpen = true,
+                    });
+                    return true;
+                }
+                return false;
+            });
+            //火山活动
+            PanelQueueManager.Instance.Enqueue(() =>
+            {
+                if (GameActivityManager.Instance.GetActivity<VolcanicActivity>() is VolcanicActivity volcanicActivity
+                    && volcanicActivity.ActivityStatus == GameActivityStatus.Active)
+                {
+                    UIKit.OpenPanel<UIVolcanicActivity>(new UIVolcanicActivityData()
+                    {
+                        isSuceed = true,
+                        IsManagedOpen = true,
+                    });
+                    return true;
+                }
+                return false;
+            });
+            //...其他活动等
+
+            //最后结算界面
+            PanelQueueManager.Instance.Enqueue(() =>
+            {
+                UIKit.OpenPanel<UIGetCoin>();
+                return true;
+            });
+            //开启
+            PanelQueueManager.Instance.PopFirstPanel();
         }
     }
 }

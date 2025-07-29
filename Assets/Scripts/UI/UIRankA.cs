@@ -7,10 +7,11 @@ namespace QFramework.Example
 {
 	public class UIRankAData : UIPanelData 
 	{
-        public int LastRankScore; 
+        public int LastRankScore;
+        public bool? IsManagedOpen;
     }
 
-	public partial class UIRankA : UIPanel, ICanGetModel
+	public partial class UIRankA : UIPanel, ICanGetModel, ICanSendEvent
     {
         private RankNodePool mRankPool;
 		private RankDataModel mRankDataModel;
@@ -55,22 +56,13 @@ namespace QFramework.Example
 		protected override void OnClose()
 		{
             RankNodePool.Instance.ClearRankNode();
-
-            if (GameActivityManager.Instance.GetActivity<VolcanicActivity>() is VolcanicActivity volcanicActivity
-                && volcanicActivity.ActivityStatus == GameActivityStatus.Active)
-            {
-                UIKit.OpenPanel<UIVolcanicActivity>(new UIVolcanicActivityData()
-                {
-                    isSuceed = true
-                });
-            }
-            else
-                UIKit.OpenPanel<UIGetCoin>();
-
             Close.onClick.RemoveAllListeners();
             mRankPool = null;
             mRankDataModel = null;
             mPotionActivityModel = null;
+
+            if (mData.IsManagedOpen ?? false)
+                StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);
         }
-	}
+    }
 }

@@ -45,7 +45,6 @@ public class VolcanicActivity : BaseGameActivity
     public override float ActivityDurationMinutes => 1440;//0.2f;
     public override float ActivityCooldownMinutes => 60;//0.2f;
 
-
     private SaveDataUtility mSaveUtility;
     private VolcanicActivityModel mVolcanicActivityModel;
 
@@ -86,7 +85,8 @@ public class VolcanicActivity : BaseGameActivity
 
     public override void CoolDownActivityInit()
     {
-        mVolcanicActivityModel.ReloadVolcanicActivity();
+        //在这重置数据，会导致触发失败之后数据就重置，引起后面流程错误
+        //mVolcanicActivityModel.ReloadVolcanicActivity();
     }
 
     public override void Tick() 

@@ -36,6 +36,7 @@ namespace GameDefine
         public const string CLOSE_VOLCANIC_ACTIVITY_EVENT = "CloseVolcanicActivity";
         public const string START_POTION_ACTIVITY = "StartPotionActivity";
         public const string OPEN_SHOP_PANEL_EVENT = "OpenShopPanel";
+        public const string MANAGER_OPEN_NEXT_PANEL = "ManagerOpenNextPanel";
 
         //关卡引导
         public static readonly Dictionary<int, (string, string)> GuideLevelInfo = new Dictionary<int, (string, string)>
