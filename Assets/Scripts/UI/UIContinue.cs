@@ -8,9 +8,10 @@ namespace QFramework.Example
 	public class UIContinueData : UIPanelData
 	{
 	}
-	public partial class UIContinue : UIPanel, ICanGetUtility, ICanRegisterEvent,ICanSendEvent, IController
+	public partial class UIContinue : UIPanel,ICanSendEvent, IController
     {
         private SaveDataUtility saveData;
+
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;
@@ -30,7 +31,9 @@ namespace QFramework.Example
 		
 		protected override void OnShow()
 		{
-			SetCoin();
+            saveData = this.GetUtility<SaveDataUtility>();
+
+            SetCoin();
 
             RegisterBtnEvent();
 
@@ -50,6 +53,7 @@ namespace QFramework.Example
             BtnContinue.onClick.RemoveAllListeners();
             BtnQuit.onClick.RemoveAllListeners();
             BtnAddCoin.onClick.RemoveAllListeners();
+            saveData = null;
         }
 
         private void RegisterBtnEvent()
@@ -74,8 +78,6 @@ namespace QFramework.Example
             });
             BtnQuit.onClick.AddListener(() =>
             {
-                saveData = this.GetUtility<SaveDataUtility>();
-               
                 string _del = $"用户退出关卡:{saveData.GetCurrentLevel()}," +
                  $"当前关卡进度:{saveData.GetCurrentLevel()}";
                 AnalyticsManager.Instance.SendLevelEvent(_del);
