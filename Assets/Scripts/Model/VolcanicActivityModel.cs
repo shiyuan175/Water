@@ -26,6 +26,7 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
     {
         if (!isInit)
         {
+            //Debug.Log("数据初始化");
             stroge = this.GetUtility<SaveDataUtility>();
             mVAStreakWinNum = new BindableProperty<int>();
             mVACountPlayerNum = new BindableProperty<int>();
@@ -36,7 +37,6 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
                 stroge.SaveInt(VA_STREAK_WIN_NUM_SIGN, value);
             });
             mVACountPlayerNum.SetValueWithoutEvent(stroge.LoadIntValue(VA_COUNT_PLAY_NUM_SIGN, 100));
-            //Debug.Log(mVACountPlayerNum.Value);
             mVACountPlayerNum.Register(value =>
             {
                 stroge.SaveInt(VA_COUNT_PLAY_NUM_SIGN, value);
@@ -49,6 +49,7 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
     {
         //启用时注册活动初始化数据会因生命周期问题还没初始化数据
         //OnInit();
+        //Debug.Log("数据重置");
         mVAStreakWinNum.Value = 0;
         mVACountPlayerNum.Value = 100;
     }

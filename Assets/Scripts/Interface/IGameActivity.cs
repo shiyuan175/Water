@@ -33,13 +33,7 @@ public interface IGameActivity
     /// </summary>
     void RestartActivity();
 
-    void StartActivity()
-    {
-        
-    }
-
-    /// <summary>
-    /// 动态重启活动
-    /// </summary>
+    void StartActivity();
+    
     void Tick();
 }

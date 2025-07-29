@@ -22,7 +22,9 @@ public abstract class BaseGameActivity : IGameActivity, ICanGetModel, ICanGetUti
 
     public abstract GameActivityStatus ActivityStatus { get; }
 
+    // 基类用于维护活动状态
     private GameActivityStatus mLastActivityStatus;
+    private GameActivityStatus mCurrentStatus = GameActivityStatus.WaitStart;
 
     public IArchitecture GetArchitecture()
     {
@@ -77,9 +79,6 @@ public abstract class BaseGameActivity : IGameActivity, ICanGetModel, ICanGetUti
     {
         return CountDownTimerManager.Instance.GetRemainingTimeText(ActivitySign);
     }
-
-    // 基类用于维护活动状态
-    private GameActivityStatus mCurrentStatus = GameActivityStatus.WaitStart;
 
     //活动注册后会自动调用
     public virtual void Tick()

@@ -29,10 +29,7 @@ namespace QFramework.Example
             new Vector2(224, -308),
         };
 
-
         [SerializeField] private GameObject[] HeadNodes;
-        //无实际用(只是需作为参数传入)
-        [SerializeField] private GiftPackSO PackSO;
 
         private VolcanicActivity mVolcanicActivity;
         private Tween mLevelTween;
@@ -90,7 +87,7 @@ namespace QFramework.Example
                     CoinManager.Instance.AddCoin(mVolcanicActivity.RewardCoins);
                     _action = () =>
                     {
-                        StartCoroutine(RewardItemManager.Instance.PlayRewardAnim(PackSO, true));
+                        StartCoroutine(RewardItemManager.Instance.PlayRewardAnim(null, true));
                     };
                 }
             }

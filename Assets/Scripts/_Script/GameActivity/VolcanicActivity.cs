@@ -53,7 +53,10 @@ public class VolcanicActivity : BaseGameActivity
     {
         mSaveUtility = this.GetUtility<SaveDataUtility>();
         mVolcanicActivityModel = this.GetModel<VolcanicActivityModel>();
-        if (ActivityStatus == GameActivityStatus.WaitStart)
+
+        //只在活动首次解锁时手动开启
+        if (ActivityStatus == GameActivityStatus.WaitStart
+            && !PlayerPrefs.HasKey(ActivityCooldownSign))
         {
             //如果已有计时器则会失效(会由Tick驱动重启)
             StartActivity();

@@ -38,7 +38,7 @@ public class RewardItemManager : MonoSingleton<RewardItemManager>
             return image;
 
         },
-        (Image img)=> 
+        (Image img) =>
         {
             img.Hide();
             img.rectTransform.localPosition = Vector3.zero;
@@ -53,47 +53,51 @@ public class RewardItemManager : MonoSingleton<RewardItemManager>
         });
     }
 
-    public IEnumerator PlayRewardAnim(IPackSoInterface packSO ,bool addCoin = false ,System.Action call = null)
+    //可只用作发放金币动画(packSO传入Null或传入一个只有金币的空礼包)
+    public IEnumerator PlayRewardAnim(IPackSoInterface packSO, bool addCoin = false, System.Action call = null)
     {
         openBoxCallBack = call;
-
-        mMask.Show();
-        slotCount = packSO.ItemReward.Count + packSO.SpecialRewards.Count;
         availableSlots.Clear();
         actionList.Clear();
-        for (int i = 0; i < slotCount; i++)
-            availableSlots.Add(i);
+        mMask.Show();
+
+        if (packSO != null)
+        {
+            slotCount = packSO.ItemReward.Count + packSO.SpecialRewards.Count;
+            for (int i = 0; i < slotCount; i++)
+                availableSlots.Add(i);
+        }
 
         BoxAnimator.Show();
-
         BoxAnimator.Play("BoxOpen");
         yield return new WaitForSeconds(1f); // 等待盒子打开动画完成
-        if (packSO.ItemReward.Count != 0 || packSO.SpecialRewards.Count != 0)
+        if (packSO != null && (packSO.ItemReward.Count != 0 || packSO.SpecialRewards.Count != 0))
             BtnContinue.Show();
         else
             mMask.Hide();
 
         BoxAnimator.Hide();
-
-        foreach (var item in packSO.ItemReward)
+        if (packSO != null)
         {
-            var image = RewardPool.Allocate();
-            image.TryGetComponent(out PropRewardPoolNode _node);
-            if (_node == null)
-                _node = image.gameObject.AddComponent<PropRewardPoolNode>();
-            _node.Init(RewardSprites[item.ItemIndex - 1], SetRandomScreenPosition(image), item.Quantity, false);
-            actionList.Add(() => _node.MoveOffScreen());
+            foreach (var item in packSO.ItemReward)
+            {
+                var image = RewardPool.Allocate();
+                image.TryGetComponent(out PropRewardPoolNode _node);
+                if (_node == null)
+                    _node = image.gameObject.AddComponent<PropRewardPoolNode>();
+                _node.Init(RewardSprites[item.ItemIndex - 1], SetRandomScreenPosition(image), item.Quantity, false);
+                actionList.Add(() => _node.MoveOffScreen());
+            }
+            foreach (var item in packSO.SpecialRewards)
+            {
+                var image = RewardPool.Allocate();
+                image.TryGetComponent(out PropRewardPoolNode _node);
+                if (_node == null)
+                    _node = image.gameObject.AddComponent<PropRewardPoolNode>();
+                _node.Init(item.RewardSprite, SetRandomScreenPosition(image), item.Duration, true);
+                actionList.Add(() => _node.MoveOffScreen());
+            }
         }
-        foreach (var item in packSO.SpecialRewards) 
-        {
-            var image = RewardPool.Allocate();
-            image.TryGetComponent(out PropRewardPoolNode _node);
-            if (_node == null)
-                _node = image.gameObject.AddComponent<PropRewardPoolNode>();
-            _node.Init(item.RewardSprite, SetRandomScreenPosition(image), item.Duration, true);
-            actionList.Add(() => _node.MoveOffScreen());
-        }
-
         if (addCoin)
         {
             CoinParticle.Play(100);
@@ -113,7 +117,7 @@ public class RewardItemManager : MonoSingleton<RewardItemManager>
         BtnContinue.interactable = true;
         mMask.Hide();
 
-        if(openBoxCallBack != null)
+        if (openBoxCallBack != null)
         {
             openBoxCallBack?.Invoke();
             openBoxCallBack = null;
@@ -133,7 +137,7 @@ public class RewardItemManager : MonoSingleton<RewardItemManager>
         availableSlots.Remove(slotIndex);
 
         // 每行最大个数
-        int maxPerRow = 5;  
+        int maxPerRow = 5;
         // 道具间隔 210，整体居中
         float spacing = 210f;
         // 行间隔
