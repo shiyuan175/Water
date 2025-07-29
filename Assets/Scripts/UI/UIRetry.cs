@@ -49,7 +49,6 @@ namespace QFramework.Example
 		{
             BtnGiveUp.onClick.RemoveAllListeners();
             BtnAddBottle.onClick.RemoveAllListeners();
-            BtnClose.onClick.RemoveAllListeners();
             BtnAddCoin.onClick.RemoveAllListeners();
         }
 
@@ -77,11 +76,6 @@ namespace QFramework.Example
                     //»½ÆðÉÌµê
                     UIKit.OpenPanel<UIShop>();
                 }
-            });
-
-            BtnClose.onClick.AddListener(() =>
-            {
-              /*  CloseSelf();*/
             });
 
             BtnAddCoin.onClick.AddListener(() =>

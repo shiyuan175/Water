@@ -48,7 +48,7 @@ namespace QFramework.Example
 		protected override void OnClose()
 		{
             BtnContinue.onClick.RemoveAllListeners();
-            BtnClose.onClick.RemoveAllListeners();
+            BtnQuit.onClick.RemoveAllListeners();
             BtnAddCoin.onClick.RemoveAllListeners();
         }
 
@@ -72,11 +72,10 @@ namespace QFramework.Example
                 }
 
             });
-            BtnClose.onClick.AddListener(() =>
+            BtnQuit.onClick.AddListener(() =>
             {
                 saveData = this.GetUtility<SaveDataUtility>();
-                /* CloseSelf();
-                 UIKit.OpenPanel<UIDeleteLife>();*/
+               
                 string _del = $"用户退出关卡:{saveData.GetCurrentLevel()}," +
                  $"当前关卡进度:{saveData.GetCurrentLevel()}";
                 AnalyticsManager.Instance.SendLevelEvent(_del);
@@ -92,9 +91,17 @@ namespace QFramework.Example
                 UIKit.ClosePanel<UIGameNode>();
                 this.GetModel<StageModel>().ResetCountinueWinNum();
                 this.SendEvent<ReturnMainEvent>(new ReturnMainEvent());
+
+                if (GameActivityManager.Instance.GetActivity<VolcanicActivity>() is VolcanicActivity volcanicActivity
+                && volcanicActivity.ActivityStatus == GameActivityStatus.Active)
+                {
+                    UIKit.OpenPanel<UIVolcanicActivity>(new UIVolcanicActivityData()
+                    {
+                        isSuceed = false
+                    });
+                }
+
                 CloseSelf();
-
-
             });
             BtnAddCoin.onClick.AddListener(() =>
             {

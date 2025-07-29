@@ -64,11 +64,6 @@ namespace QAssetBundle
         public const string BundleName = "uicontinue_prefab";
         public const string UIContinue = "UIContinue";
     }
-    public class Uideletelife_prefab
-    {
-        public const string BundleName = "uideletelife_prefab";
-        public const string UIDeleteLife = "UIDeleteLife";
-    }
     public class Uigamenode_prefab
     {
         public const string BundleName = "uigamenode_prefab";

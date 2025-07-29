@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:a5cf64bc-2688-4ee5-9ee8-642ff904fd8e
+	// Generate Id:de8b1294-307b-4801-8859-95724887d3a2
 	public partial class UIContinue
 	{
 		public const string Name = "UIContinue";
@@ -21,7 +21,9 @@ namespace QFramework.Example
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtCoinCost;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnClose;
+		public UnityEngine.UI.Button BtnQuit;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtClose;
 		
 		private UIContinueData mPrivateData = null;
 		
@@ -32,7 +34,8 @@ namespace QFramework.Example
 			BtnContinue = null;
 			TxtRetry = null;
 			TxtCoinCost = null;
-			BtnClose = null;
+			BtnQuit = null;
+			TxtClose = null;
 			
 			mData = null;
 		}

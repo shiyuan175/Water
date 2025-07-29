@@ -5,13 +5,11 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:96514af6-bb3b-43bf-bad9-75dc1a3a1eef
+	// Generate Id:7e9b911b-fee9-419a-879e-8550524b6e90
 	public partial class UIRetry
 	{
 		public const string Name = "UIRetry";
 		
-		[SerializeField]
-		public UnityEngine.UI.Button BtnClose;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtCoin;
 		[SerializeField]
@@ -31,7 +29,6 @@ namespace QFramework.Example
 		
 		protected override void ClearUIComponents()
 		{
-			BtnClose = null;
 			TxtCoin = null;
 			BtnAddCoin = null;
 			BtnGiveUp = null;
