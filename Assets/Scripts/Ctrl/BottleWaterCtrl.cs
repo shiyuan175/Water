@@ -520,8 +520,8 @@ public class BottleWaterCtrl : MonoBehaviour
     {
         bottle.UnlockIceWater();
     }
-    
-    public void SetColorState(GameDefine.ItemType itemType, Color inColor, bool isTopWater)
+
+    public void SetColorState(GameDefine.ItemType itemType, Color inColor, bool isTopWater, int time = 0)
     {
         this.color = inColor;
         

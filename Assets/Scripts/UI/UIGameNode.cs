@@ -197,6 +197,11 @@ namespace QFramework.Example
                                     {
                                         record.waterItems[i] = WaterItem.None;
                                     }
+
+                                    for(int i =0; i<record.bombCount.Count;i++)
+                                    {
+                                        record.bombCount[i] = 0;
+                                    }
                                 }
                             }
                         });
@@ -293,17 +298,20 @@ namespace QFramework.Example
                     List<int> _newWaters = new List<int>();
                     List<bool> _newHideWater = new List<bool>();
                     List<WaterItem> _newWaterItems = new List<WaterItem>();
+                    List<int> _newBombs = new List<int>();
 
                     foreach (int idx in _indices)
                     {
                         _newWaters.Add(botter.waters[idx]);
                         _newHideWater.Add(botter.hideWaters[idx]);
                         _newWaterItems.Add(botter.waterItems[idx]);
+                        _newBombs.Add(botter.bombCounts[idx]);
                     }
                     // 替换原列表
                     botter.waters = _newWaters;
                     botter.hideWaters = _newHideWater;
                     botter.waterItems = _newWaterItems;
+                    botter.bombCounts = _newBombs;
 
                     //修改水块颜色和切换道具位置
                     for (int i = 0; i < botter.waters.Count; i++)
@@ -319,7 +327,7 @@ namespace QFramework.Example
                     botter.SetNowSpinePos(botter.waters.Count);
                     botter.PlaySpineWaitAnim();
                     botter.CheckWaterItem();
-
+                    botter.UpdateBomb();
                     botter.SetHideShow(true);
                     LevelManager.Instance.HideItemSelect();
 

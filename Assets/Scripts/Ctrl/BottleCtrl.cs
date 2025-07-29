@@ -755,15 +755,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 waterItems.RemoveAt(idx);
                 hideWaters.RemoveAt(idx);
 
-                /*if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false)
-                {
-                    waterImg[i].bombIcon.SetBomb(true, (bombCounts[i] - moveNum).ToString());
-                }
-                else
-                {
-                    waterImg[i].bombIcon.SetBomb();
-                    waterImg[i].textItem.text = "";
-                };*/
 
                 // 炸弹为空的时候，直接不进行移动
                 if (bombCounts.Count>idx)
@@ -839,10 +830,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                //  LevelManager.Instance.CancelBomb();弃用
                 waterItems[i] = WaterItem.None;
                 if(bombCounts.Count>i)
+                {
                     bombCounts[i] = 0;
+                }
+                   
             }
         }
-
+        UpdateBomb();
         CheckWaterItem();
         StartCoroutine(ShowFinish());
     }
@@ -1079,7 +1073,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         CheckWaterItem();
         // 更新魔法布遮挡状态
         SetClearHide();
-
+        // 更新炸弹
+        UpdateBomb();
         // 更新水面位置
         int spinePosIdx = topIdx + 1;
         SetNowSpinePos(spinePosIdx);
@@ -1151,9 +1146,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 case WaterItem.Ice:
                     waterImg[i].iceGo.SetActive(true);
                     break;
-                case WaterItem.Bomb:
-                    // 设置时间
-                    //  waterImg[i].textItem.text = bombCounts[i] - moveNum>0 && hideWaters[i]==false ?(bombCounts[i]- moveNum).ToString() :"";
+                case WaterItem.Bomb:                 
                     UpdateBomb();
                     
 
