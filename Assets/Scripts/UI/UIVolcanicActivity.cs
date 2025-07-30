@@ -63,6 +63,7 @@ namespace QFramework.Example
             //记录获胜前数据(做文本动画)
             int _recordPlayerNum = mVolcanicActivity.VACurrentPlayerNum;
             int _recordStreakWinNum = mVolcanicActivity.VAStreakWinNum;
+            Txt_Prompt.text = $"Beat {VA_MAX_STREAK_WIN_NUM - mVolcanicActivity.VAStreakWinNum} more levels to complete the challenge!";
             Txt_Levels.text = $"{mVolcanicActivity.VAStreakWinNum}/{VA_MAX_STREAK_WIN_NUM}";
             Txt_Players.text = $"{mVolcanicActivity.VACurrentPlayerNum}/{VA_MAX_PLAYER_NUM}";
 
@@ -90,9 +91,14 @@ namespace QFramework.Example
                         StartCoroutine(RewardItemManager.Instance.PlayRewardAnim(null, true));
                     };
                 }
+
+                Txt_Prompt.text = $"Beat {VA_MAX_STREAK_WIN_NUM - mVolcanicActivity.VAStreakWinNum} more levels to complete the challenge!";
             }
             else
+            {
                 mVolcanicActivity.Fail();
+                Txt_Prompt.text = $"You failed!";
+            }
 
             //UI更新
             mLevelTween = DOTween.To(() => _recordStreakWinNum,
