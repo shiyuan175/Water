@@ -44,6 +44,11 @@ namespace QFramework.Example
 				GameActivityManager.Instance.RegisterActivity<VolcanicActivity>();
 			}
 
+            if (currentLevel == GameConst.RA_BEGIN_LEVEL)
+            {
+                GameActivityManager.Instance.RegisterActivity<RocketActivity>();
+            }
+
             //通过第七关开启连胜活动
             if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)
             {
@@ -138,6 +143,24 @@ namespace QFramework.Example
                 }
                 return false;
             });
+
+            //火箭活动
+            PanelQueueManager.Instance.Enqueue(() =>
+            {
+                if (GameActivityManager.Instance.GetActivity<RocketActivity>() is RocketActivity rocketActivity &&
+                rocketActivity.ActivityStatus == GameActivityStatus.Active)
+                {
+                    UIKit.OpenPanel<UIRocketActivity>(new UIRocketActivityData()
+                    {
+                        isSuceed = true,
+                        IsManagedOpen = true
+                    });
+                    return true;
+                }
+
+                return false;
+            });
+
             //...其他活动等
 
             //最后结算界面

@@ -49,12 +49,12 @@ public abstract class BaseGameActivity : IGameActivity, ICanGetModel, ICanGetUti
     /// </summary>
     public abstract void CoolDownActivityInit();
 
-    public void StartActivity()
+    public virtual void StartActivity()
     {
         CountDownTimerManager.Instance.StartTimer(ActivitySign, ActivityDurationMinutes);
     }
 
-    public void RestartActivity()
+    public virtual void RestartActivity()
     {
         //Debug.Log("重启活动");
         RestartActivityInit();
@@ -62,7 +62,7 @@ public abstract class BaseGameActivity : IGameActivity, ICanGetModel, ICanGetUti
         CountDownTimerManager.Instance.DeleteTimer(ActivityCooldownSign);
     }
 
-    public void CoolDownActivity()
+    public virtual void CoolDownActivity()
     {
         //Debug.Log("开启冷却");
         CoolDownActivityInit();

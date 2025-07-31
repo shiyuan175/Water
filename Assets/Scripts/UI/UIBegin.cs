@@ -40,7 +40,7 @@ namespace QFramework.Example
         private SaveDataUtility saveData;
         private SceneUnlockModel mSceneUnlockModel;
         private VolcanicActivity mVolcanicActivity;
-
+        private RocketActivity mRocketActivity;
 
         public IArchitecture GetArchitecture()
         {
@@ -61,6 +61,8 @@ namespace QFramework.Example
             saveData = this.GetUtility<SaveDataUtility>();
             mSceneUnlockModel = this.GetModel<SceneUnlockModel>();
             mVolcanicActivity = GameActivityManager.Instance.GetActivity<VolcanicActivity>();
+            mRocketActivity = GameActivityManager.Instance.GetActivity<RocketActivity>();
+
             LevelManager.Instance.InitBottle();
             mTxtCoinAdd = TxtCoinAdd.GetComponent<TextMeshProUGUI>();
            
@@ -113,6 +115,11 @@ namespace QFramework.Example
             {
                 TxtVolcanicActivity.text = mVolcanicActivity.GetActivityReamingTime();
             }
+
+            if (BtnRANode.gameObject.activeSelf && mRocketActivity != null)
+            {
+                TxtRocketActivity.text = mRocketActivity.GetActivityReamingTime();
+            }
         }
 
         //按钮监听
@@ -164,6 +171,12 @@ namespace QFramework.Example
             BtnVANode.onClick.AddListener(() =>
             {
                 UIKit.OpenPanel<UIVolcanicActivityEntrance>();
+            });
+
+            BtnRANode.onClick.RemoveAllListeners();
+            BtnRANode.onClick.AddListener(() =>
+            {
+                UIKit.OpenPanel<UIRocketActivity>();
             });
 
             //底部区域按钮监听
@@ -362,7 +375,6 @@ namespace QFramework.Example
         /// </summary>
         private void SetActivity(OnActivityStatusChanged eventData)
         {
-            //统一由所有活动Tick状态变更发送事件驱动活动入口开关
             //Debug.Log("收到事件、状态：" + eventData.Status);
             var _activity = eventData.Sender;
             if (_activity is VolcanicActivity)
@@ -370,6 +382,13 @@ namespace QFramework.Example
                 if (mVolcanicActivity == null)
                     mVolcanicActivity = _activity as VolcanicActivity;
                 BtnVANode.gameObject.SetActive(eventData.Status == GameActivityStatus.Active);
+            }
+
+            else if (_activity is RocketActivity)
+            {
+                if (mRocketActivity == null)
+                    mRocketActivity = _activity as RocketActivity;
+                BtnRANode.gameObject.SetActive(eventData.Status == GameActivityStatus.Active);
             }
             //...Other Activity
         }

@@ -6,7 +6,7 @@ using System.Globalization;
 
 public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
 {
-    private static readonly string COUNTDOWN_TIMER_SIGN = "CountDownTimer_";
+    public static readonly string COUNTDOWN_TIMER_SIGN = "CountDownTimer_";
     private readonly Dictionary<string, CountDownTimer> timers = new();
 
     public class CountDownTimer

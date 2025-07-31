@@ -10,7 +10,7 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
     private const int VA_REWARD_COUNT_COINS = 10000;
 
     private bool isInit = false;
-    private SaveDataUtility stroge;
+    private SaveDataUtility storage;
 
     //火山活动连胜次数
     private BindableProperty<int> mVAStreakWinNum;
@@ -27,19 +27,19 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
         if (!isInit)
         {
             //Debug.Log("数据初始化");
-            stroge = this.GetUtility<SaveDataUtility>();
+            storage = this.GetUtility<SaveDataUtility>();
             mVAStreakWinNum = new BindableProperty<int>();
             mVACountPlayerNum = new BindableProperty<int>();
 
-            mVAStreakWinNum.SetValueWithoutEvent(stroge.LoadIntValue(VA_STREAK_WIN_NUM_SIGN));
+            mVAStreakWinNum.SetValueWithoutEvent(storage.LoadIntValue(VA_STREAK_WIN_NUM_SIGN));
             mVAStreakWinNum.Register(value =>
             {
-                stroge.SaveInt(VA_STREAK_WIN_NUM_SIGN, value);
+                storage.SaveInt(VA_STREAK_WIN_NUM_SIGN, value);
             });
-            mVACountPlayerNum.SetValueWithoutEvent(stroge.LoadIntValue(VA_COUNT_PLAY_NUM_SIGN, 100));
+            mVACountPlayerNum.SetValueWithoutEvent(storage.LoadIntValue(VA_COUNT_PLAY_NUM_SIGN, 100));
             mVACountPlayerNum.Register(value =>
             {
-                stroge.SaveInt(VA_COUNT_PLAY_NUM_SIGN, value);
+                storage.SaveInt(VA_COUNT_PLAY_NUM_SIGN, value);
             });
             isInit = true;
         }

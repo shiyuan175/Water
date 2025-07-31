@@ -20,7 +20,8 @@ namespace GameDefine
         //第八关开启连胜相关功能(连胜段位\连胜去黑\主页连胜活动...)
         public const int WIN_STREAK_BEGIN_LEVEL = 8;
         //活动开启目标关卡
-        public const int VA_BEGIN_LEVEL = 7;
+        public const int VA_BEGIN_LEVEL = 7;    //火山活动
+        public const int RA_BEGIN_LEVEL = 24;   //火箭活动
         //...
 
         //连胜去黑(最高三档)

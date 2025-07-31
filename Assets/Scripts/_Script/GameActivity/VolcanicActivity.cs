@@ -55,8 +55,7 @@ public class VolcanicActivity : BaseGameActivity
 
         //只在活动首次解锁时手动开启
         if (ActivityStatus == GameActivityStatus.WaitStart
-            //CountDownTimer_为所有计时器前缀
-            && !PlayerPrefs.HasKey("CountDownTimer_" + ActivityCooldownSign))
+            && !PlayerPrefs.HasKey(CountDownTimerManager.COUNTDOWN_TIMER_SIGN + ActivityCooldownSign))
         {
             //如果已有计时器则会失效(会由Tick驱动重启)
             StartActivity();

@@ -128,6 +128,23 @@ namespace QFramework.Example
                 }
                 return false;
             });
+
+            //火箭活动
+            PanelQueueManager.Instance.Enqueue(() =>
+            {
+                if (GameActivityManager.Instance.GetActivity<RocketActivity>() is RocketActivity rocketActivity &&
+                rocketActivity.ActivityStatus == GameActivityStatus.Active)
+                {
+                    UIKit.OpenPanel<UIRocketActivity>(new UIRocketActivityData()
+                    {
+                        isSuceed = false,
+                        IsManagedOpen = true
+                    });
+                    return true;
+                }
+
+                return false;
+            });
             //...其他活动等
 
             //开启

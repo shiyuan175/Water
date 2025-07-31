@@ -102,11 +102,11 @@ namespace QFramework.Example
 
             //UI¸üÐÂ
             mLevelTween = DOTween.To(() => _recordStreakWinNum,
-                 x => Txt_Levels.text = $"{(int)x}/{VA_MAX_STREAK_WIN_NUM}",
+                 x => Txt_Levels.text = $"{x}/{VA_MAX_STREAK_WIN_NUM}",
                 mVolcanicActivity.VAStreakWinNum,1f);
 
             mPlayerTween = DOTween.To(() => _recordPlayerNum,
-                x => Txt_Players.text = $"{(int)x}/{VA_MAX_PLAYER_NUM}",
+                x => Txt_Players.text = $"{x}/{VA_MAX_PLAYER_NUM}",
                 mVolcanicActivity.VACurrentPlayerNum,1f);
 
             _headNodeCtrl.Jump(_curStep, _action);
