@@ -1,4 +1,4 @@
-bomp-导出.png
+bomp.png
 size:1015,1003
 filter:Linear,Linear
 pma:true
@@ -188,7 +188,7 @@ bounds:9,997,4,5
 offsets:103,139,120,218
 rotate:90
 
-bomp-导出_2.png
+bomp2.png
 size:978,442
 filter:Linear,Linear
 pma:true

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: skeleton_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 928df34558be8aa4f814c8764b48b191, type: 2}
+  - {fileID: 11400000, guid: 4fb5bcf8bac6b354ab8157891c172858, type: 2}
   scale: 0.01
   skeletonJSON: {fileID: 4900000, guid: 7116288d54c167c4ca353dfe7c91352e, type: 3}
   isUpgradingBlendModeMaterials: 0
@@ -23,11 +23,11 @@ MonoBehaviour:
     additiveMaterials: []
     multiplyMaterials: []
     screenMaterials:
-    - pageName: "bomp-\u5BFC\u51FA.png"
-      material: {fileID: 2100000, guid: 088309670b17c7945b81c8bdbb01dbae, type: 2}
+    - pageName: bomp.png
+      material: {fileID: 2100000, guid: cb5421cae06c20a49a41263a5ebd86dc, type: 2}
   skeletonDataModifiers: []
   fromAnimation: []
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 9100000, guid: 2474b58065b43b248bfb811da298430c, type: 2}
+  controller: {fileID: 0}
