@@ -65,7 +65,9 @@ namespace QFramework.Example
 
             LevelManager.Instance.InitBottle();
             mTxtCoinAdd = TxtCoinAdd.GetComponent<TextMeshProUGUI>();
-           
+
+            InitTxtFont();
+
             int currentLevel = saveData.GetCurrentLevel();
             if (currentLevel <= 5)
             {
@@ -120,6 +122,14 @@ namespace QFramework.Example
             {
                 TxtRocketActivity.text = mRocketActivity.GetActivityReamingTime();
             }
+        }
+
+        private void InitTxtFont()
+        {
+            TxtImgprogress.font = LevelManager.Instance.blueFont;
+            TxtImgprogress.font.material.shader = Shader.Find(TxtImgprogress.font.material.shader.name);
+            TxtArea.font = LevelManager.Instance.redFont;
+            TxtCoinAdd.GetComponent<TMPro.TextMeshProUGUI>().font = LevelManager.Instance.redFont;
         }
 
         //按钮监听
@@ -233,6 +243,7 @@ namespace QFramework.Example
             //胜利结算=》返回主页事件
             this.RegisterEvent<LevelClearEvent>(e =>
             {
+                LevelManager.Instance.InitBottle();
                 BottomMenuBtns.Show();
                 HomeNode.Show();
                 AudioKit.ResumeMusic();
@@ -242,6 +253,7 @@ namespace QFramework.Example
 
             this.RegisterEvent<ReturnMainEvent>(e =>
             {
+                LevelManager.Instance.InitBottle();
                 BottomMenuBtns.Show();
                 HomeNode.Show();
                 AudioKit.ResumeMusic();

@@ -14,6 +14,7 @@ public class PropRewardPoolNode : MonoBehaviour
     {
         propImage = GetComponent<Image>();
         propNumText = GetComponentInChildren<TextMeshProUGUI>();
+        propNumText.font = LevelManager.Instance.blueFont;
     }
 
     /// <summary>

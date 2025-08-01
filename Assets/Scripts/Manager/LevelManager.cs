@@ -133,10 +133,12 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     /// </summary>
     public void InitBottle()
     {
-        foreach (var item in bottles)
-        {
-            item.Init(emptyBottle, 0);
-        }
+        TopBottleLayoutGroup.Hide();
+        BottomBottleLayoutGroup.Hide();
+        //foreach (var item in bottles)
+        //{
+        //    item.Init(emptyBottle, 0);
+        //}
     }
 
     /// <summary>
@@ -807,6 +809,8 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
 
         nowHalf = null;
 
+        TopBottleLayoutGroup.Show();
+        BottomBottleLayoutGroup.Show();
         InitLevels(levelInfo);
     }
 

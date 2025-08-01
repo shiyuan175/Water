@@ -3,6 +3,7 @@ using QFramework;
 using DG.Tweening;
 using UnityEngine.UI;
 using GameDefine;
+using UnityEditor;
 
 namespace QFramework.Example
 {
@@ -29,6 +30,9 @@ namespace QFramework.Example
             stageModel = this.GetModel<StageModel>();
             potionActivityModel = this.GetModel<PotionActivityModel>();
             countDownTimerManager = CountDownTimerManager.Instance;
+
+            TextProgress.font = LevelManager.Instance.blueFont;
+
             mCacheProgress = potionActivityModel.PotionActivityProgress;
             mCacheGoal = potionActivityModel.PotionActivityGoal;
             TextProgress.text = $"{mCacheGoal}/{TARGER_GOALS[mCacheProgress]}";

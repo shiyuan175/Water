@@ -124,6 +124,11 @@ namespace QAssetBundle
         public const string BundleName = "uiretry_prefab";
         public const string UIRetry = "UIRetry";
     }
+    public class Uirocketactivity_prefab
+    {
+        public const string BundleName = "uirocketactivity_prefab";
+        public const string UIRocketActivity = "UIRocketActivity";
+    }
     public class Uishop_prefab
     {
         public const string BundleName = "uishop_prefab";

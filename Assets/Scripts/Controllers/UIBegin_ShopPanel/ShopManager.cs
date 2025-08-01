@@ -10,6 +10,9 @@ namespace QFramework.Example
 	public partial class ShopManager : ViewController, IController
 	{
         [SerializeField] private List<Button> buyGiftPackBtns;
+        [SerializeField] private List<TMPro.TextMeshProUGUI> mRedTMP;
+        [SerializeField] private List<TMPro.TextMeshProUGUI> mBlueTMP;
+        [SerializeField] private List<TMPro.TextMeshProUGUI> mGreenTMP;
 
         private GooglePayManager googlePay;
         private Dictionary<string ,Action> giftPackBuySuccessActions;
@@ -17,6 +20,21 @@ namespace QFramework.Example
 
         private void Awake()
         {
+            foreach (var item in mRedTMP)
+            {
+                item.font = LevelManager.Instance.redFont;
+            }
+
+            foreach (var item in mBlueTMP)
+            {
+                item.font = LevelManager.Instance.blueFont;
+            }
+
+            foreach (var item in mGreenTMP)
+            {
+                item.font = LevelManager.Instance.greenFont;
+            }
+
             googlePay = GooglePayManager.Instance;
             stageModel = this.GetModel<StageModel>();
 

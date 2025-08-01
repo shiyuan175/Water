@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3492237135661723608}
   - component: {fileID: 2402013473427495159}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $19.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -716,7 +716,7 @@ GameObject:
   - component: {fileID: 1652009317523486096}
   - component: {fileID: 3815132221903002181}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -771,8 +771,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1074,7 +1074,7 @@ GameObject:
   - component: {fileID: 197980299938586234}
   - component: {fileID: 8460451110032901353}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1129,8 +1129,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X18
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1208,7 +1208,7 @@ GameObject:
   - component: {fileID: 2523399326035599152}
   - component: {fileID: 2575447560995009405}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1263,8 +1263,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1692,6 +1692,80 @@ MonoBehaviour:
   - {fileID: 9084483866418774125}
   - {fileID: 4845425986385519186}
   - {fileID: 2805002603917437823}
+  mRedTMP:
+  - {fileID: 4050410626069494063}
+  - {fileID: 7576788947343703911}
+  - {fileID: 1798739938286791649}
+  - {fileID: 7128601813140670850}
+  - {fileID: 2575447560995009405}
+  - {fileID: 4069621823385761174}
+  - {fileID: 8634564330007147872}
+  - {fileID: 7250631791090686179}
+  - {fileID: 6995792884296951877}
+  - {fileID: 8675504901498129759}
+  - {fileID: 6610754982751887959}
+  - {fileID: 6095665363024649780}
+  - {fileID: 3815132221903002181}
+  - {fileID: 5963027465007024862}
+  - {fileID: 7759111310077162670}
+  - {fileID: 922916334162329181}
+  - {fileID: 3485574428057472736}
+  - {fileID: 6110529778692107108}
+  - {fileID: 4146172660846001145}
+  - {fileID: 8775459426654096607}
+  - {fileID: 8659272226999862579}
+  - {fileID: 5119025685541892268}
+  - {fileID: 8369349418232560906}
+  - {fileID: 6495613228783711606}
+  - {fileID: 3098036771640577688}
+  - {fileID: 3351094462584062976}
+  - {fileID: 5720075629899954492}
+  - {fileID: 4538965240616463512}
+  - {fileID: 1612173967289788700}
+  - {fileID: 1002841958843324893}
+  - {fileID: 8673617423132983124}
+  - {fileID: 800720925959174665}
+  - {fileID: 5240786394265440866}
+  - {fileID: 1159427438301067964}
+  - {fileID: 3274265928749368532}
+  - {fileID: 4605955863418581346}
+  - {fileID: 1103052397467502498}
+  - {fileID: 8460451110032901353}
+  - {fileID: 5861758141690531673}
+  - {fileID: 3383904309322860190}
+  - {fileID: 1044624515625927600}
+  - {fileID: 8414394174840495212}
+  - {fileID: 8559733341801523303}
+  - {fileID: 6602691383038364851}
+  - {fileID: 2841713125887933673}
+  - {fileID: 7233780151552255162}
+  - {fileID: 771771128877864754}
+  - {fileID: 1861864783528130936}
+  - {fileID: 6391567654093452322}
+  - {fileID: 4752254771571625068}
+  - {fileID: 2300104165447829677}
+  - {fileID: 8260108214061782833}
+  - {fileID: 8816363248022217750}
+  - {fileID: 4794532258298273878}
+  - {fileID: 2626803967581042521}
+  - {fileID: 7959316018964649316}
+  mBlueTMP:
+  - {fileID: 2158845668624675765}
+  - {fileID: 7337292556376623380}
+  mGreenTMP:
+  - {fileID: 6502470351470954304}
+  - {fileID: 4961064279309993882}
+  - {fileID: 8640380934934381381}
+  - {fileID: 664712122372651491}
+  - {fileID: 4813972671537235302}
+  - {fileID: 3353830695472935795}
+  - {fileID: 4543584406758171780}
+  - {fileID: 8008364862895143125}
+  - {fileID: 5709818435710043799}
+  - {fileID: 6904142424222865908}
+  - {fileID: 2402013473427495159}
+  - {fileID: 699066929406773381}
+  - {fileID: 1512398825249995819}
   ShopScrollView: {fileID: 3682217519987241380}
 --- !u!1 &532343042885851597
 GameObject:
@@ -1907,7 +1981,7 @@ GameObject:
   - component: {fileID: 1503692314588821556}
   - component: {fileID: 7233780151552255162}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1962,8 +2036,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X36
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2194,7 +2268,7 @@ GameObject:
   - component: {fileID: 1509557594882968001}
   - component: {fileID: 4813972671537235302}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2249,8 +2323,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $19.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2404,7 +2478,7 @@ GameObject:
   - component: {fileID: 4496937756831433245}
   - component: {fileID: 3353830695472935795}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2459,8 +2533,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $49.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2944,7 +3018,7 @@ GameObject:
   - component: {fileID: 8728527548185129334}
   - component: {fileID: 6391567654093452322}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2999,8 +3073,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 72h
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3189,7 +3263,7 @@ GameObject:
   - component: {fileID: 2872856540310637700}
   - component: {fileID: 5720075629899954492}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3244,8 +3318,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 8 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3907,7 +3981,7 @@ GameObject:
   - component: {fileID: 8563574461015510264}
   - component: {fileID: 1798739938286791649}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3962,8 +4036,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4192,7 +4266,7 @@ GameObject:
   - component: {fileID: 4708411487256027969}
   - component: {fileID: 6904142424222865908}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4247,8 +4321,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $9.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5271,7 +5345,7 @@ GameObject:
   - component: {fileID: 8246183189096310569}
   - component: {fileID: 8673617423132983124}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5326,8 +5400,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X8
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5742,7 +5816,7 @@ GameObject:
   - component: {fileID: 7744238767402402799}
   - component: {fileID: 8640380934934381381}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5797,8 +5871,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $4.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6623,7 +6697,7 @@ GameObject:
   - component: {fileID: 753274619044867317}
   - component: {fileID: 1861864783528130936}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6678,8 +6752,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X10
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7061,7 +7135,7 @@ GameObject:
   - component: {fileID: 7105386018016385762}
   - component: {fileID: 1512398825249995819}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7116,8 +7190,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $99.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7195,7 +7269,7 @@ GameObject:
   - component: {fileID: 1587533910356371188}
   - component: {fileID: 1766379751257594446}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Txt_Setting_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7250,8 +7324,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: setting
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0d820a8e9bff07940a4639533827f1c6, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: 0d820a8e9bff07940a4639533827f1c6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7329,7 +7403,7 @@ GameObject:
   - component: {fileID: 2493498533492102945}
   - component: {fileID: 6995792884296951877}
   m_Layer: 5
-  m_Name: Text (2)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7384,8 +7458,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: OFF
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7463,7 +7537,7 @@ GameObject:
   - component: {fileID: 4332105134177657985}
   - component: {fileID: 6610754982751887959}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7518,8 +7592,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 2 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7597,7 +7671,7 @@ GameObject:
   - component: {fileID: 4659055127210866745}
   - component: {fileID: 7337292556376623380}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7652,8 +7726,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Coins
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0d820a8e9bff07940a4639533827f1c6, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: 0d820a8e9bff07940a4639533827f1c6, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8453,7 +8527,7 @@ GameObject:
   - component: {fileID: 4925777349607192748}
   - component: {fileID: 2158845668624675765}
   m_Layer: 5
-  m_Name: Text (2)
+  m_Name: Txt_Shop_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8508,8 +8582,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Best Offer
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0d820a8e9bff07940a4639533827f1c6, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: 0d820a8e9bff07940a4639533827f1c6, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8683,7 +8757,7 @@ GameObject:
   - component: {fileID: 789415730114275066}
   - component: {fileID: 5119025685541892268}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8738,8 +8812,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10059,7 +10133,7 @@ GameObject:
   - component: {fileID: 5084266063131720236}
   - component: {fileID: 1159427438301067964}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10114,8 +10188,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Wizard Bundle
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10578,7 +10652,7 @@ GameObject:
   - component: {fileID: 6271289628697530570}
   - component: {fileID: 8369349418232560906}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10633,8 +10707,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10859,7 +10933,7 @@ GameObject:
   - component: {fileID: 7121167970349093003}
   - component: {fileID: 664712122372651491}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10914,8 +10988,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $9.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10993,7 +11067,7 @@ GameObject:
   - component: {fileID: 7647971414333781227}
   - component: {fileID: 4794532258298273878}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11048,8 +11122,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 8 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11202,7 +11276,7 @@ GameObject:
   - component: {fileID: 982275494134657488}
   - component: {fileID: 5861758141690531673}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11257,8 +11331,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X18
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11412,7 +11486,7 @@ GameObject:
   - component: {fileID: 404160341599848413}
   - component: {fileID: 3351094462584062976}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11467,8 +11541,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Wizard Bundle
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11622,7 +11696,7 @@ GameObject:
   - component: {fileID: 5378443079532438222}
   - component: {fileID: 5709818435710043799}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11677,8 +11751,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $4.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11756,7 +11830,7 @@ GameObject:
   - component: {fileID: 1854694246448404596}
   - component: {fileID: 8559733341801523303}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11811,8 +11885,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 60 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11890,7 +11964,7 @@ GameObject:
   - component: {fileID: 5680753238559152808}
   - component: {fileID: 4050410626069494063}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11945,8 +12019,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Special Offers
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12513,7 +12587,7 @@ GameObject:
   - component: {fileID: 2942586269721467860}
   - component: {fileID: 4961064279309993882}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12568,8 +12642,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 90%
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12632,7 +12706,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4106736703743305201
@@ -12647,7 +12721,7 @@ GameObject:
   - component: {fileID: 8775834215928931932}
   - component: {fileID: 4752254771571625068}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12702,8 +12776,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Wizard Bundle
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12781,7 +12855,7 @@ GameObject:
   - component: {fileID: 4100978433587376836}
   - component: {fileID: 8659272226999862579}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12836,8 +12910,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12915,7 +12989,7 @@ GameObject:
   - component: {fileID: 4875893623500561903}
   - component: {fileID: 7759111310077162670}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12970,8 +13044,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13124,7 +13198,7 @@ GameObject:
   - component: {fileID: 1477108832208297161}
   - component: {fileID: 922916334162329181}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13179,8 +13253,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 3h
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13258,7 +13332,7 @@ GameObject:
   - component: {fileID: 3212708642963857823}
   - component: {fileID: 3274265928749368532}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13313,8 +13387,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 20 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13696,7 +13770,7 @@ GameObject:
   - component: {fileID: 6444470113932979034}
   - component: {fileID: 4538965240616463512}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13751,8 +13825,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X8
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13830,7 +13904,7 @@ GameObject:
   - component: {fileID: 4984853648722670801}
   - component: {fileID: 5240786394265440866}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13885,8 +13959,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 12h
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13964,7 +14038,7 @@ GameObject:
   - component: {fileID: 4973033477385201000}
   - component: {fileID: 2300104165447829677}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14019,8 +14093,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14098,7 +14172,7 @@ GameObject:
   - component: {fileID: 4887300282251872670}
   - component: {fileID: 1612173967289788700}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14153,8 +14227,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X8
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14324,7 +14398,7 @@ GameObject:
   - component: {fileID: 4679703719921098018}
   - component: {fileID: 7959316018964649316}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14379,8 +14453,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 60 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14776,7 +14850,7 @@ GameObject:
   - component: {fileID: 3040251227120852985}
   - component: {fileID: 2626803967581042521}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14831,8 +14905,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 20 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15214,7 +15288,7 @@ GameObject:
   - component: {fileID: 3609328493481600596}
   - component: {fileID: 7576788947343703911}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15269,8 +15343,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15746,7 +15820,7 @@ GameObject:
   - component: {fileID: 8481275170580894534}
   - component: {fileID: 8634564330007147872}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15801,8 +15875,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1h
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15880,7 +15954,7 @@ GameObject:
   - component: {fileID: 2334543951370686035}
   - component: {fileID: 4069621823385761174}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15935,8 +16009,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -16014,7 +16088,7 @@ GameObject:
   - component: {fileID: 2056103396800600881}
   - component: {fileID: 6495613228783711606}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16069,8 +16143,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -16724,7 +16798,7 @@ GameObject:
   - component: {fileID: 6889425369399610494}
   - component: {fileID: 8775459426654096607}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16779,8 +16853,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -17084,7 +17158,7 @@ GameObject:
   - component: {fileID: 1066002069268538343}
   - component: {fileID: 2841713125887933673}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17139,8 +17213,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X36
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -17272,10 +17346,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 7/10
+  m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0d820a8e9bff07940a4639533827f1c6, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: 0d820a8e9bff07940a4639533827f1c6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -17369,7 +17443,7 @@ GameObject:
   - component: {fileID: 3010800858135271158}
   - component: {fileID: 7128601813140670850}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17424,8 +17498,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -17637,8 +17711,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: +20
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -17829,7 +17903,7 @@ GameObject:
   - component: {fileID: 7521358820255892895}
   - component: {fileID: 771771128877864754}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17884,8 +17958,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X36
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -17963,7 +18037,7 @@ GameObject:
   - component: {fileID: 4160561279095069282}
   - component: {fileID: 4543584406758171780}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18018,8 +18092,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $99.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -18173,7 +18247,7 @@ GameObject:
   - component: {fileID: 2332364133946280769}
   - component: {fileID: 7250631791090686179}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18228,8 +18302,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Wizard Bundle
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -18533,7 +18607,7 @@ GameObject:
   - component: {fileID: 900174791800148376}
   - component: {fileID: 8008364862895143125}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18588,8 +18662,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $0.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -19075,7 +19149,7 @@ GameObject:
   - component: {fileID: 874562810312232993}
   - component: {fileID: 6502470351470954304}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19130,8 +19204,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $0.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -20815,7 +20889,7 @@ GameObject:
   - component: {fileID: 4572926712044826093}
   - component: {fileID: 1044624515625927600}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20870,8 +20944,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 36h
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -21211,7 +21285,7 @@ GameObject:
   - component: {fileID: 6923903615407356528}
   - component: {fileID: 3485574428057472736}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21266,8 +21340,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Wizard Bundle
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -21711,7 +21785,7 @@ GameObject:
   - component: {fileID: 7453490116933891757}
   - component: {fileID: 800720925959174665}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21766,8 +21840,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X2
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -22127,7 +22201,7 @@ GameObject:
   - component: {fileID: 5055679956775683616}
   - component: {fileID: 1002841958843324893}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22182,8 +22256,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X8
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -22450,7 +22524,7 @@ GameObject:
   - component: {fileID: 8095027017789640612}
   - component: {fileID: 6095665363024649780}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22505,8 +22579,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -22697,7 +22771,7 @@ GameObject:
   - component: {fileID: 5429250970098651836}
   - component: {fileID: 8816363248022217750}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22752,8 +22826,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 4 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -22831,7 +22905,7 @@ GameObject:
   - component: {fileID: 950481118805123417}
   - component: {fileID: 8675504901498129759}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22886,8 +22960,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Magic Bundles
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -24577,7 +24651,7 @@ GameObject:
   - component: {fileID: 495890589048177298}
   - component: {fileID: 3098036771640577688}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24632,8 +24706,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 6h
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -25390,7 +25464,7 @@ GameObject:
   - component: {fileID: 8844034999681898442}
   - component: {fileID: 6110529778692107108}
   m_Layer: 5
-  m_Name: Text (2)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25445,8 +25519,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: popular
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -25675,7 +25749,7 @@ GameObject:
   - component: {fileID: 3310278339481202669}
   - component: {fileID: 8414394174840495212}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25730,8 +25804,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Wizard Bundle
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -25809,7 +25883,7 @@ GameObject:
   - component: {fileID: 2685019863041248035}
   - component: {fileID: 1103052397467502498}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25864,8 +25938,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X18
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -26211,7 +26285,7 @@ GameObject:
   - component: {fileID: 7014187068476434527}
   - component: {fileID: 5963027465007024862}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26266,8 +26340,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -26421,7 +26495,7 @@ GameObject:
   - component: {fileID: 6147158280355408528}
   - component: {fileID: 4146172660846001145}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26476,8 +26550,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 4 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -26784,7 +26858,7 @@ GameObject:
   - component: {fileID: 6571232706118568793}
   - component: {fileID: 6602691383038364851}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26839,8 +26913,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X36
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -27145,7 +27219,7 @@ GameObject:
   - component: {fileID: 5678982314654442554}
   - component: {fileID: 3383904309322860190}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27200,8 +27274,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X5
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -27427,7 +27501,7 @@ GameObject:
   - component: {fileID: 1803028109741403764}
   - component: {fileID: 4605955863418581346}
   m_Layer: 5
-  m_Name: TxtNum
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27482,8 +27556,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: X18
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -27641,7 +27715,7 @@ GameObject:
   - component: {fileID: 8017151898148212347}
   - component: {fileID: 8260108214061782833}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27696,8 +27770,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 2 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -28077,7 +28151,7 @@ GameObject:
   - component: {fileID: 4318385064746225961}
   - component: {fileID: 699066929406773381}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Txt_Shop_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28132,8 +28206,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $49.99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
