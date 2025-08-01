@@ -999,20 +999,20 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     /// </summary>
     public bool BombUpdate(BottleCtrl bottleCtrl = null)
     {
-
+        bool flag = false;
         foreach (var bottle in bottles)
         { 
             bottle.UpdateBomb(bottleCtrl);
 
             if (bottle.CheckBoomFailure())
-                return true;
+                flag = true;
            
                 
            
            
             //bottle.SetBottleColor();
         }
-        return false;
+        return flag;
     }
 
 
