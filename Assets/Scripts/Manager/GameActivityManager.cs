@@ -34,6 +34,10 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<RocketActivity>();
         }
+        if (_curLevel >= GameDefine.GameConst.HTA_BEGIN_LEVEL)
+        {
+            RegisterActivity<HighTowerActivity>();
+        }
         //Other Activities can be registered here based on level or other conditions
 
     }

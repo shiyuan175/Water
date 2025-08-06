@@ -87,9 +87,4 @@ public class VolcanicActivity : BaseGameActivity
         //在这重置数据，会导致触发失败之后数据就重置，引起后面流程错误
         //mVolcanicActivityModel.ReloadVolcanicActivity();
     }
-
-    public override void Tick() 
-    {
-        base.Tick();
-    }
 }

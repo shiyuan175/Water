@@ -38,24 +38,6 @@ namespace QFramework.Example
 
 		protected override void OnShow()
 		{
-            int currentLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-            if (currentLevel == GameConst.VA_BEGIN_LEVEL)
-			{
-				GameActivityManager.Instance.RegisterActivity<VolcanicActivity>();
-			}
-
-            if (currentLevel == GameConst.RA_BEGIN_LEVEL)
-            {
-                GameActivityManager.Instance.RegisterActivity<RocketActivity>();
-            }
-
-            //通过第七关开启连胜活动
-            if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)
-            {
-                StringEventSystem.Global.Send(GameConst.START_POTION_ACTIVITY);
-                //开启排行榜活动
-                CountDownTimerManager.Instance.StartTimer(GameConst.RANKA_ACTIVITY_SIGN, 1440f);
-            }
             //避免界面停留时过期
             mRankingEnd = CountDownTimerManager.Instance.IsTimerFinished(GameConst.RANKA_ACTIVITY_SIGN);
 
@@ -135,6 +117,22 @@ namespace QFramework.Example
                     && volcanicActivity.ActivityStatus == GameActivityStatus.Active)
                 {
                     UIKit.OpenPanel<UIVolcanicActivity>(new UIVolcanicActivityData()
+                    {
+                        isSuceed = true,
+                        IsManagedOpen = true,
+                    });
+                    return true;
+                }
+                return false;
+            });
+
+            //高塔活动
+            PanelQueueManager.Instance.Enqueue(() =>
+            {
+                if (GameActivityManager.Instance.GetActivity<HighTowerActivity>() is HighTowerActivity highTowerActivity
+                    && highTowerActivity.ActivityStatus == GameActivityStatus.Active)
+                {
+                    UIKit.OpenPanel<UIHighTowerActivity>(new UIHighTowerActivityData()
                     {
                         isSuceed = true,
                         IsManagedOpen = true,

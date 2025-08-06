@@ -41,6 +41,7 @@ namespace QFramework.Example
         private SceneUnlockModel mSceneUnlockModel;
         private VolcanicActivity mVolcanicActivity;
         private RocketActivity mRocketActivity;
+        private HighTowerActivity mHighTowerActivity;
 
         public IArchitecture GetArchitecture()
         {
@@ -62,6 +63,7 @@ namespace QFramework.Example
             mSceneUnlockModel = this.GetModel<SceneUnlockModel>();
             mVolcanicActivity = GameActivityManager.Instance.GetActivity<VolcanicActivity>();
             mRocketActivity = GameActivityManager.Instance.GetActivity<RocketActivity>();
+            mHighTowerActivity = GameActivityManager.Instance.GetActivity<HighTowerActivity>();
 
             LevelManager.Instance.InitBottle();
             mTxtCoinAdd = TxtCoinAdd.GetComponent<TextMeshProUGUI>();
@@ -121,6 +123,11 @@ namespace QFramework.Example
             if (BtnRANode.gameObject.activeSelf && mRocketActivity != null)
             {
                 TxtRocketActivity.text = mRocketActivity.GetActivityReamingTime();
+            }
+
+            if (BtnHTANode.gameObject.activeSelf && mHighTowerActivity != null)
+            {
+                TxtHighTowerActivity.text = mHighTowerActivity.GetActivityReamingTime();
             }
         }
 
@@ -187,6 +194,12 @@ namespace QFramework.Example
             BtnRANode.onClick.AddListener(() =>
             {
                 UIKit.OpenPanel<UIRocketActivity>();
+            });
+
+            BtnHTANode.onClick.RemoveAllListeners();
+            BtnHTANode.onClick.AddListener(() =>
+            {
+                UIKit.OpenPanel<UIHighTowerActivity>();
             });
 
             //µ×²¿ÇøÓò°´Å¥¼àÌý
@@ -401,6 +414,13 @@ namespace QFramework.Example
                 if (mRocketActivity == null)
                     mRocketActivity = _activity as RocketActivity;
                 BtnRANode.gameObject.SetActive(eventData.Status == GameActivityStatus.Active);
+            }
+
+            else if (_activity is HighTowerActivity)
+            {
+                if(mHighTowerActivity == null)
+                    mHighTowerActivity = _activity as HighTowerActivity;
+                BtnHTANode.gameObject.SetActive(eventData.Status == GameActivityStatus.Active);
             }
             //...Other Activity
         }

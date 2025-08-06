@@ -129,6 +129,22 @@ namespace QFramework.Example
                 return false;
             });
 
+            //高塔活动
+            PanelQueueManager.Instance.Enqueue(() =>
+            {
+                if (GameActivityManager.Instance.GetActivity<HighTowerActivity>() is HighTowerActivity highTowerActivity &&
+                highTowerActivity.ActivityStatus == GameActivityStatus.Active)
+                {
+                    UIKit.OpenPanel<UIHighTowerActivity>(new UIHighTowerActivityData()
+                    {
+                        isSuceed = false,
+                        IsManagedOpen = true
+                    });
+                    return true;
+                }
+                return false;
+            });
+
             //火箭活动
             PanelQueueManager.Instance.Enqueue(() =>
             {

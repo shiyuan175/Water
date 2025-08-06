@@ -15,7 +15,6 @@ namespace QFramework.Example
 	public partial class UIRocketActivity : UIPanel ,ICanSendEvent
 	{
         private const int REWARD_COIN = 1000;
-		private const int ROCKET_MAX_STREAK_WIN_NUM = 7;
 		//通过一关所上升高度
 		private const int RISE_HEIGHT = 60;
 
@@ -61,7 +60,7 @@ namespace QFramework.Example
             mPlayerCat.localPosition = new Vector2(mPlayerCat.localPosition.x, _playerStreakWin * RISE_HEIGHT);
             mRobot1Cat.localPosition = new Vector2(mRobot1Cat.localPosition.x, _robot1StreakWin * RISE_HEIGHT);
             mRobot2Cat.localPosition = new Vector2(mRobot2Cat.localPosition.x, _robot2StreakWin * RISE_HEIGHT);
-			Txt_Prompt.text = $"Beat {ROCKET_MAX_STREAK_WIN_NUM - _playerStreakWin} levels on your first try before others to win!";
+			Txt_Prompt.text = $"Beat {mRocketActivity.RAMaxStreakWinNum - _playerStreakWin} levels on your first try before others to win!";
 
 			if (mData.isSuceed == null)
 				return;
@@ -69,7 +68,7 @@ namespace QFramework.Example
             if ((bool)mData.isSuceed)
             {
                 mRocketActivity.StreakWin();
-                Txt_Prompt.text = $"Beat {ROCKET_MAX_STREAK_WIN_NUM - mRocketActivity.PlayerStreakWin} levels on your first try before others to win!";
+                Txt_Prompt.text = $"Beat {mRocketActivity.RAMaxStreakWinNum - mRocketActivity.PlayerStreakWin} levels on your first try before others to win!";
 
                 //防闭包
                 bool _playerWin = mRocketActivity.PlayWin;

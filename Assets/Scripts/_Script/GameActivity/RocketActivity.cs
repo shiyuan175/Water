@@ -30,6 +30,7 @@ public class RocketActivity : BaseGameActivity
         } 
     }
 
+    public int RAMaxStreakWinNum => mRocketActivityModel.RAMAxStreakWinNum;
     public int PlayerStreakWin => mRocketActivityModel.PlayerStreakWin;
     public int Robot1StreakWin => mRocketActivityModel.Robot1StreakWin;
     public int Robot2StreakWin => mRocketActivityModel.Robot2StreakWin;

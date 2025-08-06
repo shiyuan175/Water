@@ -379,7 +379,10 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         if (levelId < 5)
             StartGame(levelId + 1);
         else
+        {
+            this.SendCommand<RegisterActivitiesCommand>();
             UIKit.OpenPanel<UIVictory>();
+        }
     }
 
     /// <summary>
@@ -411,7 +414,10 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
             if (levelId < 5)
                 StartGame(levelId + 1);
             else
+            {
+                this.SendCommand<RegisterActivitiesCommand>();
                 UIKit.OpenPanel<UIVictory>();
+            }
         }
         else
             yield return null;

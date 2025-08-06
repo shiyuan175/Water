@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using QFramework;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class RewardItemManager : MonoSingleton<RewardItemManager>
 {

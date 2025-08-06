@@ -13,6 +13,7 @@ public class RocketActivityModel : AbstractModel
     private const string RA_STREAK_WIN_NUM_SIGN = "B_RocketActivityStreakWinNum";
     private const string DAILY_REFRESH_COUNT = "B_RocketActivityDailyRefreshCount";
 
+    public int RAMAxStreakWinNum => RA_MAX_STREAK_WIN_NUM;
     public int PlayerStreakWin => (mRAStreakWinNum.Value >> RA_PLAYER_PROGRESS_SHIFT) & RA_PROGRESS_MASK;
     public int Robot1StreakWin => (mRAStreakWinNum.Value >> RA_ROBOT1_PROGRESS_SHIFT) & RA_PROGRESS_MASK;
     public int Robot2StreakWin => mRAStreakWinNum.Value & RA_PROGRESS_MASK;
