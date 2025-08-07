@@ -27625,7 +27625,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1307849551}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6046b01a7ce8d2f4cb2520763de7d8e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 02c8f017afe14f6459e36ffe67c801ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RewardSprites:
@@ -39302,7 +39302,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: +20
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

@@ -132,7 +132,6 @@ namespace QFramework.Example
             TxtImgprogress.font = LevelManager.Instance.blueFont;
             TxtImgprogress.font.material.shader = Shader.Find(TxtImgprogress.font.material.shader.name);
             TxtArea.font = LevelManager.Instance.redFont;
-            TxtCoinAdd.GetComponent<TMPro.TextMeshProUGUI>().font = LevelManager.Instance.redFont;
         }
 
         //°´Å¥¼àÌý

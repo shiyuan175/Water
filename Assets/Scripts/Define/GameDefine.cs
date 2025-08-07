@@ -23,7 +23,7 @@ namespace GameDefine
         //活动开启目标关卡
         public const int VA_BEGIN_LEVEL = 7;    //火山活动
         public const int RA_BEGIN_LEVEL = 24;   //火箭活动
-        public const int HTA_BEGIN_LEVEL = 25;  //高塔活动(待定)
+        public const int HTA_BEGIN_LEVEL = 34;  //高塔活动
         //...
 
         //连胜去黑(最高三档)
