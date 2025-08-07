@@ -32,6 +32,7 @@ public class GameMainArc : Architecture<GameMainArc>
     private void RegisterUtilitys()
     {
         RegisterUtility(new SaveDataUtility());
+        RegisterUtility(new RewardGrantUtility());
         RegisterUtility(new LanguageUtility());
     }
 

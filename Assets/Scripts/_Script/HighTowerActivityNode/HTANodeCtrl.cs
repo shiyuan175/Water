@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -48,7 +49,7 @@ public class HTANodeCtrl : MonoBehaviour
         mProgressBar.fillAmount = _offset;
     }
 
-    public void PlayTween(bool playerWin, RewardPackSO rewardPackSO , StageModel stageModel)
+    public void PlayTween(bool playerWin, RewardPackSO rewardPackSO , Action grantReward)
     {
         //增加连胜数据
         if (playerWin)
@@ -59,26 +60,7 @@ public class HTANodeCtrl : MonoBehaviour
         if (mHTActivity.HTAStreakWinNum == mHTActivity.RewardStages[mCache_NextRewardStageIndex])
         {
             //Debug.Log("到达下一目标-------发放奖励");
-            CoinManager.Instance.AddCoin(rewardPackSO.Coins);
-            foreach (var item in rewardPackSO.ItemReward)
-            {
-                stageModel.AddItem(item.ItemIndex, item.Quantity);
-            }
-            foreach (var item in rewardPackSO.SpecialRewards)
-            {
-                switch (item.SpecialRewardType)
-                {
-                    case SpecialRewardsType.RemoveAds:
-                        Debug.Log("去除广告逻辑暂空");
-                        break;
-                    case SpecialRewardsType.DoubleCoin:
-                        CountDownTimerManager.Instance.AddTimer(GameDefine.GameConst.DOUBLE_COIN_SIGN, item.Duration);
-                        break;
-                    case SpecialRewardsType.UnlimitedHp:
-                        HealthManager.Instance.SetUnLimitHp(item.Duration);
-                        break;
-                }
-            }
+            grantReward?.Invoke();
         }
 
         if (playerWin)

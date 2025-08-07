@@ -17,6 +17,7 @@ namespace QFramework.Example
         [SerializeField] private GiftPackSO[] rewardPackSO;
         [SerializeField] private Sprite[] unlockSprites;
         private StageModel stageModel;
+        private RewardGrantUtility rewardGrantUtility;
         private SaveDataUtility saveDataUtility;
         private int getReward;
 
@@ -45,6 +46,7 @@ namespace QFramework.Example
             TxtUnlockProcess.font = LevelManager.Instance.blueFont;
 
             stageModel = this.GetModel<StageModel>();
+            rewardGrantUtility = this.GetUtility<RewardGrantUtility>();
             saveDataUtility = this.GetUtility<SaveDataUtility>();
         }
 
@@ -65,6 +67,7 @@ namespace QFramework.Example
 		{
             stageModel = null;
             saveDataUtility = null;
+            rewardGrantUtility = null;
             BtnClose.onClick.RemoveAllListeners();
             BtnContinue.onClick.RemoveAllListeners();
         }
@@ -116,12 +119,8 @@ namespace QFramework.Example
                     if (getReward >= 0 && getReward < rewardPackSO.Length)
                     {
                         var _packSO = rewardPackSO[getReward];
-                        StartCoroutine(RewardItemManager.Instance.PlayRewardAnim(_packSO));
-
-                        foreach (var item in _packSO.ItemReward)
-                        {
-                            stageModel.AddItem(item.ItemIndex, item.Quantity);
-                        }
+                        rewardGrantUtility.GrantReward(_packSO);
+                        StartCoroutine(RewardItemManager.Instance.PlayRewardAnim(_packSO, _packSO.Coins != 0));
                     }
                 }
             }

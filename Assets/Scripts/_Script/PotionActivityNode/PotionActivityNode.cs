@@ -14,7 +14,7 @@ namespace QFramework.Example
 
         private CountDownTimerManager countDownTimerManager;
         private PotionActivityModel potionActivityModel;
-        private StageModel stageModel;
+        private RewardGrantUtility rewardGrantUtility;
 
         private Sequence mProgressSequence;
 
@@ -27,7 +27,7 @@ namespace QFramework.Example
 
         private void Awake()
         {
-            stageModel = this.GetModel<StageModel>();
+            rewardGrantUtility = this.GetUtility<RewardGrantUtility>();
             potionActivityModel = this.GetModel<PotionActivityModel>();
             countDownTimerManager = CountDownTimerManager.Instance;
 
@@ -173,29 +173,7 @@ namespace QFramework.Example
                     () =>
                     {
                         //奖励发放
-                        foreach (var item in potionActivityPackSO[mCacheProgress].ItemReward)
-                        {
-                            stageModel.AddItem(item.ItemIndex, item.Quantity);
-                        }
-
-                        foreach (var item in potionActivityPackSO[mCacheProgress].SpecialRewards)
-                        {
-                            switch (item.SpecialRewardType)
-                            {
-                                case SpecialRewardsType.RemoveAds:
-                                    Debug.Log("去除广告逻辑暂空");
-                                    break;
-                                case SpecialRewardsType.DoubleCoin:
-                                    countDownTimerManager.AddTimer(GameDefine.GameConst.DOUBLE_COIN_SIGN, item.Duration);
-                                    break;
-                                case SpecialRewardsType.UnlimitedHp:
-                                    HealthManager.Instance.SetUnLimitHp(item.Duration);
-                                    break;
-                            }
-                        }
-
-                        if (potionActivityPackSO[mCacheProgress].Coins != 0)
-                            CoinManager.Instance.AddCoin(potionActivityPackSO[mCacheProgress].Coins);
+                        rewardGrantUtility.GrantReward(potionActivityPackSO[mCacheProgress]);
 
                         //活动进度更新
                         potionActivityModel.ReducePotionActivityGoal(TARGER_GOALS[mCacheProgress]);

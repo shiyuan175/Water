@@ -10,7 +10,7 @@ namespace QFramework.Example
         public bool? IsManagedOpen;
     }
 
-	public partial class UIHighTowerActivity : UIPanel ,ICanGetModel
+	public partial class UIHighTowerActivity : UIPanel ,ICanGetUtility
 	{
 		[SerializeField] private GameObject mStartNode;
         [SerializeField] private GameObject mEndNode;
@@ -52,7 +52,7 @@ namespace QFramework.Example
                 GameObject _prefabToUse = (_nextStage % 2 == 1) ? mBlueNode : mRedNode;
                 _node = Instantiate(_prefabToUse, mParNode).GetComponent<HTANodeCtrl>();
             }
-            Debug.Assert(_node != null, "HTANodeCtrl not found on instantiated node.");
+            //Debug.Assert(_node != null, "HTANodeCtrl not found on instantiated node.");
             _node.Init(mHighTowerActivity);
 
             if (mData.isSuceed == null)
@@ -60,8 +60,8 @@ namespace QFramework.Example
 
             //NextRewardStageIndex - 1(因为索引0是占位取不到)
             //NextRewardStageIndex会在数据变更之前使用
-            _node.PlayTween((bool)mData.isSuceed, mRewardPackSOs[mHighTowerActivity.NextRewardStageIndex - 1]
-                ,this.GetModel<StageModel>());
+            _node.PlayTween((bool)mData.isSuceed, mRewardPackSOs[mHighTowerActivity.NextRewardStageIndex - 1],
+                ()=>this.GetUtility<RewardGrantUtility>().GrantReward(mRewardPackSOs[mHighTowerActivity.NextRewardStageIndex - 1]));
         }
 		
 		protected override void OnHide()

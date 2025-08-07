@@ -16,7 +16,7 @@ namespace QFramework.Example
 	{
 	}
 
-	public partial class SceneUnlock1 : UIPanel, ICanGetModel, ICanSendEvent
+	public partial class SceneUnlock1 : UIPanel, ICanGetModel, ICanGetUtility, ICanSendEvent
 	{
         private const int PANEL_ID = 0;
 
@@ -73,7 +73,7 @@ namespace QFramework.Example
         [SerializeField] private RewardPackSO mRewardPackSO;
 
         private SceneUnlockModel mSceneUnlockModel;
-        private StageModel mStageModel;
+        private RewardGrantUtility mRewardGrantUtility;
         //用于维护Spine的回调监听和注销
         private SkeletonGraphic[] mUnActiveUnitSpines;
         private int startUnitIndex;
@@ -87,7 +87,7 @@ namespace QFramework.Example
 		protected override void OnOpen(IUIData uiData = null)
 		{
             mSceneUnlockModel = this.GetModel<SceneUnlockModel>();
-            mStageModel = this.GetModel<StageModel>();
+            mRewardGrantUtility = this.GetUtility<RewardGrantUtility>();
             GameDefine.GameUtils.SotrArray(mAllUnitSpines);
             GameDefine.GameUtils.SotrArray(mUnitImgs);
             GameDefine.GameUtils.SotrArray(mSpineCanvasGroups);
@@ -152,7 +152,7 @@ namespace QFramework.Example
             BtnReturen.onClick.RemoveAllListeners();
 
             mSceneUnlockModel = null;
-            mStageModel = null;
+            mRewardGrantUtility = null;
             mOnCompleteHandlers.Clear();
         }
 
@@ -278,11 +278,7 @@ namespace QFramework.Example
                 mSceneUnlockModel.AddSceneIndex();
                 UIKit.OpenPanel<UIMask>(UILevel.PopUI);
                 //先发送奖励，在播放动画
-                foreach (var item in mRewardPackSO.ItemReward)
-                {
-                    mStageModel.AddItem(item.ItemIndex, item.Quantity);
-                }
-                CoinManager.Instance.AddCoin(mRewardPackSO.Coins);
+                mRewardGrantUtility.GrantReward(mRewardPackSO);
             }
 
             FlightEffectsToBtn.Show();
