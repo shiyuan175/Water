@@ -1,226 +1,206 @@
 bomp.png
-size:1015,1003
+size:1019,975
 filter:Linear,Linear
 pma:true
 bomp
-bounds:912,777,100,111
+bounds:913,862,100,111
+bomp-1
+bounds:16,941,32,55
+rotate:90
+bomp-2
+bounds:73,941,32,55
+rotate:90
 buble
-bounds:181,532,125,124
+bounds:2,657,125,124
 offsets:8,9,140,140
 saoguang/saoguang_00002
-bounds:16,959,100,42
+bounds:130,931,100,42
 offsets:12,86,128,128
 saoguang/saoguang_00003
-bounds:197,956,112,45
+bounds:311,928,112,45
 offsets:7,83,128,128
 saoguang/saoguang_00004
-bounds:311,949,128,52
+bounds:425,921,128,52
 offsets:0,76,128,128
 saoguang/saoguang_00005
-bounds:539,946,128,55
+bounds:653,918,128,55
 offsets:0,73,128,128
 saoguang/saoguang_00006
-bounds:669,946,128,55
+bounds:783,918,128,55
 offsets:0,73,128,128
 saoguang/saoguang_00007
-bounds:799,941,128,60
+bounds:115,869,128,60
 offsets:0,68,128,128
 saoguang/saoguang_00008
-bounds:2,890,128,67
+bounds:245,859,128,67
 offsets:0,58,128,128
 saoguang/saoguang_00009
-bounds:392,866,128,79
+bounds:635,837,128,79
 offsets:0,44,128,128
 saoguang/saoguang_00010
-bounds:782,846,128,93
+bounds:132,764,128,93
 offsets:0,22,128,128
 saoguang/saoguang_00011
-bounds:2,795,128,93
+bounds:262,753,128,93
 offsets:0,22,128,128
 saoguang/saoguang_00012
-bounds:392,759,128,105
+bounds:652,725,128,105
 offsets:0,6,128,128
 saoguang/saoguang_00013
-bounds:262,770,128,104
+bounds:522,731,128,104
 offsets:0,1,128,128
 saoguang/saoguang_00014
-bounds:132,783,128,98
+bounds:392,746,128,98
 offsets:0,0,128,128
 saoguang/saoguang_00015
-bounds:522,860,128,84
+bounds:765,832,128,84
 offsets:0,0,128,128
 saoguang/saoguang_00016
-bounds:652,860,128,84
+bounds:2,783,128,84
 offsets:0,0,128,128
 saoguang/saoguang_00017
-bounds:132,883,128,71
+bounds:375,848,128,71
 offsets:0,0,128,128
 saoguang/saoguang_00018
-bounds:262,876,128,71
+bounds:505,846,128,71
 offsets:0,0,128,128
 saoguang/saoguang_00019
-bounds:929,890,111,67
+bounds:2,872,111,67
 offsets:0,0,128,128
-rotate:90
 saoguang/saoguang_00020
-bounds:441,947,96,54
+bounds:555,919,96,54
 offsets:0,0,128,128
 saoguang/saoguang_00021
-bounds:441,947,96,54
+bounds:555,919,96,54
 offsets:0,0,128,128
 saoguang/saoguang_00022
-bounds:118,959,77,42
+bounds:232,931,77,42
 offsets:0,5,128,128
 合成 1/explosion_00002
-bounds:2,674,119,122
+bounds:895,741,119,122
 offsets:1,47,120,218
 rotate:90
 合成 1/explosion_00003
-bounds:508,627,120,146
+bounds:894,593,120,146
 offsets:0,33,120,218
-rotate:90
 合成 1/explosion_00004
-bounds:656,612,120,168
+bounds:2,520,120,168
 offsets:0,24,120,218
 rotate:90
 合成 1/explosion_00005
-bounds:826,612,120,177
-offsets:0,20,120,218
-rotate:90
-合成 1/explosion_00006
-bounds:2,536,120,177
+bounds:702,520,120,177
 offsets:0,20,120,218
 rotate:90
 合成 1/explosion_00007
-bounds:308,524,120,190
+bounds:172,512,120,190
 offsets:0,13,120,218
 rotate:90
 合成 1/explosion_00008
-bounds:500,490,120,193
+bounds:364,490,120,193
 offsets:0,12,120,218
 rotate:90
 合成 1/explosion_00009
-bounds:695,490,120,196
+bounds:559,414,120,196
 offsets:0,10,120,218
-rotate:90
 合成 1/explosion_00010
-bounds:893,412,120,198
-offsets:0,10,120,218
-合成 1/explosion_00011
-bounds:2,410,120,198
+bounds:681,398,120,198
 offsets:0,10,120,218
 rotate:90
 合成 1/explosion_00012
-bounds:202,402,120,208
+bounds:2,390,120,208
 offsets:0,0,120,218
 rotate:90
 合成 1/explosion_00013
-bounds:412,368,120,208
+bounds:881,383,120,208
 offsets:0,0,120,218
-rotate:90
 合成 1/explosion_00014
-bounds:622,368,120,218
+bounds:212,368,120,218
 rotate:90
 合成 1/explosion_00015
-bounds:2,280,120,218
-rotate:90
-合成 1/explosion_00016
-bounds:222,246,120,218
+bounds:432,292,120,218
 rotate:90
 合成 1/explosion_00017
-bounds:442,246,120,218
+bounds:652,276,120,218
 rotate:90
 合成 1/explosion_00018
-bounds:662,246,120,218
+bounds:2,246,120,218
 rotate:90
 合成 1/explosion_00019
-bounds:882,192,120,218
+bounds:222,170,120,218
+rotate:90
 合成 1/explosion_00020
-bounds:2,158,120,218
-rotate:90
-合成 1/explosion_00021
-bounds:222,124,120,218
-rotate:90
+bounds:872,163,120,218
 合成 1/explosion_00022
-bounds:442,124,120,218
+bounds:442,154,120,218
 rotate:90
 合成 1/explosion_00023
-bounds:662,124,120,218
+bounds:2,124,120,218
 rotate:90
 合成 1/explosion_00024
-bounds:2,36,120,218
-rotate:90
+bounds:662,56,120,218
 合成 1/explosion_00025
-bounds:222,2,120,218
-rotate:90
-合成 1/explosion_00026
-bounds:442,2,120,218
+bounds:222,48,120,218
 rotate:90
 合成 1/explosion_00027
-bounds:662,2,120,218
+bounds:784,41,120,218
+rotate:90
+合成 1/explosion_00028
+bounds:442,32,120,218
+rotate:90
+合成 1/explosion_00029
+bounds:2,2,120,218
 rotate:90
 合成 1/explosion_00044
-bounds:522,749,109,188
+bounds:129,642,109,188
 offsets:0,26,120,218
 rotate:90
 合成 1/explosion_00045
-bounds:712,734,110,189
-offsets:0,26,120,218
-rotate:90
-合成 1/explosion_00046
-bounds:712,734,110,189
+bounds:319,634,110,189
 offsets:0,26,120,218
 rotate:90
 合成 1/explosion_00047
-bounds:126,658,110,188
+bounds:782,642,110,188
 offsets:0,28,120,218
-rotate:90
 合成 1/explosion_00048
-bounds:316,646,111,190
+bounds:510,612,111,190
 offsets:0,28,120,218
 rotate:90
 合成 1/explosion_00049
-bounds:2,997,4,5
+bounds:2,969,4,5
 offsets:103,138,120,218
 rotate:90
 合成 1/explosion_00050
-bounds:9,997,4,5
+bounds:9,969,4,5
 offsets:103,139,120,218
 rotate:90
 
 bomp2.png
-size:978,442
+size:882,344
 filter:Linear,Linear
 pma:true
-合成 1/explosion_00028
-bounds:2,222,120,218
-合成 1/explosion_00029
-bounds:2,2,120,218
 合成 1/explosion_00030
-bounds:124,222,120,218
-合成 1/explosion_00031
-bounds:124,2,120,218
+bounds:2,124,120,218
 合成 1/explosion_00032
-bounds:246,222,120,218
+bounds:124,124,120,218
 合成 1/explosion_00033
-bounds:246,2,120,218
+bounds:2,2,120,218
+rotate:90
 合成 1/explosion_00034
-bounds:368,222,120,218
+bounds:246,124,120,218
 合成 1/explosion_00035
-bounds:368,2,120,218
-合成 1/explosion_00036
-bounds:490,222,120,218
+bounds:368,124,120,218
 合成 1/explosion_00037
-bounds:490,2,120,218
+bounds:222,2,120,218
+rotate:90
 合成 1/explosion_00038
-bounds:612,222,120,218
+bounds:490,124,120,218
 合成 1/explosion_00039
-bounds:612,2,120,218
+bounds:612,124,120,218
 合成 1/explosion_00040
-bounds:734,222,120,218
-合成 1/explosion_00041
-bounds:734,2,120,218
+bounds:442,2,120,218
+rotate:90
 合成 1/explosion_00042
-bounds:856,222,120,218
+bounds:734,124,120,218
 合成 1/explosion_00043
-bounds:856,2,120,218
+bounds:662,2,120,218
+rotate:90

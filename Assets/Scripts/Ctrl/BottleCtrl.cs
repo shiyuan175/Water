@@ -11,6 +11,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using static LevelCreateCtrl;
+using static System.Net.Mime.MediaTypeNames;
+using Image = UnityEngine.UI.Image;
 
 public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegisterEvent
 {
@@ -71,7 +73,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         bubbleSpine;// 气泡特效动画
 
     //           水柱顶部、   水柱底部、    容量1瓶子、   容量2的瓶子、 容量3的瓶子、   容量4的瓶子 
-    public Image ImgWaterTop, ImgWaterDown, ImgBottleOne, ImgBottleTwo, ImgBottleThree, ImgBottleFour;
+    public UnityEngine.UI.Image ImgWaterTop, ImgWaterDown, ImgBottleOne, ImgBottleTwo, ImgBottleThree, ImgBottleFour;
 
     public SkeletonGraphic 
         nearHide,           // 消除遮挡布动画
@@ -334,12 +336,35 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         isBomb = false;
         for (int i = 0; i < bombCounts.Count; i++)
         {
+           
             // 设置时间
             // waterImg[i].textItem.text = bombCounts[i] - moveNum > 0 && hideWaters[i] == false ? (bombCounts[i] - moveNum).ToString() : "";
-            if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false&&bombCounts[i]!=0)
-            {
-                waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - moveNum).ToString());
+             // 100用来特殊标记
+             if (bombCounts[i] == 100)
+             { 
                
+                waterImg[i].bombCtrl.SetBomb(aniType:"bomp_remove");
+                 waterImg[i].textItem.text = "";       
+                bombCounts[i] = 0;   
+               
+             }
+            else if(bombCounts[i] - moveNum > 0 && hideWaters[i] == false&&bombCounts[i]!=0)
+            {
+               waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - moveNum).ToString());
+            /*    DG.Tweening.Sequence flashSequence = DOTween.Sequence();*/
+                /*   flashSequence.Append(
+                   waterImg[i].textItem.DOFade(0f, 0.2f).SetLoops(10, LoopType.Yoyo) 
+                   );
+
+                   // 2. 动画结束后归零
+                   flashSequence.OnComplete(() =>
+                   {
+                       waterImg[i].textItem.text = "";       // 清空文本
+                       bombCounts[i] = 0;    // 重置计数
+                       waterImg[i].textItem.alpha = 1f;      // 恢复透明度
+                   });*/
+                
+
             }
             else
             {
@@ -831,11 +856,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 waterItems[i] = WaterItem.None;
                 if(bombCounts.Count>i)
                 {
-                    bombCounts[i] = 0;
+                   
+                    bombCounts[i] = 100;
                 }
                    
             }
         }
+
         UpdateBomb();
         CheckWaterItem();
         StartCoroutine(ShowFinish());
@@ -1401,7 +1428,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
     public void MoveToOtherAnim(BottleCtrl other, int topIndex, int numWater, int useColor = -1)
     {
-        Image bottleClickMask = bottle.GetComponent<Image>();
+        UnityEngine.UI.Image bottleClickMask = bottle.GetComponent<Image>();
 
         //获取移动终点
         var (_targetPos, _dir) = GetMoveToPos(transform, other.transform ,other.leftMovePlace);

@@ -6,6 +6,7 @@ using Spine.Unity;
 using QFramework;
 using QFramework.Example;
 using DG.Tweening;
+using Spine;
 
 public class BombCtrl : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class BombCtrl : MonoBehaviour
         skeletonAnimation.SetActive(true);
 
         skeletonAnimationCom.AnimationState.Event += CloseUI;
-        skeletonAnimationCom.AnimationState.SetAnimation(0, "attack", false);
+        skeletonAnimationCom.AnimationState.SetAnimation(0, "combine", false);
 
 
         skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
@@ -46,11 +47,30 @@ public class BombCtrl : MonoBehaviour
       
 
     }
-    public void SetBomb(bool isBomb= false, string time="")
+
+    public void BombIsFinish()
     {
-        var currentTrackEntry = skeletonGraphic.AnimationState.GetCurrent(0);
-        if (currentTrackEntry != null&& currentTrackEntry.Animation.Name == "attack")
+        skeletonAnimation.SetActive(true);
+        
+        skeletonAnimationCom.AnimationState.Complete+=BombFinishEnd;
+        skeletonAnimationCom.AnimationState.SetAnimation(0, "bomp_remove", false);
+        skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
+        bombSpine.SetActive(false);
+    }
+    public void SetBomb(bool isBomb= false, string time="",string aniType = "combine")
+    {
+      
+        if (aniType == "bomp_remove")
         {
+           
+            BombIsFinish();
+            return;
+        }
+         
+        var currentTrackEntry = skeletonGraphic.AnimationState.GetCurrent(0);
+        if (currentTrackEntry != null&&( currentTrackEntry.Animation.Name == "combine"|| currentTrackEntry.Animation.Name == "bomp_remove"))
+        {
+           
              return;
         }
     
@@ -59,6 +79,12 @@ public class BombCtrl : MonoBehaviour
         // skeletonGraphic.AnimationState.SetAnimation(0, "idle", false);
 
 
+    }
+    public void BombFinishEnd(TrackEntry trackEntry)
+    {
+
+        skeletonAnimation.SetActive(false);
+        skeletonAnimationCom.AnimationState.Complete -= BombFinishEnd;
     }
 
     public void CloseUI(Spine.TrackEntry trackEntry, Spine.Event e)
@@ -69,16 +95,15 @@ public class BombCtrl : MonoBehaviour
        UIKit.OpenPanel<UIRetry>();
 
         skeletonAnimationCom.AnimationState.SetAnimation(0, "idle", false);
-      
-        
+    
         bombSpine.transform.localPosition = Vector3.zero;
-        
-       
+             
         skeletonAnimation.transform.localPosition = Vector3.zero;
         skeletonAnimation.SetActive(false);
 
         skeletonAnimationCom.AnimationState.Event -= CloseUI;
 
-
     }
+
+    
 }
