@@ -167,7 +167,7 @@ namespace QFramework.Example
             {
                 UIKit.ClosePanel<UIMask>();
                 StartCoroutine(
-                RewardItemManager.Instance.PlayRewardAnim(
+                RewardUIManager.Instance.PlayRewardAnim(
                     potionActivityPackSO[mCacheProgress],
                     potionActivityPackSO[mCacheProgress].Coins != 0,
                     () =>

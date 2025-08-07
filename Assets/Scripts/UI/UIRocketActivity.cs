@@ -86,7 +86,7 @@ namespace QFramework.Example
                     {
                         if (_playerWin)
                         {
-                            StartCoroutine(RewardItemManager.Instance.PlayRewardAnim(null, true));
+                            StartCoroutine(RewardUIManager.Instance.PlayRewardAnim(null, true));
                             //Debug.Log("玩家胜利回调播放奖励动画");
                         }
                     });

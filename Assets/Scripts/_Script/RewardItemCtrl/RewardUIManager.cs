@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using QFramework;
 using UnityEngine.UI;
+using TMPro;
+using GameDefine;
 
-public class RewardItemManager : MonoSingleton<RewardItemManager>
+public class RewardUIManager : MonoSingleton<RewardUIManager>
 {
     [SerializeField] private Sprite[] RewardSprites;
     [SerializeField] private Animator BoxAnimator;
+    [SerializeField] private Animator AddCoinTxtUp;
     [SerializeField] private Button BtnContinue;
     [SerializeField] private RectTransform mRectTransformPar;
     [SerializeField] private ParticleTargetMoveCtrl CoinParticle;
     public SimpleObjectPool<Image> RewardPool;
 
     private RectTransform mMask;
-
+    private TextMeshProUGUI txtCoinAdd;
     private List<int> availableSlots;
     private List<System.Action> actionList;
     private System.Action openBoxCallBack;
@@ -26,6 +29,8 @@ public class RewardItemManager : MonoSingleton<RewardItemManager>
     public override void OnSingletonInit()
     {
         mMask = BoxAnimator.transform.parent.GetComponent<RectTransform>();
+        txtCoinAdd = AddCoinTxtUp.GetComponent<TextMeshProUGUI>();
+        txtCoinAdd.font = LevelManager.Instance.redFont;
 
         actionList = new List<System.Action>();
         availableSlots = new List<int>();
@@ -101,8 +106,15 @@ public class RewardItemManager : MonoSingleton<RewardItemManager>
         if (addCoin)
         {
             CoinParticle.Play(100);
-            AudioKit.PlaySound("resources://Audio/AddCoin");
+            PopupCoinText(packSO.Coins);
         }
+    }
+
+    public void PopupCoinText(float value)
+    {
+        txtCoinAdd.text = $"+{value}";
+        AddCoinTxtUp.Play("TxtUp");
+        AudioKit.PlaySound("resources://Audio/AddCoin");
     }
 
     private IEnumerator ContinueClickEvent()

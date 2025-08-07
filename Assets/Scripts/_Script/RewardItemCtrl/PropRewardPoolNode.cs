@@ -41,7 +41,7 @@ public class PropRewardPoolNode : MonoBehaviour
             .SetEase(Ease.InQuart)
             .OnComplete(() =>
             {
-               RewardItemManager.Instance.RewardPool.Recycle(propImage);
+               RewardUIManager.Instance.RewardPool.Recycle(propImage);
             });
     }
 }

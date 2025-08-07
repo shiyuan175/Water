@@ -35,7 +35,6 @@ namespace QFramework.Example
 
         [SerializeField] private GameObject[] mSceneUnlockPanels;
 
-        private TextMeshProUGUI mTxtCoinAdd;
         private StageModel stageModel;
         private SaveDataUtility saveData;
         private SceneUnlockModel mSceneUnlockModel;
@@ -66,10 +65,7 @@ namespace QFramework.Example
             mHighTowerActivity = GameActivityManager.Instance.GetActivity<HighTowerActivity>();
 
             LevelManager.Instance.InitBottle();
-            mTxtCoinAdd = TxtCoinAdd.GetComponent<TextMeshProUGUI>();
-
-            InitTxtFont();
-
+           
             int currentLevel = saveData.GetCurrentLevel();
             if (currentLevel <= 5)
             {
@@ -431,13 +427,10 @@ namespace QFramework.Example
         /// <returns></returns>
         IEnumerator ShowFx()
         {
-            mTxtCoinAdd.text = $"+{GameConst.WIN_COINS * stageModel.GoldCoinsMultiple}";
-            TxtCoinAdd.Play("TxtUp");
+            CoinManager.Instance.AddCoin((int)(GameConst.WIN_COINS * stageModel.GoldCoinsMultiple));
+            RewardUIManager.Instance.PopupCoinText(GameConst.WIN_COINS * stageModel.GoldCoinsMultiple);
             coinFx.Play(10);
             yield return new WaitForSeconds(0.5f);
-            CoinManager.Instance.AddCoin((int)(GameConst.WIN_COINS * stageModel.GoldCoinsMultiple));
-            AudioKit.PlaySound("resources://Audio/AddCoin");
-
             starFx.Play(10);
             yield return new WaitForSeconds(0.5f);
             SetStar();

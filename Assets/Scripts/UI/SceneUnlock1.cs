@@ -265,7 +265,7 @@ namespace QFramework.Example
                 if (mSceneUnlockModel.SceneIndex > PANEL_ID)
                 {
                     UIKit.ClosePanel<UIMask>();
-                    StartCoroutine(RewardItemManager.Instance.PlayRewardAnim(mRewardPackSO, true));
+                    StartCoroutine(RewardUIManager.Instance.PlayRewardAnim(mRewardPackSO, true));
                     ImgBox.sprite = mBoxOpenSprite;
                 }
             });

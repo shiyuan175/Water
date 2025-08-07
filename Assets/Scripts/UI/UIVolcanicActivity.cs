@@ -88,7 +88,7 @@ namespace QFramework.Example
                     CoinManager.Instance.AddCoin(mVolcanicActivity.RewardCoins);
                     _action = () =>
                     {
-                        StartCoroutine(RewardItemManager.Instance.PlayRewardAnim(null, true));
+                        StartCoroutine(RewardUIManager.Instance.PlayRewardAnim(null, true));
                     };
                 }
 

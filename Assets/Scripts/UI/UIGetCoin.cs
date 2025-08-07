@@ -120,7 +120,7 @@ namespace QFramework.Example
                     {
                         var _packSO = rewardPackSO[getReward];
                         rewardGrantUtility.GrantReward(_packSO);
-                        StartCoroutine(RewardItemManager.Instance.PlayRewardAnim(_packSO, _packSO.Coins != 0));
+                        StartCoroutine(RewardUIManager.Instance.PlayRewardAnim(_packSO, _packSO.Coins != 0));
                     }
                 }
             }
