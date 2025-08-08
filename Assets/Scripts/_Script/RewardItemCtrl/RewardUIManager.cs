@@ -31,7 +31,6 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         mMask = BoxAnimator.transform.parent.GetComponent<RectTransform>();
         txtCoinAdd = AddCoinTxtUp.GetComponent<TextMeshProUGUI>();
         txtCoinAdd.font = LevelManager.Instance.redFont;
-
         actionList = new List<System.Action>();
         availableSlots = new List<int>();
 

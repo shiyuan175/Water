@@ -1,32 +1,42 @@
 ManifestFileVersion: 0
-CRC: 2585172690
+CRC: 50537666
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a78cc9187014ebe58c921010d19cff80
+    Hash: 557caa553bad4d84ba03ea8a21488665
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 3477b347142df8c3b27e40beb14122bc
+    Hash: 55309bfd7877f36a393e888a3f8729ba
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: a78cc9187014ebe58c921010d19cff80
+    Hash: 557caa553bad4d84ba03ea8a21488665
 HashAppended: 0
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
 - Class: 28
+  Script: {instanceID: 0}
+- Class: 48
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 5f9c221d675363d4f87509b03c40ec94, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  Script: {fileID: 11500000, guid: db40ed3e021d5d949966dc87098983d8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 624173a2f41e01f4bbfa09b16cdc9481, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: dc07a7a0539438e4a80eb784c0f21d96, type: 3}
 - Class: 115
+  Script: {instanceID: 0}
+- Class: 128
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
@@ -35,8 +45,16 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: ItemReward
+- AssemblyName: Assembly-CSharp
+  ClassName: SpecialReward
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.ArgumentCache
 - AssemblyName: UnityEngine.CoreModule
   ClassName: UnityEngine.Events.PersistentCallGroup
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentListenerMode
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.AnimationTriggers
 - AssemblyName: UnityEngine.UI
@@ -44,11 +62,13 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.ColorBlock
 - AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.FontData
+- AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.Navigation
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.SpriteState
 Assets:
-- Assets/Art/UIPrefab/UIStreakWinGuide.prefab
+- Assets/Art/UIPrefab/UIHighTowerActivity.prefab
 Dependencies: []

@@ -89,6 +89,11 @@ namespace QAssetBundle
         public const string BundleName = "uiguidelevel2_prefab";
         public const string UIGuideLevel2 = "UIGuideLevel2";
     }
+    public class Uihightoweractivity_prefab
+    {
+        public const string BundleName = "uihightoweractivity_prefab";
+        public const string UIHighTowerActivity = "UIHighTowerActivity";
+    }
     public class Uilessstar_prefab
     {
         public const string BundleName = "uilessstar_prefab";

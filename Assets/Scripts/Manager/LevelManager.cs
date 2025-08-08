@@ -4,7 +4,6 @@ using UnityEngine;
 using GameDefine;
 using System;
 using QFramework.Example;
-using static LevelCreateCtrl;
 using System.Collections;
 using Spine.Unity;
 using System.Linq;
@@ -30,7 +29,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     public List<Color> waterColor = new List<Color>();
     public List<Sprite> waterTopSp;
     public List<Sprite> waterSp;
-    public BottleProperty emptyBottle = new BottleProperty();
+    public LevelCreateCtrl.BottleProperty emptyBottle = new ();
     public Transform gameCanvas;
     public List<ChangePair> changeList;
     public List<GameObject> createFx = new List<GameObject>();
@@ -104,7 +103,6 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
 
         }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
-     
         emptyBottle.numCake = 4;
         levelId = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 

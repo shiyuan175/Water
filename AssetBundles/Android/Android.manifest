@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 2761863223
+CRC: 2003168156
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -105,3 +105,6 @@ AssetBundleManifest:
       Name: uirocketactivity_prefab
       Dependencies:
         Dependency_0: font
+    Info_27:
+      Name: uihightoweractivity_prefab
+      Dependencies: {}
