@@ -863,7 +863,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             }
         }
 
-        UpdateBomb();
+       /* UpdateBomb();*/
         CheckWaterItem();
         StartCoroutine(ShowFinish());
     }
