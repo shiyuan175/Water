@@ -545,14 +545,6 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     }
 
     /// <summary>
-    /// 清除炸弹 弃用
-    /// </summary>
-    public void CancelBomb()
-    {
-        isBomb = false;
-    }
-
-    /// <summary>
     /// 移动步数记录
     /// </summary>
     public void AddMoveNum(bool flag=true)

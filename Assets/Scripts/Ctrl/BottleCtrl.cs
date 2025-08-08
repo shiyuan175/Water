@@ -73,11 +73,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         bubbleSpine;// 气泡特效动画
 
     //           水柱顶部、   水柱底部、    容量1瓶子、   容量2的瓶子、 容量3的瓶子、   容量4的瓶子 
-    public UnityEngine.UI.Image ImgWaterTop, ImgWaterDown, ImgBottleOne, ImgBottleTwo, ImgBottleThree, ImgBottleFour;
+    public Image ImgWaterTop, ImgWaterDown, ImgBottleOne, ImgBottleTwo, ImgBottleThree, ImgBottleFour;
 
     public SkeletonGraphic 
         nearHide,           // 消除遮挡布动画
-        clearHide,          // 消除藤蔓动画 
+        clearHide,          // 消除陶瓷瓶动画 
         limitColorSpine;    // 消除颜色限制动画
 
     // 完成状态动画对象
@@ -609,7 +609,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     /// <summary>
-    /// 判断临近(荆棘)消除
+    /// 陶瓷瓶消除
     /// </summary>
     /// <param name="idx"></param>
     public void CheckNearHide(int idx)
@@ -624,13 +624,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             }
 
             SetClearHide();
-            CheckFinish();
+            //CheckFinish();//由CoroutinePlayNearHide的动画回调判断
             StartCoroutine(CoroutinePlayNearHide());
         }
     }
 
     /// <summary>
-    /// 藤曼瓶消除动画表现相关
+    /// 陶瓷瓶消除动画表现相关
     /// </summary>
     /// <param name="nowait"></param>
     /// <returns></returns>
@@ -641,10 +641,14 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             yield return new WaitForSeconds(2f);
             AudioKit.PlaySound("resources://Audio/TengMan");
         }
-        nearHide.AnimationState.SetAnimation(0, "attack", false);//jingji_xiaoshi
-        yield return new WaitForSeconds(1.7f);
-        nearHide.gameObject.SetActive(false);
-        isNearHide = false;
+        var trackEntry = nearHide.AnimationState.SetAnimation(0, "attack", false);
+        trackEntry.Complete += trackEntry =>
+        {
+            nearHide.Hide();
+            isNearHide = false;
+
+            CheckFinish();
+        };
     }
 
     /// <summary>
@@ -799,7 +803,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <param name="item"></param>
     public void ReceiveWater(int water, WaterItem item,int bombCount)
     {
-      
         if (water > 0)
         {
             waters.Add(water);
@@ -817,7 +820,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <param name="isChange"></param>
     public void CheckFinish(bool isChange = false)
     {
-
         if (topIdx > 0 && !isNearHide && !isClearHide && !isFinish)
         {
             var topColor = waters[topIdx];
@@ -831,11 +833,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                         return;
                     }
                 }
-
                 OnFinish();
             }
         }
-
     }
 
     /// <summary>
@@ -847,19 +847,16 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         LevelManager.Instance.FinishClear(GetMoveOutTop(), bottleIdx);
         StartCoroutine(ShowBreakIce());
 
-
         for (int i = 0; i < waterItems.Count; i++)
         {
             if (waterItems[i] == WaterItem.Bomb)
             {
-               //  LevelManager.Instance.CancelBomb();弃用
                 waterItems[i] = WaterItem.None;
                 if(bombCounts.Count>i)
                 {
                    
                     bombCounts[i] = 100;
                 }
-                   
             }
         }
 
@@ -1053,7 +1050,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     public void SetBottleColor(bool isFirst = false, bool nowaitHide = false) 
     {
         CheckHide(isFirst);
-        
 
         //已完成，清除黑水块
         if (isFinish)
