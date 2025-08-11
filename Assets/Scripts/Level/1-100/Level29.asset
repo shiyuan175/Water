@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottles:
   - waterSet: 08000000020000000a00000006000000
-    isHide: 01010100
-    waterItem: 00000000000000000000000002000000
+    isHide: 00000000
+    waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -62,8 +62,8 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 070000000a0000000a00000003000000
-    isHide: 01010100
-    waterItem: 00000000000000000000000001000000
+    isHide: 00000000
+    waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 08000000070000000200000004000000
-    isHide: 01010100
+    isHide: 00000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 01000000080000000800000001000000
-    isHide: 01010100
+    isHide: 00000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0

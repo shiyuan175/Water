@@ -26,7 +26,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 07000000020000000100000005000000
-    isHide: 01000100
+    isHide: 01000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 06000000070000000500000002000000
-    isHide: 01000100
+    isHide: 01000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 0c000000d40700000400000001000000
-    isHide: 01000100
+    isHide: 01000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 03000000020000000700000006000000
-    isHide: 01000100
+    isHide: 01000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 01000000040000000500000004000000
-    isHide: 01000100
+    isHide: 01000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 0a000000050000000300000007000000
-    isHide: 01000100
+    isHide: 01000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 0a000000d4070000030000000a000000
-    isHide: 01000100
+    isHide: 01000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: d6070000010000000a00000006000000
-    isHide: 00000100
+    isHide: 00000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
   - waterSet: 06000000030000000c0000000c000000
-    isHide: 01000100
+    isHide: 01000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
