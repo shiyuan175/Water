@@ -92,7 +92,7 @@ SubShader {
 		"IgnoreProjector"="True"
 		"RenderType"="Transparent"
 	}
-
+	
 //	Stencil
 //	{
 //		Ref [_Stencil]

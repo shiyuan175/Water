@@ -34,6 +34,7 @@ namespace QFramework.Example
         private VolcanicActivity mVolcanicActivity;
         private Tween mLevelTween;
         private Tween mPlayerTween;
+        private Tween mCountDownTween;
 
         protected override void OnInit(IUIData uiData = null)
         {
@@ -51,6 +52,16 @@ namespace QFramework.Example
 
             string _naimName = UnityEngine.Random.Range(0, 2) == 0 ? "idle1" : "idle2";
             Spine_rongyanpaopao.AnimationState.SetAnimation(0, _naimName, true);
+            
+            mCountDownTween = DOTween.To(() => 0, x =>
+            {
+                if (mVolcanicActivity.ActivityStatus == GameActivityStatus.Active)
+                    TxtCountDown.text = mVolcanicActivity.GetActivityReamingTime();
+                else
+                    TxtCountDown.text = "Finished";
+            }, 1, 1f)
+           .SetLoops(-1, LoopType.Restart)
+           .SetUpdate(true);
         }
 
         protected override void OnShow()
@@ -85,10 +96,12 @@ namespace QFramework.Example
                 //最后一个台阶-发放奖励
                 if (mVolcanicActivity.EndWin)
                 {
+                    UIKit.OpenPanel<UIMask>();
                     CoinManager.Instance.AddCoin(mVolcanicActivity.RewardCoins);
                     _action = () =>
                     {
-                        StartCoroutine(RewardUIManager.Instance.PlayRewardAnim(null, true));
+                        UIKit.ClosePanel<UIMask>();
+                        RewardUIManager.Instance.PlayRewardAnim(null, mVolcanicActivity.RewardCoins);
                     };
                 }
 

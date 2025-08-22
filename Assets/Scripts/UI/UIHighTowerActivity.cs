@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
+using DG.Tweening;
 
 namespace QFramework.Example
 {
@@ -21,6 +22,7 @@ namespace QFramework.Example
 		[SerializeField] private RewardPackSO[] mRewardPackSOs;
 
 		private HighTowerActivity mHighTowerActivity;
+        private Tween mCountDownTween;
 
         protected override void OnInit(IUIData uiData = null)
 		{
@@ -31,6 +33,12 @@ namespace QFramework.Example
 		protected override void OnOpen(IUIData uiData = null)
 		{
 			mHighTowerActivity = GameActivityManager.Instance.GetActivity<HighTowerActivity>();
+            mCountDownTween = DOTween.To(() => 0, x =>
+            {
+                TxtCountDown.text = mHighTowerActivity.GetActivityReamingTime();
+            }, 1, 1f)
+           .SetLoops(-1, LoopType.Restart)
+           .SetUpdate(true);
         }
 
         protected override void OnShow()

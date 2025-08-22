@@ -159,7 +159,7 @@ namespace QFramework.Example
                 return false;
             });
 
-            //...其他活动等
+            HandleMSA();
 
             //最后结算界面
             PanelQueueManager.Instance.Enqueue(() =>
@@ -167,8 +167,51 @@ namespace QFramework.Example
                 UIKit.OpenPanel<UIGetCoin>();
                 return true;
             });
-            //开启
             PanelQueueManager.Instance.PopFirstPanel();
+        }
+
+        private void HandleMSA()
+        {
+            var _activit = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
+            bool _openPanel = false;
+            UIMagicStreakActivityData _uiData = null;
+
+            if (_activit.ActivityStatus == SettlementActivityStatus.Active)
+            {
+                _openPanel = true;
+                _uiData = new UIMagicStreakActivityData
+                {
+                    ISWin = true,
+                    IsManagedOpen = true,
+                    Status = SettlementActivityStatus.Active
+                };
+            }
+            //活动结束 有排名奖
+            else if (_activit.ActivityStatus == SettlementActivityStatus.Finished)
+            {
+                _openPanel = true;
+                _uiData = new UIMagicStreakActivityData
+                {
+                    HasRankRewardToSettle = true,
+                    IsManagedOpen = true,
+                    Status = SettlementActivityStatus.None
+                };
+            }
+            //活动结束 无排名奖/已结算
+            else if (_activit.ActivityStatus == SettlementActivityStatus.WaitStart)
+            {
+                //重启活动
+                _activit.RestartActivity();
+            }
+
+            if (_openPanel)
+            {
+                PanelQueueManager.Instance.Enqueue(() =>
+                {
+                    UIKit.OpenPanel<UIMagicStreakActivity>(_uiData);
+                    return true;
+                });
+            }
         }
     }
 }

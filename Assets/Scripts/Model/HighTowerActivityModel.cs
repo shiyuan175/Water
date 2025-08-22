@@ -17,7 +17,6 @@ public class HighTowerActivityModel : AbstractModel
     /// 距离下一阶段奖励还有几次连胜
     /// </summary>
     public int WinRemainingToNextReward => RewardStages[mNextRewardStageIndex] - mHTAStreakWin.Value;
-    
     /// <summary>
     /// 当前阶段和下一阶段的间隔值
     /// </summary>
@@ -26,7 +25,6 @@ public class HighTowerActivityModel : AbstractModel
          ? RewardStages[mNextRewardStageIndex] - RewardStages[mNextRewardStageIndex - 1]
          : 0;
 
-    //连胜值超最后一个阶段，活动层会重置
     private BindableProperty<int> mHTAStreakWin;
     //最小值会取到1
     private int mNextRewardStageIndex;

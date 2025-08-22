@@ -1,26 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameDefine;
 using QFramework;
 using UnityEngine;
 
 public class RocketActivity : BaseGameActivity
 {
-    public override string ActivitySign => "RocketActivity";
-    //该活动用于每日刷新次数的冷却
-    public override string ActivityCooldownSign => "RocketActivityCoolDown";
-
-    public override float ActivityDurationMinutes => 1440f;
-    public override float ActivityCooldownMinutes => 1440f;
-
+    public override string ActivitySign => GameConst.ROCKET_ACTIVITY_SIGN;
     public override string ActivityID => GetType().Name;
-
+    public override float ActivityDurationMinutes => throw new NotImplementedException("Unconfigured RA Duration");
+    public override int ActivityBeginLevel => GameConst.RA_BEGIN_LEVEL;
     public override GameActivityStatus ActivityStatus
     { 
         get
-        {
-            if (mSaveUtility.GetCurrentLevel() < GameDefine.GameConst.VA_BEGIN_LEVEL)
+        { 
+            if (mSaveUtility.GetCurrentLevel() < ActivityBeginLevel)
             {
                 return GameActivityStatus.Locked;
+            }
+            else if (!GameUtils.DoesCountDownKeyExist(ActivitySign))
+            {
+                return GameActivityStatus.Inactive;
             }
             else if (!IsExceededDailyRefreshLimit)
             {
@@ -34,98 +35,62 @@ public class RocketActivity : BaseGameActivity
     public int PlayerStreakWin => mRocketActivityModel.PlayerStreakWin;
     public int Robot1StreakWin => mRocketActivityModel.Robot1StreakWin;
     public int Robot2StreakWin => mRocketActivityModel.Robot2StreakWin;
+    public int DailyUsedRefreshCount => mRocketActivityModel.DailyUsedRefreshCount;
 
     public bool PlayWin => mRocketActivityModel.PlayerWin;
     public bool RobotWin => mRocketActivityModel.RobotWin;
-    public bool IsExceededDailyRefreshLimit => mRocketActivityModel.IsExceededDailyRefreshLimit;
+    public bool IsExceededDailyRefreshLimit => DailyUsedRefreshCount >= RA_MAX_REFRESH_PER_DAY;
 
-    private SaveDataUtility mSaveUtility;
+    private const int RA_MAX_REFRESH_PER_DAY = 5;
     private RocketActivityModel mRocketActivityModel;
 
     public RocketActivity()
     {
-        mSaveUtility = this.GetUtility<SaveDataUtility>();
         mRocketActivityModel = this.GetModel<RocketActivityModel>();
-        
-        //首次解锁活动触发
-        if (!PlayerPrefs.HasKey(CountDownTimerManager.COUNTDOWN_TIMER_SIGN + ActivityCooldownSign))
-        {
-            StartActivity();
-        }
     }
-
+    
     public override void StartActivity()
     {
-        base.StartActivity();
-        CountDownTimerManager.Instance.StartTimer(ActivityCooldownSign, ActivityCooldownMinutes);
+        CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign);
     }
 
     public override void StreakWin()
     {
         mRocketActivityModel.RAStreakWin();
-        //此活动依赖刷新次数驱动，自动重置活动会导致使用数据被重置(需要分离)
-        //if (PlayWin || RobotWin)
-        //    RestartActivity();
     }
 
     //活动面板关闭时调用
     public void TryRestarActivity()
     {
         if (PlayWin || RobotWin)
-            RestartActivity();
+            RefreshActivity();
     }
 
     public override void Fail()
     {
-        RestartActivity();
+        RefreshActivity();
     }
 
-    public override void RestartActivity()
+    public void RefreshActivity()
     {
-        //中断重置(可以考虑吧该活动注册表删除)
         if (IsExceededDailyRefreshLimit)
             return;
 
-        else mRocketActivityModel.ReloadRocketActivity();
-        CountDownTimerManager.Instance.ResetTimer(ActivitySign, ActivityDurationMinutes);
+        else mRocketActivityModel.RefreshRocketActivityData();
     }
-
-    public override void RestartActivityInit()
+    
+    public override void RestartActivity()
     {
-      
+        mRocketActivityModel.ResetDailyRefreshCount();
+        CountDownTimerManager.Instance.ResetEasternMidnightTimer(ActivitySign);
     }
-
-    public override void CoolDownActivityInit()
-    {
-
-    }
-
-    private GameActivityStatus mLastActivityStatus;
+    
     public override void Tick()
     {
-        //刷新次数重置判定
-        if (CountDownTimerManager.Instance.IsTimerFinished(ActivityCooldownSign))
-        {
-            mRocketActivityModel.ResetDailyRefreshCount();
-            CountDownTimerManager.Instance.ResetTimer(ActivityCooldownSign, ActivityCooldownMinutes);
-        }
-
-        //活动过期重启判定
-        if (CountDownTimerManager.Instance.IsTimerFinished(ActivitySign) && 
-           ActivityStatus == GameActivityStatus.Active)
-        {
+        if (GameUtils.DoesCountDownKeyExist(ActivitySign) &&
+            CountDownTimerManager.Instance.IsTimerFinished(ActivitySign))
             RestartActivity();
-        }
 
-        //状态变更事件
-        if (ActivityStatus != mLastActivityStatus)
-        {
-            this.SendEvent(new OnActivityStatusChanged()
-            {
-                Sender = this,
-                Status = ActivityStatus
-            });
-            mLastActivityStatus = ActivityStatus;
-        }
+        base.Tick();
     }
 }

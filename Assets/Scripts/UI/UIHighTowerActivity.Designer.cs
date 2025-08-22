@@ -5,19 +5,22 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:f5b5f18e-2ac8-4eea-b9ca-0ca7b5289df9
+	// Generate Id:694d1055-b890-48bb-a74d-b1312c10d60b
 	public partial class UIHighTowerActivity
 	{
 		public const string Name = "UIHighTowerActivity";
 		
 		[SerializeField]
 		public UnityEngine.UI.Button BtnClose;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtCountDown;
 		
 		private UIHighTowerActivityData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
 			BtnClose = null;
+			TxtCountDown = null;
 			
 			mData = null;
 		}

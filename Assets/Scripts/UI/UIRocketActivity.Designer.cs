@@ -5,11 +5,15 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:b31a2384-a2d2-44ce-a985-1ed023636953
+	// Generate Id:f3d464d8-c997-4c1b-a493-8fe6e13c4523
 	public partial class UIRocketActivity
 	{
 		public const string Name = "UIRocketActivity";
 		
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtRefreshCountDown;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtDailyRefresh;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI Txt_Prompt;
 		[SerializeField]
@@ -25,6 +29,8 @@ namespace QFramework.Example
 		
 		protected override void ClearUIComponents()
 		{
+			TxtRefreshCountDown = null;
+			TxtDailyRefresh = null;
 			Txt_Prompt = null;
 			BtnClose = null;
 			Txt_PlayerWin = null;

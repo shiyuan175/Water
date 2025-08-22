@@ -7,9 +7,9 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
 {
     private const string VA_STREAK_WIN_NUM_SIGN = "g_VolcanicActivityStreakWinNum";
     private const string VA_COUNT_PLAY_NUM_SIGN = "g_VolcanicActivityCountPlayerNum";
+    private const string VA_ACTIVATE_STATE_SIGN = "g_VolcanicActivityActivateState";
     private const int VA_REWARD_COUNT_COINS = 10000;
 
-    private bool isInit = false;
     private SaveDataUtility storage;
 
     //火山活动连胜次数
@@ -20,36 +20,44 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
     private BindableProperty<int> mVACountPlayerNum;
     public int VACurrentPlayerNum => mVACountPlayerNum.Value;
 
+    //活动是否激活
+    private BindableProperty<bool> mVAActivateState;
+    public bool VAActivateState => mVAActivateState.Value;
+
     public int GetVARewardCoins => VA_REWARD_COUNT_COINS / mVACountPlayerNum.Value;
 
     protected override void OnInit()
     {
-        if (!isInit)
-        {
-            //Debug.Log("数据初始化");
-            storage = this.GetUtility<SaveDataUtility>();
-            mVAStreakWinNum = new BindableProperty<int>();
-            mVACountPlayerNum = new BindableProperty<int>();
+        //Debug.Log("数据初始化");
+        storage = this.GetUtility<SaveDataUtility>();
+        mVAStreakWinNum = new BindableProperty<int>();
+        mVACountPlayerNum = new BindableProperty<int>();
+        mVAActivateState = new BindableProperty<bool>();
 
-            mVAStreakWinNum.SetValueWithoutEvent(storage.LoadIntValue(VA_STREAK_WIN_NUM_SIGN));
-            mVAStreakWinNum.Register(value =>
-            {
-                storage.SaveInt(VA_STREAK_WIN_NUM_SIGN, value);
-            });
-            mVACountPlayerNum.SetValueWithoutEvent(storage.LoadIntValue(VA_COUNT_PLAY_NUM_SIGN, 100));
-            mVACountPlayerNum.Register(value =>
-            {
-                storage.SaveInt(VA_COUNT_PLAY_NUM_SIGN, value);
-            });
-            isInit = true;
-        }
+        mVAStreakWinNum.SetValueWithoutEvent(storage.LoadIntValue(VA_STREAK_WIN_NUM_SIGN));
+        mVAStreakWinNum.Register(value =>
+        {
+            storage.SaveInt(VA_STREAK_WIN_NUM_SIGN, value);
+        });
+        mVACountPlayerNum.SetValueWithoutEvent(storage.LoadIntValue(VA_COUNT_PLAY_NUM_SIGN, 100));
+        mVACountPlayerNum.Register(value =>
+        {
+            storage.SaveInt(VA_COUNT_PLAY_NUM_SIGN, value);
+        });
+        mVAActivateState.SetValueWithoutEvent(storage.LoadBoolValue(VA_ACTIVATE_STATE_SIGN, false));
+        mVAActivateState.Register(value =>
+        {
+            storage.SaveBool(VA_ACTIVATE_STATE_SIGN, value);
+        });
+    }
+
+    public void MarkActivateState()
+    {
+        mVAActivateState.Value = true;
     }
 
     public void ReloadVolcanicActivity()
     {
-        //启用时注册活动初始化数据会因生命周期问题还没初始化数据
-        //OnInit();
-        //Debug.Log("数据重置");
         mVAStreakWinNum.Value = 0;
         mVACountPlayerNum.Value = 100;
     }
@@ -81,7 +89,7 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
         switch (mVAStreakWinNum.Value)
         {
             case 1:
-                mVACountPlayerNum.Value = Random.Range(66, 73); 
+                mVACountPlayerNum.Value = Random.Range(66, 73);
                 break;
             case 2:
                 mVACountPlayerNum.Value = Random.Range(56, 65);
@@ -90,16 +98,16 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
                 mVACountPlayerNum.Value = Random.Range(48, 54);
                 break;
             case 4:
-                mVACountPlayerNum.Value = Random.Range(37, 45); 
+                mVACountPlayerNum.Value = Random.Range(37, 45);
                 break;
             case 5:
-                mVACountPlayerNum.Value = Random.Range(27, 36); 
+                mVACountPlayerNum.Value = Random.Range(27, 36);
                 break;
             case 6:
                 mVACountPlayerNum.Value = Random.Range(14, 24);
                 break;
             case 7:
-                mVACountPlayerNum.Value = Random.Range(6, 13); 
+                mVACountPlayerNum.Value = Random.Range(6, 13);
                 break;
             default:
                 Debug.Log("Unexpected StreakWinNum!");

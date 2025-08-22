@@ -42,9 +42,22 @@ namespace QFramework.Example
 			InitAvatarImg();
             mRocketActivity = GameActivityManager.Instance.GetActivity<RocketActivity>();
             mTweenList = new List<Tween>();
+
+            if (mRocketActivity.ActivityStatus == GameActivityStatus.Active)
+                TxtDailyRefresh.text = $"{mRocketActivity.DailyUsedRefreshCount + 1}/5 Today";
+            else
+                TxtDailyRefresh.text = "Finished";
+
+            Tween _countDownTween = DOTween.To(() => 0, x =>
+            {
+                TxtRefreshCountDown.text = mRocketActivity.GetActivityReamingTime();
+            }, 1, 1f)
+            .SetLoops(-1, LoopType.Restart)
+            .SetUpdate(true);
+            mTweenList.Add(_countDownTween);
         }
-		
-		protected override void OnShow()
+
+        protected override void OnShow()
 		{
             BtnClose.onClick.AddListener(() =>
             {
@@ -76,6 +89,7 @@ namespace QFramework.Example
 
                 if (_playerWin)
                 {
+                    UIKit.OpenPanel<UIMask>();
                     CoinManager.Instance.AddCoin(REWARD_COIN);
                     Txt_Prompt.text = $"You win!";
                     //Debug.Log("玩家获胜-发放奖励");
@@ -86,7 +100,8 @@ namespace QFramework.Example
                     {
                         if (_playerWin)
                         {
-                            StartCoroutine(RewardUIManager.Instance.PlayRewardAnim(null, true));
+                            UIKit.ClosePanel<UIMask>();
+                            RewardUIManager.Instance.PlayRewardAnim(null, REWARD_COIN);
                             //Debug.Log("玩家胜利回调播放奖励动画");
                         }
                     });
@@ -147,6 +162,8 @@ namespace QFramework.Example
             {
                 tween?.Kill();
             }
+            mTweenList.Clear();
+            mTweenList = null;
 
             if (mData.IsManagedOpen ?? false)
                 StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);

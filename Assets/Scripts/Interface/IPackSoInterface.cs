@@ -22,6 +22,7 @@ public enum SpecialRewardsType
 public class SpecialReward
 {
     [SerializeField] private SpecialRewardsType specialRewardType;
+    [Tooltip("分钟")]
     [SerializeField] private int duration;
     [SerializeField] private Sprite rewardSprite;
 
@@ -33,7 +34,15 @@ public class SpecialReward
 [System.Serializable]
 public class ItemReward
 {
-    [Tooltip("道具索引，1~8")]
+    [Tooltip("道具索引，1~8 " + 
+        "\n 1、回退" +
+        "\n 2、羽毛去黑" +
+        "\n 3、整瓶" +
+        "\n 4、一格瓶" +
+        "\n 5、魔法棒" +
+        "\n 6、选择-一格瓶" +
+        "\n 7、选择-去黑" +
+        "\n 8、选择-交换")]
     [Range(1, 8)]
     [SerializeField] private int itemIndex;
 

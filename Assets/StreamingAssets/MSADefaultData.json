@@ -1,0 +1,509 @@
+{
+    "Version": 1,
+    "Player": {
+        "PlayerName": "YOU",
+        "Score": 0
+    },
+    "MSARobots": [
+        {
+            "ID": 1,
+            "Name": "Axel",
+            "Avatar": 10,
+            "AvatarFrame": 1,
+            "MinInitScore": 746,
+            "MaxInitScore": 947,
+            "LimitScore": 10526,
+            "Score": 0
+        },
+        {
+            "ID": 2,
+            "Name": "Blake",
+            "Avatar": 2,
+            "AvatarFrame": 0,
+            "MinInitScore": 346,
+            "MaxInitScore": 647,
+            "LimitScore": 10376,
+            "Score": 0
+        },
+        {
+            "ID": 3,
+            "Name": "Cade",
+            "Avatar": 3,
+            "AvatarFrame": 1,
+            "MinInitScore": 346,
+            "MaxInitScore": 647,
+            "LimitScore": 10038,
+            "Score": 0
+        },
+        {
+            "ID": 4,
+            "Name": "Dax",
+            "Avatar": 4,
+            "AvatarFrame": 2,
+            "MinInitScore": 346,
+            "MaxInitScore": 647,
+            "LimitScore": 9650,
+            "Score": 0
+        },
+        {
+            "ID": 5,
+            "Name": "Eli",
+            "Avatar": 5,
+            "AvatarFrame": 3,
+            "MinInitScore": 346,
+            "MaxInitScore": 647,
+            "LimitScore": 9231,
+            "Score": 0
+        },
+        {
+            "ID": 6,
+            "Name": "Finn",
+            "Avatar": 6,
+            "AvatarFrame": 4,
+            "MinInitScore": 146,
+            "MaxInitScore": 247,
+            "LimitScore": 7883,
+            "Score": 0
+        },
+        {
+            "ID": 7,
+            "Name": "Gage",
+            "Avatar": 7,
+            "AvatarFrame": 0,
+            "MinInitScore": 146,
+            "MaxInitScore": 247,
+            "LimitScore": 5320,
+            "Score": 0
+        },
+        {
+            "ID": 8,
+            "Name": "Hale",
+            "Avatar": 8,
+            "AvatarFrame": 1,
+            "MinInitScore": 146,
+            "MaxInitScore": 247,
+            "LimitScore": 3100,
+            "Score": 0
+        },
+        {
+            "ID": 9,
+            "Name": "Ike",
+            "Avatar": 9,
+            "AvatarFrame": 2,
+            "MinInitScore": 146,
+            "MaxInitScore": 247,
+            "LimitScore": 2803,
+            "Score": 0
+        },
+        {
+            "ID": 10,
+            "Name": "Jett",
+            "Avatar": 10,
+            "AvatarFrame": 3,
+            "MinInitScore": 146,
+            "MaxInitScore": 247,
+            "LimitScore": 1750,
+            "Score": 0
+        },
+        {
+            "ID": 11,
+            "Name": "Kai",
+            "Avatar": 0,
+            "AvatarFrame": 4,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 923,
+            "Score": 0
+        },
+        {
+            "ID": 12,
+            "Name": "Leo",
+            "Avatar": 1,
+            "AvatarFrame": 0,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 850,
+            "Score": 0
+        },
+        {
+            "ID": 13,
+            "Name": "Milo",
+            "Avatar": 2,
+            "AvatarFrame": 1,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 724,
+            "Score": 0
+        },
+        {
+            "ID": 14,
+            "Name": "Nash",
+            "Avatar": 3,
+            "AvatarFrame": 2,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 705,
+            "Score": 0
+        },
+        {
+            "ID": 15,
+            "Name": "Odin",
+            "Avatar": 4,
+            "AvatarFrame": 3,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 639,
+            "Score": 0
+        },
+        {
+            "ID": 16,
+            "Name": "Pax",
+            "Avatar": 5,
+            "AvatarFrame": 4,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 622,
+            "Score": 0
+        },
+        {
+            "ID": 17,
+            "Name": "Quin",
+            "Avatar": 6,
+            "AvatarFrame": 0,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 608,
+            "Score": 0
+        },
+        {
+            "ID": 18,
+            "Name": "Rex",
+            "Avatar": 7,
+            "AvatarFrame": 1,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 601,
+            "Score": 0
+        },
+        {
+            "ID": 19,
+            "Name": "Seth",
+            "Avatar": 8,
+            "AvatarFrame": 2,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 594,
+            "Score": 0
+        },
+        {
+            "ID": 20,
+            "Name": "Troy",
+            "Avatar": 9,
+            "AvatarFrame": 3,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 567,
+            "Score": 0
+        },
+        {
+            "ID": 21,
+            "Name": "Ugo",
+            "Avatar": 10,
+            "AvatarFrame": 4,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 555,
+            "Score": 0
+        },
+        {
+            "ID": 22,
+            "Name": "Vance",
+            "Avatar": 0,
+            "AvatarFrame": 0,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 525,
+            "Score": 0
+        },
+        {
+            "ID": 23,
+            "Name": "Wade",
+            "Avatar": 1,
+            "AvatarFrame": 1,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 511,
+            "Score": 0
+        },
+        {
+            "ID": 24,
+            "Name": "Xane",
+            "Avatar": 2,
+            "AvatarFrame": 2,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 501,
+            "Score": 0
+        },
+        {
+            "ID": 25,
+            "Name": "York",
+            "Avatar": 3,
+            "AvatarFrame": 3,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 498,
+            "Score": 0
+        },
+        {
+            "ID": 26,
+            "Name": "Zane",
+            "Avatar": 4,
+            "AvatarFrame": 4,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 478,
+            "Score": 0
+        },
+        {
+            "ID": 27,
+            "Name": "Arlo",
+            "Avatar": 5,
+            "AvatarFrame": 0,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 431,
+            "Score": 0
+        },
+        {
+            "ID": 28,
+            "Name": "Bryn",
+            "Avatar": 6,
+            "AvatarFrame": 1,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 386,
+            "Score": 0
+        },
+        {
+            "ID": 29,
+            "Name": "Cleo",
+            "Avatar": 7,
+            "AvatarFrame": 2,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 338,
+            "Score": 0
+        },
+        {
+            "ID": 30,
+            "Name": "Dane",
+            "Avatar": 8,
+            "AvatarFrame": 3,
+            "MinInitScore": 50,
+            "MaxInitScore": 145,
+            "LimitScore": 316,
+            "Score": 0
+        },
+        {
+            "ID": 31,
+            "Name": "Enzo",
+            "Avatar": 9,
+            "AvatarFrame": 4,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 294,
+            "Score": 0
+        },
+        {
+            "ID": 32,
+            "Name": "Fynn",
+            "Avatar": 10,
+            "AvatarFrame": 0,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 278,
+            "Score": 0
+        },
+        {
+            "ID": 33,
+            "Name": "Glen",
+            "Avatar": 0,
+            "AvatarFrame": 1,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 254,
+            "Score": 0
+        },
+        {
+            "ID": 34,
+            "Name": "Hugo",
+            "Avatar": 1,
+            "AvatarFrame": 2,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 201,
+            "Score": 0
+        },
+        {
+            "ID": 35,
+            "Name": "Ivan",
+            "Avatar": 2,
+            "AvatarFrame": 3,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 178,
+            "Score": 0
+        },
+        {
+            "ID": 36,
+            "Name": "Jace",
+            "Avatar": 3,
+            "AvatarFrame": 4,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 164,
+            "Score": 0
+        },
+        {
+            "ID": 37,
+            "Name": "Kane",
+            "Avatar": 4,
+            "AvatarFrame": 0,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 137,
+            "Score": 0
+        },
+        {
+            "ID": 38,
+            "Name": "Luca",
+            "Avatar": 5,
+            "AvatarFrame": 1,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 125,
+            "Score": 0
+        },
+        {
+            "ID": 39,
+            "Name": "Mace",
+            "Avatar": 6,
+            "AvatarFrame": 2,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 53,
+            "Score": 0
+        },
+        {
+            "ID": 40,
+            "Name": "Nico",
+            "Avatar": 7,
+            "AvatarFrame": 3,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 31,
+            "Score": 0
+        },
+        {
+            "ID": 41,
+            "Name": "Omar",
+            "Avatar": 8,
+            "AvatarFrame": 4,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 11,
+            "Score": 0
+        },
+        {
+            "ID": 42,
+            "Name": "Pete",
+            "Avatar": 9,
+            "AvatarFrame": 0,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 0,
+            "Score": 0
+        },
+        {
+            "ID": 43,
+            "Name": "Quin",
+            "Avatar": 10,
+            "AvatarFrame": 1,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 0,
+            "Score": 0
+        },
+        {
+            "ID": 44,
+            "Name": "Rory",
+            "Avatar": 0,
+            "AvatarFrame": 2,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 0,
+            "Score": 0
+        },
+        {
+            "ID": 45,
+            "Name": "Sean",
+            "Avatar": 1,
+            "AvatarFrame": 3,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 0,
+            "Score": 0
+        },
+        {
+            "ID": 46,
+            "Name": "Tate",
+            "Avatar": 2,
+            "AvatarFrame": 4,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 0,
+            "Score": 0
+        },
+        {
+            "ID": 47,
+            "Name": "Vito",
+            "Avatar": 3,
+            "AvatarFrame": 0,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 0,
+            "Score": 0
+        },
+        {
+            "ID": 48,
+            "Name": "Will",
+            "Avatar": 4,
+            "AvatarFrame": 1,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 0,
+            "Score": 0
+        },
+        {
+            "ID": 49,
+            "Name": "Yuri",
+            "Avatar": 5,
+            "AvatarFrame": 2,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 0,
+            "Score": 0
+        },
+        {
+            "ID": 50,
+            "Name": "Zeke",
+            "Avatar": 6,
+            "AvatarFrame": 3,
+            "MinInitScore": 0,
+            "MaxInitScore": 50,
+            "LimitScore": 0,
+            "Score": 0
+        }
+    ]
+}

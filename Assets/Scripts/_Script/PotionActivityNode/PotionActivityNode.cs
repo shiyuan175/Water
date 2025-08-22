@@ -166,10 +166,9 @@ namespace QFramework.Example
             if (_tempGoal >= TARGER_GOALS[mCacheProgress])
             {
                 UIKit.ClosePanel<UIMask>();
-                StartCoroutine(
                 RewardUIManager.Instance.PlayRewardAnim(
                     potionActivityPackSO[mCacheProgress],
-                    potionActivityPackSO[mCacheProgress].Coins != 0,
+                    potionActivityPackSO[mCacheProgress].Coins,
                     () =>
                     {
                         //奖励发放
@@ -195,7 +194,7 @@ namespace QFramework.Example
                         ImgProgressBar.fillAmount = (float)_tempGoal / TARGER_GOALS[mCacheProgress];
 
                         ActionKit.DelayFrame(1, () => CheckOpenBox(potionActivityModel.PotionActivityGoal)).Start(this);
-                    }));
+                    });
             }
         }
     }

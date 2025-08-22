@@ -34,7 +34,7 @@ namespace QFramework.Example
 
             RegisterBtnEvent();
 
-            this.RegisterEvent<CoinChangeEvent>(e =>
+            StringEventSystem.Global.Register(GameDefine.GameConst.COIN_CHANGE,() =>
             {
                 SetCoin();
 

@@ -1,18 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GameDefine;
 using QFramework;
 using QFramework.Example;
 using UnityEngine;
 
 public class HighTowerActivity : BaseGameActivity
 {
-    public override string ActivitySign => "HighTowerActivity";
-    public override string ActivityCooldownSign => "HighTowerActivityCoolDown";
-    public override float ActivityDurationMinutes => 1440f;
-    public override float ActivityCooldownMinutes => 1440f;
+    public override string ActivitySign => GameConst.HIGH_TOWER_ACTIVITY_SIGN;
     public override string ActivityID => GetType().Name;
-    
+    public override float ActivityDurationMinutes => throw new NotImplementedException("Unconfigured HTA Duration");
+    public override int ActivityBeginLevel => GameConst.HTA_BEGIN_LEVEL;
+
+    public override GameActivityStatus ActivityStatus
+    {
+        get
+        {
+            if (mSaveUtility.GetCurrentLevel() < ActivityBeginLevel)
+            {
+                return GameActivityStatus.Locked;
+            }
+            else if (!GameUtils.DoesCountDownKeyExist(ActivitySign))
+            {
+                return GameActivityStatus.Inactive;
+            }
+            else if (!EndWin)
+            {
+                return GameActivityStatus.Active;
+            }
+            else return GameActivityStatus.CoolingDown;
+        }
+    }
+
     public IReadOnlyList<int> RewardStages => mHTAModel.RewardStages;
     public int NextRewardStageIndex => mHTAModel.NextRewardStageIndex;
     public int WinRemainingToNextReward => mHTAModel.WinRemainingToNextReward;
@@ -22,54 +43,27 @@ public class HighTowerActivity : BaseGameActivity
     public bool IsAtBaseNode => HTAStreakWinNum < RewardStages[1];
     public bool IsAtTopNode => HTAStreakWinNum >= RewardStages[RewardStages.Count - 2];
 
-    public override GameActivityStatus ActivityStatus
-    {
-        get
-        {
-            if (mSaveUtility.GetCurrentLevel() < GameDefine.GameConst.HTA_BEGIN_LEVEL)
-            {
-                return GameActivityStatus.Locked;
-            }
-
-            if (!CountDownTimerManager.Instance.IsTimerFinished(ActivitySign))
-            {
-                return GameActivityStatus.Active;
-            }
-
-            if (!CountDownTimerManager.Instance.IsTimerFinished(ActivityCooldownSign))
-            {
-                return GameActivityStatus.CoolingDown;
-            }
-
-            else
-            {
-                return GameActivityStatus.WaitStart;
-            }
-        }
-    }
-
     private HighTowerActivityModel mHTAModel;
-    private SaveDataUtility mSaveUtility;
 
     public HighTowerActivity()
     {
-        mSaveUtility = this.GetUtility<SaveDataUtility>();
         mHTAModel = this.GetModel<HighTowerActivityModel>();
+    }
 
-        if (ActivityStatus == GameActivityStatus.WaitStart
-            && !PlayerPrefs.HasKey(CountDownTimerManager.COUNTDOWN_TIMER_SIGN + ActivityCooldownSign))
-        {
-            StartActivity();
-        }
+    public override void StartActivity()
+    {
+        CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign);
+    }
+
+    public override void RestartActivity()
+    {
+        mHTAModel.ReloadHighTowerActivity();
+        CountDownTimerManager.Instance.ResetEasternMidnightTimer(ActivitySign);
     }
 
     public override void StreakWin()
     {
         mHTAModel.HTAStreakWin();
-        if (EndWin)
-        {
-            CoolDownActivity();
-        }
     }
 
     public override void Fail()
@@ -77,15 +71,12 @@ public class HighTowerActivity : BaseGameActivity
         mHTAModel.HTAStreakLose();
     }
 
-    public override void RestartActivityInit()
+    public override void Tick()
     {
-        mHTAModel.ReloadHighTowerActivity();
-    }
+        if (GameUtils.DoesCountDownKeyExist(ActivitySign) &&
+           CountDownTimerManager.Instance.IsTimerFinished(ActivitySign))
+            RestartActivity();
 
-    public override void CoolDownActivityInit()
-    {
-        //如要在冷却时就重置数据，不能通过StreakWin自驱动重置
-        //需手动在表现层逻辑触发完后，手动的触发判定是否活动冷却并重置数据
-        //mHTAModel.ReloadHighTowerActivity();
+        base.Tick();
     }
 }

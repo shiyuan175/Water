@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using GameDefine;
 
 public class CoinManager : MonoSingleton<CoinManager>, ICanSendEvent, ICanGetUtility, ICanRegisterEvent
 {
@@ -24,7 +23,7 @@ public class CoinManager : MonoSingleton<CoinManager>, ICanSendEvent, ICanGetUti
     private void SaveCoinNum(int value)
     {
         PlayerPrefs.SetInt("g_WaterCoinNum", value);
-        this.SendEvent<CoinChangeEvent>(new CoinChangeEvent() { coin = coin});
+        StringEventSystem.Global.Send(GameDefine.GameConst.COIN_CHANGE);
     }
 
     private int GetCoinNum()

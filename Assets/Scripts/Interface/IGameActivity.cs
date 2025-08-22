@@ -1,17 +1,30 @@
 using System;
 
+//奖励触发式活动状态
 public enum GameActivityStatus
 {
     Locked,
+    Inactive,
     Active,
     CoolingDown,
     WaitStart,
+    None
+}
+
+//奖励结算式活动状态
+public enum SettlementActivityStatus
+{
+    Inactive,
+    Active,
+    Finished,
+    //CoolingDown,
+    WaitStart,
+    None,
 }
 
 public interface IGameActivity 
 {
     string ActivityID { get; }
-    GameActivityStatus ActivityStatus { get; }
 
     /// <summary>
     /// 连胜
@@ -34,6 +47,8 @@ public interface IGameActivity
     void RestartActivity();
 
     void StartActivity();
-    
+
+    string GetActivityReamingTime();
+
     void Tick();
 }

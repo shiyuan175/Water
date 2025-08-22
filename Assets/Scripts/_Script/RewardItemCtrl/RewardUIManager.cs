@@ -57,33 +57,33 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         });
     }
 
-    //可只用作发放金币动画(packSO传入Null或传入一个只有金币的空礼包)
-    public IEnumerator PlayRewardAnim(IPackSoInterface packSO, bool addCoin = false, System.Action call = null)
+    public void PlayRewardAnim(IPackSoInterface packSO, int? addCoin , System.Action call = null)
     {
+        var _ItemReward = packSO?.ItemReward ?? new List<ItemReward>();
+        var _SpecialRewards = packSO?.SpecialRewards ?? new List<SpecialReward>();
         openBoxCallBack = call;
         availableSlots.Clear();
         actionList.Clear();
         mMask.Show();
 
-        if (packSO != null)
-        {
-            slotCount = packSO.ItemReward.Count + packSO.SpecialRewards.Count;
-            for (int i = 0; i < slotCount; i++)
-                availableSlots.Add(i);
-        }
+        slotCount = _ItemReward.Count + _SpecialRewards.Count;
+        for (int i = 0; i < slotCount; i++)
+            availableSlots.Add(i);
 
         BoxAnimator.Show();
         BoxAnimator.Play("BoxOpen");
-        yield return new WaitForSeconds(1f); // 等待盒子打开动画完成
-        if (packSO != null && (packSO.ItemReward.Count != 0 || packSO.SpecialRewards.Count != 0))
-            BtnContinue.Show();
-        else
-            mMask.Hide();
 
-        BoxAnimator.Hide();
-        if (packSO != null)
+        // 等待盒子打开动画完成
+        ActionKit.Delay(1f, () =>
         {
-            foreach (var item in packSO.ItemReward)
+            if (_ItemReward.Count != 0 || _SpecialRewards.Count != 0)
+                BtnContinue.Show();
+            else
+                mMask.Hide();
+
+            BoxAnimator.Hide();
+
+            foreach (var item in _ItemReward)
             {
                 var image = RewardPool.Allocate();
                 image.TryGetComponent(out PropRewardPoolNode _node);
@@ -92,7 +92,8 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
                 _node.Init(RewardSprites[item.ItemIndex - 1], SetRandomScreenPosition(image), item.Quantity, false);
                 actionList.Add(() => _node.MoveOffScreen());
             }
-            foreach (var item in packSO.SpecialRewards)
+
+            foreach (var item in _SpecialRewards)
             {
                 var image = RewardPool.Allocate();
                 image.TryGetComponent(out PropRewardPoolNode _node);
@@ -101,12 +102,13 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
                 _node.Init(item.RewardSprite, SetRandomScreenPosition(image), item.Duration, true);
                 actionList.Add(() => _node.MoveOffScreen());
             }
-        }
-        if (addCoin)
-        {
-            CoinParticle.Play(100);
-            PopupCoinText(packSO.Coins);
-        }
+
+            if ((addCoin ?? 0) > 0)
+            {
+                CoinParticle.Play(100);
+                PopupCoinText((int)addCoin);
+            }
+        }).Start(this);
     }
 
     public void PopupCoinText(float value)

@@ -7,62 +7,19 @@ using System.Globalization;
 public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
 {
     public static readonly string COUNTDOWN_TIMER_SIGN = "CountDownTimer_";
-    private readonly Dictionary<string, CountDownTimer> timers = new();
 
-    public class CountDownTimer
-    {
-        private DateTime EndTime;
-        public bool IsFinished { get; private set; }
-
-        public CountDownTimer(DateTime endTime)
-        {
-            EndTime = endTime;
-            IsFinished = false;
-        }
-
-        public TimeSpan GetRemainingTime()
-        {
-            return EndTime - DateTime.UtcNow;
-        }
-
-        public bool Update()
-        {
-            if (IsFinished) return false;
-
-            var remaining = GetRemainingTime();
-            if (remaining <= TimeSpan.Zero)
-            {
-                IsFinished = true;
-                return false;
-            }
-            return true;
-        }
-
-        public void Reset(string id, DateTime newEndTime)
-        {
-            EndTime = newEndTime;
-            IsFinished = false;
-
-            string key = COUNTDOWN_TIMER_SIGN + id;
-            PlayerPrefs.SetString(key, EndTime.ToString("o"));
-            PlayerPrefs.Save();
-        }
-    }
-
+    #region UTC计时器
     public override void OnSingletonInit()
     {
        
     }
 
-    //开启计时器
     public void StartTimer(string id, double minutes)
     {
         //TimeSpan duration = TimeSpan.FromHours(hours);
         TimeSpan duration = TimeSpan.FromMinutes(minutes);
-        timers[id] = CreateFromPrefs(id, duration);
+        CreateFromPrefs(id, duration);
     }
-
-    //重置计时器
     public void ResetTimer(string id, double minutes)
     {
         //TimeSpan duration = TimeSpan.FromHours(hours);
@@ -72,17 +29,15 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
         if (PlayerPrefs.HasKey(key))
             PlayerPrefs.DeleteKey(key);
 
-        timers[id] = CreateFromPrefs(id, duration);
+        CreateFromPrefs(id, duration);
     }
-
-    //计时器添加时间
     public void AddTimer(string id, double minutes)
     {
         string key = COUNTDOWN_TIMER_SIGN + id;
         TimeSpan duration = TimeSpan.FromMinutes(minutes);
         //无记录创建
         if (!PlayerPrefs.HasKey(key))
-            timers[id] = CreateFromPrefs(id, duration);
+            CreateFromPrefs(id, duration);
         else
         {
             if (DateTime.TryParse(PlayerPrefs.GetString(key), CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var endTime))
@@ -102,18 +57,18 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
             }
         }
     }
-
-    //删除计时器
     public void DeleteTimer(string id)
     {
         string key = COUNTDOWN_TIMER_SIGN + id;
         if (PlayerPrefs.HasKey(key))
-        {
             PlayerPrefs.DeleteKey(key);
-        }
     }
 
-    //获取计时器是否结束
+    /// <summary>
+    /// True is Ended
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public bool IsTimerFinished(string id)
     {
         string key = COUNTDOWN_TIMER_SIGN + id;
@@ -152,8 +107,7 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
         return "00:00:00";
     }
 
-    //工厂方法
-    private CountDownTimer CreateFromPrefs(string id, TimeSpan duration)
+    private void CreateFromPrefs(string id, TimeSpan duration)
     {
         string key = COUNTDOWN_TIMER_SIGN + id;
         DateTime endTime;
@@ -180,28 +134,61 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
             PlayerPrefs.SetString(key, endTime.ToString("o"));
             PlayerPrefs.Save();
         }
-
-        return new CountDownTimer(endTime);
     }
 
-    /*private void Update()
+    #endregion
+
+    #region 美东0点
+    // 美东时区信息
+    private readonly TimeZoneInfo EasternTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+
+    /// <summary>
+    /// 开启美东 0 点结束的计时器
+    /// </summary>
+    public void StartEasternMidnightTimer(string id)
     {
-        var removeKeys = new List<string>();
-        foreach (var kv in timers)
-        {
-            var id = kv.Key;
-            var timer = kv.Value;
+        string key = COUNTDOWN_TIMER_SIGN + id;
+        if (PlayerPrefs.HasKey(key))
+            return;
 
-            if (!timer.Update())
-            {
-                removeKeys.Add(id);
-            }
-        }
+        DateTime endUtc = GetTomorrowEasternMidnightUtc();
+        PlayerPrefs.SetString(key, endUtc.ToString("o"));
+        PlayerPrefs.Save();
+    }
 
-        // 移除结束的计时器
-        foreach (var id in removeKeys)
-        {
-            timers.Remove(id);
-        }
-    }*/
+    /// <summary>
+    /// 重置计时器为下一次美东 0 点
+    /// </summary>
+    public void ResetEasternMidnightTimer(string id)
+    {
+        string key = COUNTDOWN_TIMER_SIGN + id;
+        DateTime endUtc = GetTomorrowEasternMidnightUtc();
+        PlayerPrefs.SetString(key, endUtc.ToString("o"));
+        PlayerPrefs.Save();
+    }
+
+    /// <summary>
+    /// 获取今日美东 0 点(对应的 UTC 时间)
+    /// </summary>
+    private DateTime GetTodayEasternMidnightUtc()
+    {
+        // 当前 UTC 时间
+        DateTime utcNow = DateTime.UtcNow;
+        // 转换为美东当前时间
+        DateTime easternNow = TimeZoneInfo.ConvertTimeFromUtc(utcNow, EasternTimeZone);
+        // 取当天 0 点
+        DateTime easternMidnight = easternNow.Date;
+        // 转回 UTC 存储
+        return TimeZoneInfo.ConvertTimeToUtc(easternMidnight, EasternTimeZone);
+    }
+
+    /// <summary>
+    /// 获取明天美东 0 点(对应的 UTC 时间)
+    /// </summary>
+    private DateTime GetTomorrowEasternMidnightUtc()
+    {
+        return GetTodayEasternMidnightUtc().AddDays(1);
+    }
+
+    #endregion
 }

@@ -37,7 +37,7 @@ namespace QFramework.Example
 
             RegisterBtnEvent();
 
-            this.RegisterEvent<CoinChangeEvent>(e =>
+            StringEventSystem.Global.Register(GameDefine.GameConst.COIN_CHANGE, () =>
             {
                 SetCoin();
 
@@ -161,6 +161,24 @@ namespace QFramework.Example
                 }
                 return false;
             });
+
+            //魔法连胜
+            PanelQueueManager.Instance.Enqueue(() =>
+            {
+                if (GameActivityManager.Instance.GetActivity<MagicStreakActivity>() is MagicStreakActivity MSA &&
+                MSA.ActivityStatus == SettlementActivityStatus.Active)
+                {
+                    UIKit.OpenPanel<UIMagicStreakActivity>(new UIMagicStreakActivityData()
+                    {
+                        ISWin = false,
+                        IsManagedOpen = true,
+                        Status = SettlementActivityStatus.Active
+                    });
+                    return true;
+                }
+                return false;
+            });
+
             //...其他活动等
 
             //开启

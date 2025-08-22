@@ -38,6 +38,7 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<HighTowerActivity>();
         }
+        RegisterActivity<MagicStreakActivity>();
         //Other Activities can be registered here based on level or other conditions
 
     }

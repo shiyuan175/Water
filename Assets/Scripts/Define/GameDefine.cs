@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using GameAttributes;
+using JsonFileData;
+using UnityEngine;
 
 namespace GameDefine
 {
@@ -15,20 +17,22 @@ namespace GameDefine
         //过关基础金币
         public const int WIN_COINS = 20;
         public const int ADD_BOTTLE_COST = 900;
-
-        public const int SCENE_PART_COUNT = 5;
+        //连胜去黑(最高三档)
+        public const int MAX_GIFT_STREAK_WIN = 3;
         //第八关开启连胜相关功能(连胜段位\连胜去黑\主页连胜活动...)
         public const int WIN_STREAK_BEGIN_LEVEL = 8;
+
         //活动开启目标关卡
         public const int VA_BEGIN_LEVEL = 7;    //火山活动
         public const int RA_BEGIN_LEVEL = 24;   //火箭活动
         public const int HTA_BEGIN_LEVEL = 34;  //高塔活动
-        //...
-
-        //连胜去黑(最高三档)
-        public const int MAX_GIFT_STREAK_WIN = 3;
+        //活动存档标记
+        public const string MAGIC_STREAK_ACTIVITY_SIGN = "MagicStreakActivity";
+        public const string ROCKET_ACTIVITY_SIGN = "RocketActivity";
+        public const string HIGH_TOWER_ACTIVITY_SIGN = "HighTowerActivity";
 
         //存档标记
+        public const string FIRST_LAUNCH_SIGN = "FIRST_LAUNCH";
         public const string DOUBLE_COIN_SIGN = "DoubleCoin";
         public const string POTION_ACTIVITY_SIGN = "PotionActivity";
         public const string UNLIMIT_ITEM_SIGN = "UnLimitItenEndTime";
@@ -39,6 +43,22 @@ namespace GameDefine
         public const string START_POTION_ACTIVITY = "StartPotionActivity";
         public const string OPEN_SHOP_PANEL_EVENT = "OpenShopPanel";
         public const string MANAGER_OPEN_NEXT_PANEL = "ManagerOpenNextPanel";
+        public const string COIN_CHANGE = "CoinChange";
+
+        #region Json file info
+
+        public readonly static JsonFileInfo MSADefaultJson = new()
+        {
+            FileName = "MSADefaultData.json",
+            TargetVersion = 1
+        };
+        public readonly static JsonFileInfo MSACurrentJson = new()
+        {
+            FileName = "MSACurrent.json",
+            TargetVersion = 1
+        };
+
+        #endregion
 
         //关卡引导
         public static readonly Dictionary<int, (string, string)> GuideLevelInfo = new Dictionary<int, (string, string)>
@@ -365,6 +385,9 @@ namespace GameDefine
 
     public static class GameUtils
     {
+        public static bool DoesCountDownKeyExist(string id) => 
+            PlayerPrefs.HasKey(CountDownTimerManager.COUNTDOWN_TIMER_SIGN + id);
+       
         public static void SotrArray<T>(T[] array) where T : UnityEngine.Component
         {
             System.Array.Sort(array, (a, b) =>

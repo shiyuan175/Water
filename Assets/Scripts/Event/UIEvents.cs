@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,11 +18,6 @@ public struct LevelStartEvent
 public struct LevelClearEvent
 {
 
-}
-
-public struct CoinChangeEvent
-{
-    public int coin;
 }
 
 public struct VitalityChangeEvent
@@ -62,5 +58,5 @@ public struct AvatarEvent
 public struct OnActivityStatusChanged
 {
     public IGameActivity Sender;
-    public GameActivityStatus Status;
+    public Enum Status;
 }

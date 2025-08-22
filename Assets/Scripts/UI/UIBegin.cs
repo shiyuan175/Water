@@ -41,6 +41,7 @@ namespace QFramework.Example
         private VolcanicActivity mVolcanicActivity;
         private RocketActivity mRocketActivity;
         private HighTowerActivity mHighTowerActivity;
+        private MagicStreakActivity mMagicStreakActivity;
 
         public IArchitecture GetArchitecture()
         {
@@ -63,6 +64,7 @@ namespace QFramework.Example
             mVolcanicActivity = GameActivityManager.Instance.GetActivity<VolcanicActivity>();
             mRocketActivity = GameActivityManager.Instance.GetActivity<RocketActivity>();
             mHighTowerActivity = GameActivityManager.Instance.GetActivity<HighTowerActivity>();
+            mMagicStreakActivity = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
 
             LevelManager.Instance.InitBottle();
            
@@ -89,6 +91,7 @@ namespace QFramework.Example
             SetCoin();
             SetStar();
             SetScene();
+            InitActivityState();
         }
 
         protected override void OnHide()
@@ -102,40 +105,15 @@ namespace QFramework.Example
         private void Update()
         {
             //后续改成异步线程(一秒触发一次)
-
             if (HealthManager.Instance.UnLimitHp || !HealthManager.Instance.IsMaxHp)
             {
                 TxtTime.text = HealthManager.Instance.UnLimitHp ?
                     HealthManager.Instance.UnLimitHpTimeStr :
                     HealthManager.Instance.RecoverTimerStr;
             }
-
-            //更新火山活动的剩余时间
-            if (BtnVANode.gameObject.activeSelf && mVolcanicActivity != null)
-            {
-                TxtVolcanicActivity.text = mVolcanicActivity.GetActivityReamingTime();
-            }
-
-            if (BtnRANode.gameObject.activeSelf && mRocketActivity != null)
-            {
-                TxtRocketActivity.text = mRocketActivity.GetActivityReamingTime();
-            }
-
-            if (BtnHTANode.gameObject.activeSelf && mHighTowerActivity != null)
-            {
-                TxtHighTowerActivity.text = mHighTowerActivity.GetActivityReamingTime();
-            }
         }
 
-        private void InitTxtFont()
-        {
-            TxtImgprogress.font = LevelManager.Instance.blueFont;
-            TxtImgprogress.font.material.shader = Shader.Find(TxtImgprogress.font.material.shader.name);
-            TxtArea.font = LevelManager.Instance.redFont;
-        }
-
-        //按钮监听
-        void BindBtn()
+        private void BindBtn()
         {
             BtnStart.onClick.RemoveAllListeners();
             BtnStart.onClick.AddListener(() =>
@@ -182,19 +160,37 @@ namespace QFramework.Example
             BtnVANode.onClick.RemoveAllListeners();
             BtnVANode.onClick.AddListener(() =>
             {
-                UIKit.OpenPanel<UIVolcanicActivityEntrance>();
+                if (!mVolcanicActivity.VAActivateState)
+                    UIKit.OpenPanel<UIVolcanicActivityEntrance>();
+                else
+                    UIKit.OpenPanel<UIVolcanicActivity>();
             });
 
             BtnRANode.onClick.RemoveAllListeners();
             BtnRANode.onClick.AddListener(() =>
             {
-                UIKit.OpenPanel<UIRocketActivity>();
+                if (!GameUtils.DoesCountDownKeyExist(GameConst.ROCKET_ACTIVITY_SIGN))
+                    UIKit.OpenPanel<UIRocketActivityEntrance>();
+                else
+                    UIKit.OpenPanel<UIRocketActivity>();
             });
 
             BtnHTANode.onClick.RemoveAllListeners();
             BtnHTANode.onClick.AddListener(() =>
             {
-                UIKit.OpenPanel<UIHighTowerActivity>();
+                if (!GameUtils.DoesCountDownKeyExist(GameConst.HIGH_TOWER_ACTIVITY_SIGN))
+                    UIKit.OpenPanel<UIHighTowerActivityEntrance>();
+                else
+                    UIKit.OpenPanel<UIHighTowerActivity>();
+            });
+
+            BtnMSNode.onClick.RemoveAllListeners();
+            BtnMSNode.onClick.AddListener(() =>
+            {
+                if (!GameUtils.DoesCountDownKeyExist(GameConst.MAGIC_STREAK_ACTIVITY_SIGN))
+                    UIKit.OpenPanel<UIMagicStreakActivityEntrance>();
+                else
+                    UIKit.OpenPanel<UIMagicStreakActivity>();
             });
 
             //底部区域按钮监听
@@ -245,8 +241,7 @@ namespace QFramework.Example
             }
         }
 
-        //事件注册
-        void RegisterEvent()
+        private void RegisterEvent()
         {
             //胜利结算=》返回主页事件
             this.RegisterEvent<LevelClearEvent>(e =>
@@ -266,11 +261,6 @@ namespace QFramework.Example
                 HomeNode.Show();
                 AudioKit.ResumeMusic();
 
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-            this.RegisterEvent<CoinChangeEvent>(e =>
-            {
-                SetCoin(e.coin);
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             this.RegisterEvent<VitalityChangeEvent>(e =>
@@ -302,7 +292,7 @@ namespace QFramework.Example
 
             this.RegisterEvent<OnActivityStatusChanged>(e =>
             {
-                SetActivity(e);
+                ActivityStatusChangeEvent(e);
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
@@ -320,6 +310,12 @@ namespace QFramework.Example
             StringEventSystem.Global.Register(GameConst.CLOSE_VOLCANIC_ACTIVITY_EVENT, () =>
             {
                 BtnVANode.Hide();
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            StringEventSystem.Global.Register(GameConst.COIN_CHANGE, () =>
+            {
+                SetCoin();
+
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
@@ -353,36 +349,32 @@ namespace QFramework.Example
 
         #endregion
 
+        #region 字体/金币/体力/星星/头像/建筑 初始化更新
+        
+        private void InitTxtFont()
+        {
+            TxtImgprogress.font = LevelManager.Instance.blueFont;
+            TxtImgprogress.font.material.shader = Shader.Find(TxtImgprogress.font.material.shader.name);
+            TxtArea.font = LevelManager.Instance.redFont;
+        }
+
         private void SetAvatar()
         {
             BtnHead.GetComponent<Image>().sprite = AvatarManager.Instance.GetAvatarSprite(true);
             ImgHeadFrame.sprite = AvatarManager.Instance.GetAvatarSprite(false);
         }
-
-        /// <summary>
-        /// 更新金币数量
-        /// </summary>
-        /// <param name="num"></param>
-        void SetCoin(int num = 0)
+    
+        private void SetCoin()
         {
-            if (num == 0)
-                num = CoinManager.Instance.Coin;
-
-            TxtCoin.text = num.ToString();
+            TxtCoin.text = CoinManager.Instance.Coin.ToString();
         }
 
-        /// <summary>
-        /// 更新星星数量
-        /// </summary>
-        void SetStar()
+        private void SetStar()
         {
             TxtStar.text = mSceneUnlockModel.RemainingStar.ToString();
         }
 
-        /// <summary>
-        /// 更新体力
-        /// </summary>
-        void SetVitality()
+        private void SetVitality()
         {
             TxtHeart.text = HealthManager.Instance.UnLimitHp ? "∞" : HealthManager.Instance.NowHp.ToString();
 
@@ -391,40 +383,10 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// 设置活动入口状态
-        /// </summary>
-        private void SetActivity(OnActivityStatusChanged eventData)
-        {
-            //Debug.Log("收到事件、状态：" + eventData.Status);
-            var _activity = eventData.Sender;
-            if (_activity is VolcanicActivity)
-            {
-                if (mVolcanicActivity == null)
-                    mVolcanicActivity = _activity as VolcanicActivity;
-                BtnVANode.gameObject.SetActive(eventData.Status == GameActivityStatus.Active);
-            }
-
-            else if (_activity is RocketActivity)
-            {
-                if (mRocketActivity == null)
-                    mRocketActivity = _activity as RocketActivity;
-                BtnRANode.gameObject.SetActive(eventData.Status == GameActivityStatus.Active);
-            }
-
-            else if (_activity is HighTowerActivity)
-            {
-                if(mHighTowerActivity == null)
-                    mHighTowerActivity = _activity as HighTowerActivity;
-                BtnHTANode.gameObject.SetActive(eventData.Status == GameActivityStatus.Active);
-            }
-            //...Other Activity
-        }
-
-        /// <summary>
         /// 金币和星星的飞行粒子效果
         /// </summary>
         /// <returns></returns>
-        IEnumerator ShowFx()
+        private IEnumerator ShowFx()
         {
             CoinManager.Instance.AddCoin((int)(GameConst.WIN_COINS * stageModel.GoldCoinsMultiple));
             RewardUIManager.Instance.PopupCoinText(GameConst.WIN_COINS * stageModel.GoldCoinsMultiple);
@@ -438,7 +400,7 @@ namespace QFramework.Example
         /// <summary>
         /// 更新主页场景建筑
         /// </summary>
-        void SetScene()
+        private void SetScene()
         {
             var _unitUnlockProgress = mSceneUnlockModel.SceneUnlockUnitIndex;
             var _sceneIndex = mSceneUnlockModel.SceneIndex;
@@ -472,6 +434,119 @@ namespace QFramework.Example
             ImgProgress.fillAmount = (float)_unitUnlockProgress / _unitCount;
             TxtImgprogress.text = $"{_unitUnlockProgress} / {_unitCount}";
         }
+        #endregion
+
+        #region 活动模块
+        private void InitActivityState()
+        {
+            UpdateVAState();
+            UpdateRAState();
+            UpdateHTAState();
+            UpdateMSAState();
+        }
+
+        /// <summary>
+        /// 活动状态变更事件
+        /// </summary>
+        private void ActivityStatusChangeEvent(OnActivityStatusChanged eventData)
+        {
+            //Debug.Log("收到事件、状态：" + eventData.Status);
+            var _activity = eventData.Sender;
+            if (_activity is VolcanicActivity)
+            {
+                mVolcanicActivity ??= _activity as VolcanicActivity;
+                UpdateVAState();
+            }
+
+            else if (_activity is RocketActivity)
+            {
+                mRocketActivity ??= _activity as RocketActivity;
+                UpdateRAState();
+            }
+
+            else if (_activity is HighTowerActivity)
+            {
+                mHighTowerActivity ??= _activity as HighTowerActivity;
+                UpdateHTAState();
+            }
+
+            else if (_activity is MagicStreakActivity)
+            {
+                mMagicStreakActivity ??= _activity as MagicStreakActivity;
+                UpdateMSAState();
+            }
+
+            //...Other Activity
+        }
+        
+        private void UpdateVAState()
+        {
+            if (mVolcanicActivity is null)
+            {
+                BtnVANode.interactable = false;
+                TxtVolcanicActivity.text = "Locked";
+                return;
+            }
+            BtnVANode.interactable = true;
+            TxtVolcanicActivity.text = mVolcanicActivity.ActivityStatus switch
+            {
+                GameActivityStatus.Inactive => "Inactive",
+                GameActivityStatus.Active => "Active",
+                _ => "Finished"
+            };
+        }
+
+        private void UpdateRAState()
+        {
+            if (mRocketActivity is null)
+            {
+                BtnRANode.interactable = false;
+                TxtRocketActivity.text = "Locked";
+                return;
+            }
+            BtnRANode.interactable = true;
+            TxtRocketActivity.text = mRocketActivity.ActivityStatus switch
+            {
+                GameActivityStatus.Inactive => "Inactive",
+                GameActivityStatus.Active => "Active",
+                _ => "Finished"
+            };
+        }
+
+        private void UpdateHTAState()
+        {
+            if (mHighTowerActivity is null)
+            {
+                BtnHTANode.interactable = false;
+                TxtHighTowerActivity.text = "Locked";
+                return;
+            }
+            BtnHTANode.interactable = true;
+            TxtHighTowerActivity.text = mHighTowerActivity.ActivityStatus switch
+            {
+                GameActivityStatus.Inactive => "Inactive",
+                GameActivityStatus.Active => "Active",
+                _ => "Finished"
+            };
+        }
+
+        private void UpdateMSAState()
+        {
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.FIRST_LAUNCH_SIGN))
+            {
+                BtnMSNode.interactable = false;
+                TxtMagicStreakActivity.text = "Locked";
+                return;
+            }
+
+            BtnMSNode.interactable = true;
+            TxtMagicStreakActivity.text = mMagicStreakActivity.ActivityStatus switch
+            {
+                SettlementActivityStatus.Inactive => "Inactive",
+                SettlementActivityStatus.Active => "Active",
+                _ => "Finished"
+            };
+        }
 
         /// <summary>
         /// 连胜活动
@@ -490,5 +565,6 @@ namespace QFramework.Example
                 //Debug.Log("剩余时长：" + CountDownTimerManager.Instance.GetRemainingTimeText(GameConst.POTION_ACTIVITY_SIGN));
             }
         }
+        #endregion
     }
 }
