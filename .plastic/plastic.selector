@@ -1,4 +1,0 @@
-repository "Water@tj_leilei2020@cloud.cn"
-  path "/"
-    br "/main"
-    co "/main"
