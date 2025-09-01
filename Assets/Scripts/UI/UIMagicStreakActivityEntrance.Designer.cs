@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:dccdba0b-2310-48b3-9f16-44f7925d7212
+	// Generate Id:75ed1528-5064-41e5-bbd1-3b1738f96314
 	public partial class UIMagicStreakActivityEntrance
 	{
 		public const string Name = "UIMagicStreakActivityEntrance";

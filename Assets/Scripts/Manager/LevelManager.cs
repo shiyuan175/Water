@@ -94,8 +94,6 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
 
     private void Start()
     {
-        AudioKit.PlayMusic("resources://Audio/BG_BGM");
-        
         //清空携带道具
         StringEventSystem.Global.Register("ClearTakeItem", () =>
         {
@@ -112,10 +110,6 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         {
             UIKit.OpenPanel<UIGameNode>();
             StartGame(levelId);
-            ActionKit.DelayFrame(1, () =>
-            {
-                AudioKit.PauseMusic();
-            }).Start(this);
         }
     }
 

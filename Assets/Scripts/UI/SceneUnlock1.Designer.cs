@@ -5,13 +5,17 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:603875bd-0215-4846-af04-1cb1bc3bcc4c
+	// Generate Id:8f983d72-5ffa-433a-8681-b236e1ed6d96
 	public partial class SceneUnlock1
 	{
 		public const string Name = "SceneUnlock1";
 		
 		[SerializeField]
-		public UnityEngine.UI.Image ImgBox;
+		public Spine.Unity.SkeletonGraphic SpineHeartRise;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgReward;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnBox;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtRemainStar;
 		[SerializeField]
@@ -31,7 +35,9 @@ namespace QFramework.Example
 		
 		protected override void ClearUIComponents()
 		{
-			ImgBox = null;
+			SpineHeartRise = null;
+			ImgReward = null;
+			BtnBox = null;
 			TxtRemainStar = null;
 			BtnUnitUnlock = null;
 			ImgUnitIcon = null;

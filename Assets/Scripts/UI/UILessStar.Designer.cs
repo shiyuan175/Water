@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:aab1914b-e89e-4d12-8435-15ff5a21c145
+	// Generate Id:f2d8a02d-1526-412c-8827-046da2315dee
 	public partial class UILessStar
 	{
 		public const string Name = "UILessStar";
@@ -13,14 +13,14 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Button BtnClose;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnStart;
+		public UnityEngine.UI.Button BtnContinue;
 		
 		private UILessStarData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
 			BtnClose = null;
-			BtnStart = null;
+			BtnContinue = null;
 			
 			mData = null;
 		}

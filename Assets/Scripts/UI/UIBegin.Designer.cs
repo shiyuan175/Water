@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:23f6bbde-09d8-49ac-8ff9-5306c73574a9
+	// Generate Id:094a6315-e744-46a6-a150-a0c9d16ce1d8
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
@@ -15,7 +15,7 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Button BtnStart;
 		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtStart;
+		public TMPro.TextMeshProUGUI TxtStartLevel;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnArea;
 		[SerializeField]
@@ -61,8 +61,6 @@ namespace QFramework.Example
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtHighTowerActivity;
 		[SerializeField]
-		public UnityEngine.Animator TxtCoinAdd;
-		[SerializeField]
 		public UnityEngine.UI.Button BtnSelect;
 		[SerializeField]
 		public UnityEngine.UI.Image ImgSelected;
@@ -75,7 +73,7 @@ namespace QFramework.Example
 		{
 			ShopScrollView = null;
 			BtnStart = null;
-			TxtStart = null;
+			TxtStartLevel = null;
 			BtnArea = null;
 			TxtArea = null;
 			ImgProgressBg = null;
@@ -98,7 +96,6 @@ namespace QFramework.Example
 			TxtRocketActivity = null;
 			BtnHTANode = null;
 			TxtHighTowerActivity = null;
-			TxtCoinAdd = null;
 			BtnSelect = null;
 			ImgSelected = null;
 			BottomMenuBtns = null;

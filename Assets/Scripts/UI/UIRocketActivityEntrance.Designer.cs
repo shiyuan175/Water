@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:b9809861-a630-4dca-b01d-46c727454c74
+	// Generate Id:41bfd3a8-da8e-4c53-9eba-1798d668ebe5
 	public partial class UIRocketActivityEntrance
 	{
 		public const string Name = "UIRocketActivityEntrance";

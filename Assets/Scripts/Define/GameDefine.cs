@@ -39,7 +39,6 @@ namespace GameDefine
         public const string RANKA_ACTIVITY_SIGN = "RankAActivity";
 
         //事件标记
-        public const string CLOSE_VOLCANIC_ACTIVITY_EVENT = "CloseVolcanicActivity";
         public const string START_POTION_ACTIVITY = "StartPotionActivity";
         public const string OPEN_SHOP_PANEL_EVENT = "OpenShopPanel";
         public const string MANAGER_OPEN_NEXT_PANEL = "ManagerOpenNextPanel";

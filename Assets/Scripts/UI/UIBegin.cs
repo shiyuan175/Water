@@ -67,7 +67,14 @@ namespace QFramework.Example
             mMagicStreakActivity = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
 
             LevelManager.Instance.InitBottle();
-           
+
+            InitTxtFont();
+
+            BindBtn();
+            RegisterEvent();
+            InitSceneUI();
+            InitActivityState();
+
             int currentLevel = saveData.GetCurrentLevel();
             if (currentLevel <= 5)
             {
@@ -84,14 +91,10 @@ namespace QFramework.Example
 
         protected override void OnShow()
         {
-            BindBtn();
-            RegisterEvent();
-            SetAvatar();
-            SetVitality();
-            SetCoin();
-            SetStar();
-            SetScene();
-            InitActivityState();
+            //BindBtn();
+            //RegisterEvent();
+            //InitSceneUI();
+            //InitActivityState();
         }
 
         protected override void OnHide()
@@ -249,7 +252,7 @@ namespace QFramework.Example
                 LevelManager.Instance.InitBottle();
                 BottomMenuBtns.Show();
                 HomeNode.Show();
-                AudioKit.ResumeMusic();
+                SetStartLevel();
                 StartCoroutine(ShowFx());
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
@@ -259,7 +262,7 @@ namespace QFramework.Example
                 LevelManager.Instance.InitBottle();
                 BottomMenuBtns.Show();
                 HomeNode.Show();
-                AudioKit.ResumeMusic();
+                SetStartLevel();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
@@ -277,7 +280,7 @@ namespace QFramework.Example
             this.RegisterEvent<GameStartEvent>(e =>
             {
                 UIKit.OpenPanel<UIGameNode>();
-                AudioKit.PauseMusic();
+
                 LevelManager.Instance.StartGame(saveData.GetCurrentLevel());
                 BottomMenuBtns.Hide();
                 HomeNode.Hide();
@@ -305,11 +308,6 @@ namespace QFramework.Example
             StringEventSystem.Global.Register(GameConst.START_POTION_ACTIVITY, () =>
             {
                 PotionActivity();
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-            StringEventSystem.Global.Register(GameConst.CLOSE_VOLCANIC_ACTIVITY_EVENT, () =>
-            {
-                BtnVANode.Hide();
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             StringEventSystem.Global.Register(GameConst.COIN_CHANGE, () =>
@@ -358,6 +356,16 @@ namespace QFramework.Example
             TxtArea.font = LevelManager.Instance.redFont;
         }
 
+        private void InitSceneUI()
+        {
+            SetAvatar();
+            SetVitality();
+            SetCoin();
+            SetStar();
+            SetScene();
+            SetStartLevel();
+        }
+
         private void SetAvatar()
         {
             BtnHead.GetComponent<Image>().sprite = AvatarManager.Instance.GetAvatarSprite(true);
@@ -380,6 +388,11 @@ namespace QFramework.Example
 
             if (!HealthManager.Instance.UnLimitHp && HealthManager.Instance.IsMaxHp)
                 TxtTime.text = "FULL";
+        }
+
+        private void SetStartLevel()
+        {
+            TxtStartLevel.text = $"Level {saveData.GetCurrentLevel()}";
         }
 
         /// <summary>

@@ -32,7 +32,7 @@ namespace QFramework.Example
 
         void SetAudio()
         {
-            AudioKit.Settings.MusicVolume.Value = volumeSetting ? 1 : 0;
+            //AudioKit.Settings.MusicVolume.Value = volumeSetting ? 1 : 0;
             AudioKit.Settings.SoundVolume.Value = volumeSetting ? 1 : 0;
         }
     }

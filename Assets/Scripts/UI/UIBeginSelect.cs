@@ -43,6 +43,8 @@ namespace QFramework.Example
         protected override void OnOpen(IUIData uiData = null)
         {
             TxtWinProcess.font = LevelManager.Instance.redFont;
+
+            TxtLevelTitle.text = $"Level {this.GetUtility<SaveDataUtility>().GetCurrentLevel()}";
         }
 
         protected override void OnShow()

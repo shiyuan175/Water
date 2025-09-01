@@ -5,13 +5,15 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:cac32ef1-4a10-4ff9-8d84-bdbe26636f2c
+	// Generate Id:928d65b1-6104-46ee-b313-d4e56639bd7e
 	public partial class UIBeginSelect
 	{
 		public const string Name = "UIBeginSelect";
 		
 		[SerializeField]
 		public UnityEngine.UI.Button BtnClose;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtLevelTitle;
 		[SerializeField]
 		public UnityEngine.UI.Image ImgBox;
 		[SerializeField]
@@ -34,6 +36,7 @@ namespace QFramework.Example
 		protected override void ClearUIComponents()
 		{
 			BtnClose = null;
+			TxtLevelTitle = null;
 			ImgBox = null;
 			BtnInfo = null;
 			ImgProgress = null;

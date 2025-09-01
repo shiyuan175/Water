@@ -31,7 +31,7 @@ public class StageModel : AbstractModel
             else return mGoldCoinsMultiple;
         }
     }
-    private float mGoldCoinsMultiple = 1;
+    private float mGoldCoinsMultiple => mCountinueWinNum.Value > GameConst.CONTINUE_WIN_NUM_COIN ? 1.5f : 1;
 
     //静音
     public bool VolumeSetting
@@ -103,14 +103,10 @@ public class StageModel : AbstractModel
     {
         if (storage.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             mCountinueWinNum.Value++;
-        
-        //大于10连胜生效(不含10连胜/本次过关不生效)
-        mGoldCoinsMultiple = mCountinueWinNum.Value > GameConst.CONTINUE_WIN_NUM_COIN ? 1.5f : 1;
     }
 
     public void ResetCountinueWinNum()
     {
         mCountinueWinNum.Value = 0;
-        mGoldCoinsMultiple = 1;
     }
 }

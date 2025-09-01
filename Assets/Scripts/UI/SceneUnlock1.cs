@@ -61,7 +61,7 @@ namespace QFramework.Example
 
         };
         //特效目标位置(宝箱)
-        private readonly Vector2 mEffectBoxTargetPos = new (500, 900);
+        private readonly Vector2 mEffectBoxTargetPos = new (-220, 900);//500,900
 
         [SerializeField] private SkeletonGraphic[] mAllUnitSpines;
         [SerializeField] private CanvasGroup[] mSpineCanvasGroups;
@@ -72,6 +72,7 @@ namespace QFramework.Example
         [SerializeField] private Transform[] mProgressNodes;
         [SerializeField] private RewardPackSO mRewardPackSO;
 
+        private Spine.AnimationState.TrackEntryDelegate mHeartRiseCallBack;
         private SceneUnlockModel mSceneUnlockModel;
         private RewardGrantUtility mRewardGrantUtility;
         //用于维护Spine的回调监听和注销
@@ -96,7 +97,7 @@ namespace QFramework.Example
             if (mSceneUnlockModel.SceneIndex > PANEL_ID)
             {
                 startUnitIndex = mUnitMes.Length;
-                ImgBox.sprite = mBoxOpenSprite;
+                BtnBox.image.sprite = mBoxOpenSprite;
             }
 
             InitPanel();
@@ -105,6 +106,11 @@ namespace QFramework.Example
 
         protected override void OnShow()
 		{
+            BtnBox.onClick.AddListener(() =>
+            {
+                ImgReward.gameObject.SetActive(!ImgReward.gameObject.activeSelf);
+            });
+
             BtnUnitUnlock.onClick.AddListener(() =>
             {
                 int _index = mSceneUnlockModel.SceneUnlockUnitIndex;
@@ -123,11 +129,14 @@ namespace QFramework.Example
                         mSpineCanvasGroups[_index].alpha = 1;
                         //mUnActiveUnitSpines[_realIndex].Show();
                         mUnActiveUnitSpines[_realIndex].AnimationState.SetAnimation(0, "animation", false);
+
+                        SpineHeartRise.GetComponent<CanvasGroup>().alpha = 1f;
+                        SpineHeartRise.AnimationState.SetAnimation(0, "tx", false);
                     });
                 }
                 else
                 {
-                    UIKit.OpenPanel<UILessStar>();
+                    UIKit.OpenPanel<UILessStar>(new UILessStarData { CurPanel = this});
                 }
             });
 
@@ -148,8 +157,11 @@ namespace QFramework.Example
             {
                 mUnActiveUnitSpines[i].AnimationState.Complete -= mOnCompleteHandlers[i];
             }
+            SpineHeartRise.AnimationState.Complete -= mHeartRiseCallBack;
+
             BtnUnitUnlock.onClick.RemoveAllListeners();
             BtnReturen.onClick.RemoveAllListeners();
+            BtnBox.onClick.RemoveAllListeners();
 
             mSceneUnlockModel = null;
             mRewardGrantUtility = null;
@@ -226,6 +238,14 @@ namespace QFramework.Example
                 mUnActiveUnitSpines[i].AnimationState.Complete += handler;
                 mOnCompleteHandlers.Add(handler);
             }
+
+            mHeartRiseCallBack = (TrackEntry trackEntry) =>
+            {
+                SpineHeartRise.GetComponent<CanvasGroup>().alpha = 0f;
+                SpineHeartRise.AnimationState.SetEmptyAnimation(0, 0);
+                SpineHeartRise.AnimationState.GetCurrent(0).TrackTime = 0f;
+            };
+            SpineHeartRise.AnimationState.Complete += mHeartRiseCallBack;
         }
 
         /// <summary>
@@ -266,7 +286,7 @@ namespace QFramework.Example
                 {
                     UIKit.ClosePanel<UIMask>();
                     RewardUIManager.Instance.PlayRewardAnim(mRewardPackSO, mRewardPackSO.Coins);
-                    ImgBox.sprite = mBoxOpenSprite;
+                    BtnBox.image.sprite = mBoxOpenSprite;
                 }
             });
         }

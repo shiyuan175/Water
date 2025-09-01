@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:8cba7257-f7de-4ff1-9425-2f6dca6f5baf
+	// Generate Id:f7903564-262c-4f7e-a038-e4c6e5dcb326
 	public partial class UIHighTowerActivityEntrance
 	{
 		public const string Name = "UIHighTowerActivityEntrance";

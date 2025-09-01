@@ -30,8 +30,7 @@ public struct UnlimtItemEvent
 
 public struct UnlockSceneEvent
 {
-    public int scene;
-    public int part;
+   
 }
 
 public struct ReturnMainEvent

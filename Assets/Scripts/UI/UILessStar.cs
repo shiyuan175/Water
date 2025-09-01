@@ -6,7 +6,9 @@ namespace QFramework.Example
 {
 	public class UILessStarData : UIPanelData
 	{
+		public UIPanel CurPanel;
 	}
+
 	public partial class UILessStar : UIPanel
 	{
 		protected override void OnInit(IUIData uiData = null)
@@ -27,9 +29,13 @@ namespace QFramework.Example
 				CloseSelf();
 			});
 
-			BtnStart.onClick.RemoveAllListeners();
-			BtnStart.onClick.AddListener(() =>
+            BtnContinue.onClick.RemoveAllListeners();
+            BtnContinue.onClick.AddListener(() =>
 			{
+                UIKit.ClosePanel(mData.CurPanel);
+				UIKit.ShowPanel<UIBegin>();
+                UIKit.OpenPanel<UIBeginSelect>();
+				
 				CloseSelf();
 			});
 		}
