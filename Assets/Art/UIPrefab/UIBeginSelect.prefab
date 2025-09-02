@@ -405,6 +405,10 @@ MonoBehaviour:
   - {fileID: 3764411515051051815}
   - {fileID: 4256857644955380369}
   - {fileID: 2326110006191565304}
+  imgBgSprites:
+  - {fileID: 21300000, guid: f69314c64c2bfd34aa4f86278357d2f5, type: 3}
+  - {fileID: 21300000, guid: 425ed1a256715af40b73b77cef01fee1, type: 3}
+  - {fileID: 21300000, guid: 6d7229b6413539d428ff7bc1bb6d844d, type: 3}
   selectBtns:
   - {fileID: 1983928919420400212}
   - {fileID: 1668919003176255058}
@@ -419,6 +423,7 @@ MonoBehaviour:
   - {fileID: 873212456605445193}
   ImgCoinWinProcess: {fileID: 5746700751567630935}
   TxtCoinWinProgress: {fileID: 653153729423445515}
+  imgBk: {fileID: 6898104478203835468}
   BtnClose: {fileID: 5821182617835892991}
   TxtLevelTitle: {fileID: 8860658126751471711}
   ImgBox: {fileID: 4778741037391993547}

@@ -9,14 +9,23 @@ using DG.Tweening;
 
 namespace QFramework.Example
 {
-	public class UIGameNodeData : UIPanelData
-	{
-	}
+    public class UIGameNodeData : UIPanelData
+    {
+    }
 
-	public partial class UIGameNode : UIPanel ,IController
-	{
+    public partial class UIGameNode : UIPanel, IController
+    {
+        [SerializeField] private Sprite[] imgBtnItemBgSprites;
+        [SerializeField] private Sprite[] imgTopBgSprites;
+        [SerializeField] private Sprite[] imgBottomSpirtes;
+        [SerializeField] private Sprite[] imgLevelSprites;
         [SerializeField] private Sprite[] mRankLevelSprites;
-
+        [SerializeField] private Sprite[] imgBtnReturnSprites;
+        [SerializeField] private Image []imgBtnItemBg;
+        [SerializeField] private Image imgBtnReturn;
+        [SerializeField] private Image imgTopBg;
+        [SerializeField] private Image imgBottom;
+        [SerializeField] private Image imgLevel;
         private StageModel stageModel;
         private const int WIN_STREAK_RANKLEVEL_INTERVAL = 5;
         private const int MAX_SPRITE_INDEX = 8;
@@ -28,34 +37,57 @@ namespace QFramework.Example
         }
 
         protected override void OnInit(IUIData uiData = null)
-		{
-			mData = uiData as UIGameNodeData ?? new UIGameNodeData();
-			// please add init code here
-		}
-		
-		protected override void OnOpen(IUIData uiData = null)
-		{
+        {
+            mData = uiData as UIGameNodeData ?? new UIGameNodeData();
+            // please add init code here
+        }
+
+        protected override void OnOpen(IUIData uiData = null)
+        {
             //真机模式下，AssetBundle 加载资源后需要关联材质
             TxtLevel.font.material.shader = Shader.Find(TxtLevel.font.material.shader.name);
             TxtLevel.text = LevelManager.Instance.levelId.ToString();
             stageModel = this.GetModel<StageModel>();
         }
-		
-		protected override void OnShow()
-		{
+
+        protected override void OnShow()
+        {
             InitRankLevel();
+            InitLevelUI();
             SetTakeItem();
             SetItem();
             BindBtn();
             RegisterEvent();
         }
-
+        protected void InitLevelUI()
+        {
+            int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+            if (level < 10)
+                return;
+            int t = 0;
+            switch (level % 10)
+            {
+                case 4:
+                    t = 1;
+                    break;
+                case 9:
+                    t = 2;
+                    break;  
+                // t初始化为0，所以没有用Defailt取0
+            }
+            foreach(var i in imgBtnItemBg)
+                i.sprite = imgBtnItemBgSprites[t];
+            imgTopBg.sprite = imgTopBgSprites[t];
+            imgLevel.sprite = imgLevelSprites[t];
+            imgBottom.sprite = imgBottomSpirtes[t];
+            imgBtnReturn.sprite = imgBtnReturnSprites[t];
+        }
         protected override void OnHide()
-		{
-		}
-		
-		protected override void OnClose()
-		{
+        {
+        }
+
+        protected override void OnClose()
+        {
             stageModel = null;
             BtnStepBack.onClick.RemoveAllListeners();
             BtnRemoveHide.onClick.RemoveAllListeners();
@@ -93,13 +125,13 @@ namespace QFramework.Example
         }
 
         private void BindBtn()
-		{
+        {
             BtnStepBack.onClick.AddListener(() =>
-            {              
+            {
                 if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-                {                  
+                {
                     if (stageModel.ItemDic[1] <= 0)
-                    {                        
+                    {
                         UIBuyItemData data = new UIBuyItemData() { item = 1 };
                         UIKit.OpenPanel<UIBuyItem>(data);
                         return;
@@ -198,7 +230,7 @@ namespace QFramework.Example
                                         record.waterItems[i] = WaterItem.None;
                                     }
 
-                                    for(int i =0; i<record.bombCount.Count;i++)
+                                    for (int i = 0; i < record.bombCount.Count; i++)
                                     {
                                         record.bombCount[i] = 0;
                                     }
@@ -242,7 +274,7 @@ namespace QFramework.Example
                 SetTakeItem();
                 TxtLevel.text = LevelManager.Instance.levelId.ToString();
 
-            }).UnRegisterWhenGameObjectDestroyed(gameObject); 
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             StringEventSystem.Global.Register("StreakWinItem", (int count) =>
             {
@@ -353,7 +385,7 @@ namespace QFramework.Example
             if (LevelManager.Instance.hideBottleList.Count > 0)
             {
                 var tempList = new List<BottleCtrl>(LevelManager.Instance.hideBottleList);
-                 
+
                 while (tempList.Count > count)
                 {
                     int randIndex = UnityEngine.Random.Range(0, tempList.Count);
@@ -415,7 +447,7 @@ namespace QFramework.Example
             {
                 int itemId = itemIds[i];
 
-                bool active = (takeItems.Contains(itemId) && CheckHaveItem(itemId)) 
+                bool active = (takeItems.Contains(itemId) && CheckHaveItem(itemId))
                     || !CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.UNLIMIT_ITEM_SIGN);
                 buttons[i].interactable = active;
                 texts[i].text = active ? "1" : "0";

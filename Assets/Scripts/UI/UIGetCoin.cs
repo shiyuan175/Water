@@ -16,6 +16,8 @@ namespace QFramework.Example
     {
         [SerializeField] private GiftPackSO[] rewardPackSO;
         [SerializeField] private Sprite[] unlockSprites;
+        [SerializeField] private Sprite[] imgTipBgSprites;
+        [SerializeField] private Image imgTipBg;
         private StageModel stageModel;
         private RewardGrantUtility rewardGrantUtility;
         private SaveDataUtility saveDataUtility;
@@ -54,11 +56,33 @@ namespace QFramework.Example
         {
             BindClick();
             getReward = -1;
-
+            UpdateBgUI();
             UpdateBoxProcessNode();
             UpdateUnlockProcessNode();
+            
         }
-		
+		protected void UpdateBgUI()
+        {
+         
+            
+            int currentLevel = saveDataUtility.GetCurrentLevel()-1;
+            Debug.Log(currentLevel);
+            if (currentLevel < 10)
+                return ;
+            Debug.Log(currentLevel % 10);
+            switch(currentLevel%10)
+            {
+                case 4:
+                    imgTipBg.sprite = imgTipBgSprites[1];
+                    break;
+                case 9:
+                    imgTipBg.sprite = imgTipBgSprites[2];
+                    break;
+                default:
+                    imgTipBg.sprite = imgTipBgSprites[0];
+                    break;
+            }
+        }
 		protected override void OnHide()
 		{
 		}

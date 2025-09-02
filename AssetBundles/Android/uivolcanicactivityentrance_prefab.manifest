@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1616499466
+CRC: 4050133577
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: be3be794bfc288c330c8880fefb17365
+    Hash: 05402c3a758a7e8043c5681620ec0a42
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 4530ba57e63e30e2435a98c4ead5d4d7
+    Hash: b427ad447dd4ec1b6fa97cc8e31d9288
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: be3be794bfc288c330c8880fefb17365
+    Hash: 05402c3a758a7e8043c5681620ec0a42
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -19,17 +19,17 @@ ClassTypes:
 - Class: 28
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: a1f4ffeb469bd134f8545abee097dce4, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a1f4ffeb469bd134f8545abee097dce4, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 213
@@ -62,4 +62,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Art/UIPrefab/UIVolcanicActivityEntrance.prefab
 Dependencies:
-- E:/U GitHub Project/Water/AssetBundles/Android/font
+- D:/Documents/GitHub/Water/AssetBundles/Android/font

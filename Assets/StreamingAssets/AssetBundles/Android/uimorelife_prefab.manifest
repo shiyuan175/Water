@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1951380182
+CRC: 3578093687
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3c1077b1b8c92bea3fba059ca146217a
+    Hash: 6f3fc41a77466838fb5c4b5c9e256b80
   TypeTreeHash:
     serializedVersion: 2
-    Hash: b5274df30a69a00405d17cc8bbc2448c
+    Hash: e40978b2f09d4ebf96f7227c2b22f6c3
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 3c1077b1b8c92bea3fba059ca146217a
+    Hash: 6f3fc41a77466838fb5c4b5c9e256b80
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -19,17 +19,17 @@ ClassTypes:
 - Class: 28
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: d495b28d4faa486448f86d3cfda170b5, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d495b28d4faa486448f86d3cfda170b5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 213
@@ -62,4 +62,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Art/UIPrefab/UIMoreLife.prefab
 Dependencies:
-- E:/U GitHub Project/Water/AssetBundles/Android/font
+- D:/Documents/GitHub/Water/AssetBundles/Android/font
