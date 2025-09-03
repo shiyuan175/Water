@@ -66,10 +66,10 @@ namespace QFramework.Example
          
             
             int currentLevel = saveDataUtility.GetCurrentLevel()-1;
-            Debug.Log(currentLevel);
+            
             if (currentLevel < 10)
                 return ;
-            Debug.Log(currentLevel % 10);
+        
             switch(currentLevel%10)
             {
                 case 4:

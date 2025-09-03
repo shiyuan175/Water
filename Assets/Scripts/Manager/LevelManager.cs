@@ -1182,7 +1182,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
 [Serializable]
 public class BottleRecord
 {
-    public bool isFinish, isFreeze, isClearHide, isNearHide;
+    public bool isFinish, isFreeze, isClearHide, isNearHide,isFlyBomb;
     public int limitColor;
     public List<int> waters = new List<int>();
     public List<bool> hideWaters = new List<bool>();
