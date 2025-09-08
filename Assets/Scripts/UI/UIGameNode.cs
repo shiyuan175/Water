@@ -54,6 +54,7 @@ namespace QFramework.Example
         {
             InitRankLevel();
             InitLevelUI();
+            InitItemUI();
             SetTakeItem();
             SetItem();
             BindBtn();
@@ -82,6 +83,25 @@ namespace QFramework.Example
             imgBottom.sprite = imgBottomSpirtes[t];
             imgBtnReturn.sprite = imgBtnReturnSprites[t];
         }
+        /// <summary>
+        /// 显示道具图标
+        /// </summary>
+        protected void InitItemUI()
+        {            
+            int level = LevelManager.Instance.levelId;
+          
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
+                UnLockItem("AddBottle");
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
+                UnLockItem("HalfBottle");
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
+                UnLockItem("RemoveHide");
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
+                UnLockItem("RemoveAll");
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
+                UnLockItem("StepBack");
+        }
+
         protected override void OnHide()
         {
         }
@@ -125,123 +145,7 @@ namespace QFramework.Example
         }
 
         private void BindBtn()
-        {
-            BtnStepBack.onClick.AddListener(() =>
-            {
-                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-                {
-                    if (stageModel.ItemDic[1] <= 0)
-                    {
-                        UIBuyItemData data = new UIBuyItemData() { item = 1 };
-                        UIKit.OpenPanel<UIBuyItem>(data);
-                        return;
-                    }
-                    if (LevelManager.Instance.ReturnLast())
-                        stageModel.ReduceItem(1, 1);
-                }
-            });
-
-            BtnRemoveHide.onClick.AddListener(() =>
-            {
-                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-                {
-                    if (stageModel.ItemDic[2] <= 0)
-                    {
-                        UIBuyItemData data = new UIBuyItemData() { item = 2 };
-                        UIKit.OpenPanel<UIBuyItem>(data);
-                        return;
-                    }
-                    //判断是否有黑水瓶
-                    if (LevelManager.Instance.hideBottleList.Count != 0)
-                    {
-                        LevelManager.Instance.RemoveHide(() =>
-                        {
-                            stageModel.ReduceItem(2, 1);
-                        });
-                    }
-                }
-            });
-
-            BtnAddBottle.onClick.AddListener(() =>
-            {
-                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-                {
-                    if (stageModel.ItemDic[3] <= 0)
-                    {
-                        UIBuyItemData data = new UIBuyItemData() { item = 3 };
-                        UIKit.OpenPanel<UIBuyItem>(data);
-                        return;
-                    }
-                    LevelManager.Instance.AddBottle(false, () =>
-                    {
-                        stageModel.ReduceItem(3, 1);
-                    });
-                }
-            });
-
-            BtnHalfBottle.onClick.AddListener(() =>
-            {
-                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-                {
-                    if (stageModel.ItemDic[4] <= 0)
-                    {
-                        UIBuyItemData data = new UIBuyItemData() { item = 4 };
-                        UIKit.OpenPanel<UIBuyItem>(data);
-                        return;
-                    }
-                    LevelManager.Instance.AddBottle(true, () =>
-                    {
-                        stageModel.ReduceItem(4, 1);
-                    });
-                }
-            });
-
-            BtnRemoveAll.onClick.AddListener(() =>
-            {
-                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-                {
-                    if (stageModel.ItemDic[5] <= 0)
-                    {
-                        UIBuyItemData data = new UIBuyItemData() { item = 5 };
-                        UIKit.OpenPanel<UIBuyItem>(data);
-                        return;
-                    }
-                    if (LevelManager.Instance.CheckAllDebuff())
-                    {
-                        LevelManager.Instance.RemoveAll(() =>
-                        {
-                            //清空操作记录的障碍(避免回退恢复)
-                            foreach (var bottle in LevelManager.Instance.nowBottles)
-                            {
-                                foreach (var record in bottle.moveRecords)
-                                {
-                                    record.isFreeze = false;
-                                    record.isClearHide = false;
-                                    record.isNearHide = false;
-                                    record.limitColor = 0;
-
-                                    for (int i = 0; i < record.hideWaters.Count; i++)
-                                    {
-                                        record.hideWaters[i] = false;
-                                    }
-
-                                    for (int i = 0; i < record.waterItems.Count; i++)
-                                    {
-                                        record.waterItems[i] = WaterItem.None;
-                                    }
-
-                                    for (int i = 0; i < record.bombCount.Count; i++)
-                                    {
-                                        record.bombCount[i] = 0;
-                                    }
-                                }
-                            }
-                        });
-                        stageModel.ReduceItem(5, 1);
-                    }
-                }
-            });
-
+        { 
             BtnReturn.onClick.AddListener(() =>
             {
                 UIKit.OpenPanel<UIRetry>();
@@ -280,6 +184,170 @@ namespace QFramework.Example
             {
                 ClearBottleBlackWater(count, false);
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            this.RegisterEvent<UnLockItem>(eventId =>
+            {
+                
+                int level = LevelManager.Instance.levelId;
+               
+                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
+                    UnLockItem("AddBottle");
+                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
+                    UnLockItem("HalfBottle");
+                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
+                    UnLockItem("RemoveHide");
+                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
+                    UnLockItem("RemoveAll");
+                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
+                    UnLockItem("StepBack");
+            });
+        }
+        protected void UnLockItem(string item)
+        {
+            Transform transform = null;
+            switch (item)
+            {
+                case "StepBack":
+                    BtnStepBack.onClick.AddListener(BtnSetpBackOnClick);
+                    transform = BtnStepBack.transform;
+                    break;
+                case "RemoveHide":
+                    BtnRemoveHide.onClick.AddListener(BtnRemoveHideOnClick);
+                    transform = BtnRemoveHide.transform;
+                    break;
+                case "HalfBottle":
+                    BtnHalfBottle.onClick.AddListener(BtnHalfBottleOnClick);
+                    transform = BtnHalfBottle.transform;
+                    break;
+                case "AddBottle":
+                    BtnAddBottle.onClick.AddListener(BtnAddBottleOnClick);
+                    transform = BtnAddBottle.transform;
+                    break;
+                case "RemoveAll":
+                    BtnRemoveAll.onClick.AddListener(BtnRemoveAllOnClick);
+                    transform = BtnRemoveAll.transform;
+                    break;
+            }
+            transform.Find("Image").gameObject.SetActive(true);
+            transform.Find("ImgLock").gameObject.SetActive(false);
+            transform.GetComponent<Button>().interactable = true;
+            transform.Find("Image").GetComponent<Image>().color = Color.white;
+        }
+        void BtnSetpBackOnClick()
+        {
+            
+                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+                {
+                    if (stageModel.ItemDic[1] <= 0)
+                    {
+                        UIBuyItemData data = new UIBuyItemData() { item = 1 };
+                        UIKit.OpenPanel<UIBuyItem>(data);
+                        return;
+                    }
+                    if (LevelManager.Instance.ReturnLast())
+                        stageModel.ReduceItem(1, 1);
+                }
+          
+        }
+        void BtnRemoveHideOnClick()
+        {
+            if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+            {
+                if (stageModel.ItemDic[2] <= 0)
+                {
+                    UIBuyItemData data = new UIBuyItemData() { item = 2 };
+                    UIKit.OpenPanel<UIBuyItem>(data);
+                    return;
+                }
+                //判断是否有黑水瓶
+                if (LevelManager.Instance.hideBottleList.Count != 0)
+                {
+                    LevelManager.Instance.RemoveHide(() =>
+                    {
+                        stageModel.ReduceItem(2, 1);
+                    });
+                }
+            }
+        }
+
+        void BtnAddBottleOnClick()
+        {
+            if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+            {
+                if (stageModel.ItemDic[3] <= 0)
+                {
+                    UIBuyItemData data = new UIBuyItemData() { item = 3 };
+                    UIKit.OpenPanel<UIBuyItem>(data);
+                    return;
+                }
+                LevelManager.Instance.AddBottle(false, () =>
+                {
+                    stageModel.ReduceItem(3, 1);
+                });
+            }
+        }
+
+        void BtnHalfBottleOnClick()
+        {
+            if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+            {
+                if (stageModel.ItemDic[4] <= 0)
+                {
+                    UIBuyItemData data = new UIBuyItemData() { item = 4 };
+                    UIKit.OpenPanel<UIBuyItem>(data);
+                    return;
+                }
+                LevelManager.Instance.AddBottle(true, () =>
+                {
+                    stageModel.ReduceItem(4, 1);
+                });
+            }
+        }
+
+        void BtnRemoveAllOnClick()
+        {
+            if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+            {
+                if (stageModel.ItemDic[5] <= 0)
+                {
+                    UIBuyItemData data = new UIBuyItemData() { item = 5 };
+                    UIKit.OpenPanel<UIBuyItem>(data);
+                    return;
+                }
+                if (LevelManager.Instance.CheckAllDebuff())
+                {
+                    LevelManager.Instance.RemoveAll(() =>
+                    {
+                        //清空操作记录的障碍(避免回退恢复)
+                        foreach (var bottle in LevelManager.Instance.nowBottles)
+                        {
+                            foreach (var record in bottle.moveRecords)
+                            {
+                                record.isFreeze = false;
+                                record.isClearHide = false;
+                                record.isNearHide = false;
+                                record.limitColor = 0;
+
+                                for (int i = 0; i < record.hideWaters.Count; i++)
+                                {
+                                    record.hideWaters[i] = false;
+                                }
+
+                                for (int i = 0; i < record.waterItems.Count; i++)
+                                {
+                                    record.waterItems[i] = WaterItem.None;
+                                }
+
+                                for (int i = 0; i < record.bombCount.Count; i++)
+                                {
+                                    record.bombCount[i] = 0;
+                                }
+                            }
+                        }
+                    });
+                    stageModel.ReduceItem(5, 1);
+                }
+            }
         }
 
         #region 道具相关

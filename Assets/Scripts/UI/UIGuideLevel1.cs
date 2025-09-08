@@ -8,14 +8,16 @@ using TMPro;
 
 namespace QFramework.Example
 {
-    public class UIGuideLevel1Data : UIPanelData
+    public class UIGuideLevel1Data : UIGuideLevelData
     {
     }
-    public partial class UIGuideLevel1 : UIPanel
+    public partial class UIGuideLevel1 : UIGuideLevel
     {
         protected override void OnInit(IUIData uiData = null)
         {
             mData = uiData as UIGuideLevel1Data ?? new UIGuideLevel1Data();
+            BtnBottle1.onClick.RemoveAllListeners();
+            BtnBottle2.onClick.RemoveAllListeners();
             // please add init code here
         }
 
@@ -26,10 +28,12 @@ namespace QFramework.Example
 
         protected override void OnShow()
         {
+            
             SpineHandle.AnimationState.SetAnimation(0, "animation", true);
             //Ä£Äâµã»÷×ó²àÆ¿×Ó
             BtnBottle1.onClick.AddListener(() =>
             {
+              
                 LevelManager.Instance.nowBottles[0].bottle.onClick.Invoke();
                 SpineHandle.transform.localPosition = new Vector3(115, 0, 0);
             });

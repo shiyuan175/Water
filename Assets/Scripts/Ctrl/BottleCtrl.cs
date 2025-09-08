@@ -329,7 +329,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     // 先更新的炸弹，后倒的水
     public void UpdateBomb(BottleCtrl bottleCtrl = null, bool Init = false)
     {
-        Debug.Log(gameObject);
+        
         int moveNum = LevelManager.Instance.moveNum;
 
         if (bottleCtrl != null || Init)
@@ -383,8 +383,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
     public void CheckFlyBomb()
     {
-        Debug.Log(gameObject.name);
-        Debug.Log(bombCounts.Count);
+       
         // 最高位置直接设置为100
         if (bombCounts.Count!=0&&bombCounts[bombCounts.Count - 1]!=0)
             bombCounts[bombCounts.Count-1]=100;
