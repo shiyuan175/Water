@@ -16,7 +16,7 @@ namespace QFramework.Example
     {
         [SerializeField] private Sprite[] giftSprites;
         [SerializeField] private Button[] addItemBtns;
-
+        [SerializeField] private Sprite[] imgBgSprites;
         [SerializeField] private Button[] selectBtns;
         [SerializeField] private GameObject[] selectImgs;
         [SerializeField] private TextMeshProUGUI[] itemNumTxts;
@@ -24,7 +24,7 @@ namespace QFramework.Example
         [Header("consecutive_coin")]
         [SerializeField] private Image ImgCoinWinProcess;
         [SerializeField] private TextMeshProUGUI TxtCoinWinProgress;
-
+        [SerializeField] private Image imgBk;
         private StageModel stageModel;
 
         private const int CONTINUE_WIN_NUM_ItemGift = 3;
@@ -43,8 +43,23 @@ namespace QFramework.Example
         protected override void OnOpen(IUIData uiData = null)
         {
             TxtWinProcess.font = LevelManager.Instance.redFont;
-
-            TxtLevelTitle.text = $"Level {this.GetUtility<SaveDataUtility>().GetCurrentLevel()}";
+            int currentLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+            if(currentLevel>10)
+            {
+                switch (currentLevel % 10)
+                {
+                    case 4:
+                        imgBk.transform.GetComponent<Image>().sprite = imgBgSprites[1];
+                        break;
+                    case 9:
+                        imgBk.transform.GetComponent<Image>().sprite = imgBgSprites[2];
+                        break;
+                    default:
+                        imgBk.transform.GetComponent<Image>().sprite = imgBgSprites[0];
+                        break;
+                }
+            }
+            TxtLevelTitle.text = $"Level {currentLevel}";
         }
 
         protected override void OnShow()

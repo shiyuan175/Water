@@ -6,7 +6,7 @@ using GameDefine;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using Spine;
+
 
 namespace QFramework.Example
 {
@@ -16,14 +16,23 @@ namespace QFramework.Example
 
     public partial class UIGameNode : UIPanel, IController
     {
+        [SerializeField] private Sprite[] imgBtnItemBgSprites;
+        [SerializeField] private Sprite[] imgTopBgSprites;
+        [SerializeField] private Sprite[] imgBottomSpirtes;
+        [SerializeField] private Sprite[] imgLevelSprites;
         [SerializeField] private Sprite[] mRankLevelSprites;
-
+        [SerializeField] private Sprite[] imgBtnReturnSprites;
+        [SerializeField] private Image []imgBtnItemBg;
+        [SerializeField] private Image imgBtnReturn;
+        [SerializeField] private Image imgTopBg;
+        [SerializeField] private Image imgBottom;
+        [SerializeField] private Image imgLevel;
         private StageModel stageModel;
         private TierRankActivityModel mTierRankActivityModel;
         private const int WIN_STREAK_RANKLEVEL_INTERVAL = 5;
         private const int MAX_SPRITE_INDEX = 8;
         private const string CLEAR_BWATER_PARTICLE_PATH = "Prefab/BlackMaskItem";
-
+        private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
         private int mCacheRankSpriteIndex;
         public IArchitecture GetArchitecture()
         {
@@ -50,12 +59,54 @@ namespace QFramework.Example
 
         protected override void OnShow()
         {
-            if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() <= 5)
-                BtnReturn.Hide();
-
             InitRankLevel();
+            InitLevelUI();
+            InitItemUI();
             SetTakeItem();
             SetItem();
+        }
+        protected void InitLevelUI()
+        {
+            int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+            if (level < GET_THE_LAST_NUMBER_OF_LEVEL)
+                return;
+            int t = 0;
+            switch (level % GET_THE_LAST_NUMBER_OF_LEVEL)
+            {
+                case 4:
+                    t = 1;
+                    break;
+                case 9:
+                    t = 2;
+                    break;  
+                // t初始化为0，所以没有用Defailt取0
+            }
+            foreach(var i in imgBtnItemBg)
+                i.sprite = imgBtnItemBgSprites[t];
+            imgTopBg.sprite = imgTopBgSprites[t];
+            imgLevel.sprite = imgLevelSprites[t];
+            imgBottom.sprite = imgBottomSpirtes[t];
+            imgBtnReturn.sprite = imgBtnReturnSprites[t];
+        }
+        /// <summary>
+        /// 显示道具图标
+        /// </summary>
+        protected void InitItemUI()
+        {            
+            int level = LevelManager.Instance.levelId;
+          
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
+                UnLockItem("AddBottle");
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
+                UnLockItem("HalfBottle");
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
+                UnLockItem("RemoveHide");
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
+                UnLockItem("RemoveAll");
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
+                UnLockItem("StepBack");
+            if (level >= (int)GameDefine.UnLockMechanism.SelectPropsOpen)
+                BtnItemBg.Show();
         }
 
         protected override void OnHide()
@@ -102,123 +153,7 @@ namespace QFramework.Example
         }
 
         private void BindBtn()
-        {
-            BtnStepBack.onClick.AddListener(() =>
-            {
-                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-                {
-                    if (stageModel.ItemDic[1] <= 0)
-                    {
-                        UIBuyItemData data = new UIBuyItemData() { item = 1 };
-                        UIKit.OpenPanel<UIBuyItem>(data);
-                        return;
-                    }
-                    if (LevelManager.Instance.ReturnLast())
-                        stageModel.ReduceItem(1, 1);
-                }
-            });
-
-            BtnRemoveHide.onClick.AddListener(() =>
-            {
-                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-                {
-                    if (stageModel.ItemDic[2] <= 0)
-                    {
-                        UIBuyItemData data = new UIBuyItemData() { item = 2 };
-                        UIKit.OpenPanel<UIBuyItem>(data);
-                        return;
-                    }
-                    //判断是否有黑水瓶
-                    if (LevelManager.Instance.hideBottleList.Count != 0)
-                    {
-                        LevelManager.Instance.RemoveHide(() =>
-                        {
-                            stageModel.ReduceItem(2, 1);
-                        });
-                    }
-                }
-            });
-
-            BtnAddBottle.onClick.AddListener(() =>
-            {
-                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-                {
-                    if (stageModel.ItemDic[3] <= 0)
-                    {
-                        UIBuyItemData data = new UIBuyItemData() { item = 3 };
-                        UIKit.OpenPanel<UIBuyItem>(data);
-                        return;
-                    }
-                    LevelManager.Instance.AddBottle(false, () =>
-                    {
-                        stageModel.ReduceItem(3, 1);
-                    });
-                }
-            });
-
-            BtnHalfBottle.onClick.AddListener(() =>
-            {
-                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-                {
-                    if (stageModel.ItemDic[4] <= 0)
-                    {
-                        UIBuyItemData data = new UIBuyItemData() { item = 4 };
-                        UIKit.OpenPanel<UIBuyItem>(data);
-                        return;
-                    }
-                    LevelManager.Instance.AddBottle(true, () =>
-                    {
-                        stageModel.ReduceItem(4, 1);
-                    });
-                }
-            });
-
-            BtnRemoveAll.onClick.AddListener(() =>
-            {
-                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-                {
-                    if (stageModel.ItemDic[5] <= 0)
-                    {
-                        UIBuyItemData data = new UIBuyItemData() { item = 5 };
-                        UIKit.OpenPanel<UIBuyItem>(data);
-                        return;
-                    }
-                    if (LevelManager.Instance.CheckAllDebuff())
-                    {
-                        LevelManager.Instance.RemoveAll(() =>
-                        {
-                            //清空操作记录的障碍(避免回退恢复)
-                            foreach (var bottle in LevelManager.Instance.nowBottles)
-                            {
-                                foreach (var record in bottle.moveRecords)
-                                {
-                                    record.isFreeze = false;
-                                    record.isClearHide = false;
-                                    record.isNearHide = false;
-                                    record.limitColor = 0;
-
-                                    for (int i = 0; i < record.hideWaters.Count; i++)
-                                    {
-                                        record.hideWaters[i] = false;
-                                    }
-
-                                    for (int i = 0; i < record.waterItems.Count; i++)
-                                    {
-                                        record.waterItems[i] = WaterItem.None;
-                                    }
-
-                                    for (int i = 0; i < record.bombCount.Count; i++)
-                                    {
-                                        record.bombCount[i] = 0;
-                                    }
-                                }
-                            }
-                        });
-                        stageModel.ReduceItem(5, 1);
-                    }
-                }
-            });
-
+        { 
             BtnReturn.onClick.AddListener(() =>
             {
                 UIKit.OpenPanel<UIRetry>();
@@ -237,38 +172,22 @@ namespace QFramework.Example
                 LevelManager.Instance.ShowItemSelect();
                 GameCtrl.Instance.SeletedItem(bottele => { UseItem(8, BtnItem3, bottele); });
             });
-        }
 
-        private void RegisterEvent()
-        {
-            this.RegisterEvent<RefreshItemEvent>(e =>
-            {
-                SetItem();
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-            this.RegisterEvent<LevelStartEvent>(e =>
-            {
-                SetTakeItem();
-                TxtLevel.text = LevelManager.Instance.levelId.ToString();
-
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-            StringEventSystem.Global.Register("StreakWinItem", (int count) =>
-            {
-                ClearBottleBlackWater(count, false);
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
+            BtnRemoveAll.onClick.AddListener(BtnRemoveAllOnClick);
+            BtnAddBottle.onClick.AddListener(BtnAddBottleOnClick);
+            BtnHalfBottle.onClick.AddListener(BtnHalfBottleOnClick);
+            BtnRemoveHide.onClick.AddListener(BtnRemoveHideOnClick);
+            BtnStepBack.onClick.AddListener(BtnSetpBackOnClick);
             StringEventSystem.Global.Register(GameConst.VICTORY_EVENT, () =>
             {
                 int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
-                //未开启连胜功能
+               
                 if (level - 1 < GameConst.WIN_STREAK_BEGIN_LEVEL)
                 {
                     OpenUIVictory();
                     return;
                 }
-
                 //飞星效果
                 var _spriteIndex = Mathf.Max(0, (mTierRankActivityModel.StreakWinNum - 1) / WIN_STREAK_RANKLEVEL_INTERVAL);
                 _spriteIndex = _spriteIndex >= MAX_SPRITE_INDEX ? MAX_SPRITE_INDEX : _spriteIndex;
@@ -322,6 +241,188 @@ namespace QFramework.Example
 
             }).UnRegisterWhenGameObjectDestroyed(this);
         }
+
+        private void RegisterEvent()
+        {
+            this.RegisterEvent<RefreshItemEvent>(e =>
+            {
+                SetItem();
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            this.RegisterEvent<LevelStartEvent>(e =>
+            {
+                SetTakeItem();
+                TxtLevel.text = LevelManager.Instance.levelId.ToString();
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+            this.RegisterEvent<UnLockItem>(eventId =>
+            {
+                
+                int level = LevelManager.Instance.levelId;
+               
+                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
+                    UnLockItem("AddBottle");
+                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
+                    UnLockItem("HalfBottle");
+                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
+                    UnLockItem("RemoveHide");
+                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
+                    UnLockItem("RemoveAll");
+                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
+                    UnLockItem("StepBack");
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+            StringEventSystem.Global.Register("StreakWinItem", (int count) =>
+            {
+               
+                ClearBottleBlackWater(count, false);
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+           
+        }
+        protected void UnLockItem(string item)
+        {
+            Transform transform = null;
+            switch (item)
+            {
+                case "StepBack":
+                    transform = BtnStepBack.transform;
+                    break;
+                case "RemoveHide":
+                    transform = BtnRemoveHide.transform;
+                    break;
+                case "HalfBottle":
+                    transform = BtnHalfBottle.transform;
+                    break;
+                case "AddBottle":
+                    transform = BtnAddBottle.transform;
+                    break;
+                case "RemoveAll":
+                    transform = BtnRemoveAll.transform;
+                    break;
+            }
+            transform.Find("ImgItem").Show();
+            transform.Find("ImgLock").Hide();
+            transform.GetComponent<Button>().interactable = true;
+            transform.Find("ImgItem").GetComponent<Image>().color = Color.white;
+        }
+        void BtnSetpBackOnClick()
+        {
+            
+                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+                {
+                    if (stageModel.ItemDic[1] <= 0)
+                    {
+                        UIBuyItemData data = new UIBuyItemData() { item = 1 };
+                        UIKit.OpenPanel<UIBuyItem>(data);
+                        return;
+                    }
+                    if (LevelManager.Instance.ReturnLast())
+                        stageModel.ReduceItem(1, 1);
+                }
+          
+        }
+        void BtnRemoveHideOnClick()
+        {
+            if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+            {
+                if (stageModel.ItemDic[2] <= 0)
+                {
+                    UIBuyItemData data = new UIBuyItemData() { item = 2 };
+                    UIKit.OpenPanel<UIBuyItem>(data);
+                    return;
+                }
+                //判断是否有黑水瓶
+                if (LevelManager.Instance.hideBottleList.Count != 0)
+                {
+                    LevelManager.Instance.RemoveHide(() =>
+                    {
+                        stageModel.ReduceItem(2, 1);
+                    });
+                }
+            }
+        }
+
+        void BtnAddBottleOnClick()
+        {
+            if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+            {
+                if (stageModel.ItemDic[3] <= 0)
+                {
+                    UIBuyItemData data = new UIBuyItemData() { item = 3 };
+                    UIKit.OpenPanel<UIBuyItem>(data);
+                    return;
+                }
+                LevelManager.Instance.AddBottle(false, () =>
+                {
+                    stageModel.ReduceItem(3, 1);
+                });
+            }
+        }
+
+        void BtnHalfBottleOnClick()
+        {
+            if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+            {
+                if (stageModel.ItemDic[4] <= 0)
+                {
+                    UIBuyItemData data = new UIBuyItemData() { item = 4 };
+                    UIKit.OpenPanel<UIBuyItem>(data);
+                    return;
+                }
+                LevelManager.Instance.AddBottle(true, () =>
+                {
+                    stageModel.ReduceItem(4, 1);
+                });
+            }
+        }
+
+        void BtnRemoveAllOnClick()
+        {
+            if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+            {
+                if (stageModel.ItemDic[5] <= 0)
+                {
+                    UIBuyItemData data = new UIBuyItemData() { item = 5 };
+                    UIKit.OpenPanel<UIBuyItem>(data);
+                    return;
+                }
+                if (LevelManager.Instance.CheckAllDebuff())
+                {
+                    LevelManager.Instance.RemoveAll(() =>
+                    {
+                        //清空操作记录的障碍(避免回退恢复)
+                        foreach (var bottle in LevelManager.Instance.nowBottles)
+                        {
+                            foreach (var record in bottle.moveRecords)
+                            {
+                                record.isFreeze = false;
+                                record.isClearHide = false;
+                                record.isNearHide = false;
+                                record.limitColor = 0;
+
+                                for (int i = 0; i < record.hideWaters.Count; i++)
+                                {
+                                    record.hideWaters[i] = false;
+                                }
+
+                                for (int i = 0; i < record.waterItems.Count; i++)
+                                {
+                                    record.waterItems[i] = WaterItem.None;
+                                }
+
+                                for (int i = 0; i < record.bombCount.Count; i++)
+                                {
+                                    record.bombCount[i] = 0;
+                                }
+                            }
+                        }
+                    });
+                    stageModel.ReduceItem(5, 1);
+                }
+            }
+        }
+        
+        
 
         #region 道具相关
 

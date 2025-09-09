@@ -550,7 +550,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     /// 使用道具添加瓶子(单个或整瓶)
     /// </summary>
     /// <param name="isHalf"></param>
-    public void AddBottle(bool isHalf, Action action)
+    public void AddBottle(bool isHalf, Action action=null)
     {
         //增加瓶子时一定会激活底部瓶子节点
         if (!BottomBottleLayoutGroup.gameObject.activeSelf)
@@ -844,24 +844,44 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     }
 
     public void CheckGuideLevel()
-    {
-        if (levelId == 1)
-            UIKit.OpenPanel<UIGuideLevel1>();
-
-        else if (levelId == 2)
-            UIKit.OpenPanel<UIGuideLevel2>();
-
-        //关卡引导判断
-        else if (GameDefine.GameConst.GuideLevelInfo.TryGetValue(levelId, out (string guideText, string guideAnimName) value))
-        {
-            //UILevel.PopUI, 
-            UIKit.OpenPanel<UIGuideAnimPop>(new UIGuideAnimPopData
+    {   
+        // 关卡引导
+        switch (levelId)
             {
-                GuideText = value.guideText,
-                GuideAnimName = value.guideAnimName
-            });
-        }
-    }
+                // 新手关卡引导
+                case (int)GameDefine.UIGuideLevel.UIGuideLevel1:
+                    UIKit.OpenPanel<UIGuideLevel1>(UILevel.PopUI);
+                    break;
+                case (int)GameDefine.UIGuideLevel.UIGuideLevel2:
+                    UIKit.OpenPanel<UIGuideLevel2>(UILevel.PopUI);
+                    break;
+
+                 // 道具使用引导
+                case (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack:
+                    UIKit.OpenPanel<UIGuideLevelStepBack>(UILevel.PopUI);
+                    break;
+                case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide:
+                    UIKit.OpenPanel<UIGuideLevelRemoveHide>(UILevel.PopUI);
+                    break;
+                case (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle:
+                    UIKit.OpenPanel<UIGuideLevelAddBottle>(UILevel.PopUI);
+                    break;
+                case (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle:
+                    UIKit.OpenPanel<UIGuideLevelHalfBottle>(UILevel.PopUI);
+                    break;
+                case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll:
+                    UIKit.OpenPanel<UIGuideLevelRemoveAll>(UILevel.PopUI);
+                    break;
+            }
+
+        // 新机制引导
+        if(GameDefine.GameConst.GuideLevelInfo.TryGetValue(levelId,out (string guideText, string guideAnimName) value))
+           UIKit.OpenPanel<UIGuideAnimPop>(new UIGuideAnimPopData
+                    {
+                        GuideText = value.guideText,
+                        GuideAnimName = value.guideAnimName
+                    });
+    } 
 
     /// <summary>
     /// 判断显示那些瓶子（现用于初始化关卡的瓶子）
@@ -1103,7 +1123,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     /// </summary>
     /// <param name="num"></param>
     /// <param name="action">使用道具回调</param>
-    public void RemoveHide(Action action, int num = 0)
+    public void RemoveHide(Action action= null, int num = 0)
     {
         if (num == 0)
         {
@@ -1179,7 +1199,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
 [Serializable]
 public class BottleRecord
 {
-    public bool isFinish, isFreeze, isClearHide, isNearHide;
+    public bool isFinish, isFreeze, isClearHide, isNearHide,isFlyBomb;
     public int limitColor;
     public List<int> waters = new List<int>();
     public List<bool> hideWaters = new List<bool>();

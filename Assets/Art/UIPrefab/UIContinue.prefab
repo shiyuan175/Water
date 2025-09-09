@@ -56,6 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BtnAddCoin: {fileID: 6153492039195567537}
   TxtCoin: {fileID: 2658905068753438788}
+  TxtWarring: {fileID: 841016604166106183}
   BtnContinue: {fileID: 7489427480072315826}
   TxtRetry: {fileID: 9081040761203868229}
   TxtCoinCost: {fileID: 4976745570971888188}
@@ -296,8 +297,9 @@ GameObject:
   - component: {fileID: 1571274810434441901}
   - component: {fileID: 5032115962222138624}
   - component: {fileID: 841016604166106183}
+  - component: {fileID: 3431002139379682446}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TxtWarring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -420,6 +422,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3431002139379682446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3157807857792397613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: Text (TMP)
+  CustomComment: 
+  mComponentName: TMPro.TextMeshProUGUI
 --- !u!1 &3287024307628896458
 GameObject:
   m_ObjectHideFlags: 0

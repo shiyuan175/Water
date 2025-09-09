@@ -27,6 +27,7 @@ namespace QFramework.Example
 		{
             TxtRetry.font = LevelManager.Instance.greenFont;
             TxtCoinCost.font = LevelManager.Instance.greenFont;
+            SetWarringContent();
         }
 		
 		protected override void OnShow()
@@ -185,5 +186,16 @@ namespace QFramework.Example
             //开启
             PanelQueueManager.Instance.PopFirstPanel();
         }
+        /// <summary>
+        ///　设置提示文本
+        /// </summary>
+        private void SetWarringContent()
+        {
+            // 获取活动状态，对应设置文本，
+            /*GameActivityManager.Instance.GetActivity;*/
+            
+        }
     }
+
+    
 }

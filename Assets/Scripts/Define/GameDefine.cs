@@ -65,9 +65,10 @@ namespace GameDefine
 
         #endregion
 
-        //关卡引导
+        //关卡引导 
         public static readonly Dictionary<int, (string, string)> GuideLevelInfo = new Dictionary<int, (string, string)>
         {
+            
             { 3, ("Sort the gemstone color to lift the cloth", "GuideAnim_3") },
             { 11, ("The bomb will explode when the countdown ends. Please synthesize water with bombs as soon as possible.", "GuideAnim_11") },
             { 21, ("Water with Fire Emblem can thaw ice after being crafted", "GuideAnim_21") },
@@ -76,7 +77,8 @@ namespace GameDefine
             { 51, ("Combining two brooms can remove water of the same color", "GuideAnim_51") },
             { 61, ("Bottles with gemstone emblems can only be filled with water of the same color as the gemstone", "GuideAnim_61") },
             { 71, ("Combining two potion bottles can change 4 water of the same color", "GuideAnim_71") },
-            { 81, ("Synthesizing a magic book can remove all negative effects", "GuideAnim_81")},
+            { 81, ("Synthesizing a magic book can remove all negative effects", "GuideAnim_81")}
+            
         };
 
         //场景解锁界面(索引对应AB包名)
@@ -86,6 +88,21 @@ namespace GameDefine
             {1, "SceneUnlock2" }
         };
     }
+    public enum UIGuideLevel
+    {
+        UIGuideLevel1 = 1,
+        UIGuideLevel2 = 2,
+        UIGuideLevelStepBack = 9,
+        UIGuideLevelRemoveHide = 14,
+        UIGuideLevelAddBottle = 24,
+        UIGuideLevelHalfBottle = 19,
+        UIGuideLevelRemoveAll = 28
+    }
+    public enum UnLockMechanism
+    {
+        SelectPropsOpen = 17
+    }
+
 
     public enum GameType
     {
@@ -115,52 +132,52 @@ namespace GameDefine
     {
         [WaterColorState(false, false, false, false, "", EColorStateSpineType.None)]
         UseColor = 1,
-        
+
         [WaterColorState(true, false, false, false, "idle_cl", EColorStateSpineType.EBroomSpine)]
         ClearItem = 1001,
-        
+
         [WaterColorState(false, false, false, true, "idle", EColorStateSpineType.EMagnetSpine)]
-        MagnetItem = 1002, 
-        
+        MagnetItem = 1002,
+
         [WaterColorState(false, true, false, false, "idle", EColorStateSpineType.ECreateSpine)]
         MakeColorItem = 1003,
-        
+
         [WaterColorState(false, false, true, false, "idle_cl", EColorStateSpineType.EChangeSpine)]
         ChangeGreen = 2001,
-        
+
         [WaterColorState(false, false, true, false, "idle_jh", EColorStateSpineType.EChangeSpine)]
         ChangeOrange = 2002,
-        
+
         [WaterColorState(false, false, true, false, "idle_fs", EColorStateSpineType.EChangeSpine)]
         ChangePink = 2003,
-        
+
         [WaterColorState(false, false, true, false, "idle_zs", EColorStateSpineType.EChangeSpine)]
         ChangePurple = 2004,
-        
+
         [WaterColorState(false, false, true, false, "idle_hs", EColorStateSpineType.EChangeSpine)]
         ChangeYellow = 2005,
-        
+
         [WaterColorState(false, false, true, false, "idle_sl", EColorStateSpineType.EChangeSpine)]
         ChangeDarkBlue = 2006,
-        
+
         [WaterColorState(true, false, false, false, "idle_fh", EColorStateSpineType.EBroomSpine)]
         ClearPink = 3001,
-        
+
         [WaterColorState(true, false, false, false, "idle_jh", EColorStateSpineType.EBroomSpine)]
         ClearOrange = 3002,
-        
+
         [WaterColorState(true, false, false, false, "idle_gl", EColorStateSpineType.EBroomSpine)]
         ClearBlue = 3003,
-        
+
         [WaterColorState(true, false, false, false, "idle_hs", EColorStateSpineType.EBroomSpine)]
         ClearYellow = 3004,
-        
+
         [WaterColorState(true, false, false, false, "idle_sl", EColorStateSpineType.EBroomSpine)]
         ClearDarkGreen = 3005,
-        
+
         [WaterColorState(true, false, false, false, "idle_dh", EColorStateSpineType.EBroomSpine)]
         ClearRed = 3006,
-        
+
         [WaterColorState(true, false, false, false, "idle_cl", EColorStateSpineType.EBroomSpine)]
         ClearGreen = 3007,
 
@@ -178,40 +195,40 @@ namespace GameDefine
     {
         [Description("idle_cl")]
         IDLE_CL = 1,
-        
+
         [Description("idle_dh")]
         IDLE_DH = 2,
-        
+
         [Description("idle_fh")]
         IDLE_FH = 3,
-        
+
         [Description("idle_gl")]
         IDLE_GL = 4,
-        
+
         [Description("idle_hl")]
         IDLE_HL = 5,
-        
+
         [Description("idle_hs")]
         IDLE_HS = 6,
-        
+
         [Description("idle_jh")]
         IDLE_JH = 7,
-        
+
         [Description("idle_lh")]
         IDLE_LH = 8,
-        
+
         [Description("idle_sl")]
         IDLE_SL = 9,
-        
+
         [Description("idle_ze")]
         IDLE_ZE = 10,
-        
+
         [Description("idle_zs")]
         IDLE_ZS = 11,
-        
+
         [Description("idle_mh")]
         IDLE_MH = 12,
-        
+
         IDLE_MAX = 13
     }
 
@@ -338,7 +355,7 @@ namespace GameDefine
         IDLE_MAX = 13
     }
 
-    public enum ERuChangAnim 
+    public enum ERuChangAnim
     {
         [Description("ruchanghuangdong_cl")]
         RUCHANGANIM_CL = 1,
@@ -391,9 +408,9 @@ namespace GameDefine
 
     public static class GameUtils
     {
-        public static bool DoesCountDownKeyExist(string id) => 
+        public static bool DoesCountDownKeyExist(string id) =>
             PlayerPrefs.HasKey(CountDownTimerManager.COUNTDOWN_TIMER_SIGN + id);
-       
+
         public static void SotrArray<T>(T[] array) where T : UnityEngine.Component
         {
             System.Array.Sort(array, (a, b) =>

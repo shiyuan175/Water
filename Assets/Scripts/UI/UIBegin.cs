@@ -17,6 +17,7 @@ namespace QFramework.Example
     public partial class UIBegin : UIPanel, ICanRegisterEvent, ICanGetUtility, ICanGetModel
     {
         public ParticleTargetMoveCtrl coinFx, starFx;
+        [SerializeField] private Sprite[] btnStartSprites;
 
         #region BottomMenuSetting
         [SerializeField] private List<Button> bottomMenuBtns;
@@ -374,6 +375,7 @@ namespace QFramework.Example
             SetCoin();
             SetStar();
             SetScene();
+            // 开始按钮的变化逻辑下放给SetStartLevel,因为不止这里需要调用
             SetStartLevel();
         }
 
@@ -403,7 +405,28 @@ namespace QFramework.Example
 
         private void SetStartLevel()
         {
-            TxtStartLevel.text = $"Level {saveData.GetCurrentLevel()}";
+            int currentLevel = saveData.GetCurrentLevel();
+            string appendString="";
+            // 设置图案和附加文本
+            if (currentLevel > 10)
+            {
+                switch (currentLevel%10)
+                {
+                    case 4:
+                        appendString = "Hard Level";
+                        BtnStart.transform.GetComponent<Image>().sprite = btnStartSprites[1];
+                        break;
+                    case 9:
+                        appendString = "Super Hard";
+                        BtnStart.transform.GetComponent<Image>().sprite = btnStartSprites[2];
+                        break;
+                    default:
+                        appendString = "";
+                        BtnStart.transform.GetComponent<Image>().sprite = btnStartSprites[0];
+                        break;  
+                }
+            }
+            TxtStartLevel.text = $"Level {currentLevel}"+$"<br><size=50>{appendString}</size>";
         }
 
         /// <summary>
