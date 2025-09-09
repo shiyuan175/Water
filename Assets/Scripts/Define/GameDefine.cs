@@ -98,6 +98,11 @@ namespace GameDefine
         UIGuideLevelHalfBottle = 19,
         UIGuideLevelRemoveAll = 28
     }
+    public enum UnLockMechanism
+    {
+        SelectPropsOpen = 17
+    }
+
 
     public enum GameType
     {

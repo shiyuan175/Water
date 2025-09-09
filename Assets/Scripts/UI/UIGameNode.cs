@@ -6,7 +6,7 @@ using GameDefine;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using Spine;
+
 
 namespace QFramework.Example
 {
@@ -32,7 +32,7 @@ namespace QFramework.Example
         private const int WIN_STREAK_RANKLEVEL_INTERVAL = 5;
         private const int MAX_SPRITE_INDEX = 8;
         private const string CLEAR_BWATER_PARTICLE_PATH = "Prefab/BlackMaskItem";
-
+        private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
         private int mCacheRankSpriteIndex;
         public IArchitecture GetArchitecture()
         {
@@ -68,10 +68,10 @@ namespace QFramework.Example
         protected void InitLevelUI()
         {
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-            if (level < 10)
+            if (level < GET_THE_LAST_NUMBER_OF_LEVEL)
                 return;
             int t = 0;
-            switch (level % 10)
+            switch (level % GET_THE_LAST_NUMBER_OF_LEVEL)
             {
                 case 4:
                     t = 1;
@@ -105,6 +105,8 @@ namespace QFramework.Example
                 UnLockItem("RemoveAll");
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
                 UnLockItem("StepBack");
+            if (level >= (int)GameDefine.UnLockMechanism.SelectPropsOpen)
+                BtnItemBg.Show();
         }
 
         protected override void OnHide()
@@ -170,6 +172,74 @@ namespace QFramework.Example
                 LevelManager.Instance.ShowItemSelect();
                 GameCtrl.Instance.SeletedItem(bottele => { UseItem(8, BtnItem3, bottele); });
             });
+
+            BtnRemoveAll.onClick.AddListener(BtnRemoveAllOnClick);
+            BtnAddBottle.onClick.AddListener(BtnAddBottleOnClick);
+            BtnHalfBottle.onClick.AddListener(BtnHalfBottleOnClick);
+            BtnRemoveHide.onClick.AddListener(BtnRemoveHideOnClick);
+            BtnStepBack.onClick.AddListener(BtnSetpBackOnClick);
+            StringEventSystem.Global.Register(GameConst.VICTORY_EVENT, () =>
+            {
+                int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+
+               
+                if (level - 1 < GameConst.WIN_STREAK_BEGIN_LEVEL)
+                {
+                    OpenUIVictory();
+                    return;
+                }
+                //飞星效果
+                var _spriteIndex = Mathf.Max(0, (mTierRankActivityModel.StreakWinNum - 1) / WIN_STREAK_RANKLEVEL_INTERVAL);
+                _spriteIndex = _spriteIndex >= MAX_SPRITE_INDEX ? MAX_SPRITE_INDEX : _spriteIndex;
+                var _rankPromotion = _spriteIndex > mCacheRankSpriteIndex;
+                FlightEffects.Show();
+                FlightEffects.DOMove(ImgRankLevel.transform.position, 1f)
+                .OnComplete(() =>
+                {
+                    TxtRankLevel.text = mTierRankActivityModel.StreakWinNum.ToString();
+
+                    //段位无变化
+                    if (!_rankPromotion)
+                    {
+                        OpenUIVictory();
+                        return;
+                    }
+
+                    ImgRankSprite_mid.sprite = mRankLevelSprites[mCacheRankSpriteIndex];
+                    ImgRankSprite_mid.SetNativeSize();
+                    SpineRankPromotion.Show();
+
+                    SpineRankPromotion.AnimationState.SetAnimation(0, "animation", false);
+
+                    ActionKit.Delay(0.5f, () =>
+                    {
+                        ImgRankSprite_mid.sprite = mRankLevelSprites[_spriteIndex];
+                        ImgRankSprite_mid.SetNativeSize();
+                    }).Start(this);
+
+                    SpineRankPromotion.AnimationState.Complete += (trackEntry) =>
+                    {
+                        SpineRankPromotion.Hide();
+
+
+                        if (mTierRankActivityModel.CompareWithHistoryBestRank(_spriteIndex))
+                        {
+                            //Debug.Log("首次晋升段位");
+                            CoinManager.Instance.AddCoin(300);
+                            RewardUIManager.Instance.PlayRewardAnim(null, 300);
+
+                            ActionKit.Delay(1.5f, () =>
+                            {
+                                OpenUIVictory();
+                            }).Start(this);
+                            return;
+                        }
+                        //奖励已经领取
+                        OpenUIVictory();
+                    };
+                });
+
+            }).UnRegisterWhenGameObjectDestroyed(this);
         }
 
         private void RegisterEvent()
@@ -185,12 +255,6 @@ namespace QFramework.Example
                 TxtLevel.text = LevelManager.Instance.levelId.ToString();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-            StringEventSystem.Global.Register("StreakWinItem", (int count) =>
-            {
-                ClearBottleBlackWater(count, false);
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
             this.RegisterEvent<UnLockItem>(eventId =>
             {
                 
@@ -206,7 +270,14 @@ namespace QFramework.Example
                     UnLockItem("RemoveAll");
                 if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
                     UnLockItem("StepBack");
-            });
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+            StringEventSystem.Global.Register("StreakWinItem", (int count) =>
+            {
+               
+                ClearBottleBlackWater(count, false);
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+           
         }
         protected void UnLockItem(string item)
         {
@@ -214,30 +285,25 @@ namespace QFramework.Example
             switch (item)
             {
                 case "StepBack":
-                    BtnStepBack.onClick.AddListener(BtnSetpBackOnClick);
                     transform = BtnStepBack.transform;
                     break;
                 case "RemoveHide":
-                    BtnRemoveHide.onClick.AddListener(BtnRemoveHideOnClick);
                     transform = BtnRemoveHide.transform;
                     break;
                 case "HalfBottle":
-                    BtnHalfBottle.onClick.AddListener(BtnHalfBottleOnClick);
                     transform = BtnHalfBottle.transform;
                     break;
                 case "AddBottle":
-                    BtnAddBottle.onClick.AddListener(BtnAddBottleOnClick);
                     transform = BtnAddBottle.transform;
                     break;
                 case "RemoveAll":
-                    BtnRemoveAll.onClick.AddListener(BtnRemoveAllOnClick);
                     transform = BtnRemoveAll.transform;
                     break;
             }
-            transform.Find("Image").gameObject.SetActive(true);
-            transform.Find("ImgLock").gameObject.SetActive(false);
+            transform.Find("ImgItem").Show();
+            transform.Find("ImgLock").Hide();
             transform.GetComponent<Button>().interactable = true;
-            transform.Find("Image").GetComponent<Image>().color = Color.white;
+            transform.Find("ImgItem").GetComponent<Image>().color = Color.white;
         }
         void BtnSetpBackOnClick()
         {
@@ -355,60 +421,8 @@ namespace QFramework.Example
                 }
             }
         }
-
-                //飞星效果
-                var _spriteIndex = Mathf.Max(0, (mTierRankActivityModel.StreakWinNum - 1) / WIN_STREAK_RANKLEVEL_INTERVAL);
-                _spriteIndex = _spriteIndex >= MAX_SPRITE_INDEX ? MAX_SPRITE_INDEX : _spriteIndex;
-                var _rankPromotion = _spriteIndex > mCacheRankSpriteIndex;
-                FlightEffects.Show();
-                FlightEffects.DOMove(ImgRankLevel.transform.position, 1f)
-                .OnComplete(() =>
-                {
-                    TxtRankLevel.text = mTierRankActivityModel.StreakWinNum.ToString();
-
-                    //段位无变化
-                    if (!_rankPromotion)
-                    {
-                        OpenUIVictory();
-                        return;
-                    }
-
-                    ImgRankSprite_mid.sprite = mRankLevelSprites[mCacheRankSpriteIndex];
-                    ImgRankSprite_mid.SetNativeSize();
-                    SpineRankPromotion.Show();
-
-                    SpineRankPromotion.AnimationState.SetAnimation(0, "animation", false);
-
-                    ActionKit.Delay(0.5f, () =>
-                    {
-                        ImgRankSprite_mid.sprite = mRankLevelSprites[_spriteIndex];
-                        ImgRankSprite_mid.SetNativeSize();
-                    }).Start(this);
-
-                    SpineRankPromotion.AnimationState.Complete += (trackEntry) =>
-                    {
-                        SpineRankPromotion.Hide();
-
-
-                        if (mTierRankActivityModel.CompareWithHistoryBestRank(_spriteIndex))
-                        {
-                            //Debug.Log("首次晋升段位");
-                            CoinManager.Instance.AddCoin(300);
-                            RewardUIManager.Instance.PlayRewardAnim(null, 300);
-
-                            ActionKit.Delay(1.5f, () =>
-                            {
-                                OpenUIVictory();
-                            }).Start(this);
-                            return;
-                        }
-                        //奖励已经领取
-                        OpenUIVictory();
-                    };
-                });
-
-            }).UnRegisterWhenGameObjectDestroyed(this);
-        }
+        
+        
 
         #region 道具相关
 

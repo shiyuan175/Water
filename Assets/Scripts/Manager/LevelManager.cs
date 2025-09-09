@@ -850,27 +850,27 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
             {
                 // 新手关卡引导
                 case (int)GameDefine.UIGuideLevel.UIGuideLevel1:
-                    UIKit.OpenPanel<UIGuideLevel1>();
+                    UIKit.OpenPanel<UIGuideLevel1>(UILevel.PopUI);
                     break;
                 case (int)GameDefine.UIGuideLevel.UIGuideLevel2:
-                    UIKit.OpenPanel<UIGuideLevel2>();
+                    UIKit.OpenPanel<UIGuideLevel2>(UILevel.PopUI);
                     break;
 
                  // 道具使用引导
                 case (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack:
-                    UIKit.OpenPanel<UIGuideLevelStepBack>();
+                    UIKit.OpenPanel<UIGuideLevelStepBack>(UILevel.PopUI);
                     break;
                 case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide:
-                    UIKit.OpenPanel<UIGuideLevelRemoveHide>();
+                    UIKit.OpenPanel<UIGuideLevelRemoveHide>(UILevel.PopUI);
                     break;
                 case (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle:
-                    UIKit.OpenPanel<UIGuideLevelAddBottle>();
+                    UIKit.OpenPanel<UIGuideLevelAddBottle>(UILevel.PopUI);
                     break;
                 case (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle:
-                    UIKit.OpenPanel<UIGuideLevelHalfBottle>();
+                    UIKit.OpenPanel<UIGuideLevelHalfBottle>(UILevel.PopUI);
                     break;
                 case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll:
-                    UIKit.OpenPanel<UIGuideLevelRemoveAll>();
+                    UIKit.OpenPanel<UIGuideLevelRemoveAll>(UILevel.PopUI);
                     break;
             }
 
