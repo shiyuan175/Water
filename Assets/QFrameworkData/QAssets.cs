@@ -39,6 +39,11 @@ namespace QAssetBundle
         public const string BundleName = "sceneunlock2_prefab";
         public const string SceneUnlock2 = "SceneUnlock2";
     }
+    public class Sceneunlockguide_prefab
+    {
+        public const string BundleName = "sceneunlockguide_prefab";
+        public const string SceneUnlockGuide = "SceneUnlockGuide";
+    }
     public class Uibegin_prefab
     {
         public const string BundleName = "uibegin_prefab";
