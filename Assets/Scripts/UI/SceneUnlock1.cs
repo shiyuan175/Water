@@ -5,11 +5,6 @@ using Spine;
 using System.Collections.Generic;
 using DG.Tweening;
 
-//优化点：
-//不要用ab包，使用预制体，通过场景进度加载放主界面节点下
-//将方法提取成基类，新场景可以继承。接口约束一些信息，比如场景ID
-//现在的方案,一个场景要一个AB包面板，还要一个预制体用于主界面显示
-
 namespace QFramework.Example
 {
     public class SceneUnlock1Data : UIPanelData
@@ -37,11 +32,10 @@ namespace QFramework.Example
               (5, new Vector2(308, -469)),
               (5, new Vector2(-205, -687)),
               (6, new Vector2(0, -367)),
-              (6, new Vector2(0, 242)),
               (7, new Vector2(0, -137))
         };
-        //Spine完成后特效初始位置
-        private readonly Vector2[] mEffectStartPos = new Vector2[]
+        //Spine完成后飞向宝箱特效初始位置
+        private readonly Vector2[] mEffectToBoxStartPos = new Vector2[]
         {
             new(-50, 580),
             new(-422, 128),
@@ -55,29 +49,31 @@ namespace QFramework.Example
             new(227, -689),
             new(442, -740),
             new(-357,528),
-            new(0, -647),
             new(0, 100),
             new(130, -257),
 
         };
         //特效目标位置(宝箱)
-        private readonly Vector2 mEffectBoxTargetPos = new (-220, 900);//500,900
+        private readonly Vector2 mEffectBoxTargetPos = new (-220, 900);
 
         [SerializeField] private SkeletonGraphic[] mAllUnitSpines;
         [SerializeField] private CanvasGroup[] mSpineCanvasGroups;
         [SerializeField] private Image[] mUnitImgs;
+        [Header("Unlock completed sprites")]
         [SerializeField] private Sprite[] mUnitSprites;
         [SerializeField] private Sprite[] mUnitIconSprites;
         [SerializeField] private Sprite mBoxOpenSprite;
         [SerializeField] private Transform[] mProgressNodes;
         [SerializeField] private RewardPackSO mRewardPackSO;
+        [SerializeField] private Image mBgUnitImg;
 
         private Spine.AnimationState.TrackEntryDelegate mHeartRiseCallBack;
         private SceneUnlockModel mSceneUnlockModel;
         private RewardGrantUtility mRewardGrantUtility;
         //用于维护Spine的回调监听和注销
         private SkeletonGraphic[] mUnActiveUnitSpines;
-        private int startUnitIndex;
+        private int mStartUnitIndex;
+        private bool mRewardSign = false;
 
         protected override void OnInit(IUIData uiData = null)
 		{
@@ -93,12 +89,7 @@ namespace QFramework.Example
             GameDefine.GameUtils.SotrArray(mUnitImgs);
             GameDefine.GameUtils.SotrArray(mSpineCanvasGroups);
 
-            startUnitIndex = Mathf.Clamp(mSceneUnlockModel.SceneUnlockUnitIndex, 0, mUnitMes.Length);
-            if (mSceneUnlockModel.SceneIndex > PANEL_ID)
-            {
-                startUnitIndex = mUnitMes.Length;
-                BtnBox.image.sprite = mBoxOpenSprite;
-            }
+            mStartUnitIndex = Mathf.Clamp(mSceneUnlockModel.GetSceneUnitIndex(PANEL_ID), 0, mUnitMes.Length);
 
             InitPanel();
             InitSpineOnComplete();
@@ -116,7 +107,7 @@ namespace QFramework.Example
                 int _index = mSceneUnlockModel.SceneUnlockUnitIndex;
                 int _realIndex = _index - (mAllUnitSpines.Length - mUnActiveUnitSpines.Length);
                 
-                if (mSceneUnlockModel.RemainingStar >= mUnitMes[_index].Item1)
+                if (mSceneUnlockModel.RemainingStars >= mUnitMes[_index].Item1)
                 {
                     mSceneUnlockModel.AddUnitIndex();
                     mSceneUnlockModel.UseStar(mUnitMes[_index].Item1);
@@ -142,7 +133,7 @@ namespace QFramework.Example
 
             BtnReturen.onClick.AddListener(() =>
             {
-                this.SendEvent(new UnlockSceneEvent());
+                this.SendEvent(new UnlockSceneBackEvent());
                 CloseSelf();
             });
         }
@@ -178,41 +169,46 @@ namespace QFramework.Example
         /// </summary>
         private void InitPanel()
         {
+            //宝箱状态判定
+            if (mSceneUnlockModel.SceneUnlockUnitIndex >= mUnitMes.Length)
+                BtnBox.image.sprite = mBoxOpenSprite;
+
             //隐藏特效
             FlightEffectsToBox.Hide();
             FlightEffectsToBtn.Hide();
 
             //部件
-            for (int i = 0; i < startUnitIndex; i++)
+            for (int i = 0; i < mStartUnitIndex; i++)
             {
                 mUnitImgs[i].sprite = mUnitSprites[i];
-                mUnitImgs[i].SetNativeSize();
+                if (mUnitImgs[i] != mBgUnitImg)
+                    mUnitImgs[i].SetNativeSize();
             }
 
             //进度
-            for (int i = 0; i < startUnitIndex; i++)
+            for (int i = 0; i < mStartUnitIndex; i++)
             {
                 mProgressNodes[i].Find("Over").Show();
             }
 
             //星星数
-            TxtRemainStar.text = mSceneUnlockModel.RemainingStar.ToString();
+            TxtRemainStar.text = mSceneUnlockModel.RemainingStars.ToString();
 
             //按钮
-            if (startUnitIndex >= mUnitMes.Length)
+            if (mStartUnitIndex >= mUnitMes.Length)
                 BtnUnitUnlock.Hide();
             else
             {
                 BtnUnitUnlock.Show();
-                ImgUnitIcon.sprite = mUnitIconSprites[startUnitIndex];
-                BtnUnitUnlock.transform.localPosition = mUnitMes[startUnitIndex].Item2;
-                TxtNeedStar.text = mUnitMes[startUnitIndex].Item1.ToString();
+                ImgUnitIcon.sprite = mUnitIconSprites[mStartUnitIndex];
+                BtnUnitUnlock.transform.localPosition = mUnitMes[mStartUnitIndex].Item2;
+                TxtNeedStar.text = mUnitMes[mStartUnitIndex].Item1.ToString();
             }
 
             //未激活Spine
-            int remaining = mAllUnitSpines.Length - startUnitIndex;
+            int remaining = mAllUnitSpines.Length - mStartUnitIndex;
             mUnActiveUnitSpines = new SkeletonGraphic[remaining];
-            System.Array.Copy(mAllUnitSpines, startUnitIndex, mUnActiveUnitSpines, 0, remaining);
+            System.Array.Copy(mAllUnitSpines, mStartUnitIndex, mUnActiveUnitSpines, 0, remaining);
         }
 
         /// <summary>
@@ -222,7 +218,7 @@ namespace QFramework.Example
         {
             for (int i = 0; i < mUnActiveUnitSpines.Length; i++)
             {
-                int _realIndex = startUnitIndex + i;
+                int _realIndex = mStartUnitIndex + i;
                 int _tempIndex = i;
                 void handler(TrackEntry trackEntry)
                 {
@@ -231,7 +227,8 @@ namespace QFramework.Example
                     mUnActiveUnitSpines[_tempIndex].Hide();
                     mUnitImgs[_realIndex].Show();
                     mUnitImgs[_realIndex].sprite = mUnitSprites[_realIndex];
-                    mUnitImgs[_realIndex].SetNativeSize();
+                    if (mUnitImgs[_realIndex] != mBgUnitImg)
+                        mUnitImgs[_realIndex].SetNativeSize();
 
                     UpdateUnlockBtn();
                 }
@@ -275,15 +272,16 @@ namespace QFramework.Example
         private void FlightEffectsTo_Box(int realIndex)
         {
             FlightEffectsToBox.Show();
-            FlightEffectsToBox.localPosition = mEffectStartPos[realIndex];
+            FlightEffectsToBox.localPosition = mEffectToBoxStartPos[realIndex];
             FlightEffectsToBox.DOLocalMove(mEffectBoxTargetPos, 0.5f).OnComplete(() =>
             {
                 FlightEffectsToBox.Hide();
                 mProgressNodes[realIndex].Find("Over").Show();
 
-                //开箱判断，部件ID失效(已更新为下一个场景部件ID,要用场景ID判断)
-                if (mSceneUnlockModel.SceneIndex > PANEL_ID)
+                //开箱表现
+                if (mRewardSign)
                 {
+                    mRewardSign = false;
                     UIKit.ClosePanel<UIMask>();
                     RewardUIManager.Instance.PlayRewardAnim(mRewardPackSO, mRewardPackSO.Coins);
                     BtnBox.image.sprite = mBoxOpenSprite;
@@ -295,9 +293,10 @@ namespace QFramework.Example
         {
             if (mSceneUnlockModel.SceneUnlockUnitIndex >= mUnitMes.Length)
             {
-                mSceneUnlockModel.AddSceneIndex();
+                mRewardSign = true;
+                //mSceneUnlockModel.AddSceneIndex();
                 UIKit.OpenPanel<UIMask>(UILevel.PopUI);
-                //先发送奖励，在播放动画
+                //奖励发放
                 mRewardGrantUtility.GrantReward(mRewardPackSO);
             }
 
@@ -310,7 +309,7 @@ namespace QFramework.Example
                     FlightEffectsToBtn.Hide();
                     action?.Invoke();
                 });
-                TxtRemainStar.text = mSceneUnlockModel.RemainingStar.ToString();
+                TxtRemainStar.text = mSceneUnlockModel.RemainingStars.ToString();
 
             }).Start(this);
         }

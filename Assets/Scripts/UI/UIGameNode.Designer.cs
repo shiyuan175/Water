@@ -5,11 +5,35 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:c1deadc5-da84-471f-8b6e-2c9b90281205
+	// Generate Id:05e1fb29-37d0-4efb-bf2a-893715f1527b
 	public partial class UIGameNode
 	{
 		public const string Name = "UIGameNode";
 		
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtLevel;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnReturn;
+		[SerializeField]
+		public UnityEngine.UI.Image BtnItemBg;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnItem1;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtItem1;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnItem2;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtItem2;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnItem3;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtItem3;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgRankLevel;
+		[SerializeField]
+		public UnityEngine.UI.Text TxtRankLevel;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgRankLevel_Label;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnStepBack;
 		[SerializeField]
@@ -41,34 +65,28 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Image BtnAddRemoveBottle;
 		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtLevel;
+		public Spine.Unity.SkeletonGraphic SpineRankPromotion;
 		[SerializeField]
-		public UnityEngine.UI.Image ImgRankLevel;
+		public UnityEngine.UI.Image ImgRankSprite_mid;
 		[SerializeField]
-		public UnityEngine.UI.Text TxtRankLevel;
-		[SerializeField]
-		public UnityEngine.UI.Image ImgRankLevel_Label;
-		[SerializeField]
-		public UnityEngine.UI.Button BtnReturn;
-		[SerializeField]
-		public UnityEngine.UI.Image BtnItemBg;
-		[SerializeField]
-		public UnityEngine.UI.Button BtnItem1;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtItem1;
-		[SerializeField]
-		public UnityEngine.UI.Button BtnItem2;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtItem2;
-		[SerializeField]
-		public UnityEngine.UI.Button BtnItem3;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtItem3;
+		public RectTransform FlightEffects;
 		
 		private UIGameNodeData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
+			TxtLevel = null;
+			BtnReturn = null;
+			BtnItemBg = null;
+			BtnItem1 = null;
+			TxtItem1 = null;
+			BtnItem2 = null;
+			TxtItem2 = null;
+			BtnItem3 = null;
+			TxtItem3 = null;
+			ImgRankLevel = null;
+			TxtRankLevel = null;
+			ImgRankLevel_Label = null;
 			BtnStepBack = null;
 			TxtRefreshNum = null;
 			BtnAddStepBack = null;
@@ -84,18 +102,9 @@ namespace QFramework.Example
 			BtnRemoveAll = null;
 			TxtRemoveAllNum = null;
 			BtnAddRemoveBottle = null;
-			TxtLevel = null;
-			ImgRankLevel = null;
-			TxtRankLevel = null;
-			ImgRankLevel_Label = null;
-			BtnReturn = null;
-			BtnItemBg = null;
-			BtnItem1 = null;
-			TxtItem1 = null;
-			BtnItem2 = null;
-			TxtItem2 = null;
-			BtnItem3 = null;
-			TxtItem3 = null;
+			SpineRankPromotion = null;
+			ImgRankSprite_mid = null;
+			FlightEffects = null;
 			
 			mData = null;
 		}

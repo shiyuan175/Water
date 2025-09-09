@@ -272,7 +272,7 @@ namespace QFramework.Example
                 SetVitality();
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
-            this.RegisterEvent<UnlockSceneEvent>(e =>
+            this.RegisterEvent<UnlockSceneBackEvent>(e =>
             {
                 this.gameObject.Show();
                 SetScene();
@@ -314,6 +314,17 @@ namespace QFramework.Example
             StringEventSystem.Global.Register(GameConst.COIN_CHANGE, () =>
             {
                 SetCoin();
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+      
+            StringEventSystem.Global.Register(GameConst.UNLOCK_NEW_SCENES, () =>
+            {
+                SetScene();
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            StringEventSystem.Global.Register(GameConst.SCENE_UNLOCK_GUIDE_STEP1, () =>
+            {
+                bottomMenuBtns.Last().onClick.Invoke();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
@@ -381,7 +392,7 @@ namespace QFramework.Example
 
         private void SetStar()
         {
-            TxtStar.text = mSceneUnlockModel.RemainingStar.ToString();
+            TxtStar.text = stageModel.RemainingStars.ToString();
         }
 
         private void SetVitality()
@@ -440,25 +451,21 @@ namespace QFramework.Example
         {
             var _unitUnlockProgress = mSceneUnlockModel.SceneUnlockUnitIndex;
             var _sceneIndex = mSceneUnlockModel.SceneIndex;
-
-            //最后一个场景判断
-            bool isLastScene = _sceneIndex >= GameConst.SceneUnlock.Count;
-
-            if (isLastScene)
-                _sceneIndex = GameConst.SceneUnlock.Keys.Max();
+            //注释代码是最后一个场景的判定,可作为安全代码保留
+            //bool isLastScene = _sceneIndex >= GameConst.SceneUnlock.Count;
+            //if (isLastScene)
+            //    _sceneIndex = GameConst.SceneUnlock.Keys.Max();
 
             var _unitCount = mSceneUnlockPanels[_sceneIndex].GetComponent<SceneUnlockCtrl>().UnitCount;
 
-            if (isLastScene)
-                _unitUnlockProgress = _unitCount;
+            //if (isLastScene)
+            //    _unitUnlockProgress = _unitCount;
 
             for (int i = 0; i < mSceneUnlockPanels.Length; i++)
             {
                 mSceneUnlockPanels[i].Hide();
                 if (i == _sceneIndex)
-                {
                     mSceneUnlockPanels[i].Show();
-                }
             }
 
             mSceneUnlockPanels[_sceneIndex].GetComponent<SceneUnlockCtrl>().UpdateUnitSprite(_unitUnlockProgress);
@@ -469,6 +476,12 @@ namespace QFramework.Example
             TxtArea.text = "Area " + (_sceneIndex + 1);
             ImgProgress.fillAmount = (float)_unitUnlockProgress / _unitCount;
             TxtImgprogress.text = $"{_unitUnlockProgress} / {_unitCount}";
+
+            //首套场景解锁完成
+            if (_sceneIndex == 0 && _unitUnlockProgress == _unitCount)
+            {
+                UIKit.OpenPanel<SceneUnlockGuide>(UILevel.PopUI);
+            }
         }
         #endregion
 

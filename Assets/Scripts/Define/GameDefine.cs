@@ -34,15 +34,21 @@ namespace GameDefine
         //存档标记
         public const string FIRST_LAUNCH_SIGN = "FIRST_LAUNCH";
         public const string DOUBLE_COIN_SIGN = "DoubleCoin";
+        public const string DOUBLE_SETTLEMENT_SIGN = "DoubleSettlement";
         public const string POTION_ACTIVITY_SIGN = "PotionActivity";
         public const string UNLIMIT_ITEM_SIGN = "UnLimitItenEndTime";
         public const string RANKA_ACTIVITY_SIGN = "RankAActivity";
+        public const string TIER_RANK_ACTIVITY_SIGN = "TierRankActivity";
 
         //事件标记
         public const string START_POTION_ACTIVITY = "StartPotionActivity";
         public const string OPEN_SHOP_PANEL_EVENT = "OpenShopPanel";
         public const string MANAGER_OPEN_NEXT_PANEL = "ManagerOpenNextPanel";
         public const string COIN_CHANGE = "CoinChange";
+        public const string VICTORY_EVENT = "VictoryEvent";
+        public const string UNLOCK_NEW_SCENES = "UnlockNewScenes";
+        public const string SCENE_UNLOCK_GUIDE_STEP1 = "SceneUnlockGuideStep1";
+        public const string SCENE_UNLOCK_GUIDE_STEP2 = "SceneUnlockGuideStep2";
 
         #region Json file info
 
@@ -78,7 +84,8 @@ namespace GameDefine
         //场景解锁界面(索引对应AB包名)
         public static readonly Dictionary<int, string> SceneUnlock = new Dictionary<int, string>
         {
-            {0, "SceneUnlock1"}
+            {0, "SceneUnlock1"},
+            {1, "SceneUnlock2" }
         };
     }
     public enum UIGuideLevel

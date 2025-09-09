@@ -6,7 +6,7 @@ Hashes:
     Hash: 8f529409f850d20acbf9e307d06c5ffc
   TypeTreeHash:
     serializedVersion: 2
-    Hash: ef389b2fa09424b26e58cda14f1e60a6
+    Hash: 6a5a67feb3148908991884f55be54c8a
   IncrementalBuildHash:
     serializedVersion: 2
     Hash: 8f529409f850d20acbf9e307d06c5ffc
@@ -19,11 +19,11 @@ ClassTypes:
 - Class: 28
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: a4aa6312ce7c5af4a8b79b2480c2194b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 114
@@ -64,4 +64,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Art/UIPrefab/UIBuyItem.prefab
 Dependencies:
-- D:/Documents/GitHub/Water/AssetBundles/Android/font
+- E:/U GitHub Project/Water/AssetBundles/Android/font

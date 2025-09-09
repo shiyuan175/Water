@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2593250197
+CRC: 3733513093
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 93a5f93282f2c52024ac288c6e2d787e
+    Hash: 445d388e8e220a0720df0cd35db58b26
   TypeTreeHash:
     serializedVersion: 2
-    Hash: bbc5b8fa478999ed608e33c0e38aadfb
+    Hash: 71dc60eee54f5a4031956e8382d9c303
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 93a5f93282f2c52024ac288c6e2d787e
+    Hash: 445d388e8e220a0720df0cd35db58b26
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -21,13 +21,13 @@ ClassTypes:
 - Class: 111
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0209be462b94e044ca63306e689fabf2, type: 3}
 - Class: 115
@@ -50,4 +50,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Art/UIPrefab/UIGuideAnimPop.prefab
 Dependencies:
-- D:/Documents/GitHub/Water/AssetBundles/Android/font
+- E:/U GitHub Project/Water/AssetBundles/Android/font

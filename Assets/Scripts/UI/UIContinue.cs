@@ -93,6 +93,7 @@ namespace QFramework.Example
                 }
                 UIKit.ClosePanel<UIGameNode>();
                 this.GetModel<StageModel>().ResetCountinueWinNum();
+                this.GetModel<TierRankActivityModel>().ResetStreakWinNum();
                 this.SendEvent<ReturnMainEvent>(new ReturnMainEvent());
 
                 EnqueueAllPanels();

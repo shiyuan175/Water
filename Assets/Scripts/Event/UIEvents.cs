@@ -31,7 +31,7 @@ public struct UnlimtItemEvent
 {
 }
 
-public struct UnlockSceneEvent
+public struct UnlockSceneBackEvent
 {
    
 }

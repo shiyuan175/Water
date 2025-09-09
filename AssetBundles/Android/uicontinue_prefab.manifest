@@ -6,7 +6,7 @@ Hashes:
     Hash: e0525bec45d6271b8f476411e5676ecf
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 59fd624d735ee70d48a5bdb8e54b44ba
+    Hash: a8277b286e72c1476c83dbb88b92686f
   IncrementalBuildHash:
     serializedVersion: 2
     Hash: e0525bec45d6271b8f476411e5676ecf
@@ -19,9 +19,9 @@ ClassTypes:
 - Class: 28
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 114
@@ -62,4 +62,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Art/UIPrefab/UIContinue.prefab
 Dependencies:
-- D:/Documents/GitHub/Water/AssetBundles/Android/font
+- E:/U GitHub Project/Water/AssetBundles/Android/font

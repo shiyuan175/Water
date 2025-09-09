@@ -30,6 +30,10 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<VolcanicActivity>();
         }
+        if (_curLevel >= GameDefine.GameConst.WIN_STREAK_BEGIN_LEVEL)
+        {
+            RegisterActivity<TierRankActivity>();
+        }
         if (_curLevel >= GameDefine.GameConst.RA_BEGIN_LEVEL)
         {
             RegisterActivity<RocketActivity>();

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1167978333
+CRC: 2409327105
 Hashes:
   AssetFileHash:
     serializedVersion: 2
     Hash: b27dd1a4747322c01119cea9c38417de
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 367999677349185240569ea6e419ebef
+    Hash: 0e20d0c93f43d9d1d5a8792dc32b053f
   IncrementalBuildHash:
     serializedVersion: 2
     Hash: b27dd1a4747322c01119cea9c38417de
@@ -19,9 +19,9 @@ ClassTypes:
 - Class: 28
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 114
@@ -70,4 +70,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Art/UIPrefab/UIGetCoin.prefab
 Dependencies:
-- D:/Documents/GitHub/Water/AssetBundles/Android/font
+- E:/U GitHub Project/Water/AssetBundles/Android/font

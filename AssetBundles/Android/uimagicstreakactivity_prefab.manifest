@@ -1,4 +1,5 @@
 ManifestFileVersion: 0
+<<<<<<< HEAD
 CRC: 33664272
 Hashes:
   AssetFileHash:
@@ -10,6 +11,33 @@ Hashes:
   IncrementalBuildHash:
     serializedVersion: 2
     Hash: fccca326703833b907a6b4b8ddf15123
+=======
+<<<<<<<< HEAD:Assets/StreamingAssets/AssetBundles/Android/uishop_prefab.manifest
+CRC: 1905502697
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9096b73357efa79968b02f498f35411a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3d3749407b15f50323183ccc793439f1
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 9096b73357efa79968b02f498f35411a
+========
+CRC: 3409116221
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 25f49c7f6b92a31787e2e0a9913d2fca
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5de3c0f984c90895e891d2295e3d8102
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 25f49c7f6b92a31787e2e0a9913d2fca
+>>>>>>>> main:AssetBundles/Android/uimagicstreakactivity_prefab.manifest
+>>>>>>> main
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -19,13 +47,22 @@ ClassTypes:
 - Class: 28
   Script: {instanceID: 0}
 - Class: 114
+<<<<<<< HEAD
   Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
 - Class: 114
+=======
+<<<<<<<< HEAD:Assets/StreamingAssets/AssetBundles/Android/uishop_prefab.manifest
+  Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+- Class: 114
+>>>>>>> main
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+<<<<<<< HEAD
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
@@ -37,11 +74,52 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: db40ed3e021d5d949966dc87098983d8, type: 3}
 - Class: 114
+=======
+========
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+>>>>>>>> main:AssetBundles/Android/uimagicstreakactivity_prefab.manifest
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+- Class: 114
+<<<<<<<< HEAD:Assets/StreamingAssets/AssetBundles/Android/uishop_prefab.manifest
+  Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c3426f240276d0c4b86ac6e186931746, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 41af467769a5a6c41b484ef48ed521f0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 21f3803431805974da2a902fda947718, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4c828f9268695a54190e08543c4fdd99, type: 3}
+========
+  Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: db40ed3e021d5d949966dc87098983d8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+- Class: 114
+>>>>>>> main
   Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0b2fa2268fefced409590a01e72c1871, type: 3}
+<<<<<<< HEAD
+=======
+- Class: 114
+  Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+>>>>>>>> main:AssetBundles/Android/uimagicstreakactivity_prefab.manifest
+>>>>>>> main
 - Class: 115
   Script: {instanceID: 0}
 - Class: 213

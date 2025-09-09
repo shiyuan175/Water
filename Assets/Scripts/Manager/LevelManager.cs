@@ -355,25 +355,23 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     public IEnumerator TestFinish()
     {
         isFinish = true;
-        //Debug.Log("胜利");
         UIKit.OpenPanel<UIMask>(UILevel.PopUI);
         yield return new WaitForSeconds(1);
-
-        //Debug.Log("开始播放胜利结算");
-        AudioKit.PlaySound("resources://Audio/Victory");
-        UIKit.ClosePanel<UIMask>();
         this.GetUtility<SaveDataUtility>().SaveLevel(levelId + 1);
-
-        // 连胜计数
-        stageModel.AddCountinueWinNum();
+        // 连胜
+        stageModel.PassLevel();
+        this.GetModel<TierRankActivityModel>().StreakWin();
 
         //前五关(前五关应该不统计连胜)
         if (levelId < 5)
+        {
             StartGame(levelId + 1);
+            UIKit.ClosePanel<UIMask>();
+        }
         else
         {
             this.SendCommand<RegisterActivitiesCommand>();
-            UIKit.OpenPanel<UIVictory>();
+            StringEventSystem.Global.Send(GameConst.VICTORY_EVENT);
         }
     }
 
@@ -394,21 +392,20 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
             UIKit.OpenPanel<UIMask>(UILevel.PopUI);
             float waitTime = levelId < 5 ? 3f : 2f;
             yield return new WaitForSeconds(waitTime);
-
-            //Debug.Log("开始播放胜利结算");
-            AudioKit.PlaySound("resources://Audio/Victory");
-            UIKit.ClosePanel<UIMask>();
+            
             this.GetUtility<SaveDataUtility>().SaveLevel(levelId + 1);
-
-            // 连胜计数
-            stageModel.AddCountinueWinNum();
+            this.GetModel<TierRankActivityModel>().StreakWin();
+            stageModel.PassLevel();
 
             if (levelId < 5)
+            {
                 StartGame(levelId + 1);
+                UIKit.ClosePanel<UIMask>();
+            }
             else
             {
                 this.SendCommand<RegisterActivitiesCommand>();
-                UIKit.OpenPanel<UIVictory>();
+                StringEventSystem.Global.Send(GameConst.VICTORY_EVENT);
             }
         }
         else

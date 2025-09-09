@@ -6,6 +6,7 @@ using GameDefine;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Spine;
 
 namespace QFramework.Example
 {
@@ -27,10 +28,12 @@ namespace QFramework.Example
         [SerializeField] private Image imgBottom;
         [SerializeField] private Image imgLevel;
         private StageModel stageModel;
+        private TierRankActivityModel mTierRankActivityModel;
         private const int WIN_STREAK_RANKLEVEL_INTERVAL = 5;
         private const int MAX_SPRITE_INDEX = 8;
         private const string CLEAR_BWATER_PARTICLE_PATH = "Prefab/BlackMaskItem";
 
+        private int mCacheRankSpriteIndex;
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;
@@ -48,6 +51,10 @@ namespace QFramework.Example
             TxtLevel.font.material.shader = Shader.Find(TxtLevel.font.material.shader.name);
             TxtLevel.text = LevelManager.Instance.levelId.ToString();
             stageModel = this.GetModel<StageModel>();
+            mTierRankActivityModel = this.GetModel<TierRankActivityModel>();
+
+            BindBtn();
+            RegisterEvent();
         }
 
         protected override void OnShow()
@@ -57,8 +64,6 @@ namespace QFramework.Example
             InitItemUI();
             SetTakeItem();
             SetItem();
-            BindBtn();
-            RegisterEvent();
         }
         protected void InitLevelUI()
         {
@@ -133,13 +138,14 @@ namespace QFramework.Example
                 }).Start(this);
             }
             else ImgRankLevel_Label.Hide();
+
             if (level >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             {
                 ImgRankLevel.Show();
-                TxtRankLevel.text = stageModel.CountinueWinNum.ToString();
-                var _spriteIndex = Mathf.Max(0, (stageModel.CountinueWinNum - 1) / WIN_STREAK_RANKLEVEL_INTERVAL);
-                _spriteIndex = _spriteIndex >= MAX_SPRITE_INDEX ? MAX_SPRITE_INDEX : _spriteIndex;
-                ImgRankLevel.sprite = mRankLevelSprites[_spriteIndex];
+                TxtRankLevel.text = mTierRankActivityModel.StreakWinNum.ToString();
+                mCacheRankSpriteIndex = Mathf.Max(0, (mTierRankActivityModel.StreakWinNum - 1) / WIN_STREAK_RANKLEVEL_INTERVAL);
+                mCacheRankSpriteIndex = mCacheRankSpriteIndex >= MAX_SPRITE_INDEX ? MAX_SPRITE_INDEX : mCacheRankSpriteIndex;
+                ImgRankLevel.sprite = mRankLevelSprites[mCacheRankSpriteIndex];
             }
             else ImgRankLevel.Hide();
         }
@@ -350,6 +356,60 @@ namespace QFramework.Example
             }
         }
 
+                //飞星效果
+                var _spriteIndex = Mathf.Max(0, (mTierRankActivityModel.StreakWinNum - 1) / WIN_STREAK_RANKLEVEL_INTERVAL);
+                _spriteIndex = _spriteIndex >= MAX_SPRITE_INDEX ? MAX_SPRITE_INDEX : _spriteIndex;
+                var _rankPromotion = _spriteIndex > mCacheRankSpriteIndex;
+                FlightEffects.Show();
+                FlightEffects.DOMove(ImgRankLevel.transform.position, 1f)
+                .OnComplete(() =>
+                {
+                    TxtRankLevel.text = mTierRankActivityModel.StreakWinNum.ToString();
+
+                    //段位无变化
+                    if (!_rankPromotion)
+                    {
+                        OpenUIVictory();
+                        return;
+                    }
+
+                    ImgRankSprite_mid.sprite = mRankLevelSprites[mCacheRankSpriteIndex];
+                    ImgRankSprite_mid.SetNativeSize();
+                    SpineRankPromotion.Show();
+
+                    SpineRankPromotion.AnimationState.SetAnimation(0, "animation", false);
+
+                    ActionKit.Delay(0.5f, () =>
+                    {
+                        ImgRankSprite_mid.sprite = mRankLevelSprites[_spriteIndex];
+                        ImgRankSprite_mid.SetNativeSize();
+                    }).Start(this);
+
+                    SpineRankPromotion.AnimationState.Complete += (trackEntry) =>
+                    {
+                        SpineRankPromotion.Hide();
+
+
+                        if (mTierRankActivityModel.CompareWithHistoryBestRank(_spriteIndex))
+                        {
+                            //Debug.Log("首次晋升段位");
+                            CoinManager.Instance.AddCoin(300);
+                            RewardUIManager.Instance.PlayRewardAnim(null, 300);
+
+                            ActionKit.Delay(1.5f, () =>
+                            {
+                                OpenUIVictory();
+                            }).Start(this);
+                            return;
+                        }
+                        //奖励已经领取
+                        OpenUIVictory();
+                    };
+                });
+
+            }).UnRegisterWhenGameObjectDestroyed(this);
+        }
+
         #region 道具相关
 
         /// <summary>
@@ -556,5 +616,13 @@ namespace QFramework.Example
         }
 
         #endregion
+
+
+        private void OpenUIVictory()
+        {
+            UIKit.ClosePanel<UIMask>();
+            AudioKit.PlaySound("resources://Audio/Victory");
+            UIKit.OpenPanel<UIVictory>();
+        }
     }
 }

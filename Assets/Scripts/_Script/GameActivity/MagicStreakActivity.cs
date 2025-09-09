@@ -54,11 +54,6 @@ public class MagicStreakActivity : BaseRewardSettlementActivity
         mMSAModel.Fail();
     }
 
-    public override void CoolDownActivityInit()
-    {
-        
-    }
-
     public override void RestartActivityInit()
     {
         mMSAModel.ReloadMagicStreakActivity();

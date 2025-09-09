@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1823254069
+CRC: 92730569
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 55a3a522cbef3c12a0f58fa258595f29
+    Hash: c90782a0457eb659dcd750b6d2fcc046
   TypeTreeHash:
     serializedVersion: 2
-    Hash: e5c3fdd15ccda395ccf2481e04af375b
+    Hash: c790fddb6b2802ae6244b6d29f230219
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 55a3a522cbef3c12a0f58fa258595f29
+    Hash: c90782a0457eb659dcd750b6d2fcc046
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -25,17 +25,17 @@ ClassTypes:
 - Class: 96
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 09b6c1c4ab937bd48932443604f43507, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: d85b887af7e6c3f45a2e2d2920d641bc, type: 3}
 - Class: 114
@@ -49,7 +49,9 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 09b6c1c4ab937bd48932443604f43507, type: 3}
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -104,4 +106,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Art/UIPrefab/SceneUnlock1.prefab
 Dependencies:
-- D:/Documents/GitHub/Water/AssetBundles/Android/font
+- E:/U GitHub Project/Water/AssetBundles/Android/font
