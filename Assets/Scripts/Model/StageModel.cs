@@ -6,19 +6,21 @@ using GameDefine;
 
 public class StageModel : AbstractModel
 {
-    private const string ITEM_SIGN = "g_WaterSceneItem";
+    private const string REMAINING_STARS = "A_RemainingStars";
+    private const string ITEM_SIGN = "A_GameItem";
     private const string COUNTINUE_WIN_NUM_SIGN = "g_WaterCountinueWinNum";
     private const string VOLUME_SETTING_SIGN = "g_WaterVolumeSetting";
-    private const int DOUBLE_COIN = 2;
+    private const int DOUBLE = 2;
 
     private SaveDataUtility storage;
 
     //道具字典
     public BindableDictionary<int, int> ItemDic;
-
+    //当前星星数
+    private BindableProperty<int> mRemainingStars;
     //连胜
-    public int CountinueWinNum => mCountinueWinNum.Value;
     private BindableProperty<int> mCountinueWinNum;
+    private float mGoldCoinsMultiple => mCountinueWinNum.Value > GameConst.CONTINUE_WIN_NUM_COIN ? 1.5f : 1;
 
     //金币倍率
     public float GoldCoinsMultiple
@@ -26,20 +28,21 @@ public class StageModel : AbstractModel
         get
         {
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.DOUBLE_COIN_SIGN))
-                return DOUBLE_COIN * mGoldCoinsMultiple;
+                return DOUBLE * mGoldCoinsMultiple;
 
             else return mGoldCoinsMultiple;
         }
     }
-    private float mGoldCoinsMultiple => mCountinueWinNum.Value > GameConst.CONTINUE_WIN_NUM_COIN ? 1.5f : 1;
-
+    //双倍结算Buff(部分活动积分/星星获取)
+    public int SettlementMultiple => CountDownTimerManager.Instance.IsTimerFinished(GameConst.DOUBLE_SETTLEMENT_SIGN) ? 1 : DOUBLE;
     //静音
     public bool VolumeSetting
     {
         get => storage.LoadBoolValue(VOLUME_SETTING_SIGN, true);
         set => storage.SaveBool(VOLUME_SETTING_SIGN, value);
     }
-
+    public int RemainingStars => mRemainingStars.Value;
+    public int CountinueWinNum => mCountinueWinNum.Value;
 
     protected override void OnInit()
     {
@@ -47,6 +50,14 @@ public class StageModel : AbstractModel
 
         ItemDic = new BindableDictionary<int, int>();
         mCountinueWinNum = new BindableProperty<int>();
+        mRemainingStars = new BindableProperty<int>();
+
+        //若无存档则以(当前关卡 - 1)初始化星星数，以兼容旧版本逻辑
+        mRemainingStars.SetValueWithoutEvent(storage.LoadIntValue(REMAINING_STARS, storage.GetCurrentLevel() - 1));
+        mRemainingStars.Register(value =>
+        {
+            storage.SaveInt(REMAINING_STARS, value);
+        });
 
         for (int i = 1; i <= GameDefine.GameConst.ITEM_COUNT; i++)
         {
@@ -66,6 +77,12 @@ public class StageModel : AbstractModel
             storage.SaveInt(COUNTINUE_WIN_NUM_SIGN, value);
 
         });
+    }
+
+    public void UsedStar(int value)
+    {
+        if(mRemainingStars.Value >= value)
+            mRemainingStars.Value -= value;
     }
 
     /// <summary>
@@ -99,8 +116,13 @@ public class StageModel : AbstractModel
         }
     }
 
-    public void AddCountinueWinNum()
+    /// <summary>
+    /// 过关处理
+    /// </summary>
+    public void PassLevel()
     {
+        mRemainingStars.Value += SettlementMultiple;
+
         if (storage.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             mCountinueWinNum.Value++;
     }

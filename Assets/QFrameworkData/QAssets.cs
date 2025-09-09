@@ -34,6 +34,11 @@ namespace QAssetBundle
         public const string BundleName = "sceneunlock1_prefab";
         public const string SceneUnlock1 = "SceneUnlock1";
     }
+    public class Sceneunlock2_prefab
+    {
+        public const string BundleName = "sceneunlock2_prefab";
+        public const string SceneUnlock2 = "SceneUnlock2";
+    }
     public class Uibegin_prefab
     {
         public const string BundleName = "uibegin_prefab";
@@ -94,10 +99,25 @@ namespace QAssetBundle
         public const string BundleName = "uihightoweractivity_prefab";
         public const string UIHighTowerActivity = "UIHighTowerActivity";
     }
+    public class Uihightoweractivityentrance_prefab
+    {
+        public const string BundleName = "uihightoweractivityentrance_prefab";
+        public const string UIHighTowerActivityEntrance = "UIHighTowerActivityEntrance";
+    }
     public class Uilessstar_prefab
     {
         public const string BundleName = "uilessstar_prefab";
         public const string UILessStar = "UILessStar";
+    }
+    public class Uimagicstreakactivity_prefab
+    {
+        public const string BundleName = "uimagicstreakactivity_prefab";
+        public const string UIMagicStreakActivity = "UIMagicStreakActivity";
+    }
+    public class Uimagicstreakactivityentrance_prefab
+    {
+        public const string BundleName = "uimagicstreakactivityentrance_prefab";
+        public const string UIMagicStreakActivityEntrance = "UIMagicStreakActivityEntrance";
     }
     public class Uimask_prefab
     {
@@ -133,6 +153,11 @@ namespace QAssetBundle
     {
         public const string BundleName = "uirocketactivity_prefab";
         public const string UIRocketActivity = "UIRocketActivity";
+    }
+    public class Uirocketactivityentrance_prefab
+    {
+        public const string BundleName = "uirocketactivityentrance_prefab";
+        public const string UIRocketActivityEntrance = "UIRocketActivityEntrance";
     }
     public class Uishop_prefab
     {

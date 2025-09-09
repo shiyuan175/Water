@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 50537666
+CRC: 1056165912
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 557caa553bad4d84ba03ea8a21488665
+    Hash: d52ef9e3d67e9167c746c683f5589398
   TypeTreeHash:
     serializedVersion: 2
-    Hash: ad45d01f26ad367caa5ada8e7fa44daa
+    Hash: 6086b6c108060bf5c8bf850ba2cce0e3
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 557caa553bad4d84ba03ea8a21488665
+    Hash: d52ef9e3d67e9167c746c683f5589398
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -25,13 +25,17 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: db40ed3e021d5d949966dc87098983d8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 624173a2f41e01f4bbfa09b16cdc9481, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: dc07a7a0539438e4a80eb784c0f21d96, type: 3}
 - Class: 115
@@ -49,6 +53,8 @@ SerializeReferenceClassIdentifiers:
   ClassName: ItemReward
 - AssemblyName: Assembly-CSharp
   ClassName: SpecialReward
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.VertexGradient
 - AssemblyName: UnityEngine.CoreModule
   ClassName: UnityEngine.Events.ArgumentCache
 - AssemblyName: UnityEngine.CoreModule
@@ -71,4 +77,5 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.UI.SpriteState
 Assets:
 - Assets/Art/UIPrefab/UIHighTowerActivity.prefab
-Dependencies: []
+Dependencies:
+- E:/U GitHub Project/Water/AssetBundles/Android/font

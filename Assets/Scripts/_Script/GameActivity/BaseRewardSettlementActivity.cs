@@ -7,7 +7,9 @@ using UnityEngine;
 //奖励结算式活动基类
 public abstract class BaseRewardSettlementActivity : IGameActivity, ICanGetModel, ICanGetUtility, ICanSendEvent
 {
+    //活动是否结算
     public abstract bool IsRewardSettled { get; }
+    //是否有奖励可结算
     public abstract bool HasRankReward { get; }
     public abstract string ActivitySign { get; }
     public virtual string ActivityID { get; }
@@ -56,7 +58,6 @@ public abstract class BaseRewardSettlementActivity : IGameActivity, ICanGetModel
     public abstract void StreakWin();
     public abstract void Fail();
     public abstract void RestartActivityInit();
-    public abstract void CoolDownActivityInit();
     public abstract void MarkRewardAsSettled();
 
     public virtual void StartActivity()
@@ -73,9 +74,10 @@ public abstract class BaseRewardSettlementActivity : IGameActivity, ICanGetModel
 
     public virtual void CoolDownActivity()
     {
-        CoolDownActivityInit();
+
+
     }
-    
+
     public virtual void Tick()
     {
         if (ActivityStatus != mLastActivityStatus)

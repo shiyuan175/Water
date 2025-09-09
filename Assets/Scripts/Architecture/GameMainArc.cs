@@ -24,6 +24,7 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterModel(new StageModel());
         RegisterModel(new PotionActivityModel());
         RegisterModel(new RankDataModel());
+        RegisterModel(new TierRankActivityModel());
         RegisterModel(new VolcanicActivityModel());
         RegisterModel(new RocketActivityModel());
         RegisterModel(new HighTowerActivityModel());

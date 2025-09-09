@@ -21,6 +21,7 @@ namespace A_PlayerRankData
     }
 }
 
+//ÅÅÐÐ°ñÊý¾Ý
 public class RankDataModel : AbstractModel
 {
     private readonly string FILE_PATH_RELATIVE = "RankExcel/Rank.csv";
