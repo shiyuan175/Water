@@ -828,25 +828,25 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         BottleLayoutRefresh();
         UpdapeTopLayoutSpcing();
         UpdateButtomLayoutSpcing();
-        /*//连胜去黑水(暂时不开启该功能)
+        //连胜去黑水(暂时不开启该功能)
         int WinNum = stageModel.CountinueWinNum > GameConst.MAX_GIFT_STREAK_WIN ? GameConst.MAX_GIFT_STREAK_WIN : stageModel.CountinueWinNum;
         if (WinNum > 0)
         {
-            if (levelId == GameConst.WIN_STREAK_BEGIN_LEVEL)
+            if (levelId == (int)GameDefine.UnLockMechanism.WinStreakBeginLevel)
             {
                 UIKit.OpenPanel<UIStreakWinGuide>(UILevel.PopUI);
             }
             else
                 StringEventSystem.Global.Send("StreakWinItem", WinNum);
-        }*/
+        }
 
         CheckGuideLevel();
     }
 
     public void CheckGuideLevel()
     {   
-        // 关卡引导
-        switch (levelId)
+            // 关卡引导
+            switch (levelId)
             {
                 // 新手关卡引导
                 case (int)GameDefine.UIGuideLevel.UIGuideLevel1:

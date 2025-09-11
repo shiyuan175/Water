@@ -20,6 +20,7 @@ public class StageModel : AbstractModel
     private BindableProperty<int> mRemainingStars;
     //连胜
     private BindableProperty<int> mCountinueWinNum;
+    // 1.5倍结算金币
     private float mGoldCoinsMultiple => mCountinueWinNum.Value > GameConst.CONTINUE_WIN_NUM_COIN ? 1.5f : 1;
 
     //金币倍率

@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:928d65b1-6104-46ee-b313-d4e56639bd7e
+	// Generate Id:4a5a5999-c6a7-443d-a689-44b1c0704330
 	public partial class UIBeginSelect
 	{
 		public const string Name = "UIBeginSelect";
@@ -29,7 +29,23 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Button BtnStart;
 		[SerializeField]
+		public UnityEngine.UI.Image ContinueWinGoalNode;
+		[SerializeField]
+		public UnityEngine.UI.Image Goal;
+		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtWinProcess;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TextGoldCoin;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TextGoldCoinBuff;
+		[SerializeField]
+		public RectTransform ItemGuidePanel;
+		[SerializeField]
+		public Spine.Unity.SkeletonGraphic SpineHandleItem;
+		[SerializeField]
+		public RectTransform GoldCoinGuidePanel;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnGoldGuide;
 		
 		private UIBeginSelectData mPrivateData = null;
 		
@@ -44,7 +60,15 @@ namespace QFramework.Example
 			UnLimitNode = null;
 			ImgReward = null;
 			BtnStart = null;
+			ContinueWinGoalNode = null;
+			Goal = null;
 			TxtWinProcess = null;
+			TextGoldCoin = null;
+			TextGoldCoinBuff = null;
+			ItemGuidePanel = null;
+			SpineHandleItem = null;
+			GoldCoinGuidePanel = null;
+			BtnGoldGuide = null;
 			
 			mData = null;
 		}

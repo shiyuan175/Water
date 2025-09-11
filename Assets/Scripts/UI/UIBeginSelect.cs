@@ -6,6 +6,9 @@ using System.Collections;
 using DG.Tweening;
 using TMPro;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.Purchasing;
+using GameDefine;
 
 namespace QFramework.Example
 {
@@ -18,6 +21,7 @@ namespace QFramework.Example
         [SerializeField] private Button[] addItemBtns;
         [SerializeField] private Sprite[] imgBgSprites;
         [SerializeField] private Button[] selectBtns;
+        [SerializeField] private Button[] ItemGuideBtns;
         [SerializeField] private GameObject[] selectImgs;
         [SerializeField] private TextMeshProUGUI[] itemNumTxts;
 
@@ -44,14 +48,14 @@ namespace QFramework.Example
         {
             TxtWinProcess.font = LevelManager.Instance.redFont;
             int currentLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-            if(currentLevel>10)
+            if(currentLevel> GameConst.LEVEL_TYPE_LAST_DIGIT)
             {
-                switch (currentLevel % 10)
+                switch (currentLevel % GameConst.LEVEL_TYPE_LAST_DIGIT)
                 {
-                    case 4:
+                    case (int)GameDefine.LevelHardType.Hard:
                         imgBk.transform.GetComponent<Image>().sprite = imgBgSprites[1];
                         break;
-                    case 9:
+                    case (int)GameDefine.LevelHardType.VeryHand:
                         imgBk.transform.GetComponent<Image>().sprite = imgBgSprites[2];
                         break;
                     default:
@@ -71,7 +75,8 @@ namespace QFramework.Example
 
             UpdateWinNum();
             UpdateItem();
-
+            SetGoldCoinBuffUI();
+            CheckGuideLevel();
             BtnClose.onClick.AddListener(() =>
             {
                 CloseSelf();
@@ -126,6 +131,8 @@ namespace QFramework.Example
             }
 
             ImgReward.Hide();
+            
+            
         }
 
         protected override void OnHide()
@@ -249,6 +256,101 @@ namespace QFramework.Example
                 txtItem.transform.parent.Show();
                 txtItem.text = itemCount.ToString();
             }
+        }
+        #region 引导动画相关
+        /// <summary>
+        /// 设置进关道具引导动画
+        /// </summary>
+        private void SetEnterPropsGuideUI()
+        {
+            ItemGuidePanel.gameObject.Show();
+            int startID = 6;
+            SpineHandleItem.AnimationState.SetAnimation(0, "animation", true);
+            SpineHandleItem.GetComponent<RectTransform>().anchoredPosition = selectBtns[0].GetComponent<RectTransform>().anchoredPosition;
+            for (int i = 0; i < ItemGuideBtns.Length; i++)
+            {
+                int _itemId = i + startID;
+                var _tempIndex = i;
+                ItemGuideBtns[i].GetComponent<RectTransform>().anchoredPosition = selectBtns[i].GetComponent<RectTransform>().anchoredPosition;
+                ItemGuideBtns[i].onClick.AddListener(() =>
+                {
+                    if (stageModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.UNLIMIT_ITEM_SIGN))
+                    {
+                        var show = !selectImgs[_tempIndex].gameObject.activeSelf;
+                        selectImgs[_tempIndex].gameObject.SetActive(show);
+                        if (show)
+                            AddItemIfNotExists(_itemId);
+                        else
+                            RemoveItemIfExists(_itemId);
+                    }
+                    ItemGuidePanel.Hide();
+                    SetEnterPropsUnLockUI();
+                });
+            }
+               
+        }
+
+        /// <summary>
+        /// 解锁进关道具状态
+        /// </summary>
+        private void SetEnterPropsUnLockUI()
+        {
+            for(int i=0;i< selectBtns.Length;i++)
+            {
+                Transform _transform = selectBtns[i].transform;
+                selectBtns[i].interactable = true;
+                
+                _transform.Find("ImgLock").gameObject.Hide();
+
+            }
+        }
+
+        private void SetGoldCoinGuideUI()
+        {
+            GoldCoinGuidePanel.gameObject.Show();
+            SetGoldCoinUnClockUI();
+            BtnGoldGuide.onClick.AddListener(() =>
+            {
+                GoldCoinGuidePanel.gameObject.Hide();
+            });
+            
+        }
+
+        private void SetGoldCoinUnClockUI()
+        {
+            ContinueWinGoalNode.gameObject.Show();
+        }
+        private  void CheckGuideLevel()
+        {
+            int _level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+            // 引导动画开关
+            if (_level == (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
+            {
+                SetEnterPropsGuideUI();
+            }
+            if (_level > (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
+            {
+                SetEnterPropsUnLockUI();
+            }
+            if(_level == (int)GameDefine.UnLockMechanism.TimesGoldCoin)
+            {
+                SetGoldCoinGuideUI();
+            }
+            if (_level > (int)GameDefine.UnLockMechanism.TimesGoldCoin)
+            {
+                SetGoldCoinUnClockUI();
+            }
+        }
+        #endregion
+
+        private void SetGoldCoinBuffUI()
+        {
+            float coinBuff = stageModel.GoldCoinsMultiple;
+            // 金币数量设置为整数
+            TextGoldCoin.text = ((int)(20 * coinBuff)).ToString();
+
+            // buff设置为一位小数
+            TextGoldCoinBuff.text = coinBuff.ToString("0.0");
         }
     }
 }
