@@ -408,9 +408,9 @@ namespace QFramework.Example
             int currentLevel = saveData.GetCurrentLevel();
             string appendString="";
             // 设置图案和附加文本
-            if (currentLevel > 10)
+            if (currentLevel > GameConst.LEVEL_TYPE_LAST_DIGIT)
             {
-                switch (currentLevel%10)
+                switch (currentLevel% GameConst.LEVEL_TYPE_LAST_DIGIT)
                 {
                     case 4:
                         appendString = "Hard Level";

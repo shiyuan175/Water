@@ -14,6 +14,7 @@ namespace QFramework.Example
 	}
 	public partial class UIGetCoin : UIPanel, ICanSendEvent, ICanGetUtility, ICanGetModel
     {
+        
         [SerializeField] private GiftPackSO[] rewardPackSO;
         [SerializeField] private Sprite[] unlockSprites;
         [SerializeField] private Sprite[] imgTipBgSprites;
@@ -22,6 +23,7 @@ namespace QFramework.Example
         private RewardGrantUtility rewardGrantUtility;
         private SaveDataUtility saveDataUtility;
         private int getReward;
+        private bool isHaveBox = false;
 
         private const int STAR_LEVEL = 6;
         private const int END_LEVEL = 97;
@@ -54,28 +56,34 @@ namespace QFramework.Example
 
         protected override void OnShow()
         {
+            
             BindClick();
             getReward = -1;
             UpdateBgUI();
             UpdateBoxProcessNode();
             UpdateUnlockProcessNode();
-            
+            // 金币的倍数不是正常的倍数时播放金币增长的动画
+
+        
+            if (stageModel.GoldCoinsMultiple!= 1.0f&&!isHaveBox)
+            {
+              
+                PLayGoldCoinUPAnimation();
+            }
         }
 		protected void UpdateBgUI()
-        {
-         
-            
+        {       
             int currentLevel = saveDataUtility.GetCurrentLevel()-1;
             
-            if (currentLevel < 10)
+            if (currentLevel < GameConst.LEVEL_TYPE_LAST_DIGIT)
                 return ;
         
-            switch(currentLevel%10)
+            switch(currentLevel% GameConst.LEVEL_TYPE_LAST_DIGIT)
             {
-                case 4:
+                case (int)GameDefine.LevelHardType.Hard:
                     imgTipBg.sprite = imgTipBgSprites[1];
                     break;
-                case 9:
+                case (int)GameDefine.LevelHardType.VeryHand:
                     imgTipBg.sprite = imgTipBgSprites[2];
                     break;
                 default:
@@ -85,7 +93,8 @@ namespace QFramework.Example
         }
 		protected override void OnHide()
 		{
-		}
+            TxtCoin.text = 20.ToString();
+        }
 		
 		protected override void OnClose()
 		{
@@ -111,6 +120,7 @@ namespace QFramework.Example
 
         void BackUIBegin()
         {
+          
             UIKit.ClosePanel<UIGameNode>();
             this.SendEvent<LevelClearEvent>(new LevelClearEvent());
             CloseSelf();
@@ -120,6 +130,9 @@ namespace QFramework.Example
         {
             //过关后会记录当前关卡为下一关(减一表示通过的关卡)
             int curLevel = saveDataUtility.GetCurrentLevel() - 1;
+
+            TxtCoin.text = ((int)(GameDefine.GameConst.WIN_COINS )).ToString();
+            TxtLevel.text = "Level " + curLevel.ToString();
             //6-97关显示(通过97关之后不显示)
             if (curLevel >= STAR_LEVEL && curLevel < END_LEVEL)
             {
@@ -144,15 +157,14 @@ namespace QFramework.Example
                     {
                         var _packSO = rewardPackSO[getReward];
                         rewardGrantUtility.GrantReward(_packSO);
-                        RewardUIManager.Instance.PlayRewardAnim(_packSO, _packSO.Coins);
+                        isHaveBox = true;
+                        RewardUIManager.Instance.PlayRewardAnim(_packSO, _packSO.Coins,PLayGoldCoinUPAnimation);
                     }
                 }
             }
             else
                 ImgBoxProcessNode.Hide();
 
-            TxtCoin.text = ((int)(GameDefine.GameConst.WIN_COINS * stageModel.GoldCoinsMultiple)).ToString();
-            TxtLevel.text = "Level " + curLevel.ToString();
         }
 
         private void UpdateUnlockProcessNode()
@@ -194,5 +206,58 @@ namespace QFramework.Example
             // 所有机制已解锁，隐藏解锁UI
             ImgUnlockProcessNode.Hide();
         }
+
+        private void PLayGoldCoinUPAnimation()
+        {
+            // 初始化
+            
+            TextTimes.Show();
+            TextTimes.text = "X" + (stageModel.GoldCoinsMultiple).ToString("0.0");
+            Sequence sequence = DOTween.Sequence();
+            float duration = 1f;
+            int currentValue = (int)GameDefine.GameConst.WIN_COINS;
+
+
+            /*  TextTimes动画
+               Sequence textTimesSequence = DOTween.Sequence();
+               textTimesSequence.Join(TextTimes.DOFade(0f, duration));
+               textTimesSequence.Join(TextTimes.transform.DOScale(Vector3.zero, duration));
+
+
+               数字变化动画
+               Sequence numberSequence = DOTween.Sequence();
+               numberSequence.Append(
+                   DOTween.To(() => currentValue, x => {
+                       currentValue = x;
+                       TxtCoin.text = currentValue.ToString();
+                   }, (int)(currentValue*stageModel.GoldCoinsMultiple),duration*1.2f)
+                   .SetEase(Ease.OutQuad)
+               );*/
+
+
+            sequence.Append(DOTween.To(() => 1f, alpha => {
+                TextTimes.alpha = alpha; // 手动控制透明度
+            }, 0.2f, duration).SetEase(Ease.OutQuad));
+
+            sequence.Join(DOTween.To(() => Vector3.one, scale => {
+                TextTimes.transform.localScale = scale; // 手动控制缩放
+            }, new Vector3(0.2f,0.2f,0.2f), duration).SetEase(Ease.OutQuad));
+            sequence.OnComplete(() =>{
+                DOTween.To(() => currentValue, x =>
+                {
+                    TextTimes.Hide();
+                    currentValue = x;
+                    TxtCoin.text = currentValue.ToString();
+                }, (int)(currentValue * stageModel.GoldCoinsMultiple), duration * 1.2f)
+               .SetEase(Ease.OutQuad);
+            });
+            sequence.Play();
+
+        }
+        
+
+       
+
+
     }
 }

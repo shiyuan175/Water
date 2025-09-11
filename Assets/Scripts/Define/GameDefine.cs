@@ -50,6 +50,8 @@ namespace GameDefine
         public const string SCENE_UNLOCK_GUIDE_STEP1 = "SceneUnlockGuideStep1";
         public const string SCENE_UNLOCK_GUIDE_STEP2 = "SceneUnlockGuideStep2";
 
+        //切换关卡计算
+        public const int LEVEL_TYPE_LAST_DIGIT =10;
         #region Json file info
 
         public readonly static JsonFileInfo MSADefaultJson = new()
@@ -87,6 +89,8 @@ namespace GameDefine
             {0, "SceneUnlock1"},
             {1, "SceneUnlock2" }
         };
+
+        
     }
     public enum UIGuideLevel
     {
@@ -100,7 +104,18 @@ namespace GameDefine
     }
     public enum UnLockMechanism
     {
-        SelectPropsOpen = 17
+        // 进关道具解锁
+        EnterLevelSelectProps = 17,
+        // 1.5金币解锁
+        TimesGoldCoin = 12,
+        // 连胜去黑水
+        WinStreakBeginLevel = 60
+
+    }
+    public enum LevelHardType
+    { 
+        Hard = 4,
+        VeryHand = 9
     }
 
 
