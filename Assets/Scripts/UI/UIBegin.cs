@@ -43,6 +43,7 @@ namespace QFramework.Example
         private RocketActivity mRocketActivity;
         private HighTowerActivity mHighTowerActivity;
         private MagicStreakActivity mMagicStreakActivity;
+        private TurnTableADActivity mTurnTableADActivity;
 
         public IArchitecture GetArchitecture()
         {
@@ -66,6 +67,7 @@ namespace QFramework.Example
             mRocketActivity = GameActivityManager.Instance.GetActivity<RocketActivity>();
             mHighTowerActivity = GameActivityManager.Instance.GetActivity<HighTowerActivity>();
             mMagicStreakActivity = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
+            mTurnTableADActivity = GameActivityManager.Instance.GetActivity<TurnTableADActivity>();
 
             LevelManager.Instance.InitBottle();
 
@@ -196,6 +198,11 @@ namespace QFramework.Example
                 else
                     UIKit.OpenPanel<UIMagicStreakActivity>();
             });
+            BtnTTNode.onClick.RemoveAllListeners();
+            BtnTTNode.onClick.AddListener(() =>
+            {
+                UIKit.OpenPanel<UIMallTurntable>();
+            });
 
             //µ×²¿ÇøÓò°´Å¥¼àÌý
             foreach (var btn in bottomMenuBtns)
@@ -281,7 +288,6 @@ namespace QFramework.Example
             this.RegisterEvent<GameStartEvent>(e =>
             {
                 UIKit.OpenPanel<UIGameNode>();
-
                 LevelManager.Instance.StartGame(saveData.GetCurrentLevel());
                 BottomMenuBtns.Hide();
                 HomeNode.Hide();
@@ -492,6 +498,7 @@ namespace QFramework.Example
             UpdateRAState();
             UpdateHTAState();
             UpdateMSAState();
+            UpdateTTState();
         }
 
         /// <summary>
@@ -524,12 +531,19 @@ namespace QFramework.Example
                 mMagicStreakActivity ??= _activity as MagicStreakActivity;
                 UpdateMSAState();
             }
+            else if(_activity is TurnTableADActivity)
+            {
+                mTurnTableADActivity ??= _activity as TurnTableADActivity;
+                UpdateTTState();
+            }
+
 
             //...Other Activity
         }
         
         private void UpdateVAState()
         {
+           
             if (mVolcanicActivity is null)
             {
                 BtnVANode.interactable = false;
@@ -547,6 +561,7 @@ namespace QFramework.Example
 
         private void UpdateRAState()
         {
+           
             if (mRocketActivity is null)
             {
                 BtnRANode.interactable = false;
@@ -581,6 +596,7 @@ namespace QFramework.Example
 
         private void UpdateMSAState()
         {
+ 
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.FIRST_LAUNCH_SIGN))
             {
                 BtnMSNode.interactable = false;
@@ -593,6 +609,24 @@ namespace QFramework.Example
             {
                 SettlementActivityStatus.Inactive => "Inactive",
                 SettlementActivityStatus.Active => "Active",
+                _ => "Finished"
+            };
+        }
+        
+        private void UpdateTTState()
+        {            
+            if (mTurnTableADActivity is null)
+            {
+                BtnTTNode.interactable = false;
+                TxtTTActivity.text = "Locked";
+                return;
+            }
+            BtnTTNode.interactable = true;
+         
+            TxtTTActivity.text = mTurnTableADActivity.ActivityStatus switch
+            {
+                GameActivityStatus.Inactive => "Inactive",
+                GameActivityStatus.Active => "Active",
                 _ => "Finished"
             };
         }

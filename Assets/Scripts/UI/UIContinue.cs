@@ -182,9 +182,21 @@ namespace QFramework.Example
             });
 
             //...其他活动等
-
+            // 转盘活动
+            PanelQueueManager.Instance.Enqueue(() =>
+            {
+                if(GameActivityManager.Instance.GetActivity<TurnTableADActivity>() is TurnTableADActivity TT &&
+                TT.ActivityStatus == GameActivityStatus.Active)
+                {
+                    UIKit.OpenPanel<UIMallTurntable>(new UIMallTurntableData() { });
+                    return true;
+                }
+                return false;
+            });
             //开启
             PanelQueueManager.Instance.PopFirstPanel();
+
+            
         }
         /// <summary>
         ///　设置提示文本

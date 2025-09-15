@@ -19,6 +19,11 @@ public class RegisterActivitiesCommand : AbstractCommand
             GameActivityManager.Instance.RegisterActivity<HighTowerActivity>();
         }
 
+        if(currentLevel == GameConst.TT_AD_BEGIN_LEVEL)
+        {
+            GameActivityManager.Instance.RegisterActivity<TurnTableADActivity>();
+        }
+
         //通过第七关开启连胜活动
         if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)
         {
@@ -26,5 +31,8 @@ public class RegisterActivitiesCommand : AbstractCommand
             //开启排行榜活动
             CountDownTimerManager.Instance.StartTimer(GameConst.RANKA_ACTIVITY_SIGN, 1440f);
         }
+
+
+
     }
 }

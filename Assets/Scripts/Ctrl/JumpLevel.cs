@@ -11,6 +11,7 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
     public TMP_InputField inputField;
     public Button button;
     public Button Btnfinish;
+    public Button ADBtn;
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;
@@ -32,6 +33,10 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
         Btnfinish.onClick.AddListener(() =>
         {
             StartCoroutine(LevelManager.Instance.TestFinish());
+        });
+        ADBtn.onClick.AddListener(() =>
+        {
+            UIKit.OpenPanel<UIMallTurntable>();
         });
     }
 

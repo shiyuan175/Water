@@ -351,7 +351,10 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
     public bool ShowVideoAd(Action rewardAction, Action onAdClose)
     {
         var hasAd = ATRewardedAutoVideo.Instance.autoLoadRewardedVideoReadyForPlacementID(mPlacementId_rewardvideo_all);
-        //Debug.Log("是否有激励广告缓存：" + hasAd);
+        // Debug.Log("是否有激励广告缓存：" + hasAd);
+#if UNITY_EDITOR 
+        return true;
+#endif
         if (hasAd)
         {
             ATRewardedAutoVideo.Instance.showAutoAd(mPlacementId_rewardvideo_all);

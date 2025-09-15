@@ -29,6 +29,7 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterModel(new RocketActivityModel());
         RegisterModel(new HighTowerActivityModel());
         RegisterModel(new MagicStreakActivityModel());
+        RegisterModel(new TurnTableADActivityModel());
         RegisterModel(new SceneUnlockModel());
     }
 

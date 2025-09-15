@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:094a6315-e744-46a6-a150-a0c9d16ce1d8
+	// Generate Id:fd74d10f-9208-44d6-a966-8dba1e86bb8b
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
@@ -49,21 +49,31 @@ namespace QFramework.Example
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtVolcanicActivity;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnMSNode;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtMagicStreakActivity;
-		[SerializeField]
 		public UnityEngine.UI.Button BtnRANode;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtRocketActivity;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnTTNode;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtTTActivity;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnMSNode;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtMagicStreakActivity;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnHTANode;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtHighTowerActivity;
 		[SerializeField]
+		public UnityEngine.UI.Button BtnLGPNode;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtLGPActivity;
+		[SerializeField]
 		public UnityEngine.UI.Button BtnSelect;
 		[SerializeField]
 		public UnityEngine.UI.Image ImgSelected;
+		[SerializeField]
+		public UnityEngine.UI.ScrollRect ScrollView;
 		[SerializeField]
 		public RectTransform BottomMenuBtns;
 		
@@ -90,14 +100,19 @@ namespace QFramework.Example
 			ImgHeadFrame = null;
 			BtnVANode = null;
 			TxtVolcanicActivity = null;
-			BtnMSNode = null;
-			TxtMagicStreakActivity = null;
 			BtnRANode = null;
 			TxtRocketActivity = null;
+			BtnTTNode = null;
+			TxtTTActivity = null;
+			BtnMSNode = null;
+			TxtMagicStreakActivity = null;
 			BtnHTANode = null;
 			TxtHighTowerActivity = null;
+			BtnLGPNode = null;
+			TxtLGPActivity = null;
 			BtnSelect = null;
 			ImgSelected = null;
+			ScrollView = null;
 			BottomMenuBtns = null;
 			
 			mData = null;

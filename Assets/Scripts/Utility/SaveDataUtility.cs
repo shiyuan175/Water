@@ -118,4 +118,16 @@ public class SaveDataUtility : IUtility, ICanSendEvent
 
         return false;
     }
+
+    public void  SaveTurnTableCount(int count)
+    {
+        PlayerPrefs.SetInt("g_TurnTableCount", count);
+    }
+
+    public int GetTurnTableCount()
+    {
+        int count = PlayerPrefs.GetInt("g_TurnTableCount", 0);
+
+        return count;
+    }
 }

@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 51165309
+CRC: 1951128556
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -110,18 +110,22 @@ AssetBundleManifest:
       Dependencies:
         Dependency_0: font
     Info_28:
-      Name: uimagicstreakactivityentrance_prefab
-      Dependencies:
-        Dependency_0: font
-    Info_29:
       Name: uirocketactivityentrance_prefab
       Dependencies:
         Dependency_0: font
-    Info_30:
+    Info_29:
       Name: uimagicstreakactivity_prefab
       Dependencies:
         Dependency_0: font
-    Info_31:
+    Info_30:
       Name: uihightoweractivityentrance_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_31:
+      Name: uimagicstreakactivityentrance_prefab
+      Dependencies:
+        Dependency_0: font
+    Info_32:
+      Name: sceneunlock2_prefab
       Dependencies:
         Dependency_0: font

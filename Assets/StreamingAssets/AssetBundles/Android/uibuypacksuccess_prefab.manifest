@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3057353329
+CRC: 1113740864
 Hashes:
   AssetFileHash:
     serializedVersion: 2
     Hash: db01230a7bc5eeda56b7860f46be026e
   TypeTreeHash:
     serializedVersion: 2
-    Hash: dd4a91376bf3dfc48c0d3f34da4d76d6
+    Hash: 02f45c88d86f844d8443efddb1d2b09c
   IncrementalBuildHash:
     serializedVersion: 2
     Hash: db01230a7bc5eeda56b7860f46be026e
@@ -19,9 +19,9 @@ ClassTypes:
 - Class: 28
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 114
@@ -64,4 +64,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Art/UIPrefab/UIBuyPackSuccess.prefab
 Dependencies:
-- D:/Documents/GitHub/Water/AssetBundles/Android/font
+- E:/U GitHub Project/Water/AssetBundles/Android/font

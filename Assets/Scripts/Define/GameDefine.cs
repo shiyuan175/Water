@@ -26,10 +26,15 @@ namespace GameDefine
         public const int VA_BEGIN_LEVEL = 7;    //火山活动
         public const int RA_BEGIN_LEVEL = 24;   //火箭活动
         public const int HTA_BEGIN_LEVEL = 34;  //高塔活动
+        
         //活动存档标记
         public const string MAGIC_STREAK_ACTIVITY_SIGN = "MagicStreakActivity";
         public const string ROCKET_ACTIVITY_SIGN = "RocketActivity";
         public const string HIGH_TOWER_ACTIVITY_SIGN = "HighTowerActivity";
+        //广告活动开启关卡
+        public const int TT_AD_BEGIN_LEVEL = 16;
+        //广告活动存档标记
+        public const string TurnTable_AD_ACTIVITY_SIGN = "TurnTableADActivity";
 
         //存档标记
         public const string FIRST_LAUNCH_SIGN = "FIRST_LAUNCH";
@@ -52,6 +57,11 @@ namespace GameDefine
 
         //切换关卡计算
         public const int LEVEL_TYPE_LAST_DIGIT =10;
+
+        // 轮盘概率计算归一化 默认为100 轮盘基本概率 = enum概率/本常量
+        public const int TURNTABLE_PROBABIlITY = 100;
+        // 轮盘游戏次数
+        public const int TURNTABLE_LIMIT_GAMETIMES_PER_CYCLE = 6;
         #region Json file info
 
         public readonly static JsonFileInfo MSADefaultJson = new()
@@ -410,6 +420,34 @@ namespace GameDefine
 
         IDLE_MAX = 13
     }
+
+    /// <summary>
+    /// 这里的值与归一化本常量相除得到真正的次数概率
+    /// </summary>
+    public enum TurnTableTimesProbability
+    {
+        None = 0,
+        FirstTime = 5,
+        SecondTime = 10,
+        ThirdTime = 15,
+        FourthTime = 20,
+        FifthTime = 25,
+        SixThTime =30
+    }
+    /// <summary>
+    /// 这里的值与归一化本常量相除得到真正的奖项概率
+    /// </summary>
+    public enum AwardBaseProbability
+    {
+        A_Awards = 0,
+        B_Awards = 5,
+        C_Awards = 10,
+        D_Awards = 20,
+        E_Awards = 30,
+        F_Awards = 40,
+    }
+        
+       
 
     public class GameEnum
     {

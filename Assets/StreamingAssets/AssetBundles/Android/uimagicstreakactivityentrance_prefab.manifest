@@ -6,7 +6,15 @@ Hashes:
     Hash: 656ccdcc22a7e183443a02d2a190c865
   TypeTreeHash:
     serializedVersion: 2
+<<<<<<< HEAD
     Hash: 87d7d713dd9474e14d9c0b92844b4ea6
+=======
+<<<<<<<< HEAD:Assets/StreamingAssets/AssetBundles/Android/uicontinue_prefab.manifest
+    Hash: 59fd624d735ee70d48a5bdb8e54b44ba
+========
+    Hash: 29a9b42a110ca9be15484220e2cf07de
+>>>>>>>> main:AssetBundles/Android/uimagicstreakactivityentrance_prefab.manifest
+>>>>>>> main
   IncrementalBuildHash:
     serializedVersion: 2
     Hash: 656ccdcc22a7e183443a02d2a190c865
@@ -21,15 +29,31 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
+<<<<<<< HEAD
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
+=======
+<<<<<<<< HEAD:Assets/StreamingAssets/AssetBundles/Android/uicontinue_prefab.manifest
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+========
+>>>>>>>> main:AssetBundles/Android/uimagicstreakactivityentrance_prefab.manifest
+>>>>>>> main
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 114
+<<<<<<< HEAD
   Script: {fileID: 11500000, guid: 49136a464ce8b324eb0f15819f9960ff, type: 3}
+=======
+<<<<<<<< HEAD:Assets/StreamingAssets/AssetBundles/Android/uicontinue_prefab.manifest
+  Script: {fileID: 11500000, guid: f67b089d980d83346a0a38ab7fee883a, type: 3}
+========
+  Script: {fileID: 11500000, guid: 49136a464ce8b324eb0f15819f9960ff, type: 3}
+>>>>>>>> main:AssetBundles/Android/uimagicstreakactivityentrance_prefab.manifest
+>>>>>>> main
 - Class: 115
   Script: {instanceID: 0}
 - Class: 213

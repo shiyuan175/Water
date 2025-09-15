@@ -62,6 +62,7 @@ public abstract class BaseRewardSettlementActivity : IGameActivity, ICanGetModel
 
     public virtual void StartActivity()
     {
+        Debug.Log("sda");
         RestartActivityInit();
         CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign);
     }
