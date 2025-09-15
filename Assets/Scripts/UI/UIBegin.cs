@@ -43,6 +43,7 @@ namespace QFramework.Example
         private RocketActivity mRocketActivity;
         private HighTowerActivity mHighTowerActivity;
         private MagicStreakActivity mMagicStreakActivity;
+        private TierRankActivity mTierRankActivity;
 
         public IArchitecture GetArchitecture()
         {
@@ -66,6 +67,7 @@ namespace QFramework.Example
             mRocketActivity = GameActivityManager.Instance.GetActivity<RocketActivity>();
             mHighTowerActivity = GameActivityManager.Instance.GetActivity<HighTowerActivity>();
             mMagicStreakActivity = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
+            mTierRankActivity = GameActivityManager.Instance.GetActivity<TierRankActivity>();
 
             LevelManager.Instance.InitBottle();
 
@@ -120,10 +122,7 @@ namespace QFramework.Example
         private void BindBtn()
         {
             BtnStart.onClick.RemoveAllListeners();
-            BtnStart.onClick.AddListener(() =>
-            {
-                UIKit.OpenPanel<UIBeginSelect>();
-            });
+            BtnStart.onClick.AddListener(TryStartGame);
 
             BtnHeart.onClick.RemoveAllListeners();
             BtnHeart.onClick.AddListener(() =>
@@ -188,13 +187,43 @@ namespace QFramework.Example
                     UIKit.OpenPanel<UIHighTowerActivity>();
             });
 
-            BtnMSNode.onClick.RemoveAllListeners();
-            BtnMSNode.onClick.AddListener(() =>
+            BtnMSANode.onClick.RemoveAllListeners();
+            BtnMSANode.onClick.AddListener(() =>
             {
                 if (!GameUtils.DoesCountDownKeyExist(GameConst.MAGIC_STREAK_ACTIVITY_SIGN))
                     UIKit.OpenPanel<UIMagicStreakActivityEntrance>();
                 else
                     UIKit.OpenPanel<UIMagicStreakActivity>();
+            });
+
+            BtnTRANode.onClick.RemoveAllListeners();
+            BtnTRANode.onClick.AddListener(() =>
+            {
+                var _activityStatus = mTierRankActivity.ActivityStatus;
+                var _openRankPanel = false;
+
+                switch (_activityStatus)
+                {
+                    case SettlementActivityStatus.Inactive:
+                        _openRankPanel = false;
+                        break;
+
+                    case SettlementActivityStatus.Active:
+                        _openRankPanel = true;
+                        break;
+
+                    case SettlementActivityStatus.Finished:
+                        if (!mTierRankActivity.TRAData.Player.IsRewardSettled)
+                            _openRankPanel = true;
+                        else
+                            _openRankPanel = false;
+                        break;
+                }
+            
+                if (_openRankPanel)
+                    UIKit.OpenPanel<UITierRankActivity>();
+                else
+                    UIKit.OpenPanel<UITierRankActivityEntrance>();
             });
 
             //底部区域按钮监听
@@ -327,6 +356,28 @@ namespace QFramework.Example
                 bottomMenuBtns.Last().onClick.Invoke();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+
+        //可拓展
+        private void TryStartGame()
+        {
+            if (mTierRankActivity != null)
+            {
+                var _activityStatus = mTierRankActivity.ActivityStatus;
+                if (_activityStatus == SettlementActivityStatus.Inactive)
+                {
+                    UIKit.OpenPanel<UITierRankActivityEntrance>();
+                    return;
+                }
+
+                if (_activityStatus == SettlementActivityStatus.Finished
+                    && !mTierRankActivity.TRAData.Player.IsRewardSettled)
+                {
+                    UIKit.OpenPanel<UITierRankActivity>();
+                    return;
+                }
+            }
+                UIKit.OpenPanel<UIBeginSelect>();
         }
 
         #region 底部菜单栏按钮切换
@@ -492,6 +543,7 @@ namespace QFramework.Example
             UpdateRAState();
             UpdateHTAState();
             UpdateMSAState();
+            UptateTRAState();
         }
 
         /// <summary>
@@ -525,6 +577,11 @@ namespace QFramework.Example
                 UpdateMSAState();
             }
 
+            else if (_activity is TierRankActivity)
+            {
+                mTierRankActivity ??= _activity as TierRankActivity;
+                UptateTRAState();
+            }
             //...Other Activity
         }
         
@@ -583,13 +640,31 @@ namespace QFramework.Example
         {
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.FIRST_LAUNCH_SIGN))
             {
-                BtnMSNode.interactable = false;
+                BtnMSANode.interactable = false;
                 TxtMagicStreakActivity.text = "Locked";
                 return;
             }
 
-            BtnMSNode.interactable = true;
+            BtnMSANode.interactable = true;
             TxtMagicStreakActivity.text = mMagicStreakActivity.ActivityStatus switch
+            {
+                SettlementActivityStatus.Inactive => "Inactive",
+                SettlementActivityStatus.Active => "Active",
+                _ => "Finished"
+            };
+        }
+
+        private void UptateTRAState()
+        {
+            if (mTierRankActivity is null)
+            {
+                BtnTRANode.interactable = false;
+                TxtTierRankActivity.text = "Locked";
+                return;
+            }
+
+            BtnTRANode.interactable = true;
+            TxtTierRankActivity.text = mTierRankActivity.ActivityStatus switch
             {
                 SettlementActivityStatus.Inactive => "Inactive",
                 SettlementActivityStatus.Active => "Active",

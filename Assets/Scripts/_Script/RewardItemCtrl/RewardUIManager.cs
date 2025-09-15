@@ -1,10 +1,10 @@
+using GameDefine;
+using QFramework;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using QFramework;
-using UnityEngine.UI;
 using TMPro;
-using GameDefine;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class RewardUIManager : MonoSingleton<RewardUIManager>
 {
@@ -57,10 +57,18 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         });
     }
 
-    public void PlayRewardAnim(IPackSoInterface packSO, int? addCoin , System.Action call = null)
+    public void PlayRewardAnim(int? addCoin , System.Action call = null , params IPackSoInterface[] packSOs)
     {
-        var _ItemReward = packSO?.ItemReward ?? new List<ItemReward>();
-        var _SpecialRewards = packSO?.SpecialRewards ?? new List<SpecialReward>();
+        var _ItemReward = new List<ItemReward>();
+        var _SpecialRewards =  new List<SpecialReward>();
+
+        foreach (var pack in packSOs)
+        {
+            if (pack == null) continue;
+            _ItemReward.AddRange(pack.ItemReward);
+            _SpecialRewards.AddRange(pack.SpecialRewards);
+        }
+
         openBoxCallBack = call;
         availableSlots.Clear();
         actionList.Clear();

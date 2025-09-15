@@ -143,6 +143,34 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
     private readonly TimeZoneInfo EasternTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
 
     /// <summary>
+    /// 开启计时器(不超过美东0点)
+    /// </summary>
+    public void StartCountdownTimer(string id, int hour)
+    {
+        string key = COUNTDOWN_TIMER_SIGN + id;
+        if (PlayerPrefs.HasKey(key))
+            return;
+
+        DateTime endUtc = CalculateActivityEndTimeUtc(hour);
+        PlayerPrefs.SetString(key, endUtc.ToString("o"));
+        PlayerPrefs.Save();
+    }
+
+    /// <summary>
+    /// 重启计时器(不超过美东0点)
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="hour"></param>
+    public void ResetCountdownTimer(string id, int hour)
+    {
+        string key = COUNTDOWN_TIMER_SIGN + id;
+
+        DateTime endUtc = CalculateActivityEndTimeUtc(hour);
+        PlayerPrefs.SetString(key, endUtc.ToString("o"));
+        PlayerPrefs.Save();
+    }
+
+    /// <summary>
     /// 开启美东 0 点结束的计时器
     /// </summary>
     public void StartEasternMidnightTimer(string id)
@@ -190,5 +218,27 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
         return GetTodayEasternMidnightUtc().AddDays(1);
     }
 
+    /// <summary>
+    /// 计算活动结束时间，持续指定小时但不超过美东明天0点
+    /// </summary>
+    /// <param name="hour"></param>
+    /// <returns></returns>
+    private DateTime CalculateActivityEndTimeUtc(int hour)
+    {
+        // 当前美东时间
+        DateTime easternNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, EasternTimeZone);
+        
+        // 计算活动时长
+        DateTime laterEastern = easternNow.AddHours(hour);
+
+        // 美东明天0点
+        DateTime easternMidnight = TimeZoneInfo.ConvertTimeFromUtc(GetTomorrowEasternMidnightUtc(), EasternTimeZone);
+
+        // 取较早时间点作为结束时间
+        DateTime endEastern = laterEastern < easternMidnight ? laterEastern : easternMidnight;
+
+        // 转回 UTC 存储
+        return TimeZoneInfo.ConvertTimeToUtc(endEastern, EasternTimeZone);
+    }
     #endregion
 }

@@ -42,6 +42,10 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<HighTowerActivity>();
         }
+        if (_curLevel >= GameDefine.GameConst.WIN_STREAK_BEGIN_LEVEL)
+        {
+            RegisterActivity<TierRankActivity>();
+        }
         RegisterActivity<MagicStreakActivity>();
         //Other Activities can be registered here based on level or other conditions
 

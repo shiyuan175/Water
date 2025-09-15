@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:094a6315-e744-46a6-a150-a0c9d16ce1d8
+	// Generate Id:83a0c072-1fb8-499d-9e25-89009e208a0f
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
@@ -49,9 +49,13 @@ namespace QFramework.Example
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtVolcanicActivity;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnMSNode;
+		public UnityEngine.UI.Button BtnMSANode;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtMagicStreakActivity;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnTRANode;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtTierRankActivity;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnRANode;
 		[SerializeField]
@@ -64,6 +68,8 @@ namespace QFramework.Example
 		public UnityEngine.UI.Button BtnSelect;
 		[SerializeField]
 		public UnityEngine.UI.Image ImgSelected;
+		[SerializeField]
+		public UnityEngine.UI.ScrollRect ScrollView;
 		[SerializeField]
 		public RectTransform BottomMenuBtns;
 		
@@ -90,14 +96,17 @@ namespace QFramework.Example
 			ImgHeadFrame = null;
 			BtnVANode = null;
 			TxtVolcanicActivity = null;
-			BtnMSNode = null;
+			BtnMSANode = null;
 			TxtMagicStreakActivity = null;
+			BtnTRANode = null;
+			TxtTierRankActivity = null;
 			BtnRANode = null;
 			TxtRocketActivity = null;
 			BtnHTANode = null;
 			TxtHighTowerActivity = null;
 			BtnSelect = null;
 			ImgSelected = null;
+			ScrollView = null;
 			BottomMenuBtns = null;
 			
 			mData = null;

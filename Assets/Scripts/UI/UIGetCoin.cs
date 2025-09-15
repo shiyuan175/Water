@@ -144,7 +144,7 @@ namespace QFramework.Example
                     {
                         var _packSO = rewardPackSO[getReward];
                         rewardGrantUtility.GrantReward(_packSO);
-                        RewardUIManager.Instance.PlayRewardAnim(_packSO, _packSO.Coins);
+                        RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, packSOs: _packSO);
                     }
                 }
             }
