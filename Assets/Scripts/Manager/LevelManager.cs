@@ -358,11 +358,8 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         UIKit.OpenPanel<UIMask>(UILevel.PopUI);
         yield return new WaitForSeconds(1);
         this.GetUtility<SaveDataUtility>().SaveLevel(levelId + 1);
-        // 连胜
-        stageModel.PassLevel();
-        this.GetModel<TierRankActivityModel>().StreakWin();
 
-        //前五关(前五关应该不统计连胜)
+        //前五关
         if (levelId < 5)
         {
             StartGame(levelId + 1);
@@ -370,7 +367,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         }
         else
         {
-            this.SendCommand<RegisterActivitiesCommand>();
+            this.SendCommand<PassLevelCommand>();
             StringEventSystem.Global.Send(GameConst.VICTORY_EVENT);
         }
     }
@@ -392,10 +389,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
             UIKit.OpenPanel<UIMask>(UILevel.PopUI);
             float waitTime = levelId < 5 ? 3f : 2f;
             yield return new WaitForSeconds(waitTime);
-            
             this.GetUtility<SaveDataUtility>().SaveLevel(levelId + 1);
-            this.GetModel<TierRankActivityModel>().StreakWin();
-            stageModel.PassLevel();
 
             if (levelId < 5)
             {
@@ -404,7 +398,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
             }
             else
             {
-                this.SendCommand<RegisterActivitiesCommand>();
+                this.SendCommand<PassLevelCommand>();
                 StringEventSystem.Global.Send(GameConst.VICTORY_EVENT);
             }
         }
@@ -856,7 +850,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
                     UIKit.OpenPanel<UIGuideLevel2>(UILevel.PopUI);
                     break;
 
-                 // 道具使用引导
+                // 道具使用引导
                 case (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack:
                     UIKit.OpenPanel<UIGuideLevelStepBack>(UILevel.PopUI);
                     break;

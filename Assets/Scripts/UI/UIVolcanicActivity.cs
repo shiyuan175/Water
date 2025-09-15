@@ -17,7 +17,7 @@ namespace QFramework.Example
     {
         private const int VA_MAX_STREAK_WIN_NUM = 7;
         private const int VA_MAX_PLAYER_NUM = 100;
-        //七个台阶起始点位(HeadNodesPar)
+        //八个台阶起始点位(HeadNodesPar)
         private readonly Vector2[] mSetpPos = new[]
         {
             new Vector2(428, -825),
@@ -27,6 +27,7 @@ namespace QFramework.Example
             new Vector2(0, -561),
             new Vector2(224, -456),
             new Vector2(224, -308),
+            new Vector2(0 , -204)
         };
 
         [SerializeField] private GameObject[] HeadNodes;
@@ -101,7 +102,7 @@ namespace QFramework.Example
                     _action = () =>
                     {
                         UIKit.ClosePanel<UIMask>();
-                        RewardUIManager.Instance.PlayRewardAnim(null, mVolcanicActivity.RewardCoins);
+                        RewardUIManager.Instance.PlayRewardAnim(mVolcanicActivity.RewardCoins);
                     };
                 }
 
@@ -135,6 +136,7 @@ namespace QFramework.Example
             mVolcanicActivity = null;
             mLevelTween?.Kill();
             mPlayerTween?.Kill();
+            mCountDownTween?.Kill();
 
             if (mData.IsManagedOpen ?? false)
                 StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);

@@ -97,7 +97,7 @@ namespace QFramework.Example
         /// </summary>
         private void OnPaySuccess(GiftPackSO _packSo)
         {
-            RewardUIManager.Instance.PlayRewardAnim(_packSo,_packSo.Coins);
+            RewardUIManager.Instance.PlayRewardAnim(_packSo.Coins, packSOs: _packSo);
 
             //金币发放
             CoinManager.Instance.AddCoin(_packSo.Coins);

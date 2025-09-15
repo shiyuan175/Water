@@ -76,7 +76,7 @@ public class HTANodeCtrl : MonoBehaviour
                     if (mHTActivity.HTAStreakWinNum == mHTActivity.RewardStages[mCache_NextRewardStageIndex])
                     {
                         //Debug.Log("到达下一目标-------播放奖励动画");
-                        RewardUIManager.Instance.PlayRewardAnim( rewardPackSO, rewardPackSO.Coins);
+                        RewardUIManager.Instance.PlayRewardAnim(rewardPackSO.Coins, packSOs: rewardPackSO);
                     } 
                 });
             Tween _progressUp = DOTween.To(() => mProgressBar.fillAmount,

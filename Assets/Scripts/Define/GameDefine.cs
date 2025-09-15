@@ -65,12 +65,22 @@ namespace GameDefine
             TargetVersion = 1
         };
 
+        public readonly static JsonFileInfo TRADefaultJson = new()
+        {
+            FileName = "TRADefaultData.json",
+            TargetVersion = 1
+        };
+        public readonly static JsonFileInfo TRACurrentJson = new()
+        {
+            FileName = "TRA_Data.json",
+            TargetVersion = 1
+        };
+
         #endregion
 
         //关卡引导 
         public static readonly Dictionary<int, (string, string)> GuideLevelInfo = new Dictionary<int, (string, string)>
         {
-            
             { 3, ("Sort the gemstone color to lift the cloth", "GuideAnim_3") },
             { 11, ("The bomb will explode when the countdown ends. Please synthesize water with bombs as soon as possible.", "GuideAnim_11") },
             { 21, ("Water with Fire Emblem can thaw ice after being crafted", "GuideAnim_21") },
@@ -92,6 +102,10 @@ namespace GameDefine
 
         
     }
+
+    /// <summary>
+    /// 引导关标记
+    /// </summary>
     public enum UIGuideLevel
     {
         UIGuideLevel1 = 1,
@@ -102,6 +116,10 @@ namespace GameDefine
         UIGuideLevelHalfBottle = 19,
         UIGuideLevelRemoveAll = 28
     }
+
+    /// <summary>
+    /// 解锁机制标记
+    /// </summary>
     public enum UnLockMechanism
     {
         // 进关道具解锁
@@ -117,7 +135,6 @@ namespace GameDefine
         Hard = 4,
         VeryHand = 9
     }
-
 
     public enum GameType
     {
@@ -421,12 +438,17 @@ namespace GameDefine
         }
     }
 
-    public static class GameUtils
+    public static partial class GameUtils
     {
+        /// <summary>
+        /// false is does not exist
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static bool DoesCountDownKeyExist(string id) =>
             PlayerPrefs.HasKey(CountDownTimerManager.COUNTDOWN_TIMER_SIGN + id);
 
-        public static void SotrArray<T>(T[] array) where T : UnityEngine.Component
+        public static void SotrArray<T>(T[] array) where T : UnityEngine.Object
         {
             System.Array.Sort(array, (a, b) =>
             {

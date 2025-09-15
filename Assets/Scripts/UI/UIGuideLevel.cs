@@ -2,10 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using UnityEngine.Events;
-using System.Reflection;
-using Spine.Unity;
 using TMPro;
-using Spine.Unity.Editor;
 
 namespace QFramework.Example
 {
@@ -33,8 +30,6 @@ namespace QFramework.Example
        /*     transform.localPosition = new Vector3(targetPositon.x / 1080 * screenWidth, targetPositon.y / 1920 * screenHeight, 0);*/
             transform.localPosition = targetPositon;
         }
-
-        
 
         public IArchitecture GetArchitecture()
         {

@@ -1,8 +1,11 @@
 using GameDefine;
 using QFramework;
 
-public class RegisterActivitiesCommand : AbstractCommand
+public class PassLevelCommand : AbstractCommand ,ICanGetModel
 {
+    private TierRankActivity mTierRankActivity;
+    private StageModel mStageModel;
+
     protected override void OnExecute()
     {
         int currentLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
@@ -18,7 +21,10 @@ public class RegisterActivitiesCommand : AbstractCommand
         {
             GameActivityManager.Instance.RegisterActivity<HighTowerActivity>();
         }
-
+        if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)
+        {
+            GameActivityManager.Instance.RegisterActivity<TierRankActivity>();
+        }
         //通过第七关开启连胜活动
         if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)
         {
@@ -26,5 +32,13 @@ public class RegisterActivitiesCommand : AbstractCommand
             //开启排行榜活动
             CountDownTimerManager.Instance.StartTimer(GameConst.RANKA_ACTIVITY_SIGN, 1440f);
         }
+
+        //各模块增加连胜逻辑...
+        mTierRankActivity ??= GameActivityManager.Instance.GetActivity<TierRankActivity>();
+        mTierRankActivity?.StreakWin();
+
+        mStageModel ??= this.GetModel<StageModel>();
+        mStageModel?.PassLevel();
+
     }
 }

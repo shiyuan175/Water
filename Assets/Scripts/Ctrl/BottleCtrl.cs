@@ -9,11 +9,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.iOS;
 using UnityEngine.UI;
 using static LevelCreateCtrl;
-using static System.Net.Mime.MediaTypeNames;
-using Image = UnityEngine.UI.Image;
 
 public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegisterEvent
 {

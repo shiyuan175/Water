@@ -11,6 +11,12 @@
 namespace QAssetBundle
 {
     
+    public class Atlasres
+    {
+        public const string BundleName = "atlasres";
+        public const string GoalAtlas = "GoalAtlas";
+        public const string RankLevelAtlas = "RankLevelAtlas";
+    }
     public class Coinfx_prefab
     {
         public const string BundleName = "coinfx_prefab";
@@ -92,12 +98,18 @@ namespace QAssetBundle
     public class Uiguidelevel1_prefab
     {
         public const string BundleName = "uiguidelevel1_prefab";
+        public const string UIGuideLevel = "UIGuideLevel";
         public const string UIGuideLevel1 = "UIGuideLevel1";
     }
     public class Uiguidelevel2_prefab
     {
         public const string BundleName = "uiguidelevel2_prefab";
         public const string UIGuideLevel2 = "UIGuideLevel2";
+        public const string UIGuideLevelAddBottle = "UIGuideLevelAddBottle";
+        public const string UIGuideLevelHalfBottle = "UIGuideLevelHalfBottle";
+        public const string UIGuideLevelRemoveAll = "UIGuideLevelRemoveAll";
+        public const string UIGuideLevelRemoveHide = "UIGuideLevelRemoveHide";
+        public const string UIGuideLevelStepBack = "UIGuideLevelStepBack";
     }
     public class Uihightoweractivity_prefab
     {
@@ -173,6 +185,16 @@ namespace QAssetBundle
     {
         public const string BundleName = "uistreakwinguide_prefab";
         public const string UIStreakWinGuide = "UIStreakWinGuide";
+    }
+    public class Uitierrankactivity_prefab
+    {
+        public const string BundleName = "uitierrankactivity_prefab";
+        public const string UITierRankActivity = "UITierRankActivity";
+    }
+    public class Uitierrankactivityentrance_prefab
+    {
+        public const string BundleName = "uitierrankactivityentrance_prefab";
+        public const string UITierRankActivityEntrance = "UITierRankActivityEntrance";
     }
     public class Uivictory_prefab
     {

@@ -5,13 +5,11 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:46375864-bff6-4090-89a5-82520a270819
+	// Generate Id:a949f4c3-2ee6-4d30-b27f-7329580c5efa
 	public partial class UIVictory
 	{
 		public const string Name = "UIVictory";
 		
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtLevel;
 		[SerializeField]
 		public Animator AnimGo;
 		[SerializeField]
@@ -37,7 +35,6 @@ namespace QFramework.Example
 		
 		protected override void ClearUIComponents()
 		{
-			TxtLevel = null;
 			AnimGo = null;
 			HornGo3 = null;
 			HornSpine1 = null;
