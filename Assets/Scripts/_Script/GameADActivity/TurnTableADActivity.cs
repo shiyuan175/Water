@@ -57,12 +57,10 @@ public class TurnTableADActivity : BaseGameADActivity
 
     public override void Tick()
     {
-        Debug.Log(1);
         if (GameUtils.DoesCountDownKeyExist(ActivitySign) &&
            CountDownTimerManager.Instance.IsTimerFinished(ActivitySign))
         {
-            Debug.Log("DAS");
- RestartActivity();
+             RestartActivity();
         }
            
 
@@ -72,10 +70,10 @@ public class TurnTableADActivity : BaseGameADActivity
     public override void ADPlaybackCompleted(GameObject target)
     {     
         mTTModel.TurnTableAnimationEnd();
-
-        StageModel _stageModel = this.GetModel<StageModel>();
-
-
+        
+        /*  StageModel _stageModel = this.GetModel<StageModel>();*/
+        TurnTablePackSo _packSo = target.GetComponent<TurnTablePack>().turnTablePack;
+        mRewardGrantUtility.GrantReward(_packSo);
     }
      
 }

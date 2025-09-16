@@ -17,6 +17,8 @@ public abstract class BaseGameADActivity : IGameActivity, ICanGetModel, ICanGetU
     public virtual float ActivityDurationMinutes { get; }
 
     public SaveDataUtility mSaveUtility;
+    public StageModel mStageModel;
+    public RewardGrantUtility mRewardGrantUtility;
 
     // 基类用于维护活动状态
     private GameActivityStatus mLastActivityStatus;
@@ -28,6 +30,8 @@ public abstract class BaseGameADActivity : IGameActivity, ICanGetModel, ICanGetU
     public BaseGameADActivity()
     {
         mSaveUtility = this.GetUtility<SaveDataUtility>();
+        mStageModel = this.GetModel<StageModel>();
+        mRewardGrantUtility = this.GetUtility<RewardGrantUtility>();
     }
     public abstract void StartActivity();
     public abstract void RestartActivity();
