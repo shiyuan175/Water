@@ -4,7 +4,6 @@ using QFramework;
 using UnityEngine.Events;
 using TMPro;
 
-
 namespace QFramework.Example
 {
     public class UIGuideLevelData : UIPanelData
@@ -31,8 +30,6 @@ namespace QFramework.Example
        /*     transform.localPosition = new Vector3(targetPositon.x / 1080 * screenWidth, targetPositon.y / 1920 * screenHeight, 0);*/
             transform.localPosition = targetPositon;
         }
-
-        
 
         public IArchitecture GetArchitecture()
         {

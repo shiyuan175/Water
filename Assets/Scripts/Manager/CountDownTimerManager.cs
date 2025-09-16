@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using QFramework;
 using System.Globalization;
+using NodaTime;
 
 public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
 {
@@ -139,8 +140,34 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
     #endregion
 
     #region 美东0点
-    // 美东时区信息
-    private readonly TimeZoneInfo EasternTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+
+    /// <summary>
+    /// 开启计时器(不超过美东0点)
+    /// </summary>
+    public void StartCountdownTimer(string id, float hour)
+    {
+        string key = COUNTDOWN_TIMER_SIGN + id;
+        if (PlayerPrefs.HasKey(key))
+            return;
+
+        DateTime endUtc = CalculateActivityEndTimeUtc(hour);
+        PlayerPrefs.SetString(key, endUtc.ToString("o"));
+        PlayerPrefs.Save();
+    }
+
+    /// <summary>
+    /// 重启计时器(不超过美东0点)
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="hour"></param>
+    public void ResetCountdownTimer(string id, float hour)
+    {
+        string key = COUNTDOWN_TIMER_SIGN + id;
+
+        DateTime endUtc = CalculateActivityEndTimeUtc(hour);
+        PlayerPrefs.SetString(key, endUtc.ToString("o"));
+        PlayerPrefs.Save();
+    }
 
     /// <summary>
     /// 开启美东 0 点结束的计时器
@@ -173,13 +200,17 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
     private DateTime GetTodayEasternMidnightUtc()
     {
         // 当前 UTC 时间
-        DateTime utcNow = DateTime.UtcNow;
-        // 转换为美东当前时间
-        DateTime easternNow = TimeZoneInfo.ConvertTimeFromUtc(utcNow, EasternTimeZone);
-        // 取当天 0 点
-        DateTime easternMidnight = easternNow.Date;
-        // 转回 UTC 存储
-        return TimeZoneInfo.ConvertTimeToUtc(easternMidnight, EasternTimeZone);
+        Instant now = SystemClock.Instance.GetCurrentInstant();
+        // 美东时区
+        DateTimeZone easternZone = DateTimeZoneProviders.Tzdb["America/New_York"];
+        // 当前美东日期
+        LocalDate easternDate = now.InZone(easternZone).Date;
+        // 当日美东午夜
+        LocalDateTime midnight = easternDate.AtMidnight();
+        // 转换为 ZonedDateTime
+        ZonedDateTime easternMidnight = midnight.InZoneStrictly(easternZone);
+        // 转回 UTC DateTime
+        return easternMidnight.ToDateTimeUtc();
     }
 
     /// <summary>
@@ -190,5 +221,36 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
         return GetTodayEasternMidnightUtc().AddDays(1);
     }
 
+    /// <summary>
+    /// 计算活动结束时间，持续指定小时但不超过美东明天0点
+    /// </summary>
+    /// <param name="hour"></param>
+    /// <returns></returns>
+    private DateTime CalculateActivityEndTimeUtc(float hour)
+    {
+        // 当前 UTC 时间
+        Instant now = SystemClock.Instance.GetCurrentInstant();
+
+        // 美东时区
+        DateTimeZone easternZone = DateTimeZoneProviders.Tzdb["America/New_York"];
+
+        // 当前美东时间
+        ZonedDateTime easternNow = now.InZone(easternZone);
+
+        // 活动持续时间后的时间点
+        Duration duration = Duration.FromHours(hour);
+        ZonedDateTime laterEastern = easternNow + duration;
+
+        // 美东明天 0 点
+        LocalDate easternTomorrow = easternNow.Date.PlusDays(1);
+        LocalDateTime tomorrowMidnightLocal = easternTomorrow.AtMidnight();
+        ZonedDateTime easternMidnight = tomorrowMidnightLocal.InZoneStrictly(easternZone);
+
+        // 取较早时间点
+        ZonedDateTime endEastern = laterEastern.ToInstant() < easternMidnight.ToInstant() ? laterEastern : easternMidnight;
+
+        // 转回 UTC
+        return endEastern.ToDateTimeUtc();
+    }
     #endregion
 }

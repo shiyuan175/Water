@@ -6,6 +6,7 @@ using GameDefine;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using UnityEngine.U2D;
 
 
 namespace QFramework.Example
@@ -16,24 +17,28 @@ namespace QFramework.Example
 
     public partial class UIGameNode : UIPanel, IController
     {
+        private const string CLEAR_BWATER_PARTICLE_PATH = "Prefab/BlackMaskItem";
+        private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
+
         [SerializeField] private Sprite[] imgBtnItemBgSprites;
         [SerializeField] private Sprite[] imgTopBgSprites;
         [SerializeField] private Sprite[] imgBottomSpirtes;
         [SerializeField] private Sprite[] imgLevelSprites;
-        [SerializeField] private Sprite[] mRankLevelSprites;
         [SerializeField] private Sprite[] imgBtnReturnSprites;
-        [SerializeField] private Image []imgBtnItemBg;
+        [SerializeField] private Image[] imgBtnItemBg;
         [SerializeField] private Image imgBtnReturn;
         [SerializeField] private Image imgTopBg;
         [SerializeField] private Image imgBottom;
         [SerializeField] private Image imgLevel;
+
+        private ResLoader mResLoader;
         private StageModel stageModel;
-        private TierRankActivityModel mTierRankActivityModel;
-        private const int WIN_STREAK_RANKLEVEL_INTERVAL = 5;
-        private const int MAX_SPRITE_INDEX = 8;
-        private const string CLEAR_BWATER_PARTICLE_PATH = "Prefab/BlackMaskItem";
-        private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
+        private TierRankActivity mTierRankActivity;
+        
+        private SpriteAtlas mRankLevelSpriteAtlas;
+
         private int mCacheRankSpriteIndex;
+
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;
@@ -47,12 +52,10 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-            //真机模式下，AssetBundle 加载资源后需要关联材质
-            TxtLevel.font.material.shader = Shader.Find(TxtLevel.font.material.shader.name);
-            TxtLevel.text = LevelManager.Instance.levelId.ToString();
             stageModel = this.GetModel<StageModel>();
-            mTierRankActivityModel = this.GetModel<TierRankActivityModel>();
+            mTierRankActivity = GameActivityManager.Instance.GetActivity<TierRankActivity>();
 
+            LoadRes();
             BindBtn();
             RegisterEvent();
         }
@@ -64,49 +67,6 @@ namespace QFramework.Example
             InitItemUI();
             SetTakeItem();
             SetItem();
-        }
-        protected void InitLevelUI()
-        {
-            int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-            if (level < GET_THE_LAST_NUMBER_OF_LEVEL)
-                return;
-            int t = 0;
-            switch (level % GET_THE_LAST_NUMBER_OF_LEVEL)
-            {
-                case 4:
-                    t = 1;
-                    break;
-                case 9:
-                    t = 2;
-                    break;  
-                // t初始化为0，所以没有用Defailt取0
-            }
-            foreach(var i in imgBtnItemBg)
-                i.sprite = imgBtnItemBgSprites[t];
-            imgTopBg.sprite = imgTopBgSprites[t];
-            imgLevel.sprite = imgLevelSprites[t];
-            imgBottom.sprite = imgBottomSpirtes[t];
-            imgBtnReturn.sprite = imgBtnReturnSprites[t];
-        }
-        /// <summary>
-        /// 显示道具图标
-        /// </summary>
-        protected void InitItemUI()
-        {            
-            int level = LevelManager.Instance.levelId;
-          
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
-                UnLockItem("AddBottle");
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
-                UnLockItem("HalfBottle");
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
-                UnLockItem("RemoveHide");
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
-                UnLockItem("RemoveAll");
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
-                UnLockItem("StepBack");
-            if (level >= (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
-                BtnItemBg.Show();
         }
 
         protected override void OnHide()
@@ -125,35 +85,28 @@ namespace QFramework.Example
             BtnItem1.onClick.RemoveAllListeners();
             BtnItem2.onClick.RemoveAllListeners();
             BtnItem3.onClick.RemoveAllListeners();
+
+            if (mTierRankActivity != null)
+            {
+                mResLoader.Recycle2Cache();
+                mResLoader = null;
+                mTierRankActivity = null;
+                mRankLevelSpriteAtlas = null;
+            }
         }
 
-        private void InitRankLevel()
+        private void LoadRes()
         {
-            int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-            if (level == GameConst.WIN_STREAK_BEGIN_LEVEL)
+            if (mTierRankActivity != null)
             {
-                ImgRankLevel_Label.Show();
-                ActionKit.Delay(5f, () =>
-                {
-                    ImgRankLevel_Label.Hide();
-
-                }).Start(this);
+                mResLoader = ResLoader.Allocate();
+                mRankLevelSpriteAtlas = mResLoader.LoadSync<SpriteAtlas>
+                    (ABResourceDefine.RANK_LEVEL_ATLAS_BUNDLENAME, ABResourceDefine.RANK_LEVEL_ATLAS_ASSETNAME);
             }
-            else ImgRankLevel_Label.Hide();
-
-            if (level >= GameConst.WIN_STREAK_BEGIN_LEVEL)
-            {
-                ImgRankLevel.Show();
-                TxtRankLevel.text = mTierRankActivityModel.StreakWinNum.ToString();
-                mCacheRankSpriteIndex = Mathf.Max(0, (mTierRankActivityModel.StreakWinNum - 1) / WIN_STREAK_RANKLEVEL_INTERVAL);
-                mCacheRankSpriteIndex = mCacheRankSpriteIndex >= MAX_SPRITE_INDEX ? MAX_SPRITE_INDEX : mCacheRankSpriteIndex;
-                ImgRankLevel.sprite = mRankLevelSprites[mCacheRankSpriteIndex];
-            }
-            else ImgRankLevel.Hide();
         }
 
         private void BindBtn()
-        { 
+        {
             BtnReturn.onClick.AddListener(() =>
             {
                 UIKit.OpenPanel<UIRetry>();
@@ -178,68 +131,6 @@ namespace QFramework.Example
             BtnHalfBottle.onClick.AddListener(BtnHalfBottleOnClick);
             BtnRemoveHide.onClick.AddListener(BtnRemoveHideOnClick);
             BtnStepBack.onClick.AddListener(BtnSetpBackOnClick);
-            StringEventSystem.Global.Register(GameConst.VICTORY_EVENT, () =>
-            {
-                int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-
-               
-                if (level - 1 < GameConst.WIN_STREAK_BEGIN_LEVEL)
-                {
-                    OpenUIVictory();
-                    return;
-                }
-                //飞星效果
-                var _spriteIndex = Mathf.Max(0, (mTierRankActivityModel.StreakWinNum - 1) / WIN_STREAK_RANKLEVEL_INTERVAL);
-                _spriteIndex = _spriteIndex >= MAX_SPRITE_INDEX ? MAX_SPRITE_INDEX : _spriteIndex;
-                var _rankPromotion = _spriteIndex > mCacheRankSpriteIndex;
-                FlightEffects.Show();
-                FlightEffects.DOMove(ImgRankLevel.transform.position, 1f)
-                .OnComplete(() =>
-                {
-                    TxtRankLevel.text = mTierRankActivityModel.StreakWinNum.ToString();
-
-                    //段位无变化
-                    if (!_rankPromotion)
-                    {
-                        OpenUIVictory();
-                        return;
-                    }
-
-                    ImgRankSprite_mid.sprite = mRankLevelSprites[mCacheRankSpriteIndex];
-                    ImgRankSprite_mid.SetNativeSize();
-                    SpineRankPromotion.Show();
-
-                    SpineRankPromotion.AnimationState.SetAnimation(0, "animation", false);
-
-                    ActionKit.Delay(0.5f, () =>
-                    {
-                        ImgRankSprite_mid.sprite = mRankLevelSprites[_spriteIndex];
-                        ImgRankSprite_mid.SetNativeSize();
-                    }).Start(this);
-
-                    SpineRankPromotion.AnimationState.Complete += (trackEntry) =>
-                    {
-                        SpineRankPromotion.Hide();
-
-
-                        if (mTierRankActivityModel.CompareWithHistoryBestRank(_spriteIndex))
-                        {
-                            //Debug.Log("首次晋升段位");
-                            CoinManager.Instance.AddCoin(300);
-                            RewardUIManager.Instance.PlayRewardAnim(null, 300);
-
-                            ActionKit.Delay(1.5f, () =>
-                            {
-                                OpenUIVictory();
-                            }).Start(this);
-                            return;
-                        }
-                        //奖励已经领取
-                        OpenUIVictory();
-                    };
-                });
-
-            }).UnRegisterWhenGameObjectDestroyed(this);
         }
 
         private void RegisterEvent()
@@ -255,11 +146,11 @@ namespace QFramework.Example
                 TxtLevel.text = LevelManager.Instance.levelId.ToString();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
             this.RegisterEvent<UnLockItem>(eventId =>
             {
-                
                 int level = LevelManager.Instance.levelId;
-               
+
                 if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
                     UnLockItem("AddBottle");
                 if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
@@ -271,15 +162,153 @@ namespace QFramework.Example
                 if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
                     UnLockItem("StepBack");
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
             StringEventSystem.Global.Register("StreakWinItem", (int count) =>
             {
-               
                 ClearBottleBlackWater(count, false);
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+            
+            StringEventSystem.Global.Register(GameConst.VICTORY_EVENT, () =>
+            {
+                int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+                if (level - 1 < GameConst.WIN_STREAK_BEGIN_LEVEL)
+                {
+                    OpenUIVictory();
+                    return;
+                }
 
-           
+                //飞星效果
+                var curRankIndex = mTierRankActivity.PlayerTierRankIndex;
+                FlightEffects.Show();
+                FlightEffects.DOMove(ImgRankLevel.transform.position, 1f)
+                .OnComplete(() =>
+                {
+                    TxtRankLevel.text = mTierRankActivity.StreakWinNum.ToString();
+
+                    //段位无晋升
+                    if (curRankIndex <= mCacheRankSpriteIndex)
+                    {
+                        OpenUIVictory();
+                        return;
+                    }
+
+                    ImgRankSprite_mid.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mCacheRankSpriteIndex));
+                    ImgRankSprite_mid.SetNativeSize();
+                    SpineRankPromotion.Show();
+
+                    SpineRankPromotion.AnimationState.SetAnimation(0, "animation", false);
+
+                    ActionKit.Delay(0.5f, () =>
+                    {
+                        ImgRankSprite_mid.sprite =
+                        mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(curRankIndex));
+                        ImgRankLevel.sprite =
+                        mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(curRankIndex));
+
+                        ImgRankSprite_mid.SetNativeSize();
+                    }).Start(this);
+
+                    SpineRankPromotion.AnimationState.Complete += (trackEntry) =>
+                    {
+                        SpineRankPromotion.Hide();
+
+                        if (mTierRankActivity.CompareWithHistoryBestRank())
+                        {
+                            //Debug.Log("首次晋升段位");
+                            CoinManager.Instance.AddCoin(300);
+                            RewardUIManager.Instance.PlayRewardAnim(300);
+
+                            ActionKit.Delay(1.5f, () =>
+                            {
+                                OpenUIVictory();
+                            }).Start(this);
+                            return;
+                        }
+                        //奖励已经领取
+                        OpenUIVictory();
+                    };
+                });
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
-        protected void UnLockItem(string item)
+
+        protected void InitLevelUI()
+        {
+            int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+            TxtLevel.text = level.ToString();
+
+            if (level <= 5)
+                BtnReturn.Hide();
+
+            if (level < GET_THE_LAST_NUMBER_OF_LEVEL)
+                return;
+            int _index = 0;
+            switch (level % GET_THE_LAST_NUMBER_OF_LEVEL)
+            {
+                case 4:
+                    _index = 1;
+                    break;
+                case 9:
+                    _index = 2;
+                    break;
+                    // t初始化为0，所以没有用Defailt取0
+            }
+            foreach (var i in imgBtnItemBg)
+                i.sprite = imgBtnItemBgSprites[_index];
+            imgTopBg.sprite = imgTopBgSprites[_index];
+            imgLevel.sprite = imgLevelSprites[_index];
+            imgBottom.sprite = imgBottomSpirtes[_index];
+            imgBtnReturn.sprite = imgBtnReturnSprites[_index];
+        }
+
+        /// <summary>
+        /// 显示道具图标
+        /// </summary>
+        protected void InitItemUI()
+        {
+            int level = LevelManager.Instance.levelId;
+
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
+                UnLockItem("AddBottle");
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
+                UnLockItem("HalfBottle");
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
+                UnLockItem("RemoveHide");
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
+                UnLockItem("RemoveAll");
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
+                UnLockItem("StepBack");
+            if (level >= (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
+                BtnItemBg.Show();
+        }
+
+        private void InitRankLevel()
+        {
+            int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+
+            if (level == GameConst.WIN_STREAK_BEGIN_LEVEL)
+            {
+                ImgRankLevel_Label.Show();
+                ActionKit.Delay(5f, () =>
+                {
+                    ImgRankLevel_Label.Hide();
+
+                }).Start(this);
+            }
+            else ImgRankLevel_Label.Hide();
+
+            if (level >= GameConst.WIN_STREAK_BEGIN_LEVEL)
+            {
+                ImgRankLevel.Show();
+                TxtRankLevel.text = mTierRankActivity.StreakWinNum.ToString();
+                mCacheRankSpriteIndex = mTierRankActivity.PlayerTierRankIndex;
+                ImgRankLevel.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mCacheRankSpriteIndex));
+            }
+            
+            else ImgRankLevel.Hide();
+        }
+
+        private void UnLockItem(string item)
         {
             Transform transform = null;
             switch (item)
@@ -305,23 +334,23 @@ namespace QFramework.Example
             transform.GetComponent<Button>().interactable = true;
             transform.Find("ImgItem").GetComponent<Image>().color = Color.white;
         }
-        void BtnSetpBackOnClick()
+
+        #region 道具相关
+        private void BtnSetpBackOnClick()
         {
-            
-                if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+            if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+            {
+                if (stageModel.ItemDic[1] <= 0)
                 {
-                    if (stageModel.ItemDic[1] <= 0)
-                    {
-                        UIBuyItemData data = new UIBuyItemData() { item = 1 };
-                        UIKit.OpenPanel<UIBuyItem>(data);
-                        return;
-                    }
-                    if (LevelManager.Instance.ReturnLast())
-                        stageModel.ReduceItem(1, 1);
+                    UIBuyItemData data = new UIBuyItemData() { item = 1 };
+                    UIKit.OpenPanel<UIBuyItem>(data);
+                    return;
                 }
-          
+                if (LevelManager.Instance.ReturnLast())
+                    stageModel.ReduceItem(1, 1);
+            }
         }
-        void BtnRemoveHideOnClick()
+        private void BtnRemoveHideOnClick()
         {
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
@@ -341,8 +370,7 @@ namespace QFramework.Example
                 }
             }
         }
-
-        void BtnAddBottleOnClick()
+        private void BtnAddBottleOnClick()
         {
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
@@ -358,8 +386,7 @@ namespace QFramework.Example
                 });
             }
         }
-
-        void BtnHalfBottleOnClick()
+        private void BtnHalfBottleOnClick()
         {
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
@@ -375,8 +402,7 @@ namespace QFramework.Example
                 });
             }
         }
-
-        void BtnRemoveAllOnClick()
+        private void BtnRemoveAllOnClick()
         {
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
@@ -421,10 +447,6 @@ namespace QFramework.Example
                 }
             }
         }
-        
-        
-
-        #region 道具相关
 
         /// <summary>
         /// 使用携带道具
@@ -577,7 +599,7 @@ namespace QFramework.Example
         /// 使用携带道具按钮事件
         /// </summary>
         /// 进入游戏/重置关卡调用
-        void SetTakeItem()
+        private void SetTakeItem()
         {
             var takeItems = LevelManager.Instance.takeItem;
 
@@ -622,7 +644,7 @@ namespace QFramework.Example
         /// </summary>
         /// <param name="itemID"></param>
         /// <returns></returns>
-        bool CheckHaveItem(int itemID)
+        private bool CheckHaveItem(int itemID)
         {
             if (stageModel.ItemDic[itemID] > 0)
                 return true;
@@ -630,7 +652,6 @@ namespace QFramework.Example
         }
 
         #endregion
-
 
         private void OpenUIVictory()
         {

@@ -29,6 +29,11 @@ namespace QAssetBundle
         public const string SourceHanSansCNBold_SDF_Red = "SourceHanSansCN-Bold SDF Red";
         public const string SourceHanSansCNBold = "SourceHanSansCN-Bold";
     }
+    public class Ranklevelatlas_spriteatlasv2
+    {
+        public const string BundleName = "ranklevelatlas_spriteatlasv2";
+        public const string RankLevelAtlas = "RankLevelAtlas";
+    }
     public class Sceneunlock1_prefab
     {
         public const string BundleName = "sceneunlock1_prefab";
@@ -38,6 +43,11 @@ namespace QAssetBundle
     {
         public const string BundleName = "sceneunlock2_prefab";
         public const string SceneUnlock2 = "SceneUnlock2";
+    }
+    public class Sceneunlockguide_prefab
+    {
+        public const string BundleName = "sceneunlockguide_prefab";
+        public const string SceneUnlockGuide = "SceneUnlockGuide";
     }
     public class Uibegin_prefab
     {
@@ -87,12 +97,18 @@ namespace QAssetBundle
     public class Uiguidelevel1_prefab
     {
         public const string BundleName = "uiguidelevel1_prefab";
+        public const string UIGuideLevel = "UIGuideLevel";
         public const string UIGuideLevel1 = "UIGuideLevel1";
     }
     public class Uiguidelevel2_prefab
     {
         public const string BundleName = "uiguidelevel2_prefab";
         public const string UIGuideLevel2 = "UIGuideLevel2";
+        public const string UIGuideLevelAddBottle = "UIGuideLevelAddBottle";
+        public const string UIGuideLevelHalfBottle = "UIGuideLevelHalfBottle";
+        public const string UIGuideLevelRemoveAll = "UIGuideLevelRemoveAll";
+        public const string UIGuideLevelRemoveHide = "UIGuideLevelRemoveHide";
+        public const string UIGuideLevelStepBack = "UIGuideLevelStepBack";
     }
     public class Uihightoweractivity_prefab
     {
@@ -168,6 +184,16 @@ namespace QAssetBundle
     {
         public const string BundleName = "uistreakwinguide_prefab";
         public const string UIStreakWinGuide = "UIStreakWinGuide";
+    }
+    public class Uitierrankactivity_prefab
+    {
+        public const string BundleName = "uitierrankactivity_prefab";
+        public const string UITierRankActivity = "UITierRankActivity";
+    }
+    public class Uitierrankactivityentrance_prefab
+    {
+        public const string BundleName = "uitierrankactivityentrance_prefab";
+        public const string UITierRankActivityEntrance = "UITierRankActivityEntrance";
     }
     public class Uivictory_prefab
     {

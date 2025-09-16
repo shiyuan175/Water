@@ -1,11 +1,9 @@
-using MoonSharp.Interpreter;
 using QFramework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
-using Random = UnityEngine.Random;
+
 /// <summary>
 /// 该脚本的本意是将LevelManager中的一些计算逻辑移动出来，是的LevelManager的体量降低，变为较可维护
 /// </summary>
@@ -17,7 +15,7 @@ public class LevelManagerUtility : IUtility
     /// <param name="expect">期望的黑水结果</param>
     public GameObject RandomBarkWater(List<BottleCtrl> bottles ,bool expect)
     {
-        int i= Random.Range(0, bottles.Count);
+        int i = UnityEngine.Random.Range(0, bottles.Count);
         while( true)
         {
             
@@ -42,7 +40,7 @@ public class LevelManagerUtility : IUtility
     public  GameObject WaterComplete(BottleCtrl bottleCtrl, bool expect)
     {
         // 去掉最顶上
-        int random = Random.Range(0, bottleCtrl.hideWaters.Count - 1);
+        int random = UnityEngine.Random.Range(0, bottleCtrl.hideWaters.Count - 1);
         for (int i = random; i < bottleCtrl.hideWaters.Count - 1; i++)
         {
             // 暂时留的一个判断函数，不确定是否需要

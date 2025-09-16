@@ -101,7 +101,7 @@ namespace QFramework.Example
                         if (_playerWin)
                         {
                             UIKit.ClosePanel<UIMask>();
-                            RewardUIManager.Instance.PlayRewardAnim(null, REWARD_COIN);
+                            RewardUIManager.Instance.PlayRewardAnim(REWARD_COIN);
                             //Debug.Log("玩家胜利回调播放奖励动画");
                         }
                     });

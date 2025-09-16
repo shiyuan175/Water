@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 
-
 namespace QFramework.Example
 {
 	public class SceneUnlockGuideData : UIPanelData

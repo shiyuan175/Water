@@ -283,7 +283,7 @@ namespace QFramework.Example
                 {
                     mRewardSign = false;
                     UIKit.ClosePanel<UIMask>();
-                    RewardUIManager.Instance.PlayRewardAnim(mRewardPackSO, mRewardPackSO.Coins);
+                    RewardUIManager.Instance.PlayRewardAnim(mRewardPackSO.Coins, packSOs: mRewardPackSO);
                     BtnBox.image.sprite = mBoxOpenSprite;
                 }
             });

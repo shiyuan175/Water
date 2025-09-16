@@ -54,6 +54,30 @@ namespace JsonFileData
     }
     #endregion
 
+    #region Tier Rank Activity Data
+
+    public class TRActivityData
+    {
+        public TRAPlayer Player;
+        public List<TRARobotsData> TRARobots;
+    }
+
+    public class TRAPlayer
+    {
+        public string PlayerName;
+        public int StreamWinNum;
+        public bool IsRewardSettled;
+    }
+
+    public class TRARobotsData
+    {
+        public int ID;
+        public string Name;
+        public int Avatar;
+        public int AvatarFrame;
+        public int StreamWinNum;
+    }
+    #endregion
 }
 
 public class JsonFileUtility : IUtility
@@ -61,6 +85,7 @@ public class JsonFileUtility : IUtility
     private readonly JsonFileInfo[] mJsonFileData = new JsonFileInfo[]
     {
         GameDefine.GameConst.MSADefaultJson,
+        GameDefine.GameConst.TRADefaultJson
     };
 
     /// <summary>

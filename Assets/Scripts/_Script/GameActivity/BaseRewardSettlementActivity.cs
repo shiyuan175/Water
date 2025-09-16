@@ -7,16 +7,17 @@ using UnityEngine;
 //奖励结算式活动基类
 public abstract class BaseRewardSettlementActivity : IGameActivity, ICanGetModel, ICanGetUtility, ICanSendEvent
 {
-    //活动是否结算
+    //活动是否结算(活动结束)
     public abstract bool IsRewardSettled { get; }
-    //是否有奖励可结算
-    public abstract bool HasRankReward { get; }
     public abstract string ActivitySign { get; }
     public virtual string ActivityID { get; }
     public virtual string ActivityCooldownSign { get; }
     public virtual float ActivityDurationMinutes { get; }
     public virtual float ActivityCooldownMinutes { get; }
     public virtual int ActivityBeginLevel { get; }
+    //是否有奖励可结算(达到某个目标触发)
+    public virtual bool HasRankReward { get; }
+
     public virtual SettlementActivityStatus ActivityStatus
     {
         get

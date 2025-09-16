@@ -24,7 +24,6 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-            TxtGuide.font = LevelManager.Instance.blueFont;
         }
 
         protected override void OnShow()

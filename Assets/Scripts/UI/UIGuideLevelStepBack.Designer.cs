@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:b62d3b2a-d236-45d4-b22a-a7d19ddac113
+	// Generate Id:1c2fa083-4421-4d33-8e5f-1dd5f06e1696
 	public partial class UIGuideLevelStepBack
 	{
 		public const string Name = "UIGuideLevelStepBack";
@@ -13,11 +13,9 @@ namespace QFramework.Example
 		[SerializeField]
 		public Spine.Unity.SkeletonGraphic SpineHandle;
 		[SerializeField]
-		public UnityEngine.UI.Image StepGetItem;
+		public RectTransform StepGetItem;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnGet;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtRetry;
 		[SerializeField]
 		public RectTransform Step1;
 		[SerializeField]
@@ -30,8 +28,6 @@ namespace QFramework.Example
 		public RectTransform StepItem;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnItem;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtGuide;
 		
 		private UIGuideLevelStepBackData mPrivateData = null;
 		
@@ -40,14 +36,12 @@ namespace QFramework.Example
 			SpineHandle = null;
 			StepGetItem = null;
 			BtnGet = null;
-			TxtRetry = null;
 			Step1 = null;
 			BtnBottle1 = null;
 			Step2 = null;
 			BtnBottle2 = null;
 			StepItem = null;
 			BtnItem = null;
-			TxtGuide = null;
 			
 			mData = null;
 		}

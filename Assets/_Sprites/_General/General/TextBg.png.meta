@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_Sprites/_General/General/TextBg.png.meta
 guid: e54c7f3bf221a834799554c45d22d9bf
+========
+guid: d8b3687b86a511749a3c78ecb4595168
+>>>>>>>> main:Assets/_Sprites/Activity/TierRankActivity/TR_Entrance_Img.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
