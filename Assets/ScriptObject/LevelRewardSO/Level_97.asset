@@ -15,8 +15,8 @@ MonoBehaviour:
   PackID: Level_97
   coins: 0
   items:
-  - itemIndex: 7
+  - normalRewardsType: 6
+    itemIndex: 7
     quantity: 3
-    rewardSprite: {fileID: 21300000, guid: 94bc4ea0bef10b14bb587e35ca1891cb, type: 3}
   unlimitedHp: 0
   removeAds: 0

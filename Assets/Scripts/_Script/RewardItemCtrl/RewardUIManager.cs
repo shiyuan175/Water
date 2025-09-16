@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class RewardUIManager : MonoSingleton<RewardUIManager>
 {
-    [SerializeField] private Sprite[] RewardSprites;
+    [SerializeField] private RewardSpriteMappingSO mRewardSpriteMappingSO;
     [SerializeField] private Animator BoxAnimator;
     [SerializeField] private Animator AddCoinTxtUp;
     [SerializeField] private Button BtnContinue;
@@ -22,8 +22,6 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
     private List<System.Action> actionList;
     private System.Action openBoxCallBack;
 
-    // 每轮动态传入
-    private int slotCount;
     private const int YAXIS = 0;//800
 
     public override void OnSingletonInit()
@@ -33,6 +31,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         txtCoinAdd.font = LevelManager.Instance.redFont;
         actionList = new List<System.Action>();
         availableSlots = new List<int>();
+        mRewardSpriteMappingSO.Initialize();
 
         RewardPool = new SimpleObjectPool<Image>(
         () =>
@@ -59,14 +58,13 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
 
     public void PlayRewardAnim(int? addCoin , System.Action call = null , params IPackSoInterface[] packSOs)
     {
-        var _ItemReward = new List<ItemReward>();
-        var _SpecialRewards =  new List<SpecialReward>();
-
+        var _packSO = new List<IPackSoInterface>();
+        int _slotCount = 0;
         foreach (var pack in packSOs)
         {
             if (pack == null) continue;
-            _ItemReward.AddRange(pack.ItemReward);
-            _SpecialRewards.AddRange(pack.SpecialRewards);
+            _packSO.Add(pack);
+            _slotCount += pack.ItemReward.Count + pack.SpecialRewards.Count;
         }
 
         openBoxCallBack = call;
@@ -74,8 +72,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         actionList.Clear();
         mMask.Show();
 
-        slotCount = _ItemReward.Count + _SpecialRewards.Count;
-        for (int i = 0; i < slotCount; i++)
+        for (int i = 0; i < _slotCount; i++)
             availableSlots.Add(i);
 
         BoxAnimator.Show();
@@ -84,31 +81,37 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         // 等待盒子打开动画完成
         ActionKit.Delay(1f, () =>
         {
-            if (_ItemReward.Count != 0 || _SpecialRewards.Count != 0)
+            if (_slotCount != 0)
                 BtnContinue.Show();
             else
                 mMask.Hide();
 
             BoxAnimator.Hide();
 
-            foreach (var item in _ItemReward)
+            foreach (var pack in _packSO)
             {
-                var image = RewardPool.Allocate();
-                image.TryGetComponent(out PropRewardPoolNode _node);
-                if (_node == null)
-                    _node = image.gameObject.AddComponent<PropRewardPoolNode>();
-                _node.Init(RewardSprites[item.ItemIndex - 1], SetRandomScreenPosition(image), item.Quantity, false);
-                actionList.Add(() => _node.MoveOffScreen());
-            }
+                foreach (var item in pack.ItemReward)
+                {
+                    var image = RewardPool.Allocate();
+                    image.TryGetComponent(out PropRewardPoolNode _node);
+                    if (_node == null)
+                        _node = image.gameObject.AddComponent<PropRewardPoolNode>();
+                    _node.Init(mRewardSpriteMappingSO.GetRewardSprite(item.NormalRewardsType), 
+                        SetRandomScreenPosition(image, _slotCount), item.Quantity, false);
+                    actionList.Add(() => _node.MoveOffScreen());
+                }
 
-            foreach (var item in _SpecialRewards)
-            {
-                var image = RewardPool.Allocate();
-                image.TryGetComponent(out PropRewardPoolNode _node);
-                if (_node == null)
-                    _node = image.gameObject.AddComponent<PropRewardPoolNode>();
-                _node.Init(item.RewardSprite, SetRandomScreenPosition(image), item.Duration, true);
-                actionList.Add(() => _node.MoveOffScreen());
+                foreach (var item in pack.SpecialRewards)
+                {
+                    var image = RewardPool.Allocate();
+                    image.TryGetComponent(out PropRewardPoolNode _node);
+                    if (_node == null)
+                        _node = image.gameObject.AddComponent<PropRewardPoolNode>();
+
+                    _node.Init(mRewardSpriteMappingSO.GetRewardSprite(item.SpecialRewardType), 
+                        SetRandomScreenPosition(image, _slotCount), item.Duration, true);
+                    actionList.Add(() => _node.MoveOffScreen());
+                }
             }
 
             if ((addCoin ?? 0) > 0)
@@ -145,7 +148,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         }
     }
 
-    private Vector2 SetRandomScreenPosition(Image propImage)
+    private Vector2 SetRandomScreenPosition(Image propImage ,int slotCount)
     {
         if (availableSlots.Count == 0)
         {

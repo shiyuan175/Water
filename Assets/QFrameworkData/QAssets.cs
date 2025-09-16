@@ -104,10 +104,30 @@ namespace QAssetBundle
     {
         public const string BundleName = "uiguidelevel2_prefab";
         public const string UIGuideLevel2 = "UIGuideLevel2";
+    }
+    public class Uiguideleveladdbottle_prefab
+    {
+        public const string BundleName = "uiguideleveladdbottle_prefab";
         public const string UIGuideLevelAddBottle = "UIGuideLevelAddBottle";
+    }
+    public class Uiguidelevelhalfbottle_prefab
+    {
+        public const string BundleName = "uiguidelevelhalfbottle_prefab";
         public const string UIGuideLevelHalfBottle = "UIGuideLevelHalfBottle";
+    }
+    public class Uiguidelevelremoveall_prefab
+    {
+        public const string BundleName = "uiguidelevelremoveall_prefab";
         public const string UIGuideLevelRemoveAll = "UIGuideLevelRemoveAll";
+    }
+    public class Uiguidelevelremovehide_prefab
+    {
+        public const string BundleName = "uiguidelevelremovehide_prefab";
         public const string UIGuideLevelRemoveHide = "UIGuideLevelRemoveHide";
+    }
+    public class Uiguidelevelstepback_prefab
+    {
+        public const string BundleName = "uiguidelevelstepback_prefab";
         public const string UIGuideLevelStepBack = "UIGuideLevelStepBack";
     }
     public class Uihightoweractivity_prefab

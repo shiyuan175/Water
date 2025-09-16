@@ -104,7 +104,7 @@ namespace QFramework.Example
             //道具发放
             foreach (var item in _packSo.ItemReward)
             {
-                stageModel.AddItem(item.ItemIndex, item.Quantity);
+                stageModel.AddItem((int)item.NormalRewardsType, item.Quantity);
             }
             //无限体力发放
             HealthManager.Instance.SetUnLimitHp(_packSo.UnlimitedHp);

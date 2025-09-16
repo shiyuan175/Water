@@ -15,11 +15,11 @@ MonoBehaviour:
   PackID: Level_41
   coins: 0
   items:
-  - itemIndex: 1
+  - normalRewardsType: 0
+    itemIndex: 1
     quantity: 1
-    rewardSprite: {fileID: 21300000, guid: df1119d32cb225a4f9138590e1399d9a, type: 3}
-  - itemIndex: 2
+  - normalRewardsType: 1
+    itemIndex: 2
     quantity: 1
-    rewardSprite: {fileID: 21300000, guid: 2c9a11e7a98ee7f4292aa9262b9b2cb6, type: 3}
   unlimitedHp: 0
   removeAds: 0
