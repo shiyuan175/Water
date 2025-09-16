@@ -73,11 +73,6 @@ namespace QFramework.Example
 
             InitTxtFont();
 
-            BindBtn();
-            RegisterEvent();
-            InitSceneUI();
-            InitActivityState();
-
             int currentLevel = saveData.GetCurrentLevel();
             if (currentLevel <= 5)
             {
@@ -90,14 +85,19 @@ namespace QFramework.Example
             {
                 PotionActivity();
             }
-        }
 
-        protected override void OnShow()
-        {
             //BindBtn();
             //RegisterEvent();
             //InitSceneUI();
             //InitActivityState();
+        }
+
+        protected override void OnShow()
+        {
+            BindBtn();
+            RegisterEvent();
+            InitSceneUI();
+            InitActivityState();
         }
 
         protected override void OnHide()

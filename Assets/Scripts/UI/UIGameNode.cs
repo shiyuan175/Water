@@ -237,6 +237,9 @@ namespace QFramework.Example
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
             TxtLevel.text = level.ToString();
 
+            if (level <= 5)
+                BtnReturn.Hide();
+
             if (level < GET_THE_LAST_NUMBER_OF_LEVEL)
                 return;
             int _index = 0;
