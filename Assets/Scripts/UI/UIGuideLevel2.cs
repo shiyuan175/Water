@@ -60,7 +60,6 @@ namespace QFramework.Example
                 SpineHandle.Hide();
 				Step2.Hide();
 				mIsStep2 = false;
-                Debug.Log(12);
 
                 //µÈ´ýµ¹ÍêË®
                 ActionKit.Delay(2.2f, () =>
