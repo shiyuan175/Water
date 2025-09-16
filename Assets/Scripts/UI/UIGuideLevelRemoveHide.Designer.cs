@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:760b8bf0-8e67-40b0-9e33-162989c19d2e
+	// Generate Id:fa606d9c-b617-40d8-9e9b-14bb8115f509
 	public partial class UIGuideLevelRemoveHide
 	{
 		public const string Name = "UIGuideLevelRemoveHide";
@@ -13,29 +13,20 @@ namespace QFramework.Example
 		[SerializeField]
 		public Spine.Unity.SkeletonGraphic SpineHandle;
 		[SerializeField]
-		public UnityEngine.UI.Image StepGetItem;
-		[SerializeField]
-		public UnityEngine.UI.Button BtnGet;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtRetry;
-		[SerializeField]
-		public RectTransform StepItem;
-		[SerializeField]
 		public UnityEngine.UI.Button BtnItem;
 		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtGuide;
+		public RectTransform StepGetItem;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnGet;
 		
 		private UIGuideLevelRemoveHideData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
 			SpineHandle = null;
+			BtnItem = null;
 			StepGetItem = null;
 			BtnGet = null;
-			TxtRetry = null;
-			StepItem = null;
-			BtnItem = null;
-			TxtGuide = null;
 			
 			mData = null;
 		}

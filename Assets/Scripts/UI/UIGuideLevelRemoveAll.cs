@@ -27,7 +27,6 @@ namespace QFramework.Example
         private readonly Vector3 mStepGetItemPos = new(430, -815, 0);
         protected override void OnShow()
         {
-            SpineHandle.AnimationState.SetAnimation(0, "animation", true);
             BtnItem.onClick.AddListener(() =>
             {
                 LevelManager.Instance.RemoveAll();
@@ -37,9 +36,10 @@ namespace QFramework.Example
             {
                 this.SendEvent<UnLockItem>();
                 StepGetItem.Hide();
-                SpineHandle.gameObject.SetActive(true);
+                SpineHandle.Show();
+                SpineHandle.AnimationState.SetAnimation(0, "animation", true);
                 SetLocalPosition(SpineHandle.transform, mStepGetItemPos);
-                StepItem.Show();
+                BtnItem.Show();
             });
             SetpGetItem();
         }

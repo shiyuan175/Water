@@ -278,7 +278,7 @@ namespace QFramework.Example
                 UnLockItem("RemoveAll");
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
                 UnLockItem("StepBack");
-            if (level >= (int)GameDefine.UnLockMechanism.SelectPropsOpen)
+            if (level >= (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
                 BtnItemBg.Show();
         }
 

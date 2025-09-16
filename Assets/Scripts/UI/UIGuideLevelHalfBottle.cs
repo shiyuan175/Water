@@ -22,12 +22,11 @@ namespace QFramework.Example
 		}
         protected override void OnOpen(IUIData uiData = null)
         {
-            TxtGuide.font = LevelManager.Instance.blueFont;
+            
         }
         private readonly Vector3 mStepGetItemPos = new(207, -810, 0);
         protected override void OnShow()
         {
-            SpineHandle.AnimationState.SetAnimation(0, "animation", true);
             BtnItem.onClick.AddListener(() =>
             {
                 LevelManager.Instance.AddBottle(true);
@@ -37,9 +36,10 @@ namespace QFramework.Example
             {
                 this.SendEvent<UnLockItem>();
                 StepGetItem.Hide();
-                SpineHandle.gameObject.SetActive(true);
+                SpineHandle.Show();
+                SpineHandle.AnimationState.SetAnimation(0, "animation", true);
                 SetLocalPosition(SpineHandle.transform, mStepGetItemPos);
-                StepItem.Show();
+                BtnItem.Show();
             });
             SetpGetItem();
         }

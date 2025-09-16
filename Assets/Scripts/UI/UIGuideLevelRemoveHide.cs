@@ -10,9 +10,6 @@ namespace QFramework.Example
 	}
 	public partial class UIGuideLevelRemoveHide : UIGuideLevel
     {
-         [SerializeField]
-        GameObject setpGetItem;
-
         protected override void OnInit(IUIData uiData = null)
         {
             mData = uiData as UIGuideLevelRemoveHideData ?? new UIGuideLevelRemoveHideData();
@@ -21,12 +18,12 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-            TxtGuide.font = LevelManager.Instance.blueFont;
+            
         }
+
         private readonly Vector3 mStepGetItemPos = new(-227, -815, 0);
         protected override void OnShow()
         {
-            SpineHandle.AnimationState.SetAnimation(0, "animation", true);
             BtnItem.onClick.AddListener(() =>
             {
                 LevelManager.Instance.RemoveHide();
@@ -36,9 +33,10 @@ namespace QFramework.Example
             {
                 this.SendEvent<UnLockItem>();
                 StepGetItem.Hide();
-                SpineHandle.gameObject.SetActive(true);
+                SpineHandle.Show();
+                SpineHandle.AnimationState.SetAnimation(0, "animation", true);
                 SetLocalPosition(SpineHandle.transform, mStepGetItemPos);
-                StepItem.Show();
+                BtnItem.Show();
             });
             SetpGetItem();
         }

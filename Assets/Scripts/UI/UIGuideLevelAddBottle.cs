@@ -10,10 +10,7 @@ namespace QFramework.Example
 	}
 	public partial class UIGuideLevelAddBottle : UIGuideLevel
     {
-        private readonly Vector3 mStep2HandlePos = new(-190, -50, 0);
-		private readonly Vector3 mStep3HandlePos = new (190, -50, 0);
         private readonly Vector3 mStepGetItemPos = new(0, -815, 0);
-        private bool mIsStep2;
 
         protected override void OnInit(IUIData uiData = null)
 		{
@@ -27,7 +24,6 @@ namespace QFramework.Example
        
         protected override void OnShow()
         {
-            SpineHandle.AnimationState.SetAnimation(0, "animation", true);
             BtnItem.onClick.AddListener(() =>
             {
                 LevelManager.Instance.AddBottle(false);
@@ -37,9 +33,10 @@ namespace QFramework.Example
             {
                 this.SendEvent<UnLockItem>();
                 StepGetItem.Hide();
-                SpineHandle.gameObject.SetActive(true);
+                SpineHandle.Show();
+                SpineHandle.AnimationState.SetAnimation(0, "animation", true);
                 SetLocalPosition(SpineHandle.transform, mStepGetItemPos);
-                StepItem.Show();
+                BtnItem.Show();
             });
             SetpGetItem();
         }

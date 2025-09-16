@@ -11,12 +11,6 @@
 namespace QAssetBundle
 {
     
-    public class Atlasres
-    {
-        public const string BundleName = "atlasres";
-        public const string GoalAtlas = "GoalAtlas";
-        public const string RankLevelAtlas = "RankLevelAtlas";
-    }
     public class Coinfx_prefab
     {
         public const string BundleName = "coinfx_prefab";
@@ -34,6 +28,11 @@ namespace QAssetBundle
         public const string SourceHanSansCNBold_SDF_Green = "SourceHanSansCN-Bold SDF Green";
         public const string SourceHanSansCNBold_SDF_Red = "SourceHanSansCN-Bold SDF Red";
         public const string SourceHanSansCNBold = "SourceHanSansCN-Bold";
+    }
+    public class Ranklevelatlas_spriteatlasv2
+    {
+        public const string BundleName = "ranklevelatlas_spriteatlasv2";
+        public const string RankLevelAtlas = "RankLevelAtlas";
     }
     public class Sceneunlock1_prefab
     {
