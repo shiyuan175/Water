@@ -30,11 +30,11 @@ namespace GameDefine
         //活动存档标记
         public const string MAGIC_STREAK_ACTIVITY_SIGN = "MagicStreakActivity";
         public const string ROCKET_ACTIVITY_SIGN = "RocketActivity";
-        public const string HIGH_TOWER_ACTIVITY_SIGN = "HighTowerActivity";
+        public const string HIGH_TOWER_ACTIVITY_SIGN = "HighTowerActivity"; 
+        public const string TURNTABLE_AD_ACTIVITY_SIGN = "TurnTableADActivity";
+        public const string DAILYREWARD_AD_ACTIVITY = "TurnTableADActivity";
         //广告活动开启关卡
         public const int TT_AD_BEGIN_LEVEL = 16;
-        //广告活动存档标记
-        public const string TurnTable_AD_ACTIVITY_SIGN = "TurnTableADActivity";
 
         //存档标记
         public const string FIRST_LAUNCH_SIGN = "FIRST_LAUNCH";

@@ -147,7 +147,7 @@ namespace QFramework.Example
             {
                 // 没有计时的时候显示 并进行时间的初始化
                 if (GameActivityManager.Instance.GetActivity<TurnTableADActivity>() is TurnTableADActivity turnTableADActivity
-                    && turnTableADActivity.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TurnTable_AD_ACTIVITY_SIGN))
+                    && turnTableADActivity.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TURNTABLE_AD_ACTIVITY_SIGN))
                 {
                     GameActivityManager.Instance.GetActivity<TurnTableADActivity>().StartActivity();
                     UIKit.OpenPanel<UIMallTurntable>(new UIMallTurntableData { IsManagedOpen =true});

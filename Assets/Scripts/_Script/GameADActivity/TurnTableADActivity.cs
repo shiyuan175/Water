@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TurnTableADActivity : BaseGameADActivity
 {
-    public override string ActivitySign => GameConst.TurnTable_AD_ACTIVITY_SIGN;
+    public override string ActivitySign => GameConst.TURNTABLE_AD_ACTIVITY_SIGN;
     public override string ActivityID => GetType().Name;
     public override float ActivityDurationMinutes => 24 * 60;
 
