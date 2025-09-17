@@ -29,8 +29,6 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-     
-
             string _del = $"用户通过关卡:{this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1}," +
                 $"当前关卡进度:{this.GetUtility<SaveDataUtility>().GetCurrentLevel()}";
             AnalyticsManager.Instance.SendLevelEvent(_del);
@@ -147,7 +145,7 @@ namespace QFramework.Example
             {
                 // 没有计时的时候显示 并进行时间的初始化
                 if (GameActivityManager.Instance.GetActivity<TurnTableADActivity>() is TurnTableADActivity turnTableADActivity
-                    && turnTableADActivity.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TurnTable_AD_ACTIVITY_SIGN))
+                    && turnTableADActivity.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TURNTABLE_AD_ACTIVITY_SIGN))
                 {
                     GameActivityManager.Instance.GetActivity<TurnTableADActivity>().StartActivity();
                     UIKit.OpenPanel<UIMallTurntable>(new UIMallTurntableData { IsManagedOpen =true});
@@ -155,8 +153,8 @@ namespace QFramework.Example
                 }
                 return false;
             });
-             //高塔活动
-             PanelQueueManager.Instance.Enqueue(() =>
+            //高塔活动
+            PanelQueueManager.Instance.Enqueue(() =>
             {
                 if (GameActivityManager.Instance.GetActivity<HighTowerActivity>() is HighTowerActivity highTowerActivity
                     && highTowerActivity.ActivityStatus == GameActivityStatus.Active)
@@ -173,12 +171,9 @@ namespace QFramework.Example
 
             HandleMSA();
 
-
-
             //最后结算界面
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                Debug.Log(1);
                 UIKit.OpenPanel<UIGetCoin>();
                 return true;
             });

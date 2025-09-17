@@ -88,18 +88,18 @@ namespace QFramework.Example
                 PotionActivity();
             }
 
-            //BindBtn();
-            //RegisterEvent();
-            //InitSceneUI();
-            //InitActivityState();
-        }
-
-        protected override void OnShow()
-        {
             BindBtn();
             RegisterEvent();
             InitSceneUI();
             InitActivityState();
+        }
+
+        protected override void OnShow()
+        {
+            //BindBtn();
+            //RegisterEvent();
+            //InitSceneUI();
+            //InitActivityState();
         }
 
         protected override void OnHide()
@@ -432,7 +432,6 @@ namespace QFramework.Example
             SetCoin();
             SetStar();
             SetScene();
-            // 开始按钮的变化逻辑下放给SetStartLevel,因为不止这里需要调用
             SetStartLevel();
         }
 

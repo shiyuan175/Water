@@ -20,19 +20,21 @@ namespace QFramework.Example
 		protected override void OnOpen(IUIData uiData = null)
 		{
             stageModel = this.GetModel<StageModel>();
+
+            BtnClose.onClick.AddListener(() =>
+            {
+                CloseSelf();
+            });
+
+            BtnPlay.onClick.AddListener(() =>
+            {
+                CloseSelf();
+            });
         }
 		
 		protected override void OnShow()
 		{
-			BtnClose.onClick.AddListener(() =>
-            {
-				CloseSelf();
-            });
-
-			BtnPlay.onClick.AddListener(() =>
-			{
-                CloseSelf();
-            });
+			
         }
 		
 		protected override void OnHide()
@@ -42,7 +44,7 @@ namespace QFramework.Example
 		protected override void OnClose()
 		{
             int WinNum = stageModel.CountinueWinNum > GameConst.MAX_GIFT_STREAK_WIN ? GameConst.MAX_GIFT_STREAK_WIN : stageModel.CountinueWinNum;
-            StringEventSystem.Global.Send("StreakWinItem", WinNum);
+            StringEventSystem.Global.Send(GameConst.STREAK_WIN_REMOVE_HIDE, WinNum);
 
 			stageModel = null;
 			BtnPlay.onClick.RemoveAllListeners();

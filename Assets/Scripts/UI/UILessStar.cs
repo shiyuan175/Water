@@ -34,8 +34,7 @@ namespace QFramework.Example
 			{
                 UIKit.ClosePanel(mData.CurPanel);
 				UIKit.ShowPanel<UIBegin>();
-                UIKit.OpenPanel<UIBeginSelect>();
-				
+				UIKit.GetPanel<UIBegin>().BtnStart.onClick.Invoke();
 				CloseSelf();
 			});
 		}

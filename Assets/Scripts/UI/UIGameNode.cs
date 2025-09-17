@@ -163,7 +163,7 @@ namespace QFramework.Example
                     UnLockItem("StepBack");
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
-            StringEventSystem.Global.Register("StreakWinItem", (int count) =>
+            StringEventSystem.Global.Register(GameConst.STREAK_WIN_REMOVE_HIDE, (int count) =>
             {
                 ClearBottleBlackWater(count, false);
             }).UnRegisterWhenGameObjectDestroyed(gameObject);

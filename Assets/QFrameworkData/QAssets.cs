@@ -79,6 +79,11 @@ namespace QAssetBundle
         public const string BundleName = "uicontinue_prefab";
         public const string UIContinue = "UIContinue";
     }
+    public class Uidailyrewardadactivity_prefab
+    {
+        public const string BundleName = "uidailyrewardadactivity_prefab";
+        public const string UIDailyRewardADActivity = "UIDailyRewardADActivity";
+    }
     public class Uigamenode_prefab
     {
         public const string BundleName = "uigamenode_prefab";
@@ -97,7 +102,6 @@ namespace QAssetBundle
     public class Uiguidelevel1_prefab
     {
         public const string BundleName = "uiguidelevel1_prefab";
-        public const string UIGuideLevel = "UIGuideLevel";
         public const string UIGuideLevel1 = "UIGuideLevel1";
     }
     public class Uiguidelevel2_prefab
@@ -154,6 +158,11 @@ namespace QAssetBundle
     {
         public const string BundleName = "uimagicstreakactivityentrance_prefab";
         public const string UIMagicStreakActivityEntrance = "UIMagicStreakActivityEntrance";
+    }
+    public class Uimallturntable_prefab
+    {
+        public const string BundleName = "uimallturntable_prefab";
+        public const string UIMallTurntable = "UIMallTurntable";
     }
     public class Uimask_prefab
     {
