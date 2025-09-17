@@ -36,7 +36,7 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
         });
         ADBtn.onClick.AddListener(() =>
         {
-            UIKit.OpenPanel<UIMallTurntable>();
+            UIKit.OpenPanel<UIDailyRewardADActivity>();
         });
     }
 

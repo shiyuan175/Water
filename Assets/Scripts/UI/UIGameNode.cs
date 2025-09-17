@@ -266,7 +266,7 @@ namespace QFramework.Example
         /// </summary>
         protected void InitItemUI()
         {
-            int level = LevelManager.Instance.levelId;
+            int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
                 UnLockItem("AddBottle");

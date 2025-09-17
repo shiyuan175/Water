@@ -26,16 +26,16 @@ namespace GameDefine
         public const int VA_BEGIN_LEVEL = 7;    //火山活动
         public const int RA_BEGIN_LEVEL = 24;   //火箭活动
         public const int HTA_BEGIN_LEVEL = 34;  //高塔活动
-        
+        public const int TT_AD_BEGIN_LEVEL = 16;
+        public const int DR_AD_BEGIN_LEVEL = 8;
+
         //活动存档标记
         public const string MAGIC_STREAK_ACTIVITY_SIGN = "MagicStreakActivity";
         public const string ROCKET_ACTIVITY_SIGN = "RocketActivity";
         public const string HIGH_TOWER_ACTIVITY_SIGN = "HighTowerActivity"; 
         public const string TURNTABLE_AD_ACTIVITY_SIGN = "TurnTableADActivity";
-        public const string DAILYREWARD_AD_ACTIVITY = "TurnTableADActivity";
-        //广告活动开启关卡
-        public const int TT_AD_BEGIN_LEVEL = 16;
-
+        public const string DAILYREWARD_AD_ACTIVITY_SIGN = "DailyRewardADActivity";
+        
         //存档标记
         public const string FIRST_LAUNCH_SIGN = "FIRST_LAUNCH";
         public const string DOUBLE_COIN_SIGN = "DoubleCoin";

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnTableADActivity : BaseGameADActivity
+public class TurnTableADActivity : BaseGameADActivity<GameObject>
 {
     public override string ActivitySign => GameConst.TURNTABLE_AD_ACTIVITY_SIGN;
     public override string ActivityID => GetType().Name;
@@ -50,7 +50,6 @@ public class TurnTableADActivity : BaseGameADActivity
 
     public override void RestartActivity()
     {
-        Debug.Log("s3");
         CountDownTimerManager.Instance.ResetEasternMidnightTimer(ActivitySign);
         mTTModel.TurnTableTimeEnd();
     }
@@ -62,7 +61,6 @@ public class TurnTableADActivity : BaseGameADActivity
         {
              RestartActivity();
         }
-           
 
         base.Tick();
     }
@@ -70,8 +68,6 @@ public class TurnTableADActivity : BaseGameADActivity
     public override void ADPlaybackCompleted(GameObject target)
     {     
         mTTModel.TurnTableAnimationEnd();
-        
-        /*  StageModel _stageModel = this.GetModel<StageModel>();*/
         TurnTablePackSo _packSo = target.GetComponent<TurnTablePack>().turnTablePack;
         mRewardGrantUtility.GrantReward(_packSo);
     }

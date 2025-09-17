@@ -14,7 +14,6 @@ public class TurnTableADActivityModel : AbstractModel
     private SaveDataUtility storage;
     protected override void OnInit()
     {
-     
         storage = this.GetUtility<SaveDataUtility>();
         mCurrentTurnTableCount = storage.GetTurnTableCount();
     }

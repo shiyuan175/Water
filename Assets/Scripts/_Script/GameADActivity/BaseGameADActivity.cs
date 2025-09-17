@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseGameADActivity : IGameActivity, ICanGetModel, ICanGetUtility, ICanSendEvent
+public abstract class BaseGameADActivity<T> : IGameActivity, ICanGetModel, ICanGetUtility, ICanSendEvent
 {
     public abstract string ActivitySign { get; }
     public abstract string ActivityID { get; }
@@ -73,8 +73,5 @@ public abstract class BaseGameADActivity : IGameActivity, ICanGetModel, ICanGetU
         
     }
 
-    public virtual void ADPlaybackCompleted(GameObject target)
-    {
-
-    }
+    public abstract void ADPlaybackCompleted(T target);
 }

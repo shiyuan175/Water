@@ -178,7 +178,7 @@ namespace QFramework.Example
             //最后结算界面
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                Debug.Log(1);
+
                 UIKit.OpenPanel<UIGetCoin>();
                 return true;
             });

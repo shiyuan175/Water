@@ -31,6 +31,7 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterModel(new MagicStreakActivityModel());
         RegisterModel(new TurnTableADActivityModel());
         RegisterModel(new SceneUnlockModel());
+        RegisterModel(new DailyRewardADActivityModel());
     }
 
     private void RegisterUtilitys()

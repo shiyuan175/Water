@@ -12,7 +12,7 @@ namespace QFramework.Example
     {
         public bool? IsManagedOpen;
     }
-    public partial class UIMallTurntable : UIPanel, ICanGetUtility
+    public partial class UIMallTurntable : UIPanel
     {
 		[SerializeField]
 		float MinRingCount = 1f;
@@ -21,16 +21,13 @@ namespace QFramework.Example
 		[SerializeField]
         public Ease easeType;
 
-		List<List<GameObject>> packs;
+
         GameObject targetGameObject;
         TurnTableTimesProbability[] allValues;
 		
 
 		private TurnTableADActivity mTurnTableADActivity;
-        public IArchitecture GetArchitecture()
-        {
-            return GameMainArc.Interface;
-        }
+
         protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UIMallTurntableData ?? new UIMallTurntableData();
@@ -56,11 +53,12 @@ namespace QFramework.Example
             {
                 int giftProbability = (int)pack.GetComponent<TurnTablePack>().turnTablePack.AwardLevel;
             }
+			BindBtn();
         }
 
         protected override void OnShow()
 		{
-			BindBtn();
+			
 			RefreshUI();
         }
 		
@@ -79,7 +77,6 @@ namespace QFramework.Example
             BtnBeginTurnTable.onClick.RemoveAllListeners();
 			BtnBeginTurnTable.onClick.AddListener(() =>
 			{
-				Debug.Log(mTurnTableADActivity.CurrentTurnTableCount);
 				//不是第一次，播放广告
 				if (mTurnTableADActivity.CurrentTurnTableCount> 0)
 				{

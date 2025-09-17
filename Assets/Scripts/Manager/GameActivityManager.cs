@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
 using QFramework;
+using GameDefine;
 
 public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetModel, ICanGetUtility
 {
@@ -46,7 +47,17 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<TurnTableADActivity>();
         }
-           
+        if (_curLevel >= GameDefine.GameConst.DR_AD_BEGIN_LEVEL)
+        {
+            RegisterActivity<DailyRewardADActivity>();
+            if (!GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.DAILYREWARD_AD_ACTIVITY_SIGN))
+            {
+                GetActivity<DailyRewardADActivity>().StartActivity();
+            }
+
+               
+        }
+
 
         if (_curLevel >= GameDefine.GameConst.WIN_STREAK_BEGIN_LEVEL)
         {
