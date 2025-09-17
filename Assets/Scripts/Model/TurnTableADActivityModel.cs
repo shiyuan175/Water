@@ -6,32 +6,32 @@ using UnityEngine;
 
 public class TurnTableADActivityModel : AbstractModel
 {
-    public int CurrentTurnTableCount => mCurrentTurnTableCount;
+    public int CurrentTurnTableCount => mCurrentTurnTableCount.Value;
 
+    private const string TURN_TABLE_COUNT = "H_TurnTableCount";
 
-
-    private int mCurrentTurnTableCount;
+    private BindableProperty<int> mCurrentTurnTableCount;
     private SaveDataUtility storage;
+
     protected override void OnInit()
     {
         storage = this.GetUtility<SaveDataUtility>();
-        mCurrentTurnTableCount = storage.GetTurnTableCount();
+        mCurrentTurnTableCount = new BindableProperty<int>();
+        mCurrentTurnTableCount.SetValueWithoutEvent(storage.LoadIntValue(TURN_TABLE_COUNT));
+        mCurrentTurnTableCount.Register(value =>
+        {
+            storage.SaveInt(TURN_TABLE_COUNT, value);
+
+        });
     }
 
-    public void TurnTableAnimationEnd()
+    public void AddTurnTableCount()
     {
-        mCurrentTurnTableCount++;
-        ChangeCount();
+        ++mCurrentTurnTableCount.Value;
     }
 
-    public void TurnTableTimeEnd()
+    public void RefreshTurnTableCount()
     {
-        mCurrentTurnTableCount = 0;
-        ChangeCount();
-    }
-
-    private void ChangeCount()
-    {
-        storage.SaveTurnTableCount(mCurrentTurnTableCount);
+        mCurrentTurnTableCount.Value = 0;
     }
 }

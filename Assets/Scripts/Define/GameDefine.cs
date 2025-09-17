@@ -21,9 +21,12 @@ namespace GameDefine
         public const int MAX_GIFT_STREAK_WIN = 3;
         //第八关开启连胜相关功能(连胜段位\连胜去黑\主页连胜活动...)
         public const int WIN_STREAK_BEGIN_LEVEL = 8;
+        //切换关卡计算
+        public const int LEVEL_TYPE_LAST_DIGIT = 10;
 
         //活动开启目标关卡
         public const int VA_BEGIN_LEVEL = 7;    //火山活动
+        public const int TT_AD_BEGIN_LEVEL = 16; //轮盘活动
         public const int RA_BEGIN_LEVEL = 24;   //火箭活动
         public const int HTA_BEGIN_LEVEL = 34;  //高塔活动
         public const int TT_AD_BEGIN_LEVEL = 16;
@@ -54,14 +57,8 @@ namespace GameDefine
         public const string UNLOCK_NEW_SCENES = "UnlockNewScenes";
         public const string SCENE_UNLOCK_GUIDE_STEP1 = "SceneUnlockGuideStep1";
         public const string SCENE_UNLOCK_GUIDE_STEP2 = "SceneUnlockGuideStep2";
+        public const string STREAK_WIN_REMOVE_HIDE = "StreakWinRemoveHide";
 
-        //切换关卡计算
-        public const int LEVEL_TYPE_LAST_DIGIT =10;
-
-        // 轮盘概率计算归一化 默认为100 轮盘基本概率 = enum概率/本常量
-        public const int TURNTABLE_PROBABIlITY = 100;
-        // 轮盘游戏次数
-        public const int TURNTABLE_LIMIT_GAMETIMES_PER_CYCLE = 6;
         #region Json file info
 
         public readonly static JsonFileInfo MSADefaultJson = new()
@@ -109,8 +106,6 @@ namespace GameDefine
             {0, "SceneUnlock1"},
             {1, "SceneUnlock2" }
         };
-
-        
     }
 
     /// <summary>
@@ -449,8 +444,9 @@ namespace GameDefine
         ThirdTime = 15,
         FourthTime = 20,
         FifthTime = 25,
-        SixThTime =30
+        SixThTime = 30
     }
+
     /// <summary>
     /// 这里的值与归一化本常量相除得到真正的奖项概率
     /// </summary>

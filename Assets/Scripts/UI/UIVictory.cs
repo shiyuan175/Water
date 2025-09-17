@@ -29,8 +29,6 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-     
-
             string _del = $"用户通过关卡:{this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1}," +
                 $"当前关卡进度:{this.GetUtility<SaveDataUtility>().GetCurrentLevel()}";
             AnalyticsManager.Instance.SendLevelEvent(_del);
@@ -155,8 +153,8 @@ namespace QFramework.Example
                 }
                 return false;
             });
-             //高塔活动
-             PanelQueueManager.Instance.Enqueue(() =>
+            //高塔活动
+            PanelQueueManager.Instance.Enqueue(() =>
             {
                 if (GameActivityManager.Instance.GetActivity<HighTowerActivity>() is HighTowerActivity highTowerActivity
                     && highTowerActivity.ActivityStatus == GameActivityStatus.Active)
@@ -172,8 +170,6 @@ namespace QFramework.Example
             });
 
             HandleMSA();
-
-
 
             //最后结算界面
             PanelQueueManager.Instance.Enqueue(() =>
