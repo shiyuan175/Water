@@ -23096,15 +23096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c8f017afe14f6459e36ffe67c801ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RewardSprites:
-  - {fileID: 21300000, guid: df1119d32cb225a4f9138590e1399d9a, type: 3}
-  - {fileID: 21300000, guid: 2c9a11e7a98ee7f4292aa9262b9b2cb6, type: 3}
-  - {fileID: 21300000, guid: f1d1e6d364c8a0e4da1ac9f31b5154e7, type: 3}
-  - {fileID: 21300000, guid: 53663a455aec6cf49b1e465580001902, type: 3}
-  - {fileID: 21300000, guid: ad824b0a9fd905a4f89867c50b47eeac, type: 3}
-  - {fileID: 21300000, guid: 5df3e3083d40e7549bf02cd83ba49c69, type: 3}
-  - {fileID: 21300000, guid: 94bc4ea0bef10b14bb587e35ca1891cb, type: 3}
-  - {fileID: 21300000, guid: eb720265bc7c1454c86d138d7361b883, type: 3}
+  mRewardSpriteMappingSO: {fileID: 11400000, guid: ccddaf171c808d343876466fb21b27c7, type: 2}
   BoxAnimator: {fileID: 2689383893831718159}
   AddCoinTxtUp: {fileID: 0}
   BtnContinue: {fileID: 295934832}

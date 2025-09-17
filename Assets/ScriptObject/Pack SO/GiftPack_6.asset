@@ -15,20 +15,20 @@ MonoBehaviour:
   PackID: gift_6
   coins: 60000
   items:
-  - itemIndex: 1
+  - normalRewardsType: 0
+    itemIndex: 1
     quantity: 36
-    rewardSprite: {fileID: 21300000, guid: df1119d32cb225a4f9138590e1399d9a, type: 3}
-  - itemIndex: 2
+  - normalRewardsType: 1
+    itemIndex: 2
     quantity: 36
-    rewardSprite: {fileID: 21300000, guid: 2c9a11e7a98ee7f4292aa9262b9b2cb6, type: 3}
-  - itemIndex: 3
+  - normalRewardsType: 2
+    itemIndex: 3
     quantity: 36
-    rewardSprite: {fileID: 21300000, guid: f1d1e6d364c8a0e4da1ac9f31b5154e7, type: 3}
-  - itemIndex: 4
+  - normalRewardsType: 3
+    itemIndex: 4
     quantity: 36
-    rewardSprite: {fileID: 21300000, guid: 53663a455aec6cf49b1e465580001902, type: 3}
-  - itemIndex: 5
+  - normalRewardsType: 4
+    itemIndex: 5
     quantity: 10
-    rewardSprite: {fileID: 21300000, guid: ad824b0a9fd905a4f89867c50b47eeac, type: 3}
   unlimitedHp: 4320
   removeAds: 1

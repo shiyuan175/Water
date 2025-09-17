@@ -11,7 +11,7 @@ public class RewardGrantUtility : IUtility, ICanGetModel
         CoinManager.Instance.AddCoin(rewardPackSO.Coins);
         foreach (var item in rewardPackSO.ItemReward)
         {
-            _StageModel.AddItem(item.ItemIndex, item.Quantity);
+            _StageModel.AddItem((int)item.NormalRewardsType, item.Quantity);
         }
         foreach (var item in rewardPackSO.SpecialRewards)
         {

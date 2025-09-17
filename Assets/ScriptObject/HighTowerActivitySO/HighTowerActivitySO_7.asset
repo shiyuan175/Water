@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coins: 50
   items:
-  - itemIndex: 8
+  - normalRewardsType: 7
+    itemIndex: 8
     quantity: 1
-    rewardSprite: {fileID: 21300000, guid: eb720265bc7c1454c86d138d7361b883, type: 3}
   specialReward:
   - specialRewardType: 2
     duration: 30

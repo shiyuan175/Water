@@ -15,11 +15,11 @@ MonoBehaviour:
   PackID: Level_76
   coins: 0
   items:
-  - itemIndex: 4
+  - normalRewardsType: 3
+    itemIndex: 4
     quantity: 1
-    rewardSprite: {fileID: 21300000, guid: 53663a455aec6cf49b1e465580001902, type: 3}
-  - itemIndex: 6
+  - normalRewardsType: 5
+    itemIndex: 6
     quantity: 1
-    rewardSprite: {fileID: 21300000, guid: 5df3e3083d40e7549bf02cd83ba49c69, type: 3}
   unlimitedHp: 0
   removeAds: 0

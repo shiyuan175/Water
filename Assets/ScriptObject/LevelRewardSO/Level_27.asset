@@ -15,14 +15,14 @@ MonoBehaviour:
   PackID: Level_27
   coins: 0
   items:
-  - itemIndex: 6
+  - normalRewardsType: 5
+    itemIndex: 6
     quantity: 1
-    rewardSprite: {fileID: 21300000, guid: 5df3e3083d40e7549bf02cd83ba49c69, type: 3}
-  - itemIndex: 7
+  - normalRewardsType: 6
+    itemIndex: 7
     quantity: 1
-    rewardSprite: {fileID: 21300000, guid: 94bc4ea0bef10b14bb587e35ca1891cb, type: 3}
-  - itemIndex: 8
+  - normalRewardsType: 7
+    itemIndex: 8
     quantity: 1
-    rewardSprite: {fileID: 21300000, guid: eb720265bc7c1454c86d138d7361b883, type: 3}
   unlimitedHp: 0
   removeAds: 0
