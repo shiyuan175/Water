@@ -20,6 +20,7 @@ Library: D:\Documents\GitHub\Water\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_
 --assembly-defines=mscorlib;
 --assembly-defines=NativeShare.Runtime;
 --assembly-defines=Newtonsoft.Json;
+--assembly-defines=NodaTime;
 --assembly-defines=Purchasing.Common;
 --assembly-defines=QFramework.CoreKit;
 --assembly-defines=QFramework;
@@ -33,6 +34,7 @@ Library: D:\Documents\GitHub\Water\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_
 --assembly-defines=System;
 --assembly-defines=System.Drawing;
 --assembly-defines=System.Numerics;
+--assembly-defines=System.Runtime.CompilerServices.Unsafe;
 --assembly-defines=System.Runtime.Serialization;
 --assembly-defines=System.Xml;
 --assembly-defines=System.Xml.Linq;
@@ -84,6 +86,7 @@ Library: D:\Documents\GitHub\Water\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_
 --assembly-defines=mscorlib;
 --assembly-defines=NativeShare.Runtime;
 --assembly-defines=Newtonsoft.Json;
+--assembly-defines=NodaTime;
 --assembly-defines=Purchasing.Common;
 --assembly-defines=QFramework.CoreKit;
 --assembly-defines=QFramework;
@@ -97,6 +100,7 @@ Library: D:\Documents\GitHub\Water\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_
 --assembly-defines=System;
 --assembly-defines=System.Drawing;
 --assembly-defines=System.Numerics;
+--assembly-defines=System.Runtime.CompilerServices.Unsafe;
 --assembly-defines=System.Runtime.Serialization;
 --assembly-defines=System.Xml;
 --assembly-defines=System.Xml.Linq;

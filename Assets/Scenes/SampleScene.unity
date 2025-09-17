@@ -7451,7 +7451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &628962270
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7744,7 +7744,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.4082179, y: -0.2345697, z: 0.1093816, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8530,7 +8530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &793433909
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8850,7 +8850,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &816155018
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16835,15 +16835,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224089801841284202, guid: c70aac0028afd42eabc9e0c55824c824, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.0052083335
+      value: 0.005208333
       objectReference: {fileID: 0}
     - target: {fileID: 224089801841284202, guid: c70aac0028afd42eabc9e0c55824c824, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.0052083335
+      value: 0.005208333
       objectReference: {fileID: 0}
     - target: {fileID: 224089801841284202, guid: c70aac0028afd42eabc9e0c55824c824, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.0052083335
+      value: 0.005208333
       objectReference: {fileID: 0}
     - target: {fileID: 224089801841284202, guid: c70aac0028afd42eabc9e0c55824c824, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24108,7 +24108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1630791234
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24144,7 +24144,7 @@ MonoBehaviour:
   inputField: {fileID: 1630791236}
   button: {fileID: 628962271}
   Btnfinish: {fileID: 816155019}
-  ADBtn: {fileID: 793433910}
+  ADBtn: {fileID: 0}
 --- !u!114 &1630791236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25600,17 +25600,17 @@ ParticleSystem:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
         key1: {r: 1, g: 1, b: 1, a: 1}
-        key2: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
-        key3: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 0.039215688}
-        key4: {r: 1, g: 0, b: 0, a: 0.039215688}
-        key5: {r: 0, g: 0, b: 0, a: 0.039215688}
+        key2: {r: 0, g: 0, b: 0, a: 1}
+        key3: {r: 0, g: 0, b: 0, a: 0.039215688}
+        key4: {r: 0, g: 0, b: 0, a: 0}
+        key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
         ctime1: 65535
-        ctime2: 65535
-        ctime3: 65535
-        ctime4: 65535
+        ctime2: 0
+        ctime3: 0
+        ctime4: 0
         ctime5: 0
         ctime6: 0
         ctime7: 0
@@ -25618,8 +25618,8 @@ ParticleSystem:
         atime1: 16384
         atime2: 32768
         atime3: 65535
-        atime4: 65535
-        atime5: 65535
+        atime4: 0
+        atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
@@ -29067,7 +29067,7 @@ Transform:
   m_GameObject: {fileID: 1764852950}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 13.52, y: 10.79, z: -0.25820968}
+  m_LocalPosition: {x: 13.52, y: 10.79, z: -0.2582097}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30075,7 +30075,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1774.4635, y: 1450}
+  m_SizeDelta: {x: 1774.464, y: 1450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &8657882607543056242
 PrefabInstance:

@@ -29,7 +29,7 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-            TxtLevel.font = LevelManager.Instance.blueFont;
+     
 
             string _del = $"用户通过关卡:{this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1}," +
                 $"当前关卡进度:{this.GetUtility<SaveDataUtility>().GetCurrentLevel()}";
@@ -57,7 +57,7 @@ namespace QFramework.Example
             });
 
             ShowAnim();
-            TxtLevel.text = (this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1).ToString();
+
             WaitClose();
         }
 
@@ -150,7 +150,7 @@ namespace QFramework.Example
                     && turnTableADActivity.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TurnTable_AD_ACTIVITY_SIGN))
                 {
                     GameActivityManager.Instance.GetActivity<TurnTableADActivity>().StartActivity();
-                    UIKit.OpenPanel<UIMallTurntable>();
+                    UIKit.OpenPanel<UIMallTurntable>(new UIMallTurntableData { IsManagedOpen =true});
                     return true;
                 }
                 return false;

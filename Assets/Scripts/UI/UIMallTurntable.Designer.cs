@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:74c2929c-86bb-42f4-8912-86feaf491dc0
+	// Generate Id:422ddc5e-5086-446a-b1e9-7c2e51efc363
 	public partial class UIMallTurntable
 	{
 		public const string Name = "UIMallTurntable";
