@@ -23,7 +23,7 @@ namespace QFramework.Example
 
         [SerializeField] private float MinRingCount = 1f;
 
-        [SerializeField] private List<GameObject> mTurnTablePack;
+        [SerializeField] private List<GameObject> mTurnTableNode;
 
         [SerializeField] private GameObject targetGameObject;
 
@@ -44,16 +44,23 @@ namespace QFramework.Example
         {
             mTurnTableADActivity = GameActivityManager.Instance.GetActivity<TurnTableADActivity>();
 
-            //按照枚举的值排序mTurnTablePack  概率越低在越前面
-            mTurnTablePack.Sort((a, b) => ((int)a.GetComponent<TurnTablePack>().turnTablePack.AwardLevel).CompareTo((int)b.GetComponent<TurnTablePack>().turnTablePack.AwardLevel));
-            foreach (var pack in mTurnTablePack)
+            //按照枚举的值排序mTurnTableNode  概率越低在越前面
+            mTurnTableNode.Sort((a, b) => ((int)a.GetComponent<TurnTableNode>().AwardLevel).CompareTo((int)b.GetComponent<TurnTableNode>().AwardLevel));
+            foreach (var node in mTurnTableNode)
             {
-                pack.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = pack.GetComponent<TurnTablePack>().turnTablePack.ItemCount();
+                GiftPackSO pack = node.GetComponent<TurnTableNode>().PackSo;
+                int _value = Mathf.Max(pack.Coins, pack.UnlimitedHp);
+                foreach(var i in pack.ItemReward)
+                {
+                    if (_value < i.Quantity)
+                        _value = i.Quantity;
+                }
+                node.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = _value.ToString();
             }
 
-            foreach (var pack in mTurnTablePack)
+            foreach (var node in mTurnTableNode)
             {
-                int giftProbability = (int)pack.GetComponent<TurnTablePack>().turnTablePack.AwardLevel;
+                int giftProbability = (int)node.GetComponent<TurnTableNode>().AwardLevel;
             }
 
             BindBtn();
@@ -169,21 +176,21 @@ namespace QFramework.Example
             int probabilityNumber = UnityEngine.Random.Range(0, TURNTABLE_PROBABIlITY);
 
             // 用来做同概率礼物的随机取值
-            GameObject[] _SameTypeGift = new GameObject[mTurnTablePack.Count];
+            GameObject[] _SameTypeGift = new GameObject[mTurnTableNode.Count];
             int _index = 0;
-            for (int i = 0; i < mTurnTablePack.Count; i++)
+            for (int i = 0; i < mTurnTableNode.Count; i++)
             {
                 /*int timeProbability = (int)allValues[mTurnTableADActivity.CurrentTurnTableCount];*/
-                int giftProbability = (int)mTurnTablePack[i].GetComponent<TurnTablePack>().turnTablePack.AwardLevel;
+                int giftProbability = (int)mTurnTableNode[i].GetComponent<TurnTableNode>().AwardLevel;
                 if (probabilityNumber < giftProbability)
                 {
                     // 同一个概率的礼物有多个，需要随机取其中一个 从0开始是为了把自己也丢进数组
-                    for (int j = 0; j + i < mTurnTablePack.Count; j++)
+                    for (int j = 0; j + i < mTurnTableNode.Count; j++)
                     {
-                        int _giftProbability = (int)mTurnTablePack[i + j].GetComponent<TurnTablePack>().turnTablePack.AwardLevel;
+                        int _giftProbability = (int)mTurnTableNode[i + j].GetComponent<TurnTableNode>().AwardLevel;
                         if (_giftProbability != giftProbability)
                             break;
-                        GameObject _gameObject = mTurnTablePack[i + j];
+                        GameObject _gameObject = mTurnTableNode[i + j];
                         _SameTypeGift[_index++] = _gameObject;
                     }
 
@@ -193,7 +200,7 @@ namespace QFramework.Example
             }
 
             // 返回最坏的奖励作为边界
-            return mTurnTablePack[mTurnTablePack.Count - 1];
+            return mTurnTableNode[mTurnTableNode.Count - 1];
         }
     }
 }

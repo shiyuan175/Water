@@ -5,13 +5,17 @@ using TMPro;
 
 namespace QFramework.Example
 {
-	public class UIGuideLevelAddBottleData : UIGuideLevelData
+	public class UIGuideLevelAddBottleData : UIPanelData
     {
 	}
-	public partial class UIGuideLevelAddBottle : UIGuideLevel
+	public partial class UIGuideLevelAddBottle : UIPanel,ICanSendEvent
     {
         private readonly Vector3 mStepGetItemPos = new(0, -815, 0);
 
+        public IArchitecture GetArchitecture()
+        {
+            return GameMainArc.Interface;
+        }
         protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UIGuideLevelAddBottleData ?? new UIGuideLevelAddBottleData();
@@ -35,7 +39,7 @@ namespace QFramework.Example
                 StepGetItem.Hide();
                 SpineHandle.Show();
                 SpineHandle.AnimationState.SetAnimation(0, "animation", true);
-                SetLocalPosition(SpineHandle.transform, mStepGetItemPos);
+/*                SetLocalPosition(SpineHandle.transform, mStepGetItemPos);*/
                 BtnItem.Show();
             });
             SetpGetItem();
@@ -56,5 +60,7 @@ namespace QFramework.Example
             StepGetItem.Show();
             SpineHandle.gameObject.SetActive(false);
         }
+
+        
     }
 }

@@ -422,6 +422,7 @@ namespace QFramework.Example
         {
             TxtImgprogress.font = LevelManager.Instance.blueFont;
             TxtImgprogress.font.material.shader = Shader.Find(TxtImgprogress.font.material.shader.name);
+            TxtStartLevel.font = LevelManager.Instance.redFont;
             TxtArea.font = LevelManager.Instance.redFont;
         }
 
@@ -482,9 +483,9 @@ namespace QFramework.Example
                         break;  
                 }
             }
-            TxtStartLevel.text = $"Level {currentLevel}"+$"<br><size=50>{appendString}</size>";
+            TxtStartLevel.text = $"Level {currentLevel}"+$"<br><size=45>{appendString}</size>";
         }
-
+        
         /// <summary>
         /// 金币和星星的飞行粒子效果
         /// </summary>

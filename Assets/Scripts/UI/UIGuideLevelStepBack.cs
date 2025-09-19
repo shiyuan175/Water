@@ -12,6 +12,7 @@ namespace QFramework.Example
     {
         [SerializeField]
         GameObject setpGetItem;
+        StageModel MstageModel;
         private readonly Vector3 mStep1HandlePos = new(88, -370, 0);
         private readonly Vector3 mStep2HandlePos = new(-90, -370, 0);
         private readonly Vector3 mStepGetItemPos = new(-445, -815, 0);
@@ -57,7 +58,7 @@ namespace QFramework.Example
 
             BtnItem.onClick.AddListener(() =>
             {
-                LevelManager.Instance.ReturnLast();
+                LevelManager.Instance.ReturnLast();                
                 CloseSelf();
             });
         }

@@ -63,7 +63,7 @@ public class TurnTableADActivity : BaseGameADActivity<GameObject>
     {     
         mTTModel.AddTurnTableCount();
         
-        TurnTablePackSo _packSo = target.GetComponent<TurnTablePack>().turnTablePack;
+        GiftPackSO _packSo = target.GetComponent<TurnTableNode>().PackSo;
         mRewardGrantUtility.GrantReward(_packSo);
     }
      

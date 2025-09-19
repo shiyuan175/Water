@@ -34,7 +34,7 @@ namespace QFramework.Example
         private ResLoader mResLoader;
         private StageModel stageModel;
         private TierRankActivity mTierRankActivity;
-        
+
         private SpriteAtlas mRankLevelSpriteAtlas;
 
         private int mCacheRankSpriteIndex;
@@ -167,7 +167,7 @@ namespace QFramework.Example
             {
                 ClearBottleBlackWater(count, false);
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
-            
+
             StringEventSystem.Global.Register(GameConst.VICTORY_EVENT, () =>
             {
                 int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
@@ -245,22 +245,53 @@ namespace QFramework.Example
             int _index = 0;
             switch (level % GET_THE_LAST_NUMBER_OF_LEVEL)
             {
-                case 4:
+                case (int)LevelHardType.Hard:
                     _index = 1;
                     break;
-                case 9:
+
+                case (int)LevelHardType.VeryHand:
                     _index = 2;
                     break;
+
                     // t初始化为0，所以没有用Defailt取0
             }
-            foreach (var i in imgBtnItemBg)
-                i.sprite = imgBtnItemBgSprites[_index];
+            if (_index != 0)
+                SetTextTip();
+            // 换按钮的背景颜色
+            /*foreach (var i in imgBtnItemBg)
+                i.sprite = imgBtnItemBgSprites[_index];*/
             imgTopBg.sprite = imgTopBgSprites[_index];
             imgLevel.sprite = imgLevelSprites[_index];
             imgBottom.sprite = imgBottomSpirtes[_index];
             imgBtnReturn.sprite = imgBtnReturnSprites[_index];
+
         }
 
+        private void SetTextTip()
+        {
+            // 设置动画
+            LevelTipPanel.Show();
+            float _durationTime = 2.5f;
+            CanvasGroup _canvasGroup = LevelTipPanel.GetComponent<CanvasGroup>();
+            _canvasGroup.alpha = 0;
+            _canvasGroup.DOFade(1f, _durationTime)
+                .SetEase(Ease.OutQuad)
+                .OnComplete(() =>
+                {
+                    _canvasGroup.DOFade(0f, _durationTime)
+                    .SetEase(Ease.OutQuad)
+                    .OnComplete(() =>
+                    {
+                        LevelTipPanel.Hide();
+                    });
+                    
+                });
+
+            // 设置文本 5-20的偏转值
+            TextLevelTip.text = UnityEngine.Random.Range(50, 70).ToString() + "% of players were defeated at this level";
+
+
+        }
         /// <summary>
         /// 显示道具图标
         /// </summary>
@@ -304,7 +335,7 @@ namespace QFramework.Example
                 mCacheRankSpriteIndex = mTierRankActivity.PlayerTierRankIndex;
                 ImgRankLevel.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mCacheRankSpriteIndex));
             }
-            
+
             else ImgRankLevel.Hide();
         }
 

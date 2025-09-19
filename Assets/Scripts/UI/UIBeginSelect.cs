@@ -41,6 +41,7 @@ namespace QFramework.Example
         protected override void OnInit(IUIData uiData = null)
         {
             mData = uiData as UIBeginSelectData ?? new UIBeginSelectData();
+
             // please add init code here
         }
 
@@ -64,6 +65,10 @@ namespace QFramework.Example
                 }
             }
             TxtLevelTitle.text = $"Level {currentLevel}";
+
+            
+           
+            ContinueWinGoalNode.Hide();
         }
 
         protected override void OnShow()
@@ -76,7 +81,6 @@ namespace QFramework.Example
             UpdateWinNum();
             UpdateItem();
             SetGoldCoinBuffUI();
-            CheckGuideLevel();
             BtnClose.onClick.AddListener(() =>
             {
                 CloseSelf();
@@ -131,8 +135,16 @@ namespace QFramework.Example
             }
 
             ImgReward.Hide();
-            
-            
+
+            for (int i = 0; i < selectBtns.Length; i++)
+            {
+                Transform _transform = selectBtns[i].transform;
+
+                _transform.Find("ImgLock").Find("TextOpenTip").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont;
+                _transform.Find("ImgLock").Show();
+                _transform.Find("Image (5)").Hide();
+            }
+            CheckGuideLevel();
         }
 
         protected override void OnHide()
@@ -263,6 +275,12 @@ namespace QFramework.Example
         /// </summary>
         private void SetEnterPropsGuideUI()
         {
+            for (int i = 0; i < selectBtns.Length; i++)
+            {
+                Transform _transform = selectBtns[i].transform;
+                _transform.Find("Image (5)").gameObject.Hide();
+
+            }
             ItemGuidePanel.gameObject.Show();
             int startID = 6;
             SpineHandleItem.AnimationState.SetAnimation(0, "animation", true);
@@ -301,7 +319,7 @@ namespace QFramework.Example
                 selectBtns[i].interactable = true;
                 
                 _transform.Find("ImgLock").gameObject.Hide();
-
+                _transform.Find("Image (5)").gameObject.Show();
             }
         }
 
@@ -309,6 +327,7 @@ namespace QFramework.Example
         {
             GoldCoinGuidePanel.gameObject.Show();
             SetGoldCoinUnClockUI();
+           
             BtnGoldGuide.onClick.AddListener(() =>
             {
                 GoldCoinGuidePanel.gameObject.Hide();
