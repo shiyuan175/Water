@@ -105,7 +105,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
         UIKit.OpenPanel<UIBegin>();
 
-        if (levelId <= 5)
+        if (levelId <= GameConst.NEWBIE_LEVEL_COUNT)
         {
             UIKit.OpenPanel<UIGameNode>();
             StartGame(levelId);

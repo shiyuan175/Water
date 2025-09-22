@@ -121,7 +121,7 @@ namespace QFramework.Example
         {
 
             UIKit.ClosePanel<UIGameNode>();
-            this.SendEvent<LevelClearEvent>(new LevelClearEvent());
+            this.SendEvent(new ReturnToMainEvent { PassLevel = true });
             CloseSelf();
         }
 

@@ -76,7 +76,7 @@ namespace QFramework.Example
             InitTxtFont();
 
             int currentLevel = saveData.GetCurrentLevel();
-            if (currentLevel <= 5)
+            if (currentLevel <= GameConst.NEWBIE_LEVEL_COUNT)
             {
                 BottomMenuBtns.Hide();
                 HomeNode.Hide();
@@ -283,23 +283,18 @@ namespace QFramework.Example
 
         private void RegisterEvent()
         {
-            //胜利结算=》返回主页事件
-            this.RegisterEvent<LevelClearEvent>(e =>
+            this.RegisterEvent<ReturnToMainEvent>(e =>
             {
                 LevelManager.Instance.InitBottle();
                 BottomMenuBtns.Show();
                 HomeNode.Show();
                 SetStartLevel();
-                StartCoroutine(ShowFx());
-
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-            this.RegisterEvent<ReturnMainEvent>(e =>
-            {
-                LevelManager.Instance.InitBottle();
-                BottomMenuBtns.Show();
-                HomeNode.Show();
-                SetStartLevel();
+                if (e.PassLevel)
+                {
+                    StartCoroutine(ShowFx());
+                    if (mSceneUnlockModel.SceneIndex == 0 && mSceneUnlockModel.SceneUnlockUnitIndex == 0)
+                        UIKit.OpenPanel<SceneUnlockGuide>(UILevel.PopUI);
+                }
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
@@ -537,7 +532,7 @@ namespace QFramework.Example
             //首套场景解锁完成
             if (_sceneIndex == 0 && _unitUnlockProgress == _unitCount)
             {
-                UIKit.OpenPanel<SceneUnlockGuide>(UILevel.PopUI);
+                UIKit.OpenPanel<PlotUnlockGuide>(UILevel.PopUI);
             }
         }
         #endregion
@@ -707,7 +702,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// 连胜活动
+        /// 横幅连胜活动(一次性)
         /// </summary>
         private void PotionActivity()
         {

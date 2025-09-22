@@ -10,17 +10,19 @@ public struct RefreshUITextEvent
 {
 
 }
+
 public struct UnLockItem
 {
     public NormalRewardsType PropType;
 }
-public struct LevelStartEvent
+
+public struct ReturnToMainEvent
 {
+    public bool PassLevel;
 }
 
-public struct LevelClearEvent
+public struct LevelStartEvent
 {
-
 }
 
 public struct VitalityChangeEvent
@@ -34,10 +36,6 @@ public struct UnlimtItemEvent
 public struct UnlockSceneBackEvent
 {
    
-}
-
-public struct ReturnMainEvent
-{
 }
 
 public struct RefreshItemEvent

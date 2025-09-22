@@ -260,7 +260,7 @@ namespace QFramework.Example
         {
             // …Ë÷√∂Øª≠
             LevelTipPanel.Show();
-            float _durationTime = 2.5f;
+            float _durationTime = 1.5f;
             CanvasGroup _canvasGroup = LevelTipPanel.GetComponent<CanvasGroup>();
             _canvasGroup.alpha = 0;
             _canvasGroup.DOFade(1f, _durationTime)
