@@ -346,11 +346,11 @@ namespace QFramework.Example
                     transform = BtnRemoveHide.transform;
                     break;
 
-                case NormalRewardsType.AddOneBottle:
+                case NormalRewardsType.AddHalfBottle:
                     transform = BtnHalfBottle.transform;
                     break;
 
-                case NormalRewardsType.AddHalfBottle:
+                case NormalRewardsType.AddOneBottle:
                     transform = BtnAddBottle.transform;
                     break;
 
