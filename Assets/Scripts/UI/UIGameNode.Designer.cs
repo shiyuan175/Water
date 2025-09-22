@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:05e1fb29-37d0-4efb-bf2a-893715f1527b
+	// Generate Id:31f964a7-b2c1-4f20-9128-98401cef11fd
 	public partial class UIGameNode
 	{
 		public const string Name = "UIGameNode";
@@ -47,17 +47,17 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Image BtnAddRemove;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnAddBottle;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtAddBottleNum;
-		[SerializeField]
-		public UnityEngine.UI.Image BtnAddAddBottle;
-		[SerializeField]
 		public UnityEngine.UI.Button BtnHalfBottle;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtAddHalfBottleNum;
 		[SerializeField]
 		public UnityEngine.UI.Image BtnAddHalfBottle;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnAddBottle;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtAddBottleNum;
+		[SerializeField]
+		public UnityEngine.UI.Image BtnAddAddBottle;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnRemoveAll;
 		[SerializeField]
@@ -70,6 +70,10 @@ namespace QFramework.Example
 		public UnityEngine.UI.Image ImgRankSprite_mid;
 		[SerializeField]
 		public RectTransform FlightEffects;
+		[SerializeField]
+		public UnityEngine.GameObject LevelTipPanel;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TextLevelTip;
 		
 		private UIGameNodeData mPrivateData = null;
 		
@@ -93,18 +97,20 @@ namespace QFramework.Example
 			BtnRemoveHide = null;
 			TxtRemoveHideNum = null;
 			BtnAddRemove = null;
-			BtnAddBottle = null;
-			TxtAddBottleNum = null;
-			BtnAddAddBottle = null;
 			BtnHalfBottle = null;
 			TxtAddHalfBottleNum = null;
 			BtnAddHalfBottle = null;
+			BtnAddBottle = null;
+			TxtAddBottleNum = null;
+			BtnAddAddBottle = null;
 			BtnRemoveAll = null;
 			TxtRemoveAllNum = null;
 			BtnAddRemoveBottle = null;
 			SpineRankPromotion = null;
 			ImgRankSprite_mid = null;
 			FlightEffects = null;
+			LevelTipPanel = null;
+			TextLevelTip = null;
 			
 			mData = null;
 		}

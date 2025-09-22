@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c64ff3eeac964524e98a0cd642317e6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 41af467769a5a6c41b484ef48ed521f0, type: 3}
   m_Name: TurnTablePack_4
   m_EditorClassIdentifier: 
+  PackID: 
   coins: 0
   items: []
-  specialReward:
-  - specialRewardType: 2
-    duration: 30
-    rewardSprite: {fileID: 21300000, guid: 0252d273d5e8c724ea40a05c60ab3263, type: 3}
-  awardLevel: 20
+  unlimitedHp: 30
+  removeAds: 0

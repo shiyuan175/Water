@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1836309582980454256}
   - component: {fileID: 4892040588358501398}
   - component: {fileID: 3555027227238983328}
-  - component: {fileID: 6137687954711509478}
+  - component: {fileID: 3824187830164098455}
   m_Layer: 0
   m_Name: TurnSoLeftButtom
   m_TagString: Untagged
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6137687954711509478
+--- !u!114 &3824187830164098455
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,7 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5054ca89c8092a469f131265b973cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnTablePack: {fileID: 11400000, guid: e015a75025e27cd41b103c4215d597f2, type: 2}
+  packSo: {fileID: 11400000, guid: e6387b515b084d94cb7e0cb55d5d8205, type: 2}
+  awardLevel: 20
 --- !u!1 &255116254880723534
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +616,7 @@ GameObject:
   - component: {fileID: 4499102150766612661}
   - component: {fileID: 615455023923648296}
   - component: {fileID: 7084177275713249077}
-  - component: {fileID: 4415154287787276112}
+  - component: {fileID: 8930706268986680788}
   m_Layer: 0
   m_Name: TurnSoButtom
   m_TagString: Untagged
@@ -681,7 +682,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4415154287787276112
+--- !u!114 &8930706268986680788
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -693,7 +694,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5054ca89c8092a469f131265b973cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnTablePack: {fileID: 11400000, guid: c082e0bfad650b943a7edbf8e6c16e96, type: 2}
+  packSo: {fileID: 11400000, guid: c082e0bfad650b943a7edbf8e6c16e96, type: 2}
+  awardLevel: 30
 --- !u!1 &2212125607963640058
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,7 +707,7 @@ GameObject:
   - component: {fileID: 7707856439285182734}
   - component: {fileID: 8474961712359285407}
   - component: {fileID: 4242912810699429995}
-  - component: {fileID: 3129699852074484427}
+  - component: {fileID: 2450316719999899319}
   m_Layer: 0
   m_Name: TurnSoRightTop
   m_TagString: Untagged
@@ -771,7 +773,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3129699852074484427
+--- !u!114 &2450316719999899319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -783,7 +785,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5054ca89c8092a469f131265b973cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnTablePack: {fileID: 11400000, guid: 0f3d5a4165487024ebc4451f8f417414, type: 2}
+  packSo: {fileID: 11400000, guid: 0f3d5a4165487024ebc4451f8f417414, type: 2}
+  awardLevel: 10
 --- !u!1 &2396546564951798149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,7 +1281,7 @@ GameObject:
   - component: {fileID: 8282574354011026534}
   - component: {fileID: 7184770543340492617}
   - component: {fileID: 7125956648615937711}
-  - component: {fileID: 6233930787001560459}
+  - component: {fileID: 5104006970000882290}
   m_Layer: 0
   m_Name: TurnSoTop
   m_TagString: Untagged
@@ -1344,7 +1347,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6233930787001560459
+--- !u!114 &5104006970000882290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1356,7 +1359,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5054ca89c8092a469f131265b973cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnTablePack: {fileID: 11400000, guid: 964d9fa5a58bfcf4fafd74014a91dd9f, type: 2}
+  packSo: {fileID: 11400000, guid: e350fc5c59ead164ab4769cdd530e831, type: 2}
+  awardLevel: 10
 --- !u!1 &2949653907736101397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,7 +1513,7 @@ GameObject:
   - component: {fileID: 4626864439420231902}
   - component: {fileID: 7171838533075978966}
   - component: {fileID: 4128926527569470058}
-  - component: {fileID: 1629389253701210392}
+  - component: {fileID: 8142302811364441610}
   m_Layer: 0
   m_Name: TurnSoRightButtom
   m_TagString: Untagged
@@ -1575,7 +1579,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1629389253701210392
+--- !u!114 &8142302811364441610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1587,7 +1591,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5054ca89c8092a469f131265b973cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnTablePack: {fileID: 11400000, guid: e015a75025e27cd41b103c4215d597f2, type: 2}
+  packSo: {fileID: 11400000, guid: e015a75025e27cd41b103c4215d597f2, type: 2}
+  awardLevel: 20
 --- !u!1 &3162697810098539022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1843,17 +1848,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7ac68b1f0122444a693c06aa9dc409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinRingCount: 10
-  mTurnTablePack:
-  - {fileID: 3002134734283612905}
-  - {fileID: 2898031701457624878}
-  - {fileID: 6293525286812702427}
-  - {fileID: 2212125607963640058}
-  - {fileID: 7898884589874652282}
-  - {fileID: 2046478079457778447}
-  - {fileID: 206265966487744234}
-  - {fileID: 6482946506721428629}
   easeType: 10
+  MinRingCount: 10
+  mTurnTableNode:
+  - {fileID: 6482946506721428629}
+  - {fileID: 206265966487744234}
+  - {fileID: 6293525286812702427}
+  - {fileID: 2046478079457778447}
+  - {fileID: 2898031701457624878}
+  - {fileID: 3002134734283612905}
+  - {fileID: 7898884589874652282}
+  - {fileID: 2212125607963640058}
+  targetGameObject: {fileID: 0}
   ImgTurn: {fileID: 4532022188234249596}
   Pointer: {fileID: 7247367181757077156}
   BtnExit: {fileID: 6570268635881164030}
@@ -2510,7 +2516,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -105, y: 164}
-  m_SizeDelta: {x: 400, y: 200}
+  m_SizeDelta: {x: 430, y: 230}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7898289484651797863
 CanvasRenderer:
@@ -2540,8 +2546,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e54c7f3bf221a834799554c45d22d9bf, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: e8992c7d5215cff4a9f8e9191df6b66e, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2734,8 +2740,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -5}
+  m_SizeDelta: {x: -40, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6564297707481611891
 CanvasRenderer:
@@ -2792,8 +2798,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2828,7 +2834,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -126.0396, y: 0, z: -162.5248, w: 19.869019}
+  m_margin: {x: -6.19899, y: 0, z: -0.46754456, w: 19.869019}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2845,7 +2851,7 @@ GameObject:
   - component: {fileID: 2827331039231450747}
   - component: {fileID: 4635413796774315158}
   - component: {fileID: 2722226413768026117}
-  - component: {fileID: 9061498920170472555}
+  - component: {fileID: 1055394283654374857}
   m_Layer: 0
   m_Name: TurnSoLeftTop
   m_TagString: Untagged
@@ -2911,7 +2917,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9061498920170472555
+--- !u!114 &1055394283654374857
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2923,7 +2929,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5054ca89c8092a469f131265b973cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnTablePack: {fileID: 11400000, guid: b7a88cf76575f5740a5305fb246d9fc7, type: 2}
+  packSo: {fileID: 11400000, guid: b7a88cf76575f5740a5305fb246d9fc7, type: 2}
+  awardLevel: 10
 --- !u!1 &6482946506721428629
 GameObject:
   m_ObjectHideFlags: 0
@@ -2935,7 +2942,7 @@ GameObject:
   - component: {fileID: 8201095188530472182}
   - component: {fileID: 8109944220889359588}
   - component: {fileID: 203667958426941397}
-  - component: {fileID: 4139310363053208955}
+  - component: {fileID: 9010560846837885807}
   m_Layer: 0
   m_Name: TurnSoLeftMiddle
   m_TagString: Untagged
@@ -3001,7 +3008,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4139310363053208955
+--- !u!114 &9010560846837885807
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3013,7 +3020,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5054ca89c8092a469f131265b973cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnTablePack: {fileID: 11400000, guid: fe467d0c9b26aa24eb6236d8f2759c6a, type: 2}
+  packSo: {fileID: 11400000, guid: fe467d0c9b26aa24eb6236d8f2759c6a, type: 2}
+  awardLevel: 0
 --- !u!1 &6999788245416297921
 GameObject:
   m_ObjectHideFlags: 0
@@ -3051,7 +3059,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 105}
-  m_SizeDelta: {x: 0, y: 130}
+  m_SizeDelta: {x: 20, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8359296262400280037
 CanvasRenderer:
@@ -3081,8 +3089,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e54c7f3bf221a834799554c45d22d9bf, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: e8992c7d5215cff4a9f8e9191df6b66e, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3462,7 +3470,7 @@ GameObject:
   - component: {fileID: 1625785488330235011}
   - component: {fileID: 3361330401106940778}
   - component: {fileID: 4273889446832072864}
-  - component: {fileID: 2332528943934315803}
+  - component: {fileID: 804893725407769385}
   m_Layer: 0
   m_Name: TurnSoRightMiddle
   m_TagString: Untagged
@@ -3528,7 +3536,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2332528943934315803
+--- !u!114 &804893725407769385
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3540,7 +3548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5054ca89c8092a469f131265b973cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnTablePack: {fileID: 11400000, guid: 964d9fa5a58bfcf4fafd74014a91dd9f, type: 2}
+  packSo: {fileID: 11400000, guid: 964d9fa5a58bfcf4fafd74014a91dd9f, type: 2}
+  awardLevel: 5
 --- !u!1 &7981659049942580039
 GameObject:
   m_ObjectHideFlags: 0
@@ -4020,7 +4029,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -70, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2223388405606865818
 CanvasRenderer:
@@ -4114,7 +4123,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -126.0396, y: 0, z: -162.5248, w: 34.439453}
+  m_margin: {x: 5.9405365, y: 0, z: -5.960129, w: 3.385254}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

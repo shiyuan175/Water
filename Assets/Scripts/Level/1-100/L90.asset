@@ -25,6 +25,7 @@ MonoBehaviour:
     isFinish: 0
     bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 05000000040000000300000001000000
     isHide: 00010100
     waterItem: 00000000000000000000000000000000
@@ -37,6 +38,7 @@ MonoBehaviour:
     isFinish: 0
     bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 0400000006000000070000000c000000
     isHide: 00010100
     waterItem: 00000000000000000000000000000000
@@ -49,8 +51,9 @@ MonoBehaviour:
     isFinish: 0
     bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 0300000006000000ea03000002000000
-    isHide: 00010100
+    isHide: 00010000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -61,6 +64,7 @@ MonoBehaviour:
     isFinish: 0
     bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 0100000006000000030000000c000000
     isHide: 00010100
     waterItem: 00000000000000000000000000000000
@@ -73,6 +77,7 @@ MonoBehaviour:
     isFinish: 0
     bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 02000000050000000700000002000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
@@ -85,6 +90,7 @@ MonoBehaviour:
     isFinish: 0
     bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 020000000c000000be0b000005000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
@@ -97,6 +103,7 @@ MonoBehaviour:
     isFinish: 0
     bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: be0b0000060000000100000004000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
@@ -109,6 +116,7 @@ MonoBehaviour:
     isFinish: 0
     bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 0300000001000000040000000c000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
@@ -121,6 +129,7 @@ MonoBehaviour:
     isFinish: 0
     bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 
     isHide: 
     waterItem: 
@@ -133,6 +142,7 @@ MonoBehaviour:
     isFinish: 0
     bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 
     isHide: 
     waterItem: 
@@ -145,6 +155,7 @@ MonoBehaviour:
     isFinish: 0
     bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   gameType: 0
   clearList: 010000000200000003000000040000000500000006000000070000000c000000
   hideList: 
