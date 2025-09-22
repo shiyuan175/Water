@@ -62,8 +62,12 @@ public class StageModel : AbstractModel
 
         for (int i = 1; i <= GameDefine.GameConst.ITEM_COUNT; i++)
         {
+            //前五个为付费道具(初始为0个)，否则初始为4个
+            int del = 0;
             var key = $"{ITEM_SIGN}{i}";
-            ItemDic[i] = storage.LoadIntValue(key, 4);
+            if (i > 5)
+                del = 4;
+           ItemDic[i] = storage.LoadIntValue(key, del);
         }
         ItemDic.OnReplace.Register((itemID, oldValue, newValue) =>
         {

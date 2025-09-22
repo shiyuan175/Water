@@ -12,7 +12,7 @@ public struct RefreshUITextEvent
 }
 public struct UnLockItem
 {
-
+    public NormalRewardsType PropType;
 }
 public struct LevelStartEvent
 {

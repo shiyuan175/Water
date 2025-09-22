@@ -1,5 +1,6 @@
 using GameDefine;
 using QFramework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -129,6 +130,11 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         AudioKit.PlaySound("resources://Audio/AddCoin");
     }
 
+    public Sprite GetRewardSprite<T>(T rewardType) where T : Enum
+    {
+        return mRewardSpriteMappingSO.GetRewardSprite<T>(rewardType);
+    }
+
     private IEnumerator ContinueClickEvent()
     {
         foreach (var item in actionList)
@@ -157,7 +163,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         }
 
         // 抽一个槽位索引
-        int slotIndex = availableSlots[Random.Range(0, availableSlots.Count)];
+        int slotIndex = availableSlots[UnityEngine.Random.Range(0, availableSlots.Count)];
         availableSlots.Remove(slotIndex);
 
         // 每行最大个数

@@ -11,7 +11,7 @@ using UnityEngine.UI;
 using TMPro;
 
 [MonoSingletonPath("[Level]/LevelManager")]
-public class LevelManager : MonoBehaviour,IController, ICanSendEvent
+public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 {
     public static LevelManager Instance;
     public List<LevelCreateCtrl> levels = new List<LevelCreateCtrl>();
@@ -20,7 +20,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     public List<int> cantChangeColorList = new List<int>();
     public List<BottleCtrl> nowBottles = new List<BottleCtrl>();
     public List<BottleCtrl> iceBottles = new List<BottleCtrl>();
-    
+
     public List<BottleCtrl> topBottle = new List<BottleCtrl>();
     public List<BottleCtrl> bottomBottle = new List<BottleCtrl>();
     public List<BottleCtrl> hideBottleList = new List<BottleCtrl>();
@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     public List<Color> waterColor = new List<Color>();
     public List<Sprite> waterTopSp;
     public List<Sprite> waterSp;
-    public LevelCreateCtrl.BottleProperty emptyBottle = new ();
+    public LevelCreateCtrl.BottleProperty emptyBottle = new();
     public Transform gameCanvas;
     public List<ChangePair> changeList;
     public List<GameObject> createFx = new List<GameObject>();
@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     public bool ISPlayingHideAnim => playingHideAnimCount == 0;
 
     public int moveNum = 0;
-    
+
     #region 之后维护清理
     public float timeCountDown, timeNow;
     bool isCountDown = false, isTimeCountDown = false;
@@ -52,7 +52,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     public SkeletonGraphic mahoujinSpine;
     bool isFinish = false, isBomb = false;
     public bool isPlayAnim, isPlayFxAnim;
-    
+
     public BottleCtrl nowHalf;
     public Material selectMaterial;
     public GameObject hideBg;
@@ -455,7 +455,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         foreach (var color in clearList)
         {
             //if (!cantClearColorList.Contains(color))
-            if (!cantChangeColorList.Contains(color)) 
+            if (!cantChangeColorList.Contains(color))
             {
                 ret.Add(color);
             }
@@ -529,7 +529,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     /// <summary>
     /// 移动步数记录
     /// </summary>
-    public void AddMoveNum(bool flag=true)
+    public void AddMoveNum(bool flag = true)
     {
         if (flag)
             moveNum++;
@@ -543,7 +543,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     /// 使用道具添加瓶子(单个或整瓶)
     /// </summary>
     /// <param name="isHalf"></param>
-    public void AddBottle(bool isHalf, Action action=null)
+    public void AddBottle(bool isHalf, Action action = null)
     {
         //增加瓶子时一定会激活底部瓶子节点
         if (!BottomBottleLayoutGroup.gameObject.activeSelf)
@@ -676,7 +676,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     public void MoveAndAddBottle(bool isHalf, Action action)
     {
         var num = nowBottles.Count;
-        
+
         //初始化瓶子-更新索引
         if (isHalf)
         {
@@ -706,7 +706,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         //对瓶子列表重新排序(整个流程应该都是通过索引找瓶子，排序不改数据也不对)
         nowBottles = nowBottles.OrderBy(bottle => bottle.bottleIdx).ToList();
     }
-    
+
     private const float SPACING_UNIT = -170f;
     /// <summary>
     /// 更新上方瓶子布局间距
@@ -839,44 +839,64 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     }
 
     public void CheckGuideLevel()
-    {   
-            // 关卡引导
-            switch (levelId)
-            {
-                // 新手关卡引导
-                case (int)GameDefine.UIGuideLevel.UIGuideLevel1:
-                    UIKit.OpenPanel<UIGuideLevel1>(UILevel.PopUI);
-                    break;
-                case (int)GameDefine.UIGuideLevel.UIGuideLevel2:
-                    UIKit.OpenPanel<UIGuideLevel2>(UILevel.PopUI);
-                    break;
+    {
+        // 关卡引导
+        switch (levelId)
+        {
+            // 新手关卡引导
+            case (int)GameDefine.UIGuideLevel.UIGuideLevel1:
+                UIKit.OpenPanel<UIGuideLevel1And2>(UILevel.PopUI , new UIGuideLevel1And2Data { level = 1});
+                break;
+            case (int)GameDefine.UIGuideLevel.UIGuideLevel2:
+                UIKit.OpenPanel<UIGuideLevel1And2>(UILevel.PopUI, new UIGuideLevel1And2Data { level = 2 });
+                //UIKit.OpenPanel<UIGuideLevel2>(UILevel.PopUI);
+                break;
 
-                // 道具使用引导
-                case (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack:
-                    UIKit.OpenPanel<UIGuideLevelStepBack>(UILevel.PopUI);
-                    break;
-                case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide:
-                    UIKit.OpenPanel<UIGuideLevelRemoveHide>(UILevel.PopUI);
-                    break;
-                case (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle:
-                    UIKit.OpenPanel<UIGuideLevelAddBottle>(UILevel.PopUI);
-                    break;
-                case (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle:
-                    UIKit.OpenPanel<UIGuideLevelHalfBottle>(UILevel.PopUI);
-                    break;
-                case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll:
-                    UIKit.OpenPanel<UIGuideLevelRemoveAll>(UILevel.PopUI);
-                    break;
-            }
+            // 道具使用引导
+            case (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack:
+                UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
+                {
+                    PropType = NormalRewardsType.StepBack,
+                });
+                break;
+
+            case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide:
+                UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
+                {
+                    PropType = NormalRewardsType.RemoveHide,
+                });
+                break;
+
+            case (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle:
+                UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
+                {
+                    PropType = NormalRewardsType.AddOneBottle,
+                });
+                break;
+
+            case (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle:
+                UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
+                {
+                    PropType = NormalRewardsType.AddHalfBottle,
+                });
+                break;
+
+            case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll:
+                UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
+                {
+                    PropType = NormalRewardsType.RemoveAll,
+                });
+                break;
+        }
 
         // 新机制引导
-        if(GameDefine.GameConst.GuideLevelInfo.TryGetValue(levelId,out (string guideText, string guideAnimName) value))
-           UIKit.OpenPanel<UIGuideAnimPop>(new UIGuideAnimPopData
-                    {
-                        GuideText = value.guideText,
-                        GuideAnimName = value.guideAnimName
-                    });
-    } 
+        if (GameDefine.GameConst.GuideLevelInfo.TryGetValue(levelId, out (string guideText, string guideAnimName) value))
+            UIKit.OpenPanel<UIGuideAnimPop>(new UIGuideAnimPopData
+            {
+                GuideText = value.guideText,
+                GuideAnimName = value.guideAnimName
+            });
+    }
 
     /// <summary>
     /// 判断显示那些瓶子（现用于初始化关卡的瓶子）
@@ -1003,15 +1023,15 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     {
         bool flag = false;
         foreach (var bottle in bottles)
-        { 
+        {
             bottle.UpdateBomb(bottleCtrl);
 
             if (bottle.CheckBoomFailure())
                 flag = true;
-           
-                
-           
-           
+
+
+
+
             //bottle.SetBottleColor();
         }
         return flag;
@@ -1034,7 +1054,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         {
             bottle.RecordLast();
         }
-        
+
     }
 
     /// <summary>
@@ -1051,13 +1071,13 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
             ret = ret || needRet;
         }
         if (ret)
-        {   
+        {
             var record = LevelManagerRecords.LastOrDefault();
             clearList = record.clearList;
             hideColor = record.hideColor;
             changeList = record.changeList;
             LevelManagerRecords.Remove(record);
-           
+
         }
         else
         {
@@ -1118,7 +1138,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     /// </summary>
     /// <param name="num"></param>
     /// <param name="action">使用道具回调</param>
-    public void RemoveHide(Action action= null, int num = 0)
+    public void RemoveHide(Action action = null, int num = 0)
     {
         if (num == 0)
         {
@@ -1151,7 +1171,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
     public IEnumerator ShowMahoujinCoroutine()
     {
         AudioKit.PlaySound("resources://Audio/MagicCircle");
-        
+
         isPlayFxAnim = true;
         mahoujinSpine.Show();
         mahoujinSpine.AnimationState.SetEmptyAnimation(0, 0f);
@@ -1165,7 +1185,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
         mahoujinSpine.Hide();
         isPlayFxAnim = false;
     }
-    
+
     /// <summary>
     /// 道具选择(替换背景，更换瓶子材质)
     /// </summary>
@@ -1194,7 +1214,7 @@ public class LevelManager : MonoBehaviour,IController, ICanSendEvent
 [Serializable]
 public class BottleRecord
 {
-    public bool isFinish, isFreeze, isClearHide, isNearHide,isFlyBomb;
+    public bool isFinish, isFreeze, isClearHide, isNearHide, isFlyBomb;
     public int limitColor;
     public List<int> waters = new List<int>();
     public List<bool> hideWaters = new List<bool>();

@@ -147,20 +147,9 @@ namespace QFramework.Example
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
-            this.RegisterEvent<UnLockItem>(eventId =>
+            this.RegisterEvent<UnLockItem>(e =>
             {
-                int level = LevelManager.Instance.levelId;
-
-                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
-                    UnLockItem("AddBottle");
-                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
-                    UnLockItem("HalfBottle");
-                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
-                    UnLockItem("RemoveHide");
-                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
-                    UnLockItem("RemoveAll");
-                if (level == (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
-                    UnLockItem("StepBack");
+                UnLockItem(e.PropType);
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             StringEventSystem.Global.Register(GameConst.STREAK_WIN_REMOVE_HIDE, (int count) =>
@@ -269,15 +258,20 @@ namespace QFramework.Example
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
-                UnLockItem("AddBottle");
+                UnLockItem(NormalRewardsType.AddOneBottle);
+
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
-                UnLockItem("HalfBottle");
+                UnLockItem(NormalRewardsType.AddHalfBottle);
+
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
-                UnLockItem("RemoveHide");
+                UnLockItem(NormalRewardsType.RemoveHide);
+
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
-                UnLockItem("RemoveAll");
+                UnLockItem(NormalRewardsType.RemoveAll);
+
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
-                UnLockItem("StepBack");
+                UnLockItem(NormalRewardsType.StepBack);
+
             if (level >= (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
                 BtnItemBg.Show();
         }
@@ -308,27 +302,32 @@ namespace QFramework.Example
             else ImgRankLevel.Hide();
         }
 
-        private void UnLockItem(string item)
+        private void UnLockItem(NormalRewardsType PropType)
         {
             Transform transform = null;
-            switch (item)
+            switch (PropType)
             {
-                case "StepBack":
+                case NormalRewardsType.StepBack:
                     transform = BtnStepBack.transform;
                     break;
-                case "RemoveHide":
+
+                case NormalRewardsType.RemoveHide:
                     transform = BtnRemoveHide.transform;
                     break;
-                case "HalfBottle":
+
+                case NormalRewardsType.AddOneBottle:
                     transform = BtnHalfBottle.transform;
                     break;
-                case "AddBottle":
+
+                case NormalRewardsType.AddHalfBottle:
                     transform = BtnAddBottle.transform;
                     break;
-                case "RemoveAll":
+
+                case NormalRewardsType.RemoveAll:
                     transform = BtnRemoveAll.transform;
                     break;
             }
+            
             transform.Find("ImgItem").Show();
             transform.Find("ImgLock").Hide();
             transform.GetComponent<Button>().interactable = true;
