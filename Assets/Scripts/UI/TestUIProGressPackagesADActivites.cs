@@ -4,25 +4,23 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	public class UIProGressPackagesADActivitesData : UIPanelData
+	public class TestUIProGressPackagesADActivitesData : UIPanelData
 	{
 	}
-	public partial class UIProGressPackagesADActivites : UIPanel
+	public partial class TestUIProGressPackagesADActivites : UIPanel
 	{
 		protected override void OnInit(IUIData uiData = null)
 		{
-			mData = uiData as UIProGressPackagesADActivitesData ?? new UIProGressPackagesADActivitesData();
+			mData = uiData as TestUIProGressPackagesADActivitesData ?? new TestUIProGressPackagesADActivitesData();
 			// please add init code here
 		}
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{
-
 		}
 		
 		protected override void OnShow()
 		{
-
 		}
 		
 		protected override void OnHide()

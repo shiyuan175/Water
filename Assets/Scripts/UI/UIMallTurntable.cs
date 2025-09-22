@@ -5,6 +5,7 @@ using GameDefine;
 using System;
 using DG.Tweening;
 using TMPro;
+using System.Security.Cryptography;
 
 namespace QFramework.Example
 {
@@ -198,7 +199,6 @@ namespace QFramework.Example
                     return _SameTypeGift[UnityEngine.Random.Range(0, _index)];
                 }
             }
-
             // 返回最坏的奖励作为边界
             return mTurnTableNode[mTurnTableNode.Count - 1];
         }
