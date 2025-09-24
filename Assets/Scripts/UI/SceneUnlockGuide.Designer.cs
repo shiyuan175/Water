@@ -5,25 +5,19 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:43c8642c-7b50-4880-8614-3af0a1e59124
+	// Generate Id:f08ceb4c-333b-4fd7-a4ff-3d61b0f5f60d
 	public partial class SceneUnlockGuide
 	{
 		public const string Name = "SceneUnlockGuide";
 		
 		[SerializeField]
 		public Spine.Unity.SkeletonGraphic SpineHandle;
-		[SerializeField]
-		public UnityEngine.UI.Button BtnStep1;
-		[SerializeField]
-		public UnityEngine.UI.Button BtnStep2;
 		
 		private SceneUnlockGuideData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
 			SpineHandle = null;
-			BtnStep1 = null;
-			BtnStep2 = null;
 			
 			mData = null;
 		}

@@ -5,23 +5,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GiftPack", menuName = "Game/Gift Pack")]
 public class GiftPackSO : ScriptableObject, IPackSoInterface
 {
-    //商城礼包专用
     [Header("道具ID")]
     [SerializeField] private string PackID;
     
     [SerializeField] private int coins;
+    [Header("永久去广告")]
+    [SerializeField] private bool removeAdsForever;
     [SerializeField] private List<ItemReward> items;
-    [Header("无限体力(单位：分钟)")]
-    [SerializeField] private int unlimitedHp;
-    [Header("无广告")]
-    [SerializeField] private bool removeAds;
+    [SerializeField] private List<SpecialReward> specialsItem;
 
     public int Coins => coins;
-    public int UnlimitedHp => unlimitedHp;
-    public bool RemoveAds => removeAds;
+    public bool RemoveAdsForever => removeAdsForever;
     public string ID => PackID;
     public IReadOnlyList<ItemReward> ItemReward => items;
-    
-    private List<SpecialReward> emptySpeciaRewards = new();
-    IReadOnlyList<SpecialReward> IPackSoInterface.SpecialRewards => emptySpeciaRewards;
+    public IReadOnlyList<SpecialReward> SpecialRewards => specialsItem;
 }

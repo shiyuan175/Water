@@ -14,21 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PackID: gift_4
   coins: 8000
+  removeAdsForever: 1
   items:
-  - normalRewardsType: 0
-    itemIndex: 1
-    quantity: 8
   - normalRewardsType: 1
-    itemIndex: 2
     quantity: 8
   - normalRewardsType: 2
-    itemIndex: 3
     quantity: 8
   - normalRewardsType: 3
-    itemIndex: 4
     quantity: 8
   - normalRewardsType: 4
-    itemIndex: 5
+    quantity: 8
+  - normalRewardsType: 5
     quantity: 2
-  unlimitedHp: 720
-  removeAds: 1
+  specialsItem:
+  - specialRewardType: 2
+    duration: 720
+  - specialRewardType: 6
+    duration: 720
+  - specialRewardType: 7
+    duration: 720
+  - specialRewardType: 8
+    duration: 720

@@ -36,3 +36,11 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 8785ae0fe877fd1488d650d807395028, type: 3}
   - rewardType: 2
     sprite: {fileID: 21300000, guid: 0252d273d5e8c724ea40a05c60ab3263, type: 3}
+  - rewardType: 3
+    sprite: {fileID: 21300000, guid: 1de855ce8e18ac74cb755ebd23025c0e, type: 3}
+  - rewardType: 6
+    sprite: {fileID: 21300000, guid: 067db899a0d68f34e871d5c4ce444f0a, type: 3}
+  - rewardType: 7
+    sprite: {fileID: 21300000, guid: 2e67cce6e75c1b64ebb336cd7a03f078, type: 3}
+  - rewardType: 8
+    sprite: {fileID: 21300000, guid: 77396093c30903f4a856860590e4158b, type: 3}

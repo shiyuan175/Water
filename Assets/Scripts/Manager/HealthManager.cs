@@ -224,8 +224,6 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
                 unLimitHp = false;
                 // 更新UI状态(取消无限体力状态)
                 this.SendEvent<VitalityChangeEvent>(new VitalityChangeEvent());
-                // 取消无限道具状态(暂用、时长同步无限体力)
-                this.SendEvent<UnlimtItemEvent>(new UnlimtItemEvent());
             }
         }
     }

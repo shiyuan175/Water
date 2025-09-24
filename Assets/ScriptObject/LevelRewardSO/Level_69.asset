@@ -15,11 +15,9 @@ MonoBehaviour:
   PackID: Level_69
   coins: 0
   items:
-  - normalRewardsType: 1
-    itemIndex: 2
+  - normalRewardsType: 2
     quantity: 1
-  - normalRewardsType: 6
-    itemIndex: 7
+  - normalRewardsType: 7
     quantity: 1
   unlimitedHp: 0
   removeAds: 0

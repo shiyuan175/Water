@@ -10,17 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db40ed3e021d5d949966dc87098983d8, type: 3}
-  m_Name: PotionActivityPackSO_4
+  m_Name: PotionActivityPackSO_2
   m_EditorClassIdentifier: 
   coins: 0
   items:
-  - normalRewardsType: 2
-    itemIndex: 3
+  - normalRewardsType: 4
     quantity: 1
   - normalRewardsType: 3
-    itemIndex: 4
     quantity: 1
-  specialReward:
-  - specialRewardType: 0
-    duration: 10
-    rewardSprite: {fileID: 21300000, guid: 5c6b40a0a97fd40409fe00cf8e1e460f, type: 3}
+  specialReward: []

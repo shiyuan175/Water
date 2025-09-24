@@ -1,13 +1,13 @@
-using UnityEngine;
-using UnityEngine.UI;
-using QFramework;
-using GameDefine;
-using System.Collections.Generic;
-using System.Collections;
 using DG.Tweening;
-using System.Linq;
+using GameDefine;
+using QFramework;
 using System;
-using TMPro;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.U2D;
+using UnityEngine.UI;
 
 namespace QFramework.Example
 {
@@ -45,6 +45,11 @@ namespace QFramework.Example
         private MagicStreakActivity mMagicStreakActivity;
         private TierRankActivity mTierRankActivity;
         private TurnTableADActivity mTurnTableADActivity;
+        private BannerActivity mBannerActivity;
+        private GameObject mCurBannerActivity;
+
+        private ResLoader mResLoader;
+        private SpriteAtlas mRankLevelSpriteAtlas;
 
         public IArchitecture GetArchitecture()
         {
@@ -73,19 +78,19 @@ namespace QFramework.Example
 
             LevelManager.Instance.InitBottle();
 
-            InitTxtFont();
+            LoaderRes();
 
             int currentLevel = saveData.GetCurrentLevel();
-            if (currentLevel <= 5)
+            if (currentLevel <= GameConst.NEWBIE_LEVEL_COUNT)
             {
                 BottomMenuBtns.Hide();
                 HomeNode.Hide();
             }
 
-            //连胜活动
+            //横幅活动
             if (currentLevel >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             {
-                PotionActivity();
+                RegisterBannerActivity();
             }
 
             BindBtn();
@@ -108,6 +113,10 @@ namespace QFramework.Example
 
         protected override void OnClose()
         {
+            mResLoader.Recycle2Cache();
+            mResLoader = null;
+            mTierRankActivity = null;
+            mRankLevelSpriteAtlas = null;
         }
 
         private void Update()
@@ -283,23 +292,19 @@ namespace QFramework.Example
 
         private void RegisterEvent()
         {
-            //胜利结算=》返回主页事件
-            this.RegisterEvent<LevelClearEvent>(e =>
+            this.RegisterEvent<ReturnToMainEvent>(e =>
             {
                 LevelManager.Instance.InitBottle();
                 BottomMenuBtns.Show();
                 HomeNode.Show();
                 SetStartLevel();
-                StartCoroutine(ShowFx());
-
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-            this.RegisterEvent<ReturnMainEvent>(e =>
-            {
-                LevelManager.Instance.InitBottle();
-                BottomMenuBtns.Show();
-                HomeNode.Show();
-                SetStartLevel();
+                if (e.PassLevel)
+                {
+                    StartCoroutine(ShowFx());
+                    SetTierRankIcon();
+                    if (mSceneUnlockModel.SceneIndex == 0 && mSceneUnlockModel.SceneUnlockUnitIndex == 0)
+                        UIKit.OpenPanel<SceneUnlockGuide>(UILevel.PopUI);
+                }
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
@@ -343,7 +348,7 @@ namespace QFramework.Example
 
             StringEventSystem.Global.Register(GameConst.START_POTION_ACTIVITY, () =>
             {
-                PotionActivity();
+                RegisterBannerActivity();
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             StringEventSystem.Global.Register(GameConst.COIN_CHANGE, () =>
@@ -418,8 +423,12 @@ namespace QFramework.Example
 
         #region 字体/金币/体力/星星/头像/建筑 初始化更新
         
-        private void InitTxtFont()
+        private void LoaderRes()
         {
+            mResLoader = ResLoader.Allocate();
+            mRankLevelSpriteAtlas = mResLoader.LoadSync<SpriteAtlas>
+                (ABResourceDefine.RANK_LEVEL_ATLAS_BUNDLENAME, ABResourceDefine.RANK_LEVEL_ATLAS_ASSETNAME);
+
             TxtImgprogress.font = LevelManager.Instance.blueFont;
             TxtImgprogress.font.material.shader = Shader.Find(TxtImgprogress.font.material.shader.name);
             TxtStartLevel.font = LevelManager.Instance.redFont;
@@ -434,6 +443,7 @@ namespace QFramework.Example
             SetStar();
             SetScene();
             SetStartLevel();
+            SetTierRankIcon();
         }
 
         private void SetAvatar()
@@ -486,6 +496,14 @@ namespace QFramework.Example
             TxtStartLevel.text = $"Level {currentLevel}"+$"<br><size=45>{appendString}</size>";
         }
         
+        private void SetTierRankIcon()
+        {
+            if (mTierRankActivity != null)
+                ImgTierRankIcon.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mTierRankActivity.PlayerTierRankIndex));
+            else 
+                ImgTierRankIcon.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(0));
+        }
+
         /// <summary>
         /// 金币和星星的飞行粒子效果
         /// </summary>
@@ -537,7 +555,7 @@ namespace QFramework.Example
             //首套场景解锁完成
             if (_sceneIndex == 0 && _unitUnlockProgress == _unitCount)
             {
-                UIKit.OpenPanel<SceneUnlockGuide>(UILevel.PopUI);
+                UIKit.OpenPanel<PlotUnlockGuide>(UILevel.PopUI);
             }
         }
         #endregion
@@ -583,6 +601,7 @@ namespace QFramework.Example
                 mMagicStreakActivity ??= _activity as MagicStreakActivity;
                 UpdateMSAState();
             }
+
             else if(_activity is TurnTableADActivity)
             {
                 mTurnTableADActivity ??= _activity as TurnTableADActivity;
@@ -593,6 +612,18 @@ namespace QFramework.Example
             {
                 mTierRankActivity ??= _activity as TierRankActivity;
                 UptateTRAState();
+            }
+
+            else if (_activity is BannerActivity)
+            {
+                if (eventData.Status is GameActivityStatus.Active)
+                {
+                    if (mCurBannerActivity == null)
+                    {
+                        var potionNode = Resources.Load<GameObject>("Prefab/BannerActivityNode");
+                        mCurBannerActivity = Instantiate(potionNode, HomeNode.transform);
+                    }
+                }
             }
             //...Other Activity
         }
@@ -686,7 +717,6 @@ namespace QFramework.Example
                 _ => "Finished"
             };
         }
-
         
         private void UpdateTTState()
         {            
@@ -707,20 +737,35 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// 连胜活动
+        /// 横幅连胜活动
         /// </summary>
-        private void PotionActivity()
+        private void RegisterBannerActivity()
         {
             //Debug.Log("实例活动");
             //CountDownTimerManager.Instance.ResetTimer(GameConst.POTION_ACTIVITY_SIGN, 10);
             CountDownTimerManager.Instance.StartTimer(GameConst.POTION_ACTIVITY_SIGN, 1440f);
             var potionActivityModel = this.GetModel<PotionActivityModel>();
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.POTION_ACTIVITY_SIGN) &&
-                 !potionActivityModel.PotionActivityProgressEnd)
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.POTION_ACTIVITY_SIGN))
             {
-                var potionNode = Resources.Load("Prefab/PotionActivityNode");
-                var node = Instantiate(potionNode, HomeNode.transform);
-                //Debug.Log("剩余时长：" + CountDownTimerManager.Instance.GetRemainingTimeText(GameConst.POTION_ACTIVITY_SIGN));
+                if (!potionActivityModel.PotionActivityProgressEnd)
+                {
+                    var potionNode = Resources.Load("Prefab/PotionActivityNode");
+                    var node = Instantiate(potionNode, HomeNode.transform);
+                    //Debug.Log("剩余时长：" + CountDownTimerManager.Instance.GetRemainingTimeText(GameConst.POTION_ACTIVITY_SIGN));
+                }
+            }
+            else
+            {
+                GameActivityManager.Instance.RegisterActivity<BannerActivity>();
+                mBannerActivity = GameActivityManager.Instance.GetActivity<BannerActivity>();
+                if (mBannerActivity.ActivityStatus == GameActivityStatus.Active)
+                {
+                    if (mCurBannerActivity == null)
+                    {
+                        var potionNode = Resources.Load<GameObject>("Prefab/BannerActivityNode");
+                        mCurBannerActivity = Instantiate(potionNode, HomeNode.transform);
+                    }
+                }
             }
         }
         #endregion

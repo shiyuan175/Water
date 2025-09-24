@@ -15,8 +15,7 @@ MonoBehaviour:
   PackID: Level_62
   coins: 0
   items:
-  - normalRewardsType: 4
-    itemIndex: 5
+  - normalRewardsType: 5
     quantity: 1
   unlimitedHp: 0
   removeAds: 0

@@ -2,12 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using System;
-using System.Collections;
-using DG.Tweening;
 using TMPro;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine.Purchasing;
 using GameDefine;
 
 namespace QFramework.Example
@@ -28,7 +23,7 @@ namespace QFramework.Example
         [Header("consecutive_coin")]
         [SerializeField] private Image ImgCoinWinProcess;
         [SerializeField] private TextMeshProUGUI TxtCoinWinProgress;
-        [SerializeField] private Image imgBk;
+        [SerializeField] private Image ImgBg;
         private StageModel stageModel;
 
         private const int CONTINUE_WIN_NUM_ItemGift = 3;
@@ -47,40 +42,84 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
+            TxtWinProcess.font = LevelManager.Instance.redFont;
+            stageModel = this.GetModel<StageModel>();
+            StringEventSystem.Global.Send("ClearTakeItem");
+
+            InitUI();
+            RigesterEvent();
+            BindBtn();
+
+            ImgReward.Hide();
+            ContinueWinGoalNode.Hide();
+        }
+
+        protected override void OnShow()
+        {
+            UpdateWinNum();
+            UpdateItem();
+            SetGoldCoinBuffUI();
+            CheckGuideLevel();
+        }
+
+        protected override void OnHide()
+        {
+        }
+
+        protected override void OnClose()
+        {
+            BtnClose.onClick.RemoveAllListeners();
+            BtnStart.onClick.RemoveAllListeners();
+            BtnInfo.onClick.RemoveAllListeners();
+
+            foreach (var btn in selectBtns)
+            {
+                btn.onClick.RemoveAllListeners();
+            }
+            foreach (var btn in addItemBtns)
+            {
+                btn.onClick.RemoveAllListeners();
+            }
+        }
+
+        private void InitUI()
+        {
             int currentLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-            if(currentLevel> GameConst.LEVEL_TYPE_LAST_DIGIT)
+            if (currentLevel > GameConst.LEVEL_TYPE_LAST_DIGIT)
             {
                 switch (currentLevel % GameConst.LEVEL_TYPE_LAST_DIGIT)
                 {
                     case (int)GameDefine.LevelHardType.Hard:
-                        imgBk.transform.GetComponent<Image>().sprite = imgBgSprites[1];
+                        ImgBg.transform.GetComponent<Image>().sprite = imgBgSprites[1];
                         break;
                     case (int)GameDefine.LevelHardType.VeryHand:
-                        imgBk.transform.GetComponent<Image>().sprite = imgBgSprites[2];
+                        ImgBg.transform.GetComponent<Image>().sprite = imgBgSprites[2];
                         break;
                     default:
-                        imgBk.transform.GetComponent<Image>().sprite = imgBgSprites[0];
+                        ImgBg.transform.GetComponent<Image>().sprite = imgBgSprites[0];
                         break;
                 }
             }
             TxtWinProcess.font = LevelManager.Instance.redFont;
             TxtLevelTitle.text = $"Level {currentLevel}";
+
+            for (int i = 0; i < selectBtns.Length; i++)
+            {
+                Transform _transform = selectBtns[i].transform;
+
+                _transform.Find("ImgLock").Find("TextOpenTip").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont;
+                _transform.Find("ImgLock").Show();
+                _transform.Find("Image (5)").Hide();
+            }
+        }
             BtnStart.transform.Find("Text").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont; 
             
            
             ContinueWinGoalNode.Hide();
         }
 
-        protected override void OnShow()
+        private void BindBtn()
         {
-            stageModel = this.GetModel<StageModel>();
-            StringEventSystem.Global.Send("ClearTakeItem");
-
-            RigesterEvent();
-
-            UpdateWinNum();
-            UpdateItem();
-            SetGoldCoinBuffUI();
             BtnClose.onClick.AddListener(() =>
             {
                 CloseSelf();
@@ -108,9 +147,11 @@ namespace QFramework.Example
             {
                 //闭包
                 int _itemId = i + startID;
+                var _rewardType = (SpecialRewardsType)_itemId;
+                string _sign = GameEnum.GetDescription(_rewardType);
                 addItemBtns[i].onClick.AddListener(() =>
                 {
-                    if (CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.UNLIMIT_ITEM_SIGN))
+                    if (CountDownTimerManager.Instance.IsTimerFinished(_sign))
                         UIKit.OpenPanel<UIBuyItem>(UILevel.Common, new UIBuyItemData() { item = _itemId });
                 });
             }
@@ -118,11 +159,13 @@ namespace QFramework.Example
             for (int i = 0; i < selectBtns.Length; i++)
             {
                 int _itemId = i + startID;
+                var _rewardType = (SpecialRewardsType)_itemId;
+                string _sign = GameEnum.GetDescription(_rewardType);
                 var _tempIndex = i;
 
                 selectBtns[i].onClick.AddListener(() =>
                 {
-                    if (stageModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.UNLIMIT_ITEM_SIGN)) 
+                    if (stageModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
                     {
                         var show = !selectImgs[_tempIndex].gameObject.activeSelf;
                         selectImgs[_tempIndex].gameObject.SetActive(show);
@@ -133,48 +176,11 @@ namespace QFramework.Example
                     }
                 });
             }
-
-            ImgReward.Hide();
-
-            for (int i = 0; i < selectBtns.Length; i++)
-            {
-                Transform _transform = selectBtns[i].transform;
-
-                _transform.Find("ImgLock").Find("TextOpenTip").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont;
-                _transform.Find("ImgLock").Show();
-                _transform.Find("Image (5)").Hide();
-            }
-            CheckGuideLevel();
-        }
-
-        protected override void OnHide()
-        {
-        }
-
-        protected override void OnClose()
-        {
-            BtnClose.onClick.RemoveAllListeners();
-            BtnStart.onClick.RemoveAllListeners();
-            BtnInfo.onClick.RemoveAllListeners();
-
-            foreach (var btn in selectBtns)
-            {
-                btn.onClick.RemoveAllListeners();
-            }
-            foreach (var btn in addItemBtns)
-            {
-                btn.onClick.RemoveAllListeners();
-            }
         }
 
         void RigesterEvent()
         {
             this.RegisterEvent<RefreshItemEvent>(e =>
-            {
-                UpdateItem();
-
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-            this.RegisterEvent<UnlimtItemEvent>(e =>
             {
                 UpdateItem();
 
@@ -234,21 +240,14 @@ namespace QFramework.Example
         /// </summary>
         void UpdateItem()
         {
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.UNLIMIT_ITEM_SIGN))
-            {
-                UnLimitNode.Show();
-                AddItemIfNotExists(6);
-                AddItemIfNotExists(7);
-                AddItemIfNotExists(8);
+            if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneBottle)))
+                AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_AddOneBottle);
+            if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveHide)))
+                AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_RemoveHide);
+            if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_ChangeWater)))
+                AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_ChangeWater);
 
-                return;
-            }
-            else
-            {
-                StringEventSystem.Global.Send("ClearTakeItem");
-                UnLimitNode.Hide();
-            }
-
+            //更新道具数量
             UpdateItemDisplay(stageModel.ItemDic[6], itemNumTxts[0], addItemBtns[0]);
             UpdateItemDisplay(stageModel.ItemDic[7], itemNumTxts[1], addItemBtns[1]);
             UpdateItemDisplay(stageModel.ItemDic[8], itemNumTxts[2], addItemBtns[2]);
@@ -269,6 +268,7 @@ namespace QFramework.Example
                 txtItem.text = itemCount.ToString();
             }
         }
+
         #region 引导动画相关
         /// <summary>
         /// 设置进关道具引导动画
@@ -288,11 +288,13 @@ namespace QFramework.Example
             for (int i = 0; i < ItemGuideBtns.Length; i++)
             {
                 int _itemId = i + startID;
+                var _rewardType = (SpecialRewardsType)_itemId;
+                string _sign = GameEnum.GetDescription(_rewardType);
                 var _tempIndex = i;
                 ItemGuideBtns[i].GetComponent<RectTransform>().anchoredPosition = selectBtns[i].GetComponent<RectTransform>().anchoredPosition;
                 ItemGuideBtns[i].onClick.AddListener(() =>
                 {
-                    if (stageModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.UNLIMIT_ITEM_SIGN))
+                    if (stageModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
                     {
                         var show = !selectImgs[_tempIndex].gameObject.activeSelf;
                         selectImgs[_tempIndex].gameObject.SetActive(show);
@@ -339,6 +341,7 @@ namespace QFramework.Example
         {
             ContinueWinGoalNode.gameObject.Show();
         }
+
         private  void CheckGuideLevel()
         {
             int _level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();

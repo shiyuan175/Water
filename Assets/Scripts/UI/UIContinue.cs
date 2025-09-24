@@ -89,7 +89,7 @@ namespace QFramework.Example
                 UIKit.ClosePanel<UIGameNode>();
                 
                 this.SendCommand<FailedLevelCommand>();
-                this.SendEvent<ReturnMainEvent>(new ReturnMainEvent());
+                this.SendEvent(new ReturnToMainEvent { PassLevel = false });
 
                 EnqueueAllPanels();
                 CloseSelf();

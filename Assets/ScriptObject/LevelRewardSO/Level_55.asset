@@ -15,11 +15,9 @@ MonoBehaviour:
   PackID: Level_55
   coins: 0
   items:
-  - normalRewardsType: 2
-    itemIndex: 3
-    quantity: 1
   - normalRewardsType: 3
-    itemIndex: 4
+    quantity: 1
+  - normalRewardsType: 4
     quantity: 1
   unlimitedHp: 0
   removeAds: 0

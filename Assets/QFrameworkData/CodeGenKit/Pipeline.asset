@@ -20,28 +20,22 @@ MonoBehaviour:
     NameToFullName: []
     BindInfos:
     - TypeName: UnityEngine.UI.Image
-      PathToRoot: ImgGiftFree/FreeItemPanel
-      MemberName: FreeItemPanel
-    - TypeName: UnityEngine.UI.Button
-      PathToRoot: ImgGiftFree/BtnFreeClaim
-      MemberName: BtnFreeClaim
-    - TypeName: UnityEngine.UI.Image
-      PathToRoot: ImgGiftRecharge/RechangeItemPanel
-      MemberName: RechangeItemPanel
-    - TypeName: UnityEngine.UI.Button
-      PathToRoot: ImgGiftRecharge/BtnRecharge
-      MemberName: BtnRecharge
-    - TypeName: UnityEngine.UI.Image
-      PathToRoot: ImgGiftRecharge/ImgLock
-      MemberName: ImgLock
-    - TypeName: UnityEngine.UI.Image
-      PathToRoot: ImgButtomDividingLine
-      MemberName: ImgButtomDividingLine
-    - TypeName: UnityEngine.UI.Image
-      PathToRoot: ImgTopDividingLine
-      MemberName: ImgTopDividingLine
-    ScriptsFolder: d:/Documents/GitHub/WaterNew/Assets/Scripts/Controllers/UIBegin_BattlePassPanel/BattlePassContentPanel
-    ClassName: BattlePassContentPanel
+      PathToRoot: ImgProgressBar
+      MemberName: ImgProgressBar
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: TextProgress
+      MemberName: TextProgress
+    - TypeName: UnityEngine.RectTransform
+      PathToRoot: LevelNode/Selected
+      MemberName: Selected
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: Icon2/TxtCurLevel
+      MemberName: TxtCurLevel
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: ImgTimerBg/TextTimer
+      MemberName: TextTimer
+    ScriptsFolder: Assets\Scripts\_Script\BannerActivityNode\BannerActivityNode
+    ClassName: BannerActivityNode
     Namespace: QFramework.Example
     MainCode: 
     DesignerCode: 

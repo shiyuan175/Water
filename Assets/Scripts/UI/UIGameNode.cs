@@ -260,7 +260,7 @@ namespace QFramework.Example
         {
             // 设置动画
             LevelTipPanel.Show();
-            float _durationTime = 2.5f;
+            float _durationTime = 1.5f;
             CanvasGroup _canvasGroup = LevelTipPanel.GetComponent<CanvasGroup>();
             _canvasGroup.alpha = 0;
             _canvasGroup.DOFade(1f, _durationTime)
@@ -273,7 +273,7 @@ namespace QFramework.Example
                     {
                         LevelTipPanel.Hide();
                     });
-                    
+
                 });
 
             // 设置文本 5-20的偏转值
@@ -358,7 +358,7 @@ namespace QFramework.Example
                     transform = BtnRemoveAll.transform;
                     break;
             }
-            
+
             transform.Find("ImgItem").Show();
             transform.Find("ImgLock").Hide();
             transform.GetComponent<Button>().interactable = true;
@@ -491,7 +491,7 @@ namespace QFramework.Example
                 case 6:
                     LevelManager.Instance.AddBottle(true, () =>
                     {
-                        if (CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.UNLIMIT_ITEM_SIGN))//!HealthManager.Instance.UnLimitHp
+                        if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneBottle)))
                             stageModel.ReduceItem(6, 1);
                         TxtItem1.text = "0";
                     });
@@ -502,7 +502,7 @@ namespace QFramework.Example
                         return;
                     ClearBottleBlackWater(2, true, () =>
                     {
-                        if (CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.UNLIMIT_ITEM_SIGN))
+                        if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveHide)))
                             stageModel.ReduceItem(7, 1);
                         TxtItem2.text = "0";
                     });
@@ -557,7 +557,7 @@ namespace QFramework.Example
                     botter.SetHideShow(true);
                     LevelManager.Instance.HideItemSelect();
 
-                    if (CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.UNLIMIT_ITEM_SIGN))
+                    if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_ChangeWater)))
                         stageModel.ReduceItem(8, 1);
                     TxtItem3.text = "0";
                     //Debug.Log("打乱顺序成功");
@@ -640,9 +640,11 @@ namespace QFramework.Example
             for (int i = 0; i < itemIds.Length; i++)
             {
                 int itemId = itemIds[i];
+                var _rewardType = (SpecialRewardsType)itemId;
+                string _sign = GameEnum.GetDescription(_rewardType);
 
                 bool active = (takeItems.Contains(itemId) && CheckHaveItem(itemId))
-                    || !CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.UNLIMIT_ITEM_SIGN);
+                    || !CountDownTimerManager.Instance.IsTimerFinished(_sign);
                 buttons[i].interactable = active;
                 texts[i].text = active ? "1" : "0";
             }

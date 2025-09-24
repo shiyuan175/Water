@@ -57,7 +57,14 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         });
     }
 
-    public void PlayRewardAnim(int? addCoin , System.Action call = null , params IPackSoInterface[] packSOs)
+    /// <summary>
+    /// 发放奖励表现
+    /// </summary>
+    /// <param name="addCoin"></param>
+    /// <param name="call"></param>
+    /// <param name="openBox">开箱/直接发放</param>
+    /// <param name="packSOs"></param>
+    public void PlayRewardAnim(int? addCoin, System.Action call = null, bool openBox = true, params IPackSoInterface[] packSOs)
     {
         var _packSO = new List<IPackSoInterface>();
         int _slotCount = 0;
@@ -76,11 +83,16 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         for (int i = 0; i < _slotCount; i++)
             availableSlots.Add(i);
 
-        BoxAnimator.Show();
-        BoxAnimator.Play("BoxOpen");
+        float _waitValue = 0f;
+        if (openBox)
+        {
+            BoxAnimator.Show();
+            BoxAnimator.Play("BoxOpen");
+            _waitValue = 1f;
+        }
 
-        // 等待盒子打开动画完成
-        ActionKit.Delay(1f, () =>
+        // 等待盒子打开动画完成(1秒)
+        ActionKit.Delay(_waitValue, () =>
         {
             if (_slotCount != 0)
                 BtnContinue.Show();
@@ -119,6 +131,12 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
             {
                 CoinParticle.Play(100);
                 PopupCoinText((int)addCoin);
+
+                if (actionList.Count == 0)
+                {
+                    openBoxCallBack?.Invoke();
+                    openBoxCallBack = null;
+                }
             }
         }).Start(this);
     }

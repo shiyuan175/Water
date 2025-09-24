@@ -16,10 +16,8 @@ MonoBehaviour:
   coins: 0
   items:
   - normalRewardsType: 3
-    itemIndex: 4
     quantity: 1
-  - normalRewardsType: 5
-    itemIndex: 6
+  - normalRewardsType: 2
     quantity: 1
   unlimitedHp: 0
   removeAds: 0

@@ -9,9 +9,8 @@ public abstract class BaseGameActivity : IGameActivity, ICanGetModel, ICanGetUti
 {
     public abstract string ActivitySign { get; }
     public abstract string ActivityID { get; }
-    public abstract int ActivityBeginLevel { get; }
     public abstract GameActivityStatus ActivityStatus { get; }
-
+    public virtual int ActivityBeginLevel { get; }
     public virtual string ActivityCooldownSign { get; }
     public virtual float ActivityCooldownMinutes { get; }
     public virtual float ActivityDurationMinutes { get; }

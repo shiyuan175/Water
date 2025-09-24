@@ -14,7 +14,6 @@ namespace QFramework.Example
     }
     public partial class UIGetCoin : UIPanel, ICanSendEvent, ICanGetUtility, ICanGetModel
     {
-
         [SerializeField] private GiftPackSO[] rewardPackSO;
         [SerializeField] private Sprite[] unlockSprites;
         [SerializeField] private Sprite[] imgTipBgSprites;
@@ -52,23 +51,23 @@ namespace QFramework.Example
             stageModel = this.GetModel<StageModel>();
             rewardGrantUtility = this.GetUtility<RewardGrantUtility>();
             saveDataUtility = this.GetUtility<SaveDataUtility>();
-        }
-
-        protected override void OnShow()
-        {
 
             BindClick();
             getReward = -1;
             UpdateBgUI();
             UpdateBoxProcessNode();
             UpdateUnlockProcessNode();
+        }
 
+        protected override void OnShow()
+        {
             // 金币的倍数不是正常的倍数时播放金币增长的动画
             if (stageModel.GoldCoinsMultiple != 1.0f && !isHaveBox)
             {
                 PLayGoldCoinUPAnimation();
             }
         }
+
         protected void UpdateBgUI()
         {
             int currentLevel = saveDataUtility.GetCurrentLevel() - 1;
@@ -91,9 +90,10 @@ namespace QFramework.Example
                     break;
             }
         }
+
         protected override void OnHide()
         {
-            TxtCoin.text = 20.ToString();
+            
         }
 
         protected override void OnClose()
@@ -120,9 +120,8 @@ namespace QFramework.Example
 
         void BackUIBegin()
         {
-
             UIKit.ClosePanel<UIGameNode>();
-            this.SendEvent<LevelClearEvent>(new LevelClearEvent());
+            this.SendEvent(new ReturnToMainEvent { PassLevel = true });
             CloseSelf();
         }
 
@@ -169,6 +168,7 @@ namespace QFramework.Example
             else
                 ImgBoxProcessNode.Hide();
         }
+
         private void UpdateUnlockProcessNode()
         {
             int curLevel = saveDataUtility.GetCurrentLevel();
@@ -208,37 +208,29 @@ namespace QFramework.Example
 
         private void PLayGoldCoinUPAnimation()
         {
-            // 初始化
-
             TextTimes.Show();
             TextTimes.text = "X" + (stageModel.GoldCoinsMultiple).ToString("0.0");
             Sequence sequence = DOTween.Sequence();
-            float duration = 1f;
+            float duration = 0.6f;
             int currentValue = (int)GameDefine.GameConst.WIN_COINS;
 
             sequence.Append(DOTween.To(() => 1f, alpha => {
                 TextTimes.alpha = alpha; // 手动控制透明度
-            }, 0.2f, duration).SetEase(Ease.OutQuad));
+            }, 0.2f, duration));
 
             sequence.Join(DOTween.To(() => Vector3.one, scale => {
                 TextTimes.transform.localScale = scale; // 手动控制缩放
-            }, new Vector3(0.2f, 0.2f, 0.2f), duration).SetEase(Ease.OutQuad));
+            }, new Vector3(0.2f, 0.2f, 0.2f), duration));
             sequence.OnComplete(() => {
                 DOTween.To(() => currentValue, x =>
                 {
                     TextTimes.Hide();
                     currentValue = x;
                     TxtCoin.text = currentValue.ToString();
-                }, (int)(currentValue * stageModel.GoldCoinsMultiple), duration * 1.2f)
-               .SetEase(Ease.OutQuad);
+                }, (int)(currentValue * stageModel.GoldCoinsMultiple), duration * 1.2f);
             });
             sequence.Play();
 
         }
-
-
-
-
-
     }
 }

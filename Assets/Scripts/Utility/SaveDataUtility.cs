@@ -45,7 +45,7 @@ public class SaveDataUtility : IUtility, ICanSendEvent
     }
 
     /// <summary>
-    /// 当前关卡(只用于判断关卡,和星星相关的用SceneUnlockModel)
+    /// 当前关卡
     /// </summary>
     /// <returns></returns>
     public int GetCurrentLevel()
@@ -95,27 +95,5 @@ public class SaveDataUtility : IUtility, ICanSendEvent
     public void SaveSelectLanguage(string language)
     {
         PlayerPrefs.SetString("g_WaterLanguage", language);
-    }
-
-    public void SaveNoAD(bool NoAD)
-    {
-        if(NoAD)
-        {
-            PlayerPrefs.SetInt("g_WaterNoAD", 1);
-        }
-        else
-        {
-            PlayerPrefs.SetInt("g_WaterNoAD", 0);
-        }
-    }
-
-    public bool GetNoAD()
-    {
-        if(PlayerPrefs.GetInt("g_WaterNoAD", 0) == 1)
-        {
-            return true;
-        }
-
-        return false;
     }
 }

@@ -170,26 +170,26 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
     }
 
     /// <summary>
-    /// 开启美东 0 点结束的计时器
+    /// 开启X天后美东 0 点计时器
     /// </summary>
-    public void StartEasternMidnightTimer(string id)
+    public void StartEasternMidnightTimer(string id, int value = 1)
     {
         string key = COUNTDOWN_TIMER_SIGN + id;
         if (PlayerPrefs.HasKey(key))
             return;
 
-        DateTime endUtc = GetTomorrowEasternMidnightUtc();
+        DateTime endUtc = GetEasternMidnightUtcAfterDays(value);
         PlayerPrefs.SetString(key, endUtc.ToString("o"));
         PlayerPrefs.Save();
     }
 
     /// <summary>
-    /// 重置计时器为下一次美东 0 点
+    /// 重置计时器为X天后美东 0 点
     /// </summary>
-    public void ResetEasternMidnightTimer(string id)
+    public void ResetEasternMidnightTimer(string id ,int value = 1)
     {
         string key = COUNTDOWN_TIMER_SIGN + id;
-        DateTime endUtc = GetTomorrowEasternMidnightUtc();
+        DateTime endUtc = GetEasternMidnightUtcAfterDays(value);
         PlayerPrefs.SetString(key, endUtc.ToString("o"));
         PlayerPrefs.Save();
     }
@@ -214,11 +214,11 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
     }
 
     /// <summary>
-    /// 获取明天美东 0 点(对应的 UTC 时间)
+    /// 获取X天后的美东 0 点(对应的 UTC 时间)
     /// </summary>
-    private DateTime GetTomorrowEasternMidnightUtc()
+    private DateTime GetEasternMidnightUtcAfterDays(int value)
     {
-        return GetTodayEasternMidnightUtc().AddDays(1);
+        return GetTodayEasternMidnightUtc().AddDays(value);
     }
 
     /// <summary>

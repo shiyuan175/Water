@@ -35,7 +35,7 @@ public class StageModel : AbstractModel
         }
     }
     //双倍结算Buff(部分活动积分/星星获取)
-    public int SettlementMultiple => CountDownTimerManager.Instance.IsTimerFinished(GameConst.DOUBLE_SETTLEMENT_SIGN) ? 1 : DOUBLE;
+    public int SettlementMultiple => CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleCoin)) ? 1 : DOUBLE;
     //静音
     public bool VolumeSetting
     {

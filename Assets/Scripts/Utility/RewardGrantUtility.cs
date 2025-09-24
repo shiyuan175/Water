@@ -1,6 +1,7 @@
+using GameDefine;
+using QFramework;
 using System.Collections;
 using System.Collections.Generic;
-using QFramework;
 using UnityEngine;
 
 public class RewardGrantUtility : IUtility, ICanGetModel
@@ -9,6 +10,8 @@ public class RewardGrantUtility : IUtility, ICanGetModel
     {
         StageModel _StageModel = this.GetModel<StageModel>();
         CoinManager.Instance.AddCoin(rewardPackSO.Coins);
+        //永久去广告逻辑待补充 rewardPackSO.RemoveAdsForever
+
         foreach (var item in rewardPackSO.ItemReward)
         {
             _StageModel.AddItem((int)item.NormalRewardsType, item.Quantity);
@@ -25,6 +28,11 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                     break;
                 case SpecialRewardsType.UnlimitedHp:
                     HealthManager.Instance.SetUnLimitHp(item.Duration);
+                    break;
+
+                //有配置 Description 特性走默认处理逻辑
+                default:
+                    CountDownTimerManager.Instance.AddTimer(GameEnum.GetDescription(item.SpecialRewardType), item.Duration);
                     break;
             }
         }

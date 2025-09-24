@@ -14,16 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coins: 0
   items:
-  - normalRewardsType: 3
-    itemIndex: 4
+  - normalRewardsType: 4
     quantity: 1
-  - normalRewardsType: 0
-    itemIndex: 1
+  - normalRewardsType: 1
     quantity: 1
   - normalRewardsType: 7
-    itemIndex: 8
     quantity: 1
-  - normalRewardsType: 6
-    itemIndex: 7
+  - normalRewardsType: 8
     quantity: 1
   specialReward: []
