@@ -64,7 +64,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
     /// <param name="call"></param>
     /// <param name="openBox">开箱/直接发放</param>
     /// <param name="packSOs"></param>
-    public void PlayRewardAnim(int? addCoin, System.Action call = null, bool openBox = true, params IPackSoInterface[] packSOs)
+    public void PlayRewardAnim(int? addCoin, bool openBox, System.Action call, params IPackSoInterface[] packSOs)
     {
         var _packSO = new List<IPackSoInterface>();
         int _slotCount = 0;

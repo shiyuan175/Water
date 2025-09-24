@@ -96,10 +96,10 @@ namespace QFramework.Example
                 {
                     CoinManager.Instance.AddCoin(mTierRankActivity.RankSettlementCoins);
 
-                    RewardUIManager.Instance.PlayRewardAnim(mTierRankActivity.RankSettlementCoins, _action, mStartActivitySO, mRankSettlementSO);
+                    RewardUIManager.Instance.PlayRewardAnim(mTierRankActivity.RankSettlementCoins, true, _action, mStartActivitySO, mRankSettlementSO);
                 }
                 else
-                    RewardUIManager.Instance.PlayRewardAnim(null, _action, mStartActivitySO);
+                    RewardUIManager.Instance.PlayRewardAnim(null, true, _action, mStartActivitySO);
 
             });
         }

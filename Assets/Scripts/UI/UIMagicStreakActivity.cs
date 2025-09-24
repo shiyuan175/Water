@@ -97,7 +97,7 @@ namespace QFramework.Example
                 {
                     //延迟动画
                     UIKit.ClosePanel<UIMask>();
-                    RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, packSOs: _packSO);
+                    RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, true, null, _packSO);
                 }).Start(this);
                 return;
             }
@@ -168,7 +168,7 @@ namespace QFramework.Example
                         {
                             UIKit.ClosePanel<UIMask>();
                             var _packSO = mStageRewardCofigs[cacheStageRewardIndex].RewardPack;
-                            RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, () =>
+                            RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, true, () =>
                             {
                                 //重新标记缓存数据
                                 CacheTempData();
@@ -180,7 +180,7 @@ namespace QFramework.Example
                                 _curPlayerStageScore = _curPlayerTotalScore - lastStageTotalScore;
                                 TxtProgress_Red.text = $"{_curPlayerStageScore} / {targetStageScore}";
                                 ImgProgressBar.fillAmount = (float)_curPlayerStageScore / targetStageScore;
-                            }, packSOs: _packSO);
+                            }, _packSO);
                         }
                     });
                 mTweenList.Add(_progressUp);

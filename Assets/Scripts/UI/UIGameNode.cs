@@ -205,7 +205,7 @@ namespace QFramework.Example
                         {
                             //Debug.Log("Ê×´Î½úÉý¶ÎÎ»");
                             CoinManager.Instance.AddCoin(300);
-                            RewardUIManager.Instance.PlayRewardAnim(300);
+                            RewardUIManager.Instance.PlayRewardAnim(300, true, null);
 
                             ActionKit.Delay(1.5f, () =>
                             {

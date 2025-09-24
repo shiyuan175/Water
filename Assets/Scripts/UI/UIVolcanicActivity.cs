@@ -102,7 +102,7 @@ namespace QFramework.Example
                     _action = () =>
                     {
                         UIKit.ClosePanel<UIMask>();
-                        RewardUIManager.Instance.PlayRewardAnim(mVolcanicActivity.RewardCoins);
+                        RewardUIManager.Instance.PlayRewardAnim(mVolcanicActivity.RewardCoins, true, null);
                     };
                 }
 

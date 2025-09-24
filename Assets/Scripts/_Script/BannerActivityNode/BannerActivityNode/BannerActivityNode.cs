@@ -137,7 +137,7 @@ namespace QFramework.Example
                 mRewardGrantUtility.GrantReward(mBannerActivityPackSO[mCacheProgress]);
                 UIKit.ClosePanel<UIMask>();
                 RewardUIManager.Instance.PlayRewardAnim(
-                    mBannerActivityPackSO[mCacheProgress].Coins,
+                    mBannerActivityPackSO[mCacheProgress].Coins, true,
                     () =>
                     {
                         //活动进度更新

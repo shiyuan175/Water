@@ -155,7 +155,7 @@ namespace QFramework.Example
                         var _packSO = rewardPackSO[getReward];
                         rewardGrantUtility.GrantReward(_packSO);
                         isHaveBox = true;
-                        RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, packSOs: _packSO);
+                        RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, true, null, _packSO);
                     }
                 }
             }

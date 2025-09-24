@@ -100,7 +100,7 @@ namespace QFramework.Example
         private void OnPaySuccess(GiftPackSO _packSo)
         {
             rewardGrantUtility.GrantReward(_packSo);
-            RewardUIManager.Instance.PlayRewardAnim(_packSo.Coins, packSOs: _packSo);
+            RewardUIManager.Instance.PlayRewardAnim(_packSo.Coins, true, null, _packSo);
            
             UIKit.OpenPanel<UIBuyPackSuccess>();
             ActionKit.Delay(1, () =>
