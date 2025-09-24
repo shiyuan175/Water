@@ -111,7 +111,7 @@ namespace QFramework.Example
                 _transform.Find("ImgLock").Show();
                 _transform.Find("Image (5)").Hide();
             }
-        }
+       
             BtnStart.transform.Find("Text").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont; 
             
            

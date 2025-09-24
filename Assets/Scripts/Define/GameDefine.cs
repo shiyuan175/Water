@@ -29,11 +29,11 @@ namespace GameDefine
         //活动开启目标关卡
         public const int VA_BEGIN_LEVEL = 7;    //火山活动
         public const int DR_AD_BEGIN_LEVEL = 8; //日常广告活动
+        public const int DT_BEGIN_LEVEL = 8; //日常广告活动
         public const int TT_AD_BEGIN_LEVEL = 16; //轮盘活动
         public const int RA_BEGIN_LEVEL = 24;   //火箭活动
         public const int HTA_BEGIN_LEVEL = 34;  //高塔活动
-        public const int DR_AD_BEGIN_LEVEL = 8; //日常广告活动
-        public const int DT_BEGIN_LEVEL = 8; //日常广告活动
+
 
         //活动存档标记
         public const string MAGIC_STREAK_ACTIVITY_SIGN = "MagicStreakActivity";
