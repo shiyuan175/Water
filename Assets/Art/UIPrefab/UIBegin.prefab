@@ -1196,155 +1196,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &350284844857744092
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7337850851544878137}
-  - component: {fileID: 3038775771821436373}
-  - component: {fileID: 1199057881553714787}
-  - component: {fileID: 2506669528152620910}
-  - component: {fileID: 2720023843880993460}
-  m_Layer: 5
-  m_Name: BtnClose
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &7337850851544878137
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350284844857744092}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8213945277698855320}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100, y: -100}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &3038775771821436373
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350284844857744092}
-  m_CullTransparentMesh: 1
---- !u!114 &1199057881553714787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350284844857744092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3e0bc3a858181564d990aa26ee260638, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!114 &2506669528152620910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350284844857744092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1199057881553714787}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ButtonSoundExtension, Assembly-CSharp
-        m_MethodName: PlayButtonClickSound
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &2720023843880993460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350284844857744092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MarkType: 0
-  CustomComponentName: BtnRetry
-  CustomComment: 
-  mComponentName: UnityEngine.UI.Button
 --- !u!1 &425997849325957283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,6 +1208,7 @@ GameObject:
   - component: {fileID: 7908410796951836363}
   - component: {fileID: 1741069596086128154}
   - component: {fileID: 6687990915342387922}
+  - component: {fileID: 6100172259981512359}
   m_Layer: 5
   m_Name: BattlePassContentPanel
   m_TagString: Untagged
@@ -1446,6 +1298,32 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 1
   m_LayoutPriority: 1
+--- !u!114 &6100172259981512359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425997849325957283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Namespace: QFramework.Example
+  ScriptName: BattlePassContentPanel
+  ScriptsFolder: d:/Documents/GitHub/WaterNew/Assets/Scripts/Controllers/UIBegin_BattlePassPanel/BattlePassContentPanel
+  GeneratePrefab: 0
+  PrefabFolder: Assets/Art/Prefab
+  ArchitectureFullTypeName: 
+  ViewControllerFullTypeName: 
+  FreeItemPanel: {fileID: 4042570547276918971}
+  BtnFreeClaim: {fileID: 649201837548640581}
+  RechangeItemPanel: {fileID: 7083843377649717726}
+  BtnRecharge: {fileID: 6665602316478595449}
+  ImgLock: {fileID: 4359349433005150712}
+  ImgButtomDividingLine: {fileID: 8452562852752361266}
+  ImgTopDividingLine: {fileID: 4619732491422701935}
 --- !u!1 &442727062668734366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,6 +1541,15 @@ MonoBehaviour:
   - {fileID: 5962765767693058231}
   - {fileID: 6832971883408731956}
   ShopScrollView: {fileID: 3682217519987241380}
+  BattlePassContent: {fileID: 0}
+  FreeItemPanel: {fileID: 0}
+  BtnFreeClaim: {fileID: 0}
+  RechangeItemPanel: {fileID: 0}
+  BtnRecharge: {fileID: 0}
+  ImgLock: {fileID: 0}
+  ImgButtomDividingLine: {fileID: 0}
+  ImgTopDividingLine: {fileID: 0}
+  BtnInfo: {fileID: 3814736852049654825}
   BtnStart: {fileID: 8738590673913242107}
   TxtStartLevel: {fileID: 7305947681278794043}
   BtnArea: {fileID: 1850920168163036838}
@@ -1683,6 +1570,7 @@ MonoBehaviour:
   BtnMSANode: {fileID: 4919809567090459793}
   TxtMagicStreakActivity: {fileID: 5653381900446688914}
   BtnTRANode: {fileID: 4324775109173109131}
+  ImgTierRankIcon: {fileID: 1564458714834409256}
   TxtTierRankActivity: {fileID: 6807507337050323692}
   BtnRANode: {fileID: 6656459033017186630}
   TxtRocketActivity: {fileID: 7430335254923027866}
@@ -3438,6 +3326,7 @@ GameObject:
   - component: {fileID: 3374868663517300834}
   - component: {fileID: 7296456601644327457}
   - component: {fileID: 8452562852752361266}
+  - component: {fileID: 7770732814675797814}
   m_Layer: 5
   m_Name: ImgButtomDividingLine
   m_TagString: Untagged
@@ -3493,15 +3382,31 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: f0347243e0afde84caf322787d18115d, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillMethod: 0
+  m_FillAmount: 0
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7770732814675797814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876149246199301506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgButtomDividingLine
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &876246835142936215
 GameObject:
   m_ObjectHideFlags: 0
@@ -9379,8 +9284,9 @@ GameObject:
   - component: {fileID: 2834189834983567878}
   - component: {fileID: 6167297871493051841}
   - component: {fileID: 649201837548640581}
+  - component: {fileID: 2085893850738752056}
   m_Layer: 5
-  m_Name: BtnClaim
+  m_Name: BtnFreeClaim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9488,6 +9394,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2085893850738752056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2274194054234924904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: BtnFreeClaim
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Button
 --- !u!1 &2298267767435272673
 GameObject:
   m_ObjectHideFlags: 0
@@ -11837,8 +11759,9 @@ GameObject:
   - component: {fileID: 6423508104818186535}
   - component: {fileID: 7835159793178534496}
   - component: {fileID: 4042570547276918971}
+  - component: {fileID: 1624011326070063890}
   m_Layer: 5
-  m_Name: ItemPanel
+  m_Name: FreeItemPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11902,6 +11825,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1624011326070063890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2880214699504193935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: BtnFreeClaim
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &2946738455700475608
 GameObject:
   m_ObjectHideFlags: 0
@@ -18085,6 +18024,7 @@ GameObject:
   - component: {fileID: 660160713128383350}
   - component: {fileID: 2525639154639003380}
   - component: {fileID: 4619732491422701935}
+  - component: {fileID: 2727489846311482272}
   m_Layer: 5
   m_Name: ImgTopDividingLine
   m_TagString: Untagged
@@ -18140,15 +18080,31 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: f0347243e0afde84caf322787d18115d, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillMethod: 0
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2727489846311482272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4693978527813968593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgButtomDividingLine
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &4727442823328280922
 GameObject:
   m_ObjectHideFlags: 0
@@ -18533,13 +18489,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 8a9901862a526ae4c921eb683588c736, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillMethod: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4843927594701300423
@@ -22201,6 +22157,7 @@ GameObject:
   - component: {fileID: 3174241171091491941}
   - component: {fileID: 3936421437458075798}
   - component: {fileID: 4359349433005150712}
+  - component: {fileID: 107495330693158268}
   m_Layer: 5
   m_Name: ImgLock
   m_TagString: Untagged
@@ -22265,6 +22222,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &107495330693158268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598010682651207690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: BtnFreeClaim
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &5674506131606019898
 GameObject:
   m_ObjectHideFlags: 0
@@ -22759,7 +22732,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7337850851544878137}
   - {fileID: 7430364854913978370}
   - {fileID: 6387847252536778691}
   m_Father: {fileID: 8335354091708844308}
@@ -22921,8 +22893,9 @@ GameObject:
   - component: {fileID: 376637230630393632}
   - component: {fileID: 8512943217647618546}
   - component: {fileID: 1564458714834409256}
+  - component: {fileID: 2472676085421037675}
   m_Layer: 5
-  m_Name: ImgTRA2
+  m_Name: ImgTierRankIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22944,7 +22917,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 19}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 130, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8512943217647618546
@@ -22975,7 +22948,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 079fb7fe58b08144b8d27cab0d5b13e8, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22985,6 +22958,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2472676085421037675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5754956369325440154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgTRA2
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &5765903177850903319
 GameObject:
   m_ObjectHideFlags: 0
@@ -24904,8 +24893,9 @@ GameObject:
   - component: {fileID: 3608810843486952190}
   - component: {fileID: 8383948702542056643}
   - component: {fileID: 6665602316478595449}
+  - component: {fileID: 2771125955436941075}
   m_Layer: 5
-  m_Name: BtnClaim
+  m_Name: BtnRecharge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25013,6 +25003,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2771125955436941075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6123439460510653519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: BtnFreeClaim
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Button
 --- !u!1 &6174101816903835034
 GameObject:
   m_ObjectHideFlags: 0
@@ -25484,8 +25490,9 @@ GameObject:
   - component: {fileID: 3498993704077702788}
   - component: {fileID: 1279967859768175001}
   - component: {fileID: 7083843377649717726}
+  - component: {fileID: 507763479175030097}
   m_Layer: 5
-  m_Name: ItemPanel
+  m_Name: RechangeItemPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25549,6 +25556,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &507763479175030097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327720412215542076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: BtnFreeClaim
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &6343596994552734994
 GameObject:
   m_ObjectHideFlags: 0
@@ -35011,8 +35034,9 @@ GameObject:
   - component: {fileID: 7616672482671903115}
   - component: {fileID: 4067273387978059114}
   - component: {fileID: 2434869664509248036}
+  - component: {fileID: 3305939601094054763}
   m_Layer: 5
-  m_Name: Content
+  m_Name: BattlePassContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35116,6 +35140,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3305939601094054763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8755339237642189161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: BattlePassContent
+  CustomComment: 
+  mComponentName: UnityEngine.GameObject
 --- !u!1 &8761965258183495221
 GameObject:
   m_ObjectHideFlags: 0
@@ -35569,7 +35609,7 @@ GameObject:
   - component: {fileID: 3474331960570393273}
   - component: {fileID: 1093142659328280120}
   - component: {fileID: 8097336507701387374}
-  - component: {fileID: 1919231182290973820}
+  - component: {fileID: 3424873013797875360}
   m_Layer: 5
   m_Name: BattlePassPanel
   m_TagString: Untagged
@@ -35632,7 +35672,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &1919231182290973820
+--- !u!114 &3424873013797875360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35641,17 +35681,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8897491986195351785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1883c5271b7b51c4ca98e09a018cf17e, type: 3}
+  m_Script: {fileID: 11500000, guid: d0e6b766109bd924ea561ea540607977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Namespace: QFramework.Example
-  ScriptName: BattlePassPanelCtrl
-  ScriptsFolder: Assets/Scripts/Game
+  ScriptName: BattlePassPanel
+  ScriptsFolder: Assets/Scripts/Controllers/UIBegin_BattlePassPanel
   GeneratePrefab: 0
   PrefabFolder: Assets/Art/Prefab
   ArchitectureFullTypeName: 
   ViewControllerFullTypeName: 
-  BtnClose: {fileID: 2506669528152620910}
+  BattlePassContent: {fileID: 8755339237642189161}
   BtnInfo: {fileID: 3814736852049654825}
 --- !u!1 &8933307513875792360
 GameObject:

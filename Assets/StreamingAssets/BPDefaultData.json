@@ -1,0 +1,547 @@
+﻿{
+    "BattlePassVersion": 1,
+    "Rewards": [
+        {
+            "GetConditions": 0,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_RemoveHide": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AvatarId": 8
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 1,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_ChangeWater": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "UnlimitedHp": 15
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 2,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_ChangeWater": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "StepBack": 1
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 3,
+            "Free": {
+                "RewardList": [
+                    {
+                        "RemoveAll": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AddHalfBottle": 1
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 4,
+            "Free": {
+                "RewardList": [
+                    {
+                        "Coins": 100
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AddOneBottle": 1
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 5,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_RemoveHide": 1,
+                        "S_ChangeWater": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "Coins": 200,
+                        "StepBack": 3
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 6,
+            "Free": {
+                "RewardList": [
+                    {
+                        "StepBack": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "S_AddOneBottle": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 7,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_RemoveHide": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "S_ChangeWater": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 8,
+            "Free": {
+                "RewardList": [
+                    {
+                        "UnlimiteS_Items ": 15
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AddHalfBottle": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 9,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_ChangeWater": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "StepBack": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_ChangeWater": 1,
+                        "S_AddOneBottle": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "Coins": 200,
+                        "S_AddOneBottle": 2,
+                        "S_RemoveHide": 2,
+                        "S_ChangeWater": 2,
+                        "StepBack": 1
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "AddOneBottle": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "UnlimiteS_Items": 15
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "Coins": 100
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "RemoveAll": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "UnlimitedHp": 15
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "Coins": 500
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_ChangeWater": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AddHalfBottle": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_RemoveHide": 1,
+                        "S_AddOneBottle": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "Coins": 300,
+                        "UnlimitedHp": 60,
+                        "S_ChangeWater": 2,
+                        "AddHalfBottle": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_RemoveHide": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AddOneBottle": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "Coins": 100
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "UnlimiteS_Items ": 30
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_AddOneBottle": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AddHalfBottle": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "RemoveHide": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "S_ChangeWater": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_RemoveHide": 1,
+                        "S_ChangeWater": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "Coins": 400,
+                        "S_RemoveHide": 2,
+                        "AddHalfBottle": 2,
+                        "RemoveAll": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "UnlimitedHp": 30
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "RemoveHide": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "S_ChangeWater": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "S_RemoveHide": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "AddHalfBottle": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "S_RemoveHide": 2
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "RemoveHide": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AvatarId": 8
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "RemoveHide": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AvatarId": 8
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "RemoveHide": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AvatarId": 8
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "RemoveHide": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AvatarId": 8
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "RemoveHide": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AvatarId": 8
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "RemoveHide": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AvatarId": 8
+                    }
+                ]
+            }
+        },
+        {
+            "GetConditions": 10,
+            "Free": {
+                "RewardList": [
+                    {
+                        "RemoveHide": 1
+                    }
+                ]
+            },
+            "Advance": {
+                "RewardList": [
+                    {
+                        "AvatarId": 8
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -84,13 +84,29 @@ namespace GameDefine
         };
         public readonly static JsonFileInfo DTDefaultJson = new()
         {
-            FileName = "DT_Data.json",
+            FileName = "DTDefaultData.json",
             TargetVersion = 1
         };
         public readonly static JsonFileInfo DTCurrentJson = new()
         {
             FileName = "DT_Data.json",
             TargetVersion = 1
+        };
+        public readonly static JsonFileInfo BPDefaultJson = new()
+        {
+            FileName = "BPDefaultData.json",
+            TargetVersion = 1
+        };
+        public readonly static JsonFileInfo BPCurrentJson = new()
+        {
+            FileName = "BP_Data.json",
+            TargetVersion = 1
+        };
+
+        public readonly static JsonFileInfo BpCurrenJson = new JsonFileInfo()
+        {
+        
+        
         };
         #endregion
 

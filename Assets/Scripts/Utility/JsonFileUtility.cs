@@ -56,16 +56,15 @@ namespace JsonFileData
     #endregion
 
     #region DailyTask AD Activity Data
-    public class Reward
-    {
-        // 待补充
-    }
+
+    public class DTRewardItem
+    { }
     public class TaskItem
     {
         public string TypeName;
-        public List<Reward> Rewards;
+        public List<DTRewardItem> Rewards;
     }
-    
+
     public class TaskGroup
     {
         public int TaskId;
@@ -104,15 +103,47 @@ namespace JsonFileData
     #endregion
 
 
+    #region BattlePass Data
+   
+    public class BattlePassData
+    {
+        public int BattlePassVersion;
+        public Reward[] Rewards;
+    } 
+    public class Reward
+    {
+        public int GetConditions;
+        public BPRewardItem Free;
+        public BPRewardItem Advance;
+    }
+    public class BPRewardItem
+    {
+        public int S_RemoveHide;
+        public int S_ChangeWater;
+        public int UnlimitedHp;
+        public int StepBack;
+        public int RemoveAll;
+        public int AddHalfBottle;
+        public int AddOneBottle;
+        public int Coins;
+        public int S_AddOneBottle;
+        public int UnlimiteS_Items;
+        public int AvatarId;
+    }
+
+
+    #endregion
 
 }
 
 public class JsonFileUtility : IUtility
 {
+    // 默认的json是用来同步版本，current
     private readonly JsonFileInfo[] mJsonFileData = new JsonFileInfo[]
     {
         GameDefine.GameConst.MSADefaultJson,
-        GameDefine.GameConst.TRADefaultJson
+        GameDefine.GameConst.TRADefaultJson,
+        GameDefine.GameConst.BPDefaultJson
     };
 
     /// <summary>
@@ -201,23 +232,23 @@ public class JsonFileUtility : IUtility
     {
         bool _needUpdate;
         for (int i = 0; i < mJsonFileData.Length; i++)
-       {
-           _needUpdate = true;
+        {
+            _needUpdate = true;
 
-           var _perFilePath = Path.Combine(Application.persistentDataPath, mJsonFileData[i].FileName);
-           if (File.Exists(_perFilePath))
-           {
-               //Debug.Log($"文件:{mJsonFileData[i].FileName} 已存在");
-               int _localVersion = GetFileVersion(_perFilePath);
-               //Debug.Log($"{mJsonFileData[i].FileName} 当前版本：" + _localVersion);
+            var _perFilePath = Path.Combine(Application.persistentDataPath, mJsonFileData[i].FileName);
+            if (File.Exists(_perFilePath))
+            {
+                //Debug.Log($"文件:{mJsonFileData[i].FileName} 已存在");
+                int _localVersion = GetFileVersion(_perFilePath);
+                //Debug.Log($"{mJsonFileData[i].FileName} 当前版本：" + _localVersion);
+                // 读取默认的json比对json的version和targeversion
+                if (_localVersion >= mJsonFileData[i].TargetVersion)
+                    _needUpdate = false;
+            }
 
-               if (_localVersion >= mJsonFileData[i].TargetVersion)
-                   _needUpdate = false;
-           }
-
-           if (_needUpdate)
-           {
-               //Debug.Log($"文件:{mJsonFileData[i]} 不存在或版本过低，更新中...");
+            if (_needUpdate)
+            {
+                //Debug.Log($"文件:{mJsonFileData[i]} 不存在或版本过低，更新中...");
 #if UNITY_ANDROID && !UNITY_EDITOR
            var streamingAssetsFilePath = Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName);
            using (UnityWebRequest request = UnityWebRequest.Get(streamingAssetsFilePath))
@@ -236,14 +267,14 @@ public class JsonFileUtility : IUtility
                }
            }
 #else
-               // 非安卓
-               await Task.Run(() =>
-               {
-                   File.Copy(Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName), _perFilePath, overwrite: true);
-               });
+                // 非安卓
+                await Task.Run(() =>
+                {
+                    File.Copy(Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName), _perFilePath, overwrite: true);
+                });
 #endif
-           }
-       }
+            }
+        }
     }
 
     /// <summary>

@@ -19,14 +19,29 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ImgGiftFree/FreeItemPanel
+      MemberName: FreeItemPanel
     - TypeName: UnityEngine.UI.Button
-      PathToRoot: Mesh/TopPanel/BtnClose
-      MemberName: BtnClose
+      PathToRoot: ImgGiftFree/BtnFreeClaim
+      MemberName: BtnFreeClaim
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ImgGiftRecharge/RechangeItemPanel
+      MemberName: RechangeItemPanel
     - TypeName: UnityEngine.UI.Button
-      PathToRoot: Mesh/TopPanel/BtnInfo
-      MemberName: BtnInfo
-    ScriptsFolder: Assets/Scripts/Game
-    ClassName: BattlePassPanelCtrl
+      PathToRoot: ImgGiftRecharge/BtnRecharge
+      MemberName: BtnRecharge
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ImgGiftRecharge/ImgLock
+      MemberName: ImgLock
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ImgButtomDividingLine
+      MemberName: ImgButtomDividingLine
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ImgTopDividingLine
+      MemberName: ImgTopDividingLine
+    ScriptsFolder: d:/Documents/GitHub/WaterNew/Assets/Scripts/Controllers/UIBegin_BattlePassPanel/BattlePassContentPanel
+    ClassName: BattlePassContentPanel
     Namespace: QFramework.Example
     MainCode: 
     DesignerCode: 

@@ -5,13 +5,31 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:bff1e997-6560-4997-a1d4-e97704a2645c
+	// Generate Id:fbe9f2f6-75a5-4f1c-a835-bcf8ea471c83
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
 		
 		[SerializeField]
 		public UnityEngine.UI.ScrollRect ShopScrollView;
+		[SerializeField]
+		public UnityEngine.GameObject BattlePassContent;
+		[SerializeField]
+		public UnityEngine.UI.Image FreeItemPanel;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnFreeClaim;
+		[SerializeField]
+		public UnityEngine.UI.Image RechangeItemPanel;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnRecharge;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgLock;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgButtomDividingLine;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgTopDividingLine;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnInfo;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnStart;
 		[SerializeField]
@@ -53,6 +71,8 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Button BtnTRANode;
 		[SerializeField]
+		public UnityEngine.UI.Image ImgTierRankIcon;
+		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtTierRankActivity;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnRANode;
@@ -80,6 +100,15 @@ namespace QFramework.Example
 		protected override void ClearUIComponents()
 		{
 			ShopScrollView = null;
+			BattlePassContent = null;
+			FreeItemPanel = null;
+			BtnFreeClaim = null;
+			RechangeItemPanel = null;
+			BtnRecharge = null;
+			ImgLock = null;
+			ImgButtomDividingLine = null;
+			ImgTopDividingLine = null;
+			BtnInfo = null;
 			BtnStart = null;
 			TxtStartLevel = null;
 			BtnArea = null;
@@ -100,6 +129,7 @@ namespace QFramework.Example
 			BtnMSANode = null;
 			TxtMagicStreakActivity = null;
 			BtnTRANode = null;
+			ImgTierRankIcon = null;
 			TxtTierRankActivity = null;
 			BtnRANode = null;
 			TxtRocketActivity = null;
