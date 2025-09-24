@@ -52,6 +52,30 @@ namespace JsonFileData
         public int LimitScore;
         public int Score;
     }
+
+    #endregion
+
+    #region DailyTask AD Activity Data
+    public class Reward
+    {
+        // ´ý²¹³ä
+    }
+    public class TaskItem
+    {
+        public string TypeName;
+        public List<Reward> Rewards;
+    }
+    
+    public class TaskGroup
+    {
+        public int TaskId;
+        public List<TaskItem> TaskItems;
+    }
+
+    public class DailyTaskActivityData
+    {
+        List<TaskGroup> DailyTaskData;
+    }
     #endregion
 
     #region Tier Rank Activity Data
@@ -78,6 +102,9 @@ namespace JsonFileData
         public int StreamWinNum;
     }
     #endregion
+
+
+
 }
 
 public class JsonFileUtility : IUtility

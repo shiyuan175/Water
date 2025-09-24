@@ -28,6 +28,7 @@ public enum SpecialRewardsType
     RemoveAds = 0,
     DoubleCoin = 1,
     UnlimitedHp = 2
+    // json UnlimiteS_Items 
 }
 
 [System.Serializable]

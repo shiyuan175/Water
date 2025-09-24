@@ -122,7 +122,8 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
             }
         }).Start(this);
     }
-
+    public void PlayRewardAnimNoBox(int? addCoin, System.Action call = null, params IPackSoInterface[] packSOs)
+    { }
     public void PopupCoinText(float value)
     {
         txtCoinAdd.text = $"+{value}";

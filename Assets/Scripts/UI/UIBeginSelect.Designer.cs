@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:8f3f3007-f28e-4fa2-ab4d-26d297fa9d49
+	// Generate Id:1b8dbc4f-6d0a-4ae5-afe4-cc867bd95e33
 	public partial class UIBeginSelect
 	{
 		public const string Name = "UIBeginSelect";

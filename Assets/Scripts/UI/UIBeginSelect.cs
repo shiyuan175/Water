@@ -47,7 +47,6 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-            TxtWinProcess.font = LevelManager.Instance.redFont;
             int currentLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
             if(currentLevel> GameConst.LEVEL_TYPE_LAST_DIGIT)
             {
@@ -64,8 +63,9 @@ namespace QFramework.Example
                         break;
                 }
             }
+            TxtWinProcess.font = LevelManager.Instance.redFont;
             TxtLevelTitle.text = $"Level {currentLevel}";
-
+            BtnStart.transform.Find("Text").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont; 
             
            
             ContinueWinGoalNode.Hide();

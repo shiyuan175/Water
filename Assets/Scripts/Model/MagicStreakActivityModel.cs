@@ -15,7 +15,8 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility
 
     private int WinStreakPoints => mStreakWinNum.Value switch
     {
-        >= 5 => 100,
+        >= 
+        5 => 100,
         4 => 25,
         3 => 10,
         2 => 5,

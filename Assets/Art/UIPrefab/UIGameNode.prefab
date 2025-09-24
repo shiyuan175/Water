@@ -130,7 +130,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6bbf3d457eed7fd41a094157329b3980, type: 3}
   imgTopBgSprites:
   - {fileID: 21300000, guid: ab35e24df2b27654e8abe1c5ba7a91fd, type: 3}
-  - {fileID: 21300000, guid: 793f12e28215cd94b85cdf81e5c074d2, type: 3}
+  - {fileID: 21300000, guid: a9b3332421d17514abeb45ea627d51e8, type: 3}
   - {fileID: 21300000, guid: e05221cc2e1517848a026ce6820e587d, type: 3}
   imgBottomSpirtes:
   - {fileID: 21300000, guid: 82d0011317ccd61459d6bc9041a0def3, type: 3}

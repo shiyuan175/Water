@@ -30,6 +30,7 @@ namespace GameDefine
         public const int RA_BEGIN_LEVEL = 24;   //火箭活动
         public const int HTA_BEGIN_LEVEL = 34;  //高塔活动
         public const int DR_AD_BEGIN_LEVEL = 8; //日常广告活动
+        public const int DT_BEGIN_LEVEL = 8; //日常广告活动
 
         //活动存档标记
         public const string MAGIC_STREAK_ACTIVITY_SIGN = "MagicStreakActivity";
@@ -81,7 +82,16 @@ namespace GameDefine
             FileName = "TRA_Data.json",
             TargetVersion = 1
         };
-
+        public readonly static JsonFileInfo DTDefaultJson = new()
+        {
+            FileName = "DT_Data.json",
+            TargetVersion = 1
+        };
+        public readonly static JsonFileInfo DTCurrentJson = new()
+        {
+            FileName = "DT_Data.json",
+            TargetVersion = 1
+        };
         #endregion
 
         //关卡引导 
@@ -121,6 +131,7 @@ namespace GameDefine
         UIGuideLevelRemoveAll = 28
     }
 
+    
     /// <summary>
     /// 解锁机制标记
     /// </summary>

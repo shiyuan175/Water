@@ -19,11 +19,14 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
-    - TypeName: UnityEngine.UI.ScrollRect
-      PathToRoot: ScrollView
-      MemberName: ScrollView
-    ScriptsFolder: Assets\Scripts\Controllers\UIBegin_UnlockPreview
-    ClassName: UnlockPreview
-    Namespace: SceneUnlock
+    - TypeName: UnityEngine.UI.Button
+      PathToRoot: Mesh/TopPanel/BtnClose
+      MemberName: BtnClose
+    - TypeName: UnityEngine.UI.Button
+      PathToRoot: Mesh/TopPanel/BtnInfo
+      MemberName: BtnInfo
+    ScriptsFolder: Assets/Scripts/Game
+    ClassName: BattlePassPanelCtrl
+    Namespace: QFramework.Example
     MainCode: 
     DesignerCode: 

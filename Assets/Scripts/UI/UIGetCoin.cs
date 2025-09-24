@@ -66,7 +66,6 @@ namespace QFramework.Example
             // 金币的倍数不是正常的倍数时播放金币增长的动画
             if (stageModel.GoldCoinsMultiple != 1.0f && !isHaveBox)
             {
-
                 PLayGoldCoinUPAnimation();
             }
         }
@@ -82,9 +81,11 @@ namespace QFramework.Example
                 case (int)GameDefine.LevelHardType.Hard:
                     imgTipBg.sprite = imgTipBgSprites[1];
                     break;
+
                 case (int)GameDefine.LevelHardType.VeryHand:
                     imgTipBg.sprite = imgTipBgSprites[2];
                     break;
+
                 default:
                     imgTipBg.sprite = imgTipBgSprites[0];
                     break;
@@ -157,7 +158,11 @@ namespace QFramework.Example
                         var _packSO = rewardPackSO[getReward];
                         rewardGrantUtility.GrantReward(_packSO);
                         isHaveBox = true;
-                        RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, packSOs: _packSO);
+                        // 金币的倍数不是正常的倍数时播放金币增长的动画
+                        if (stageModel.GoldCoinsMultiple != 1.0f)
+                            RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins,PLayGoldCoinUPAnimation, packSOs: _packSO);
+                        else
+                            RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, packSOs: _packSO);
                     }
                 }
             }
