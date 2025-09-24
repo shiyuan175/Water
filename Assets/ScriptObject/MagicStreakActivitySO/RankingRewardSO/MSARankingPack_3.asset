@@ -15,9 +15,7 @@ MonoBehaviour:
   coins: 0
   items:
   - normalRewardsType: 7
-    itemIndex: 8
     quantity: 1
-  - normalRewardsType: 6
-    itemIndex: 7
+  - normalRewardsType: 8
     quantity: 1
   specialReward: []

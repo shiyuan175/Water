@@ -13,6 +13,8 @@ namespace QFramework.Example
     }
     public partial class UIVictory : UIPanel, ICanSendEvent, ICanGetUtility, ICanGetModel
     {
+        private BannerActivity mBannerActivity;
+
         private int mLastRankingScore;
         private bool mRankingEnd;
 
@@ -32,6 +34,8 @@ namespace QFramework.Example
             string _del = $"用户通过关卡:{this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1}," +
                 $"当前关卡进度:{this.GetUtility<SaveDataUtility>().GetCurrentLevel()}";
             AnalyticsManager.Instance.SendLevelEvent(_del);
+
+            mBannerActivity = GameActivityManager.Instance.GetActivity<BannerActivity>();
         }
 
         protected override void OnShow()
@@ -46,6 +50,10 @@ namespace QFramework.Example
                 var potionActivityModel = this.GetModel<PotionActivityModel>();
                 mLastRankingScore = potionActivityModel.PotionActivityTotalGoal;
                 potionActivityModel.AddPotionActivityGoal();
+            }
+            else if (mBannerActivity?.ActivityStatus == GameActivityStatus.Active)
+            {
+                mBannerActivity.StreakWin();
             }
 
             BtnSkip.onClick.AddListener(() =>
@@ -140,7 +148,7 @@ namespace QFramework.Example
 
                 return false;
             });
-            // 轮盘活动
+            //轮盘活动
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 // 没有计时的时候显示 并进行时间的初始化

@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coins: 0
   items:
-  - normalRewardsType: 5
-    itemIndex: 6
+  - normalRewardsType: 6
     quantity: 1
   specialReward: []

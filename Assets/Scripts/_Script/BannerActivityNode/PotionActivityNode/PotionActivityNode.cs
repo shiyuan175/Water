@@ -3,7 +3,6 @@ using QFramework;
 using DG.Tweening;
 using UnityEngine.UI;
 using GameDefine;
-using UnityEditor;
 
 namespace QFramework.Example
 {
@@ -165,14 +164,13 @@ namespace QFramework.Example
             //判断是否开箱
             if (_tempGoal >= TARGER_GOALS[mCacheProgress])
             {
+                //奖励发放
+                rewardGrantUtility.GrantReward(potionActivityPackSO[mCacheProgress]);
                 UIKit.ClosePanel<UIMask>();
                 RewardUIManager.Instance.PlayRewardAnim(
                     potionActivityPackSO[mCacheProgress].Coins,
                     () =>
                     {
-                        //奖励发放
-                        rewardGrantUtility.GrantReward(potionActivityPackSO[mCacheProgress]);
-
                         //活动进度更新
                         potionActivityModel.ReducePotionActivityGoal(TARGER_GOALS[mCacheProgress]);
                         potionActivityModel.AddPotionActivityProgress();

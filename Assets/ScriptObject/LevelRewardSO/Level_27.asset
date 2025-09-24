@@ -15,14 +15,11 @@ MonoBehaviour:
   PackID: Level_27
   coins: 0
   items:
-  - normalRewardsType: 5
-    itemIndex: 6
-    quantity: 1
   - normalRewardsType: 6
-    itemIndex: 7
     quantity: 1
   - normalRewardsType: 7
-    itemIndex: 8
+    quantity: 1
+  - normalRewardsType: 8
     quantity: 1
   unlimitedHp: 0
   removeAds: 0

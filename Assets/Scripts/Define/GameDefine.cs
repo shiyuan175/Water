@@ -39,13 +39,12 @@ namespace GameDefine
         public const string HIGH_TOWER_ACTIVITY_SIGN = "HighTowerActivity"; 
         public const string TURNTABLE_AD_ACTIVITY_SIGN = "TurnTableADActivity";
         public const string DAILYREWARD_AD_ACTIVITY_SIGN = "DailyRewardADActivity";
-        
+        public const string BANNER_ACTIVITY_SIGN = "BannerActivity";
+
         //存档标记
         public const string FIRST_LAUNCH_SIGN = "FIRST_LAUNCH";
         public const string DOUBLE_COIN_SIGN = "DoubleCoin";
-        public const string DOUBLE_SETTLEMENT_SIGN = "DoubleSettlement";
         public const string POTION_ACTIVITY_SIGN = "PotionActivity";
-        public const string UNLIMIT_ITEM_SIGN = "UnLimitItenEndTime";
         public const string RANKA_ACTIVITY_SIGN = "RankAActivity";
         public const string TIER_RANK_ACTIVITY_SIGN = "TierRankActivity";
 

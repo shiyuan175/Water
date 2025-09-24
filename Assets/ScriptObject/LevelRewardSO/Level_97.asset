@@ -15,8 +15,7 @@ MonoBehaviour:
   PackID: Level_97
   coins: 0
   items:
-  - normalRewardsType: 6
-    itemIndex: 7
+  - normalRewardsType: 7
     quantity: 3
   unlimitedHp: 0
   removeAds: 0

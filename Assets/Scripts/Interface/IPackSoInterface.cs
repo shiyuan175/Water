@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public interface IPackSoInterface
@@ -9,6 +11,7 @@ public interface IPackSoInterface
     public IReadOnlyList<SpecialReward> SpecialRewards { get; }
 
     public int Coins { get; }
+    public bool RemoveAdsForever { get; }
 }
 
 public enum NormalRewardsType
@@ -27,7 +30,16 @@ public enum SpecialRewardsType
 {
     RemoveAds = 0,
     DoubleCoin = 1,
-    UnlimitedHp = 2
+    UnlimitedHp = 2,
+    [Description("DoubleSettlement")]
+    UnlimitedDoubleBuff = 3,
+    [Description("UnLimitAddBottleItem")]
+    Unlimited_S_AddOneBottle = 6,
+    [Description("UnLimitRemoveHideItem")]
+    Unlimited_S_RemoveHide = 7,
+    [Description("UnLimitChangeWaterItem")]
+    Unlimited_S_ChangeWater = 8,
+    
 }
 
 [System.Serializable]

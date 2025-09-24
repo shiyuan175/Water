@@ -15,8 +15,7 @@ MonoBehaviour:
   PackID: Level_83
   coins: 0
   items:
-  - normalRewardsType: 7
-    itemIndex: 8
+  - normalRewardsType: 8
     quantity: 3
   unlimitedHp: 0
   removeAds: 0

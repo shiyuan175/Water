@@ -17,6 +17,7 @@ namespace QFramework.Example
         private GooglePayManager googlePay;
         private Dictionary<string ,Action> giftPackBuySuccessActions;
         private StageModel stageModel;
+        private RewardGrantUtility rewardGrantUtility;
 
         private void Awake()
         {
@@ -37,6 +38,7 @@ namespace QFramework.Example
 
             googlePay = GooglePayManager.Instance;
             stageModel = this.GetModel<StageModel>();
+            rewardGrantUtility = this.GetUtility<RewardGrantUtility>();
 
             // 初始化购买成功回调
             giftPackBuySuccessActions = new Dictionary<string, Action>();
@@ -97,19 +99,9 @@ namespace QFramework.Example
         /// </summary>
         private void OnPaySuccess(GiftPackSO _packSo)
         {
+            rewardGrantUtility.GrantReward(_packSo);
             RewardUIManager.Instance.PlayRewardAnim(_packSo.Coins, packSOs: _packSo);
-
-            //金币发放
-            CoinManager.Instance.AddCoin(_packSo.Coins);
-            //道具发放
-            foreach (var item in _packSo.ItemReward)
-            {
-                stageModel.AddItem((int)item.NormalRewardsType, item.Quantity);
-            }
-            //无限体力发放
-            HealthManager.Instance.SetUnLimitHp(_packSo.UnlimitedHp);
-            //无限道具
-            CountDownTimerManager.Instance.AddTimer(GameDefine.GameConst.UNLIMIT_ITEM_SIGN, _packSo.UnlimitedHp);
+           
             UIKit.OpenPanel<UIBuyPackSuccess>();
             ActionKit.Delay(1, () =>
             {

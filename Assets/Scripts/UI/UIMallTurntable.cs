@@ -50,8 +50,11 @@ namespace QFramework.Example
             foreach (var node in mTurnTableNode)
             {
                 GiftPackSO pack = node.GetComponent<TurnTableNode>().PackSo;
-                int _value = Mathf.Max(pack.Coins, pack.UnlimitedHp);
-                foreach(var i in pack.ItemReward)
+                var duration = 0;
+                if (pack.SpecialRewards.Count != 0)
+                    duration = pack.SpecialRewards[0].Duration;
+                int _value = Mathf.Max(pack.Coins, duration);
+                foreach (var i in pack.ItemReward)
                 {
                     if (_value < i.Quantity)
                         _value = i.Quantity;

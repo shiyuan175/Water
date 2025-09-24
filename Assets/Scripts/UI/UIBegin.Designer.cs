@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:bff1e997-6560-4997-a1d4-e97704a2645c
+	// Generate Id:07c5e46e-c8e4-46b0-a36f-b44e24c14ed1
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
@@ -52,6 +52,8 @@ namespace QFramework.Example
 		public TMPro.TextMeshProUGUI TxtMagicStreakActivity;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnTRANode;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgTierRankIcon;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtTierRankActivity;
 		[SerializeField]
@@ -100,6 +102,7 @@ namespace QFramework.Example
 			BtnMSANode = null;
 			TxtMagicStreakActivity = null;
 			BtnTRANode = null;
+			ImgTierRankIcon = null;
 			TxtTierRankActivity = null;
 			BtnRANode = null;
 			TxtRocketActivity = null;

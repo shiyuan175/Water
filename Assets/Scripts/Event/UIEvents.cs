@@ -29,10 +29,6 @@ public struct VitalityChangeEvent
 {
 }
 
-public struct UnlimtItemEvent
-{
-}
-
 public struct UnlockSceneBackEvent
 {
    
