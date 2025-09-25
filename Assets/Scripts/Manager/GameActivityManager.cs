@@ -14,6 +14,12 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
     private SaveDataUtility mSaveUtility;
     private CancellationTokenSource mCts;
 
+    protected override void OnDestroy()
+    {
+        StopTickLoop();
+        base.OnDestroy();
+    }
+
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;
@@ -54,11 +60,7 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
             {
                 GetActivity<DailyRewardADActivity>().StartActivity();
             }
-
-               
         }
-
-
         if (_curLevel >= GameDefine.GameConst.WIN_STREAK_BEGIN_LEVEL)
         {
             RegisterActivity<TierRankActivity>();
@@ -66,7 +68,6 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         RegisterActivity<MagicStreakActivity>();
         
         //Other Activities can be registered here based on level or other conditions
-
     }
 
     //»î¶¯×¢²á

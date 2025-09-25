@@ -14,6 +14,7 @@ namespace QFramework.Example
     {
         [SerializeField] private RewardPackSO mStartActivitySO;
         [SerializeField] private RewardPackSO mRankSettlementSO;
+        [SerializeField] private Sprite mSpriteGreyBtn;
 
         private ResLoader mResLoader;
         private SpriteAtlas mRankLevelSpriteAtlas;
@@ -70,7 +71,10 @@ namespace QFramework.Example
             ImgRankSprite.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mTierRankActivity.PlayerTierRankIndex));
 
             if (mTierRankActivity.ActivityStatus != SettlementActivityStatus.Inactive)
+            {
+                BtnStart.image.sprite = mSpriteGreyBtn;
                 BtnStart.interactable = false;
+            }
         }
 
         private void BindBtn()
@@ -85,6 +89,7 @@ namespace QFramework.Example
                 System.Action _action = () =>
                 {
                     UIKit.OpenPanel<UITierRankActivity>();
+                    StringEventSystem.Global.Send(GameDefine.GameConst.START_TIER_RANK_ACTIVITY);
                     CloseSelf();
                 };
 

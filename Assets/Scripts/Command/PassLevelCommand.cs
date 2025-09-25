@@ -4,6 +4,7 @@ using QFramework;
 public class PassLevelCommand : AbstractCommand ,ICanGetModel
 {
     private TierRankActivity mTierRankActivity;
+    private BannerActivity mBannerActivity;
     private StageModel mStageModel;
 
     protected override void OnExecute()
@@ -46,5 +47,8 @@ public class PassLevelCommand : AbstractCommand ,ICanGetModel
         mStageModel ??= this.GetModel<StageModel>();
         mStageModel?.PassLevel();
 
+        mBannerActivity ??= GameActivityManager.Instance.GetActivity<BannerActivity>();
+        if (mBannerActivity?.ActivityStatus == GameActivityStatus.Active)
+            mBannerActivity.StreakWin();
     }
 }

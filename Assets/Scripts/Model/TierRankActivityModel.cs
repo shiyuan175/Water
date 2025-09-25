@@ -92,10 +92,10 @@ public class TierRankActivityModel : AbstractModel
             var _tempBool = false;
 
             if (mTRAData.TRARobots[i].ID == 1)
-                _tempBool = Random.Range(0, 1) < 0.8f;
+                _tempBool = Random.Range(0f, 1f) < 0.8f;
             else if (mTRAData.TRARobots[i].ID == 2)
-                _tempBool = Random.Range(0, 1) < 0.5f;
-
+                _tempBool = Random.Range(0f, 1f) < 0.5f;
+           
             if (_tempBool)
                 ++mTRAData.TRARobots[i].StreamWinNum;
         }

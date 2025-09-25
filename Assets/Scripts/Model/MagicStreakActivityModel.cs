@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using QFramework;
 using UnityEngine;
 
-public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility
+public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility ,ICanGetModel
 {
     public int StreakWinNum => mStreakWinNum.Value;
     public int CurStageReward => mCurStageReward.Value;
@@ -31,6 +31,7 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility
     private JsonFileUtility mJsonFileUtility;
     private MSActivityData mMSAData;
     private SaveDataUtility mStorage;
+    private StageModel mStageModel;
     private BindableProperty<int> mStreakWinNum;
     private BindableProperty<int> mCurStageReward;
     private BindableProperty<bool> mIsRewardSettled;
@@ -39,6 +40,7 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility
     {
         mJsonFileUtility = this.GetUtility<JsonFileUtility>();
         mStorage = this.GetUtility<SaveDataUtility>();
+        mStageModel = this.GetModel<StageModel>();
         mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.MSADefaultJson.FileName);
         mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.MSACurrentJson.FileName);
 
@@ -104,7 +106,7 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility
     public void StreakWin()
     {
         ++mStreakWinNum.Value;
-        mMSAData.Player.Score += WinStreakPoints;
+        mMSAData.Player.Score += WinStreakPoints * mStageModel.SettlementMultiple;
 
         //机器人分数增加规则
         //1     100*H，（H为0-2之间的随机数）

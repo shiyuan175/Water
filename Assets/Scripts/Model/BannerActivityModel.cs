@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BannerActivityModel : AbstractModel
+public class BannerActivityModel : AbstractModel, ICanGetModel
 {
     public int BAStreakWin => mBAStreakWin.Value; 
     public int BACurrentGoal => mBACurrentGoal.Value;
@@ -39,10 +39,12 @@ public class BannerActivityModel : AbstractModel
     private BindableProperty<int> mBARewardProgress;
 
     private SaveDataUtility mSaveDataUtility;
+    private StageModel mStageModel;
 
     protected override void OnInit()
     {
         mSaveDataUtility = this.GetUtility<SaveDataUtility>();
+        mStageModel = this.GetModel<StageModel>();
 
         mBAStreakWin = new BindableProperty<int>();
         mBACurrentGoal = new BindableProperty<int>();
@@ -87,8 +89,8 @@ public class BannerActivityModel : AbstractModel
     public void BAStrekWin()
     {
         ++mBAStreakWin.Value;
-        mBACurrentGoal.Value += WinStreakPoints;
-        mBATotalGoal.Value += WinStreakPoints;
+        mBACurrentGoal.Value += WinStreakPoints * mStageModel.SettlementMultiple;
+        mBATotalGoal.Value += WinStreakPoints * mStageModel.SettlementMultiple;
     }
 
     //Ê§°Ü

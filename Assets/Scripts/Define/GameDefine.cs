@@ -58,6 +58,7 @@ namespace GameDefine
         public const string SCENE_UNLOCK_GUIDE_STEP1 = "SceneUnlockGuideStep1";
         public const string SCENE_UNLOCK_GUIDE_STEP2 = "SceneUnlockGuideStep2";
         public const string STREAK_WIN_REMOVE_HIDE = "StreakWinRemoveHide";
+        public const string START_TIER_RANK_ACTIVITY = "StartTierRankActivity";
 
         #region Json file info
 
@@ -135,6 +136,7 @@ namespace GameDefine
         WinStreakBeginLevel = 60
 
     }
+
     public enum LevelHardType
     { 
         Hard = 4,

@@ -113,7 +113,7 @@ namespace QFramework.Example
                 Selected.localPosition = new Vector3(TARGER_POSX[potionActivityModel.WinStreakLevel], Selected.localPosition.y, 0);
                 TxtCurLevel.text = potionActivityModel.WinStreakPoints == 0 ?
                     $"X1" : $"X{potionActivityModel.WinStreakPoints}";
-                DoUpdateProgress();
+                //DoUpdateProgress();
             }
         }
 
@@ -166,14 +166,15 @@ namespace QFramework.Example
             {
                 //奖励发放
                 rewardGrantUtility.GrantReward(potionActivityPackSO[mCacheProgress]);
+                //活动进度更新
+                potionActivityModel.ReducePotionActivityGoal(TARGER_GOALS[mCacheProgress]);
+                potionActivityModel.AddPotionActivityProgress();
+
                 UIKit.ClosePanel<UIMask>();
                 RewardUIManager.Instance.PlayRewardAnim(
                     potionActivityPackSO[mCacheProgress].Coins,true,
                     () =>
                     {
-                        //活动进度更新
-                        potionActivityModel.ReducePotionActivityGoal(TARGER_GOALS[mCacheProgress]);
-                        potionActivityModel.AddPotionActivityProgress();
                         mCacheProgress = potionActivityModel.PotionActivityProgress;
 
                         //越界(最后一档连胜)销毁节点

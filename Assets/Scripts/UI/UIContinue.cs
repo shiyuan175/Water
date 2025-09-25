@@ -27,22 +27,19 @@ namespace QFramework.Example
 		{
             TxtRetry.font = LevelManager.Instance.greenFont;
             TxtCoinCost.font = LevelManager.Instance.greenFont;
-            SetWarringContent();
-        }
-		
-		protected override void OnShow()
-		{
             saveData = this.GetUtility<SaveDataUtility>();
 
-            SetCoin();
-
             RegisterBtnEvent();
-
             StringEventSystem.Global.Register(GameDefine.GameConst.COIN_CHANGE, () =>
             {
                 SetCoin();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+
+        protected override void OnShow()
+		{
+            SetCoin();
         }
 		
 		protected override void OnHide()
@@ -188,21 +185,9 @@ namespace QFramework.Example
                 }
                 return false;
             });
+
             //开启
             PanelQueueManager.Instance.PopFirstPanel();
-
-            
-        }
-        /// <summary>
-        ///　设置提示文本
-        /// </summary>
-        private void SetWarringContent()
-        {
-            // 获取活动状态，对应设置文本，
-            /*GameActivityManager.Instance.GetActivity;*/
-            
         }
     }
-
-    
 }

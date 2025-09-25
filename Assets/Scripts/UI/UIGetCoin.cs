@@ -6,6 +6,8 @@ using System.Collections;
 using DG.Tweening;
 using GameDefine;
 using TMPro;
+using System.Linq;
+using System;
 
 namespace QFramework.Example
 {
@@ -52,6 +54,7 @@ namespace QFramework.Example
             rewardGrantUtility = this.GetUtility<RewardGrantUtility>();
             saveDataUtility = this.GetUtility<SaveDataUtility>();
 
+            UnlockNewItem();
             BindClick();
             getReward = -1;
             UpdateBgUI();
@@ -103,7 +106,7 @@ namespace QFramework.Example
             BtnContinue.onClick.RemoveAllListeners();
         }
 
-        void BindClick()
+        private void BindClick()
         {
             BtnClose.onClick.AddListener(() =>
             {
@@ -114,13 +117,40 @@ namespace QFramework.Example
             {
                 BackUIBegin();
             });
+
+            BtnNewItemClose.onClick.AddListener(() =>
+            {
+                NewItemNode.Hide();
+            });
         }
 
-        void BackUIBegin()
+        private void BackUIBegin()
         {
             UIKit.ClosePanel<UIGameNode>();
             this.SendEvent(new ReturnToMainEvent { PassLevel = true });
             CloseSelf();
+        }
+
+        private void UnlockNewItem()
+        {
+            int curLevel = saveDataUtility.GetCurrentLevel();
+            if (UNLOCKLEVEL.Contains(curLevel))
+            {
+                int _idx = Array.IndexOf(UNLOCKLEVEL, curLevel);
+                NewItemNode.Show();
+
+                TxtNewItem_Red.font = LevelManager.Instance.redFont;
+                TxtNewItemTitle_Red.font = LevelManager.Instance.redFont;
+                TxtNewItemTitle2_Red.font = LevelManager.Instance.redFont;
+
+                TxtNewItem_Red.text = GameDefine.GameConst.GuideLevelInfo[curLevel].Item1;
+                ImgNewItem.sprite = unlockSprites[_idx];
+                ImgNewItem.SetNativeSize();
+
+                BtnNewItemClose.onClick.AddListener(()=> NewItemNode.Hide());
+            }
+            else
+                NewItemNode.Hide();
         }
 
         private void UpdateBoxProcessNode()
@@ -174,6 +204,7 @@ namespace QFramework.Example
                 {
                     ImgUnlockProcessNode.Show();
                     ImgUnlock.sprite = unlockSprites[i];
+                    ImgUnlock.SetNativeSize();
 
                     int prevUnlock = (i == 0) ? 0 : UNLOCKLEVEL[i - 1]; // 上一个解锁点
                     int totalNeeded = UNLOCKLEVEL[i] - prevUnlock;      // 需要完成的关卡数

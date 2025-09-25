@@ -77,26 +77,19 @@ namespace QFramework.Example
             mTurnTableADActivity = GameActivityManager.Instance.GetActivity<TurnTableADActivity>();
 
             LevelManager.Instance.InitBottle();
-
-            LoaderRes();
-
-            int currentLevel = saveData.GetCurrentLevel();
-            if (currentLevel <= GameConst.NEWBIE_LEVEL_COUNT)
+            if (saveData.GetCurrentLevel() <= GameConst.NEWBIE_LEVEL_COUNT)
             {
                 BottomMenuBtns.Hide();
                 HomeNode.Hide();
             }
 
-            //横幅活动
-            if (currentLevel >= GameConst.WIN_STREAK_BEGIN_LEVEL)
-            {
-                RegisterBannerActivity();
-            }
-
+            LoaderRes();
             BindBtn();
             RegisterEvent();
             InitSceneUI();
             InitActivityState();
+
+            GameUtilityManager.Instance.RegisterTask(this, UpdateUI);
         }
 
         protected override void OnShow()
@@ -117,17 +110,6 @@ namespace QFramework.Example
             mResLoader = null;
             mTierRankActivity = null;
             mRankLevelSpriteAtlas = null;
-        }
-
-        private void Update()
-        {
-            //后续改成异步线程(一秒触发一次)
-            if (HealthManager.Instance.UnLimitHp || !HealthManager.Instance.IsMaxHp)
-            {
-                TxtTime.text = HealthManager.Instance.UnLimitHp ?
-                    HealthManager.Instance.UnLimitHpTimeStr :
-                    HealthManager.Instance.RecoverTimerStr;
-            }
         }
 
         private void BindBtn()
@@ -367,6 +349,12 @@ namespace QFramework.Example
                 bottomMenuBtns.Last().onClick.Invoke();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            StringEventSystem.Global.Register(GameConst.START_TIER_RANK_ACTIVITY, () =>
+            {
+                SetTierRankIcon();
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
         //可拓展
@@ -437,19 +425,16 @@ namespace QFramework.Example
 
         private void InitSceneUI()
         {
-            SetAvatar();
+            //Init Avatar
+            BtnHead.GetComponent<Image>().sprite = AvatarManager.Instance.GetAvatarSprite(true);
+            ImgHeadFrame.sprite = AvatarManager.Instance.GetAvatarSprite(false);
+
             SetVitality();
             SetCoin();
             SetStar();
             SetScene();
             SetStartLevel();
             SetTierRankIcon();
-        }
-
-        private void SetAvatar()
-        {
-            BtnHead.GetComponent<Image>().sprite = AvatarManager.Instance.GetAvatarSprite(true);
-            ImgHeadFrame.sprite = AvatarManager.Instance.GetAvatarSprite(false);
         }
     
         private void SetCoin()
@@ -558,6 +543,30 @@ namespace QFramework.Example
                 UIKit.OpenPanel<PlotUnlockGuide>(UILevel.PopUI);
             }
         }
+
+        private void UpdateUI()
+        {
+            if (HomeNode.activeSelf)
+            {
+                if (HealthManager.Instance.UnLimitHp || !HealthManager.Instance.IsMaxHp)
+                {
+                    TxtTime.text = HealthManager.Instance.UnLimitHp ?
+                        HealthManager.Instance.UnLimitHpTimeStr :
+                        HealthManager.Instance.RecoverTimerStr;
+                }
+
+                if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.UnlimitedDoubleBuff)))
+                {
+                    AnimStartFlash.Hide();
+                    ImgDoubleBuff.Hide();
+                }
+                else
+                {
+                    AnimStartFlash.Show();
+                    ImgDoubleBuff.Show();
+                }
+            }
+        }
         #endregion
 
         #region 活动模块
@@ -569,6 +578,12 @@ namespace QFramework.Example
             UpdateMSAState();
             UptateTRAState();
             UpdateTTState();
+
+            //横幅活动
+            if (saveData.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
+            {
+                RegisterBannerActivity();
+            }
         }
 
         /// <summary>
