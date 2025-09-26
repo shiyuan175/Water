@@ -687,9 +687,12 @@ namespace QFramework.Example
 
         private void OpenUIVictory()
         {
-            UIKit.ClosePanel<UIMask>();
-            AudioKit.PlaySound("resources://Audio/Victory");
-            UIKit.OpenPanel<UIVictory>();
+            ActionKit.Delay(0.5f, () =>
+            {
+                UIKit.ClosePanel<UIMask>();
+                AudioKit.PlaySound("resources://Audio/Victory");
+                UIKit.OpenPanel<UIVictory>();
+            }).Start(this);
         }
     }
 }
