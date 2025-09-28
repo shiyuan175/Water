@@ -20,8 +20,10 @@ namespace GameDefine
         public const int WIN_STREAK_BEGIN_LEVEL = 8;
         //十连胜1.5倍金币buff
         public const int CONTINUE_WIN_NUM_COIN = 10;
+        //切换关卡关卡
+        public const int LEVEL_TYPE_BEGIN_LEVEL = 5;
         //切换关卡计算
-        public const int LEVEL_TYPE_LAST_DIGIT = 5;
+        public const int LEVEL_TYPE_LAST_DIGIT = 10;
         //过关基础金币
         public const int WIN_COINS = 20;
         public const int ADD_BOTTLE_COST = 900;
