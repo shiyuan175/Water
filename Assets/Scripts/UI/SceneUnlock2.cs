@@ -58,6 +58,8 @@ namespace QFramework.Example
         };
         //特效目标位置(宝箱)
         private readonly Vector2 mEffectBoxTargetPos = new (-220, 900);
+        //待机动画的索引
+        private readonly int[] mStandbySpineIdx = new int[] { 0, 12, 13 };
 
         [SerializeField] private SkeletonGraphic[] mAllUnitSpines;
         [SerializeField] private CanvasGroup[] mSpineCanvasGroups;
@@ -212,6 +214,17 @@ namespace QFramework.Example
             int remaining = mAllUnitSpines.Length - mStartUnitIndex;
             mUnActiveUnitSpines = new SkeletonGraphic[remaining];
             System.Array.Copy(mAllUnitSpines, mStartUnitIndex, mUnActiveUnitSpines, 0, remaining);
+
+            //待机Spine
+            for (int i = 0; i < mStandbySpineIdx.Length; i++)
+            {
+                if ((mSceneUnlockModel.SceneUnlockUnitIndex <= mStandbySpineIdx[i]))
+                {
+                    mSpineCanvasGroups[mStandbySpineIdx[i]].alpha = 1;
+                    mAllUnitSpines[mStandbySpineIdx[i]].AnimationState.SetAnimation(0, "daiji", true);
+                    mUnitImgs[mStandbySpineIdx[i]].Hide();
+                }
+            }
         }
 
         /// <summary>
@@ -225,6 +238,7 @@ namespace QFramework.Example
                 int _tempIndex = i;
                 void handler(TrackEntry trackEntry)
                 {
+                    if (trackEntry.Animation.Name == "daiji") return;
                     FlightEffectsTo_Box(_realIndex);
 
                     mUnActiveUnitSpines[_tempIndex].Hide();
@@ -286,7 +300,7 @@ namespace QFramework.Example
                 {
                     mRewardSign = false;
                     UIKit.ClosePanel<UIMask>();
-                    RewardUIManager.Instance.PlayRewardAnim(mRewardPackSO.Coins, packSOs: mRewardPackSO);
+                    RewardUIManager.Instance.PlayRewardAnim(mRewardPackSO.Coins, true, null, mRewardPackSO);
                     BtnBox.image.sprite = mBoxOpenSprite;
                 }
             });

@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5054ca89c8092a469f131265b973cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  packSo: {fileID: 11400000, guid: e6387b515b084d94cb7e0cb55d5d8205, type: 2}
+  packSo: {fileID: 11400000, guid: e015a75025e27cd41b103c4215d597f2, type: 2}
   awardLevel: 20
 --- !u!1 &255116254880723534
 GameObject:
@@ -1359,7 +1359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5054ca89c8092a469f131265b973cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  packSo: {fileID: 11400000, guid: e350fc5c59ead164ab4769cdd530e831, type: 2}
+  packSo: {fileID: 11400000, guid: 964d9fa5a58bfcf4fafd74014a91dd9f, type: 2}
   awardLevel: 10
 --- !u!1 &2949653907736101397
 GameObject:

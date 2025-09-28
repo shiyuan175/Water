@@ -205,7 +205,7 @@ namespace QFramework.Example
                         {
                             //Debug.Log("Ê×´Î½úÉý¶ÎÎ»");
                             CoinManager.Instance.AddCoin(300);
-                            RewardUIManager.Instance.PlayRewardAnim(300);
+                            RewardUIManager.Instance.PlayRewardAnim(300, true, null);
 
                             ActionKit.Delay(1.5f, () =>
                             {
@@ -687,9 +687,12 @@ namespace QFramework.Example
 
         private void OpenUIVictory()
         {
-            UIKit.ClosePanel<UIMask>();
-            AudioKit.PlaySound("resources://Audio/Victory");
-            UIKit.OpenPanel<UIVictory>();
+            ActionKit.Delay(0.5f, () =>
+            {
+                UIKit.ClosePanel<UIMask>();
+                AudioKit.PlaySound("resources://Audio/Victory");
+                UIKit.OpenPanel<UIVictory>();
+            }).Start(this);
         }
     }
 }

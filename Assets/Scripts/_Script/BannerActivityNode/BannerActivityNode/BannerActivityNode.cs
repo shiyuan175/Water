@@ -92,7 +92,7 @@ namespace QFramework.Example
                 Selected.localPosition = new Vector3(TARGER_POSX[mBannerActivity.WinStreakLevel], Selected.localPosition.y, 0);
                 TxtCurLevel.text = mBannerActivity.WinStreakPoints == 0 ?
                     $"X1" : $"X{mBannerActivity.WinStreakPoints}";
-                DoUpdateProgress();
+                //DoUpdateProgress();
             }
         }
 
@@ -135,14 +135,14 @@ namespace QFramework.Example
             {
                 //奖励发放
                 mRewardGrantUtility.GrantReward(mBannerActivityPackSO[mCacheProgress]);
+                //活动进度更新
+                mBannerActivity.NextRewardProgress();
+
                 UIKit.ClosePanel<UIMask>();
                 RewardUIManager.Instance.PlayRewardAnim(
-                    mBannerActivityPackSO[mCacheProgress].Coins,
+                    mBannerActivityPackSO[mCacheProgress].Coins, true,
                     () =>
                     {
-                        //活动进度更新
-                        mBannerActivity.NextRewardProgress();
-
                         //越界(最后一档连胜)销毁节点
                         if (mBannerActivity.ProgressEnd)
                         {

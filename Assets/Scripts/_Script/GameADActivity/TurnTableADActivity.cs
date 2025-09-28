@@ -9,6 +9,7 @@ public class TurnTableADActivity : BaseGameADActivity<GameObject>
     public override string ActivitySign => GameConst.TURNTABLE_AD_ACTIVITY_SIGN;
     public override string ActivityID => GetType().Name;
     public override int ActivityBeginLevel => GameConst.TT_AD_BEGIN_LEVEL;
+
     /// <summary>
     ///  Ö±½Ó´¥·¢
     /// </summary>

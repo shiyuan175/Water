@@ -2,15 +2,46 @@ using QFramework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using TickTask;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static System.Collections.Specialized.BitVector32;
+
+namespace TickTask
+{
+    public class ScheduledTask
+    {
+        public CancellationTokenSource Cts {  get; }
+        public Action Action { get; }
+
+        public ScheduledTask(Action action) 
+        { 
+            Action = action;
+            Cts = new CancellationTokenSource();
+        }
+    }
+}
 
 public class GameUtilityManager : MonoSingleton<GameUtilityManager>
 {
+    private Dictionary<object, ScheduledTask> mTasks;
+    private CancellationTokenSource mCts;
+
+    protected override void OnDestroy()
+    {
+        mCts.Cancel();
+        base.OnDestroy();
+    }
+
     public override void OnSingletonInit()
     {
-        
+        mTasks = new();
+        mCts = new CancellationTokenSource();
+        _ = RunAsync(mCts.Token);
     }
 
     /// <summary>
@@ -18,7 +49,7 @@ public class GameUtilityManager : MonoSingleton<GameUtilityManager>
     /// </summary>
     ///<param name="sourceObj">源目标对象</param>
     /// <param name="targetObj">要应用的对象</param>
-    public void GetLocalPositionInCanvas(RectTransform sourceObj, RectTransform targetObj , Action<Vector2> callback = null)
+    public void GetLocalPositionInCanvas(RectTransform sourceObj, RectTransform targetObj, Action<Vector2> callback = null)
     {
         Canvas _sourceObjCanvas = sourceObj.GetComponentInParent<Canvas>().rootCanvas;
         Canvas _targetObjCanvas = targetObj.GetComponentInParent<Canvas>().rootCanvas;
@@ -74,5 +105,53 @@ public class GameUtilityManager : MonoSingleton<GameUtilityManager>
         return false;
     }
 
+    /// <summary>
+    /// 向调度器注册一个每秒执行一次的任务
+    /// </summary>
+    /// <param name="scheduled"></param>
+    public void RegisterTask(object owner, Action action)
+    {
+        var task = new ScheduledTask(action);
+        mTasks[owner] = task;
+    }
 
+    /// <summary>
+    /// 取消任务
+    /// </summary>
+    /// <param name="owner"></param>
+    public void UnregisterTask(object owner)
+    {
+        if (mTasks.TryGetValue(owner, out var task))
+        {
+            task.Cts.Cancel();  
+            mTasks.Remove(owner); 
+        }
+    }
+
+    private async Task RunAsync(CancellationToken token)
+    {
+        while (!token.IsCancellationRequested)
+        {
+            foreach (var task in mTasks.Values)
+            {
+                try
+                {
+                    task.Action.Invoke();
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"任务调度器异常: {ex}");
+                }
+            }
+
+            try
+            {
+                await Task.Delay(1000, token);
+            }
+            catch (TaskCanceledException)
+            {
+                break;
+            }
+        }
+    }
 }

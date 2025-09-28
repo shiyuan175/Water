@@ -51,10 +51,6 @@ namespace QFramework.Example
                 mLastRankingScore = potionActivityModel.PotionActivityTotalGoal;
                 potionActivityModel.AddPotionActivityGoal();
             }
-            else if (mBannerActivity?.ActivityStatus == GameActivityStatus.Active)
-            {
-                mBannerActivity.StreakWin();
-            }
 
             BtnSkip.onClick.AddListener(() =>
             {

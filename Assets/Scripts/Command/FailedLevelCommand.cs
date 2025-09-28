@@ -6,6 +6,7 @@ using UnityEngine;
 public class FailedLevelCommand : AbstractCommand ,ICanGetModel
 {
     private TierRankActivity mTierRankActivity;
+    private BannerActivity mBannerActivity;
     private StageModel mStageModel;
 
     protected override void OnExecute()
@@ -16,5 +17,9 @@ public class FailedLevelCommand : AbstractCommand ,ICanGetModel
 
         mStageModel ??= this.GetModel<StageModel>();
         mStageModel?.ResetCountinueWinNum();
+
+        mBannerActivity ??= GameActivityManager.Instance.GetActivity<BannerActivity>();
+        if (mBannerActivity?.ActivityStatus == GameActivityStatus.Active)
+            mBannerActivity.Fail();
     }
 }

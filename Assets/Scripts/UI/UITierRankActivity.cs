@@ -135,7 +135,7 @@ namespace QFramework.Example
                 mTierRankActivity.MarkRewardAsSettled();
                 UIKit.OpenPanel<UIMask>();
 
-                RewardUIManager.Instance.PlayRewardAnim(null, () =>
+                RewardUIManager.Instance.PlayRewardAnim(null,true ,() =>
                 {
                     UIKit.ClosePanel<UIMask>();
                     CloseSelf();
