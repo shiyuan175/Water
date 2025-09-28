@@ -15,6 +15,8 @@ namespace QFramework.Example
 
     public partial class UIPaidItemsGuide : UIPanel, ICanGetModel, ICanSendEvent
     {
+        [SerializeField] private TextMeshProUGUI[] mTxtRed;
+
         private const int DelItemCount = 3;
         private readonly Dictionary<NormalRewardsType, string> PropRules = new Dictionary<NormalRewardsType, string>
         {
@@ -95,6 +97,11 @@ namespace QFramework.Example
         {
             TxtTitle_Red.font = LevelManager.Instance.redFont;
             TxtItemDetails_Red.font = LevelManager.Instance.redFont;
+
+            foreach (var item in mTxtRed)
+            {
+                item.font = LevelManager.Instance.redFont;
+            }
         }
 
         private void InitUI()

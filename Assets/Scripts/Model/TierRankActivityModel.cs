@@ -102,7 +102,8 @@ public class TierRankActivityModel : AbstractModel
 
         //½µÐò
         mTRAData.TRARobots.Sort((a, b) => b.StreamWinNum.CompareTo(a.StreamWinNum));
-        if (TRAData.Player.StreamWinNum > TRAData.TRARobots[0].StreamWinNum)
+        if (TRAData.Player.StreamWinNum > TRAData.TRARobots[0].StreamWinNum 
+            && !CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.TRA_ONE_HOUR_RANK))
             mTRAData.Player.IsRewardSettled = false;
 
         mJsonFileUtility.SaveToJson(mCurFilePath, mTRAData);

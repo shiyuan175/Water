@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 730664697484400668}
   - component: {fileID: 2595375810136480690}
   m_Layer: 5
-  m_Name: TxtItemCount
+  m_Name: TxtItemCount_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -723,7 +723,7 @@ GameObject:
   - component: {fileID: 7173206289714651731}
   - component: {fileID: 5127545350753797716}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TxtGet_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1334,6 +1334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a54ad62a3f0ab4b900722791eb823c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mTxtRed:
+  - {fileID: 2595375810136480690}
+  - {fileID: 5127545350753797716}
   GetItemGuideNode: {fileID: 4856316427086791133}
   TxtTitle_Red: {fileID: 1123537590445672937}
   ImgItem: {fileID: 8668563419927161983}
