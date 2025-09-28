@@ -632,8 +632,6 @@ namespace QFramework.Example
         private void SetTakeItem()
         {
             var takeItems = LevelManager.Instance.takeItem;
-            foreach (var i in takeItems)
-                Debug.Log(i);
             var buttons = new[] { BtnItem1, BtnItem2, BtnItem3 };
             var texts = new[] { TxtItem1, TxtItem2, TxtItem3 };
             var itemIds = new[] { 6, 7, 8 };

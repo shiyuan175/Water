@@ -75,7 +75,7 @@ namespace QFramework.Example
         {
             int currentLevel = saveDataUtility.GetCurrentLevel() - 1;
 
-            if (currentLevel < GameConst.LEVEL_TYPE_LAST_DIGIT)
+            if (currentLevel < GameConst.LEVEL_TYPE_BEGIN_LEVEL)
                 return;
 
             switch (currentLevel % GameConst.LEVEL_TYPE_LAST_DIGIT)
