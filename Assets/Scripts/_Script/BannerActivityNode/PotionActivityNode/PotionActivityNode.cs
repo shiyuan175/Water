@@ -18,11 +18,11 @@ namespace QFramework.Example
         private Sequence mProgressSequence;
 
         //五档连胜积分
-        private readonly int[] TARGER_GOALS = new int[] { 140, 500, 500, 500, 500 };
+        private readonly int[] TARGER_GOALS = new int[] { 140, 500, 500, 500, 1000, 2000, 2000, 2000 };
         //五档积分底框位置
         private readonly int[] TARGER_POSX = new int[] { -280, -140, 0, 140, 280 };
 
-        [SerializeField] private RewardPackSO[] potionActivityPackSO;
+        [SerializeField] private GiftPackSO[] potionActivityPackSO;
 
         private void Awake()
         {
