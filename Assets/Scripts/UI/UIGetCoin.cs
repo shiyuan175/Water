@@ -1,13 +1,12 @@
-using UnityEngine;
-using UnityEngine.UI;
-using QFramework;
-using System.Collections.Generic;
-using System.Collections;
 using DG.Tweening;
 using GameDefine;
-using TMPro;
-using System.Linq;
+using QFramework;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace QFramework.Example
 {
@@ -23,6 +22,11 @@ namespace QFramework.Example
         private StageModel stageModel;
         private RewardGrantUtility rewardGrantUtility;
         private SaveDataUtility saveDataUtility;
+        private Sequence mSequence;
+        private Tween mProgeressTween1;
+        private Tween mProgeressTween2;
+
+
         private int getReward;
         private bool isHaveBox = false;
 
@@ -101,6 +105,12 @@ namespace QFramework.Example
 
         protected override void OnClose()
         {
+            mSequence?.Kill();
+            mProgeressTween1?.Kill();
+            mProgeressTween2?.Kill();
+            mProgeressTween1 = null;
+            mProgeressTween2 = null;
+            mSequence = null;
             stageModel = null;
             saveDataUtility = null;
             rewardGrantUtility = null;
@@ -176,7 +186,7 @@ namespace QFramework.Example
                 ActionKit.Delay(0.1f, () =>
                 {
                     float targetValue = (float)_displayedProgress / REWARD_INTERVAL;
-                    ImgProcess.DOFillAmount(targetValue, 0.5f).SetEase(Ease.OutQuad);
+                    mProgeressTween1 = ImgProcess.DOFillAmount(targetValue, 0.5f).SetEase(Ease.OutQuad);
                 }).Start(this);
 
                 if (_progress == 0)
@@ -227,7 +237,7 @@ namespace QFramework.Example
                     ActionKit.Delay(0.1f, () =>
                     {
                         float targetValue = (float)currentProgress / totalNeeded;
-                        ImgUnlockProcess.DOFillAmount(targetValue, 0.5f).SetEase(Ease.OutQuad);
+                        mProgeressTween2 = ImgUnlockProcess.DOFillAmount(targetValue, 0.5f).SetEase(Ease.OutQuad);
                         //ImgUnlockProcess.fillAmount = (float)currentProgress / totalNeeded;
                     }).Start(this);
                     return;
@@ -241,18 +251,18 @@ namespace QFramework.Example
         {
             TextTimes.Show();
             TextTimes.text = "X" + (stageModel.GoldCoinsMultiple).ToString("0.0");
-            Sequence sequence = DOTween.Sequence();
+            mSequence = DOTween.Sequence();
             float duration = 0.6f;
             int currentValue = (int)GameDefine.GameConst.WIN_COINS;
 
-            sequence.Append(DOTween.To(() => 1f, alpha => {
+            mSequence.Append(DOTween.To(() => 1f, alpha => {
                 TextTimes.alpha = alpha; // 手动控制透明度
             }, 0.2f, duration));
 
-            sequence.Join(DOTween.To(() => Vector3.one, scale => {
+            mSequence.Join(DOTween.To(() => Vector3.one, scale => {
                 TextTimes.transform.localScale = scale; // 手动控制缩放
             }, new Vector3(0.2f, 0.2f, 0.2f), duration));
-            sequence.OnComplete(() => {
+            mSequence.OnComplete(() => {
                 DOTween.To(() => currentValue, x =>
                 {
                     TextTimes.Hide();
@@ -260,7 +270,7 @@ namespace QFramework.Example
                     TxtCoin.text = currentValue.ToString();
                 }, (int)(currentValue * stageModel.GoldCoinsMultiple), duration * 1.2f);
             });
-            sequence.Play();
+            mSequence.Play();
 
         }
     }
