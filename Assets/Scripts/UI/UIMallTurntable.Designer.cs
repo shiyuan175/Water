@@ -5,11 +5,13 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:ffd21ec1-d3db-4b17-80d3-f2c52b29d43b
+	// Generate Id:371d2213-1304-442d-bb90-cf776a898029
 	public partial class UIMallTurntable
 	{
 		public const string Name = "UIMallTurntable";
 		
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TextTitle;
 		[SerializeField]
 		public UnityEngine.UI.Image ImgTurn;
 		[SerializeField]
@@ -31,6 +33,7 @@ namespace QFramework.Example
 		
 		protected override void ClearUIComponents()
 		{
+			TextTitle = null;
 			ImgTurn = null;
 			Pointer = null;
 			BtnExit = null;

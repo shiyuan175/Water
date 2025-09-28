@@ -38,6 +38,10 @@ namespace QFramework.Example
         protected override void OnInit(IUIData uiData = null)
         {
             mData = uiData as UIMallTurntableData ?? new UIMallTurntableData();
+            BtnBeginTurnTable.transform.Find("Text").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont;
+            BtnBeginTurnTable.transform.Find("TextPlayTime").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont;
+            TextTitle.font = LevelManager.Instance.redFont;
+
             // please add init code here
         }
 

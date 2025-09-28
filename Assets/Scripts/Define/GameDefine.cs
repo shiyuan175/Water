@@ -161,7 +161,7 @@ namespace GameDefine
         // 进关道具解锁
         EnterLevelSelectProps = 17,
         // 1.5金币解锁
-        TimesGoldCoin = 12,
+        TimesGoldCoin = 7,
         // 连胜去黑水
         WinStreakBeginLevel = 60
 

@@ -83,6 +83,8 @@ namespace QFramework.Example
 
         private void InitUI()
         {
+            TxtLevelTitle.font = LevelManager.Instance.redFont;
+            BtnStart.transform.Find("Text").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont;
             int currentLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
             if (currentLevel > GameConst.LEVEL_TYPE_LAST_DIGIT)
             {
@@ -109,6 +111,7 @@ namespace QFramework.Example
                 _transform.Find("ImgLock").Find("TextOpenTip").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont;
                 _transform.Find("ImgLock").Show();
                 _transform.Find("Image (5)").Hide();
+                addItemBtns[i].Hide();
             }
        
             BtnStart.transform.Find("Text").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont; 
@@ -260,11 +263,20 @@ namespace QFramework.Example
         /// <param name="btnAdd"></param>
         void UpdateItemDisplay(int itemCount, TextMeshProUGUI txtItem, Button btnAdd)
         {
-            if (itemCount > 0)
+            if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() > (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
             {
-                btnAdd.Hide();
-                txtItem.transform.parent.Show();
-                txtItem.text = itemCount.ToString();
+                if(itemCount > 0)
+                {
+                    btnAdd.Hide();
+                    txtItem.transform.parent.Show();
+                    txtItem.text = itemCount.ToString();
+                }
+                else
+                {
+                    btnAdd.Show();
+                    txtItem.transform.parent.Hide();
+                }
+                
             }
         }
 
@@ -277,7 +289,7 @@ namespace QFramework.Example
             for (int i = 0; i < selectBtns.Length; i++)
             {
                 Transform _transform = selectBtns[i].transform;
-                _transform.Find("Image (5)").gameObject.Hide();
+                _transform.Find("Image (5)").Hide();
 
             }
             ItemGuidePanel.gameObject.Show();
@@ -320,7 +332,8 @@ namespace QFramework.Example
                 selectBtns[i].interactable = true;
                 
                 _transform.Find("ImgLock").gameObject.Hide();
-                _transform.Find("Image (5)").gameObject.Show();
+                if(stageModel.ItemDic[6+i]>0)
+                    _transform.Find("Image (5)").gameObject.Show();      
             }
         }
 
