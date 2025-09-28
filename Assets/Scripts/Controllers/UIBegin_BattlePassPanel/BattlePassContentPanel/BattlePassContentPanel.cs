@@ -52,7 +52,7 @@ namespace QFramework.Example
         /// <param name="vipPack"></param>
         public void SetBtnOnClike(RewardItem[] freeReward, RewardItem[] vipReward)
         {
-            BtnFreeClaim.onClick.AddListener(() =>
+          /*  BtnFreeClaim.onClick.AddListener(() =>
             {
                 mBattlePassADActivity.DistributeReward(freeReward, false);
 
@@ -60,7 +60,7 @@ namespace QFramework.Example
             BtnRechargeClaim.onClick.AddListener(() =>
             {
                 mBattlePassADActivity.DistributeReward(vipReward, true);
-            });
+            });*/
         }
         // 针对头像特殊处理
         public void SetBtnOnClike()

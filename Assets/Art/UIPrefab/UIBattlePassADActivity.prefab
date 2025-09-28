@@ -2266,6 +2266,7 @@ GameObject:
   - component: {fileID: 8324081927773339758}
   - component: {fileID: 6632889966246837001}
   - component: {fileID: 8869915538689283213}
+  - component: {fileID: 4930508059806368321}
   m_Layer: 5
   m_Name: BattlePassContentPanel
   m_TagString: Untagged
@@ -2354,6 +2355,28 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 1
   m_LayoutPriority: 1
+--- !u!114 &4930508059806368321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450862053070615396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41cf11387e78b0b4e8779c6c36acc136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Namespace: QFramework.Example
+  ScriptName: BattlePassContentPanel
+  ScriptsFolder: Assets/Scripts/Controllers/UIBegin_BattlePassPanel/BattlePassContentPanel
+  GeneratePrefab: 0
+  PrefabFolder: Assets/Art/Prefab
+  ArchitectureFullTypeName: 
+  ViewControllerFullTypeName: 
+  boxImgs: []
+  levelImgs: []
+  rewardSprite: {fileID: 0}
 --- !u!1 &6577701617672903896
 GameObject:
   m_ObjectHideFlags: 0
