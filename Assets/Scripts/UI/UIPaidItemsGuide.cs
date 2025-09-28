@@ -1,7 +1,6 @@
 using GameDefine;
 using QFramework;
 using Spine.Unity;
-using Spine.Unity.Editor;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;

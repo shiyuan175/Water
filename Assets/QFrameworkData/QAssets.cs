@@ -47,7 +47,13 @@ namespace QAssetBundle
     public class Sceneunlockguide_prefab
     {
         public const string BundleName = "sceneunlockguide_prefab";
+        public const string PlotUnlockGuide = "PlotUnlockGuide";
         public const string SceneUnlockGuide = "SceneUnlockGuide";
+    }
+    public class Testuiprogresspackagesadactivites_prefab
+    {
+        public const string BundleName = "testuiprogresspackagesadactivites_prefab";
+        public const string TestUIProGressPackagesADActivites = "TestUIProGressPackagesADActivites";
     }
     public class Uibegin_prefab
     {
@@ -84,6 +90,11 @@ namespace QAssetBundle
         public const string BundleName = "uidailyrewardadactivity_prefab";
         public const string UIDailyRewardADActivity = "UIDailyRewardADActivity";
     }
+    public class Uidailytaskadactivities_prefab
+    {
+        public const string BundleName = "uidailytaskadactivities_prefab";
+        public const string UIDailyTaskADActivities = "UIDailyTaskADActivities";
+    }
     public class Uigamenode_prefab
     {
         public const string BundleName = "uigamenode_prefab";
@@ -102,37 +113,7 @@ namespace QAssetBundle
     public class Uiguidelevel1_prefab
     {
         public const string BundleName = "uiguidelevel1_prefab";
-        public const string UIGuideLevel1 = "UIGuideLevel1";
-    }
-    public class Uiguidelevel2_prefab
-    {
-        public const string BundleName = "uiguidelevel2_prefab";
-        public const string UIGuideLevel2 = "UIGuideLevel2";
-    }
-    public class Uiguideleveladdbottle_prefab
-    {
-        public const string BundleName = "uiguideleveladdbottle_prefab";
-        public const string UIGuideLevelAddBottle = "UIGuideLevelAddBottle";
-    }
-    public class Uiguidelevelhalfbottle_prefab
-    {
-        public const string BundleName = "uiguidelevelhalfbottle_prefab";
-        public const string UIGuideLevelHalfBottle = "UIGuideLevelHalfBottle";
-    }
-    public class Uiguidelevelremoveall_prefab
-    {
-        public const string BundleName = "uiguidelevelremoveall_prefab";
-        public const string UIGuideLevelRemoveAll = "UIGuideLevelRemoveAll";
-    }
-    public class Uiguidelevelremovehide_prefab
-    {
-        public const string BundleName = "uiguidelevelremovehide_prefab";
-        public const string UIGuideLevelRemoveHide = "UIGuideLevelRemoveHide";
-    }
-    public class Uiguidelevelstepback_prefab
-    {
-        public const string BundleName = "uiguidelevelstepback_prefab";
-        public const string UIGuideLevelStepBack = "UIGuideLevelStepBack";
+        public const string UIGuideLevel1And2 = "UIGuideLevel1And2";
     }
     public class Uihightoweractivity_prefab
     {
@@ -173,6 +154,11 @@ namespace QAssetBundle
     {
         public const string BundleName = "uimorelife_prefab";
         public const string UIMoreLife = "UIMoreLife";
+    }
+    public class Uipaiditemsguide_prefab
+    {
+        public const string BundleName = "uipaiditemsguide_prefab";
+        public const string UIPaidItemsGuide = "UIPaidItemsGuide";
     }
     public class Uipersonal_prefab
     {

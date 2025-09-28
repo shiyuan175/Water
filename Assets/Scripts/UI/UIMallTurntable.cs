@@ -90,25 +90,22 @@ namespace QFramework.Example
             BtnBeginTurnTable.onClick.RemoveAllListeners();
             BtnBeginTurnTable.onClick.AddListener(() =>
             {
-                Debug.Log(mTurnTableADActivity.CurrentTurnTableCount);
+                //Debug.Log(mTurnTableADActivity.CurrentTurnTableCount);
                 //不是第一次，播放广告
                 if (mTurnTableADActivity.CurrentTurnTableCount > 0)
                 {
                     TopOnADManager.Instance.ShowVideoAd(() =>
                     {
-
                         BtnBeginTurnTable.interactable = false;
                         TurnAnimation();
                         mTurnTableADActivity.ADPlaybackCompleted(targetGameObject);
 
-
-                    }, () => { });
+                    }, null);
 #if UNITY_EDITOR
                     Debug.Log("模拟广告");
                     BtnBeginTurnTable.interactable = false;
                     TurnAnimation();
                     mTurnTableADActivity.ADPlaybackCompleted(targetGameObject);
-
 #endif
                 }
                 else
@@ -116,7 +113,6 @@ namespace QFramework.Example
                     BtnBeginTurnTable.interactable = false;
                     TurnAnimation();
                     mTurnTableADActivity.ADPlaybackCompleted(targetGameObject);
-
                 }
             });
 
@@ -169,6 +165,9 @@ namespace QFramework.Example
                 {
                     BtnBeginTurnTable.interactable = true;
                     RefreshUI();
+                    var _packSO = targetGameObject.GetComponent<TurnTableNode>().PackSo;
+                    RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, false, null, _packSO);
+
                 });
         }
 
