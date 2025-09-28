@@ -47,6 +47,7 @@ namespace GameDefine
         public const string POTION_ACTIVITY_SIGN = "PotionActivity";
         public const string RANKA_ACTIVITY_SIGN = "RankAActivity";
         public const string TIER_RANK_ACTIVITY_SIGN = "TierRankActivity";
+        public const string TRA_ONE_HOUR_RANK = "TRAOneHourRank";
 
         //事件标记
         public const string START_POTION_ACTIVITY = "StartPotionActivity";

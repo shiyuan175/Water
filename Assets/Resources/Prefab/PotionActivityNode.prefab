@@ -1705,17 +1705,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Namespace: QFramework.Example
   ScriptName: PotionActivityNode
-  ScriptsFolder: Assets/Scripts/_Script/PotionActivityNode
+  ScriptsFolder: Assets\Scripts\_Script\BannerActivityNode\PotionActivityNode
   GeneratePrefab: 0
   PrefabFolder: Assets/Art/Prefab
   ArchitectureFullTypeName: GameMainArc
   ViewControllerFullTypeName: 
   potionActivityPackSO:
-  - {fileID: 11400000, guid: e822993a493aa2d4093f699d7dccc5d2, type: 2}
-  - {fileID: 11400000, guid: 0b703211cd5b1fd46a5e39228a40ed4f, type: 2}
-  - {fileID: 11400000, guid: 8f33d60a1a1200a46a24ba95d93ae23c, type: 2}
-  - {fileID: 11400000, guid: c78da377e4da5a6468820d7cacb6587b, type: 2}
-  - {fileID: 11400000, guid: 82ff13c874a5ae4419ff22a509022d43, type: 2}
+  - {fileID: 11400000, guid: 418a4aec36833fd46afad83688611cca, type: 2}
+  - {fileID: 11400000, guid: 550237c005fbbc8429a96183010141fc, type: 2}
+  - {fileID: 11400000, guid: 3fdca9d700c0c0148b9ed2e5cf05c7c1, type: 2}
+  - {fileID: 11400000, guid: 152a318750b9a234e878c9d82137d901, type: 2}
+  - {fileID: 11400000, guid: 3e555d4e5bb131c4a8ae68d7a301d8f3, type: 2}
+  - {fileID: 11400000, guid: 418a4aec36833fd46afad83688611cca, type: 2}
+  - {fileID: 11400000, guid: 152a318750b9a234e878c9d82137d901, type: 2}
+  - {fileID: 11400000, guid: 3e555d4e5bb131c4a8ae68d7a301d8f3, type: 2}
   ImgProgressBar: {fileID: 3440128105272964299}
   TextProgress: {fileID: 6746036799596544942}
   Selected: {fileID: 2551833490129700680}

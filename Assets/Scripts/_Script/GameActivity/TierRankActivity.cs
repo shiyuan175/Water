@@ -14,19 +14,19 @@ public class TierRankActivity : BaseRewardSettlementActivity
         get
         {
             if (!mCountDownTimerManager.IsTimerFinished(ActivitySign)
-                && !GameDefine.GameUtils.DoesCountDownKeyExist(TRA_ONE_HOUR_RANK))
+                && !GameDefine.GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TRA_ONE_HOUR_RANK))
             {
                 return SettlementActivityStatus.Inactive;
             }
 
             if (!mCountDownTimerManager.IsTimerFinished(ActivitySign)
-                && !mCountDownTimerManager.IsTimerFinished(TRA_ONE_HOUR_RANK))
+                && !mCountDownTimerManager.IsTimerFinished(GameDefine.GameConst.TRA_ONE_HOUR_RANK))
             {
                 return SettlementActivityStatus.Active;
             }
 
             if (!mCountDownTimerManager.IsTimerFinished(ActivitySign)
-                && mCountDownTimerManager.IsTimerFinished(TRA_ONE_HOUR_RANK))
+                && mCountDownTimerManager.IsTimerFinished(GameDefine.GameConst.TRA_ONE_HOUR_RANK))
             {
                 return SettlementActivityStatus.Finished;
             }
@@ -46,7 +46,6 @@ public class TierRankActivity : BaseRewardSettlementActivity
     public TRActivityData TRAData => mTRAModel.TRAData;
 
     private const int COINS_PER_RANK = 100;
-    private const string TRA_ONE_HOUR_RANK = "TRAOneHourRank";
 
     private CountDownTimerManager mCountDownTimerManager;
     private TierRankActivityModel mTRAModel;
@@ -95,7 +94,7 @@ public class TierRankActivity : BaseRewardSettlementActivity
         {
             case SettlementActivityStatus.WaitStart:
                 RestartActivity();
-                mCountDownTimerManager.DeleteTimer(TRA_ONE_HOUR_RANK);
+                mCountDownTimerManager.DeleteTimer(GameDefine.GameConst.TRA_ONE_HOUR_RANK);
                 break;
         }
 
@@ -120,7 +119,7 @@ public class TierRankActivity : BaseRewardSettlementActivity
         if (_isFirstRank)
             mTRAModel.MarkFirstHourTierRank();
 
-        CountDownTimerManager.Instance.ResetCountdownTimer(TRA_ONE_HOUR_RANK, 1);
+        CountDownTimerManager.Instance.ResetCountdownTimer(GameDefine.GameConst.TRA_ONE_HOUR_RANK, 1);
         RestartActivityInit();
 
         return (_isRewardSettled, _isFirstRank);
@@ -128,6 +127,6 @@ public class TierRankActivity : BaseRewardSettlementActivity
 
     public string GetOneHourTierRankTime()
     {
-        return CountDownTimerManager.Instance.GetRemainingTimeText(TRA_ONE_HOUR_RANK);
+        return CountDownTimerManager.Instance.GetRemainingTimeText(GameDefine.GameConst.TRA_ONE_HOUR_RANK);
     }
 }

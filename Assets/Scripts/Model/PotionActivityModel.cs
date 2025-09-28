@@ -6,7 +6,7 @@ using UnityEngine;
 public class PotionActivityModel : AbstractModel, ICanGetModel
 {
     //Îåµµ½±Àø
-    private const int MAX_PROGRESS = 5;
+    private const int MAX_PROGRESS = 8;
     private const string POTION_ACTIVITY_GOAL_SIGN = "PotionActivityGoal";
     private const string POTION_ACTIVITY_PROGRESS_SIGN = "PotionActivityProgress";
     private const string POTION_ACTIVITY_TOTAL_GOAL_SIGN = "PotionActivityTotalGoal";
@@ -80,8 +80,8 @@ public class PotionActivityModel : AbstractModel, ICanGetModel
 
     public void AddPotionActivityGoal()
     {
-        mPotionActivityGoal.Value += WinStreakPoints;
-        mPotionActivityTotalGoal.Value += WinStreakPoints;
+        mPotionActivityGoal.Value += WinStreakPoints * stageModel.SettlementMultiple;
+        mPotionActivityTotalGoal.Value += WinStreakPoints * stageModel.SettlementMultiple;
     }
 
     public void ReducePotionActivityGoal(int goal)
