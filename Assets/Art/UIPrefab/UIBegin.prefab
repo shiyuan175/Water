@@ -1559,8 +1559,8 @@ MonoBehaviour:
   starFx: {fileID: 7386107850048871920}
   btnStartSprites:
   - {fileID: 21300000, guid: b4e63645849cef541b9ac4e93ab546da, type: 3}
-  - {fileID: 21300000, guid: f7322fb8f80a6484fbe2e6da9878206d, type: 3}
-  - {fileID: 21300000, guid: 25cd115251e7e0645b8356a7f9afcf21, type: 3}
+  - {fileID: 21300000, guid: 778eb66d6f2d1b94e9c227f90d2932cc, type: 3}
+  - {fileID: 21300000, guid: 6994ca61a4981ba449efaf89e3355b5e, type: 3}
   bottomMenuBtns:
   - {fileID: 2741040060355692154}
   - {fileID: 8650291270669714542}
