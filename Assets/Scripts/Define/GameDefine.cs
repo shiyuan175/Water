@@ -27,6 +27,7 @@ namespace GameDefine
         public const int ADD_BOTTLE_COST = 900;
 
         //活动开启目标关卡
+        public const int BP_AD_BEGIN_LEVEL = 6;    //战令活动
         public const int VA_BEGIN_LEVEL = 7;    //火山活动
         public const int DR_AD_BEGIN_LEVEL = 8; //日常广告活动
         public const int DT_BEGIN_LEVEL = 8; //日常广告活动
@@ -42,6 +43,7 @@ namespace GameDefine
         public const string TURNTABLE_AD_ACTIVITY_SIGN = "TurnTableADActivity";
         public const string DAILYREWARD_AD_ACTIVITY_SIGN = "DailyRewardADActivity";
         public const string BANNER_ACTIVITY_SIGN = "BannerActivity";
+        public const string BATTLEPASS_AD_ACTIVITY_SIGN = "BattlePassADActivity";
 
         //存档标记
         public const string FIRST_LAUNCH_SIGN = "FIRST_LAUNCH";

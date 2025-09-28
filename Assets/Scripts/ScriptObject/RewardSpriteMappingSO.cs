@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Purchasing;
 
 [CreateAssetMenu(menuName = "Game/RewardSpriteMapping")]
 public class RewardSpriteMappingSO : ScriptableObject
@@ -47,6 +48,21 @@ public class RewardSpriteMappingSO : ScriptableObject
             return normalLookup.TryGetValue((NormalRewardsType)(object)rewardType, out var sprite) ? sprite : null;
         }
 
+        return null;
+    }
+    public Sprite GetRewardSprite(string rewardString)
+    {
+        SpecialRewardsType _rewardEnum1;
+        if (Enum.TryParse<SpecialRewardsType>(rewardString,out _rewardEnum1))
+        {
+            return GetRewardSprite<SpecialRewardsType>(_rewardEnum1);
+        }
+
+        NormalRewardsType _rewardEnum2;
+        if (Enum.TryParse<NormalRewardsType>(rewardString, out _rewardEnum2))
+        {
+            return GetRewardSprite<NormalRewardsType>(_rewardEnum2);
+        }
         return null;
     }
 }

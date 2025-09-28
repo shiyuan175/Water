@@ -113,22 +113,15 @@ namespace JsonFileData
     public class Reward
     {
         public int GetConditions;
-        public BPRewardItem Free;
-        public BPRewardItem Advance;
+        public RewardItem[] Free;
+        public RewardItem[] Vip;
+        public bool FreeIsBox;
+        public bool VipIsBox;
     }
-    public class BPRewardItem
+    public class RewardItem
     {
-        public int S_RemoveHide;
-        public int S_ChangeWater;
-        public int UnlimitedHp;
-        public int StepBack;
-        public int RemoveAll;
-        public int AddHalfBottle;
-        public int AddOneBottle;
-        public int Coins;
-        public int S_AddOneBottle;
-        public int UnlimiteS_Items;
-        public int AvatarId;
+        public string itemType;
+        public int itemQuantity;
     }
 
 

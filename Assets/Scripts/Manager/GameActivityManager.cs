@@ -59,8 +59,15 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
             if (!GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.DAILYREWARD_AD_ACTIVITY_SIGN))
             {
                 GetActivity<DailyRewardADActivity>().StartActivity();
-            }
+
+            }       
         }
+        if (_curLevel >= GameDefine.GameConst.BP_AD_BEGIN_LEVEL)
+        {
+            RegisterActivity<BattlePassADActivity>();
+        }
+
+
         if (_curLevel >= GameDefine.GameConst.WIN_STREAK_BEGIN_LEVEL)
         {
             RegisterActivity<TierRankActivity>();

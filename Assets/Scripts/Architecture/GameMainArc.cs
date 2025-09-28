@@ -33,6 +33,7 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterModel(new TurnTableADActivityModel());
         RegisterModel(new SceneUnlockModel());
         RegisterModel(new DailyRewardADActivityModel());
+        RegisterModel(new BattlePassModel());
     }
 
     private void RegisterUtilitys()

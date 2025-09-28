@@ -632,11 +632,12 @@ namespace QFramework.Example
         private void SetTakeItem()
         {
             var takeItems = LevelManager.Instance.takeItem;
-
+            foreach (var i in takeItems)
+                Debug.Log(i);
             var buttons = new[] { BtnItem1, BtnItem2, BtnItem3 };
             var texts = new[] { TxtItem1, TxtItem2, TxtItem3 };
             var itemIds = new[] { 6, 7, 8 };
-
+            bool _showItem = false;
             for (int i = 0; i < itemIds.Length; i++)
             {
                 int itemId = itemIds[i];
@@ -647,7 +648,13 @@ namespace QFramework.Example
                     || !CountDownTimerManager.Instance.IsTimerFinished(_sign);
                 buttons[i].interactable = active;
                 texts[i].text = active ? "1" : "0";
+                // ШЁец
+                _showItem = _showItem | active;
             }
+
+            if (!_showItem)
+                BtnItemBg.Hide();
+
         }
 
         /// <summary>

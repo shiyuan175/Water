@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using TMPro;
+using GameDefine;
 
 namespace QFramework.Example
 {
@@ -177,10 +178,12 @@ namespace QFramework.Example
             // 转盘活动
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                if(GameActivityManager.Instance.GetActivity<TurnTableADActivity>() is TurnTableADActivity TT &&
-                TT.ActivityStatus == GameActivityStatus.Active)
+                // 没有计时的时候显示 并进行时间的初始化
+                if (GameActivityManager.Instance.GetActivity<TurnTableADActivity>() is TurnTableADActivity turnTableADActivity
+                    && turnTableADActivity.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TURNTABLE_AD_ACTIVITY_SIGN))
                 {
-                    UIKit.OpenPanel<UIMallTurntable>(new UIMallTurntableData() { });
+                    GameActivityManager.Instance.GetActivity<TurnTableADActivity>().StartActivity();
+                    UIKit.OpenPanel<UIMallTurntable>(new UIMallTurntableData { IsManagedOpen = true });
                     return true;
                 }
                 return false;

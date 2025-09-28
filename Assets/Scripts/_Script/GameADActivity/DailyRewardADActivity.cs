@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DailyRewardADActivity : BaseGameADActivity<RewardPackSO>
+public class DailyRewardADActivity : BaseGameADActivity
 {
     
     public override string ActivitySign => GameDefine.GameConst.DAILYREWARD_AD_ACTIVITY_SIGN;
@@ -57,9 +57,9 @@ public class DailyRewardADActivity : BaseGameADActivity<RewardPackSO>
         base.Tick();
     }
 
-    public override void ADPlaybackCompleted(RewardPackSO pack)
+    public override void ADPlaybackCompleted<T>(T pack)
     {
         mRWModel.AddStageNum();
-        mRewardGrantUtility.GrantReward(pack);
+        mRewardGrantUtility.GrantReward((pack as RewardPackSO));
     }
 }

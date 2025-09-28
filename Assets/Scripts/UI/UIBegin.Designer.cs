@@ -5,7 +5,9 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:96469fd3-bfd8-4571-b33d-ae1ee304d12b
+
+// Generate Id:96469fd3-bfd8-4571-b33d-ae1ee304d12b
+
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
@@ -19,7 +21,7 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Button BtnFreeClaim;
 		[SerializeField]
-		public UnityEngine.UI.Image RechangeItemPanel;
+		public UnityEngine.UI.Image VipItemPanel;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnRecharge;
 		[SerializeField]
@@ -107,7 +109,7 @@ namespace QFramework.Example
 			BattlePassContent = null;
 			FreeItemPanel = null;
 			BtnFreeClaim = null;
-			RechangeItemPanel = null;
+			VipItemPanel = null;
 			BtnRecharge = null;
 			ImgLock = null;
 			ImgButtomDividingLine = null;

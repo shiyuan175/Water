@@ -15,7 +15,9 @@ public struct UnLockItem
 {
     public NormalRewardsType PropType;
 }
-
+/// <summary>
+/// 游戏胜利事件
+/// </summary>
 public struct ReturnToMainEvent
 {
     public bool PassLevel;

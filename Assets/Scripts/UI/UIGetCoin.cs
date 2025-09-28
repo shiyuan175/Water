@@ -189,9 +189,9 @@ namespace QFramework.Example
                         isHaveBox = true;
                         // 金币的倍数不是正常的倍数时播放金币增长的动画
                         if (stageModel.GoldCoinsMultiple != 1.0f)
-                            RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins,PLayGoldCoinUPAnimation, packSOs: _packSO);
+                            RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins,false,PLayGoldCoinUPAnimation, packSOs: _packSO);
                         else
-                            RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, packSOs: _packSO);
+                            RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins,false,null, packSOs: _packSO);
                     }
                 }
             }

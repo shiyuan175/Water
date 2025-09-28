@@ -45,7 +45,6 @@ namespace QFramework.Example
             TxtWinProcess.font = LevelManager.Instance.redFont;
             stageModel = this.GetModel<StageModel>();
             StringEventSystem.Global.Send("ClearTakeItem");
-
             InitUI();
             RigesterEvent();
             BindBtn();
@@ -240,11 +239,11 @@ namespace QFramework.Example
         /// </summary>
         void UpdateItem()
         {
-            if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneBottle)))
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneBottle)))
                 AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_AddOneBottle);
-            if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveHide)))
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveHide)))
                 AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_RemoveHide);
-            if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_ChangeWater)))
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_ChangeWater)))
                 AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_ChangeWater);
 
             //更新道具数量

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnTableADActivity : BaseGameADActivity<GameObject>
+public class TurnTableADActivity : BaseGameADActivity
 {
     public override string ActivitySign => GameConst.TURNTABLE_AD_ACTIVITY_SIGN;
     public override string ActivityID => GetType().Name;
@@ -60,12 +60,12 @@ public class TurnTableADActivity : BaseGameADActivity<GameObject>
         base.Tick();
     }
 
-    public override void ADPlaybackCompleted(GameObject target)
-    {     
+    public override void ADPlaybackCompleted<T>(T target)
+    {
         mTTModel.AddTurnTableCount();
-        
-        GiftPackSO _packSo = target.GetComponent<TurnTableNode>().PackSo;
+
+        GiftPackSO _packSo = (target as GameObject).GetComponent<TurnTableNode>().PackSo;
         mRewardGrantUtility.GrantReward(_packSo);
     }
-     
+
 }

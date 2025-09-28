@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DailyTaskADActivity : BaseGameADActivity<GameObject>
+public class DailyTaskADActivity : BaseGameADActivity
 {
     public override string ActivitySign => GameConst.TURNTABLE_AD_ACTIVITY_SIGN;
     public override string ActivityID => GetType().Name;
@@ -35,7 +35,7 @@ public class DailyTaskADActivity : BaseGameADActivity<GameObject>
         throw new System.NotImplementedException();
     }
 
-    public override void ADPlaybackCompleted(GameObject target)
+    public override void ADPlaybackCompleted<T>(T target)
     {
         throw new System.NotImplementedException();
     }

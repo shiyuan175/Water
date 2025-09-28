@@ -19,4 +19,5 @@ public class GiftPackSO : ScriptableObject, IPackSoInterface
     public string ID => PackID;
     public IReadOnlyList<ItemReward> ItemReward => items;
     public IReadOnlyList<SpecialReward> SpecialRewards => specialsItem;
+
 }
