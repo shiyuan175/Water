@@ -1,4 +1,4 @@
-// Generate Id:bfe8788f-bf5b-4360-9f83-47902665e244
+// Generate Id:787ee316-7eb4-4c07-9a37-c928892d26ba
 using UnityEngine;
 
 // 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间
@@ -7,5 +7,17 @@ namespace QFramework.Example
 {
 	public partial class BattlePassContentPanel
 	{
+		public UnityEngine.GameObject ImgGiftFree;
+		
+		public UnityEngine.GameObject ImgGiftVip;
+		
+		public UnityEngine.UI.Image ImgProgressBar;
+		
+		public UnityEngine.UI.Image ImgLevel;
+		
+		public UnityEngine.UI.Image ImgButtomDividingLine;
+		
+		public UnityEngine.UI.Image ImgTopDividingLine;
+		
 	}
 }

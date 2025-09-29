@@ -43,6 +43,7 @@ namespace QFramework.Example
         protected override void OnOpen(IUIData uiData = null)
         {
             TxtWinProcess.font = LevelManager.Instance.redFont;
+            TextItemGuide.font = LevelManager.Instance.redFont;
             stageModel = this.GetModel<StageModel>();
             StringEventSystem.Global.Send("ClearTakeItem");
             InitUI();
@@ -107,7 +108,6 @@ namespace QFramework.Example
             // 初始化默认上锁
             for (int i = 0; i < selectBtns.Length; i++)
             {
-                Debug.Log(selectBtns[i]);
                 Transform _transform = selectBtns[i].transform;
 
                 _transform.Find("ImgLock").Find("TextOpenTip").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont;
@@ -402,6 +402,11 @@ namespace QFramework.Example
             {
                 SetGoldCoinUnClockUI();
             }
+
+            if (_level >= (int)GameDefine.UnLockMechanism.WinStreakBeginLevel)
+                Mask.Hide();
+            else
+                Mask.Show();
         }
         #endregion
 

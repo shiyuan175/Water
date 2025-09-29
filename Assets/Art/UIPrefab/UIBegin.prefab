@@ -889,6 +889,8 @@ GameObject:
   - component: {fileID: 4290953307179478810}
   - component: {fileID: 2659729546287765529}
   - component: {fileID: 5665845708673557355}
+  - component: {fileID: 7897519061918997430}
+  - component: {fileID: 4225878983110931445}
   m_Layer: 5
   m_Name: ImgGiftVip
   m_TagString: Untagged
@@ -910,7 +912,6 @@ RectTransform:
   m_Children:
   - {fileID: 7460185899114303932}
   - {fileID: 6513713666594965928}
-  - {fileID: 3550956023711381524}
   - {fileID: 7112059090280629224}
   - {fileID: 6509204609134725558}
   m_Father: {fileID: 7711339125846571535}
@@ -972,6 +973,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 2
   m_AspectRatio: 1.5
+--- !u!114 &7897519061918997430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206259175816539471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgGiftVip
+  CustomComment: 
+  mComponentName: UnityEngine.GameObject
+--- !u!114 &4225878983110931445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206259175816539471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba4c919df67596c43af88f4c1b5d48c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Namespace: QFramework.Example
+  ScriptName: GiftPanel
+  ScriptsFolder: Assets/Scripts/Controllers/UIBegin_BattlePassPanel/BattlePassContentPanel/ItemPanel
+  GeneratePrefab: 0
+  PrefabFolder: Assets/Art/Prefab
+  ArchitectureFullTypeName: 
+  ViewControllerFullTypeName: 
+  ItemPanel: {fileID: 0}
+  BtnClaim: {fileID: 0}
+  ImgLock: {fileID: 0}
+  ImgAlReceive: {fileID: 0}
 --- !u!1 &234171555157706748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,13 +1173,14 @@ GameObject:
   - component: {fileID: 3506526573113415020}
   - component: {fileID: 8056181085936762912}
   - component: {fileID: 8685825165840150477}
+  - component: {fileID: 7222019497590171614}
   m_Layer: 5
   m_Name: ImgAlReceive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3506526573113415020
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1197,6 +1238,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7222019497590171614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250275975412891743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgAlReceive
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &251057198973958767
 GameObject:
   m_ObjectHideFlags: 0
@@ -3547,6 +3604,7 @@ GameObject:
   - component: {fileID: 7460185899114303932}
   - component: {fileID: 927086912885976623}
   - component: {fileID: 6541453565589450228}
+  - component: {fileID: 8527263509856070714}
   m_Layer: 5
   m_Name: ItemPanel
   m_TagString: Untagged
@@ -3606,6 +3664,22 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 2
+--- !u!114 &8527263509856070714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959769041442681895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgAlReceive
+  CustomComment: 
+  mComponentName: 
 --- !u!1 &1025652952196041510
 GameObject:
   m_ObjectHideFlags: 0
@@ -9558,6 +9632,7 @@ GameObject:
   - component: {fileID: 4361091198629298533}
   - component: {fileID: 334165994818331680}
   - component: {fileID: 2074176875735744841}
+  - component: {fileID: 8947720553686401018}
   m_Layer: 5
   m_Name: ImgLevel
   m_TagString: Untagged
@@ -9637,6 +9712,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 2
   m_AspectRatio: 1
+--- !u!114 &8947720553686401018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2241508461862514489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgLevel
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &2268015446626735360
 GameObject:
   m_ObjectHideFlags: 0
@@ -12848,6 +12939,8 @@ GameObject:
   - component: {fileID: 1077780076862161769}
   - component: {fileID: 451840840743310115}
   - component: {fileID: 4995310036191037943}
+  - component: {fileID: 5854182641608382198}
+  - component: {fileID: 2238304273587462528}
   m_Layer: 5
   m_Name: ImgGiftFree
   m_TagString: Untagged
@@ -12869,7 +12962,6 @@ RectTransform:
   m_Children:
   - {fileID: 3753554265878115101}
   - {fileID: 4554196036441342327}
-  - {fileID: 1606848761637152447}
   - {fileID: 170684759296011251}
   - {fileID: 3506526573113415020}
   m_Father: {fileID: 7711339125846571535}
@@ -12931,6 +13023,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 2
   m_AspectRatio: 1.5
+--- !u!114 &5854182641608382198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3127581943003162209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgGiftVip
+  CustomComment: 
+  mComponentName: UnityEngine.GameObject
+--- !u!114 &2238304273587462528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3127581943003162209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba4c919df67596c43af88f4c1b5d48c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Namespace: QFramework.Example
+  ScriptName: GiftPanel
+  ScriptsFolder: Assets/Scripts/Controllers/UIBegin_BattlePassPanel/BattlePassContentPanel/ItemPanel
+  GeneratePrefab: 0
+  PrefabFolder: Assets/Art/Prefab
+  ArchitectureFullTypeName: 
+  ViewControllerFullTypeName: 
+  ItemPanel: {fileID: 3753554265878115101}
+  BtnClaim: {fileID: 7219765535008420735}
+  ImgLock: {fileID: 8849920871114900419}
+  ImgAlReceive: {fileID: 8685825165840150477}
 --- !u!1 &3150922818657268418
 GameObject:
   m_ObjectHideFlags: 0
@@ -12943,6 +13074,7 @@ GameObject:
   - component: {fileID: 5728606555328638178}
   - component: {fileID: 5835682267909843289}
   - component: {fileID: 8292673762013169816}
+  - component: {fileID: 3544087878297489545}
   m_Layer: 5
   m_Name: BtnClaim
   m_TagString: Untagged
@@ -13052,6 +13184,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3544087878297489545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3150922818657268418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgAlReceive
+  CustomComment: 
+  mComponentName: 
 --- !u!1 &3156633333355737859
 GameObject:
   m_ObjectHideFlags: 0
@@ -13063,6 +13211,7 @@ GameObject:
   - component: {fileID: 6509204609134725558}
   - component: {fileID: 3056771791161623847}
   - component: {fileID: 8637152560511095991}
+  - component: {fileID: 3833178156573705678}
   m_Layer: 5
   m_Name: ImgAlReceive
   m_TagString: Untagged
@@ -13127,6 +13276,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3833178156573705678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3156633333355737859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgAlReceive
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &3171156947514645314
 GameObject:
   m_ObjectHideFlags: 0
@@ -13395,6 +13560,7 @@ GameObject:
   - component: {fileID: 170684759296011251}
   - component: {fileID: 6171244186919410677}
   - component: {fileID: 8849920871114900419}
+  - component: {fileID: 6743643741748425457}
   m_Layer: 5
   m_Name: ImgLock
   m_TagString: Untagged
@@ -13459,6 +13625,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6743643741748425457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3233702962412387131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgAlReceive
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &3262906527258384210
 GameObject:
   m_ObjectHideFlags: 0
@@ -14174,6 +14356,7 @@ GameObject:
   - component: {fileID: 6673540246730391455}
   - component: {fileID: 6366102673039074699}
   - component: {fileID: 9166008675453032016}
+  - component: {fileID: 8207480508170914437}
   m_Layer: 5
   m_Name: ImgProgressBar
   m_TagString: Untagged
@@ -14238,6 +14421,22 @@ MonoBehaviour:
   m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8207480508170914437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3429890484752538432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgLevel
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &3462667415303534577
 GameObject:
   m_ObjectHideFlags: 0
@@ -19785,7 +19984,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2206358387400205102
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20518,7 +20717,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5044006636989417753}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
   m_Name: 
@@ -21971,6 +22170,7 @@ GameObject:
   - component: {fileID: 3753554265878115101}
   - component: {fileID: 112514609705027674}
   - component: {fileID: 6144070937646848089}
+  - component: {fileID: 6999603714576124872}
   m_Layer: 5
   m_Name: ItemPanel
   m_TagString: Untagged
@@ -22030,6 +22230,22 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 2
+--- !u!114 &6999603714576124872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5389466402226224053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgAlReceive
+  CustomComment: 
+  mComponentName: RectTransform
 --- !u!1 &5404100615261346204
 GameObject:
   m_ObjectHideFlags: 0
@@ -25549,81 +25765,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: df1119d32cb225a4f9138590e1399d9a, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!1 &6244579186594354038
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3550956023711381524}
-  - component: {fileID: 3291421647131636561}
-  - component: {fileID: 785655176979136725}
-  m_Layer: 5
-  m_Name: ImgFreeAlReceive
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &3550956023711381524
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6244579186594354038}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6739476182595928550}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 27.099976, y: 36.299927}
-  m_SizeDelta: {x: 100, y: 75}
-  m_Pivot: {x: 1, y: 0}
---- !u!222 &3291421647131636561
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6244579186594354038}
-  m_CullTransparentMesh: 1
---- !u!114 &785655176979136725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6244579186594354038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e8a1037a26ab00f4db634163efd763fc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -31874,7 +32015,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Namespace: QFramework.Example
   ScriptName: BattlePassContentPanel
-  ScriptsFolder: d:/Documents/GitHub/WaterNew/Assets/Scripts/Controllers/UIBegin_BattlePassPanel/BattlePassContentPanel
+  ScriptsFolder: Assets/Scripts/Controllers/UIBegin_BattlePassPanel/BattlePassContentPanel
   GeneratePrefab: 0
   PrefabFolder: Assets/Art/Prefab
   ArchitectureFullTypeName: 
@@ -31888,81 +32029,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9dff02b1736017b498acb3ea71e89096, type: 3}
   - {fileID: 21300000, guid: 318fb5a42a95c454d8f764bfaf99f799, type: 3}
   rewardSprite: {fileID: 11400000, guid: ccddaf171c808d343876466fb21b27c7, type: 2}
---- !u!1 &7580861239627133330
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1606848761637152447}
-  - component: {fileID: 398164107900803227}
-  - component: {fileID: 5962656093458313259}
-  m_Layer: 5
-  m_Name: ImgFreeAlReceive
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1606848761637152447
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7580861239627133330}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5939791771077982813}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -4.9000244, y: 36.299988}
-  m_SizeDelta: {x: 100, y: 75}
-  m_Pivot: {x: 1, y: 0}
---- !u!222 &398164107900803227
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7580861239627133330}
-  m_CullTransparentMesh: 1
---- !u!114 &5962656093458313259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7580861239627133330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e8a1037a26ab00f4db634163efd763fc, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  ImgGiftFree: {fileID: 3127581943003162209}
+  ImgGiftVip: {fileID: 206259175816539471}
+  ImgProgressBar: {fileID: 9166008675453032016}
+  ImgLevel: {fileID: 334165994818331680}
+  ImgButtomDividingLine: {fileID: 1764889888615918856}
+  ImgTopDividingLine: {fileID: 3255883832024527701}
 --- !u!1 &7620024957795368177
 GameObject:
   m_ObjectHideFlags: 0
@@ -33977,6 +34049,7 @@ GameObject:
   - component: {fileID: 5361182974675064892}
   - component: {fileID: 4081681402981736443}
   - component: {fileID: 7219765535008420735}
+  - component: {fileID: 5249869432753999447}
   m_Layer: 5
   m_Name: BtnClaim
   m_TagString: Untagged
@@ -34086,6 +34159,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5249869432753999447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8267518545150905682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgAlReceive
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Button
 --- !u!1 &8321811507944086629
 GameObject:
   m_ObjectHideFlags: 0
@@ -35568,6 +35657,7 @@ GameObject:
   - component: {fileID: 7112059090280629224}
   - component: {fileID: 1975307728751900447}
   - component: {fileID: 4044710795043311323}
+  - component: {fileID: 2287985364089708462}
   m_Layer: 5
   m_Name: ImgLock
   m_TagString: Untagged
@@ -35632,6 +35722,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2287985364089708462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8678105240769666993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgAlReceive
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &8683271950725848916
 GameObject:
   m_ObjectHideFlags: 0

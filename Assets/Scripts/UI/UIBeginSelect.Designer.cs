@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:9c64a1b6-d004-421c-96d6-7105fc1011f9
+	// Generate Id:31813b33-bf6e-48d2-b365-1e310e96468d
 	public partial class UIBeginSelect
 	{
 		public const string Name = "UIBeginSelect";
@@ -22,6 +22,8 @@ namespace QFramework.Example
 		public UnityEngine.UI.Image ImgProgress;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtProgress;
+		[SerializeField]
+		public UnityEngine.UI.Image Mask;
 		[SerializeField]
 		public RectTransform UnLimitNode;
 		[SerializeField]
@@ -59,6 +61,7 @@ namespace QFramework.Example
 			BtnInfo = null;
 			ImgProgress = null;
 			TxtProgress = null;
+			Mask = null;
 			UnLimitNode = null;
 			ImgReward = null;
 			BtnStart = null;
