@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.ShaderData;
 
 public class BattlePassModel : AbstractModel, ICanGetUtility
 {

@@ -55,6 +55,11 @@ namespace QAssetBundle
         public const string BundleName = "testuiprogresspackagesadactivites_prefab";
         public const string TestUIProGressPackagesADActivites = "TestUIProGressPackagesADActivites";
     }
+    public class Uibattlepassadactivity_prefab
+    {
+        public const string BundleName = "uibattlepassadactivity_prefab";
+        public const string UIBattlePassADActivity = "UIBattlePassADActivity";
+    }
     public class Uibegin_prefab
     {
         public const string BundleName = "uibegin_prefab";
