@@ -10,7 +10,10 @@ public struct RefreshUITextEvent
 {
 
 }
+public struct LevelStartEvent
+{
 
+}
 public struct UnLockItem
 {
     public NormalRewardsType PropType;

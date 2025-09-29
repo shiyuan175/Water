@@ -57,15 +57,15 @@ namespace QFramework.Example
 
             LoadRes();
             BindBtn();
-            RegisterEvent();
+            RegisterEvent();  
+            SetTakeItem();
         }
 
         protected override void OnShow()
         {
             InitRankLevel();
             InitLevelUI();
-            InitItemUI();
-            SetTakeItem();
+            InitItemUI();     
             SetItem();
         }
 
@@ -143,6 +143,11 @@ namespace QFramework.Example
             this.RegisterEvent<UnLockItem>(e =>
             {
                 UnLockItem(e.PropType);
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            this.RegisterEvent<LevelStartEvent>(eventId =>
+            {
+                TxtLevel.text = LevelManager.Instance.levelId.ToString();
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             StringEventSystem.Global.Register(GameConst.STREAK_WIN_REMOVE_HIDE, (int count) =>

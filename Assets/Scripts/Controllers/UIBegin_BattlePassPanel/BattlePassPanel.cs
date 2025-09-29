@@ -73,7 +73,8 @@ namespace QFramework.Example
             // 战令内容的设置
             for(int i =0;i < BattlePassContent.transform.childCount;i++)
             {
-                BattlePassContent.transform.GetChild(i).GetComponent<BattlePassContentPanel>().Initialize(i);             
+                int _level = i;
+                BattlePassContent.transform.GetChild(i).GetComponent<BattlePassContentPanel>().Initialize(_level);             
             }
         }
         #endregion
