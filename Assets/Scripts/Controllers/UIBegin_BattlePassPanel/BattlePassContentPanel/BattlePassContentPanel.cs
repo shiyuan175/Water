@@ -24,7 +24,7 @@ namespace QFramework.Example
         {
             // 获取逻辑层，将奖励发放等功能转交给逻辑层处理
             mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();
-
+            rewardSprite.Initialize();
             bPModel = this.GetModel<BattlePassModel>();
         }
         public IArchitecture GetArchitecture()
@@ -49,6 +49,8 @@ namespace QFramework.Example
             {  
                 ImgProgressBar.fillAmount = 1;
                 ImgLevel.sprite = levelImgs[1];
+                TextLevel.text = level.ToString();
+                Debug.Log(level);
             }
             else
             {
@@ -77,11 +79,12 @@ namespace QFramework.Example
 
             // 创建预制体
             if (!bPModel.BPDate.Rewards[level].FreeIsBox)
-            {
+            {           
+                GameObject _prefab = freeGiftPanel.ItemPanel.GetChild(0).gameObject;
                 for (int i = 1; i < freeData.Length; i++)
                 {
-                    GameObject _prefab = freeGiftPanel.ItemPanel.GetChild(0).gameObject;
-                    Instantiate(_prefab, transform);
+                    Debug.Log(i);
+                    Instantiate(_prefab, freeGiftPanel.ItemPanel.transform);
                 }
             }
 
@@ -106,7 +109,9 @@ namespace QFramework.Example
                     else
                     {
                         itemImg.sprite = rewardSprite.GetRewardSprite(freeData[i].itemType);
+                        itemNumber.Show();
                         SpecialRewardsType _rewardEnum1;
+
                         if (Enum.TryParse<SpecialRewardsType>(freeData[i].itemType, out _rewardEnum1))
                         {
                             itemNumber.text = freeData[i].itemQuantity.ToString()+"m";
@@ -121,43 +126,53 @@ namespace QFramework.Example
             #endregion
 
             #region 设置vipGift
-            if (bPModel.FreeRewardGotLevel >= level)
+            if(bPModel.IsVip)
             {
-                vipGiftPanel.ImgAlReceive.Show();
-            }
-            else
-            {
-                vipGiftPanel.ImgAlReceive.Hide();
-                if (level <= bPModel.RewardLevel)
+                vipGiftPanel.ImgLock.Hide();
+                if (bPModel.FreeRewardGotLevel >= level)
                 {
-                    vipGiftPanel.BtnClaim.Show();
-                    vipGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(vipData));
+                    vipGiftPanel.ImgAlReceive.Show();
                 }
                 else
                 {
-                    vipGiftPanel.BtnClaim.Hide();
+                    vipGiftPanel.ImgAlReceive.Hide();
+                    if (level <= bPModel.RewardLevel)
+                    {
+                        vipGiftPanel.BtnClaim.Show();
+                        vipGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(freeData));
+                    }
+                    else
+                    {
+                        vipGiftPanel.BtnClaim.Hide();
+                    }
                 }
             }
-            vipGiftPanel.BtnClaim.Hide();
+            else
+            {
+                vipGiftPanel.ImgLock.Show();
+                vipGiftPanel.ImgAlReceive.Hide();
+                vipGiftPanel.BtnClaim.Hide();
+            }
+           
             
             
             // 创建预制体
-            if (!bPModel.BPDate.Rewards[level].FreeIsBox)
+            if (!bPModel.BPDate.Rewards[level].VipIsBox)
             {
-                for (int i = 1; i < freeData.Length; i++)
+                for (int i = 1; i < vipData.Length; i++)
                 {
-                    GameObject _prefab = freeGiftPanel.ItemPanel.GetChild(0).gameObject;
-                    Instantiate(_prefab, transform);
+                    GameObject _prefab = vipGiftPanel.ItemPanel.GetChild(0).gameObject;
+                    Instantiate(_prefab, vipGiftPanel.ItemPanel.transform);
                 }
             }
 
             // 设置预制体
-            for (int i = 0; i < freeData.Length; i++)
+            for (int i = 0; i < vipData.Length; i++)
             {
-                var itemImg = freeGiftPanel.ItemPanel.GetChild(i).GetComponent<Image>();
-                var itemNumber = freeGiftPanel.ItemPanel.GetChild(i).Find("Text").GetComponent<TextMeshProUGUI>();
+                var itemImg = vipGiftPanel.ItemPanel.GetChild(i).GetComponent<Image>();
+                var itemNumber = vipGiftPanel.ItemPanel.GetChild(i).Find("Text").GetComponent<TextMeshProUGUI>();
                 // 是宝箱
-                if (bPModel.BPDate.Rewards[level].FreeIsBox)
+                if (bPModel.BPDate.Rewards[level].VipIsBox)
                 {
                     itemImg.sprite = boxImgs[level % boxImgs.Length];
                     break;
@@ -165,33 +180,29 @@ namespace QFramework.Example
                 else
                 {
                     // 头像特殊处理
-                    if (freeData[i].itemType == "AvatarId")
+                    if (vipData[i].itemType == "AvatarId")
                     {
                         Debug.Log("头像,待头像管理器补充");
                     }
                     else
                     {
-                        itemImg.sprite = rewardSprite.GetRewardSprite(freeData[i].itemType);
+                        itemImg.sprite = rewardSprite.GetRewardSprite(vipData[i].itemType);
+                        itemNumber.Show();
                         SpecialRewardsType _rewardEnum1;
-                        if (Enum.TryParse<SpecialRewardsType>(freeData[i].itemType, out _rewardEnum1))
+                        if (Enum.TryParse<SpecialRewardsType>(vipData[i].itemType, out _rewardEnum1))
                         {
-                            itemNumber.text = freeData[i].itemQuantity.ToString() + "m";
+                            itemNumber.text = vipData[i].itemQuantity.ToString() + "m";
                         }
                         else
                         {
-                            itemNumber.text = "x" + freeData[i].itemQuantity.ToString();
+                            itemNumber.text = "x" + vipData[i].itemQuantity.ToString();
                         }
                     }
                 }
             }
             #endregion
         }
-        /// <summary>
-        /// 设置按钮的点击事件
-        /// </summary>
-        /// <param name="freePack"></param>
-        /// <param name="vipPack"></param>
-        public void SetBtnOnClike(RewardItem[] freeReward)
+        public void SetBtnOnClike(RewardItem[] rewardItem)
         {
           /*  BtnFreeClaim.onClick.AddListener(() =>
             {

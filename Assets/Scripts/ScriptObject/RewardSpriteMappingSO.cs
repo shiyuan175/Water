@@ -45,7 +45,7 @@ public class RewardSpriteMappingSO : ScriptableObject
         }
         else if (typeof(T) == typeof(NormalRewardsType))
         {
-            return normalLookup.TryGetValue((NormalRewardsType)(object)rewardType, out var sprite) ? sprite : null;
+            return normalLookup.TryGetValue((NormalRewardsType)(object)rewardType, out Sprite sprite) ? sprite : null;
         }
 
         return null;
@@ -63,6 +63,7 @@ public class RewardSpriteMappingSO : ScriptableObject
         {
             return GetRewardSprite<NormalRewardsType>(_rewardEnum2);
         }
+
         return null;
     }
 }

@@ -19,20 +19,29 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
-    - TypeName: RectTransform
-      PathToRoot: ItemPanel
-      MemberName: ItemPanel
-    - TypeName: UnityEngine.UI.Button
-      PathToRoot: BtnClaim
-      MemberName: BtnClaim
+    - TypeName: UnityEngine.GameObject
+      PathToRoot: ImgGiftFree
+      MemberName: ImgGiftFree
+    - TypeName: UnityEngine.GameObject
+      PathToRoot: ImgGiftVip
+      MemberName: ImgGiftVip
     - TypeName: UnityEngine.UI.Image
-      PathToRoot: ImgLock
-      MemberName: ImgLock
+      PathToRoot: ImgLevelBar/ImgProgressBar
+      MemberName: ImgProgressBar
     - TypeName: UnityEngine.UI.Image
-      PathToRoot: ImgAlReceive
-      MemberName: ImgAlReceive
-    ScriptsFolder: Assets/Scripts/Controllers/UIBegin_BattlePassPanel/BattlePassContentPanel/ItemPanel
-    ClassName: GiftPanel
+      PathToRoot: ImgLevelBar/ImgLevel
+      MemberName: ImgLevel
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: ImgLevelBar/ImgLevel/TextLevel
+      MemberName: TextLevel
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ImgButtomDividingLine
+      MemberName: ImgButtomDividingLine
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ImgTopDividingLine
+      MemberName: ImgTopDividingLine
+    ScriptsFolder: Assets/Scripts/Controllers/UIBegin_BattlePassPanel/BattlePassContentPanel
+    ClassName: BattlePassContentPanel
     Namespace: QFramework.Example
     MainCode: 
     DesignerCode: 

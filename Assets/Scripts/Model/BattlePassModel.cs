@@ -18,7 +18,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     /// 标记当前奖励所到的等级从1 开始，数据的奖励是从0开始
     /// </summary>
     public int RewardLevel => mRewardLevel.Value;
-    private bool IsVip => mIsVip.Value;
+    public bool IsVip => mIsVip.Value;
     private readonly string BP_GAMEWIN_NUM = "H_BPGameWinNum";
     private readonly string BP_IS_VIP = "H_BPIsVip";
     private readonly string BP_REWARD_LEVEL = "H_BPIsVip";

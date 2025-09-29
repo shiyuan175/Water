@@ -1,4 +1,4 @@
-// Generate Id:787ee316-7eb4-4c07-9a37-c928892d26ba
+// Generate Id:388b3593-0b8a-4e32-aa9e-2eb7d237b6af
 using UnityEngine;
 
 // 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间
@@ -14,6 +14,8 @@ namespace QFramework.Example
 		public UnityEngine.UI.Image ImgProgressBar;
 		
 		public UnityEngine.UI.Image ImgLevel;
+		
+		public TMPro.TextMeshProUGUI TextLevel;
 		
 		public UnityEngine.UI.Image ImgButtomDividingLine;
 		

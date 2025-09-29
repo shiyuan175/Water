@@ -23,12 +23,12 @@ namespace QFramework.Example
             return GameMainArc.Interface;
         }
 
-/*        private void Awake()
+        private void Awake()
         {
             mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();
             battlePassModel = this.GetModel<BattlePassModel>();
             InitUI();
-        }*/
+        }
 
 
         private void OnEnable()
@@ -73,7 +73,7 @@ namespace QFramework.Example
             // 战令内容的设置
             for(int i =0;i < BattlePassContent.transform.childCount;i++)
             {
-                BattlePassContent.transform.GetChild(i).GetComponent<BattlePassContentPanel>().Initialize(i);
+                BattlePassContent.transform.GetChild(i).GetComponent<BattlePassContentPanel>().Initialize(i);             
             }
         }
         #endregion
