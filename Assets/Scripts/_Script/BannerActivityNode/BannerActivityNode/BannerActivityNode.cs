@@ -1,6 +1,7 @@
 using DG.Tweening;
 using GameDefine;
 using QFramework;
+using UnityEditor;
 using UnityEngine;
 
 // 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间
@@ -21,6 +22,7 @@ namespace QFramework.Example
         private readonly int[] TARGER_POSX = new int[] { -280, -140, 0, 140, 280 };
 
         [SerializeField] private GiftPackSO[] mBannerActivityPackSO;
+        [SerializeField] private RectTransform mCupPos;
 
         private void Awake()
         {
@@ -47,15 +49,25 @@ namespace QFramework.Example
             }
 
             //更新位置
-            if (mBannerActivity.ActivityStatus == GameActivityStatus.Active)
+            if (mBannerActivity.BACurrentGoal != mCacheGoal
+                && mBannerActivity.ActivityStatus == GameActivityStatus.Active)
             {
-                Selected.DOLocalMoveX(TARGER_POSX[mBannerActivity.WinStreakLevel], 1f)
-                .OnComplete(() =>
-                {
-                    TxtCurLevel.text = mBannerActivity.WinStreakPoints == 0 ?
-                    $"X1" : $"X{mBannerActivity.WinStreakPoints}";
-                    DoUpdateProgress();
+                UIKit.OpenPanel<BannerActivityPop>(UILevel.PopUI, new BannerActivityPopData 
+                { 
+                    Goals = mBannerActivity.WinStreakPoints, 
+                    TargetPos = mCupPos.position 
                 });
+
+                ActionKit.Delay(1.5f, () =>
+                {
+                    Selected.DOLocalMoveX(TARGER_POSX[mBannerActivity.WinStreakLevel], 1f)
+                    .OnComplete(() =>
+                    {
+                        TxtCurLevel.text = mBannerActivity.WinStreakPoints == 0 ?
+                        $"X1" : $"X{mBannerActivity.WinStreakPoints}";
+                        DoUpdateProgress();
+                    });
+                }).Start(this);
             }
             else
                 DoUpdateProgress();
