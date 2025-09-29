@@ -27,13 +27,13 @@ namespace QFramework.Example
         {
             mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();
             battlePassModel = this.GetModel<BattlePassModel>();
-            InitUI();
+           
         }
 
 
         private void OnEnable()
         {
-
+            InitUI();
         }
 
         private void OnDisable()
