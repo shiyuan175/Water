@@ -140,13 +140,6 @@ namespace QFramework.Example
                 SetItem();
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
-            this.RegisterEvent<LevelStartEvent>(e =>
-            {
-                SetTakeItem();
-                TxtLevel.text = LevelManager.Instance.levelId.ToString();
-
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
             this.RegisterEvent<UnLockItem>(e =>
             {
                 UnLockItem(e.PropType);
@@ -460,7 +453,6 @@ namespace QFramework.Example
                                 {
                                     record.hideWaters[i] = false;
                                 }
-
                                 for (int i = 0; i < record.waterItems.Count; i++)
                                 {
                                     record.waterItems[i] = WaterItem.None;
@@ -491,8 +483,8 @@ namespace QFramework.Example
                 case 6:
                     LevelManager.Instance.AddBottle(true, () =>
                     {
-                        if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneBottle)))
-                            stageModel.ReduceItem(6, 1);
+                       /* if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneBottle)))
+                            stageModel.ReduceItem(6, 1);*/
                         TxtItem1.text = "0";
                     });
                     break;
@@ -502,8 +494,8 @@ namespace QFramework.Example
                         return;
                     ClearBottleBlackWater(2, true, () =>
                     {
-                        if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveHide)))
-                            stageModel.ReduceItem(7, 1);
+                        /*if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveHide)))
+                            stageModel.ReduceItem(7, 1);*/
                         TxtItem2.text = "0";
                     });
                     break;
@@ -646,6 +638,12 @@ namespace QFramework.Example
                     || !CountDownTimerManager.Instance.IsTimerFinished(_sign);
                 buttons[i].interactable = active;
                 texts[i].text = active ? "1" : "0";
+
+                if(active)
+                {
+                    if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_ChangeWater)))
+                        stageModel.ReduceItem(itemIds[i], 1);
+                }
                 // ШЁец
                 _showItem = _showItem | active;
             }
@@ -660,6 +658,7 @@ namespace QFramework.Example
         /// </summary>
         private void SetItem()
         {
+            stageModel = this.GetModel<StageModel>();
             BtnAddStepBack.gameObject.SetActive(stageModel.ItemDic[1] <= 0);
             TxtRefreshNum.text = stageModel.ItemDic[1].ToString();
 

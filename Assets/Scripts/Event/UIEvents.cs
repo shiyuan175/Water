@@ -23,9 +23,7 @@ public struct ReturnToMainEvent
     public bool PassLevel;
 }
 
-public struct LevelStartEvent
-{
-}
+
 
 public struct VitalityChangeEvent
 {

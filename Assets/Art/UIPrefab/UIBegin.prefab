@@ -3679,7 +3679,7 @@ MonoBehaviour:
   MarkType: 0
   CustomComponentName: ImgAlReceive
   CustomComment: 
-  mComponentName: 
+  mComponentName: RectTransform
 --- !u!1 &1025652952196041510
 GameObject:
   m_ObjectHideFlags: 0

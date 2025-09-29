@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 using TMPro;
 using JsonFileData;
 using UnityEngine.UI;
+using System;
 
 // 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间
 // 2.命名空间更改后，生成代码之后，需要把逻辑代码文件（非 Designer）的命名空间手动更改
@@ -55,17 +56,23 @@ namespace QFramework.Example
                 ImgLevel.sprite = levelImgs[0];
             }
 
-            // 设置freeGift
-            if(bPModel.FreeRewardGotLevel>=level)
+            #region 设置freeGift
+            if (bPModel.FreeRewardGotLevel>=level)
             {
-                freeGiftPanel.ImgAlReceive.Show();
-                freeGiftPanel.BtnClaim.Show();
-                freeGiftPanel.BtnClaim.onClick.AddListener(()=>SetBtnOnClike(freeData));              
+                freeGiftPanel.ImgAlReceive.Show();          
             }
             else
             {
                 freeGiftPanel.ImgAlReceive.Hide();
-                freeGiftPanel.BtnClaim.Hide();
+                if (level<=bPModel.RewardLevel)
+                {
+                    freeGiftPanel.BtnClaim.Show();
+                    freeGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(freeData));
+                }
+                else
+                {
+                    freeGiftPanel.BtnClaim.Hide();
+                }              
             }
 
             // 创建预制体
@@ -82,7 +89,7 @@ namespace QFramework.Example
             for(int i =0;i<freeData.Length;i++)
             {
                 var itemImg = freeGiftPanel.ItemPanel.GetChild(i).GetComponent<Image>();
-                
+                var itemNumber = freeGiftPanel.ItemPanel.GetChild(i).Find("Text").GetComponent<TextMeshProUGUI>();
                 // 是宝箱
                 if (bPModel.BPDate.Rewards[level].FreeIsBox)
                 {
@@ -96,23 +103,89 @@ namespace QFramework.Example
                     {
                         Debug.Log("头像,待头像管理器补充");
                     }
-         
-                    /*else
-                        itemImg.sprite = */
+                    else
+                    {
+                        itemImg.sprite = rewardSprite.GetRewardSprite(freeData[i].itemType);
+                        SpecialRewardsType _rewardEnum1;
+                        if (Enum.TryParse<SpecialRewardsType>(freeData[i].itemType, out _rewardEnum1))
+                        {
+                            itemNumber.text = freeData[i].itemQuantity.ToString()+"m";
+                        }
+                        else
+                        {
+                            itemNumber.text = "x"+freeData[i].itemQuantity.ToString();
+                        }
+                    }              
                 }
             }
+            #endregion
+
+            #region 设置vipGift
+            if (bPModel.FreeRewardGotLevel >= level)
+            {
+                vipGiftPanel.ImgAlReceive.Show();
+            }
+            else
+            {
+                vipGiftPanel.ImgAlReceive.Hide();
+                if (level <= bPModel.RewardLevel)
+                {
+                    vipGiftPanel.BtnClaim.Show();
+                    vipGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(vipData));
+                }
+                else
+                {
+                    vipGiftPanel.BtnClaim.Hide();
+                }
+            }
+            vipGiftPanel.BtnClaim.Hide();
             
-            // 设置vipGift
-               
+            
+            // 创建预制体
+            if (!bPModel.BPDate.Rewards[level].FreeIsBox)
+            {
+                for (int i = 1; i < freeData.Length; i++)
+                {
+                    GameObject _prefab = freeGiftPanel.ItemPanel.GetChild(0).gameObject;
+                    Instantiate(_prefab, transform);
+                }
+            }
+
+            // 设置预制体
+            for (int i = 0; i < freeData.Length; i++)
+            {
+                var itemImg = freeGiftPanel.ItemPanel.GetChild(i).GetComponent<Image>();
+                var itemNumber = freeGiftPanel.ItemPanel.GetChild(i).Find("Text").GetComponent<TextMeshProUGUI>();
+                // 是宝箱
+                if (bPModel.BPDate.Rewards[level].FreeIsBox)
+                {
+                    itemImg.sprite = boxImgs[level % boxImgs.Length];
+                    break;
+                }
+                else
+                {
+                    // 头像特殊处理
+                    if (freeData[i].itemType == "AvatarId")
+                    {
+                        Debug.Log("头像,待头像管理器补充");
+                    }
+                    else
+                    {
+                        itemImg.sprite = rewardSprite.GetRewardSprite(freeData[i].itemType);
+                        SpecialRewardsType _rewardEnum1;
+                        if (Enum.TryParse<SpecialRewardsType>(freeData[i].itemType, out _rewardEnum1))
+                        {
+                            itemNumber.text = freeData[i].itemQuantity.ToString() + "m";
+                        }
+                        else
+                        {
+                            itemNumber.text = "x" + freeData[i].itemQuantity.ToString();
+                        }
+                    }
+                }
+            }
+            #endregion
         }
-
-        // 设置内容
-        public void SetItemPanel()
-        {
-
-        }
-
-
         /// <summary>
         /// 设置按钮的点击事件
         /// </summary>

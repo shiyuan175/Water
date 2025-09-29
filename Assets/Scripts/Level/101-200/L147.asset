@@ -156,6 +156,19 @@ MonoBehaviour:
     bombCounts: 
     hidePriority: 0
     isFlyBomb: 0
+  - waterSet: 
+    isHide: 
+    waterItem: 
+    numCake: 0
+    limitColor: 0
+    lockType: 0
+    isClearHide: 0
+    isNearHide: 0
+    isFreeze: 0
+    isFinish: 0
+    bombCounts: 
+    hidePriority: 0
+    isFlyBomb: 0
   gameType: 0
   clearList: 010000000200000003000000040000000600000007000000080000000a0000000b00000005000000
   hideList: 

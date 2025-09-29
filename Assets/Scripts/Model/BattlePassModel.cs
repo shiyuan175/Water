@@ -13,7 +13,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     public int GameWinNum => mGameWinNum.Value;
     public int CurrentGetConditions => mCurrentGetConditions;
     public int FreeRewardGotLevel => mFreeRewardGotLevel.Value;
-    public int HightLevelRewardGorLevel => mVipRewardGotLevel.Value;
+    public int VipRewardGorLevel => mVipRewardGotLevel.Value;
     /// <summary>
     /// 标记当前奖励所到的等级从1 开始，数据的奖励是从0开始
     /// </summary>

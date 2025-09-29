@@ -799,7 +799,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// </summary>
     public void InitLevels(LevelCreateCtrl levelInfo)
     {
-        this.SendEvent<LevelStartEvent>();
+   
 
         //清空操作记录 
         foreach (var bottle in bottles)
