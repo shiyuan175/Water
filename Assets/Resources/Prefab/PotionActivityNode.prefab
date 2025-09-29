@@ -1719,6 +1719,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 418a4aec36833fd46afad83688611cca, type: 2}
   - {fileID: 11400000, guid: 152a318750b9a234e878c9d82137d901, type: 2}
   - {fileID: 11400000, guid: 3e555d4e5bb131c4a8ae68d7a301d8f3, type: 2}
+  mCupPos: {fileID: 28786202081147808}
   ImgProgressBar: {fileID: 3440128105272964299}
   TextProgress: {fileID: 6746036799596544942}
   Selected: {fileID: 2551833490129700680}

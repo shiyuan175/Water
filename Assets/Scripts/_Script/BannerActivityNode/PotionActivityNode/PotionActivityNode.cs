@@ -1,8 +1,9 @@
-using UnityEngine;
-using QFramework;
 using DG.Tweening;
-using UnityEngine.UI;
 using GameDefine;
+using QFramework;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace QFramework.Example
 {
@@ -23,6 +24,7 @@ namespace QFramework.Example
         private readonly int[] TARGER_POSX = new int[] { -280, -140, 0, 140, 280 };
 
         [SerializeField] private GiftPackSO[] potionActivityPackSO;
+        [SerializeField] private RectTransform mCupPos;
 
         private void Awake()
         {
@@ -50,15 +52,25 @@ namespace QFramework.Example
             }
            
             //更新位置
-            if (!countDownTimerManager.IsTimerFinished(GameConst.POTION_ACTIVITY_SIGN))
+            if (!countDownTimerManager.IsTimerFinished(GameConst.POTION_ACTIVITY_SIGN)
+                && potionActivityModel.PotionActivityGoal != mCacheGoal)
             {
-                Selected.DOLocalMoveX(TARGER_POSX[potionActivityModel.WinStreakLevel], 1f)
-                .OnComplete(() =>
+                UIKit.OpenPanel<BannerActivityPop>(UILevel.PopUI, new BannerActivityPopData
                 {
-                    TxtCurLevel.text = potionActivityModel.WinStreakPoints == 0 ?
-                    $"X1" : $"X{potionActivityModel.WinStreakPoints}";
-                    DoUpdateProgress();
+                    Goals = potionActivityModel.WinStreakPoints,
+                    TargetPos = mCupPos.position
                 });
+
+                ActionKit.Delay(1.5f, () =>
+                {
+                    Selected.DOLocalMoveX(TARGER_POSX[potionActivityModel.WinStreakLevel], 1f)
+                    .OnComplete(() =>
+                    {
+                        TxtCurLevel.text = potionActivityModel.WinStreakPoints == 0 ?
+                        $"X1" : $"X{potionActivityModel.WinStreakPoints}";
+                        DoUpdateProgress();
+                    });
+                }).Start(this);
             }
             else
             {
