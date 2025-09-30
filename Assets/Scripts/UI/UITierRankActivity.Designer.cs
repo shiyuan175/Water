@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:f2b2229e-f27e-41c5-9182-767b52b11590
+	// Generate Id:14617090-4533-42d9-8d12-9a06c75a79a9
 	public partial class UITierRankActivity
 	{
 		public const string Name = "UITierRankActivity";
@@ -16,6 +16,14 @@ namespace QFramework.Example
 		public UnityEngine.UI.Button BtnClose;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtCountDown;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnRewardInfo;
+		[SerializeField]
+		public UnityEngine.UI.Image RewardInfo;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtRewardTip_Blue;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnCloseRewardInfo;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnClaimReward;
 		[SerializeField]
@@ -28,6 +36,10 @@ namespace QFramework.Example
 			ImgTierRankIcon_Top = null;
 			BtnClose = null;
 			TxtCountDown = null;
+			BtnRewardInfo = null;
+			RewardInfo = null;
+			TxtRewardTip_Blue = null;
+			BtnCloseRewardInfo = null;
 			BtnClaimReward = null;
 			TxtClaimReward_Red = null;
 			
