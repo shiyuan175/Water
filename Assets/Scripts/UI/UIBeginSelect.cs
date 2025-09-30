@@ -350,7 +350,7 @@ namespace QFramework.Example
                 i.transform.Find("ImgLock").Hide();
                 i.interactable = true;
             }
-
+            UnLimitNode.Show();
             UpdateItem();
         }
         private void SetEnterPropsLockUI()

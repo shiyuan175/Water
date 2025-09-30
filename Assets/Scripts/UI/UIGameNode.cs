@@ -554,8 +554,8 @@ namespace QFramework.Example
                     botter.SetHideShow(true);
                     LevelManager.Instance.HideItemSelect();
 
-                    if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_ChangeWater)))
-                        stageModel.ReduceItem(8, 1);
+                    /*if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_ChangeWater)))
+                        stageModel.ReduceItem(8, 1);*/
                     TxtItem3.text = "0";
                     //Debug.Log("¥Ú¬“À≥–Ú≥…π¶");
                     break;

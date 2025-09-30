@@ -14,8 +14,9 @@ namespace QFramework.Example
 	{  
         [SerializeField] public Sprite[] boxImgs;
         [SerializeField] public Sprite[] levelImgs; // 0表示还不能，1表示能
-
+        [SerializeField] public Sprite CoinsImg;
         [SerializeField] private RewardSpriteMappingSO rewardSprite;
+
 		private BattlePassADActivity mBattlePassADActivity;
         private BattlePassModel bPModel;
 
@@ -43,33 +44,36 @@ namespace QFramework.Example
 
             var freeGiftPanel = ImgGiftFree.GetComponent<GiftPanel>();
             var vipGiftPanel = ImgGiftVip.GetComponent<GiftPanel>();
-
+            
             // 设置进度条
-            if (level <= bPModel.RewardLevel)
+            if (level < bPModel.RewardLevel)
             {  
                 ImgProgressBar.fillAmount = 1;
                 ImgLevel.sprite = levelImgs[1];
                 TextLevel.text = level.ToString();
-                Debug.Log(level);
+                
             }
             else
             {
                 ImgProgressBar.fillAmount = 0;
                 ImgLevel.sprite = levelImgs[0];
+                TextLevel.text = level.ToString();
             }
 
             #region 设置freeGift
-            if (bPModel.FreeRewardGotLevel>=level)
+            if (bPModel.FreeRewardGotLevel>level)
             {
                 freeGiftPanel.ImgAlReceive.Show();          
             }
             else
             {
                 freeGiftPanel.ImgAlReceive.Hide();
-                if (level<=bPModel.RewardLevel)
+                if (level<bPModel.RewardLevel)
                 {
                     freeGiftPanel.BtnClaim.Show();
-                    freeGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(freeData));
+                    var _freeGiftPanel = freeGiftPanel;
+                    freeGiftPanel.BtnClaim.onClick.RemoveAllListeners();
+                    freeGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(freeData, _freeGiftPanel, false));
                 }
                 else
                 {
@@ -83,9 +87,9 @@ namespace QFramework.Example
                 GameObject _prefab = freeGiftPanel.ItemPanel.GetChild(0).gameObject;
                 for (int i = 1; i < freeData.Length; i++)
                 {
-                    Debug.Log(i);
                     Instantiate(_prefab, freeGiftPanel.ItemPanel.transform);
                 }
+                SetGridLayoutCellSize(freeData.Length, freeGiftPanel.ItemPanel.GetComponent<GridLayoutGroup>());
             }
 
             // 设置预制体
@@ -96,7 +100,7 @@ namespace QFramework.Example
                 // 是宝箱
                 if (bPModel.BPDate.Rewards[level].FreeIsBox)
                 {
-                    itemImg.sprite = boxImgs[level%boxImgs.Length];
+                    itemImg.sprite = boxImgs[level%boxImgs.Length%2];
                     break;  
                 }
                 else
@@ -108,7 +112,11 @@ namespace QFramework.Example
                     }
                     else
                     {
-                        itemImg.sprite = rewardSprite.GetRewardSprite(freeData[i].itemType);
+
+                        if (rewardSprite.GetRewardSprite(freeData[i].itemType) != null)
+                            itemImg.sprite = rewardSprite.GetRewardSprite(freeData[i].itemType);
+                        else
+                            itemImg.sprite = CoinsImg; 
                         itemNumber.Show();
                         SpecialRewardsType _rewardEnum1;
 
@@ -129,17 +137,19 @@ namespace QFramework.Example
             if(bPModel.IsVip)
             {
                 vipGiftPanel.ImgLock.Hide();
-                if (bPModel.FreeRewardGotLevel >= level)
+                if (bPModel.VipRewardGorLevel > level)
                 {
                     vipGiftPanel.ImgAlReceive.Show();
                 }
                 else
                 {
                     vipGiftPanel.ImgAlReceive.Hide();
-                    if (level <= bPModel.RewardLevel)
+                    if (level <bPModel.RewardLevel)
                     {
                         vipGiftPanel.BtnClaim.Show();
-                        vipGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(freeData));
+                        var _vipGiftPanle = vipGiftPanel;
+                        vipGiftPanel.BtnClaim.onClick.RemoveAllListeners();
+                        vipGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(vipData, _vipGiftPanle, true));
                     }
                     else
                     {
@@ -164,6 +174,7 @@ namespace QFramework.Example
                     GameObject _prefab = vipGiftPanel.ItemPanel.GetChild(0).gameObject;
                     Instantiate(_prefab, vipGiftPanel.ItemPanel.transform);
                 }
+                SetGridLayoutCellSize(vipData.Length, vipGiftPanel.ItemPanel.GetComponent<GridLayoutGroup>());
             }
 
             // 设置预制体
@@ -174,7 +185,7 @@ namespace QFramework.Example
                 // 是宝箱
                 if (bPModel.BPDate.Rewards[level].VipIsBox)
                 {
-                    itemImg.sprite = boxImgs[level % boxImgs.Length];
+                    itemImg.sprite = boxImgs[level % boxImgs.Length%2+2];
                     break;
                 }
                 else
@@ -186,7 +197,10 @@ namespace QFramework.Example
                     }
                     else
                     {
-                        itemImg.sprite = rewardSprite.GetRewardSprite(vipData[i].itemType);
+                        if (rewardSprite.GetRewardSprite(vipData[i].itemType) != null)
+                            itemImg.sprite = rewardSprite.GetRewardSprite(vipData[i].itemType);
+                        else
+                            itemImg.sprite = CoinsImg;
                         itemNumber.Show();
                         SpecialRewardsType _rewardEnum1;
                         if (Enum.TryParse<SpecialRewardsType>(vipData[i].itemType, out _rewardEnum1))
@@ -202,23 +216,28 @@ namespace QFramework.Example
             }
             #endregion
         }
-        public void SetBtnOnClike(RewardItem[] rewardItem)
+        public void SetGridLayoutCellSize(int count,GridLayoutGroup layout)
         {
-          /*  BtnFreeClaim.onClick.AddListener(() =>
+            layout.cellSize = count switch
             {
-                mBattlePassADActivity.DistributeReward(freeReward, false);
-
-            });
-            BtnRechargeClaim.onClick.AddListener(() =>
-            {
-                mBattlePassADActivity.DistributeReward(vipReward, true);
-            });*/
+                1=> new Vector2(100,100),
+                2=> new Vector2(80,80),
+                3=> new Vector2(73,73),
+                4=> new Vector2(65,65),
+                _=> new Vector2(100, 100)
+            };
+        }
+        public void SetBtnOnClike(RewardItem[] rewardItem,GiftPanel giftPanel, bool isVipPack)
+        {
+            mBattlePassADActivity.DistributeReward(rewardItem, isVipPack);
+            giftPanel.BtnClaim.Hide();
+            giftPanel.ImgAlReceive.Show();
         }
 
-        public void SetCanChangeUI(int lever, bool isAnmi =false)
+        public void UpdateUI(int level)
 		{
-             
-		}
+            
+        }
         
     }
 }

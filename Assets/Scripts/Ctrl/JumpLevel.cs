@@ -43,6 +43,9 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            this.SendEvent(new ReturnToMainEvent { PassLevel = true });
+        }
     }
 }

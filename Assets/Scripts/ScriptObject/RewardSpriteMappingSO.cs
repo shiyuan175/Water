@@ -52,6 +52,9 @@ public class RewardSpriteMappingSO : ScriptableObject
     }
     public Sprite GetRewardSprite(string rewardString)
     {
+        ///´ý²¹³ä
+        if (rewardString == "Coins")
+            return null;
         SpecialRewardsType _rewardEnum1;
         if (Enum.TryParse<SpecialRewardsType>(rewardString,out _rewardEnum1))
         {
@@ -63,7 +66,6 @@ public class RewardSpriteMappingSO : ScriptableObject
         {
             return GetRewardSprite<NormalRewardsType>(_rewardEnum2);
         }
-
         return null;
     }
 }

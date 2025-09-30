@@ -105,11 +105,15 @@
                 },
                 {
                     "itemType": "StepBack",
-                    "itemQuantity": 3
+                    "itemQuantity": 1
+                },
+                {
+                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemQuantity": 15
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": true,
+            "VipIsBox": true
         },
         {
             "GetConditions": 6,
@@ -149,7 +153,15 @@
             "GetConditions": 8,
             "Free": [
                 {
-                    "itemType": "UnlimiteS_Items",
+                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemQuantity": 15
+                },
+                {
+                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemQuantity": 15
+                },
+                {
+                    "itemType": "Unlimited_S_ChangeWater",
                     "itemQuantity": 15
                 }
             ],
@@ -217,7 +229,7 @@
             "VipIsBox": true
         },
         {
-            "GetConditions": 11,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "AddOneBottle",
@@ -226,7 +238,15 @@
             ],
             "Vip": [
                 {
-                    "itemType": "UnlimiteS_Items",
+                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemQuantity": 15
+                },
+                {
+                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemQuantity": 15
+                },
+                {
+                    "itemType": "Unlimited_S_ChangeWater",
                     "itemQuantity": 15
                 }
             ],
@@ -234,7 +254,7 @@
             "VipIsBox": false
         },
         {
-            "GetConditions": 12,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "Coins",
@@ -251,7 +271,7 @@
             "VipIsBox": false
         },
         {
-            "GetConditions": 13,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "UnlimitedHp",
@@ -268,7 +288,7 @@
             "VipIsBox": false
         },
         {
-            "GetConditions": 14,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "S_ChangeWater",
@@ -285,7 +305,7 @@
             "VipIsBox": false
         },
         {
-            "GetConditions": 15,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "S_RemoveHide",
@@ -318,7 +338,7 @@
             "VipIsBox": true
         },
         {
-            "GetConditions": 16,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "S_RemoveHide",
@@ -335,7 +355,7 @@
             "VipIsBox": false
         },
         {
-            "GetConditions": 17,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "Coins",
@@ -344,7 +364,15 @@
             ],
             "Vip": [
                 {
-                    "itemType": "UnlimiteS_Items",
+                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemQuantity": 30
+                },
+                {
+                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemQuantity": 30
+                },
+                {
+                    "itemType": "Unlimited_S_ChangeWater",
                     "itemQuantity": 30
                 }
             ],
@@ -352,7 +380,7 @@
             "VipIsBox": false
         },
         {
-            "GetConditions": 18,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "S_AddOneBottle",
@@ -369,7 +397,7 @@
             "VipIsBox": false
         },
         {
-            "GetConditions": 19,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "RemoveHide",
@@ -386,7 +414,7 @@
             "VipIsBox": false
         },
         {
-            "GetConditions": 20,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "S_RemoveHide",
@@ -419,7 +447,7 @@
             "VipIsBox": true
         },
         {
-            "GetConditions": 21,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "UnlimitedHp",
@@ -436,7 +464,7 @@
             "VipIsBox": false
         },
         {
-            "GetConditions": 22,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "S_ChangeWater",
@@ -453,7 +481,7 @@
             "VipIsBox": false
         },
         {
-            "GetConditions": 23,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "AddHalfBottle",
@@ -462,15 +490,23 @@
             ],
             "Vip": [
                 {
-                    "itemType": "S_RemoveHide",
-                    "itemQuantity": 2
+                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemQuantity": 30
+                },
+                {
+                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemQuantity": 30
+                },
+                {
+                    "itemType": "Unlimited_S_ChangeWater",
+                    "itemQuantity": 30
                 }
             ],
             "FreeIsBox": false,
             "VipIsBox": false
         },
         {
-            "GetConditions": 24,
+            "GetConditions": 10,
             "Free": [
                 {
                     "itemType": "RemoveHide",
@@ -479,110 +515,150 @@
             ],
             "Vip": [
                 {
-                    "itemType": "AvatarId",
-                    "itemQuantity": 8
+                    "itemType": "S_ChangeWater",
+                    "itemQuantity": 3
                 }
             ],
             "FreeIsBox": false,
             "VipIsBox": false
         },
         {
-            "GetConditions": 25,
+            "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "RemoveHide",
+                    "itemType": "S_ChangeWater",
+                    "itemQuantity": 1
+                },
+                {
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 1
                 }
             ],
             "Vip": [
                 {
-                    "itemType": "AvatarId",
-                    "itemQuantity": 8
+                    "itemType": "Coins",
+                    "itemQuantity": 400
+                },
+                {
+                    "itemType": "StepBack",
+                    "itemQuantity": 3
+                },
+                {
+                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemQuantity": 30
+                },
+                {
+                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemQuantity": 30
+                },
+                {
+                    "itemType": "Unlimited_S_ChangeWater",
+                    "itemQuantity": 30
                 }
             ],
             "FreeIsBox": true,
             "VipIsBox": true
         },
         {
-            "GetConditions": 26,
+            "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "RemoveHide",
+                    "itemType": "AddOneBottle",
                     "itemQuantity": 1
                 }
             ],
             "Vip": [
                 {
-                    "itemType": "AvatarId",
-                    "itemQuantity": 8
+                    "itemType": "S_AddOneBottle",
+                    "itemQuantity": 3
                 }
             ],
             "FreeIsBox": false,
             "VipIsBox": false
         },
         {
-            "GetConditions": 27,
+            "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "RemoveHide",
-                    "itemQuantity": 1
+                    "itemType": "Coins",
+                    "itemQuantity": 200
                 }
             ],
             "Vip": [
                 {
-                    "itemType": "AvatarId",
-                    "itemQuantity": 8
+                    "itemType": "UnlimitedHp",
+                    "itemQuantity": 60
                 }
             ],
             "FreeIsBox": false,
             "VipIsBox": false
         },
         {
-            "GetConditions": 28,
+            "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "RemoveHide",
-                    "itemQuantity": 1
+                    "itemType": "S_RemoveHide",
+                    "itemQuantity": 2
                 }
             ],
             "Vip": [
                 {
-                    "itemType": "AvatarId",
-                    "itemQuantity": 8
+                    "itemType": "RemoveHide",
+                    "itemQuantity": 3
                 }
             ],
             "FreeIsBox": false,
             "VipIsBox": false
         },
         {
-            "GetConditions": 29,
+            "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "RemoveHide",
+                    "itemType": "StepBack",
                     "itemQuantity": 1
                 }
             ],
             "Vip": [
                 {
-                    "itemType": "AvatarId",
-                    "itemQuantity": 8
+                    "itemType": "AddHalfBottle",
+                    "itemQuantity": 3
                 }
             ],
             "FreeIsBox": false,
             "VipIsBox": false
         },
         {
-            "GetConditions": 30,
+            "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "RemoveHide",
+                    "itemType": "S_RemoveHide",
+                    "itemQuantity": 1
+                },
+                {
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 1
                 }
             ],
             "Vip": [
                 {
-                    "itemType": "AvatarId",
-                    "itemQuantity": 8
+                    "itemType": "Coins",
+                    "itemQuantity": 1000
+                },
+                {
+                    "itemType": "UnlimitedHp",
+                    "itemQuantity": 60
+                },
+                {
+                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemQuantity": 60
+                },
+                {
+                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemQuantity": 60
+                },
+                {
+                    "itemType": "Unlimited_S_ChangeWater",
+                    "itemQuantity": 60
                 }
             ],
             "FreeIsBox": true,

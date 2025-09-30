@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class BattlePassModel : AbstractModel, ICanGetUtility
@@ -21,7 +22,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     public bool IsVip => mIsVip.Value;
     private readonly string BP_GAMEWIN_NUM = "H_BPGameWinNum";
     private readonly string BP_IS_VIP = "H_BPIsVip";
-    private readonly string BP_REWARD_LEVEL = "H_BPIsVip";
+    private readonly string BP_REWARD_LEVEL = "H_RewardLevel";
     private readonly string BP_FREEREWARDGOT_LEVEL = "H_FreeRewardGotLevel";
     private readonly string BP_VIPREWARDGOT_LEVEL = "H_VipRewardGotLevel";
 
@@ -46,7 +47,6 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         mRewardLevel = new BindableProperty<int>();
         mFreeRewardGotLevel = new BindableProperty<int>();
         mVipRewardGotLevel = new BindableProperty<int>();
-        mRewardLevel = new BindableProperty<int>();
         mIsVip = new BindableProperty<bool>();
 
         mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.BPDefaultJson.FileName);
@@ -57,6 +57,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         {
             mStorage.SaveInt(BP_GAMEWIN_NUM, value);
         });
+
         mIsVip.SetValueWithoutEvent(mStorage.LoadBoolValue(BP_IS_VIP, false));
         mIsVip.Register(value =>
         {
@@ -67,16 +68,19 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         {
             mStorage.SaveInt(BP_REWARD_LEVEL, value);
         });
-        mFreeRewardGotLevel.SetValueWithoutEvent(mStorage.LoadIntValue(BP_FREEREWARDGOT_LEVEL, 1));
+
+        mFreeRewardGotLevel.SetValueWithoutEvent(mStorage.LoadIntValue(BP_FREEREWARDGOT_LEVEL, 0));
         mFreeRewardGotLevel.Register(value =>
         {
             mStorage.SaveInt(BP_FREEREWARDGOT_LEVEL, value);
         });
-        mVipRewardGotLevel.SetValueWithoutEvent(mStorage.LoadIntValue(BP_VIPREWARDGOT_LEVEL, 1));
+
+        mVipRewardGotLevel.SetValueWithoutEvent(mStorage.LoadIntValue(BP_VIPREWARDGOT_LEVEL, 0));
         mVipRewardGotLevel.Register(value =>
         {
             mStorage.SaveInt(BP_VIPREWARDGOT_LEVEL, value);
         });
+
     }
     public void LoadBattlePassActivity()
     {
@@ -96,7 +100,10 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         {
             mBPDate = JsonConvert.DeserializeObject<BattlePassData>(jsonData);
         });
-        mCurrentGetConditions = BPDate.Rewards[RewardLevel].GetConditions;
+        if (RewardLevel < BPDate.Rewards.Length)
+            mCurrentGetConditions = BPDate.Rewards[RewardLevel].GetConditions;
+        else
+            mCurrentGetConditions = 9999999;
     }
 
     /// <summary>
@@ -128,7 +135,10 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         {
             mGameWinNum.Value = 0;
             mRewardLevel.Value++;
-            mCurrentGetConditions = BPDate.Rewards[RewardLevel].GetConditions;
+            if (RewardLevel < BPDate.Rewards.Length)
+                mCurrentGetConditions = BPDate.Rewards[RewardLevel].GetConditions;
+            else
+                mCurrentGetConditions = 9999999;
         }
    }
     /// <summary>
@@ -148,7 +158,6 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
             mVipRewardGotLevel.Value++;
         else
             mFreeRewardGotLevel.Value++;
-
     }
 
 }
