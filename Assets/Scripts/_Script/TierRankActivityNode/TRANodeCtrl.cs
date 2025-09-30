@@ -8,9 +8,6 @@ using UnityEngine.UI;
 
 public class TRANodeCtrl : MonoBehaviour
 {
-    [SerializeField] private bool mFirst;
-    [SerializeField] private Button mBtnBox;
-
     [SerializeField] private Image mTierRankIcon;
     [SerializeField] private Image mAvatar;
     [SerializeField] private Image mAvatarFrame;

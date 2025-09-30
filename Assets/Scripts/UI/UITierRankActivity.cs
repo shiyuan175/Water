@@ -35,6 +35,7 @@ namespace QFramework.Example
 		{
             GameUtils.SotrArray(mTRANodeCtrls);
             TxtClaimReward_Red.font = LevelManager.Instance.redFont;
+            TxtRewardTip_Blue.font = LevelManager.Instance.blueFont;
 
             mResLoader = ResLoader.Allocate();
 			mTierRankActivity = GameActivityManager.Instance.GetActivity<TierRankActivity>();
@@ -140,6 +141,16 @@ namespace QFramework.Example
                     UIKit.ClosePanel<UIMask>();
                     CloseSelf();
                 }, mRankFirstPackSO);
+            });
+
+            BtnRewardInfo.onClick.AddListener(() =>
+            {
+                RewardInfo.Show();
+            });
+
+            BtnCloseRewardInfo.onClick.AddListener(() =>
+            {
+                RewardInfo.Hide();
             });
         }
 
