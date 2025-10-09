@@ -20,28 +20,28 @@ MonoBehaviour:
     NameToFullName: []
     BindInfos:
     - TypeName: UnityEngine.GameObject
-      PathToRoot: ImgGiftFree
-      MemberName: ImgGiftFree
-    - TypeName: UnityEngine.GameObject
-      PathToRoot: ImgGiftVip
-      MemberName: ImgGiftVip
+      PathToRoot: Mesh/ButtomPanel/Scroll View/Viewport/BattlePassContent
+      MemberName: BattlePassContent
+    - TypeName: UnityEngine.UI.Button
+      PathToRoot: Mesh/TopPanel/BtnInfo
+      MemberName: BtnInfo
     - TypeName: UnityEngine.UI.Image
-      PathToRoot: ImgLevelBar/ImgProgressBar
-      MemberName: ImgProgressBar
-    - TypeName: UnityEngine.UI.Image
-      PathToRoot: ImgLevelBar/ImgLevel
-      MemberName: ImgLevel
+      PathToRoot: Mesh/TopPanel/BattlePassTitle/TaskProgressBar/ImgBar
+      MemberName: ImgBar
     - TypeName: TMPro.TextMeshProUGUI
-      PathToRoot: ImgLevelBar/ImgLevel/TextLevel
-      MemberName: TextLevel
+      PathToRoot: Mesh/TopPanel/BattlePassTitle/TaskProgressBar/TextTaskProgressBar
+      MemberName: TextTaskProgressBar
     - TypeName: UnityEngine.UI.Image
-      PathToRoot: ImgButtomDividingLine
-      MemberName: ImgButtomDividingLine
-    - TypeName: UnityEngine.UI.Image
-      PathToRoot: ImgTopDividingLine
-      MemberName: ImgTopDividingLine
-    ScriptsFolder: Assets/Scripts/Controllers/UIBegin_BattlePassPanel/BattlePassContentPanel
-    ClassName: BattlePassContentPanel
+      PathToRoot: Mesh/TopPanel/BattlePassTitle/TaskProgressBar/ImgLevel
+      MemberName: ImgLevel
+    - TypeName: UnityEngine.UI.Button
+      PathToRoot: Mesh/TopPanel/BattlePassTitle/TaskProgressBar/BtnActivate
+      MemberName: BtnActivate
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: Mesh/TopPanel/BattlePassTitle/TxtCountDownBk/TxtCountDown
+      MemberName: TxtCountDown
+    ScriptsFolder: Assets\Scripts\Controllers\UIBegin_BattlePassPanel
+    ClassName: BattlePassPanel
     Namespace: QFramework.Example
     MainCode: 
     DesignerCode: 

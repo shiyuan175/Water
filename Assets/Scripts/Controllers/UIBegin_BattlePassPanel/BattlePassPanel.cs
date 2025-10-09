@@ -20,7 +20,7 @@ namespace QFramework.Example
         private GooglePayManager googlePay;
         private RewardGrantUtility rewardGrantUtility;
         private BattlePassADActivity mBattlePassADActivity;
-
+        private Tween mCountDownTween;
         private Sequence topImageFillSequence;
         public IArchitecture GetArchitecture()
         {
@@ -31,20 +31,22 @@ namespace QFramework.Example
         {
             mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();
             battlePassModel = this.GetModel<BattlePassModel>();
-        /*    InitUI();*/
-            topImageFillSequence = DOTween.Sequence();
+            InitUI();
         }
-
+       
 
         private void OnEnable()
-        {
-            UpdateUI();
+        { 
             topImageFillSequence = DOTween.Sequence();
+            UpdateUI();     
         }
 
         private void OnDisable()
         {
             topImageFillSequence?.Kill();
+            ImgBar.fillAmount = (float)battlePassModel.GameWinNum / battlePassModel.CurrentGetConditions;
+            ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = battlePassModel.RewardLevel.ToString();
+            TextTaskProgressBar.text = $"{battlePassModel.GameWinNum}/{battlePassModel.CurrentGetConditions}";
         }
 
         private void Start()
@@ -65,6 +67,7 @@ namespace QFramework.Example
             ImgBar.fillAmount = (float)battlePassModel.GameWinNum/ battlePassModel.CurrentGetConditions;
             ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = battlePassModel.RewardLevel.ToString();
             TextTaskProgressBar.text = $"{battlePassModel.GameWinNum}/{battlePassModel.CurrentGetConditions}";
+           
         }
        
         public void InitButtomPanelUI()
@@ -78,7 +81,7 @@ namespace QFramework.Example
                 BattlePassContent.transform.GetChild(i).gameObject.Hide();
 
             // 战令内容的设置
-            for(int i =0;i < BattlePassContent.transform.childCount;i++)
+            for(int i =0;i < battlePassModel.BPDate.Rewards.Length; i++)
             {
                 int _level = i;
                 BattlePassContent.transform.GetChild(_level).GetComponent<BattlePassContentPanel>().Initialize(_level);             
@@ -88,59 +91,64 @@ namespace QFramework.Example
         #region 每次进入面板时调用
         public void UpdateUI()
         {
-            UpTopPanelUI();
-            UpButtomPanelUI();
-        }
-        public void UpTopPanelUI()
-        {
             int oldLevel = int.Parse(ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text);
+            #region 更新顶部内容
             float oldFillAmout = ImgBar.fillAmount;
-            topImageFillSequence = DOTween.Sequence();
-            // 开始到结束
-            for (int level = oldLevel; level <= battlePassModel.RewardLevel; level++)
+
+            mCountDownTween = DOTween.To(() => 0, x =>
+            {
+                if (mBattlePassADActivity.ActivityStatus == GameActivityStatus.Active)
+                    TxtCountDown.text = mBattlePassADActivity.GetActivityReamingTime();
+                else
+                    TxtCountDown.text = "Finished";
+            }, 1, 1f)
+           .SetLoops(-1, LoopType.Restart)
+           .SetUpdate(true);
+
+            #region 顶部进度条动画
+
+            for (int level = oldLevel + 1; level <= battlePassModel.RewardLevel; level++)
             {
                 int _level = level;
                 Tween fillTween = ImgBar.DOFillAmount(1, 0.5f)
                     .SetEase(Ease.Linear)
-                    .OnStart(() => {
-                        Debug.Log(_level);
-                    })
                     .Pause()
-                    .OnComplete(() => {
+                    .OnStepComplete(() => {
                         ImgBar.fillAmount = 0;
                         ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = _level.ToString();
+                        TextTaskProgressBar.text = $"{battlePassModel.BPDate.Rewards[_level].GetConditions}/{battlePassModel.BPDate.Rewards[_level].GetConditions}";
                     });
 
                 topImageFillSequence.Append(fillTween);
             }
-            Debug.Log($"序列中的动画数量: {topImageFillSequence.Duration()}");
-            Debug.Log($"序列总时长: {topImageFillSequence.Duration()}");
-            topImageFillSequence.Play();
-            Debug.Log($"序列中的动画数量: {topImageFillSequence.Duration()}");
-            Debug.Log($"序列总时长: {topImageFillSequence.Duration()}");
-            // 3. 播放序列
-        
-           
-            /* ImgBar.fillAmount = (float)battlePassModel.GameWinNum / battlePassModel.CurrentGetConditions;
-             ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = battlePassModel.RewardLevel.ToString();
-             TextTaskProgressBar.text = $"{battlePassModel.GameWinNum}/{battlePassModel.CurrentGetConditions}";
- */
 
-        }
-        
-        public void UpButtomPanelUI()
-        {
-            for (int i = 0; i < BattlePassContent.transform.childCount; i++)
+            topImageFillSequence.AppendCallback(() =>
+            {
+
+                ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = (battlePassModel.RewardLevel).ToString();
+                TextTaskProgressBar.text = $"{battlePassModel.GameWinNum}/{battlePassModel.CurrentGetConditions}";
+            });
+            Tween endFillTween = ImgBar.DOFillAmount((float)battlePassModel.GameWinNum / battlePassModel.CurrentGetConditions, 0.5f)
+                   .SetEase(Ease.Linear)
+                   .Pause();
+            topImageFillSequence.Append(endFillTween);
+            topImageFillSequence.Play();
+            #endregion
+
+            #endregion
+
+            #region 更新底部内容
+            for (int i = oldLevel; i < battlePassModel.BPDate.Rewards.Length; i++)
             {
                 int _level = i;
                 BattlePassContent.transform.GetChild(_level).GetComponent<BattlePassContentPanel>().UpdateUI(_level);
             }
+            #endregion
         }
 
         #endregion 
         public void SetBtnClick()
         {
-
             /// 内购开启战令
             BtnActivate.onClick.AddListener(() =>
             {

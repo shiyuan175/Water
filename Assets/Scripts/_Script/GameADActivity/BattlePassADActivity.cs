@@ -14,6 +14,7 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
     public override int ActivityBeginLevel => GameConst.BP_AD_BEGIN_LEVEL;
 
     private BattlePassModel mBPModel;
+    public override float ActivityDurationMinutes => 30*24*60;
     public override GameActivityStatus ActivityStatus
     {
         get
@@ -26,12 +27,12 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
                 return GameActivityStatus.Active;
         }
     }
+    private GameActivityStatus mCurrentStatus;
     public BattlePassADActivity()
     {
         mBPModel = this.GetModel<BattlePassModel>();
         /*        if (GameUtils.DoesCountDownKeyExist(GameConst.BATTLEPASS_AD_ACTIVITY_SIGN))*/
         mBPModel.LoadBattlePassActivity();
-
         this.RegisterEvent<ReturnToMainEvent>((_event) =>
         {
             // 活动启动才计数
@@ -41,7 +42,7 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
     }
     public override void Tick()
     {
-        if (GameUtils.DoesCountDownKeyExist(ActivitySign) &&
+        if (!GameUtils.DoesCountDownKeyExist(ActivitySign) &&
            CountDownTimerManager.Instance.IsTimerFinished(ActivitySign))
         {
             RestartActivity();
@@ -52,12 +53,12 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
 
     public override void StartActivity()
     {
-        CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign);
+        CountDownTimerManager.Instance.StartTimer(ActivitySign, ActivityDurationMinutes);
     }
 
     public override void RestartActivity()
     {
-        CountDownTimerManager.Instance.ResetEasternMidnightTimer(ActivitySign);
+        CountDownTimerManager.Instance.ResetTimer(ActivitySign, ActivityDurationMinutes);
 
         // 未领取的奖励发放?
         mBPModel.ReloadBattlePassActivity();

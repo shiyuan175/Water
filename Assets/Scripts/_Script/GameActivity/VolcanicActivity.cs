@@ -84,7 +84,6 @@ public class VolcanicActivity : BaseGameActivity
         //解决方法：
         //在开启冷却的时候去获取一下活动结束的时间点，然后以结束时间为准开启冷却(可能存在马上结束又冷却结束)
 
-
         CountDownTimerManager.Instance.DeleteTimer(ActivitySign);
         CountDownTimerManager.Instance.StartTimer(ActivityCooldownSign, ActivityCooldownMinutes);
     }

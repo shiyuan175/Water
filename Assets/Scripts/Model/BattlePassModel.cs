@@ -39,6 +39,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
   
     private BindableProperty<bool> mIsVip;
 
+    private const int MAX_INT = 9999999;
     protected override void OnInit()
     {
         mStorage = this.GetUtility<SaveDataUtility>();
@@ -100,10 +101,10 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         {
             mBPDate = JsonConvert.DeserializeObject<BattlePassData>(jsonData);
         });
-        if (RewardLevel < BPDate.Rewards.Length)
+        if (RewardLevel < BPDate.Rewards.Length )
             mCurrentGetConditions = BPDate.Rewards[RewardLevel].GetConditions;
         else
-            mCurrentGetConditions = 9999999;
+            mCurrentGetConditions = MAX_INT;
     }
 
     /// <summary>
@@ -131,14 +132,14 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     public void AddGameWinCount()
     {
         mGameWinNum.Value++;
-        if (mGameWinNum.Value >= BPDate.Rewards[mRewardLevel.Value].GetConditions)
+        if (mGameWinNum.Value >= mCurrentGetConditions)
         {
             mGameWinNum.Value = 0;
             mRewardLevel.Value++;
             if (RewardLevel < BPDate.Rewards.Length)
                 mCurrentGetConditions = BPDate.Rewards[RewardLevel].GetConditions;
             else
-                mCurrentGetConditions = 9999999;
+                mCurrentGetConditions = MAX_INT;
         }
    }
     /// <summary>
