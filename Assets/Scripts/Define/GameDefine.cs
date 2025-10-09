@@ -149,9 +149,9 @@ namespace GameDefine
         UIGuideLevel1 = 1,
         UIGuideLevel2 = 2,
         UIGuideLevelStepBack = 9,
-        UIGuideLevelRemoveHide = 14,
-        UIGuideLevelAddBottle = 24,
-        UIGuideLevelHalfBottle = 19,
+        UIGuideLevelRemoveHide = 15,
+        UIGuideLevelAddBottle = 19,
+        UIGuideLevelHalfBottle = 12,
         UIGuideLevelRemoveAll = 28
     }
 
