@@ -19,8 +19,11 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
+    - TypeName: UnityEngine.UI.ScrollRect
+      PathToRoot: Mesh/ButtomPanel/ScrollView
+      MemberName: ScrollView
     - TypeName: UnityEngine.GameObject
-      PathToRoot: Mesh/ButtomPanel/Scroll View/Viewport/BattlePassContent
+      PathToRoot: Mesh/ButtomPanel/ScrollView/Viewport/BattlePassContent
       MemberName: BattlePassContent
     - TypeName: UnityEngine.UI.Button
       PathToRoot: Mesh/TopPanel/BtnInfo

@@ -6280,6 +6280,7 @@ MonoBehaviour:
   PrefabFolder: Assets/Art/Prefab
   ArchitectureFullTypeName: 
   ViewControllerFullTypeName: 
+  ScrollView: {fileID: 4542287139420614984}
   BattlePassContent: {fileID: 1491423232298144595}
   BtnInfo: {fileID: 6468019904826318355}
   ImgBar: {fileID: 8214925901275623634}
@@ -12332,8 +12333,9 @@ GameObject:
   - component: {fileID: 7933388466820855465}
   - component: {fileID: 4542287139420614984}
   - component: {fileID: 6227156196401373366}
+  - component: {fileID: 6955168819294011241}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: ScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12447,6 +12449,22 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 4
   m_LayoutPriority: 1
+--- !u!114 &6955168819294011241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2946380839437557523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: Scroll View
+  CustomComment: 
+  mComponentName: UnityEngine.UI.ScrollRect
 --- !u!1 &2946738455700475608
 GameObject:
   m_ObjectHideFlags: 0
@@ -13554,7 +13572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7213345531412183372
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29928,7 +29946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4892701442594120280
 RectTransform:
   m_ObjectHideFlags: 0
