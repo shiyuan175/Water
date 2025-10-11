@@ -5,9 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-
-// Generate Id:96469fd3-bfd8-4571-b33d-ae1ee304d12b
-
+	// Generate Id:24d2f144-59bd-43ae-b7f6-9d42fb9cd2de
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
@@ -17,21 +15,29 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.GameObject BattlePassContent;
 		[SerializeField]
-		public UnityEngine.UI.Image FreeItemPanel;
+		public UnityEngine.GameObject ImgGiftFree;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnFreeClaim;
+		public UnityEngine.GameObject ImgGiftVip;
 		[SerializeField]
-		public UnityEngine.UI.Image VipItemPanel;
+		public UnityEngine.UI.Image ImgProgressBar;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnRecharge;
+		public UnityEngine.UI.Image ImgLevel;
 		[SerializeField]
-		public UnityEngine.UI.Image ImgLock;
+		public TMPro.TextMeshProUGUI TextLevel;
 		[SerializeField]
 		public UnityEngine.UI.Image ImgButtomDividingLine;
 		[SerializeField]
 		public UnityEngine.UI.Image ImgTopDividingLine;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnInfo;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgBar;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TextTaskProgressBar;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnActivate;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtCountDown;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnStart;
 		[SerializeField]
@@ -107,14 +113,18 @@ namespace QFramework.Example
 		{
 			ShopScrollView = null;
 			BattlePassContent = null;
-			FreeItemPanel = null;
-			BtnFreeClaim = null;
-			VipItemPanel = null;
-			BtnRecharge = null;
-			ImgLock = null;
+			ImgGiftFree = null;
+			ImgGiftVip = null;
+			ImgProgressBar = null;
+			ImgLevel = null;
+			TextLevel = null;
 			ImgButtomDividingLine = null;
 			ImgTopDividingLine = null;
 			BtnInfo = null;
+			ImgBar = null;
+			TextTaskProgressBar = null;
+			BtnActivate = null;
+			TxtCountDown = null;
 			BtnStart = null;
 			TxtStartLevel = null;
 			AnimStartFlash = null;

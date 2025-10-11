@@ -904,7 +904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MarkType: 0
-  CustomComponentName: 
+  CustomComponentName: TxtTopDel
   CustomComment: 
   mComponentName: TMPro.TextMeshProUGUI
 --- !u!1 &8927146318816457182
@@ -997,7 +997,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -150}
+  m_AnchoredPosition: {x: 0, y: -189}
   m_SizeDelta: {x: 434, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8803780276814218298
@@ -1110,7 +1110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MarkType: 0
-  CustomComponentName: 
+  CustomComponentName: TxtTopTitle
   CustomComment: 
   mComponentName: TMPro.TextMeshProUGUI
 --- !u!1 &9147315709161016465

@@ -182,16 +182,16 @@ namespace QFramework.Example
         {
             int probabilityNumber = UnityEngine.Random.Range(0, TURNTABLE_PROBABIlITY);
 
-            // 用来做同概率礼物的随机取值
+/*            // 用来做同概率礼物的随机取值
             GameObject[] _SameTypeGift = new GameObject[mTurnTableNode.Count];
-            int _index = 0;
+            int _index = 0;*/
             for (int i = 0; i < mTurnTableNode.Count; i++)
             {
                 /*int timeProbability = (int)allValues[mTurnTableADActivity.CurrentTurnTableCount];*/
                 int giftProbability = (int)mTurnTableNode[i].GetComponent<TurnTableNode>().AwardLevel;
-                if (probabilityNumber < giftProbability)
+                if (probabilityNumber - giftProbability<0)
                 {
-                    // 同一个概率的礼物有多个，需要随机取其中一个 从0开始是为了把自己也丢进数组
+                  /*  // 同一个概率的礼物有多个，需要随机取其中一个 从0开始是为了把自己也丢进数组
                     for (int j = 0; j + i < mTurnTableNode.Count; j++)
                     {
                         int _giftProbability = (int)mTurnTableNode[i + j].GetComponent<TurnTableNode>().AwardLevel;
@@ -199,11 +199,13 @@ namespace QFramework.Example
                             break;
                         GameObject _gameObject = mTurnTableNode[i + j];
                         _SameTypeGift[_index++] = _gameObject;
-                    }
+                    }*/
 
-
-                    return _SameTypeGift[UnityEngine.Random.Range(0, _index)];
+/*
+                    return _SameTypeGift[UnityEngine.Random.Range(0, _index)];*/
+                    return mTurnTableNode[i];
                 }
+                probabilityNumber -= giftProbability;
             }
             // 返回最坏的奖励作为边界
             return mTurnTableNode[mTurnTableNode.Count - 1];
