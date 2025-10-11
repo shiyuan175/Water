@@ -1,4 +1,4 @@
-// Generate Id:44668b60-6278-4497-808b-5074073d2f4b
+// Generate Id:7831dad0-9ebe-46e1-9c7c-2092b3a3373e
 using UnityEngine;
 
 // 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间

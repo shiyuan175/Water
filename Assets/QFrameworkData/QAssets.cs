@@ -11,6 +11,11 @@
 namespace QAssetBundle
 {
     
+    public class Banneractivitypop_prefab
+    {
+        public const string BundleName = "banneractivitypop_prefab";
+        public const string BannerActivityPop = "BannerActivityPop";
+    }
     public class Coinfx_prefab
     {
         public const string BundleName = "coinfx_prefab";

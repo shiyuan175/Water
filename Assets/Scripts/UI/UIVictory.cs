@@ -172,7 +172,7 @@ namespace QFramework.Example
                 }
                 return false;
             });
-
+            //魔法连胜活动
             HandleMSA();
 
             //最后结算界面
@@ -188,6 +188,9 @@ namespace QFramework.Example
         private void HandleMSA()
         {
             var _activit = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
+            if (_activit is null)
+                return;
+
             bool _openPanel = false;
             UIMagicStreakActivityData _uiData = null;
 
@@ -212,13 +215,13 @@ namespace QFramework.Example
                     Status = SettlementActivityStatus.None
                 };
             }
+            /*//现交由Tick管理重启活动
             //活动结束 无排名奖/已结算
-            else if (_activit.ActivityStatus == SettlementActivityStatus.WaitStart)
-            {
-                //重启活动
-                _activit.RestartActivity();
-            }
-
+            //else if (_activit.ActivityStatus == SettlementActivityStatus.WaitStart)
+            //{
+            //    //重启活动
+            //    _activit.RestartActivity();
+            //}*/
             if (_openPanel)
             {
                 PanelQueueManager.Instance.Enqueue(() =>

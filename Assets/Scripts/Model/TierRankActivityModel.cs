@@ -16,7 +16,6 @@ public class TierRankActivityModel : AbstractModel
     //5次连胜晋升一个段位,总段位数9(起始0)
     private const int WIN_STREAK_RANKLEVEL_INTERVAL = 5;
     private const int MAX_RANK_SPRITE_INDEX = 8;
-    private const string HISTORY_BEST_RANK = "E_TRAHistoryBestRank";
     private const string FIRST_HOUR_TIER_RANK = "E_FirstHourTierRank";
 
     private string mDelFilePath;
@@ -24,8 +23,7 @@ public class TierRankActivityModel : AbstractModel
     private SaveDataUtility mSaveDataUtility;
     private JsonFileUtility mJsonFileUtility;
     private TRActivityData mTRAData;
-
-    private BindableProperty<int> mHistoryBestRank;
+   
     private BindableProperty<bool> mFirstHourTierRank;
 
     protected override void OnInit()
@@ -35,15 +33,8 @@ public class TierRankActivityModel : AbstractModel
         mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.TRADefaultJson.FileName);
         mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.TRACurrentJson.FileName);
 
-        mHistoryBestRank = new BindableProperty<int>();
         mFirstHourTierRank = new BindableProperty<bool>();
-
-        mHistoryBestRank.SetValueWithoutEvent(mSaveDataUtility.LoadIntValue(HISTORY_BEST_RANK));
-        mHistoryBestRank.Register(value =>
-        {
-            mSaveDataUtility.SaveInt(HISTORY_BEST_RANK, value);
-        });
-
+       
         mFirstHourTierRank.SetValueWithoutEvent(mSaveDataUtility.LoadBoolValue(FIRST_HOUR_TIER_RANK));
         mFirstHourTierRank.Register(value =>
         {
@@ -118,19 +109,7 @@ public class TierRankActivityModel : AbstractModel
 
     public int GetTierRankIndex(int streakWin)
     {
-        int _rankIndex = Mathf.Max(0, (streakWin - 1) / WIN_STREAK_RANKLEVEL_INTERVAL);
-        return _rankIndex >= MAX_RANK_SPRITE_INDEX ? MAX_RANK_SPRITE_INDEX : _rankIndex;
-    }
-
-    public bool CompareWithHistoryBestRank()
-    {
-        if (GetTierRankIndex(StreakWinNum) > mHistoryBestRank.Value)
-        {
-            ++mHistoryBestRank.Value;
-            return true;
-        }
-
-        return false;
+        return Mathf.Min(MAX_RANK_SPRITE_INDEX, Mathf.Max(0, (streakWin - 1) / WIN_STREAK_RANKLEVEL_INTERVAL));
     }
 
     public void MarkRewardAsSettled()

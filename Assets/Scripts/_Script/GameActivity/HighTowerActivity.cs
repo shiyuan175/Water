@@ -19,17 +19,14 @@ public class HighTowerActivity : BaseGameActivity
         get
         {
             if (mSaveUtility.GetCurrentLevel() < ActivityBeginLevel)
-            {
                 return GameActivityStatus.Locked;
-            }
+
             else if (!GameUtils.DoesCountDownKeyExist(ActivitySign))
-            {
                 return GameActivityStatus.Inactive;
-            }
+
             else if (!EndWin)
-            {
                 return GameActivityStatus.Active;
-            }
+
             else return GameActivityStatus.CoolingDown;
         }
     }
@@ -52,13 +49,16 @@ public class HighTowerActivity : BaseGameActivity
 
     public override void StartActivity()
     {
-        CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign);
+        CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign, 2);
     }
 
     public override void RestartActivity()
     {
         mHTAModel.ReloadHighTowerActivity();
-        CountDownTimerManager.Instance.ResetEasternMidnightTimer(ActivitySign);
+        //手动开启
+        CountDownTimerManager.Instance.DeleteTimer(ActivitySign);
+        //自动重置
+        //CountDownTimerManager.Instance.ResetEasternMidnightTimer(ActivitySign, 2);
     }
 
     public override void StreakWin()

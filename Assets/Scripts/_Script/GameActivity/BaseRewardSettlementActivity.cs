@@ -7,6 +7,7 @@ using UnityEngine;
 //奖励结算式活动基类
 public abstract class BaseRewardSettlementActivity : IGameActivity, ICanGetModel, ICanGetUtility, ICanSendEvent
 {
+    public abstract SettlementActivityStatus ActivityStatus { get; }
     //活动是否结算(活动结束)
     public abstract bool IsRewardSettled { get; }
     public abstract string ActivitySign { get; }
@@ -18,11 +19,11 @@ public abstract class BaseRewardSettlementActivity : IGameActivity, ICanGetModel
     //是否有奖励可结算(达到某个目标触发)
     public virtual bool HasRankReward { get; }
 
-    public virtual SettlementActivityStatus ActivityStatus
+    /*public virtual SettlementActivityStatus ActivityStatus
     {
         get
         {
-            if (!GameUtils.DoesCountDownKeyExist(GameConst.MAGIC_STREAK_ACTIVITY_SIGN))
+            if (!GameUtils.DoesCountDownKeyExist(ActivitySign))
             {
                 return SettlementActivityStatus.Inactive;
             }
@@ -39,7 +40,7 @@ public abstract class BaseRewardSettlementActivity : IGameActivity, ICanGetModel
 
             return SettlementActivityStatus.WaitStart;
         }
-    }
+    }*/
 
     public SaveDataUtility mSaveUtility;
 

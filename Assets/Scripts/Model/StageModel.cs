@@ -8,8 +8,12 @@ public class StageModel : AbstractModel
 {
     private const string REMAINING_STARS = "A_RemainingStars";
     private const string ITEM_SIGN = "A_GameItem";
-    private const string COUNTINUE_WIN_NUM_SIGN = "g_WaterCountinueWinNum";
-    private const string VOLUME_SETTING_SIGN = "g_WaterVolumeSetting";
+    private const string COUNTINUE_WIN_NUM_SIGN = "A_WaterCountinueWinNum";
+    private const string IN_GAME_RANK_STREAK_WIN_SIGN = "A_InGameRankStreakWinNum";
+    private const string GOLD_COINS_MULTIPLE_STREAK_WIN_SIGN = "A_GoldCoinsMultipleStreakWinNum";
+    private const string VOLUME_SETTING_SIGN = "A_WaterVolumeSetting";
+    private const string HISTORY_BEST_RANK = "E_HistoryBestRank";
+
     private const int DOUBLE = 2;
 
     private SaveDataUtility storage;
@@ -20,8 +24,14 @@ public class StageModel : AbstractModel
     private BindableProperty<int> mRemainingStars;
     //连胜
     private BindableProperty<int> mCountinueWinNum;
+    //游戏段位的连胜
+    private BindableProperty<int> mInGameRankStreakWin;
+    //1.5倍金币的连胜
+    private BindableProperty<int> mGoldCoinsMultipleStreakWin;
+    //历史最高段位
+    private BindableProperty<int> mHistoryBestRank;
     // 1.5倍结算金币
-    private float mGoldCoinsMultiple => mCountinueWinNum.Value > GameConst.CONTINUE_WIN_NUM_COIN ? 1.5f : 1;
+    private float mGoldCoinsMultiple => mGoldCoinsMultipleStreakWin.Value > GameConst.CONTINUE_WIN_NUM_COIN ? 1.5f : 1;
 
     //金币倍率
     public float GoldCoinsMultiple
@@ -44,7 +54,9 @@ public class StageModel : AbstractModel
     }
     public int RemainingStars => mRemainingStars.Value;
     public int CountinueWinNum => mCountinueWinNum.Value;
-
+    public int InGameRankStreakWinNum => mInGameRankStreakWin.Value;
+    public int GoldCoinsMultipleStreakWinNum => mGoldCoinsMultipleStreakWin.Value;
+    
     protected override void OnInit()
     {
         storage = this.GetUtility<SaveDataUtility>();
@@ -52,6 +64,9 @@ public class StageModel : AbstractModel
         ItemDic = new BindableDictionary<int, int>();
         mCountinueWinNum = new BindableProperty<int>();
         mRemainingStars = new BindableProperty<int>();
+        mHistoryBestRank = new BindableProperty<int>();
+        mInGameRankStreakWin = new BindableProperty<int>();
+        mGoldCoinsMultipleStreakWin = new BindableProperty<int>();  
 
         //若无存档则以(当前关卡 - 1)初始化星星数，以兼容旧版本逻辑
         mRemainingStars.SetValueWithoutEvent(storage.LoadIntValue(REMAINING_STARS, storage.GetCurrentLevel() - 1));
@@ -81,6 +96,24 @@ public class StageModel : AbstractModel
         {
             storage.SaveInt(COUNTINUE_WIN_NUM_SIGN, value);
 
+        });
+
+        mHistoryBestRank.SetValueWithoutEvent(storage.LoadIntValue(HISTORY_BEST_RANK));
+        mHistoryBestRank.Register(value =>
+        {
+            storage.SaveInt(HISTORY_BEST_RANK, value);
+        });
+
+        mInGameRankStreakWin.SetValueWithoutEvent(storage.LoadIntValue(IN_GAME_RANK_STREAK_WIN_SIGN));
+        mInGameRankStreakWin.Register(value =>
+        {
+            storage.SaveInt(IN_GAME_RANK_STREAK_WIN_SIGN, value);
+        });
+
+        mGoldCoinsMultipleStreakWin.SetValueWithoutEvent(storage.LoadIntValue(GOLD_COINS_MULTIPLE_STREAK_WIN_SIGN));
+        mGoldCoinsMultipleStreakWin.Register(value =>
+        {
+            storage.SaveInt(GOLD_COINS_MULTIPLE_STREAK_WIN_SIGN, value);
         });
     }
 
@@ -127,13 +160,33 @@ public class StageModel : AbstractModel
     public void PassLevel()
     {
         mRemainingStars.Value += SettlementMultiple;
+        var _curLevel = storage.GetCurrentLevel();
 
-        if (storage.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
-            mCountinueWinNum.Value++;
+        if (_curLevel >= GameConst.WIN_STREAK_BEGIN_LEVEL)
+            ++mCountinueWinNum.Value;
+
+        if (_curLevel >= GameConst.IN_GAME_RANK_BEGIN_LEVEL)
+            ++mInGameRankStreakWin.Value;
+
+        if (_curLevel > (int)UnLockMechanism.TimesGoldCoin)
+            ++mGoldCoinsMultipleStreakWin.Value;
     }
 
     public void ResetCountinueWinNum()
     {
         mCountinueWinNum.Value = 0;
+        mInGameRankStreakWin.Value = 0;
+        mGoldCoinsMultipleStreakWin.Value = 0;
+    }
+
+    public bool CompareWithHistoryBestRank(int playRankIdx)
+    {
+        if (playRankIdx > mHistoryBestRank.Value)
+        {
+            ++mHistoryBestRank.Value;
+            return true;
+        }
+
+        return false;
     }
 }

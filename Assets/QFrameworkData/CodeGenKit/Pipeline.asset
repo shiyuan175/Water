@@ -19,29 +19,11 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
-    - TypeName: UnityEngine.GameObject
-      PathToRoot: Mesh/ButtomPanel/Scroll View/Viewport/BattlePassContent
-      MemberName: BattlePassContent
-    - TypeName: UnityEngine.UI.Button
-      PathToRoot: Mesh/TopPanel/BtnInfo
-      MemberName: BtnInfo
-    - TypeName: UnityEngine.UI.Image
-      PathToRoot: Mesh/TopPanel/BattlePassTitle/TaskProgressBar/ImgBar
-      MemberName: ImgBar
-    - TypeName: TMPro.TextMeshProUGUI
-      PathToRoot: Mesh/TopPanel/BattlePassTitle/TaskProgressBar/TextTaskProgressBar
-      MemberName: TextTaskProgressBar
-    - TypeName: UnityEngine.UI.Image
-      PathToRoot: Mesh/TopPanel/BattlePassTitle/TaskProgressBar/ImgLevel
-      MemberName: ImgLevel
-    - TypeName: UnityEngine.UI.Button
-      PathToRoot: Mesh/TopPanel/BattlePassTitle/TaskProgressBar/BtnActivate
-      MemberName: BtnActivate
-    - TypeName: TMPro.TextMeshProUGUI
-      PathToRoot: Mesh/TopPanel/BattlePassTitle/TxtCountDownBk/TxtCountDown
-      MemberName: TxtCountDown
-    ScriptsFolder: Assets\Scripts\Controllers\UIBegin_BattlePassPanel
-    ClassName: BattlePassPanel
-    Namespace: QFramework.Example
+    - TypeName: UnityEngine.UI.ScrollRect
+      PathToRoot: ScrollView
+      MemberName: ScrollView
+    ScriptsFolder: Assets\Scripts\Controllers\UIBegin_UnlockPreview
+    ClassName: UnlockPreview
+    Namespace: SceneUnlock
     MainCode: 
     DesignerCode: 

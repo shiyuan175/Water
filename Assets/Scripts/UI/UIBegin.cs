@@ -87,6 +87,7 @@ namespace QFramework.Example
             BindBtn();
             RegisterEvent();
             InitSceneUI();
+            ShowActivityState();
             InitActivityState();
 
             GameUtilityManager.Instance.RegisterTask(this, UpdateUI);
@@ -283,6 +284,8 @@ namespace QFramework.Example
                 if (e.PassLevel)
                 {
                     StartCoroutine(ShowFx());
+                    ShowActivityState();
+
                     SetTierRankIcon();
                     if (mSceneUnlockModel.SceneIndex == 0 && mSceneUnlockModel.SceneUnlockUnitIndex == 0)
                         UIKit.OpenPanel<SceneUnlockGuide>(UILevel.PopUI);
@@ -357,26 +360,27 @@ namespace QFramework.Example
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
-        //可拓展
+        //可拓展(段位活动暂关)
         private void TryStartGame()
         {
-            if (mTierRankActivity != null)
-            {
-                var _activityStatus = mTierRankActivity.ActivityStatus;
-                if (_activityStatus == SettlementActivityStatus.Inactive)
-                {
-                    UIKit.OpenPanel<UITierRankActivityEntrance>();
-                    return;
-                }
+            //if (mTierRankActivity != null)
+            //{
+            //    var _activityStatus = mTierRankActivity.ActivityStatus;
+            //    if (_activityStatus == SettlementActivityStatus.Inactive)
+            //    {
+            //        UIKit.OpenPanel<UITierRankActivityEntrance>();
+            //        return;
+            //    }
 
-                if (_activityStatus == SettlementActivityStatus.Finished
-                    && !mTierRankActivity.TRAData.Player.IsRewardSettled)
-                {
-                    UIKit.OpenPanel<UITierRankActivity>();
-                    return;
-                }
-            }
-                UIKit.OpenPanel<UIBeginSelect>();
+            //    if (_activityStatus == SettlementActivityStatus.Finished
+            //        && !mTierRankActivity.TRAData.Player.IsRewardSettled)
+            //    {
+            //        UIKit.OpenPanel<UITierRankActivity>();
+            //        return;
+            //    }
+            //}
+            
+            UIKit.OpenPanel<UIBeginSelect>();
         }
 
         #region 底部菜单栏按钮切换
@@ -565,11 +569,58 @@ namespace QFramework.Example
                     AnimStartFlash.Show();
                     ImgDoubleBuff.Show();
                 }
+
+                if (mVolcanicActivity is not null)
+                {
+                    switch (mVolcanicActivity.ActivityStatus)
+                    {
+                        case GameActivityStatus.Active:
+                            TxtVolcanicActivity.text = mVolcanicActivity.GetActivityReamingTime();
+                            break;
+
+                        case GameActivityStatus.CoolingDown:
+                            TxtVolcanicActivity.text = mVolcanicActivity.GetCooldownReamingTime();
+                            break;
+                    }
+                }
+
+                if (mHighTowerActivity is not null)
+                {
+                    if (mHighTowerActivity.ActivityStatus is GameActivityStatus.Active) 
+                        TxtHighTowerActivity.text = mHighTowerActivity.GetActivityReamingTime();
+                }
+
+                if (mMagicStreakActivity is not null)
+                {
+                    if (mMagicStreakActivity.ActivityStatus is SettlementActivityStatus.Active)
+                        TxtMagicStreakActivity.text = mMagicStreakActivity.GetActivityReamingTime();
+                }
             }
         }
         #endregion
 
         #region 活动模块
+        private void ShowActivityState()
+        {
+            var _curLevel = saveData.GetCurrentLevel();
+            //各活动在主页显示的条件(部分活动结束时需隐藏自身)
+            //活动未注册时管理显示，注册后由活动自身管理
+            if (_curLevel >= 7 && mVolcanicActivity is null)
+                BtnVANode.Show();
+
+            if (_curLevel >= 16 && mRocketActivity is null)
+                BtnRANode.Show();
+
+            if (_curLevel >= 31)
+                BtnTTNode.Show();
+
+            if (_curLevel >= 26)
+                BtnMSANode.Show();
+
+            if (_curLevel >= 46)
+                BtnHTANode.Show();
+        }
+
         private void InitActivityState()
         {
             UpdateVAState();
@@ -577,7 +628,6 @@ namespace QFramework.Example
             UpdateHTAState();
             UpdateMSAState();
             UptateTRAState();
-            UpdateTTState();
 
             //横幅活动
             if (saveData.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
@@ -645,38 +695,62 @@ namespace QFramework.Example
         
         private void UpdateVAState()
         {
-           
             if (mVolcanicActivity is null)
             {
                 BtnVANode.interactable = false;
-                TxtVolcanicActivity.text = "Locked";
+                TxtVolcanicActivity.text = "LV15";
                 return;
             }
             BtnVANode.interactable = true;
-            TxtVolcanicActivity.text = mVolcanicActivity.ActivityStatus switch
+            switch (mVolcanicActivity.ActivityStatus)
             {
-                GameActivityStatus.Inactive => "Inactive",
-                GameActivityStatus.Active => "Active",
-                _ => "Finished"
-            };
+                case GameActivityStatus.Inactive:
+                    BtnVANode.Show();
+                    TxtVolcanicActivity.text = "START";
+                    break;
+
+                case GameActivityStatus.Active:
+                    BtnVANode.Show();
+                    TxtVolcanicActivity.text = mVolcanicActivity.GetActivityReamingTime();
+                    break;
+                    
+                case GameActivityStatus.CoolingDown:
+                    BtnVANode.Show();
+                    TxtVolcanicActivity.text = mVolcanicActivity.GetCooldownReamingTime();
+                    break;
+
+                case GameActivityStatus.WaitStart:
+                    BtnVANode.Hide();
+                    break;
+            }
         }
 
         private void UpdateRAState()
         {
-           
             if (mRocketActivity is null)
             {
                 BtnRANode.interactable = false;
-                TxtRocketActivity.text = "Locked";
+                TxtRocketActivity.text = "LV25";
                 return;
             }
             BtnRANode.interactable = true;
-            TxtRocketActivity.text = mRocketActivity.ActivityStatus switch
+
+            switch (mRocketActivity.ActivityStatus)
             {
-                GameActivityStatus.Inactive => "Inactive",
-                GameActivityStatus.Active => "Active",
-                _ => "Finished"
-            };
+                case GameActivityStatus.Inactive:
+                    BtnRANode.Show();
+                    TxtRocketActivity.text = "START";
+                    break;
+
+                case GameActivityStatus.Active:
+                    BtnRANode.Show();
+                    TxtRocketActivity.text = "Active";
+                    break;
+
+                case GameActivityStatus.CoolingDown:
+                    BtnRANode.Hide();
+                    break;
+            }
         }
 
         private void UpdateHTAState()
@@ -684,33 +758,32 @@ namespace QFramework.Example
             if (mHighTowerActivity is null)
             {
                 BtnHTANode.interactable = false;
-                TxtHighTowerActivity.text = "Locked";
+                TxtHighTowerActivity.text = "LV65";
                 return;
             }
             BtnHTANode.interactable = true;
             TxtHighTowerActivity.text = mHighTowerActivity.ActivityStatus switch
             {
-                GameActivityStatus.Inactive => "Inactive",
-                GameActivityStatus.Active => "Active",
+                GameActivityStatus.Inactive => "START",
+                GameActivityStatus.Active => mHighTowerActivity.GetActivityReamingTime(),
                 _ => "Finished"
             };
         }
 
         private void UpdateMSAState()
         {
- 
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.FIRST_LAUNCH_SIGN))
+            if (mMagicStreakActivity is null)
             {
                 BtnMSANode.interactable = false;
-                TxtMagicStreakActivity.text = "Locked";
+                TxtMagicStreakActivity.text = "LV45";
                 return;
             }
 
             BtnMSANode.interactable = true;
             TxtMagicStreakActivity.text = mMagicStreakActivity.ActivityStatus switch
             {
-                SettlementActivityStatus.Inactive => "Inactive",
-                SettlementActivityStatus.Active => "Active",
+                SettlementActivityStatus.Inactive => "START",
+                SettlementActivityStatus.Active => mMagicStreakActivity.GetActivityReamingTime(),
                 _ => "Finished"
             };
         }
@@ -734,18 +807,9 @@ namespace QFramework.Example
         }
         
         private void UpdateTTState()
-        {            
-            if (mTurnTableADActivity is null)
-            {
-                BtnTTNode.interactable = false;
-                TxtTTActivity.text = "Locked";
-                return;
-            }
-            BtnTTNode.interactable = true;
-         
+        {  
             TxtTTActivity.text = mTurnTableADActivity.ActivityStatus switch
             {
-                GameActivityStatus.Inactive => "Inactive",
                 GameActivityStatus.Active => "Active",
                 _ => "Finished"
             };
@@ -783,6 +847,8 @@ namespace QFramework.Example
                 }
             }
         }
+
+
         #endregion
     }
 }

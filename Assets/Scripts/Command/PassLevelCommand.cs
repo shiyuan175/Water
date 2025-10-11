@@ -22,17 +22,22 @@ public class PassLevelCommand : AbstractCommand ,ICanGetModel
         {
             GameActivityManager.Instance.RegisterActivity<HighTowerActivity>();
         }
-        if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)
+        if (currentLevel == GameConst.MS_BEGIN_LEVEL)
         {
-            GameActivityManager.Instance.RegisterActivity<TierRankActivity>();
+            GameActivityManager.Instance.RegisterActivity<MagicStreakActivity>();
         }
+        //(段位活动暂关)
+        //if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)
+        //{
+        //    GameActivityManager.Instance.RegisterActivity<TierRankActivity>();
+        //}
 
-        if(currentLevel == GameConst.TT_AD_BEGIN_LEVEL)
+        if (currentLevel == GameConst.TT_AD_BEGIN_LEVEL)
         {
             GameActivityManager.Instance.RegisterActivity<TurnTableADActivity>();
         }
 
-        //通过第七关开启连胜活动
+        //通过第七关开启首个横幅活动
         if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)
         {
             StringEventSystem.Global.Send(GameConst.START_POTION_ACTIVITY);

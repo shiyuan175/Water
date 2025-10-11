@@ -9,6 +9,8 @@ public class TierRankActivity : BaseRewardSettlementActivity
 {
     public override bool IsRewardSettled => TRAData.Player.IsRewardSettled;
     public override string ActivitySign => GameDefine.GameConst.TIER_RANK_ACTIVITY_SIGN;
+
+    //这个活动改成第二天开启才开启的
     public override SettlementActivityStatus ActivityStatus
     {
         get
@@ -104,11 +106,6 @@ public class TierRankActivity : BaseRewardSettlementActivity
     public int GetTierRankIndex(int streakWin)
     {
         return mTRAModel.GetTierRankIndex(streakWin);
-    }
-
-    public bool CompareWithHistoryBestRank()
-    {
-        return mTRAModel.CompareWithHistoryBestRank();
     }
 
     public (bool isRewardSettled, bool isFirstRank) RestartOneHourRankActivity()

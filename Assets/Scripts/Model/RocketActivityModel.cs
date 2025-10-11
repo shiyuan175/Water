@@ -38,7 +38,7 @@ public class RocketActivityModel : AbstractModel
             storage.SaveInt(RA_STREAK_WIN_NUM_SIGN, value);
         });
 
-        mDailyUsedRefreshCount.SetValueWithoutEvent(storage.LoadIntValue(DAILY_REFRESH_COUNT, 0));
+        mDailyUsedRefreshCount.SetValueWithoutEvent(storage.LoadIntValue(DAILY_REFRESH_COUNT, 1));
         mDailyUsedRefreshCount.Register(value =>
         {
             storage.SaveInt(DAILY_REFRESH_COUNT, value);
@@ -77,7 +77,7 @@ public class RocketActivityModel : AbstractModel
 
     public void ResetDailyRefreshCount()
     {
-        mDailyUsedRefreshCount.Value = 0;
+        mDailyUsedRefreshCount.Value = 1;
     }
 
     private int SetRobot1StreakWin()

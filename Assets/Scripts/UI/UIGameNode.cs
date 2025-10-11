@@ -33,7 +33,6 @@ namespace QFramework.Example
 
         private ResLoader mResLoader;
         private StageModel stageModel;
-        private TierRankActivity mTierRankActivity;
 
         private SpriteAtlas mRankLevelSpriteAtlas;
 
@@ -53,7 +52,6 @@ namespace QFramework.Example
         protected override void OnOpen(IUIData uiData = null)
         {
             stageModel = this.GetModel<StageModel>();
-            mTierRankActivity = GameActivityManager.Instance.GetActivity<TierRankActivity>();
 
             LoadRes();
             BindBtn();
@@ -86,18 +84,17 @@ namespace QFramework.Example
             BtnItem2.onClick.RemoveAllListeners();
             BtnItem3.onClick.RemoveAllListeners();
 
-            if (mTierRankActivity != null)
+            if (mResLoader != null)
             {
                 mResLoader.Recycle2Cache();
                 mResLoader = null;
-                mTierRankActivity = null;
                 mRankLevelSpriteAtlas = null;
             }
         }
 
         private void LoadRes()
         {
-            if (mTierRankActivity != null)
+            if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() >= GameDefine.GameConst.IN_GAME_RANK_BEGIN_LEVEL)
             {
                 mResLoader = ResLoader.Allocate();
                 mRankLevelSpriteAtlas = mResLoader.LoadSync<SpriteAtlas>
@@ -158,19 +155,23 @@ namespace QFramework.Example
             StringEventSystem.Global.Register(GameConst.VICTORY_EVENT, () =>
             {
                 int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-                if (level - 1 < GameConst.WIN_STREAK_BEGIN_LEVEL)
+                //原是第八关才显示段位(5~7关直接返回)
+                //现在是第六关显示，第五关通过时会触发返回
+                if (level - 1 < GameConst.IN_GAME_RANK_BEGIN_LEVEL)
                 {
                     OpenUIVictory();
                     return;
                 }
 
+                var _tempWin = stageModel.InGameRankStreakWinNum;
+
                 //飞星效果
-                var curRankIndex = mTierRankActivity.PlayerTierRankIndex;
+                var curRankIndex = Mathf.Min(8, Mathf.Max(0, (_tempWin - 1) / 5));
                 FlightEffects.Show();
                 FlightEffects.DOMove(ImgRankLevel.transform.position, 1f)
                 .OnComplete(() =>
                 {
-                    TxtRankLevel.text = mTierRankActivity.StreakWinNum.ToString();
+                    TxtRankLevel.text = _tempWin.ToString();
 
                     //段位无晋升
                     if (curRankIndex <= mCacheRankSpriteIndex)
@@ -199,7 +200,7 @@ namespace QFramework.Example
                     {
                         SpineRankPromotion.Hide();
 
-                        if (mTierRankActivity.CompareWithHistoryBestRank())
+                        if (stageModel.CompareWithHistoryBestRank(curRankIndex))
                         {
                             //Debug.Log("首次晋升段位");
                             CoinManager.Instance.AddCoin(300);
@@ -279,6 +280,7 @@ namespace QFramework.Example
 
 
         }
+
         /// <summary>
         /// 显示道具图标
         /// </summary>
@@ -309,7 +311,7 @@ namespace QFramework.Example
         {
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
-            if (level == GameConst.WIN_STREAK_BEGIN_LEVEL)
+            if (level == GameConst.IN_GAME_RANK_BEGIN_LEVEL)
             {
                 ImgRankLevel_Label.Show();
                 ActionKit.Delay(5f, () =>
@@ -320,11 +322,13 @@ namespace QFramework.Example
             }
             else ImgRankLevel_Label.Hide();
 
-            if (level >= GameConst.WIN_STREAK_BEGIN_LEVEL)
+            if (level >= GameConst.IN_GAME_RANK_BEGIN_LEVEL)
             {
                 ImgRankLevel.Show();
-                TxtRankLevel.text = mTierRankActivity.StreakWinNum.ToString();
-                mCacheRankSpriteIndex = mTierRankActivity.PlayerTierRankIndex;
+                var _tempWin = stageModel.InGameRankStreakWinNum;
+                TxtRankLevel.text = _tempWin.ToString();
+                //5次连胜晋升一个段位,总段位数9(起始0)
+                mCacheRankSpriteIndex = Mathf.Min(8, Mathf.Max(0, (_tempWin - 1) / 5));
                 ImgRankLevel.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mCacheRankSpriteIndex));
             }
 

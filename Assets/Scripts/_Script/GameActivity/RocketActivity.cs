@@ -9,7 +9,6 @@ public class RocketActivity : BaseGameActivity
 {
     public override string ActivitySign => GameConst.ROCKET_ACTIVITY_SIGN;
     public override string ActivityID => GetType().Name;
-    public override float ActivityDurationMinutes => throw new NotImplementedException("Unconfigured RA Duration");
     public override int ActivityBeginLevel => GameConst.RA_BEGIN_LEVEL;
     public override GameActivityStatus ActivityStatus
     { 
@@ -39,9 +38,9 @@ public class RocketActivity : BaseGameActivity
 
     public bool PlayWin => mRocketActivityModel.PlayerWin;
     public bool RobotWin => mRocketActivityModel.RobotWin;
-    public bool IsExceededDailyRefreshLimit => DailyUsedRefreshCount >= RA_MAX_REFRESH_PER_DAY;
+    public bool IsExceededDailyRefreshLimit => DailyUsedRefreshCount > RA_MAX_REFRESH_PER_DAY;
 
-    private const int RA_MAX_REFRESH_PER_DAY = 5;
+    private const int RA_MAX_REFRESH_PER_DAY = 3;
     private RocketActivityModel mRocketActivityModel;
 
     public RocketActivity()
@@ -73,6 +72,8 @@ public class RocketActivity : BaseGameActivity
 
     public void RefreshActivity()
     {
+        //当已刷新次数刚好等于最大次数时,还是会触发一次数据刷新,然后超出每日刷新次数
+        //再由Tick将状态切到CoolingDown,然后触发活动隐藏
         if (IsExceededDailyRefreshLimit)
             return;
 

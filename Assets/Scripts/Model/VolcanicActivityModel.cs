@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class VolcanicActivityModel : AbstractModel, ICanGetModel
 {
-    private const string VA_STREAK_WIN_NUM_SIGN = "g_VolcanicActivityStreakWinNum";
-    private const string VA_COUNT_PLAY_NUM_SIGN = "g_VolcanicActivityCountPlayerNum";
-    private const string VA_ACTIVATE_STATE_SIGN = "g_VolcanicActivityActivateState";
+    private const string VA_STREAK_WIN_NUM_SIGN = "F_VAStreakWinNum";
+    private const string VA_COUNT_PLAY_NUM_SIGN = "F_VACountPlayerNum";
+    private const string VA_ACTIVATE_STATE_SIGN = "F_VAActivateState";
+    private const string VA_DAILY_REFRESH_COUNT_SIGN = "F_VADailyRefreshCount";
+
     private const int VA_REWARD_COUNT_COINS = 10000;
 
     private SaveDataUtility storage;
@@ -19,6 +21,10 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
     //火山活动人数
     private BindableProperty<int> mVACountPlayerNum;
     public int VACurrentPlayerNum => mVACountPlayerNum.Value;
+
+    //每日刷新次数
+    private BindableProperty<int> mVADailyUsedRefreshCount;
+    public int VADailyUsedRefreshCount => mVADailyUsedRefreshCount.Value;
 
     //活动是否激活
     private BindableProperty<bool> mVAActivateState;
@@ -32,6 +38,7 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
         storage = this.GetUtility<SaveDataUtility>();
         mVAStreakWinNum = new BindableProperty<int>();
         mVACountPlayerNum = new BindableProperty<int>();
+        mVADailyUsedRefreshCount = new BindableProperty<int>();
         mVAActivateState = new BindableProperty<bool>();
 
         mVAStreakWinNum.SetValueWithoutEvent(storage.LoadIntValue(VA_STREAK_WIN_NUM_SIGN));
@@ -39,11 +46,19 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
         {
             storage.SaveInt(VA_STREAK_WIN_NUM_SIGN, value);
         });
+        
         mVACountPlayerNum.SetValueWithoutEvent(storage.LoadIntValue(VA_COUNT_PLAY_NUM_SIGN, 100));
         mVACountPlayerNum.Register(value =>
         {
             storage.SaveInt(VA_COUNT_PLAY_NUM_SIGN, value);
         });
+
+        mVADailyUsedRefreshCount.SetValueWithoutEvent(storage.LoadIntValue(VA_DAILY_REFRESH_COUNT_SIGN, 1));
+        mVADailyUsedRefreshCount.Register(value =>
+        {
+            storage.SaveInt(VA_DAILY_REFRESH_COUNT_SIGN, value);
+        });
+
         mVAActivateState.SetValueWithoutEvent(storage.LoadBoolValue(VA_ACTIVATE_STATE_SIGN, false));
         mVAActivateState.Register(value =>
         {
@@ -56,10 +71,29 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
         mVAActivateState.Value = true;
     }
 
+    /// <summary>
+    /// 每日重置
+    /// </summary>
+    public void RefreshVolcanicActivity()
+    {
+        mVAStreakWinNum.Value = 0;
+        mVACountPlayerNum.Value = 100;
+        mVADailyUsedRefreshCount.Value = 1;
+        mVAActivateState.Value = false;
+    }
+
+    /// <summary>
+    /// 活动重置(每日三次)
+    /// </summary>
     public void ReloadVolcanicActivity()
     {
         mVAStreakWinNum.Value = 0;
         mVACountPlayerNum.Value = 100;
+    }
+
+    public void AddDailyUsedRefreshCount()
+    {
+        ++mVADailyUsedRefreshCount.Value;
     }
 
     public void AddVAStreakWin()

@@ -70,7 +70,7 @@ public class GameMainArc : Architecture<GameMainArc>
     //活动开启
     private void ActivityStart()
     {
-        //连胜活动
+        //首个横幅活动
         var saveData = this.GetUtility<SaveDataUtility>();
         if (saveData.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             CountDownTimerManager.Instance.StartTimer(GameConst.RANKA_ACTIVITY_SIGN, 1440f);

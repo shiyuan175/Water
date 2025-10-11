@@ -224,7 +224,7 @@ namespace QFramework.Example
         /// </summary>
         void UpdateWinNum()
         {
-            int _curWinNum = stageModel.CountinueWinNum;
+            int _curWinNum = stageModel.GoldCoinsMultipleStreakWinNum;
 
             int _winNum_Gift = _curWinNum > CONTINUE_WIN_NUM_ItemGift ? CONTINUE_WIN_NUM_ItemGift : _curWinNum;
             int _winNum_Coin = _curWinNum > GameDefine.GameConst.CONTINUE_WIN_NUM_COIN ? GameDefine.GameConst.CONTINUE_WIN_NUM_COIN : _curWinNum;

@@ -44,7 +44,7 @@ namespace QFramework.Example
             mTweenList = new List<Tween>();
 
             if (mRocketActivity.ActivityStatus == GameActivityStatus.Active)
-                TxtDailyRefresh.text = $"{mRocketActivity.DailyUsedRefreshCount + 1}/5 Today";
+                TxtDailyRefresh.text = $"{mRocketActivity.DailyUsedRefreshCount}/3 Today";
             else
                 TxtDailyRefresh.text = "Finished";
 

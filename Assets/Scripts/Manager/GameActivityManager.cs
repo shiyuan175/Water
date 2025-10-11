@@ -37,10 +37,11 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<VolcanicActivity>();
         }
-        if (_curLevel >= GameDefine.GameConst.WIN_STREAK_BEGIN_LEVEL)
-        {
-            RegisterActivity<TierRankActivity>();
-        }
+        //(段位活动暂关)
+        //if (_curLevel >= GameDefine.GameConst.WIN_STREAK_BEGIN_LEVEL)
+        //{
+        //    RegisterActivity<TierRankActivity>();
+        //}
         if (_curLevel >= GameDefine.GameConst.RA_BEGIN_LEVEL)
         {
             RegisterActivity<RocketActivity>();
@@ -66,14 +67,10 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<BattlePassADActivity>();
         }
-
-
-        if (_curLevel >= GameDefine.GameConst.WIN_STREAK_BEGIN_LEVEL)
+        if (_curLevel >= GameDefine.GameConst.MS_BEGIN_LEVEL)
         {
-            RegisterActivity<TierRankActivity>();
+            RegisterActivity<MagicStreakActivity>();
         }
-        RegisterActivity<MagicStreakActivity>();
-        
         //Other Activities can be registered here based on level or other conditions
     }
 

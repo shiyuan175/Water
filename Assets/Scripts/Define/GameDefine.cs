@@ -16,26 +16,28 @@ namespace GameDefine
         //新手关(前五关)
         public const int NEWBIE_LEVEL_COUNT = 5;
         public const int ITEM_COUNT = 8;
-        //第八关开启连胜相关功能(连胜段位\连胜去黑\主页连胜活动...)
+        //第八关开启连胜相关功能(主页第一个横幅活动...)
         public const int WIN_STREAK_BEGIN_LEVEL = 8;
         //十连胜1.5倍金币buff
         public const int CONTINUE_WIN_NUM_COIN = 10;
-        //切换关卡关卡
+        //切换关卡机制开启的关卡
         public const int LEVEL_TYPE_BEGIN_LEVEL = 10;
-        //切换关卡计算
+        //用于关卡UI切换取余计算
         public const int LEVEL_TYPE_LAST_DIGIT = 10;
         //过关基础金币
         public const int WIN_COINS = 20;
         public const int ADD_BOTTLE_COST = 900;
 
         //活动开启目标关卡
-        public const int BP_AD_BEGIN_LEVEL = 6;    //战令活动
-        public const int VA_BEGIN_LEVEL = 7;    //火山活动
-        public const int DR_AD_BEGIN_LEVEL = 8; //日常广告活动
-        public const int DT_BEGIN_LEVEL = 8; //日常广告活动
-        public const int TT_AD_BEGIN_LEVEL = 16; //轮盘活动
-        public const int RA_BEGIN_LEVEL = 24;   //火箭活动
-        public const int HTA_BEGIN_LEVEL = 34;  //高塔活动
+        public const int IN_GAME_RANK_BEGIN_LEVEL = 6;  //游戏内段位
+        public const int BP_AD_BEGIN_LEVEL = 6;     //战令活动
+        public const int VA_BEGIN_LEVEL = 15;       //火山活动
+        public const int DR_AD_BEGIN_LEVEL = 8;     //日常广告活动
+        public const int DT_BEGIN_LEVEL = 8;        //日常广告活动
+        public const int TT_AD_BEGIN_LEVEL = 31;    //轮盘活动
+        public const int RA_BEGIN_LEVEL = 25;       //火箭活动
+        public const int MS_BEGIN_LEVEL = 45;       //魔法连胜活动
+        public const int HTA_BEGIN_LEVEL = 65;      //高塔活动
 
 
         //活动存档标记
@@ -164,10 +166,9 @@ namespace GameDefine
         // 进关道具解锁
         EnterLevelSelectProps = 17,
         // 1.5金币解锁
-        TimesGoldCoin = 7,
+        TimesGoldCoin = 35,
         // 连胜去黑水
         WinStreakBeginLevel = 60
-
     }
 
     public enum LevelHardType

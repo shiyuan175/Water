@@ -23,6 +23,7 @@ public abstract class BaseGameActivity : IGameActivity, ICanGetModel, ICanGetUti
     public BaseGameActivity()
     {
         mSaveUtility = this.GetUtility<SaveDataUtility>();
+        mLastActivityStatus = GameActivityStatus.None;
     }
 
     public IArchitecture GetArchitecture()
