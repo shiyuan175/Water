@@ -38,6 +38,14 @@ namespace GameDefine
         public const int RA_BEGIN_LEVEL = 25;       //火箭活动
         public const int MS_BEGIN_LEVEL = 45;       //魔法连胜活动
         public const int HTA_BEGIN_LEVEL = 65;      //高塔活动
+        public const int BP_AD_BEGIN_LEVEL = 6;    //战令活动
+        public const int VA_BEGIN_LEVEL = 7;    //火山活动
+        public const int DR_AD_BEGIN_LEVEL = 8; //日常广告活动
+        public const int DT_BEGIN_LEVEL = 8; //日常广告活动
+        public const int TT_AD_BEGIN_LEVEL = 16; //轮盘活动
+        public const int SO_AD_BEGIN_LEVEL = 20; //特惠礼包
+        public const int RA_BEGIN_LEVEL = 24;   //火箭活动
+        public const int HTA_BEGIN_LEVEL = 34;  //高塔活动
 
 
         //活动存档标记
@@ -48,6 +56,7 @@ namespace GameDefine
         public const string DAILYREWARD_AD_ACTIVITY_SIGN = "DailyRewardADActivity";
         public const string BANNER_ACTIVITY_SIGN = "BannerActivity";
         public const string BATTLEPASS_AD_ACTIVITY_SIGN = "BattlePassADActivity";
+        public const string SEPECIALOFFER_AD_ACTIVITY_SIGN = "SepecialOfferADActivity";
 
         //存档标记
         public const string FIRST_LAUNCH_SIGN = "FIRST_LAUNCH";

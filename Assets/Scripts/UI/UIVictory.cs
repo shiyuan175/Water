@@ -172,6 +172,19 @@ namespace QFramework.Example
                 }
                 return false;
             });
+            PanelQueueManager.Instance.Enqueue(() =>
+            {
+                if (GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>() is SepecialOfferADActivity sepecialOfferADActivity
+                    && sepecialOfferADActivity.ActivityStatus == GameActivityStatus.Active)
+                {
+                    UIKit.OpenPanel<UISepecialOfferGift>(new UISepecialOfferGiftData()
+                    { 
+                        IsManagedOpen = true,
+                    });
+                    return true;
+                }
+                return false;
+            });
             //魔法连胜活动
             HandleMSA();
 

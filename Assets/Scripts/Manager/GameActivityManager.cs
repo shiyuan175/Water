@@ -68,6 +68,8 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
             RegisterActivity<BattlePassADActivity>();
         }
         if (_curLevel >= GameDefine.GameConst.MS_BEGIN_LEVEL)
+        if (_curLevel >= GameDefine.GameConst.WIN_STREAK_BEGIN_LEVEL)
+        if (_curLevel >= GameDefine.GameConst.WIN_STREAK_BEGIN_LEVEL)
         {
             RegisterActivity<MagicStreakActivity>();
         }
