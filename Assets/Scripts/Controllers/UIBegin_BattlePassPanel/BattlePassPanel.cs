@@ -35,8 +35,8 @@ namespace QFramework.Example
             mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();
             battlePassModel = this.GetModel<BattlePassModel>();
             // 发布需打开
-           /* InitUI();*/
-            /*SetBtnClick();*/
+            InitUI();
+            SetBtnClick();
         }
        
 
@@ -51,9 +51,30 @@ namespace QFramework.Example
         {
             topImageFillSequence?.Kill();
             buttomImageFillSequence?.Kill();
+
+            // 刷新Top面板的结果
             ImgBar.fillAmount = (float)battlePassModel.GameWinNum / battlePassModel.CurrentGetConditions;
             ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = battlePassModel.RewardLevel.ToString();
             TextTaskProgressBar.text = $"{battlePassModel.GameWinNum}/{battlePassModel.CurrentGetConditions}";
+
+            // 边界情况
+            if(GameDefine.GameConst.MAX_INT == battlePassModel.CurrentGetConditions)
+            {
+                ImgBar.fillAmount = 1;
+                ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "30";
+                TextTaskProgressBar.text = "Complete";
+            }
+
+            //刷新Buttom面板的结果
+            for (int i = oldLevel; i < battlePassModel.RewardLevel; i++)
+            {
+                // 刷新进度条
+                BattlePassContent.transform.GetChild(i).GetComponent<BattlePassContentPanel>().SetDividingLine(0, 0);
+                // 刷新
+                BattlePassContent.transform.GetChild(i).GetComponent<BattlePassContentPanel>().SetProgressBar(1);
+                // 刷新宝箱状态
+                BattlePassContent.transform.GetChild(i).GetComponent<BattlePassContentPanel>().UpdateUI(i);
+            }
         }
 
         private void Start()
@@ -99,8 +120,14 @@ namespace QFramework.Example
         public void UpdateUI()
         {
             oldLevel = int.Parse(ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text);
+            Debug.Log(battlePassModel.BPDate.Rewards.Length);
+            if(oldLevel ==battlePassModel.BPDate.Rewards.Length-1)
+            {
+                SmoothScrollController(oldLevel-1);
+                return;
+            }
             UpTopPanelUI();
-            // 底部面板的更新由顶部动画结束触发
+            UpButtomPanelUI();
         }
         public void UpTopPanelUI()
         {       
@@ -111,7 +138,7 @@ namespace QFramework.Example
                 if (mBattlePassADActivity.ActivityStatus == GameActivityStatus.Active)
                     TxtCountDown.text = mBattlePassADActivity.GetActivityReamingTime();
                 else
-                    TxtCountDown.text = "Finished";
+                    TxtCountDown.text = "Completeed";
             }, 1, 1f)
            .SetLoops(-1, LoopType.Restart)
            .SetUpdate(true);
@@ -139,19 +166,32 @@ namespace QFramework.Example
                 
                 ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = (battlePassModel.RewardLevel).ToString();
                 TextTaskProgressBar.text = $"{battlePassModel.GameWinNum}/{battlePassModel.CurrentGetConditions}";
+                
             });
             Tween endFillTween = ImgBar.DOFillAmount((float)battlePassModel.GameWinNum / battlePassModel.CurrentGetConditions,1f / (battlePassModel.RewardLevel - oldLevel))
                    .SetEase(Ease.Linear)
                    .Pause()
-                   .OnComplete(UpButtomPanelUI);
+                   .OnComplete(() =>
+                   {                            
+                       buttomImageFillSequence.Play();
+                   });
             topImageFillSequence.Append(endFillTween);
+            topImageFillSequence.OnComplete(() =>
+            {
+                if (GameDefine.GameConst.MAX_INT == battlePassModel.CurrentGetConditions)
+                {
+                    ImgBar.fillAmount = 1;
+                    ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "30";
+                    TextTaskProgressBar.text = "Comolete";
+                }
+            });
             topImageFillSequence.Play();
+            
             #endregion
         }
 
         public void UpButtomPanelUI()
         {
-
             // 设置旧的奖励条
             BattlePassContent.transform.GetChild(oldLevel-1).GetComponent<BattlePassContentPanel>().SetDividingLine(0);
             buttomImageFillSequence = DOTween.Sequence();
@@ -164,22 +204,20 @@ namespace QFramework.Example
                 if(i == (oldLevel+ battlePassModel.RewardLevel) /2)
                     SmoothScrollController(battlePassModel.RewardLevel);
             }
-           
             buttomImageFillSequence.OnComplete(() =>
             {
                 // 设置新奖励条
                 BattlePassContent.transform.GetChild(battlePassModel.RewardLevel ).GetComponent<BattlePassContentPanel>().SetDividingLine(1);
+                // 战令内容的更新
+                for (int i = 0; i < battlePassModel.BPDate.Rewards.Length; i++)
+                {
+                    int _level = i;
+                    BattlePassContent.transform.GetChild(_level).GetComponent<BattlePassContentPanel>().UpdateUI(_level);
+                }
             });
 
-            buttomImageFillSequence.Play();
-
-            // 战令内容的更新
-            for (int i = 0; i < battlePassModel.BPDate.Rewards.Length; i++)
-            {
-                int _level = i;
-                BattlePassContent.transform.GetChild(_level).GetComponent<BattlePassContentPanel>().UpdateUI(_level);
-            }
-           
+          
+            
         }
 
         #endregion 
@@ -200,6 +238,9 @@ namespace QFramework.Example
 
         public  void SmoothScrollController(int index)
         {
+            // 
+            if (index >= battlePassModel.BPDate.Rewards.Length)
+                index = battlePassModel.BPDate.Rewards.Length - 1;
             RectTransform targetElement = ScrollView.content.GetChild(index) as RectTransform;
             Vector2 targetPosition = GetSnapToPositionToBringChildIntoView(targetElement);
 

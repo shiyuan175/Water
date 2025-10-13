@@ -27,6 +27,8 @@ namespace GameDefine
         //过关基础金币
         public const int WIN_COINS = 20;
         public const int ADD_BOTTLE_COST = 900;
+        // 战令边界数据
+        public const int MAX_INT = 9999999;
 
         //活动开启目标关卡
         public const int IN_GAME_RANK_BEGIN_LEVEL = 6;  //游戏内段位

@@ -6,6 +6,7 @@ using JsonFileData;
 using UnityEngine.UI;
 using System;
 using DG.Tweening;
+using System.Security.Cryptography;
 
 // 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间
 // 2.命名空间更改后，生成代码之后，需要把逻辑代码文件（非 Designer）的命名空间手动更改
@@ -243,7 +244,7 @@ namespace QFramework.Example
         { 
             Tween fillTween = ImgProgressBar.DOFillAmount(1, duration)
                     .SetEase(Ease.Linear)
-                    .Pause()
+                    .Pause()              
                     .OnStepComplete(() =>
                     {
                         // 设置进度条图片
@@ -308,10 +309,16 @@ namespace QFramework.Example
             }
             #endregion
         }
-        public void SetDividingLine(int endValue)
+
+        public void SetDividingLine(int endValue,int duraiton = 1)
         {
-            ImgTopDividingLine.DOFillAmount(endValue, 1);
-            ImgButtomDividingLine.DOFillAmount(endValue, 1);
+            ImgTopDividingLine.DOFillAmount(endValue, duraiton);
+            ImgButtomDividingLine.DOFillAmount(endValue, duraiton);
+        }
+
+        public void SetProgressBar(int endValue)
+        {
+            ImgProgressBar.fillAmount = endValue;
         }
     }
 }

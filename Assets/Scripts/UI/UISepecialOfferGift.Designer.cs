@@ -5,11 +5,13 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:e79b4412-e36c-4561-a7aa-2bb29b538134
+	// Generate Id:dd849baa-779c-4c1a-8892-7448ae2921f1
 	public partial class UISepecialOfferGift
 	{
 		public const string Name = "UISepecialOfferGift";
 		
+		[SerializeField]
+		public UnityEngine.UI.Button BtnBuy;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnClose;
 		[SerializeField]
@@ -19,6 +21,7 @@ namespace QFramework.Example
 		
 		protected override void ClearUIComponents()
 		{
+			BtnBuy = null;
 			BtnClose = null;
 			Time_Red = null;
 			

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using QFramework;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.Purchasing;
 
 namespace QFramework.Example
 {
@@ -15,7 +16,7 @@ namespace QFramework.Example
 		[SerializeField] private TextMeshProUGUI[] textRed;
 		private Tween mCountDownTween;
 		private SepecialOfferADActivity mSepecialOfferADActivity;
-
+        private GooglePayManager googlePay;
         protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UISepecialOfferGiftData ?? new UISepecialOfferGiftData();
@@ -50,5 +51,21 @@ namespace QFramework.Example
 		protected override void OnClose()
 		{
 		}
-	}
+
+
+		private void SetBtnClick()
+		{
+			BtnClose.onClick.AddListener(() =>
+			{
+				CloseSelf();
+			});
+
+			BtnBuy.onClick.AddListener(() =>
+			{
+				var _packSo = BtnBuy.GetComponent<GiftPack>().giftPack;
+                googlePay.BuyProduct(_packSo.ID);
+            });
+		}
+
+    }
 }

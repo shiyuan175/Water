@@ -48,5 +48,10 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
            for(int i =0;i<2;i++)
                 this.SendEvent(new ReturnToMainEvent { PassLevel = true });
         }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            for (int i = 0; i < 10; i++)
+                this.SendEvent(new ReturnToMainEvent { PassLevel = true });
+        }
     }
 }
