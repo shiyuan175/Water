@@ -20,10 +20,10 @@ MonoBehaviour:
     NameToFullName: []
     BindInfos:
     - TypeName: UnityEngine.UI.ScrollRect
-      PathToRoot: ScrollView
-      MemberName: ScrollView
-    ScriptsFolder: Assets\Scripts\Controllers\UIBegin_UnlockPreview
-    ClassName: UnlockPreview
-    Namespace: SceneUnlock
+      PathToRoot: ShopScrollView
+      MemberName: ShopScrollView
+    ScriptsFolder: Assets/Scripts/Controllers/UIBegin_ShopPanel
+    ClassName: ShopManager
+    Namespace: QFramework.Example
     MainCode: 
     DesignerCode: 

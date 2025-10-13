@@ -34,7 +34,8 @@ namespace QFramework.Example
         {
             mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();
             battlePassModel = this.GetModel<BattlePassModel>();
-            InitUI();
+            // 发布需打开
+           /* InitUI();*/
             /*SetBtnClick();*/
         }
        
