@@ -67,7 +67,6 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
             RegisterActivity<BattlePassADActivity>();
         }
 
-
         if (_curLevel >= GameDefine.GameConst.WIN_STREAK_BEGIN_LEVEL)
         {
             RegisterActivity<TierRankActivity>();

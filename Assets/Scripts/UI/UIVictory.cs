@@ -172,7 +172,19 @@ namespace QFramework.Example
                 }
                 return false;
             });
-
+            PanelQueueManager.Instance.Enqueue(() =>
+            {
+                if (GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>() is SepecialOfferADActivity sepecialOfferADActivity
+                    && sepecialOfferADActivity.ActivityStatus == GameActivityStatus.Active)
+                {
+                    UIKit.OpenPanel<UISepecialOfferGift>(new UISepecialOfferGiftData()
+                    { 
+                        IsManagedOpen = true,
+                    });
+                    return true;
+                }
+                return false;
+            });
             HandleMSA();
 
             //最后结算界面

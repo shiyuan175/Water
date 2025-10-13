@@ -81,8 +81,8 @@ namespace QFramework.Example
 
         protected override void OnHide()
         {
-        }
 
+        }
         protected override void OnClose()
         {
             if (mData.IsManagedOpen ?? false)
