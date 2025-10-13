@@ -30,28 +30,21 @@ namespace GameDefine
 
         //活动开启目标关卡
         public const int IN_GAME_RANK_BEGIN_LEVEL = 6;  //游戏内段位
-        public const int BP_AD_BEGIN_LEVEL = 6;     //战令活动
-        public const int VA_BEGIN_LEVEL = 15;       //火山活动
+        public const int BP_AD_BEGIN_LEVEL = 6;     //战令活动      
         public const int DR_AD_BEGIN_LEVEL = 8;     //日常广告活动
-        public const int DT_BEGIN_LEVEL = 8;        //日常广告活动
+        public const int DT_BEGIN_LEVEL = 8;        //日常任务活动
+        public const int VA_BEGIN_LEVEL = 15;       //火山活动
+        public const int SO_AD_BEGIN_LEVEL = 20;    //特惠礼包
         public const int TT_AD_BEGIN_LEVEL = 31;    //轮盘活动
         public const int RA_BEGIN_LEVEL = 25;       //火箭活动
         public const int MS_BEGIN_LEVEL = 45;       //魔法连胜活动
         public const int HTA_BEGIN_LEVEL = 65;      //高塔活动
-        public const int BP_AD_BEGIN_LEVEL = 6;    //战令活动
-        public const int VA_BEGIN_LEVEL = 7;    //火山活动
-        public const int DR_AD_BEGIN_LEVEL = 8; //日常广告活动
-        public const int DT_BEGIN_LEVEL = 8; //日常广告活动
-        public const int TT_AD_BEGIN_LEVEL = 16; //轮盘活动
-        public const int SO_AD_BEGIN_LEVEL = 20; //特惠礼包
-        public const int RA_BEGIN_LEVEL = 24;   //火箭活动
-        public const int HTA_BEGIN_LEVEL = 34;  //高塔活动
 
 
         //活动存档标记
         public const string MAGIC_STREAK_ACTIVITY_SIGN = "MagicStreakActivity";
         public const string ROCKET_ACTIVITY_SIGN = "RocketActivity";
-        public const string HIGH_TOWER_ACTIVITY_SIGN = "HighTowerActivity"; 
+        public const string HIGH_TOWER_ACTIVITY_SIGN = "HighTowerActivity";
         public const string TURNTABLE_AD_ACTIVITY_SIGN = "TurnTableADActivity";
         public const string DAILYREWARD_AD_ACTIVITY_SIGN = "DailyRewardADActivity";
         public const string BANNER_ACTIVITY_SIGN = "BannerActivity";
@@ -124,8 +117,8 @@ namespace GameDefine
 
         public readonly static JsonFileInfo BpCurrenJson = new JsonFileInfo()
         {
-        
-        
+
+
         };
         #endregion
 
@@ -141,7 +134,7 @@ namespace GameDefine
             { 61, ("Bottles with gemstone emblems can only be filled with water of the same color as the gemstone", "GuideAnim_61") },
             { 71, ("Combining two potion bottles can change 4 water of the same color", "GuideAnim_71") },
             { 81, ("Synthesizing a magic book can remove all negative effects", "GuideAnim_81")}
-            
+
         };
 
         //场景解锁界面(索引对应AB包名)
@@ -166,7 +159,7 @@ namespace GameDefine
         UIGuideLevelRemoveAll = 28
     }
 
-    
+
     /// <summary>
     /// 解锁机制标记
     /// </summary>
@@ -181,7 +174,7 @@ namespace GameDefine
     }
 
     public enum LevelHardType
-    { 
+    {
         Hard = 4,
         VeryHand = 9
     }
@@ -504,8 +497,8 @@ namespace GameDefine
         E_Awards = 30,
         F_Awards = 40,
     }
-        
-       
+
+
 
     public class GameEnum
     {

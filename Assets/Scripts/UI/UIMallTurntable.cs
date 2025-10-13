@@ -49,7 +49,7 @@ namespace QFramework.Example
         {
             mTurnTableADActivity = GameActivityManager.Instance.GetActivity<TurnTableADActivity>();
 
-            //按照枚举的值排序mTurnTableNode  概率越低在越前面
+            //按照枚举的值排序mTurnTableNode 概率越低在越前面
             mTurnTableNode.Sort((a, b) => ((int)a.GetComponent<TurnTableNode>().AwardLevel).CompareTo((int)b.GetComponent<TurnTableNode>().AwardLevel));
             foreach (var node in mTurnTableNode)
             {

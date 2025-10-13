@@ -1,4 +1,4 @@
-// Generate Id:356b3e4c-2751-46f7-963b-04354351cfbb
+// Generate Id:a5dbb7de-a774-4b40-a183-c7e4f85049f2
 using UnityEngine;
 
 // 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间
@@ -7,8 +7,7 @@ namespace QFramework.Example
 {
 	public partial class ShopManager
 	{
-
 		public UnityEngine.UI.ScrollRect ShopScrollView;
-
+		
 	}
 }
