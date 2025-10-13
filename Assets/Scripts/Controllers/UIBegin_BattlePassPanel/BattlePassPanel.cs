@@ -27,12 +27,12 @@ namespace QFramework.Example
             return GameMainArc.Interface;
         }
 
-        private void Awake()
-        {
-            mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();
-            battlePassModel = this.GetModel<BattlePassModel>();
-            InitUI();
-        }
+        //private void Awake()
+        //{
+        //    mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();
+        //    battlePassModel = this.GetModel<BattlePassModel>();
+        //    InitUI();
+        //}
        
 
         private void OnEnable()

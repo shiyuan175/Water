@@ -34,13 +34,8 @@ dependencies {
 // Android Resolver Dependencies End
 **DEPS**}
 
-configurations.all {
-    exclude group: 'com.applovin', module: 'applovin-sdk'
-}
-
 // Android Resolver Exclusions Start
 android {
-	namespace "com.unity3d.player"
   packagingOptions {
       exclude ('/lib/armeabi/*' + '*')
       exclude ('/lib/mips/*' + '*')
