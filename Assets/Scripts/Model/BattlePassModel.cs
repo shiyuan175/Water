@@ -92,8 +92,8 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         // 新版本直接代替旧版本，游戏内容的更新放到活动的重新开启
 
 
-        // 测试，发布需删除
-        ReloadBattlePassActivity();
+/*        // 测试，发布需删除
+        ReloadBattlePassActivity();*/
         //数据持有
         mJsonFileUtility.LoadFromJson(mCurFilePath, jsonData =>
         {

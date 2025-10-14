@@ -34,6 +34,7 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterModel(new SceneUnlockModel());
         RegisterModel(new DailyRewardADActivityModel());
         RegisterModel(new BattlePassModel());
+        RegisterModel(new SepecialOfferADActivityModel());
     }
 
     private void RegisterUtilitys()

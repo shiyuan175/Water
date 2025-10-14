@@ -45,6 +45,7 @@ namespace QFramework.Example
         private MagicStreakActivity mMagicStreakActivity;
         private TierRankActivity mTierRankActivity;
         private TurnTableADActivity mTurnTableADActivity;
+        private SepecialOfferADActivity mSepecialOfferADActivity;
         private BannerActivity mBannerActivity;
         private GameObject mCurBannerActivity;
 
@@ -75,6 +76,7 @@ namespace QFramework.Example
             mMagicStreakActivity = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
             mTierRankActivity = GameActivityManager.Instance.GetActivity<TierRankActivity>();
             mTurnTableADActivity = GameActivityManager.Instance.GetActivity<TurnTableADActivity>();
+            mSepecialOfferADActivity = GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>();
 
             LevelManager.Instance.InitBottle();
             if (saveData.GetCurrentLevel() <= GameConst.NEWBIE_LEVEL_COUNT)

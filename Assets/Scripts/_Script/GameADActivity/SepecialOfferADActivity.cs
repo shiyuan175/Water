@@ -35,13 +35,11 @@ public class SepecialOfferADActivity : BaseGameActivity
     }
     public override void RestartActivity()
     {
-        mSOModel.ChangeSepecialOfferIsbuy(false);
         CountDownTimerManager.Instance.ResetCountdownTimer(ActivitySign, 30);
     }
 
     public override void StartActivity()
     {
-        mSOModel.ChangeSepecialOfferIsbuy(false);
         CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign,30);
     }
     public override void Tick()
@@ -53,10 +51,6 @@ public class SepecialOfferADActivity : BaseGameActivity
         }
 
         base.Tick();
-    }
-    public void BuyGift()
-    {
-        mSOModel.ChangeSepecialOfferIsbuy(true);
     }
 
     public override void StreakWin()

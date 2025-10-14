@@ -172,11 +172,14 @@ namespace QFramework.Example
                 }
                 return false;
             });
+
+            // 特惠礼包
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                if (GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>() is SepecialOfferADActivity sepecialOfferADActivity
-                    && sepecialOfferADActivity.ActivityStatus == GameActivityStatus.Active)
+                if (GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>() is SepecialOfferADActivity sepecialOfferADActivity1
+                   && sepecialOfferADActivity1.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.SEPECIALOFFER_AD_ACTIVITY_SIGN))
                 {
+                    GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>().StartActivity();
                     UIKit.OpenPanel<UISepecialOfferGift>(new UISepecialOfferGiftData()
                     { 
                         IsManagedOpen = true,
@@ -185,6 +188,7 @@ namespace QFramework.Example
                 }
                 return false;
             });
+
             //魔法连胜活动
             HandleMSA();
 

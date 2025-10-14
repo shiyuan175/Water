@@ -793,7 +793,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1514,7 +1514,6 @@ GameObject:
   - component: {fileID: 1875654323514708036}
   - component: {fileID: 6901361538691210406}
   - component: {fileID: 7414630335236613924}
-  - component: {fileID: 5034614590218443646}
   m_Layer: 5
   m_Name: BtnPanel
   m_TagString: Untagged
@@ -1570,19 +1569,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 2
   m_LayoutPriority: 1
---- !u!114 &5034614590218443646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3068056017988388497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f3803431805974da2a902fda947718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  giftPack: {fileID: 11400000, guid: b6fca764d12ecbe408626b478d198194, type: 2}
 --- !u!1 &3466358075999120863
 GameObject:
   m_ObjectHideFlags: 0
@@ -2417,6 +2403,7 @@ GameObject:
   - component: {fileID: 2073721408804947730}
   - component: {fileID: 1275539002678549518}
   - component: {fileID: 4784460686785753566}
+  - component: {fileID: 7904603395102754014}
   m_Layer: 5
   m_Name: BtnBuy
   m_TagString: Untagged
@@ -2542,6 +2529,19 @@ MonoBehaviour:
   CustomComponentName: BtnBuy
   CustomComment: 
   mComponentName: UnityEngine.UI.Button
+--- !u!114 &7904603395102754014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5936749951312227173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f3803431805974da2a902fda947718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  giftPack: {fileID: 11400000, guid: b6fca764d12ecbe408626b478d198194, type: 2}
 --- !u!1 &6040145130153481486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2961,7 +2961,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

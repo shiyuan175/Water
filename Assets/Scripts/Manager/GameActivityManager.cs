@@ -73,6 +73,11 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<MagicStreakActivity>();
         }
+        if(_curLevel >= GameDefine.GameConst.SO_AD_BEGIN_LEVEL)
+        {
+            RegisterActivity<SepecialOfferADActivity>();
+        }
+
         //Other Activities can be registered here based on level or other conditions
     }
 

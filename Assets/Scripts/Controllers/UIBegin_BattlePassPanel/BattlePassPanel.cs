@@ -44,7 +44,9 @@ namespace QFramework.Example
         { 
             topImageFillSequence = DOTween.Sequence();
             buttomImageFillSequence = DOTween.Sequence();
-            UpdateUI();     
+#if UNITY_EDITOR
+            UpdateUI();
+#endif
         }
 
         private void OnDisable()
@@ -120,8 +122,7 @@ namespace QFramework.Example
         public void UpdateUI()
         {
             oldLevel = int.Parse(ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text);
-            Debug.Log(battlePassModel.BPDate.Rewards.Length);
-            if(oldLevel ==battlePassModel.BPDate.Rewards.Length-1)
+            if(oldLevel == battlePassModel.BPDate.Rewards.Length-1)
             {
                 SmoothScrollController(oldLevel-1);
                 return;
@@ -193,7 +194,8 @@ namespace QFramework.Example
         public void UpButtomPanelUI()
         {
             // 设置旧的奖励条
-            BattlePassContent.transform.GetChild(oldLevel-1).GetComponent<BattlePassContentPanel>().SetDividingLine(0);
+            Debug.Log(oldLevel);
+            BattlePassContent.transform.GetChild(oldLevel).GetComponent<BattlePassContentPanel>().SetDividingLine(0);
             buttomImageFillSequence = DOTween.Sequence();
             // 设置进度条动画和面板内容
             for (int i = oldLevel; i < battlePassModel.RewardLevel; i++)

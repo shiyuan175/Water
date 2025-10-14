@@ -31,13 +31,16 @@ namespace GameDefine
         public const int MAX_INT = 9999999;
 
         //活动开启目标关卡
-        public const int IN_GAME_RANK_BEGIN_LEVEL = 6;  //游戏内段位
-        public const int BP_AD_BEGIN_LEVEL = 6;     //战令活动      
-        public const int DR_AD_BEGIN_LEVEL = 8;     //日常广告活动
-        public const int DT_BEGIN_LEVEL = 8;        //日常任务活动
+        public const int IN_GAME_RANK_BEGIN_LEVEL = 6;  //游戏内段位       
+        public const int DR_AD_BEGIN_LEVEL = 8;     //日常广告活动 待定
+        public const int DT_BEGIN_LEVEL = 8;        //日常任务活动 待定
         public const int VA_BEGIN_LEVEL = 15;       //火山活动
-        public const int SO_AD_BEGIN_LEVEL = 20;    //特惠礼包
+        public const int SO_AD_BEGIN_LEVEL = 31;    //特惠礼包
+        public const int BP_AD_BEGIN_LEVEL = 31;    //战令活动   
         public const int TT_AD_BEGIN_LEVEL = 31;    //轮盘活动
+      /*  public const int TT_AD_BEGIN_LEVEL = 31;    //1+1活动
+        public const int TT_AD_BEGIN_LEVEL = 31;    //阶梯活动*/
+        // 免广告的18
         public const int RA_BEGIN_LEVEL = 25;       //火箭活动
         public const int MS_BEGIN_LEVEL = 45;       //魔法连胜活动
         public const int HTA_BEGIN_LEVEL = 65;      //高塔活动
