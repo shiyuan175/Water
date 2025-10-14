@@ -5,13 +5,11 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:14617090-4533-42d9-8d12-9a06c75a79a9
+	// Generate Id:06435e2f-9b54-428f-ae79-2a157dc23a9d
 	public partial class UITierRankActivity
 	{
 		public const string Name = "UITierRankActivity";
 		
-		[SerializeField]
-		public UnityEngine.UI.Image ImgTierRankIcon_Top;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnClose;
 		[SerializeField]
@@ -33,7 +31,6 @@ namespace QFramework.Example
 		
 		protected override void ClearUIComponents()
 		{
-			ImgTierRankIcon_Top = null;
 			BtnClose = null;
 			TxtCountDown = null;
 			BtnRewardInfo = null;

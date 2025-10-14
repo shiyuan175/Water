@@ -9,37 +9,18 @@ using UnityEngine;
 
 public class TierRankActivityModel : AbstractModel
 {
-    public int StreakWinNum => mTRAData.Player.StreamWinNum;
-    public bool FirstHourTierRank => mFirstHourTierRank.Value;
     public TRActivityData TRAData => mTRAData;
-
-    //5次连胜晋升一个段位,总段位数9(起始0)
-    private const int WIN_STREAK_RANKLEVEL_INTERVAL = 5;
-    private const int MAX_RANK_SPRITE_INDEX = 8;
-    private const string FIRST_HOUR_TIER_RANK = "E_FirstHourTierRank";
 
     private string mDelFilePath;
     private string mCurFilePath;
-    private SaveDataUtility mSaveDataUtility;
     private JsonFileUtility mJsonFileUtility;
     private TRActivityData mTRAData;
-   
-    private BindableProperty<bool> mFirstHourTierRank;
 
     protected override void OnInit()
     {
-        mSaveDataUtility = this.GetUtility<SaveDataUtility>();
         mJsonFileUtility = this.GetUtility<JsonFileUtility>();
         mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.TRADefaultJson.FileName);
         mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.TRACurrentJson.FileName);
-
-        mFirstHourTierRank = new BindableProperty<bool>();
-       
-        mFirstHourTierRank.SetValueWithoutEvent(mSaveDataUtility.LoadBoolValue(FIRST_HOUR_TIER_RANK));
-        mFirstHourTierRank.Register(value =>
-        {
-            mSaveDataUtility.SaveBool(FIRST_HOUR_TIER_RANK, value);
-        });
     }
 
     public void LoadTRAData()
@@ -94,7 +75,7 @@ public class TierRankActivityModel : AbstractModel
         //降序
         mTRAData.TRARobots.Sort((a, b) => b.StreamWinNum.CompareTo(a.StreamWinNum));
         if (TRAData.Player.StreamWinNum > TRAData.TRARobots[0].StreamWinNum 
-            && !CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.TRA_ONE_HOUR_RANK))
+            && !CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.TRA_HALF_ONE_HOUR_RANK))
             mTRAData.Player.IsRewardSettled = false;
 
         mJsonFileUtility.SaveToJson(mCurFilePath, mTRAData);
@@ -107,19 +88,9 @@ public class TierRankActivityModel : AbstractModel
         mJsonFileUtility.SaveToJson(mCurFilePath, mTRAData);
     }
 
-    public int GetTierRankIndex(int streakWin)
-    {
-        return Mathf.Min(MAX_RANK_SPRITE_INDEX, Mathf.Max(0, (streakWin - 1) / WIN_STREAK_RANKLEVEL_INTERVAL));
-    }
-
     public void MarkRewardAsSettled()
     {
         mTRAData.Player.IsRewardSettled = true;
         mJsonFileUtility.SaveToJson(mCurFilePath, mTRAData);
-    }
-
-    public void MarkFirstHourTierRank()
-    {
-        mFirstHourTierRank.Value = false;
     }
 }

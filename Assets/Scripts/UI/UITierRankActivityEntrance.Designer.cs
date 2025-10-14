@@ -5,15 +5,13 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:579f1d35-17d9-4fce-b977-2ad7264f3d32
+	// Generate Id:0049ec89-95fb-4063-812c-5779b4ca15da
 	public partial class UITierRankActivityEntrance
 	{
 		public const string Name = "UITierRankActivityEntrance";
 		
 		[SerializeField]
 		public UnityEngine.UI.Button BtnClose;
-		[SerializeField]
-		public UnityEngine.UI.Image ImgRankSprite;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtCountDown;
 		[SerializeField]
@@ -24,7 +22,6 @@ namespace QFramework.Example
 		protected override void ClearUIComponents()
 		{
 			BtnClose = null;
-			ImgRankSprite = null;
 			TxtCountDown = null;
 			BtnStart = null;
 			
