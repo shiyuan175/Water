@@ -35,6 +35,7 @@ namespace GameDefine
         public const int DT_BEGIN_LEVEL = 8;        //日常任务活动
         public const int VA_BEGIN_LEVEL = 15;       //火山活动
         public const int SO_AD_BEGIN_LEVEL = 20;    //特惠礼包
+        public const int TRA_BEGIN_LEVEL = 31;      //连胜排行活动(原段位排行活动)
         public const int TT_AD_BEGIN_LEVEL = 31;    //轮盘活动
         public const int RA_BEGIN_LEVEL = 25;       //火箭活动
         public const int MS_BEGIN_LEVEL = 45;       //魔法连胜活动
@@ -57,7 +58,7 @@ namespace GameDefine
         public const string POTION_ACTIVITY_SIGN = "PotionActivity";
         public const string RANKA_ACTIVITY_SIGN = "RankAActivity";
         public const string TIER_RANK_ACTIVITY_SIGN = "TierRankActivity";
-        public const string TRA_ONE_HOUR_RANK = "TRAOneHourRank";
+        public const string TRA_HALF_ONE_HOUR_RANK = "TRAHalfOneHourRank";
 
         //事件标记
         public const string START_POTION_ACTIVITY = "StartPotionActivity";

@@ -10,45 +10,34 @@ public class TierRankActivity : BaseRewardSettlementActivity
     public override bool IsRewardSettled => TRAData.Player.IsRewardSettled;
     public override string ActivitySign => GameDefine.GameConst.TIER_RANK_ACTIVITY_SIGN;
 
-    //这个活动改成第二天开启才开启的
     public override SettlementActivityStatus ActivityStatus
     {
         get
         {
+            if (!mCountDownTimerManager.IsTimerFinished(TRA_NEXT_DAY_SIGN))
+                return SettlementActivityStatus.Locked;
+
             if (!mCountDownTimerManager.IsTimerFinished(ActivitySign)
-                && !GameDefine.GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TRA_ONE_HOUR_RANK))
-            {
+                && !GameDefine.GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TRA_HALF_ONE_HOUR_RANK))
                 return SettlementActivityStatus.Inactive;
-            }
 
             if (!mCountDownTimerManager.IsTimerFinished(ActivitySign)
-                && !mCountDownTimerManager.IsTimerFinished(GameDefine.GameConst.TRA_ONE_HOUR_RANK))
-            {
+                && !mCountDownTimerManager.IsTimerFinished(GameDefine.GameConst.TRA_HALF_ONE_HOUR_RANK))
                 return SettlementActivityStatus.Active;
-            }
 
             if (!mCountDownTimerManager.IsTimerFinished(ActivitySign)
-                && mCountDownTimerManager.IsTimerFinished(GameDefine.GameConst.TRA_ONE_HOUR_RANK))
-            {
+                && mCountDownTimerManager.IsTimerFinished(GameDefine.GameConst.TRA_HALF_ONE_HOUR_RANK))
                 return SettlementActivityStatus.Finished;
-            }
 
             if (mCountDownTimerManager.IsTimerFinished(ActivitySign))
-            {
                 return SettlementActivityStatus.WaitStart;
-            }
 
             return SettlementActivityStatus.None;
         }
     }
-
-    public int StreakWinNum => mTRAModel.StreakWinNum;
-    public int PlayerTierRankIndex => GetTierRankIndex(StreakWinNum);
-    public int RankSettlementCoins => (PlayerTierRankIndex + 1) * COINS_PER_RANK;
     public TRActivityData TRAData => mTRAModel.TRAData;
 
-    private const int COINS_PER_RANK = 100;
-
+    private const string TRA_NEXT_DAY_SIGN = "TRA_NextDaySign";
     private CountDownTimerManager mCountDownTimerManager;
     private TierRankActivityModel mTRAModel;
 
@@ -57,10 +46,15 @@ public class TierRankActivity : BaseRewardSettlementActivity
         mCountDownTimerManager = CountDownTimerManager.Instance;
         mTRAModel = this.GetModel<TierRankActivityModel>();
 
-        if (!GameDefine.GameUtils.DoesCountDownKeyExist(ActivitySign))
-            StartActivity();
-        else
-            mTRAModel.LoadTRAData();
+        mCountDownTimerManager.StartEasternMidnightTimer(TRA_NEXT_DAY_SIGN);
+
+        if (mCountDownTimerManager.IsTimerFinished(TRA_NEXT_DAY_SIGN))
+        {
+            if (!GameDefine.GameUtils.DoesCountDownKeyExist(ActivitySign))
+                StartActivity();
+            else
+                mTRAModel.LoadTRAData();
+        }
     }
 
     public override void StreakWin()
@@ -96,34 +90,33 @@ public class TierRankActivity : BaseRewardSettlementActivity
         {
             case SettlementActivityStatus.WaitStart:
                 RestartActivity();
-                mCountDownTimerManager.DeleteTimer(GameDefine.GameConst.TRA_ONE_HOUR_RANK);
+                mCountDownTimerManager.DeleteTimer(GameDefine.GameConst.TRA_HALF_ONE_HOUR_RANK);
                 break;
         }
 
         base.Tick();
     }
     
-    public int GetTierRankIndex(int streakWin)
+    public bool RestartOneHourRankActivity()
     {
-        return mTRAModel.GetTierRankIndex(streakWin);
-    }
+        CountDownTimerManager.Instance.ResetCountdownTimer(GameDefine.GameConst.TRA_HALF_ONE_HOUR_RANK, 0.5f);
 
-    public (bool isRewardSettled, bool isFirstRank) RestartOneHourRankActivity()
-    {
+        //在游戏内Next Day倒计时结束，可能存在数据还未加载的情况
+        //如临近美东0时到达31关，然后到达美东0时。此时数据还未加载,开启活动会空引用
+        if (TRAData is null)
+        {
+            RestartActivityInit();
+            return true;
+        }
+
         var _isRewardSettled = TRAData.Player.IsRewardSettled;
-        var _isFirstRank = mTRAModel.FirstHourTierRank;
-
-        if (_isFirstRank)
-            mTRAModel.MarkFirstHourTierRank();
-
-        CountDownTimerManager.Instance.ResetCountdownTimer(GameDefine.GameConst.TRA_ONE_HOUR_RANK, 1);
         RestartActivityInit();
 
-        return (_isRewardSettled, _isFirstRank);
+        return _isRewardSettled;
     }
 
-    public string GetOneHourTierRankTime()
+    public string GetHalfOneHourTierRankTime()
     {
-        return CountDownTimerManager.Instance.GetRemainingTimeText(GameDefine.GameConst.TRA_ONE_HOUR_RANK);
+        return CountDownTimerManager.Instance.GetRemainingTimeText(GameDefine.GameConst.TRA_HALF_ONE_HOUR_RANK);
     }
 }

@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:6c1d9fe1-cbf8-4ffe-8f56-95ce90ca7b1b
+	// Generate Id:41a7d5b0-f080-4384-a96b-7ad97ec14ef6
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
@@ -77,16 +77,6 @@ namespace QFramework.Example
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtVolcanicActivity;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnMSANode;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtMagicStreakActivity;
-		[SerializeField]
-		public UnityEngine.UI.Button BtnTRANode;
-		[SerializeField]
-		public UnityEngine.UI.Image ImgTierRankIcon;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtTierRankActivity;
-		[SerializeField]
 		public UnityEngine.UI.Button BtnRANode;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtRocketActivity;
@@ -94,6 +84,14 @@ namespace QFramework.Example
 		public UnityEngine.UI.Button BtnHTANode;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtHighTowerActivity;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnMSANode;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtMagicStreakActivity;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnTRANode;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtTierRankActivity;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnTTNode;
 		[SerializeField]
@@ -144,15 +142,14 @@ namespace QFramework.Example
 			ImgHeadFrame = null;
 			BtnVANode = null;
 			TxtVolcanicActivity = null;
-			BtnMSANode = null;
-			TxtMagicStreakActivity = null;
-			BtnTRANode = null;
-			ImgTierRankIcon = null;
-			TxtTierRankActivity = null;
 			BtnRANode = null;
 			TxtRocketActivity = null;
 			BtnHTANode = null;
 			TxtHighTowerActivity = null;
+			BtnMSANode = null;
+			TxtMagicStreakActivity = null;
+			BtnTRANode = null;
+			TxtTierRankActivity = null;
 			BtnTTNode = null;
 			TxtTTActivity = null;
 			BtnSelect = null;

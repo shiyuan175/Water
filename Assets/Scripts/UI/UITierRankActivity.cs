@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.U2D;
 
 namespace QFramework.Example
 {
@@ -21,8 +20,6 @@ namespace QFramework.Example
         
         private RewardGrantUtility mRewardGrantUtility;
         private TierRankActivity mTierRankActivity;
-        private ResLoader mResLoader;
-        private SpriteAtlas mRankLevelSpriteAtlas;
         private Tween mCountDownTween;
 
         protected override void OnInit(IUIData uiData = null)
@@ -37,7 +34,6 @@ namespace QFramework.Example
             TxtClaimReward_Red.font = LevelManager.Instance.redFont;
             TxtRewardTip_Blue.font = LevelManager.Instance.blueFont;
 
-            mResLoader = ResLoader.Allocate();
 			mTierRankActivity = GameActivityManager.Instance.GetActivity<TierRankActivity>();
             mRewardGrantUtility = this.GetUtility<RewardGrantUtility>();
 
@@ -45,14 +41,13 @@ namespace QFramework.Example
             mCountDownTween = DOTween.To(() => 0, x =>
             {
                 if (mTierRankActivity.ActivityStatus == SettlementActivityStatus.Active)
-                    TxtCountDown.text = mTierRankActivity.GetOneHourTierRankTime();
+                    TxtCountDown.text = mTierRankActivity.GetHalfOneHourTierRankTime();
                 else
                     TxtCountDown.text = "Finished";
             }, 1, 1f)
             .SetLoops(-1, LoopType.Restart)
             .SetUpdate(true);
 
-            LoadRes();
 			InitUI();
 			BindBtn();
         }
@@ -69,24 +64,11 @@ namespace QFramework.Example
 		{
             mCountDownTween.Kill();
             mCountDownTween = null;
-
-            mResLoader.Recycle2Cache();
-			mResLoader = null;
-            mRankLevelSpriteAtlas = null;
 			mTierRankActivity = null;
-        }
-
-		private void LoadRes()
-		{
-            mRankLevelSpriteAtlas = mResLoader.LoadSync<SpriteAtlas>
-                  (ABResourceDefine.RANK_LEVEL_ATLAS_BUNDLENAME, ABResourceDefine.RANK_LEVEL_ATLAS_ASSETNAME);
         }
 
 		private void InitUI()
 		{
-			var _playerTierSprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mTierRankActivity.PlayerTierRankIndex));
-			ImgTierRankIcon_Top.sprite = _playerTierSprite;
-
             //≈≈√˚
             var _allEntities = new List<object>();
             _allEntities.AddRange(mTierRankActivity.TRAData.TRARobots);
@@ -104,14 +86,11 @@ namespace QFramework.Example
                 var _traNode = mTRANodeCtrls[i].GetComponent<TRANodeCtrl>();
 
 				if (_sorted[i] is TRAPlayer _player)
-					_traNode.InitPlayer(_player, _playerTierSprite);
+					_traNode.InitPlayer(_player);
 				else
 				{
                     TRARobotsData _robot = _sorted[i] as TRARobotsData;
-                    Sprite _tierSprite = mRankLevelSpriteAtlas.GetSprite(
-                    GameUtils.GetAtlasSpriteName(mTierRankActivity.GetTierRankIndex(_robot.StreamWinNum)));
-
-                    _traNode.InitRobot(_robot, _tierSprite);
+                    _traNode.InitRobot(_robot);
                 }
             }
           

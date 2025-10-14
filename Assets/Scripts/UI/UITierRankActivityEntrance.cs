@@ -16,8 +16,6 @@ namespace QFramework.Example
         [SerializeField] private RewardPackSO mRankSettlementSO;
         [SerializeField] private Sprite mSpriteGreyBtn;
 
-        private ResLoader mResLoader;
-        private SpriteAtlas mRankLevelSpriteAtlas;
         private RewardGrantUtility mRewardGrantUtility;
         private TierRankActivity mTierRankActivity;
         private Tween mCountDownTween;
@@ -30,10 +28,6 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-            mResLoader = ResLoader.Allocate();
-            mRankLevelSpriteAtlas = mResLoader.LoadSync<SpriteAtlas>
-                    (ABResourceDefine.RANK_LEVEL_ATLAS_BUNDLENAME, ABResourceDefine.RANK_LEVEL_ATLAS_ASSETNAME);
-
             mTierRankActivity = GameActivityManager.Instance.GetActivity<TierRankActivity>();
             mRewardGrantUtility = this.GetUtility<RewardGrantUtility>();
 
@@ -59,17 +53,12 @@ namespace QFramework.Example
 
         protected override void OnClose()
         {
-            mResLoader.Recycle2Cache();
-            mResLoader = null;
-
             mCountDownTween.Kill();
             mCountDownTween = null;
         }
 
         private void InitUI()
         {
-            ImgRankSprite.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mTierRankActivity.PlayerTierRankIndex));
-
             if (mTierRankActivity.ActivityStatus != SettlementActivityStatus.Inactive)
             {
                 BtnStart.image.sprite = mSpriteGreyBtn;
@@ -89,19 +78,15 @@ namespace QFramework.Example
                 System.Action _action = () =>
                 {
                     UIKit.OpenPanel<UITierRankActivity>();
-                    StringEventSystem.Global.Send(GameDefine.GameConst.START_TIER_RANK_ACTIVITY);
                     CloseSelf();
                 };
 
-                var _tuple = mTierRankActivity.RestartOneHourRankActivity();
+                var _isRewardSettled = mTierRankActivity.RestartOneHourRankActivity();
                 mRewardGrantUtility.GrantReward(mStartActivitySO);
-                if (!_tuple.isRewardSettled)
-                    mRewardGrantUtility.GrantReward(mRankSettlementSO);
-                if (!_tuple.isFirstRank)
+                if (!_isRewardSettled)
                 {
-                    CoinManager.Instance.AddCoin(mTierRankActivity.RankSettlementCoins);
-
-                    RewardUIManager.Instance.PlayRewardAnim(mTierRankActivity.RankSettlementCoins, true, _action, mStartActivitySO, mRankSettlementSO);
+                    mRewardGrantUtility.GrantReward(mRankSettlementSO);
+                    RewardUIManager.Instance.PlayRewardAnim(null, true, _action, mStartActivitySO, mRankSettlementSO);
                 }
                 else
                     RewardUIManager.Instance.PlayRewardAnim(null, true, _action, mStartActivitySO);
