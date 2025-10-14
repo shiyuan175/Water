@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class TRANodeCtrl : MonoBehaviour
 {
-    [SerializeField] private Image mTierRankIcon;
     [SerializeField] private Image mAvatar;
     [SerializeField] private Image mAvatarFrame;
     [SerializeField] private Image mRankFrame;
@@ -27,7 +26,7 @@ public class TRANodeCtrl : MonoBehaviour
         mTxtStreakWin_Red.font = LevelManager.Instance.redFont;
     }
 
-    public void InitRobot(TRARobotsData traData ,Sprite tierRankSprite)
+    public void InitRobot(TRARobotsData traData)
     {
         mAvatar.sprite = AvatarManager.Instance.GetAvatarSprite(true, traData.Avatar);
         mAvatarFrame.sprite = AvatarManager.Instance.GetAvatarSprite(false, traData.AvatarFrame);
@@ -36,10 +35,9 @@ public class TRANodeCtrl : MonoBehaviour
 
         mTxtName.text = traData.Name;
         mTxtStreakWin_Red.text = $"{traData.StreamWinNum}";
-        mTierRankIcon.sprite = tierRankSprite;
     }
 
-    public void InitPlayer(TRAPlayer traData, Sprite tierRankSprite)
+    public void InitPlayer(TRAPlayer traData)
     {
         mAvatar.sprite = AvatarManager.Instance.GetAvatarSprite(true);
         mAvatarFrame.sprite = AvatarManager.Instance.GetAvatarSprite(false);
@@ -48,6 +46,5 @@ public class TRANodeCtrl : MonoBehaviour
 
         mTxtName.text = traData.PlayerName;
         mTxtStreakWin_Red.text = $"{traData.StreamWinNum}";
-        mTierRankIcon.sprite = tierRankSprite;
     }
 }

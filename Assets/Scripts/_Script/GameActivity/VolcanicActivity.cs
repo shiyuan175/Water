@@ -22,11 +22,13 @@ public class VolcanicActivity : BaseGameActivity
             if (!VAActivateState)
                 return GameActivityStatus.Inactive;
             //可以加上ActivitySign是否过期的条件
-            if (CountDownTimerManager.Instance.IsTimerFinished(ActivityCooldownSign)
+            if (!CountDownTimerManager.Instance.IsTimerFinished(ActivitySign)
+                && CountDownTimerManager.Instance.IsTimerFinished(ActivityCooldownSign)
                 && !IsExceededDailyRefreshLimit)
                 return GameActivityStatus.Active;
 
-            if (!CountDownTimerManager.Instance.IsTimerFinished(ActivityCooldownSign)
+            if (!CountDownTimerManager.Instance.IsTimerFinished(ActivitySign)
+                && !CountDownTimerManager.Instance.IsTimerFinished(ActivityCooldownSign)
                 && !IsExceededDailyRefreshLimit)
                 return GameActivityStatus.CoolingDown;
 
@@ -113,14 +115,14 @@ public class VolcanicActivity : BaseGameActivity
                 break;
 
             case GameActivityStatus.Active:
-                if (IsExceededDailyRefreshLimit)
+                if (CountDownTimerManager.Instance.IsTimerFinished(ActivitySign) || IsExceededDailyRefreshLimit)
                     mCurrentStatus = GameActivityStatus.WaitStart;
                 else if (!CountDownTimerManager.Instance.IsTimerFinished(ActivityCooldownSign))
                     mCurrentStatus = GameActivityStatus.CoolingDown;
                 break;
 
             case GameActivityStatus.CoolingDown:
-                if (IsExceededDailyRefreshLimit)
+                if (CountDownTimerManager.Instance.IsTimerFinished(ActivitySign) || IsExceededDailyRefreshLimit)
                     mCurrentStatus = GameActivityStatus.WaitStart;
                 else if (CountDownTimerManager.Instance.IsTimerFinished(ActivityCooldownSign))
                 {

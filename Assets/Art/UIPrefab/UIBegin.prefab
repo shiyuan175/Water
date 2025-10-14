@@ -2497,15 +2497,14 @@ MonoBehaviour:
   ImgHeadFrame: {fileID: 3286103140019070658}
   BtnVANode: {fileID: 6927020818663459828}
   TxtVolcanicActivity: {fileID: 3023577935047653429}
-  BtnMSANode: {fileID: 4919809567090459793}
-  TxtMagicStreakActivity: {fileID: 5653381900446688914}
-  BtnTRANode: {fileID: 4324775109173109131}
-  ImgTierRankIcon: {fileID: 1564458714834409256}
-  TxtTierRankActivity: {fileID: 6807507337050323692}
   BtnRANode: {fileID: 6656459033017186630}
   TxtRocketActivity: {fileID: 7430335254923027866}
   BtnHTANode: {fileID: 299043872694420242}
   TxtHighTowerActivity: {fileID: 2119417357946916271}
+  BtnMSANode: {fileID: 4919809567090459793}
+  TxtMagicStreakActivity: {fileID: 5653381900446688914}
+  BtnTRANode: {fileID: 4324775109173109131}
+  TxtTierRankActivity: {fileID: 6807507337050323692}
   BtnTTNode: {fileID: 5563914447160439633}
   TxtTTActivity: {fileID: 5219567199579336073}
   BtnSelect: {fileID: 2874973331090683755}
@@ -13774,7 +13773,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47671189daf8f544796f762652a7cf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mUnlockLevel: 25
   mUnlockSprite: {fileID: 21300000, guid: fa625ec756b43d34daa6889802647d50, type: 3}
   mStateImg: {fileID: 4238740856508489949}
 --- !u!1 &2725801352311829607
@@ -14080,7 +14078,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47671189daf8f544796f762652a7cf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mUnlockLevel: 45
   mUnlockSprite: {fileID: 21300000, guid: f3560cac61934b64eb2b1600545d1034, type: 3}
   mStateImg: {fileID: 2300839463643648243}
 --- !u!1 &2739128806741970489
@@ -27581,7 +27578,6 @@ GameObject:
   - component: {fileID: 376637230630393632}
   - component: {fileID: 8512943217647618546}
   - component: {fileID: 1564458714834409256}
-  - component: {fileID: 2472676085421037675}
   m_Layer: 5
   m_Name: ImgTierRankIcon
   m_TagString: Untagged
@@ -27606,7 +27602,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 130, y: 130}
+  m_SizeDelta: {x: 176, y: 145}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8512943217647618546
 CanvasRenderer:
@@ -27636,7 +27632,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8d78177d71aa09b4681a02b950249bc1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -27646,22 +27642,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2472676085421037675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5754956369325440154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MarkType: 0
-  CustomComponentName: ImgTRA2
-  CustomComment: 
-  mComponentName: UnityEngine.UI.Image
 --- !u!1 &5761561633147332611
 GameObject:
   m_ObjectHideFlags: 0
@@ -32486,7 +32466,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f3560cac61934b64eb2b1600545d1034, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 81d2c30bec1a10e4991f67c358e508b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -32799,7 +32779,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47671189daf8f544796f762652a7cf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mUnlockLevel: 15
   mUnlockSprite: {fileID: 21300000, guid: 09acc8cbe8f5bb5468d5fcfc056e6339, type: 3}
   mStateImg: {fileID: 2426729752562219249}
 --- !u!1 &6804833403855983528
@@ -34514,6 +34493,7 @@ GameObject:
   - component: {fileID: 1284858429516742488}
   - component: {fileID: 4324775109173109131}
   - component: {fileID: 7424504844855081047}
+  - component: {fileID: 6326881577030811754}
   m_Layer: 5
   m_Name: BtnTRANode
   m_TagString: Untagged
@@ -34619,7 +34599,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1284858429516742488}
   m_OnClick:
     m_PersistentCalls:
@@ -34640,6 +34620,20 @@ MonoBehaviour:
   CustomComponentName: BtnVolcanicActivity
   CustomComment: 
   mComponentName: UnityEngine.UI.Button
+--- !u!114 &6326881577030811754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153955529825994477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47671189daf8f544796f762652a7cf98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mUnlockSprite: {fileID: 21300000, guid: f3560cac61934b64eb2b1600545d1034, type: 3}
+  mStateImg: {fileID: 7083339069369607971}
 --- !u!1 &7200292849195284929
 GameObject:
   m_ObjectHideFlags: 0
@@ -42404,7 +42398,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47671189daf8f544796f762652a7cf98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mUnlockLevel: 65
   mUnlockSprite: {fileID: 21300000, guid: fa625ec756b43d34daa6889802647d50, type: 3}
   mStateImg: {fileID: 1150759760144215989}
 --- !u!1 &8827332732365812194

@@ -14,6 +14,7 @@ public enum GameActivityStatus
 //奖励结算式活动状态
 public enum SettlementActivityStatus
 {
+    Locked,
     Inactive,
     Active,
     Finished,

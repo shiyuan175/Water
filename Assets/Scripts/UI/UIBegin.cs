@@ -48,9 +48,6 @@ namespace QFramework.Example
         private BannerActivity mBannerActivity;
         private GameObject mCurBannerActivity;
 
-        private ResLoader mResLoader;
-        private SpriteAtlas mRankLevelSpriteAtlas;
-
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;
@@ -107,10 +104,7 @@ namespace QFramework.Example
 
         protected override void OnClose()
         {
-            mResLoader.Recycle2Cache();
-            mResLoader = null;
-            mTierRankActivity = null;
-            mRankLevelSpriteAtlas = null;
+            
         }
 
         private void BindBtn()
@@ -286,7 +280,6 @@ namespace QFramework.Example
                     StartCoroutine(ShowFx());
                     ShowActivityState();
 
-                    SetTierRankIcon();
                     if (mSceneUnlockModel.SceneIndex == 0 && mSceneUnlockModel.SceneUnlockUnitIndex == 0)
                         UIKit.OpenPanel<SceneUnlockGuide>(UILevel.PopUI);
                 }
@@ -352,33 +345,27 @@ namespace QFramework.Example
                 bottomMenuBtns.Last().onClick.Invoke();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-            StringEventSystem.Global.Register(GameConst.START_TIER_RANK_ACTIVITY, () =>
-            {
-                SetTierRankIcon();
-
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
         //可拓展(段位活动暂关)
         private void TryStartGame()
         {
-            //if (mTierRankActivity != null)
-            //{
-            //    var _activityStatus = mTierRankActivity.ActivityStatus;
-            //    if (_activityStatus == SettlementActivityStatus.Inactive)
-            //    {
-            //        UIKit.OpenPanel<UITierRankActivityEntrance>();
-            //        return;
-            //    }
+            if (mTierRankActivity != null)
+            {
+                var _activityStatus = mTierRankActivity.ActivityStatus;
+                if (_activityStatus == SettlementActivityStatus.Inactive)
+                {
+                    UIKit.OpenPanel<UITierRankActivityEntrance>();
+                    return;
+                }
 
-            //    if (_activityStatus == SettlementActivityStatus.Finished
-            //        && !mTierRankActivity.TRAData.Player.IsRewardSettled)
-            //    {
-            //        UIKit.OpenPanel<UITierRankActivity>();
-            //        return;
-            //    }
-            //}
+                if (_activityStatus == SettlementActivityStatus.Finished
+                    && !mTierRankActivity.TRAData.Player.IsRewardSettled)
+                {
+                    UIKit.OpenPanel<UITierRankActivity>();
+                    return;
+                }
+            }
             
             UIKit.OpenPanel<UIBeginSelect>();
         }
@@ -417,10 +404,6 @@ namespace QFramework.Example
         
         private void LoaderRes()
         {
-            mResLoader = ResLoader.Allocate();
-            mRankLevelSpriteAtlas = mResLoader.LoadSync<SpriteAtlas>
-                (ABResourceDefine.RANK_LEVEL_ATLAS_BUNDLENAME, ABResourceDefine.RANK_LEVEL_ATLAS_ASSETNAME);
-
             TxtImgprogress.font = LevelManager.Instance.blueFont;
             TxtImgprogress.font.material.shader = Shader.Find(TxtImgprogress.font.material.shader.name);
             TxtStartLevel.font = LevelManager.Instance.redFont;
@@ -438,7 +421,6 @@ namespace QFramework.Example
             SetStar();
             SetScene();
             SetStartLevel();
-            SetTierRankIcon();
         }
     
         private void SetCoin()
@@ -483,14 +465,6 @@ namespace QFramework.Example
                 }
             }
             TxtStartLevel.text = $"Level {currentLevel}"+$"<br><size=45>{appendString}</size>";
-        }
-        
-        private void SetTierRankIcon()
-        {
-            if (mTierRankActivity != null)
-                ImgTierRankIcon.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mTierRankActivity.PlayerTierRankIndex));
-            else 
-                ImgTierRankIcon.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(0));
         }
 
         /// <summary>
@@ -595,6 +569,12 @@ namespace QFramework.Example
                     if (mMagicStreakActivity.ActivityStatus is SettlementActivityStatus.Active)
                         TxtMagicStreakActivity.text = mMagicStreakActivity.GetActivityReamingTime();
                 }
+
+                if (mTierRankActivity is not null)
+                {
+                    if (mTierRankActivity.ActivityStatus is SettlementActivityStatus.Active)
+                        TxtTierRankActivity.text = mTierRankActivity.GetHalfOneHourTierRankTime();
+                }
             }
         }
         #endregion
@@ -603,7 +583,7 @@ namespace QFramework.Example
         private void ShowActivityState()
         {
             var _curLevel = saveData.GetCurrentLevel();
-            //各活动在主页显示的条件(部分活动结束时需隐藏自身)
+            //各活动在主页显示的条件(到达第几关在主页显示，部分活动结束时需隐藏自身)
             //活动未注册时管理显示，注册后由活动自身管理
             if (_curLevel >= 7 && mVolcanicActivity is null)
                 BtnVANode.Show();
@@ -611,7 +591,10 @@ namespace QFramework.Example
             if (_curLevel >= 16 && mRocketActivity is null)
                 BtnRANode.Show();
 
-            if (_curLevel >= 31)
+            if (_curLevel >= GameConst.TRA_BEGIN_LEVEL)
+                BtnTRANode.Show();
+
+            if (_curLevel >= GameConst.TT_AD_BEGIN_LEVEL)
                 BtnTTNode.Show();
 
             if (_curLevel >= 26)
@@ -701,6 +684,8 @@ namespace QFramework.Example
                 TxtVolcanicActivity.text = "LV15";
                 return;
             }
+
+            ChangeActivityIcon(BtnVANode.gameObject);
             BtnVANode.interactable = true;
             switch (mVolcanicActivity.ActivityStatus)
             {
@@ -733,6 +718,8 @@ namespace QFramework.Example
                 TxtRocketActivity.text = "LV25";
                 return;
             }
+
+            ChangeActivityIcon(BtnRANode.gameObject);
             BtnRANode.interactable = true;
 
             switch (mRocketActivity.ActivityStatus)
@@ -761,6 +748,8 @@ namespace QFramework.Example
                 TxtHighTowerActivity.text = "LV65";
                 return;
             }
+
+            ChangeActivityIcon(BtnHTANode.gameObject);
             BtnHTANode.interactable = true;
             TxtHighTowerActivity.text = mHighTowerActivity.ActivityStatus switch
             {
@@ -779,6 +768,7 @@ namespace QFramework.Example
                 return;
             }
 
+            ChangeActivityIcon(BtnMSANode.gameObject);
             BtnMSANode.interactable = true;
             TxtMagicStreakActivity.text = mMagicStreakActivity.ActivityStatus switch
             {
@@ -790,20 +780,26 @@ namespace QFramework.Example
 
         private void UptateTRAState()
         {
-            if (mTierRankActivity is null)
+            if (mTierRankActivity is not null)
             {
-                BtnTRANode.interactable = false;
-                TxtTierRankActivity.text = "Locked";
-                return;
-            }
+                if (mTierRankActivity.ActivityStatus == SettlementActivityStatus.Locked)
+                {
+                    BtnTRANode.interactable = false;
+                    TxtTierRankActivity.text = "Next Day";
+                    return;
+                }
 
-            BtnTRANode.interactable = true;
-            TxtTierRankActivity.text = mTierRankActivity.ActivityStatus switch
-            {
-                SettlementActivityStatus.Inactive => "Inactive",
-                SettlementActivityStatus.Active => "Active",
-                _ => "Finished"
-            };
+                ChangeActivityIcon(BtnTRANode.gameObject);
+                BtnTRANode.interactable = true;
+                //更换横幅精灵
+              
+                TxtTierRankActivity.text = mTierRankActivity.ActivityStatus switch
+                {
+                    SettlementActivityStatus.Inactive => "START",
+                    SettlementActivityStatus.Active => mTierRankActivity.GetHalfOneHourTierRankTime(),
+                    _ => "Finished"
+                };
+            }
         }
         
         private void UpdateTTState()
@@ -813,6 +809,12 @@ namespace QFramework.Example
                 GameActivityStatus.Active => "Active",
                 _ => "Finished"
             };
+        }
+
+        private void ChangeActivityIcon(GameObject activity)
+        {
+            var _gameActivityStateCtrl = activity.GetComponent<GameActivityStateCtrl>();
+            _gameActivityStateCtrl.ChangeIcon();
         }
 
         /// <summary>

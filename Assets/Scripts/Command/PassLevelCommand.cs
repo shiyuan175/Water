@@ -26,11 +26,10 @@ public class PassLevelCommand : AbstractCommand ,ICanGetModel
         {
             GameActivityManager.Instance.RegisterActivity<MagicStreakActivity>();
         }
-        //(段位活动暂关)
-        //if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)
-        //{
-        //    GameActivityManager.Instance.RegisterActivity<TierRankActivity>();
-        //}
+        if (currentLevel == GameConst.TRA_BEGIN_LEVEL)
+        {
+            GameActivityManager.Instance.RegisterActivity<TierRankActivity>();
+        }
 
         if (currentLevel == GameConst.SO_AD_BEGIN_LEVEL)
         {
@@ -51,7 +50,8 @@ public class PassLevelCommand : AbstractCommand ,ICanGetModel
 
         //各模块增加连胜逻辑...
         mTierRankActivity ??= GameActivityManager.Instance.GetActivity<TierRankActivity>();
-        mTierRankActivity?.StreakWin();
+        if (mTierRankActivity?.ActivityStatus == SettlementActivityStatus.Active)
+            mTierRankActivity?.StreakWin();
 
         mStageModel ??= this.GetModel<StageModel>();
         mStageModel?.PassLevel();
