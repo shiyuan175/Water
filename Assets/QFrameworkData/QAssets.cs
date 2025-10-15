@@ -185,6 +185,11 @@ namespace QAssetBundle
         public const string BundleName = "uiranka_prefab";
         public const string UIRankA = "UIRankA";
     }
+    public class Uiremoveadadactivity_prefab
+    {
+        public const string BundleName = "uiremoveadadactivity_prefab";
+        public const string UIRemoveAdADActivity = "UIRemoveAdADActivity";
+    }
     public class Uiretry_prefab
     {
         public const string BundleName = "uiretry_prefab";
@@ -200,15 +205,15 @@ namespace QAssetBundle
         public const string BundleName = "uirocketactivityentrance_prefab";
         public const string UIRocketActivityEntrance = "UIRocketActivityEntrance";
     }
-    public class Uishop_prefab
+    public class Uisepecialoffergift_prefab
     {
-        public const string BundleName = "uishop_prefab";
-        public const string UIShop = "UIShop";
+        public const string BundleName = "uisepecialoffergift_prefab";
+        public const string UISepecialOfferGift = "UISepecialOfferGift";
     }
     public class Uistreakwinguide_prefab
     {
         public const string BundleName = "uistreakwinguide_prefab";
-        public const string UIStreakWinGuide = "UIStreakWinGuide";
+        public const string UIWinStreakRemoveHide = "UIWinStreakRemoveHide";
     }
     public class Uitierrankactivity_prefab
     {

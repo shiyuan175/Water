@@ -6,11 +6,14 @@ using GameDefine;
 
 public class StageModel : AbstractModel
 {
+    #region 内部字段、常量
+
     private const string REMAINING_STARS = "A_RemainingStars";
     private const string ITEM_SIGN = "A_GameItem";
     private const string COUNTINUE_WIN_NUM_SIGN = "A_WaterCountinueWinNum";
     private const string IN_GAME_RANK_STREAK_WIN_SIGN = "A_InGameRankStreakWinNum";
     private const string GOLD_COINS_MULTIPLE_STREAK_WIN_SIGN = "A_GoldCoinsMultipleStreakWinNum";
+    private const string REMOVE_HIDE_STREAK_WIN_SIGN = "A_RemoveHideStreakWinNum";
     private const string VOLUME_SETTING_SIGN = "A_WaterVolumeSetting";
     private const string HISTORY_BEST_RANK = "E_HistoryBestRank";
 
@@ -18,8 +21,6 @@ public class StageModel : AbstractModel
 
     private SaveDataUtility storage;
 
-    //道具字典
-    public BindableDictionary<int, int> ItemDic;
     //当前星星数
     private BindableProperty<int> mRemainingStars;
     //连胜
@@ -28,10 +29,18 @@ public class StageModel : AbstractModel
     private BindableProperty<int> mInGameRankStreakWin;
     //1.5倍金币的连胜
     private BindableProperty<int> mGoldCoinsMultipleStreakWin;
+    //连胜去黑
+    private BindableProperty<int> mRemoveHideStreakWin;
     //历史最高段位
     private BindableProperty<int> mHistoryBestRank;
     // 1.5倍结算金币
-    private float mGoldCoinsMultiple => mGoldCoinsMultipleStreakWin.Value > GameConst.CONTINUE_WIN_NUM_COIN ? 1.5f : 1;
+    private float mGoldCoinsMultiple => mGoldCoinsMultipleStreakWin.Value > GameConst.TEN_CONTINUE_WIN_NUM ? 1.5f : 1;
+
+    #endregion
+
+    #region 外部访问
+    //道具字典
+    public BindableDictionary<int, int> ItemDic;
 
     //金币倍率
     public float GoldCoinsMultiple
@@ -56,7 +65,9 @@ public class StageModel : AbstractModel
     public int CountinueWinNum => mCountinueWinNum.Value;
     public int InGameRankStreakWinNum => mInGameRankStreakWin.Value;
     public int GoldCoinsMultipleStreakWinNum => mGoldCoinsMultipleStreakWin.Value;
-    
+    public int RemoveHideStreakWinNum => mRemoveHideStreakWin.Value;
+    #endregion
+
     protected override void OnInit()
     {
         storage = this.GetUtility<SaveDataUtility>();
@@ -66,7 +77,8 @@ public class StageModel : AbstractModel
         mRemainingStars = new BindableProperty<int>();
         mHistoryBestRank = new BindableProperty<int>();
         mInGameRankStreakWin = new BindableProperty<int>();
-        mGoldCoinsMultipleStreakWin = new BindableProperty<int>();  
+        mGoldCoinsMultipleStreakWin = new BindableProperty<int>();
+        mRemoveHideStreakWin = new BindableProperty<int>();
 
         //若无存档则以(当前关卡 - 1)初始化星星数，以兼容旧版本逻辑
         mRemainingStars.SetValueWithoutEvent(storage.LoadIntValue(REMAINING_STARS, storage.GetCurrentLevel() - 1));
@@ -114,6 +126,12 @@ public class StageModel : AbstractModel
         mGoldCoinsMultipleStreakWin.Register(value =>
         {
             storage.SaveInt(GOLD_COINS_MULTIPLE_STREAK_WIN_SIGN, value);
+        });
+
+        mRemoveHideStreakWin.SetValueWithoutEvent(storage.LoadIntValue(REMOVE_HIDE_STREAK_WIN_SIGN));
+        mRemoveHideStreakWin.Register(value =>
+        {
+            storage.SaveInt(REMOVE_HIDE_STREAK_WIN_SIGN, value);
         });
     }
 
@@ -170,6 +188,9 @@ public class StageModel : AbstractModel
 
         if (_curLevel > (int)UnLockMechanism.TimesGoldCoin)
             ++mGoldCoinsMultipleStreakWin.Value;
+
+        if (_curLevel > (int)UnLockMechanism.RemoveHideWinStreakLevel)
+            ++mRemoveHideStreakWin.Value;
     }
 
     public void ResetCountinueWinNum()
@@ -177,6 +198,7 @@ public class StageModel : AbstractModel
         mCountinueWinNum.Value = 0;
         mInGameRankStreakWin.Value = 0;
         mGoldCoinsMultipleStreakWin.Value = 0;
+        mRemoveHideStreakWin.Value = 0;
     }
 
     public bool CompareWithHistoryBestRank(int playRankIdx)

@@ -18,8 +18,8 @@ namespace GameDefine
         public const int ITEM_COUNT = 8;
         //第八关开启连胜相关功能(主页第一个横幅活动...)
         public const int WIN_STREAK_BEGIN_LEVEL = 8;
-        //十连胜1.5倍金币buff
-        public const int CONTINUE_WIN_NUM_COIN = 10;
+        //十连胜标志(用于1.5倍金币buff、连胜去黑)
+        public const int TEN_CONTINUE_WIN_NUM = 10;
         //切换关卡机制开启的关卡
         public const int LEVEL_TYPE_BEGIN_LEVEL = 10;
         //用于关卡UI切换取余计算
@@ -176,7 +176,7 @@ namespace GameDefine
         // 1.5金币解锁
         TimesGoldCoin = 35,
         // 连胜去黑水
-        WinStreakBeginLevel = 60
+        RemoveHideWinStreakLevel = 60
     }
 
     public enum LevelHardType

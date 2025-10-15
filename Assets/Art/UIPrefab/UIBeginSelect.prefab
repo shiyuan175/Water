@@ -33,7 +33,6 @@ RectTransform:
   - {fileID: 9046426562160069670}
   - {fileID: 139657455887937822}
   - {fileID: 1678270936624252549}
-  - {fileID: 391174325773112773}
   - {fileID: 341269009069066245}
   - {fileID: 2971751293327342223}
   - {fileID: 1507495179526285673}
@@ -688,7 +687,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 17
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -806,10 +805,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaabf7f5327c401429e422e9b3642e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  giftSprites:
-  - {fileID: 21300000, guid: beb554b237c4e104ab5751c6b5634ffe, type: 3}
-  - {fileID: 21300000, guid: 4695729e076b2c14386b00cc98d467fd, type: 3}
-  - {fileID: 21300000, guid: 09a57ac6a3d877e4aa4cea4aaad15e3e, type: 3}
   itemSubIcon:
   - {fileID: 21300000, guid: b8b62d2914edab44a88ff4c1c52761af, type: 3}
   - {fileID: 21300000, guid: 9c564953b38a71b4d9c17cb0fc385004, type: 3}
@@ -839,13 +834,11 @@ MonoBehaviour:
   ImgBg: {fileID: 6898104478203835468}
   BtnClose: {fileID: 5821182617835892991}
   TxtLevelTitle: {fileID: 8860658126751471711}
-  ImgBox: {fileID: 4778741037391993547}
   BtnInfo: {fileID: 4175734599873356182}
   ImgProgress: {fileID: 2599608456294524541}
   TxtProgress: {fileID: 2357117123853779721}
   Mask: {fileID: 313606498016125745}
   UnLimitNode: {fileID: 2023465755174901909}
-  ImgReward: {fileID: 3035538247676303048}
   BtnStart: {fileID: 1984736924844508966}
   ContinueWinGoalNode: {fileID: 1510539877081138448}
   Goal: {fileID: 5007411551232713723}
@@ -996,7 +989,6 @@ GameObject:
   - component: {fileID: 5634137531973543259}
   - component: {fileID: 7823006334038377982}
   - component: {fileID: 4778741037391993547}
-  - component: {fileID: 528983966944627695}
   - component: {fileID: 6838375462430433347}
   m_Layer: 5
   m_Name: ImgBox
@@ -1052,7 +1044,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: beb554b237c4e104ab5751c6b5634ffe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 09a57ac6a3d877e4aa4cea4aaad15e3e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1062,22 +1054,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &528983966944627695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1075319424057610444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MarkType: 0
-  CustomComponentName: ImgBox
-  CustomComment: 
-  mComponentName: UnityEngine.UI.Image
 --- !u!114 &6838375462430433347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1528,7 +1504,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.175
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -2512,7 +2488,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Select Bobsters:'
+  m_text: 'boosters :'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
@@ -2539,8 +2515,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45.52
-  m_fontSizeBase: 45.52
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3581,7 +3557,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1 / 3
+  m_text: 0 / 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
@@ -4411,7 +4387,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 149.3534, y: 52.242188}
+  m_AnchoredPosition: {x: 149.3534, y: 97.8}
   m_SizeDelta: {x: 323.0715, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2227249426220242459
@@ -4442,7 +4418,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: bulter's gift
+  m_text: Consecutive victories's gift
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
@@ -4469,12 +4445,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45.52
-  m_fontSizeBase: 45.52
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 40
+  m_fontSizeMax: 40
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -4700,7 +4676,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 17
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -6259,98 +6235,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &7382756183472709811
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 391174325773112773}
-  - component: {fileID: 5497958604901363002}
-  - component: {fileID: 3035538247676303048}
-  - component: {fileID: 3963944409464931883}
-  m_Layer: 5
-  m_Name: ImgReward
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &391174325773112773
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7382756183472709811}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4435509691407361997}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 128.2508, y: 75.679565}
-  m_SizeDelta: {x: 672, y: 335}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &5497958604901363002
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7382756183472709811}
-  m_CullTransparentMesh: 1
---- !u!114 &3035538247676303048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7382756183472709811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 0
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0dcb79a84509ecd4a820b6ee7a34b44e, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!114 &3963944409464931883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7382756183472709811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MarkType: 0
-  CustomComponentName: ImgReward
-  CustomComment: 
-  mComponentName: UnityEngine.UI.Image
 --- !u!1 &7596154793648166881
 GameObject:
   m_ObjectHideFlags: 0
@@ -7604,7 +7488,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 17
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2695514029084683534, guid: aba2b57806e125648a5d0638ae03b81a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

@@ -282,7 +282,6 @@ MonoBehaviour:
   mRankSettlementSO: {fileID: 11400000, guid: 568633f384eb02447abac4c6451b2f4b, type: 2}
   mSpriteGreyBtn: {fileID: 21300000, guid: 5dc61c870bc6c7d46bfe30ef14317618, type: 3}
   BtnClose: {fileID: 5522159024463303169}
-  ImgRankSprite: {fileID: 0}
   TxtCountDown: {fileID: 7913733384818136203}
   BtnStart: {fileID: 1548151041959202085}
 --- !u!1 &2301077327661076997
@@ -1223,8 +1222,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Rank rewards from consecutive wins keep accumulating. Log in tomorrow to
-    claim rewards and unlock the new rank challenge mode.
+  m_text: 'Daily Quick Clearance Challenge: Clear the most levels in 30 minutes to
+    win rewards.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
   m_sharedMaterial: {fileID: 2695514029084683534, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}
@@ -1251,7 +1250,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.55
+  m_fontSize: 46.95
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
