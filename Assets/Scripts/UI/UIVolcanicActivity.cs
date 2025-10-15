@@ -78,6 +78,7 @@ namespace QFramework.Example
             Txt_Prompt.text = $"Beat {VA_MAX_STREAK_WIN_NUM - mVolcanicActivity.VAStreakWinNum} more levels to complete the challenge!";
             Txt_Levels.text = $"{mVolcanicActivity.VAStreakWinNum}/{VA_MAX_STREAK_WIN_NUM}";
             Txt_Players.text = $"{mVolcanicActivity.VACurrentPlayerNum}/{VA_MAX_PLAYER_NUM}";
+            TxtDailyRefresh.text = $"{mVolcanicActivity.VADailyUsedRefreshCount}/3 Today";
 
             int _curStep = _recordStreakWinNum;
 

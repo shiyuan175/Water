@@ -577,6 +577,12 @@ namespace QFramework.Example
                     if (mTierRankActivity.ActivityStatus is SettlementActivityStatus.Active)
                         TxtTierRankActivity.text = mTierRankActivity.GetHalfOneHourTierRankTime();
                 }
+
+                if (mRocketActivity is not null)
+                {
+                    if (mRocketActivity.ActivityStatus is GameActivityStatus.Active)
+                        TxtRocketActivity.text = mRocketActivity.GetActivityReamingTime();
+                }
             }
         }
         #endregion
@@ -602,7 +608,7 @@ namespace QFramework.Example
             if (_curLevel >= 26)
                 BtnMSANode.Show();
 
-            if (_curLevel >= 46)
+            if (_curLevel >= 46 && mHighTowerActivity is null)
                 BtnHTANode.Show();
         }
 
@@ -733,7 +739,7 @@ namespace QFramework.Example
 
                 case GameActivityStatus.Active:
                     BtnRANode.Show();
-                    TxtRocketActivity.text = "Active";
+                    TxtRocketActivity.text = mRocketActivity.GetActivityReamingTime();
                     break;
 
                 case GameActivityStatus.CoolingDown:
@@ -753,12 +759,23 @@ namespace QFramework.Example
 
             ChangeActivityIcon(BtnHTANode.gameObject);
             BtnHTANode.interactable = true;
-            TxtHighTowerActivity.text = mHighTowerActivity.ActivityStatus switch
+
+            switch (mHighTowerActivity.ActivityStatus)
             {
-                GameActivityStatus.Inactive => "START",
-                GameActivityStatus.Active => mHighTowerActivity.GetActivityReamingTime(),
-                _ => "Finished"
-            };
+                case GameActivityStatus.Inactive:
+                    BtnHTANode.Show();
+                    TxtHighTowerActivity.text = "START";
+                    break;
+
+                case GameActivityStatus.Active:
+                    BtnHTANode.Show();
+                    TxtHighTowerActivity.text = mHighTowerActivity.GetActivityReamingTime();
+                    break;
+
+                default:
+                    BtnHTANode.Hide();
+                    break;
+            }
         }
 
         private void UpdateMSAState()
@@ -851,7 +868,6 @@ namespace QFramework.Example
                 }
             }
         }
-
 
         #endregion
     }
