@@ -188,7 +188,21 @@ namespace QFramework.Example
                 }
                 return false;
             });
-
+/*
+            // 免广告礼包
+            PanelQueueManager.Instance.Enqueue(() =>
+            {               
+                if(this.GetUtility<SaveDataUtility>().GetCurrentLevel()==GameDefine.GameConst.REMOVE_AD_BEGIN_LEVEL)
+                {
+                    UIKit.OpenPanel<UIRemoveAdADActivity>(new UIRemoveAdADActivityData()
+                    {
+                        IsManagedOpen = true,
+                    });
+                    return true;
+                }
+                return false;
+            });
+*/
             //魔法连胜活动
             HandleMSA();
 

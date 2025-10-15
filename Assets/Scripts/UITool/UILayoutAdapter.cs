@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +25,7 @@ public class UILayoutAapter : MonoBehaviour
     [Tooltip("强制设置子物体的排列数量")]
     [SerializeField] private int constraintCount;
     private int childCounts;
-
+    [SerializeField]
     private List<RectTransform> targetRectTransform;
     private GridLayoutGroup gridLayoutGroup;
     private float childLenght;
@@ -33,6 +34,7 @@ public class UILayoutAapter : MonoBehaviour
     private float parentHeight;
     private float totalWidth;
     private float totalHeight;
+ 
 
     #region 动态调整的触发与初始化
     void OnEnable()
@@ -125,10 +127,12 @@ public class UILayoutAapter : MonoBehaviour
 
 
        // 计算 
-       Debug.Log(childCounts);
-        Debug.Log(elementsRow);
+     
         cellSize = CalculateCellSize(targetRectTransform[0], elementsRow);
-        spaceSize = cellSize * 0.1f*elementsRow/(elementsRow-1);
+        if (elementsRow > 1)
+            spaceSize = cellSize * 0.1f * elementsRow / (elementsRow - 1);
+        else
+            spaceSize = cellSize * 0.1f;
         cellSize *= 0.9f;
 
         // 设置layouts

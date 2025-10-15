@@ -5,16 +5,22 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:cc867530-9bd6-4bf2-873b-0bde1c67f57a
+	// Generate Id:15626048-0147-41f6-9bda-1094fab24f4e
 	public partial class UIRemoveAdADActivity
 	{
 		public const string Name = "UIRemoveAdADActivity";
 		
+		[SerializeField]
+		public UnityEngine.UI.Button BtnClose;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnBuy;
 		
 		private UIRemoveAdADActivityData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
+			BtnClose = null;
+			BtnBuy = null;
 			
 			mData = null;
 		}

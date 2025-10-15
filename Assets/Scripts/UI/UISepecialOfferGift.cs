@@ -44,6 +44,11 @@ namespace QFramework.Example
 		
 		protected override void OnShow()
 		{
+            // 注册购买成功事件
+            foreach (var kvp in giftPackBuySuccessActions)
+            {
+                StringEventSystem.Global.Register(kvp.Key, kvp.Value).UnRegisterWhenGameObjectDestroyed(gameObject);
+            }
             mCountDownTween = DOTween.To(() => 0, x =>
             {
                 if (mSepecialOfferADActivity.ActivityStatus == GameActivityStatus.Active)
@@ -57,10 +62,15 @@ namespace QFramework.Example
         }
 
         protected override void OnHide()
-		{
-		}
-		
-		protected override void OnClose()
+        {
+            // 卸载购买成功事件(避免从UIKit打开商店购买导致重复发放奖励)
+            foreach (var kvp in giftPackBuySuccessActions)
+            {
+                StringEventSystem.Global.UnRegister(kvp.Key, kvp.Value);
+            }
+        }
+
+        protected override void OnClose()
 		{
             if (mData.IsManagedOpen ?? false)
                 StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);
