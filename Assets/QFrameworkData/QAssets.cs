@@ -210,6 +210,11 @@ namespace QAssetBundle
         public const string BundleName = "uisepecialoffergift_prefab";
         public const string UISepecialOfferGift = "UISepecialOfferGift";
     }
+    public class Uishop_prefab
+    {
+        public const string BundleName = "uishop_prefab";
+        public const string UIShop = "UIShop";
+    }
     public class Uistreakwinguide_prefab
     {
         public const string BundleName = "uistreakwinguide_prefab";

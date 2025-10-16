@@ -410,6 +410,7 @@ namespace QFramework.Example
             TxtImgprogress.font.material.shader = Shader.Find(TxtImgprogress.font.material.shader.name);
             TxtStartLevel.font = LevelManager.Instance.redFont;
             TxtArea.font = LevelManager.Instance.redFont;
+            TxtStraightWin_Red.font = LevelManager.Instance.redFont;
         }
 
         private void InitSceneUI()
@@ -467,6 +468,8 @@ namespace QFramework.Example
                 }
             }
             TxtStartLevel.text = $"Level {currentLevel}"+$"<br><size=45>{appendString}</size>";
+
+            TxtStraightWin_Red.text = $"{stageModel.InGameRankStreakWinNum} Straight Wins";
         }
 
         /// <summary>

@@ -1,8 +1,9 @@
-using UnityEngine;
-using UnityEngine.UI;
+using GameDefine;
 using QFramework;
 using TMPro;
-using GameDefine;
+using UnityEngine;
+using UnityEngine.U2D;
+using UnityEngine.UI;
 
 namespace QFramework.Example
 {
@@ -11,7 +12,10 @@ namespace QFramework.Example
 	}
 	public partial class UIContinue : UIPanel,ICanSendEvent, IController
     {
-        private SaveDataUtility saveData;
+        private SaveDataUtility mSaveData;
+        private StageModel mStageModel;
+        private ResLoader mResLoader;
+        private SpriteAtlas mRankLevelSpriteAtlas;
 
         public IArchitecture GetArchitecture()
         {
@@ -26,10 +30,11 @@ namespace QFramework.Example
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{
-            TxtRetry.font = LevelManager.Instance.greenFont;
             TxtCoinCost.font = LevelManager.Instance.greenFont;
-            saveData = this.GetUtility<SaveDataUtility>();
+            mSaveData = this.GetUtility<SaveDataUtility>();
+            mStageModel = this.GetModel<StageModel>();
 
+            LoadRes();
             RegisterBtnEvent();
             StringEventSystem.Global.Register(GameDefine.GameConst.COIN_CHANGE, () =>
             {
@@ -52,7 +57,26 @@ namespace QFramework.Example
             BtnContinue.onClick.RemoveAllListeners();
             BtnQuit.onClick.RemoveAllListeners();
             BtnAddCoin.onClick.RemoveAllListeners();
-            saveData = null;
+            mSaveData = null;
+            mStageModel = null;
+
+            if (mResLoader != null)
+            {
+                mResLoader.Recycle2Cache();
+                mResLoader = null;
+                mRankLevelSpriteAtlas = null;
+            }
+        }
+
+        private void LoadRes()
+        {
+            mResLoader = ResLoader.Allocate();
+            mRankLevelSpriteAtlas = mResLoader.LoadSync<SpriteAtlas>
+                (ABResourceDefine.RANK_LEVEL_ATLAS_BUNDLENAME, ABResourceDefine.RANK_LEVEL_ATLAS_ASSETNAME);
+
+            var _rankStreakWin = mStageModel.InGameRankStreakWinNum;
+            var _curRankIndex = Mathf.Min(8, Mathf.Max(0, (_rankStreakWin - 1) / 5));
+            ImgRankIcon.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(_curRankIndex));
         }
 
         private void RegisterBtnEvent()
@@ -77,8 +101,8 @@ namespace QFramework.Example
             });
             BtnQuit.onClick.AddListener(() =>
             {
-                string _del = $"用户退出关卡:{saveData.GetCurrentLevel()}," +
-                 $"当前关卡进度:{saveData.GetCurrentLevel()}";
+                string _del = $"用户退出关卡:{mSaveData.GetCurrentLevel()}," +
+                 $"当前关卡进度:{mSaveData.GetCurrentLevel()}";
                 AnalyticsManager.Instance.SendLevelEvent(_del);
 
                 HealthManager.Instance.UseHp();
