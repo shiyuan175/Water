@@ -4,6 +4,7 @@ using QFramework;
 using System;
 using TMPro;
 using GameDefine;
+using Unity.Mathematics;
 
 namespace QFramework.Example
 {
@@ -12,7 +13,6 @@ namespace QFramework.Example
     }
     public partial class UIBeginSelect : UIPanel, ICanGetUtility, ICanSendEvent, ICanRegisterEvent, ICanGetModel
     {
-        [SerializeField] private Sprite[] giftSprites;
         [SerializeField] private Sprite[] itemSubIcon;
         [SerializeField] private Button[] addItemBtns;
         [SerializeField] private Sprite[] imgBgSprites;
@@ -25,8 +25,6 @@ namespace QFramework.Example
         [SerializeField] private TextMeshProUGUI TxtCoinWinProgress;
         [SerializeField] private Image ImgBg;
         private StageModel stageModel;
-
-        private const int CONTINUE_WIN_NUM_ItemGift = 3;
 
         public IArchitecture GetArchitecture()
         {
@@ -50,7 +48,6 @@ namespace QFramework.Example
             RigesterEvent();
             BindBtn();
 
-            ImgReward.Hide();
             ContinueWinGoalNode.Hide();
         }
 
@@ -141,7 +138,7 @@ namespace QFramework.Example
 
             BtnInfo.onClick.AddListener(() =>
             {
-                ImgReward.gameObject.SetActive(!ImgReward.gameObject.activeSelf);
+                UIKit.OpenPanel<UIWinStreakRemoveHide>(UILevel.PopUI);
             });
 
             int startID = 6; //道具起始ID
@@ -224,25 +221,18 @@ namespace QFramework.Example
         /// </summary>
         void UpdateWinNum()
         {
-            int _curWinNum = stageModel.GoldCoinsMultipleStreakWinNum;
-
-            int _winNum_Gift = _curWinNum > CONTINUE_WIN_NUM_ItemGift ? CONTINUE_WIN_NUM_ItemGift : _curWinNum;
-            int _winNum_Coin = _curWinNum > GameDefine.GameConst.CONTINUE_WIN_NUM_COIN ? GameDefine.GameConst.CONTINUE_WIN_NUM_COIN : _curWinNum;
-
-            TxtProgress.text = $"{_winNum_Gift} / {CONTINUE_WIN_NUM_ItemGift}";
-            ImgProgress.fillAmount = _winNum_Gift * 1f / CONTINUE_WIN_NUM_ItemGift;
-
-            TxtCoinWinProgress.text = $"{_winNum_Coin}/{GameDefine.GameConst.CONTINUE_WIN_NUM_COIN}";
+            //1.5倍金币连胜相关
+            int _curCoinWinNum = stageModel.GoldCoinsMultipleStreakWinNum;
+            int _winNum_Coin = math.min(_curCoinWinNum, GameDefine.GameConst.TEN_CONTINUE_WIN_NUM);
+            TxtCoinWinProgress.text = $"{_winNum_Coin}/{GameDefine.GameConst.TEN_CONTINUE_WIN_NUM}";
             //0.081f * 连胜次数 + 0.095f映射值(1-10连胜映射公式)
             ImgCoinWinProcess.fillAmount = 0.081f * _winNum_Coin + 0.095f;
 
-            //0-3胜，更新图标
-            if (_winNum_Gift == 0 || _winNum_Gift == 1)
-            {
-                ImgBox.sprite = giftSprites[0];
-                return;
-            }
-            ImgBox.sprite = giftSprites[_winNum_Gift - 1];
+            //连胜去黑水相关
+            int _curRemoveHideWinNum = stageModel.RemoveHideStreakWinNum;
+            int _winNum_RemoveHide = math.min(_curRemoveHideWinNum, GameDefine.GameConst.TEN_CONTINUE_WIN_NUM);
+            TxtProgress.text = $"{_winNum_RemoveHide} / {GameDefine.GameConst.TEN_CONTINUE_WIN_NUM}";
+            ImgProgress.fillAmount = _winNum_RemoveHide * 1f / GameDefine.GameConst.TEN_CONTINUE_WIN_NUM;
         }
 
         /// <summary>
@@ -267,7 +257,6 @@ namespace QFramework.Example
         /// 更新道具角标状态
         /// </summary>
         /// <param name="itemCount"></param>
-        /// <param name="txtItem"></param>
         /// <param name="btnAdd"></param>
         void UpdateItemDisplay(int itemCount, Button btnAdd)
         {
@@ -403,7 +392,7 @@ namespace QFramework.Example
                 SetGoldCoinUnClockUI();
             }
 
-            if (_level >= (int)GameDefine.UnLockMechanism.WinStreakBeginLevel)
+            if (_level >= (int)GameDefine.UnLockMechanism.RemoveHideWinStreakLevel)
                 Mask.Hide();
             else
                 Mask.Show();

@@ -295,7 +295,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start the Rocket Racing to win amazing rewards and this event has 5 rounds
+  m_text: Start the Rocket Racing to win amazing rewards and this event has 3 rounds
     every day.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4af189eb160898e4cad2b3a678574d0b, type: 2}

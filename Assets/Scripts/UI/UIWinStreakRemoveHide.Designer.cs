@@ -5,27 +5,24 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:3fe93bac-1acf-4f79-9f78-e48611fc31e0
-	public partial class UIStreakWinGuide
+	// Generate Id:664a1cc1-9956-49fe-b228-08f77de747f1
+	public partial class UIWinStreakRemoveHide
 	{
-		public const string Name = "UIStreakWinGuide";
+		public const string Name = "UIWinStreakRemoveHide";
 		
-		[SerializeField]
-		public UnityEngine.UI.Button BtnPlay;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnClose;
 		
-		private UIStreakWinGuideData mPrivateData = null;
+		private UIWinStreakRemoveHideData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
-			BtnPlay = null;
 			BtnClose = null;
 			
 			mData = null;
 		}
 		
-		public UIStreakWinGuideData Data
+		public UIWinStreakRemoveHideData Data
 		{
 			get
 			{
@@ -33,11 +30,11 @@ namespace QFramework.Example
 			}
 		}
 		
-		UIStreakWinGuideData mData
+		UIWinStreakRemoveHideData mData
 		{
 			get
 			{
-				return mPrivateData ?? (mPrivateData = new UIStreakWinGuideData());
+				return mPrivateData ?? (mPrivateData = new UIWinStreakRemoveHideData());
 			}
 			set
 			{

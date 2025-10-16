@@ -21,7 +21,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         return GameMainArc.Interface;
     }
 
-    //  已完成、藤曼底座、遮挡布、藤曼、播放动画状态
+    //  已完成、藤曼底座、遮挡布、陶瓷瓶、播放动画状态
     public bool isFinish, isFreeze, isClearHide, isNearHide, isPlayAnim;
     //  播放去除动画、正在解锁
     [SerializeField] private bool isClearHideAnim, hasUnlockHidePlayed = false;

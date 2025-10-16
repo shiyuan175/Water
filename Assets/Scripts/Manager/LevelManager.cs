@@ -822,18 +822,10 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         UpdapeTopLayoutSpcing();
         UpdateButtomLayoutSpcing();
 
-        if (levelId >= (int)GameDefine.UnLockMechanism.WinStreakBeginLevel)
-        {
-            //连胜去黑水
-            int WinNum = stageModel.CountinueWinNum > GameConst.MAX_GIFT_STREAK_WIN ? GameConst.MAX_GIFT_STREAK_WIN : stageModel.CountinueWinNum;
-            if (WinNum > 0)
-            {
-                if (levelId == (int)UnLockMechanism.WinStreakBeginLevel)
-                    UIKit.OpenPanel<UIStreakWinGuide>(UILevel.PopUI);
-                else
-                    StringEventSystem.Global.Send(GameConst.STREAK_WIN_REMOVE_HIDE, WinNum);
-            }
-        }
+        //连胜去黑水
+        if (levelId >= (int)GameDefine.UnLockMechanism.RemoveHideWinStreakLevel
+            && stageModel.RemoveHideStreakWinNum >= GameConst.TEN_CONTINUE_WIN_NUM)
+            StringEventSystem.Global.Send(GameConst.STREAK_WIN_REMOVE_HIDE);
 
         CheckGuideLevel();
     }

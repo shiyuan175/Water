@@ -146,7 +146,7 @@ namespace QFramework.Example
             if (targetStageScore == -1)
             {
                 Tween _txtUp1 = DOTween.To(() => cachePlayerTotalScore,
-                  x => TxtProgress_Red.text = $"{x} / ",
+                  x => TxtProgress_Red.text = $"Completed!",
                   _curPlayerTotalScore, 1.5f);
                 mTweenList.Add(_txtUp1);
                 ImgProgressBar.fillAmount = 1;
@@ -174,7 +174,7 @@ namespace QFramework.Example
                                 CacheTempData();
                                 if (targetStageScore == -1)
                                 {
-                                    TxtProgress_Red.text = $"{_curPlayerTotalScore} / ";
+                                    TxtProgress_Red.text = $"Completed!";
                                     ImgProgressBar.fillAmount = 1;
                                 }
                                 _curPlayerStageScore = _curPlayerTotalScore - lastStageTotalScore;
@@ -245,7 +245,7 @@ namespace QFramework.Example
 
             if (targetStageScore == -1)
             {
-                TxtProgress_Red.text = $"{mMagicStreakActivity.MSAData.Player.Score} / ";
+                TxtProgress_Red.text = $"Completed!";
                 ImgProgressBar.fillAmount = 1;
             }
             else

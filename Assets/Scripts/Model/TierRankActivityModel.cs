@@ -78,19 +78,24 @@ public class TierRankActivityModel : AbstractModel
             && !CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.TRA_HALF_ONE_HOUR_RANK))
             mTRAData.Player.IsRewardSettled = false;
 
-        mJsonFileUtility.SaveToJson(mCurFilePath, mTRAData);
+        SaveJson();
     }
 
     public void Fail()
     {
         mTRAData.Player.StreamWinNum = 0;
         mTRAData.Player.IsRewardSettled = true;
-        mJsonFileUtility.SaveToJson(mCurFilePath, mTRAData);
+        SaveJson();
     }
 
     public void MarkRewardAsSettled()
     {
         mTRAData.Player.IsRewardSettled = true;
+        SaveJson();
+    }
+
+    public void SaveJson()
+    {
         mJsonFileUtility.SaveToJson(mCurFilePath, mTRAData);
     }
 }
