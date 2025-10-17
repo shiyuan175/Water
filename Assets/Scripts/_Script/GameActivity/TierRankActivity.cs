@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using JsonFileData;
 using QFramework;
 using QFramework.Example;
@@ -40,6 +41,9 @@ public class TierRankActivity : BaseRewardSettlementActivity
     private const string TRA_NEXT_DAY_SIGN = "TRA_NextDaySign";
     private CountDownTimerManager mCountDownTimerManager;
     private TierRankActivityModel mTRAModel;
+
+    private float mRobotWinTimer = 0f;
+    private const float ROBOT_WIN_INTERVAL = 3 * 60f;
 
     public TierRankActivity()
     {
@@ -85,6 +89,16 @@ public class TierRankActivity : BaseRewardSettlementActivity
 
     public override void Tick()
     {
+        if (ActivityStatus is SettlementActivityStatus.Active)
+        {
+            mRobotWinTimer += 1f;
+            if (mRobotWinTimer >= ROBOT_WIN_INTERVAL)
+            {
+                mRobotWinTimer = 0f; 
+                AddRobotStreakWin();
+            }
+        }
+
         //活动刷新逻辑
         switch (ActivityStatus)
         {
@@ -118,5 +132,21 @@ public class TierRankActivity : BaseRewardSettlementActivity
     public string GetHalfOneHourTierRankTime()
     {
         return CountDownTimerManager.Instance.GetRemainingTimeText(GameDefine.GameConst.TRA_HALF_ONE_HOUR_RANK);
+    }
+
+    /// <summary>
+    /// 每三分钟触发一次，为同一机器人增加连胜次数
+    /// </summary>
+    private void AddRobotStreakWin()
+    {
+        if (TRAData?.TRARobots == null)
+            return;
+
+        var _robot = TRAData.TRARobots.FirstOrDefault(r => r.ID == 3);
+        if (_robot != null)
+        {
+            _robot.StreamWinNum += 1;
+            mTRAModel.SaveJson();
+        }
     }
 }

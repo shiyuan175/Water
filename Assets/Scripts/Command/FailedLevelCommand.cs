@@ -13,7 +13,8 @@ public class FailedLevelCommand : AbstractCommand ,ICanGetModel
     {
         //各模块连胜重置逻辑...
         mTierRankActivity ??= GameActivityManager.Instance.GetActivity<TierRankActivity>();
-        mTierRankActivity?.Fail();
+        if (mTierRankActivity?.ActivityStatus is SettlementActivityStatus.Active)
+            mTierRankActivity?.Fail();
 
         mStageModel ??= this.GetModel<StageModel>();
         mStageModel?.ResetCountinueWinNum();

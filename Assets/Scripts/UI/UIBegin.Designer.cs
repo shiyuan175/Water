@@ -5,13 +5,15 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:41a7d5b0-f080-4384-a96b-7ad97ec14ef6
+	// Generate Id:94763234-2657-4de9-a2b0-1d1cbf8f0159
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
 		
 		[SerializeField]
 		public UnityEngine.UI.ScrollRect ShopScrollView;
+		[SerializeField]
+		public UnityEngine.UI.ScrollRect ScrollView;
 		[SerializeField]
 		public UnityEngine.GameObject BattlePassContent;
 		[SerializeField]
@@ -47,6 +49,8 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Image ImgDoubleBuff;
 		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtStraightWin_Red;
+		[SerializeField]
 		public UnityEngine.UI.Button BtnArea;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtArea;
@@ -81,13 +85,13 @@ namespace QFramework.Example
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtRocketActivity;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnHTANode;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtHighTowerActivity;
-		[SerializeField]
 		public UnityEngine.UI.Button BtnMSANode;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtMagicStreakActivity;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnHTANode;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtHighTowerActivity;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnTRANode;
 		[SerializeField]
@@ -101,8 +105,6 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Image ImgSelected;
 		[SerializeField]
-		public UnityEngine.UI.ScrollRect ScrollView;
-		[SerializeField]
 		public RectTransform BottomMenuBtns;
 		
 		private UIBeginData mPrivateData = null;
@@ -110,6 +112,7 @@ namespace QFramework.Example
 		protected override void ClearUIComponents()
 		{
 			ShopScrollView = null;
+			ScrollView = null;
 			BattlePassContent = null;
 			ImgGiftFree = null;
 			ImgGiftVip = null;
@@ -127,6 +130,7 @@ namespace QFramework.Example
 			TxtStartLevel = null;
 			AnimStartFlash = null;
 			ImgDoubleBuff = null;
+			TxtStraightWin_Red = null;
 			BtnArea = null;
 			TxtArea = null;
 			ImgProgressBg = null;
@@ -144,17 +148,16 @@ namespace QFramework.Example
 			TxtVolcanicActivity = null;
 			BtnRANode = null;
 			TxtRocketActivity = null;
-			BtnHTANode = null;
-			TxtHighTowerActivity = null;
 			BtnMSANode = null;
 			TxtMagicStreakActivity = null;
+			BtnHTANode = null;
+			TxtHighTowerActivity = null;
 			BtnTRANode = null;
 			TxtTierRankActivity = null;
 			BtnTTNode = null;
 			TxtTTActivity = null;
 			BtnSelect = null;
 			ImgSelected = null;
-			ScrollView = null;
 			BottomMenuBtns = null;
 			
 			mData = null;

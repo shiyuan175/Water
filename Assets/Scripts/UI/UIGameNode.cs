@@ -55,7 +55,7 @@ namespace QFramework.Example
 
             LoadRes();
             BindBtn();
-            RegisterEvent();  
+            RegisterEvent();
             SetTakeItem();
         }
 
@@ -63,7 +63,7 @@ namespace QFramework.Example
         {
             InitRankLevel();
             InitLevelUI();
-            InitItemUI();     
+            InitItemUI();
             SetItem();
         }
 
@@ -147,9 +147,9 @@ namespace QFramework.Example
                 TxtLevel.text = LevelManager.Instance.levelId.ToString();
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
-            StringEventSystem.Global.Register(GameConst.STREAK_WIN_REMOVE_HIDE, (int count) =>
+            StringEventSystem.Global.Register(GameConst.STREAK_WIN_REMOVE_HIDE, () =>
             {
-                ClearBottleBlackWater(count, false);
+                ClearBottleBlackWater(false);
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             StringEventSystem.Global.Register(GameConst.VICTORY_EVENT, () =>
@@ -492,8 +492,6 @@ namespace QFramework.Example
                 case 6:
                     LevelManager.Instance.AddBottle(true, () =>
                     {
-                       /* if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneBottle)))
-                            stageModel.ReduceItem(6, 1);*/
                         TxtItem1.text = "0";
                     });
                     break;
@@ -501,10 +499,8 @@ namespace QFramework.Example
                 case 7:
                     if (!(LevelManager.Instance.hideBottleList.Count > 0))
                         return;
-                    ClearBottleBlackWater(2, true, () =>
+                    ClearBottleBlackWater(true, () =>
                     {
-                        /*if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveHide)))
-                            stageModel.ReduceItem(7, 1);*/
                         TxtItem2.text = "0";
                     });
                     break;
@@ -558,8 +554,6 @@ namespace QFramework.Example
                     botter.SetHideShow(true);
                     LevelManager.Instance.HideItemSelect();
 
-                    /*if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_ChangeWater)))
-                        stageModel.ReduceItem(8, 1);*/
                     TxtItem3.text = "0";
                     //Debug.Log("打乱顺序成功");
                     break;
@@ -572,25 +566,31 @@ namespace QFramework.Example
         /// <summary>
         /// 祛除瓶中所有黑水
         /// </summary>
-        /// <param name="count">祛除的瓶子数量</param>
-        /// <param name="effctNow">是否立即生效</param>
+        /// <param name="useItem">是否由道具生效</param>
         /// <param name="action">回调(道具使用时传入)</param>
-        private void ClearBottleBlackWater(int count, bool useItem, Action action = null)
+        private void ClearBottleBlackWater(bool useItem, Action action = null)
         {
             if (LevelManager.Instance.hideBottleList.Count > 0)
             {
-                var tempList = new List<BottleCtrl>(LevelManager.Instance.hideBottleList);
+                //剔除魔法布和陶瓷瓶的瓶子
+                //即使列表为0也往下执行(需要播放动画)
+                var _tempList = new List<BottleCtrl>(LevelManager.Instance.hideBottleList);
+                _tempList.RemoveAll(item => item.isClearHide || item.isNearHide);
 
-                while (tempList.Count > count)
+                int _removeCount = useItem ? 1 : _tempList.Count / 2;
+                //特判处理(只有一个黑水瓶)
+                _removeCount = Math.Min(_removeCount, _tempList.Count);
+
+                while (_tempList.Count > _removeCount)
                 {
-                    int randIndex = UnityEngine.Random.Range(0, tempList.Count);
-                    tempList.RemoveAt(randIndex);
+                    int randIndex = UnityEngine.Random.Range(0, _tempList.Count);
+                    _tempList.RemoveAt(randIndex);
                 }
 
                 if (useItem)
-                    useItemClearBWater(tempList, action);
+                    useItemClearBWater(_tempList, action);
                 else
-                    StreaWinClearBWater(tempList, action);
+                    StreaWinClearBWater(_tempList, action);
             }
         }
 
@@ -614,13 +614,20 @@ namespace QFramework.Example
 
         private void useItemClearBWater(List<BottleCtrl> tempList, Action action)
         {
+            //后续道具弹出的动画，
+            //动画结束回调执行去黑
+
             foreach (var item in tempList)
             {
-                for (int i = 0; i < item.hideWaters.Count; i++)
-                {
-                    item.hideWaters[i] = false;
-                }
-                item.SetHideShow(true);
+                //星星去黑效果
+                item.StarSetHideShow();
+
+                //原先的去黑效果
+                //for (int i = 0; i < item.hideWaters.Count; i++)
+                //{
+                //    item.hideWaters[i] = false;
+                //}
+                //item.SetHideShow(true);
             }
 
             action?.Invoke();
@@ -648,7 +655,7 @@ namespace QFramework.Example
                 buttons[i].interactable = active;
                 texts[i].text = active ? "1" : "0";
 
-                if(active)
+                if (active)
                 {
                     if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_ChangeWater)))
                         stageModel.ReduceItem(itemIds[i], 1);
