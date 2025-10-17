@@ -20,6 +20,9 @@ namespace QFramework.Example
         private const string CLEAR_BWATER_PARTICLE_PATH = "Prefab/BlackMaskItem";
         private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
 
+        [Header("关卡难度UI")]
+        #region 关卡难度UI
+        
         [SerializeField] private Sprite[] imgBtnItemBgSprites;
         [SerializeField] private Sprite[] imgTopBgSprites;
         [SerializeField] private Sprite[] imgBottomSpirtes;
@@ -31,9 +34,17 @@ namespace QFramework.Example
         [SerializeField] private Image imgBottom;
         [SerializeField] private Image imgLevel;
 
+        #endregion
+
+        [Header("前五关故事引导UI")]
+        #region 前五关故事引导UI
+        [SerializeField] private GameObject g_Star_MagicBook_Guide;
+        [SerializeField] private Sprite s_StarSprite;
+        [SerializeField] private Image[] i_StarFrames;
+        #endregion
+
         private ResLoader mResLoader;
         private StageModel stageModel;
-
         private SpriteAtlas mRankLevelSpriteAtlas;
 
         private int mCacheRankSpriteIndex;
@@ -61,6 +72,7 @@ namespace QFramework.Example
 
         protected override void OnShow()
         {
+            InitStoryUI();
             InitRankLevel();
             InitLevelUI();
             InitItemUI();
@@ -145,6 +157,8 @@ namespace QFramework.Example
             this.RegisterEvent<LevelStartEvent>(eventId =>
             {
                 TxtLevel.text = LevelManager.Instance.levelId.ToString();
+                InitStoryUI();
+
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             StringEventSystem.Global.Register(GameConst.STREAK_WIN_REMOVE_HIDE, () =>
@@ -220,7 +234,23 @@ namespace QFramework.Example
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
-        protected void InitLevelUI()
+        private void InitStoryUI()
+        {
+            int _curLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+            if (_curLevel > GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+                return;
+
+            g_Star_MagicBook_Guide.Show();
+            //不对，关卡起始是1，
+            //1是不亮，2亮一个，3亮2个，4亮3个，5亮4个，数组长4
+            var _temp = Mathf.Clamp(_curLevel - 1, 0, i_StarFrames.Length);
+            for (int i = 0; i < _temp; i++)
+            {
+                i_StarFrames[i].sprite = s_StarSprite;
+            }
+        }
+
+        private void InitLevelUI()
         {
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
             TxtLevel.text = level.ToString();
@@ -284,7 +314,7 @@ namespace QFramework.Example
         /// <summary>
         /// 显示道具图标
         /// </summary>
-        protected void InitItemUI()
+        private void InitItemUI()
         {
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 

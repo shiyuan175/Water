@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:0acb091a-487a-49ab-9c3e-47af74f1e3e6
+	// Generate Id:39dff6c5-0365-44d7-a60f-94407ee8eb9d
 	public partial class BannerActivityPop
 	{
 		public const string Name = "BannerActivityPop";
@@ -14,6 +14,8 @@ namespace QFramework.Example
 		public UnityEngine.UI.Image ImgCup;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtNum;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgDouble;
 		
 		private BannerActivityPopData mPrivateData = null;
 		
@@ -21,6 +23,7 @@ namespace QFramework.Example
 		{
 			ImgCup = null;
 			TxtNum = null;
+			ImgDouble = null;
 			
 			mData = null;
 		}

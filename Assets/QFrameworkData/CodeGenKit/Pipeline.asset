@@ -19,11 +19,26 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
-    - TypeName: UnityEngine.UI.ScrollRect
-      PathToRoot: ShopScrollView
-      MemberName: ShopScrollView
-    ScriptsFolder: Assets/Scripts/Controllers/UIBegin_ShopPanel
-    ClassName: ShopManager
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ImgProgressBar
+      MemberName: ImgProgressBar
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: TextProgress
+      MemberName: TextProgress
+    - TypeName: UnityEngine.RectTransform
+      PathToRoot: LevelNode/Selected
+      MemberName: Selected
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: Icon2/TxtCurLevel
+      MemberName: TxtCurLevel
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ImgRewardIcon
+      MemberName: ImgRewardIcon
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: ImgTimerBg/TextTimer
+      MemberName: TextTimer
+    ScriptsFolder: Assets\Scripts\_Script\BannerActivityNode\PotionActivityNode
+    ClassName: PotionActivityNode
     Namespace: QFramework.Example
     MainCode: 
     DesignerCode: 

@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: PotionActivityPackSO_1
   m_EditorClassIdentifier: 
   PackID: 
-  coins: 0
+  coins: 3000
   removeAdsForever: 0
   items: []
-  specialsItem:
-  - specialRewardType: 2
-    duration: 30
+  specialsItem: []

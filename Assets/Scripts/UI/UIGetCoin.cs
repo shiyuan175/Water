@@ -152,8 +152,6 @@ namespace QFramework.Example
                 NewItemNode.Show();
 
                 TxtNewItem_Red.font = LevelManager.Instance.redFont;
-                TxtNewItemTitle_Red.font = LevelManager.Instance.redFont;
-                TxtNewItemTitle2_Red.font = LevelManager.Instance.redFont;
 
                 TxtNewItem_Red.text = GameDefine.GameConst.GuideLevelInfo[curLevel].Item1;
                 ImgNewItem.sprite = unlockSprites[_idx];

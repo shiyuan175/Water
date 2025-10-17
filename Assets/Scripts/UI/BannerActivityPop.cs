@@ -1,7 +1,8 @@
+using DG.Tweening;
+using GameDefine;
+using QFramework;
 using UnityEngine;
 using UnityEngine.UI;
-using QFramework;
-using DG.Tweening;
 
 namespace QFramework.Example
 {
@@ -28,10 +29,28 @@ namespace QFramework.Example
 
             mSequence = DOTween.Sequence();
 			TxtNum.font = LevelManager.Instance.redFont;
-			TxtNum.text = $"X{mData.Goals * mStageModel.SettlementMultiple}";
+			TxtNum.text = $"X{mData.Goals}";
 			mSequence.Append(ImgCup.transform.DOScale(1.8f, 0.5f));
             mSequence.Append(ImgCup.transform.DOScale(1.5f, 0.3f));
-			mSequence.Append(ImgCup.transform.DOMove(mData.TargetPos, 0.7f));
+
+            //双倍获取生效
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.UnlimitedDoubleBuff)))
+            {
+                mSequence.AppendCallback(() =>
+                {
+                    ImgDouble.Show();
+                });
+
+                mSequence.Append(ImgDouble.transform.DOScale(0f, 0.5f).From(1.5f));
+				mSequence.Join(ImgDouble.transform.DOMove(ImgCup.transform.position, 0.5f));
+                mSequence.Append(DOTween.To(() => mData.Goals, value =>
+				{
+					TxtNum.text = $"X{value}";
+
+                }, mData.Goals * mStageModel.SettlementMultiple, 0.5f));
+            }
+
+            mSequence.Append(ImgCup.transform.DOMove(mData.TargetPos, 0.7f));
 			mSequence.Join(ImgCup.transform.DOScale(0.5f, 0.7f));
 
 			mSequence.OnComplete(() =>

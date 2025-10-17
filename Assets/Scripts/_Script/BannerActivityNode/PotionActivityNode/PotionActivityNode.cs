@@ -25,6 +25,7 @@ namespace QFramework.Example
 
         [SerializeField] private GiftPackSO[] potionActivityPackSO;
         [SerializeField] private RectTransform mCupPos;
+        [SerializeField] private Sprite mCoinSprite;
 
         private void Awake()
         {
@@ -41,6 +42,8 @@ namespace QFramework.Example
             Selected.localPosition = new Vector3(TARGER_POSX[potionActivityModel.WinStreakLevel], Selected.localPosition.y, 0);
             TxtCurLevel.text = potionActivityModel.WinStreakPoints == 0 ? 
                 $"X1" : $"X{potionActivityModel.WinStreakPoints}";
+
+            UpdateGiftSprite();
         }
 
         private void OnEnable()
@@ -204,9 +207,21 @@ namespace QFramework.Example
                         ImgProgressBar.fillAmount = (float)_tempGoal / TARGER_GOALS[mCacheProgress];
 
                         ActionKit.DelayFrame(1, () => CheckOpenBox(potionActivityModel.PotionActivityGoal)).Start(this);
+
+                        UpdateGiftSprite();
                     },
                     potionActivityPackSO[mCacheProgress]);
             }
+        }
+
+        //更新奖励图标
+        private void UpdateGiftSprite()
+        {
+            //礼包只有一个奖励(特殊类型奖励/金币)
+            if (potionActivityPackSO[mCacheProgress].SpecialRewards.Count != 0)
+                ImgRewardIcon.sprite = RewardUIManager.Instance.GetRewardSprite(potionActivityPackSO[mCacheProgress].SpecialRewards[0].SpecialRewardType);
+            else
+                ImgRewardIcon.sprite = mCoinSprite;
         }
     }
 }

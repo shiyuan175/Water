@@ -411,6 +411,7 @@ namespace QFramework.Example
             TxtStartLevel.font = LevelManager.Instance.redFont;
             TxtArea.font = LevelManager.Instance.redFont;
             TxtStraightWin_Red.font = LevelManager.Instance.redFont;
+            TxtDoubleBuffCountDown_Red.font = LevelManager.Instance.redFont;
         }
 
         private void InitSceneUI()
@@ -515,8 +516,6 @@ namespace QFramework.Example
 
             SetStar();
 
-            //索引从0开始计算(显示时+1)
-            TxtArea.text = "Area " + (_sceneIndex + 1);
             ImgProgress.fillAmount = (float)_unitUnlockProgress / _unitCount;
             TxtImgprogress.text = $"{_unitUnlockProgress} / {_unitCount}";
 
@@ -542,11 +541,14 @@ namespace QFramework.Example
                 {
                     AnimStartFlash.Hide();
                     ImgDoubleBuff.Hide();
+                    ImgDoubleBuffCountDown.Hide();
                 }
                 else
                 {
                     AnimStartFlash.Show();
                     ImgDoubleBuff.Show();
+                    ImgDoubleBuffCountDown.Show();
+                    TxtDoubleBuffCountDown_Red.text = CountDownTimerManager.Instance.GetRemainingTimeText(GameEnum.GetDescription(SpecialRewardsType.UnlimitedDoubleBuff));
                 }
 
                 if (mVolcanicActivity is not null)

@@ -1317,8 +1317,9 @@ GameObject:
   - component: {fileID: 6223023641370080212}
   - component: {fileID: 6104081530350456415}
   - component: {fileID: 1340341981210930810}
+  - component: {fileID: 5026129067898645628}
   m_Layer: 5
-  m_Name: ImgBox
+  m_Name: ImgRewardIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1340,8 +1341,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 413, y: 3}
-  m_SizeDelta: {x: 86.9872, y: 86.989}
+  m_AnchoredPosition: {x: 413, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6104081530350456415
 CanvasRenderer:
@@ -1371,7 +1372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6c80730a527d82449bcfe2548b39e3d3, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1381,6 +1382,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5026129067898645628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4674204319315723410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: ImgBox
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &5248315029382514841
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,15 +1732,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 550237c005fbbc8429a96183010141fc, type: 2}
   - {fileID: 11400000, guid: 3fdca9d700c0c0148b9ed2e5cf05c7c1, type: 2}
   - {fileID: 11400000, guid: 152a318750b9a234e878c9d82137d901, type: 2}
+  - {fileID: 11400000, guid: 550237c005fbbc8429a96183010141fc, type: 2}
   - {fileID: 11400000, guid: 3e555d4e5bb131c4a8ae68d7a301d8f3, type: 2}
-  - {fileID: 11400000, guid: 418a4aec36833fd46afad83688611cca, type: 2}
-  - {fileID: 11400000, guid: 152a318750b9a234e878c9d82137d901, type: 2}
+  - {fileID: 11400000, guid: 550237c005fbbc8429a96183010141fc, type: 2}
   - {fileID: 11400000, guid: 3e555d4e5bb131c4a8ae68d7a301d8f3, type: 2}
   mCupPos: {fileID: 28786202081147808}
+  mCoinSprite: {fileID: 21300000, guid: 8fa0c956bfff3fb47a65c1fe3d01e183, type: 3}
   ImgProgressBar: {fileID: 3440128105272964299}
   TextProgress: {fileID: 6746036799596544942}
   Selected: {fileID: 2551833490129700680}
   TxtCurLevel: {fileID: 6733742843690390872}
+  ImgRewardIcon: {fileID: 1340341981210930810}
   TextTimer: {fileID: 8809164671257728802}
 --- !u!1 &6861405754305139785
 GameObject:

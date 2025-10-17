@@ -771,17 +771,13 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
         // 关卡道具的开关可以移动到每个瓶子
         if (bombMaxNum > 0)
-        {
             isBomb = true;
-        }
+
         if (countDownNum > 0)
-        {
             isCountDown = true;
-        }
+
         if (timeCountDown > 0)
-        {
             isTimeCountDown = true;
-        }
 
         clearList = new List<int>(levelInfo.clearList);
         hideColor = new List<int>(levelInfo.hideList);
