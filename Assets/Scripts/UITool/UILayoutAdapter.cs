@@ -10,7 +10,7 @@ enum LayoutType
     Square = 0,
     HorizontalRectangle = 1,
     VerticalRectangle = 2,
-    None
+    AutoAdapter = 3
 }
 /// <summary>
 /// 自适应GridLayoutGroup工具 v1.1.101525 
@@ -18,12 +18,12 @@ enum LayoutType
 /// 使用说明：在需要大量排序的面板上挂载该脚本，注意面板如果有动态变化的其他组件，请新建空父亲，默认枚举为正方形
 /// 注意事项：子物体大要求一致。
 /// </summary>
-public class UILayoutAapter : MonoBehaviour
+public class UILayoutAapter : BaseUIAdapter
 {
     [Tooltip("设置子物体的排列形状")]
     [SerializeField] private LayoutType layoutType;
     [Tooltip("强制设置子物体的排列数量")]
-    [SerializeField] private int constraintCount;
+    [SerializeField] private int constraintCounts;
     private int childCounts;
     [SerializeField]
     private List<RectTransform> targetRectTransform;
@@ -34,29 +34,9 @@ public class UILayoutAapter : MonoBehaviour
     private float parentHeight;
     private float totalWidth;
     private float totalHeight;
- 
 
-    #region 动态调整的触发与初始化
-    void OnEnable()
-    {
-        // 延后执行，保证不受到动态ui的影响
-        ExecuteAtEndOfFrame(Adapter);
-    }
-    public void ExecuteAtEndOfFrame(System.Action action)
-    {
-        StartCoroutine(ExecuteAtEndOfFrameCoroutine(action));
-    }
-    private IEnumerator ExecuteAtEndOfFrameCoroutine(System.Action action)
-    {
-        yield return new WaitForEndOfFrame();
-        action?.Invoke();
-    }
-    #endregion
 
-    /// <summary>
-    /// 动态调整
-    /// </summary>
-    void Adapter()
+    protected override void Adapter()
     {
         // 初始化
         targetRectTransform = new List<RectTransform>();
@@ -83,52 +63,59 @@ public class UILayoutAapter : MonoBehaviour
         parentHeight = rectTransform.rect.height;
         parentWidth = rectTransform.rect.width;
         gridLayoutGroup = GetComponent<GridLayoutGroup>();
+
         if (gridLayoutGroup == null)
             gridLayoutGroup = gameObject.AddComponent<GridLayoutGroup>();
-        // 计算
+
         Vector2 cellSize = new Vector2();
         Vector2 spaceSize = new Vector2();
         totalWidth = parentWidth - gridLayoutGroup.padding.left - gridLayoutGroup.padding.right;
         totalHeight = parentHeight - gridLayoutGroup.padding.top - gridLayoutGroup.padding.bottom;
 
         // 初始化目标物体数量为正方形的形式
-        int elementsRow = (int)Math.Sqrt(childCounts);
-
+        int elementsRow = Mathf.CeilToInt(Mathf.Sqrt(childCounts));
+        int elementsColumn = Mathf.CeilToInt(Mathf.Sqrt(childCounts));
         // 设置排序方式和对应方式的目标物体数量
         switch (layoutType)
         {
             // 默认为Square类型 
-            case LayoutType.None:
             case LayoutType.Square:
                 gridLayoutGroup.startAxis = GridLayoutGroup.Axis.Horizontal;
                 gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
                 break;
 
             case LayoutType.HorizontalRectangle:
-                elementsRow += 1;
                 gridLayoutGroup.startAxis = GridLayoutGroup.Axis.Horizontal;
                 gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+                if (constraintCounts != 0 && constraintCounts < childCounts)
+                {
+                    elementsColumn = constraintCounts;
+                }
+                elementsRow = Mathf.CeilToInt((float)childCounts / elementsColumn);
+                
                 break;
 
             case LayoutType.VerticalRectangle:
-                elementsRow += 1;
                 gridLayoutGroup.startAxis = GridLayoutGroup.Axis.Vertical;
                 gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
+
+                if (constraintCounts != 0 && constraintCounts < childCounts)
+                {
+                    elementsRow = constraintCounts;
+                }
+                elementsColumn = Mathf.CeilToInt((float)childCounts / elementsRow);
+                break;
+            default:
                 break;
         }
 
-        // 将目标物体数设置为用户需求
-        if (constraintCount != 0)
-        {
-            elementsRow = constraintCount;
-        }
-        gridLayoutGroup.constraintCount = elementsRow;
+      
 
 
 
-       // 计算 
-     
-        cellSize = CalculateCellSize(targetRectTransform[0], elementsRow);
+        // 计算 
+
+        cellSize = CalculateCellSize(targetRectTransform[0], elementsRow, elementsColumn);
         if (elementsRow > 1)
             spaceSize = cellSize * 0.1f * elementsRow / (elementsRow - 1);
         else
@@ -142,17 +129,21 @@ public class UILayoutAapter : MonoBehaviour
         gridLayoutGroup.childAlignment = TextAnchor.MiddleCenter;
     }
 
-    private Vector2 CalculateCellSize(RectTransform child, int targetRow)
+    private Vector2 CalculateCellSize(RectTransform child, int targetRow, int targetColumn)
     {
+        Debug.Log(targetRow);
+        Debug.Log(targetColumn);
         float childWidth = child.rect.width;
         float childHeight = child.rect.height;
         float OWHRatio = childWidth / childHeight;
+        Debug.Log(totalWidth);
+        Debug.Log(totalHeight);
         float cellWidth = totalWidth / targetRow;
-        float cellHeight = totalHeight / targetRow;
+        float cellHeight = totalHeight / targetColumn;
         float NWHRatio = cellWidth / cellHeight;
 
         // 宽能放更多东西，说明要以高为基准
-        if(NWHRatio > OWHRatio)
+        if (NWHRatio > OWHRatio)
         {
 
             return new Vector2(cellHeight * OWHRatio, cellHeight);
@@ -162,6 +153,6 @@ public class UILayoutAapter : MonoBehaviour
 
             return new Vector2(cellWidth, cellWidth / OWHRatio);
         }
-        
+
     }
 }

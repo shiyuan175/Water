@@ -4,14 +4,14 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	public class TestUIProGressPackagesADActivitesData : UIPanelData
+	public class UIPrograssGiftADActivityData : UIPanelData
 	{
 	}
-	public partial class TestUIProGressPackagesADActivites : UIPanel
+	public partial class UIPrograssGiftADActivity : UIPanel
 	{
 		protected override void OnInit(IUIData uiData = null)
 		{
-			mData = uiData as TestUIProGressPackagesADActivitesData ?? new TestUIProGressPackagesADActivitesData();
+			mData = uiData as UIPrograssGiftADActivityData ?? new UIPrograssGiftADActivityData();
 			// please add init code here
 		}
 		
