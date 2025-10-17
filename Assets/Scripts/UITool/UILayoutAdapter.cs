@@ -87,9 +87,12 @@ public class UILayoutAapter : BaseUIAdapter
             case LayoutType.HorizontalRectangle:
                 gridLayoutGroup.startAxis = GridLayoutGroup.Axis.Horizontal;
                 gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-                if (constraintCounts != 0 && constraintCounts < childCounts)
+                if (constraintCounts != 0)
                 {
-                    elementsColumn = constraintCounts;
+                    if (constraintCounts < childCounts)
+                        elementsColumn = constraintCounts;
+                    else
+                        elementsColumn = childCounts;
                 }
                 elementsRow = Mathf.CeilToInt((float)childCounts / elementsColumn);
                 
@@ -99,9 +102,12 @@ public class UILayoutAapter : BaseUIAdapter
                 gridLayoutGroup.startAxis = GridLayoutGroup.Axis.Vertical;
                 gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
 
-                if (constraintCounts != 0 && constraintCounts < childCounts)
+                if (constraintCounts != 0 )
                 {
-                    elementsRow = constraintCounts;
+                    if (constraintCounts < childCounts)
+                        elementsRow = constraintCounts;
+                    else
+                        elementsRow = childCounts;
                 }
                 elementsColumn = Mathf.CeilToInt((float)childCounts / elementsRow);
                 break;
@@ -136,8 +142,6 @@ public class UILayoutAapter : BaseUIAdapter
         float childWidth = child.rect.width;
         float childHeight = child.rect.height;
         float OWHRatio = childWidth / childHeight;
-        Debug.Log(totalWidth);
-        Debug.Log(totalHeight);
         float cellWidth = totalWidth / targetRow;
         float cellHeight = totalHeight / targetColumn;
         float NWHRatio = cellWidth / cellHeight;
@@ -145,7 +149,6 @@ public class UILayoutAapter : BaseUIAdapter
         // 宽能放更多东西，说明要以高为基准
         if (NWHRatio > OWHRatio)
         {
-
             return new Vector2(cellHeight * OWHRatio, cellHeight);
         }
         else
@@ -155,4 +158,5 @@ public class UILayoutAapter : BaseUIAdapter
         }
 
     }
+
 }

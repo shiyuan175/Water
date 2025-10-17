@@ -18,12 +18,9 @@ MonoBehaviour:
     GameObject: {fileID: 0}
     From: 0
     NameToFullName: []
-    BindInfos:
-    - TypeName: UnityEngine.UI.ScrollRect
-      PathToRoot: ShopScrollView
-      MemberName: ShopScrollView
-    ScriptsFolder: Assets/Scripts/Controllers/UIBegin_ShopPanel
-    ClassName: ShopManager
+    BindInfos: []
+    ScriptsFolder: Assets/Scripts/Controllers/UIPrograssGiftADActivity
+    ClassName: GiftPanel
     Namespace: QFramework.Example
     MainCode: 
     DesignerCode: 
