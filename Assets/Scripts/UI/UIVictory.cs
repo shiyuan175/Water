@@ -152,7 +152,7 @@ namespace QFramework.Example
                     && turnTableADActivity.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TURNTABLE_AD_ACTIVITY_SIGN))
                 {
                     GameActivityManager.Instance.GetActivity<TurnTableADActivity>().StartActivity();
-                    UIKit.OpenPanel<UIMallTurntable>(new UIMallTurntableData { IsManagedOpen =true});
+                    UIKit.OpenPanel<UIMallTurntable>(new UIMallTurntableData { IsManagedOpen = true });
                     return true;
                 }
                 return false;
@@ -181,20 +181,6 @@ namespace QFramework.Example
                 {
                     GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>().StartActivity();
                     UIKit.OpenPanel<UISepecialOfferGift>(new UISepecialOfferGiftData()
-                    { 
-                        IsManagedOpen = true,
-                    });
-                    return true;
-                }
-                return false;
-            });
-/*
-            // 免广告礼包
-            PanelQueueManager.Instance.Enqueue(() =>
-            {               
-                if(this.GetUtility<SaveDataUtility>().GetCurrentLevel()==GameDefine.GameConst.REMOVE_AD_BEGIN_LEVEL)
-                {
-                    UIKit.OpenPanel<UIRemoveAdADActivity>(new UIRemoveAdADActivityData()
                     {
                         IsManagedOpen = true,
                     });
@@ -202,7 +188,21 @@ namespace QFramework.Example
                 }
                 return false;
             });
-*/
+            /*
+                        // 免广告礼包
+                        PanelQueueManager.Instance.Enqueue(() =>
+                        {               
+                            if(this.GetUtility<SaveDataUtility>().GetCurrentLevel()==GameDefine.GameConst.REMOVE_AD_BEGIN_LEVEL)
+                            {
+                                UIKit.OpenPanel<UIRemoveAdADActivity>(new UIRemoveAdADActivityData()
+                                {
+                                    IsManagedOpen = true,
+                                });
+                                return true;
+                            }
+                            return false;
+                        });
+            */
             //魔法连胜活动
             HandleMSA();
 
@@ -221,6 +221,13 @@ namespace QFramework.Example
             var _activit = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
             if (_activit is null)
                 return;
+            //阶段奖励全部领取完不弹出活动
+            //(该活动的阶段奖励为20个)
+            else if (_activit.CurStageReward >= 20)
+            {
+                _activit.StreakWin();
+                return;
+            }
 
             bool _openPanel = false;
             UIMagicStreakActivityData _uiData = null;

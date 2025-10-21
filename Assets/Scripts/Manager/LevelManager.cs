@@ -549,123 +549,55 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         if (!BottomBottleLayoutGroup.gameObject.activeSelf)
             BottomBottleLayoutGroup.Show();
 
-        // 半瓶道具逻辑
-        if (isHalf)
+        // 半瓶道具逻辑(有容量可补充)
+        if (isHalf && nowHalf != null && nowHalf.maxNum <= 4)
         {
-            if (nowHalf == null || nowHalf.maxNum == 4)
-            {
-                // 新开一个半瓶
-                if (nowBottles.Count < (topBottle.Count + bottomBottle.Count))
-                {
-                    UseItemAddBottle();
-                    MoveAndAddBottle(true, action);
-                }
-            }
-            else
-            {
-                // 直接增加容量
-                nowHalf.maxNum++;
-                nowHalf.SetMaxBottle();
-                if (nowHalf.maxNum == 4)
-                    nowHalf = null;
-                action?.Invoke();
-            }
+            nowHalf.maxNum++;
+            nowHalf.SetMaxBottle();
+            if (nowHalf.maxNum == 4)
+                nowHalf = null;
+            action?.Invoke();
             return;
         }
 
-        // 整瓶道具逻辑
-        if (!isHalf)
-        {
-            if (nowHalf != null && nowHalf.maxNum < 4)
-            {
-                // 补满半瓶
-                nowHalf.maxNum = 4;
-                nowHalf.SetMaxBottle();
-                nowHalf = null;
-                action?.Invoke();
-                return;
-            }
-            if (nowBottles.Count < (topBottle.Count + bottomBottle.Count))
-            {
-                UseItemAddBottle();
-                MoveAndAddBottle(false, action);
-            }
-        }
-
-        /*if (nowBottles.Count < (topBottle.Count + bottomBottle.Count) || nowHalf != null)
+        // 整瓶道具/开新半瓶逻辑
+        if (nowBottles.Count < (topBottle.Count + bottomBottle.Count))
         {
             UseItemAddBottle();
             MoveAndAddBottle(isHalf, action);
-        }*/
+        }
     }
 
     /// <summary>
     /// 增加瓶子
     /// </summary>
-    public void UseItemAddBottle()
+    private void UseItemAddBottle()
     {
-        if (nowBottles.Count < (topBottle.Count + bottomBottle.Count))
+        //对比上下排各激活瓶子数
+        int _topAc = topBottle.Count(b => b.gameObject.activeSelf);
+        int _bomAc = bottomBottle.Count(b => b.gameObject.activeSelf);
+        //Debug.Log($"上排激活了{topAc}");
+        //Debug.Log($"下排激活了{bomAc}");
+        if (_topAc > _bomAc)
         {
-            if (nowHalf != null && nowHalf.maxNum != 4)
-            {
-                //Debug.Log("nowHalf not null");
-                return;
-            }
-
-            int topAc = 0;
-            int bomAc = 0;
-
-            foreach (var item in topBottle)
-            {
-                if (item.gameObject.activeSelf)
-                {
-                    ++topAc;
-                }
-            }
-
-            foreach (var item in bottomBottle)
-            {
-                if (item.gameObject.activeSelf)
-                {
-                    ++bomAc;
-                }
-            }
-
-            //Debug.Log($"上排激活了{topAc}");
-            //Debug.Log($"下排激活了{bomAc}");
-
-            if (topAc > bomAc)
-            {
-                //索引刚好对应下一个要激活的瓶子
-                bottomBottle[bomAc].Show();
-                nowBottles.Add(bottomBottle[bomAc]);
-                UpdateButtomLayoutSpcing();
-            }
-            else
-            {
-                topBottle[topAc].Show();
-                nowBottles.Add(topBottle[topAc]);
-                UpdapeTopLayoutSpcing();
-            }
-
-            int temp = 0;
-            foreach (var item in topBottle)
-            {
-                if (item.gameObject.activeSelf)
-                {
-                    item.bottleIdx = temp;
-                    ++temp;
-                }
-            }
-            foreach (var item in bottomBottle)
-            {
-                if (item.gameObject.activeSelf)
-                {
-                    item.bottleIdx = temp;
-                    ++temp;
-                }
-            }
+            //索引刚好对应下一个要激活的瓶子
+            bottomBottle[_bomAc].Show();
+            nowBottles.Add(bottomBottle[_bomAc]);
+            UpdateButtomLayoutSpcing();
         }
+        else
+        {
+            topBottle[_topAc].Show();
+            nowBottles.Add(topBottle[_topAc]);
+            UpdapeTopLayoutSpcing();
+        }
+
+        //修改瓶子ID
+        int _idx = 0;
+        foreach (var b in topBottle.Where(b => b.gameObject.activeSelf))
+            b.bottleIdx = _idx++;
+        foreach (var b in bottomBottle.Where(b => b.gameObject.activeSelf))
+            b.bottleIdx = _idx++;
     }
 
     /// <summary>
@@ -673,37 +605,25 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// </summary>
     /// <param name="isHalf"></param>
     /// <param name="action"><扣除道具的回调/param>
-    public void MoveAndAddBottle(bool isHalf, Action action)
+    private void MoveAndAddBottle(bool isHalf, Action action)
     {
-        var num = nowBottles.Count;
+        var _newBottle = nowBottles.Last();
 
-        //初始化瓶子-更新索引
         if (isHalf)
         {
-            if (nowHalf == null || nowHalf.maxNum == 4)
-            {
-                nowBottles[num - 1].Init(emptyBottle, nowBottles[num - 1].bottleIdx);
-                nowHalf = nowBottles[num - 1];
-                nowBottles[num - 1].maxNum = 1;
-            }
-            else
-            {
-                nowBottles[num - 1].maxNum++;
-                if (nowBottles[num - 1].maxNum == 4)
-                    nowHalf = null;
-            }
+            _newBottle.Init(emptyBottle, _newBottle.bottleIdx);
+            _newBottle.maxNum = 1;
+            nowHalf = _newBottle;
         }
-        //整瓶
         else
         {
-            nowBottles[num - 1].Init(emptyBottle, nowBottles[num - 1].bottleIdx);
-            nowBottles[num - 1].maxNum = 4;
-            nowHalf = null;
+            _newBottle.Init(emptyBottle, _newBottle.bottleIdx);
+            _newBottle.maxNum = 4;
         }
         action?.Invoke();
-        nowBottles[num - 1].SetMaxBottle();
+        _newBottle.SetMaxBottle();
 
-        //对瓶子列表重新排序(整个流程应该都是通过索引找瓶子，排序不改数据也不对)
+        //对瓶子列表重新排序
         nowBottles = nowBottles.OrderBy(bottle => bottle.bottleIdx).ToList();
     }
 

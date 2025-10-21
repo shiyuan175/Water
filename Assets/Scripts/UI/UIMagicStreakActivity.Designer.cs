@@ -5,12 +5,13 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:b17ad752-3bb5-4a4a-b5ad-c5cfb0cec9de
+	// Generate Id:e5c7a4bc-49bf-4e10-bfbc-2a4df5b2dc20
 	public partial class UIMagicStreakActivity
 	{
 		public const string Name = "UIMagicStreakActivity";
-		
-		[SerializeField]
+
+        [Header("Bind UI")]
+        [SerializeField]
 		public UnityEngine.UI.ScrollRect RankScrollRect;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnClose;
@@ -24,6 +25,10 @@ namespace QFramework.Example
 		public UnityEngine.UI.Image ImgProgressBar;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtProgress_Red;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgRewardUI;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtRewardNum;
 		
 		private UIMagicStreakActivityData mPrivateData = null;
 		
@@ -36,6 +41,8 @@ namespace QFramework.Example
 			ImgSelected = null;
 			ImgProgressBar = null;
 			TxtProgress_Red = null;
+			ImgRewardUI = null;
+			TxtRewardNum = null;
 			
 			mData = null;
 		}

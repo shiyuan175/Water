@@ -16,8 +16,9 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
     [SerializeField] private Button BtnContinue;
     [SerializeField] private RectTransform mRectTransformPar;
     [SerializeField] private ParticleTargetMoveCtrl CoinParticle;
-    public SimpleObjectPool<Image> RewardPool;
 
+    public SimpleObjectPool<Image> RewardPool;
+    private List<Image> mActiveRewards;
     private RectTransform mMask;
     private TextMeshProUGUI txtCoinAdd;
     private List<int> availableSlots;
@@ -33,6 +34,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         txtCoinAdd.font = LevelManager.Instance.redFont;
         actionList = new List<System.Action>();
         availableSlots = new List<int>();
+        mActiveRewards = new List<Image>();
         mRewardSpriteMappingSO.Initialize();
 
         RewardPool = new SimpleObjectPool<Image>(
@@ -46,6 +48,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         (Image img) =>
         {
             img.Hide();
+            img.transform.SetParent(mRectTransformPar);
             img.rectTransform.localPosition = Vector3.zero;
             img.rectTransform.localScale = Vector3.one;
         },
@@ -57,6 +60,8 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
             StartCoroutine(ContinueClickEvent());
         });
     }
+
+    #region 发放奖励表现
 
     /// <summary>
     /// 发放奖励表现
@@ -228,6 +233,31 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
     {
         return mRewardSpriteMappingSO.GetRewardSprite<T>(rewardType);
     }
+    
+    #endregion
+
+    #region 外部访问对象池方法
+
+    public Image Allocate()
+    {
+        var _img = RewardPool.Allocate();
+        _img.Show();
+        mActiveRewards.Add( _img );
+        return _img;
+    }
+
+    public void RecyleAll()
+    {
+        foreach (var item in mActiveRewards)
+        {
+            item.rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+            item.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            RewardPool.Recycle(item);
+        }
+        mActiveRewards.Clear();
+    }
+
+    #endregion
 
     private IEnumerator ContinueClickEvent()
     {
