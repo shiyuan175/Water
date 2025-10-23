@@ -10,12 +10,15 @@ using UnityEngine.PlayerLoop;
 public class PrograssGiftADActivityModel : AbstractModel
 {
     public int RewardLevel => mRewardLevel.Value;
-    private readonly string BP_REWARD_LEVEl = "H_PGRewardLevel";
+    public int GiftLevel => mGiftLevel.Value;
+    private readonly string PG_REWARD_LEVEl = "H_PGRewardLevel";
+    private readonly string PG_GIFT_LEVEl = "H_PGGiftLevel";
     public PGData mPGData;
     public int TempLevel;
     private string mDelFilePath;
     private string mCurFilePath;
     private BindableProperty<int> mRewardLevel;
+    private BindableProperty<int> mGiftLevel;
     private JsonFileUtility mJsonFileUtility;
    
     private SaveDataUtility mStorage;
@@ -24,16 +27,21 @@ public class PrograssGiftADActivityModel : AbstractModel
         mStorage = this.GetUtility<SaveDataUtility>();
         mJsonFileUtility = this.GetUtility<JsonFileUtility>();
         mRewardLevel = new BindableProperty<int>();
+        mGiftLevel = new BindableProperty<int>();
 
         mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.PGDefaultJson.FileName);
         mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.PGCurrentJson.FileName);
 
-        mRewardLevel.SetValueWithoutEvent(mStorage.LoadIntValue(BP_REWARD_LEVEl,0));
+        mRewardLevel.SetValueWithoutEvent(mStorage.LoadIntValue(PG_REWARD_LEVEl,0));
         mRewardLevel.Register(value =>
         { 
-            mStorage.SaveInt(BP_REWARD_LEVEl, value);
+            mStorage.SaveInt(PG_REWARD_LEVEl, value);
         });
-      
+        mRewardLevel.SetValueWithoutEvent(mStorage.LoadIntValue(PG_GIFT_LEVEl, 0));
+        mRewardLevel.Register(value =>
+        {
+            mStorage.SaveInt(PG_GIFT_LEVEl, value);
+        });
 
     }
 
@@ -71,4 +79,9 @@ public class PrograssGiftADActivityModel : AbstractModel
         mRewardLevel.Value++;
         TempLevel++;
     }
+    public void AddGiftLevel()
+    {
+        mGiftLevel.Value++;
+    }
+
 }

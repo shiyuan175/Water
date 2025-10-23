@@ -84,14 +84,21 @@ namespace QFramework.Example
             else
                 BtnBuy.transform.Find("ImgLock").gameObject.SetActive(false);
             if (isGot)
-                BtnBuy.gameObject.SetActive(false);
+                BtnBuy.gameObject.SetActive(value: false);
             else
                 BtnBuy.gameObject.SetActive(true);
 
             if (isLock)
+            {
+                BtnBuy.interactable = false;
                 ImgLock.gameObject.SetActive(true);
+            }           
             else
+            {
+                BtnBuy.interactable = true;
                 ImgLock.gameObject.SetActive(false);
+            }
+               
         }
 
         private void SetBtnClick(Func<bool> Buy)
@@ -101,6 +108,7 @@ namespace QFramework.Example
             {       
                 if (Buy())
                 {
+                    BtnBuy.interactable = false;
                     float durationTime = 0.5f;
                     BtnBuy.transform.Find("Txt_Red").GetComponent<TextMeshProUGUI>().text = "";
                     BtnBuy.transform.DOScale(1.2f, durationTime * 0.3f)
@@ -109,9 +117,10 @@ namespace QFramework.Example
                     {
                         BtnBuy.transform.DOScale(0f, durationTime * 0.7f)
                         .SetEase(Ease.InBack)
-                        .OnKill(() =>
+                        .OnComplete(() =>
                         {
-
+                            BtnBuy.transform.localScale = Vector3.one;
+                            BtnBuy.Hide();
                         });
                     });
                 }
@@ -123,10 +132,10 @@ namespace QFramework.Example
             Image img = BtnBuy.transform.Find("ImgLock").GetComponent<Image>();
             Color oldColor = img.color;
             // 单个 Tween 完成所有动画
-            float duration = 0.6f;
+            float duration = 0.9f;
             float elapsed = 0f;
 
-            Tween unlockTween = DOTween.To(() => elapsed, x => elapsed = x, duration, duration)
+            Tween unlockTween = DOTween.To(() => elapsed, x => elapsed = x, duration, duration)                
                 .OnUpdate(() =>
                 {
                     float progress = elapsed / duration;
@@ -136,22 +145,21 @@ namespace QFramework.Example
 
                     // 控制缩放：先放大后缩小
                     float scale = progress < 0.3f ?
-                        Mathf.Lerp(1f, 1.2f, progress / 0.3f) :
+                        Mathf.Lerp(1f, 1.3f, progress / 0.3f) :
                         Mathf.Lerp(1.2f, 0.8f, (progress - 0.3f) / 0.7f);
                     img.transform.localScale = Vector3.one * scale;
                 })
                 .OnComplete(() =>
                 {
-                    img.gameObject.SetActive(false);
-                    img.transform.localScale = Vector3.one;
-
-                })
-                .OnKill(() =>
-                {
-                    img.gameObject.SetActive(true);
-                    img.transform.localScale = Vector3.one; // 重置缩放
-                    img.color = oldColor;
+                    DOVirtual.DelayedCall(4f, () =>
+                    {
+                        BtnBuy.interactable = true;
+                        img.gameObject.SetActive(false);
+                        img.transform.localScale = Vector3.one;
+                        img.color = oldColor;
+                    });
                 });
+               
 
             return unlockTween;
 

@@ -1436,6 +1436,16 @@ MonoBehaviour:
   - {fileID: 8143930805281527093}
   - {fileID: 604542122875636447}
   - {fileID: 8167192195523885904}
+  GiftIDs:
+  - pg_gift1
+  - pg_gift2
+  - pg_gift3
+  - pg_gift4
+  - pg_gift5
+  - pg_gift6
+  - pg_gift7
+  - pg_gift8
+  - pg_gift9
   TopPanel: {fileID: 7040033369670671427}
   TxtCountDown: {fileID: 714771434674676366}
   BtnClose: {fileID: 8345406348834660199}

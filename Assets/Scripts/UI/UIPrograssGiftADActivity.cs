@@ -6,6 +6,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEditor.VersionControl;
 using UnityEngine.Rendering;
+using System;
 
 namespace QFramework.Example
 {
@@ -18,12 +19,15 @@ namespace QFramework.Example
         [SerializeField] private List<Transform> giftPanels;
         [SerializeField] private List<Transform> panelPosions;
         [SerializeField] private TextMeshProUGUI[] TxtReds;
+        [SerializeField] private List<string> GiftIDs;
         private PrograssGiftADActivityModel mPGModel;
         private PrograssGiftADActivity mPGADActivity;
         private GooglePayManager googlePay;
         private Tween mCountDownTween;
         private Sequence buttomImageFillSequence;
+        private Dictionary<string, Action> giftPackBuySuccessActions;
         bool isBuy = false;
+       
         protected override void OnInit(IUIData uiData = null)
         {
             mData = uiData as UIPrograssGiftADActivityData ?? new UIPrograssGiftADActivityData();
@@ -41,6 +45,11 @@ namespace QFramework.Example
             if (giftPanels.Count == 0)
                 Debug.LogError("没有设置6个物体的transfrme");
             mPGADActivity = GameActivityManager.Instance.GetActivity<PrograssGiftADActivity>();
+            googlePay = GooglePayManager.Instance;
+            // 初始化购买成功回调
+            giftPackBuySuccessActions = new Dictionary<string, Action>();
+            foreach (var i in GiftIDs)
+                giftPackBuySuccessActions[i] = () => OnPaySuccess();
             SetBtnClick();
 
         }
@@ -49,7 +58,11 @@ namespace QFramework.Example
         {
 
             InitUI();
-
+            // 注册购买成功事件
+            foreach (var kvp in giftPackBuySuccessActions)
+            {
+                StringEventSystem.Global.Register(kvp.Key, kvp.Value).UnRegisterWhenGameObjectDestroyed(gameObject);
+            }
         }
 
         protected override void OnHide()
@@ -141,9 +154,12 @@ namespace QFramework.Example
                 {
                     Transform changerTransform = giftPanels[(lodLevel + i) % 6];
                     if (i == 1)
-                        buttomImageFillSequence.Append(ChangeGiftPanelPostion(changerTransform, panelPosions[i - 1], true));
+                    {
+                        buttomImageFillSequence.Append(ChangeGiftPanelPostion(changerTransform, panelPosions[i - 1]));
+                        buttomImageFillSequence.Join(changerTransform.GetComponent<PrograssGiftPanel>().UnLock());
+                    }     
                     else
-                        buttomImageFillSequence.Append(ChangeGiftPanelPostion(changerTransform, panelPosions[i - 1], false));
+                        buttomImageFillSequence.Append(ChangeGiftPanelPostion(changerTransform, panelPosions[i - 1]));
                 }
 
                 buttomImageFillSequence.Append(AppearGiftPanel(giftPanels[(lodLevel) % 6], panelPosions[panelPosions.Count-1]));
@@ -156,10 +172,11 @@ namespace QFramework.Example
             /* // 进入下一个奖励
              mPGModel.AddRewardLevel();*/
         }
+        #region 动画
         private Tween DisappearGiftPanel(Transform disapperPanel)
         {
             // 动画时长
-            float durationTime = 1.3f;
+            float durationTime = 0.7f;
 
             return disapperPanel.DOScale(Vector3.zero, durationTime)
                 .OnStart(() =>
@@ -190,7 +207,7 @@ namespace QFramework.Example
         private Tween AppearGiftPanel(Transform AppearPanel, Transform targerPanel)
         {
             // 动画时长
-            float durationTime = 1.0f;
+            float durationTime = 0.6f;
 
               AppearPanel.gameObject.SetActive(true);
             return AppearPanel.DOScale(Vector3.one, durationTime)
@@ -248,9 +265,9 @@ namespace QFramework.Example
                 })
                .SetEase(Ease.InBack);
         }
-        private Tween ChangeGiftPanelPostion(Transform changePanel, Transform targerPanel, bool Unlock = false)
+        private Tween ChangeGiftPanelPostion(Transform changePanel, Transform targerPanel)
         {
-            float durationTime = 1f;
+            float durationTime = 0.7f;
             // 保存当前位置和尺寸
             RectTransform changeRect = changePanel.GetComponent<RectTransform>();
             RectTransform targerRect = targerPanel.GetComponent<RectTransform>();
@@ -273,13 +290,23 @@ namespace QFramework.Example
             return changePanel.DOMove(targerPanel.position, durationTime);
                
         }
-
+        #endregion
         private void ReFreshUI()
         {
             // 播放动画
 
             UIPlayAnimation();
 
+        }
+        private void OnPaySuccess()
+        {
+            isBuy = true;
+            mPGModel.AddGiftLevel();
+            UIKit.OpenPanel<UIBuyPackSuccess>();
+            ActionKit.Delay(1, () =>
+            {
+                UIKit.ClosePanel<UIShop>();//延迟1s等待协程结束关闭
+            }).Start(this);
         }
         public IArchitecture GetArchitecture()
         {
@@ -292,6 +319,7 @@ namespace QFramework.Example
         /// <returns></returns>
         public bool BuyItem()
         {
+          
             if (CheckBuy() == true)
             {
                 Debug.Log(123);
@@ -299,8 +327,10 @@ namespace QFramework.Example
                 mPGModel.AddRewardLevel();
                 /*   ReFreshUI();*/
                 mPGADActivity.DistributeReward(ReFreshUI, mPGModel.mPGData.Rewards[mPGModel.RewardLevel - 1].RewardItem);
+                isBuy = false;
+                return true;
             }
-            return CheckBuy();
+            return false;
 
         }
         public bool CheckBuy()
@@ -315,12 +345,24 @@ namespace QFramework.Example
             {
 #if UNITY_EDITOR
                 Debug.Log("yes");
-                return true;
+
 #endif
-                return false;
+
+                googlePay.BuyProduct(GiftIDs[mPGModel.GiftLevel]);
+                Debug.Log(isBuy);
+                return isBuy;
             }
 
 
         }
+        void Update()
+        {
+            Debug.Log(isBuy);
+            if (Input.GetKeyDown(KeyCode.L))
+                isBuy = true;
+        }
     }
+
+
+    
 }
