@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using QFramework;
 
-public class HighTowerActivityModel : AbstractModel
+public class HighTowerActivityModel : AbstractModel ,ICanGetModel
 {
     private const string HTA_STREAK_WIN_NUM_SIGN = "C_HTAStreakWinNum";
     /// <summary>
@@ -12,26 +12,33 @@ public class HighTowerActivityModel : AbstractModel
 
     public IReadOnlyList<int> RewardStages => REWARD_STAGES;
     public int HTAStreakWinNum => mHTAStreakWin.Value;
+    /// <summary>
+    ///下一阶段奖励索引(从1开始)
+    /// </summary>
     public int NextRewardStageIndex => mNextRewardStageIndex;
-    /// <summary>
-    /// 距离下一阶段奖励还有几次连胜
-    /// </summary>
-    public int WinRemainingToNextReward => RewardStages[mNextRewardStageIndex] - mHTAStreakWin.Value;
-    /// <summary>
-    /// 当前阶段和下一阶段的间隔值
-    /// </summary>
-    public int CurrentRewardStageGap =>
-     mNextRewardStageIndex > 0 && mNextRewardStageIndex < RewardStages.Count
-         ? RewardStages[mNextRewardStageIndex] - RewardStages[mNextRewardStageIndex - 1]
-         : 0;
+
+    /* obsolete parameter
+     /// <summary>
+     /// 距离下一阶段奖励还有几次连胜
+     /// </summary>
+     public int WinRemainingToNextReward => RewardStages[mNextRewardStageIndex] - mHTAStreakWin.Value;
+     /// <summary>
+     /// 当前阶段和下一阶段的间隔值
+     /// </summary>
+     public int CurrentRewardStageGap =>
+      mNextRewardStageIndex > 0 && mNextRewardStageIndex < RewardStages.Count
+          ? RewardStages[mNextRewardStageIndex] - RewardStages[mNextRewardStageIndex - 1]
+          : 0;
+    */
 
     private BindableProperty<int> mHTAStreakWin;
-    //最小值会取到1
     private int mNextRewardStageIndex;
+    private StageModel mStagemodel;
     private SaveDataUtility storage;
 
     protected override void OnInit()
     {
+        mStagemodel = this.GetModel<StageModel>();
         storage = this.GetUtility<SaveDataUtility>();
 
         mHTAStreakWin = new BindableProperty<int>();
@@ -52,7 +59,7 @@ public class HighTowerActivityModel : AbstractModel
 
     public void HTAStreakWin()
     {
-        ++mHTAStreakWin.Value;
+        mHTAStreakWin.Value += mStagemodel.SettlementMultiple;
         RecalculateNextRewardStageIndex(mNextRewardStageIndex); 
     }
 

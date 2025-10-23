@@ -33,8 +33,6 @@ public class HighTowerActivity : BaseGameActivity
 
     public IReadOnlyList<int> RewardStages => mHTAModel.RewardStages;
     public int NextRewardStageIndex => mHTAModel.NextRewardStageIndex;
-    public int WinRemainingToNextReward => mHTAModel.WinRemainingToNextReward;
-    public int CurrentRewardStageGap => mHTAModel.CurrentRewardStageGap;
     public int HTAStreakWinNum => mHTAModel.HTAStreakWinNum;
     public bool EndWin => HTAStreakWinNum >= RewardStages.Last();
     public bool IsAtBaseNode => HTAStreakWinNum < RewardStages[1];

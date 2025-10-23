@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using JsonFileData;
 using QFramework;
-using QFramework.Example;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class MSANodeCtrl : MonoBehaviour
 {

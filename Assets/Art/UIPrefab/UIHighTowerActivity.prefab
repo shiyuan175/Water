@@ -428,10 +428,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624173a2f41e01f4bbfa09b16cdc9481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mStartNode: {fileID: 8177887043247866433, guid: 6ca11a79cbe16d04996cb485b69d2afd, type: 3}
-  mEndNode: {fileID: 8714475255645337910, guid: 0ec87fc46b420454e8945c2478ef2f0e, type: 3}
-  mBlueNode: {fileID: 7551846532118348262, guid: 1ed5840be28cae948893acecc11d67e2, type: 3}
-  mRedNode: {fileID: 7551846532118348262, guid: 72b708367acfe49499513f29fae31cd3, type: 3}
+  mStartNode: {fileID: 2402779493133655187, guid: 1e08455c1741ee9489cfb4fca8eeded4, type: 3}
+  mMidNode: {fileID: 7385891000781614945, guid: 3bb60fb14548fb647a7728cc6b78cdb0, type: 3}
+  mEndNode: {fileID: 3237994823125254246, guid: b4fd94f557e216041bd2ef7fab21a8d5, type: 3}
   mParNode: {fileID: 9189855749799393952}
   mRewardPackSOs:
   - {fileID: 11400000, guid: 1d30a575141b3b049813ea53e6f09d19, type: 2}
