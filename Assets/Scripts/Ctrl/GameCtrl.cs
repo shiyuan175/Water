@@ -115,6 +115,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                             FirstBottle = null;
                             SecondBottle = null;
                             LevelManager.Instance.AddMoveNum(false);
+                            LevelManager.Instance.BombClear();
                             return;
                         } 
                         LevelManager.Instance.RecordLast();
@@ -122,6 +123,8 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                         FirstBottle = null;
                         SecondBottle = null;
                         AudioKit.PlaySound("resources://Audio/PourWaterSound");
+
+
                         //LevelManager.Instance.AddMoveNum();//步数统计.暂时无用                
                     }
                     else

@@ -321,7 +321,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <summary>
     /// 设置为真
     /// </summary>
-    public void SetIsBomb()
+    public void SetIsBomb(bool bomb =true)
     {
         isBomb = true;
     }
@@ -338,10 +338,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             return;
         if (isFlyBomb)
             CheckFlyBomb();
-        isBomb = false;
+        isBomb = false; 
+ 
         for (int i = 0; i < bombCounts.Count; i++)
         {
-
+           
             // 设置时间
             // waterImg[i].textItem.text = bombCounts[i] - moveNum > 0 && hideWaters[i] == false ? (bombCounts[i] - moveNum).ToString() : "";
             // 100用来特殊标记
@@ -351,7 +352,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
                 waterImg[i].textItem.text = "";
                 bombCounts[i] = 0;
-
+          
+                // 炸弹清空，所以跳出炸弹的更新
+                break;
             }
             else if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false && bombCounts[i] != 0)
             {
@@ -379,6 +382,27 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 isBomb = true;
             
         }
+
+
+
+    }
+    /// <summary>
+    /// 清空炸弹的逻辑，a用来和默认参数的重载区分
+    /// </summary>
+    /// <param name="a"></param>
+    public void UpdateBomb(bool a)
+    {
+        for (int i = 0; i < bombCounts.Count; i++)
+        {
+            if(bombCounts[i]>0)
+            {
+                waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
+                waterImg[i].textItem.text = "";
+                bombCounts[i] = 0;
+            }
+           
+        }
+        isBomb = false;
     }
     public void CheckFlyBomb()
     {

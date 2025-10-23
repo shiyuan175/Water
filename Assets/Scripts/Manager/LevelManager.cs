@@ -930,7 +930,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public bool BombUpdate(BottleCtrl bottleCtrl = null)
     {
         bool flag = false;
-        foreach (var bottle in bottles)
+        foreach (BottleCtrl bottle in bottles)
         {
             bottle.UpdateBomb(bottleCtrl);
 
@@ -945,7 +945,14 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         return flag;
     }
 
-
+    public void BombClear()
+    {
+        foreach (BottleCtrl bottle in bottles)
+        {
+            bottle.UpdateBomb(false);
+            bottle.SetIsBomb(false);
+        }
+    }
     /// <summary>
     /// 记录所有瓶子
     /// </summary>
