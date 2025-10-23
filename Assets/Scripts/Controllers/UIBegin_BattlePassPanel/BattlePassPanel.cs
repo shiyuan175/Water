@@ -17,7 +17,6 @@ namespace QFramework.Example
     public partial class BattlePassPanel : ViewController, ICanGetModel
     {
         private BattlePassModel battlePassModel;
-        private BattlePassADActivity battlePassADActivity;
         private GooglePayManager googlePay;
         private RewardGrantUtility rewardGrantUtility;
         private BattlePassADActivity mBattlePassADActivity;

@@ -18,8 +18,20 @@ MonoBehaviour:
     GameObject: {fileID: 0}
     From: 0
     NameToFullName: []
-    BindInfos: []
-    ScriptsFolder: Assets/Scripts/Controllers/UIPrograssGiftADActivity
+    BindInfos:
+    - TypeName: RectTransform
+      PathToRoot: ItemPanel
+      MemberName: ItemPanel
+    - TypeName: UnityEngine.UI.Button
+      PathToRoot: BtnClaim
+      MemberName: BtnClaim
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ImgLock
+      MemberName: ImgLock
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ImgAlReceive
+      MemberName: ImgAlReceive
+    ScriptsFolder: Assets/Scripts/Controllers/UIBegin_BattlePassPanel/BattlePassContentPanel/ItemPanel
     ClassName: GiftPanel
     Namespace: QFramework.Example
     MainCode: 

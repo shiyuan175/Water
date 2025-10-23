@@ -28,6 +28,7 @@ public class RewardSpriteMappingSO : ScriptableObject
 
     public void Initialize()
     {
+
         specialLookup = new();
         foreach (var entry in specialRewardSprites)
             specialLookup[entry.rewardType] = entry.sprite;
@@ -39,6 +40,7 @@ public class RewardSpriteMappingSO : ScriptableObject
   
     public Sprite GetRewardSprite<T>(T rewardType) where T : Enum
     {
+    
         if (typeof(T) == typeof(SpecialRewardsType))
         {
             return specialLookup.TryGetValue((SpecialRewardsType)(object)rewardType, out var sprite) ? sprite : null;
@@ -52,6 +54,7 @@ public class RewardSpriteMappingSO : ScriptableObject
     }
     public Sprite GetRewardSprite(string rewardString)
     {
+     
         ///´ý²¹³ä
         if (rewardString == "Coins")
             return null;

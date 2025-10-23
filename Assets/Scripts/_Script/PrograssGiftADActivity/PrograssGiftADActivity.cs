@@ -1,20 +1,21 @@
 using GameDefine;
 using JsonFileData;
 using QFramework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
+public class PrograssGiftADActivity : BaseGameADActivity,ICanGetModel
 {
-    public override string ActivitySign => GameConst.BATTLEPASS_AD_ACTIVITY_SIGN;
+    public override string ActivitySign => GameDefine.GameConst.PROGRASSGIFT_AD_ACTIVITY_SIGN;
 
     public override string ActivityID => GetType().Name;
 
-    public override int ActivityBeginLevel => GameConst.BP_AD_BEGIN_LEVEL;
+    public override int ActivityBeginLevel => GameDefine.GameConst.PG_AD_BEGIN_LEVEL;
 
-    private BattlePassModel mBPModel;
-    public override float ActivityDurationMinutes => 30*24*60;
+    private PrograssGiftADActivityModel mPGModel;
+    public override float ActivityDurationMinutes => 30 * 24 * 60;
     public override GameActivityStatus ActivityStatus
     {
         get
@@ -27,19 +28,11 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
                 return GameActivityStatus.Active;
         }
     }
-    private GameActivityStatus mCurrentStatus;
-    public BattlePassADActivity()
+
+    public PrograssGiftADActivity()
     {
-        mBPModel = this.GetModel<BattlePassModel>();
-        /*        if (GameUtils.DoesCountDownKeyExist(GameConst.BATTLEPASS_AD_ACTIVITY_SIGN))*/
-        mBPModel.LoadBattlePassActivity();
-        this.RegisterEvent<ReturnToMainEvent>((_event) =>
-        {
-            // 活动启动才计数
-            // 活动启动才计数
-            if (ActivityStatus == GameActivityStatus.Active && _event.PassLevel)
-                mBPModel.AddGameWinCount();
-        });
+        mPGModel = this.GetModel<PrograssGiftADActivityModel>();
+        mPGModel.LoadPGActivity();
     }
     public override void Tick()
     {
@@ -62,19 +55,18 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
         CountDownTimerManager.Instance.ResetTimer(ActivitySign, ActivityDurationMinutes);
 
         // 未领取的奖励发放?
-        mBPModel.ReloadBattlePassActivity();
-        mBPModel.LoadBattlePassActivity();
+        mPGModel.ReloadPGActivity();
+        mPGModel.LoadPGActivity();
     }
     /// <summary>
     /// 发放奖励
     /// </summary>
     /// <param name="pack">礼包</param>
-    /// <param name="isVIPPack"></param>
-    public void DistributeReward(RewardItem[] pack, bool isVipPack = false)
-    {  
-        RewardUIManager.Instance.PlayRewardAnim( null, false, pack);
+    /// <param name=""></param>
+    public void DistributeReward(System.Action PlayAnim ,RewardItem[] pack)
+    {
+        RewardUIManager.Instance.PlayRewardAnim(PlayAnim, false, pack);
         mRewardGrantUtility.GrantReward(pack);
-        mBPModel.AddRewardGotLevel(isVipPack);
-
     }
+
 }

@@ -13,8 +13,8 @@ enum LayoutType
     AutoAdapter = 3
 }
 /// <summary>
-/// 自适应GridLayoutGroup工具 v1.1.101525 
-/// 较上一个版本更新了枚举情况的处理，能够更加自由的处理子物体的排列，同时解决了子物体一定要是正方形的问题
+/// 自适应GridLayoutGroup工具 v1.2.101725 
+/// 较上一个版本更新了新的参数，调整了自动计算排列的规则，使得工具更为灵活
 /// 使用说明：在需要大量排序的面板上挂载该脚本，注意面板如果有动态变化的其他组件，请新建空父亲，默认枚举为正方形
 /// 注意事项：子物体大要求一致。
 /// </summary>
@@ -24,11 +24,12 @@ public class UILayoutAapter : BaseUIAdapter
     [SerializeField] private LayoutType layoutType;
     [Tooltip("强制设置子物体的排列数量")]
     [SerializeField] private int constraintCounts;
+  /*  [SerializeField] private bool isCompulsory= false;*/
     private int childCounts;
+    
     [SerializeField]
     private List<RectTransform> targetRectTransform;
     private GridLayoutGroup gridLayoutGroup;
-    private float childLenght;
     private RectTransform rectTransform;
     private float parentWidth;
     private float parentHeight;
@@ -48,7 +49,7 @@ public class UILayoutAapter : BaseUIAdapter
                 Transform child = transform.GetChild(i);
                 RectTransform rectTransform = child.GetComponent<RectTransform>();
 
-                if (rectTransform != null)
+                if (rectTransform != null && rectTransform.gameObject.activeSelf == true)
                 {
                     targetRectTransform.Add(rectTransform);
                 }
@@ -81,7 +82,7 @@ public class UILayoutAapter : BaseUIAdapter
             // 默认为Square类型 
             case LayoutType.Square:
                 gridLayoutGroup.startAxis = GridLayoutGroup.Axis.Horizontal;
-                gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
+                /*gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;*/
                 break;
 
             case LayoutType.HorizontalRectangle:
@@ -94,6 +95,7 @@ public class UILayoutAapter : BaseUIAdapter
                     else
                         elementsColumn = childCounts;
                 }
+                gridLayoutGroup.constraintCount = elementsColumn;
                 elementsRow = Mathf.CeilToInt((float)childCounts / elementsColumn);
                 
                 break;
@@ -109,23 +111,21 @@ public class UILayoutAapter : BaseUIAdapter
                     else
                         elementsRow = childCounts;
                 }
+                gridLayoutGroup.constraintCount = elementsRow;
                 elementsColumn = Mathf.CeilToInt((float)childCounts / elementsRow);
+
                 break;
             default:
                 break;
         }
-
-      
-
-
-
         // 计算 
 
         cellSize = CalculateCellSize(targetRectTransform[0], elementsRow, elementsColumn);
-        if (elementsRow > 1)
-            spaceSize = cellSize * 0.1f * elementsRow / (elementsRow - 1);
+        int maxElement = Mathf.Max(elementsColumn, elementsRow);
+        if (maxElement > 1)
+            spaceSize = cellSize * 0.1f * maxElement / (maxElement - 1);
         else
-            spaceSize = cellSize * 0.1f;
+            spaceSize = Vector2.zero;
         cellSize *= 0.9f;
 
         // 设置layouts
@@ -137,25 +137,73 @@ public class UILayoutAapter : BaseUIAdapter
 
     private Vector2 CalculateCellSize(RectTransform child, int targetRow, int targetColumn)
     {
-        Debug.Log(targetRow);
-        Debug.Log(targetColumn);
         float childWidth = child.rect.width;
         float childHeight = child.rect.height;
-        float OWHRatio = childWidth / childHeight;
-        float cellWidth = totalWidth / targetRow;
-        float cellHeight = totalHeight / targetColumn;
-        float NWHRatio = cellWidth / cellHeight;
-
-        // 宽能放更多东西，说明要以高为基准
-        if (NWHRatio > OWHRatio)
+        float OWHRatio = childWidth / childHeight; 
+        // 先看横是否可以满足，不能则看竖
+        float cellWidth = totalWidth / targetColumn;
+        float cellHeight = totalHeight / targetRow;
+       /* Debug.Log(transform.parent.parent.name + targetRow + targetColumn + "　"+totalHeight + "  " + cellWidth * 1.0f / OWHRatio * targetRow +" "+cellWidth +"　　"+OWHRatio);*/
+        if (totalHeight >= cellWidth*1.0f / OWHRatio * targetRow)
         {
-            return new Vector2(cellHeight * OWHRatio, cellHeight);
+            return new Vector2(cellWidth, cellWidth / OWHRatio);
         }
         else
         {
-
-            return new Vector2(cellWidth, cellWidth / OWHRatio);
+            return new Vector2(cellHeight * OWHRatio, cellHeight);
         }
+        /* if(!isCompulsory || layoutType == LayoutType.Square)
+         {
+             if (totalHeight >= cellWidth / OWHRatio * targetRow)
+             {
+                 return new Vector2(cellWidth, cellWidth / OWHRatio);
+             }
+             else
+             {
+                 return new Vector2(cellHeight * OWHRatio, cellHeight);
+             }
+         }
+         else
+         {
+             switch (layoutType)
+             {
+                 case LayoutType.HorizontalRectangle:
+                     if (totalHeight >= cellWidth / OWHRatio * targetRow)
+                     {
+                         return new Vector2(cellWidth, cellWidth / OWHRatio);
+                     }
+                     else
+                     {
+                         return new Vector2(cellHeight * OWHRatio, cellHeight);
+                     }
+                     break;
+
+                 case LayoutType.VerticalRectangle:
+                     if (totalHeight >= cellWidth / OWHRatio * targetRow)
+                     {
+                         return new Vector2(cellWidth, cellWidth / OWHRatio);
+                     }
+                     else
+                     {
+                         return new Vector2(cellHeight * OWHRatio, cellHeight);
+                     }
+             }
+
+         }*/
+
+
+
+        // 分开计算
+        // 宽能放更多东西，说明要以高为基准
+        /* if (NWHRatio > OWHRatio)
+         {
+             return new Vector2(cellHeight * OWHRatio, cellHeight);
+         }
+         else
+         {
+
+             return new Vector2(cellWidth, cellWidth / OWHRatio);
+         }*/
 
     }
 

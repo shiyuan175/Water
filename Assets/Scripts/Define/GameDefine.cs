@@ -40,8 +40,8 @@ namespace GameDefine
         public const int SO_AD_BEGIN_LEVEL = 31;    //特惠礼包
         public const int BP_AD_BEGIN_LEVEL = 31;    //战令活动   
         public const int TT_AD_BEGIN_LEVEL = 31;    //轮盘活动
-      /*  public const int TT_AD_BEGIN_LEVEL = 31;    //1+1活动
-        public const int TT_AD_BEGIN_LEVEL = 31;    //阶梯活动*/
+        /*  public const int TT_AD_BEGIN_LEVEL = 31;*/    //1+1活动
+        public const int PG_AD_BEGIN_LEVEL = 31;    //阶梯活动
         public const int RA_BEGIN_LEVEL = 25;       //火箭活动
         public const int MS_BEGIN_LEVEL = 45;       //魔法连胜活动
         public const int HTA_BEGIN_LEVEL = 65;      //高塔活动
@@ -55,6 +55,7 @@ namespace GameDefine
         public const string DAILYREWARD_AD_ACTIVITY_SIGN = "DailyRewardADActivity";
         public const string BANNER_ACTIVITY_SIGN = "BannerActivity";
         public const string BATTLEPASS_AD_ACTIVITY_SIGN = "BattlePassADActivity";
+        public const string PROGRASSGIFT_AD_ACTIVITY_SIGN = "PrograssGiftADActivity";
         public const string SEPECIALOFFER_AD_ACTIVITY_SIGN = "SepecialOfferADActivity";
 
         //存档标记
@@ -120,11 +121,16 @@ namespace GameDefine
             FileName = "BP_Data.json",
             TargetVersion = 1
         };
-
-        public readonly static JsonFileInfo BpCurrenJson = new JsonFileInfo()
+        public readonly static JsonFileInfo PGDefaultJson = new JsonFileInfo()
         {
+            FileName = "PGDefaultData.json",
+            TargetVersion = 1
+        };
 
-
+        public readonly static JsonFileInfo PGCurrentJson = new JsonFileInfo()
+        {
+            FileName = "PG_Data.json",
+            TargetVersion = 1
         };
         #endregion
 

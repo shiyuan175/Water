@@ -1141,7 +1141,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 8812411809024775039}
   m_OnClick:
     m_PersistentCalls:
@@ -30550,7 +30550,7 @@ GameObject:
   - component: {fileID: 8210298029793260219}
   - component: {fileID: 1997548503711467977}
   - component: {fileID: 4071263815343517972}
-  - component: {fileID: 8051523450182883671}
+  - component: {fileID: 4457116819383412038}
   m_Layer: 5
   m_Name: ImgGiftVip
   m_TagString: Untagged
@@ -30649,7 +30649,7 @@ MonoBehaviour:
   CustomComponentName: ImgGiftVip
   CustomComment: 
   mComponentName: UnityEngine.GameObject
---- !u!114 &8051523450182883671
+--- !u!114 &4457116819383412038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44334,7 +44334,7 @@ GameObject:
   - component: {fileID: 6006910994347571585}
   - component: {fileID: 1174172187060413269}
   - component: {fileID: 299396433934433364}
-  - component: {fileID: 5334965109730446114}
+  - component: {fileID: 3131765638398371752}
   m_Layer: 5
   m_Name: ImgGiftFree
   m_TagString: Untagged
@@ -44433,7 +44433,7 @@ MonoBehaviour:
   CustomComponentName: ImgGiftVip
   CustomComment: 
   mComponentName: UnityEngine.GameObject
---- !u!114 &5334965109730446114
+--- !u!114 &3131765638398371752
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

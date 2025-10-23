@@ -85,7 +85,7 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
     }
 
     //获取剩余时间文本
-    public string GetRemainingTimeText(string id)
+    public string GetRemainingTimeText(string id, bool needday = false)
     {
         string key = COUNTDOWN_TIMER_SIGN + id;
 
@@ -98,10 +98,23 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
                 if (remaining < TimeSpan.Zero)
                     remaining = TimeSpan.Zero;
 
-                return string.Format("{0:D2}:{1:D2}:{2:D2}",
-                    (int)remaining.TotalHours,
-                    remaining.Minutes,
-                    remaining.Seconds);
+                if (needday)
+                {
+                    //  天:小时:分钟 (xd:xh:xm)
+                    return string.Format("{0}d:{1:D2}h:{2:D2}m:",
+                        remaining.Days,
+                        remaining.Hours,
+                        remaining.Minutes
+                       );
+                }
+                else
+                {
+                    // 小时:分钟:秒
+                    return string.Format("{0:D2}:{1:D2}:{2:D2}",
+                        (int)remaining.TotalHours,
+                        remaining.Minutes,
+                        remaining.Seconds);
+                }
             }
         }
 

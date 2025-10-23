@@ -76,7 +76,11 @@ namespace JsonFileData
         List<TaskGroup> DailyTaskData;
     }
     #endregion
-
+     public class RewardItem
+    {
+        public string itemType;
+        public int itemQuantity;
+    }
     #region Tier Rank Activity Data
 
     public class TRActivityData
@@ -108,9 +112,9 @@ namespace JsonFileData
     public class BattlePassData
     {
         public int BattlePassVersion;
-        public Reward[] Rewards;
+        public BPReward[] Rewards;
     } 
-    public class Reward
+    public class BPReward
     {
         public int GetConditions;
         public RewardItem[] Free;
@@ -118,14 +122,27 @@ namespace JsonFileData
         public bool FreeIsBox;
         public bool VipIsBox;
     }
-    public class RewardItem
-    {
-        public string itemType;
-        public int itemQuantity;
-    }
+
 
 
     #endregion
+
+    #region PrograssGiftADActivityModel
+    public class PGData
+    {
+        public int PGVersion;
+        public PGReward[] Rewards;
+
+    }
+    public class PGReward
+    {
+        public float Price;
+        public RewardItem[] RewardItem;
+    }
+
+    #endregion
+
+
 
 }
 
@@ -136,7 +153,8 @@ public class JsonFileUtility : IUtility
     {
         GameDefine.GameConst.MSADefaultJson,
         GameDefine.GameConst.TRADefaultJson,
-        GameDefine.GameConst.BPDefaultJson
+        GameDefine.GameConst.BPDefaultJson,
+        GameDefine.GameConst.PGDefaultJson
     };
 
     /// <summary>
@@ -148,7 +166,7 @@ public class JsonFileUtility : IUtility
     {
         if (!File.Exists(filePath))
         {
-            //Debug.Log($"文件不存在: {filePath}");
+         /*   Debug.Log($"文件不存在: {filePath}");*/
             return;
         }
 
@@ -262,8 +280,9 @@ public class JsonFileUtility : IUtility
 #else
                 // 非安卓
                 await Task.Run(() =>
-                {
+                {            
                     File.Copy(Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName), _perFilePath, overwrite: true);
+        
                 });
 #endif
             }

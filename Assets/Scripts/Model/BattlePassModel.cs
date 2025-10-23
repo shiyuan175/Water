@@ -83,6 +83,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     }
     public void LoadBattlePassActivity()
     {
+
         mBPDate = null;
 
         if (!File.Exists(mCurFilePath))

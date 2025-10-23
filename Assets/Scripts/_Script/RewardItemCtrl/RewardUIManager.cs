@@ -141,7 +141,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
             }
         }).Start(this);
     }
-
+    
     public void PlayRewardAnim(System.Action call = null, bool openBox = true, params RewardItem[] rewardItems)
     {
        /* var _packSO = new List<IPackSoInterface>();*/

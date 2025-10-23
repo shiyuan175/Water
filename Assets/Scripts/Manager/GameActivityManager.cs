@@ -74,6 +74,10 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<SepecialOfferADActivity>();
         }
+        if(_curLevel >= GameDefine.GameConst.PG_AD_BEGIN_LEVEL)
+        {
+            RegisterActivity<PrograssGiftADActivity>();
+        }
 
         //Other Activities can be registered here based on level or other conditions
     }

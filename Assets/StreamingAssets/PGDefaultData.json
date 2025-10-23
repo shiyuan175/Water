@@ -1,0 +1,607 @@
+﻿{
+    "BPVersion": 1,
+    "Rewards": [
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "AddHalfBottle",
+                    "itemQuantity": 1
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 100
+                }
+            ]
+        },
+        {
+            "Price": 2.99,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 3000
+                },
+                {
+                    "itemType": "AddHalfBottle",
+                    "itemQuantity": 1
+                },
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 1
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "AvatarId",
+                    "itemQuantity": 6
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "UnlimitedHp",
+                    "itemQuantity": 60
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "UnlimitedDoubleBuff",
+                    "itemQuantity": 60
+                }
+            ]
+        },
+        {
+            "Price": 2.99,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 3000
+                },
+                {
+                    "itemType": "AddHalfBottle",
+                    "itemQuantity": 1
+                },
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 1
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "UnlimitedHp",
+                    "itemQuantity": 60
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 200
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "RemoveAll",
+                    "itemQuantity": 1
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "S_AddOneBottle",
+                    "itemQuantity": 2
+                },
+                {
+                    "itemType": "S_RemoveHide",
+                    "itemQuantity": 2
+                },
+                {
+                    "itemType": "S_ChangeWater",
+                    "itemQuantity": 2
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "AddHalfBottle",
+                    "itemQuantity": 1
+                }
+            ]
+        },
+        {
+            "Price": 4.99,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 4000
+                },
+                {
+                    "itemType": "AddHalfBottle",
+                    "itemQuantity": 1
+                },
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 1
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "UnlimitedHp",
+                    "itemQuantity": 180
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 300
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 1
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "RemoveHide",
+                    "itemQuantity": 2
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "StepBack",
+                    "itemQuantity": 1
+                }
+            ]
+        },
+        {
+            "Price": 7.99,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 5000
+                },
+                {
+                    "itemType": "AddHalfBottle",
+                    "itemQuantity": 1
+                },
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 1
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "UnlimitedHp",
+                    "itemQuantity": 180
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 3
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 500
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "RemoveHide",
+                    "itemQuantity": 3
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "RemoveAll",
+                    "itemQuantity": 3
+                }
+            ]
+        },
+        {
+            "Price": 14.99,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 5000
+                },
+                {
+                    "itemType": "AddHalfBottle",
+                    "itemQuantity": 3
+                },
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 3
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 3500
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "StepBack",
+                    "itemQuantity": 10
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "RemoveHide",
+                    "itemQuantity": 5
+                },
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 1500
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 3
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "RemoveAll",
+                    "itemQuantity": 3
+                }
+            ]
+        },
+        {
+            "Price": 19.99,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 5000
+                },
+                {
+                    "itemType": "AddHalfBottle",
+                    "itemQuantity": 5
+                },
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 5
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 4000
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 4000
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "UnlimitedHp",
+                    "itemQuantity": 180
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemQuantity": 60
+                },
+                {
+                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemQuantity": 60
+                },
+                {
+                    "itemType": "Unlimited_S_ChangeWater",
+                    "itemQuantity": 60
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 2000
+                },
+                {
+                    "itemType": "RemoveHide",
+                    "itemQuantity": 5
+                }
+            ]
+        },
+        {
+            "Price": 29.99,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 8000
+                },
+                {
+                    "itemType": "AddHalfBottle",
+                    "itemQuantity": 7
+                },
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 7
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 7500
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 6000
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "UnlimitedDoubleBuff",
+                    "itemQuantity": 120
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 5
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 2500
+                },
+                {
+                    "itemType": "RemoveAll",
+                    "itemQuantity": 5
+                }
+            ]
+        },
+        {
+            "Price": 49.99,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 15000
+                },
+                {
+                    "itemType": "AddHalfBottle",
+                    "itemQuantity": 9
+                },
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 9
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 12500
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 10000
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 10
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "RemoveHide",
+                    "itemQuantity": 10
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 7500
+                },
+                {
+                    "itemType": "StepBack",
+                    "itemQuantity": 5
+                },
+                {
+                    "itemType": "RemoveAll",
+                    "itemQuantity": 5
+                }
+            ]
+        },
+        {
+            "Price": 99.99,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 35000
+                },
+                {
+                    "itemType": "UnlimitedHp",
+                    "itemQuantity": 1440
+                },
+                {
+                    "itemType": "UnlimitedDoubleBuff",
+                    "itemQuantity": 720
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 30000
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 25000
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "UnlimitedDoubleBuff",
+                    "itemQuantity": 1440
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "Coins",
+                    "itemQuantity": 15000
+                },
+                {
+                    "itemType": "AddHalfBottle",
+                    "itemQuantity": 12
+                },
+                {
+                    "itemType": "AddOneBottle",
+                    "itemQuantity": 12
+                }
+            ]
+        },
+        {
+            "Price": 0,
+            "RewardItem": [
+                {
+                    "itemType": "AvatarId",
+                    "itemQuantity": 7
+                }
+            ]
+        }
+    ]
+}
