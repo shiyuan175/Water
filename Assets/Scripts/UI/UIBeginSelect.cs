@@ -55,7 +55,7 @@ namespace QFramework.Example
         {
             UpdateWinNum();
             UpdateItem();
-            SetGoldCoinBuffUI();
+            SetBuffUI();
             CheckGuideLevel();
         }
 
@@ -77,6 +77,13 @@ namespace QFramework.Example
             {
                 btn.onClick.RemoveAllListeners();
             }
+        }
+
+        private void Update()
+        {
+            if (BuffTag.IsActive())
+                TxtCoinBuffTimer.text = CountDownTimerManager.Instance.GetRemainingTimeText(GameConst.DOUBLE_COIN_SIGN);
+
         }
 
         private void InitUI()
@@ -278,6 +285,18 @@ namespace QFramework.Example
 
         }
 
+        /// <summary>
+        /// buff UI显示(目前只有双倍金币)
+        /// </summary>
+        private void SetBuffUI()
+        {
+            //后续如果是其他buff时长也要处理显示,每个buff的条件单独处理
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.DOUBLE_COIN_SIGN))
+                BuffTag.Show();
+            else 
+                BuffTag.Hide();
+        }
+
         #region 引导动画相关
         /// <summary>
         /// 设置进关道具引导动画
@@ -398,15 +417,5 @@ namespace QFramework.Example
                 Mask.Show();
         }
         #endregion
-
-        private void SetGoldCoinBuffUI()
-        {
-            float coinBuff = stageModel.GoldCoinsMultiple;
-            // 金币数量设置为整数
-            TextGoldCoin.text = ((int)(20 * coinBuff)).ToString();
-
-            // buff设置为一位小数
-            TextGoldCoinBuff.text = coinBuff.ToString("0.0");
-        }
     }
 }

@@ -5,6 +5,9 @@ using System;
 using System.Collections.Generic;
 using JsonFileData;
 using DG.Tweening;
+using GameDefine;
+using TMPro;
+using Spine;
 
 namespace QFramework.Example
 {
@@ -25,10 +28,19 @@ namespace QFramework.Example
             public RewardPackSO RewardPack;
         }
 
+        [Header("奖励配置")]
         [SerializeField] private List<MSARewardCofig> mStageRewardCofigs;
         [SerializeField] private List<MSARewardCofig> mRankRewardCofigs;
         [SerializeField] private RectTransform mRankPar;
+        [SerializeField] private Sprite mCoinSprite;
 
+        [Header("双倍效果表现UI")]
+        [SerializeField] private GameObject mDoubleBuffPanel;
+        [SerializeField] private GameObject mDoubleBuff;
+        [SerializeField] private TextMeshProUGUI[] mPointsTier;
+        //五档基础积分
+        private readonly int[] POINTS_TIER = new int[] { 1, 5, 10, 25, 100 };
+        
         //滑动块五档坐标
         private readonly int[] TARGER_POSX = new int[] { -294, -147, 0, 143, 286 };
 
@@ -40,6 +52,8 @@ namespace QFramework.Example
         private int cachePlayerTotalScore;
         private int targetStageScore = -1;
         private int lastStageTotalScore = 0;
+
+        private DG.Tweening.Sequence mSequence;
 
         protected override void OnInit(IUIData uiData = null)
         {
@@ -90,7 +104,7 @@ namespace QFramework.Example
                 TxtTitle_Blue.text = "Activity ended, ranking settlement.";
                 RankNodeInit();
                 mMagicStreakActivity.MarkRewardAsSettled();
-                var _packSO = GetRankPackSO();
+                var _packSO = GetRankPackSO(mMagicStreakActivity.PlayerRank);
                 mRewardGrantUtility.GrantReward(_packSO);
 
                 ActionKit.Delay(0.5f, () =>
@@ -139,52 +153,39 @@ namespace QFramework.Example
             if (!(bool)mData.ISWin)
                 return;
 
-            //当前玩家总分
-            var _curPlayerTotalScore = mMagicStreakActivity.MSAData.Player.Score;
-
-            //阶段奖励已领取完
-            if (targetStageScore == -1)
+            //插入双倍动画
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.UnlimitedDoubleBuff)))
             {
-                Tween _txtUp1 = DOTween.To(() => cachePlayerTotalScore,
-                  x => TxtProgress_Red.text = $"Completed!",
-                  _curPlayerTotalScore, 1.5f);
-                mTweenList.Add(_txtUp1);
-                ImgProgressBar.fillAmount = 1;
+                mSequence = DOTween.Sequence();
+                mDoubleBuffPanel.Show();
+
+                mSequence.Append(mDoubleBuff.transform.DOScale(1.2f, 0.65f).From(0));
+
+                var _shrinkTween = mDoubleBuff.transform.DOScale(0.1f, 0.5f);
+                _shrinkTween.OnComplete(() => mDoubleBuffPanel.Hide());
+
+                mSequence.Append(_shrinkTween);
+
+                for (int i = 0; i < mPointsTier.Length; i++)
+                {
+                    int _index = i; 
+                    int _startValue = POINTS_TIER[_index];
+                    int _targetValue = _startValue * 2;
+
+                    int _delta = _targetValue - _startValue;
+                    float _duration = _delta * 0.01f;
+
+                    var tween = DOTween.To(() => _startValue, x => mPointsTier[_index].text = $"X{x}", _targetValue, _duration);
+                    if (_index == 0)
+                        mSequence.Append(tween);
+                    else
+                        mSequence.Join(tween);
+                }
+
+                mSequence.AppendCallback(() => ExecuteAfterDoubleBuff(_stageRewardSign));
             }
             else
-            {
-                var _lastPlayerStageScore = cachePlayerTotalScore - lastStageTotalScore;
-                var _curPlayerStageScore = _curPlayerTotalScore - lastStageTotalScore;
-
-                Tween _txtUp2 = DOTween.To(() => _lastPlayerStageScore,
-                  x => TxtProgress_Red.text = $"{x} / {targetStageScore}",
-                  _curPlayerStageScore, 1.5f);
-                mTweenList.Add(_txtUp2);
-
-                Tween _progressUp = ImgProgressBar.DOFillAmount((float)_curPlayerStageScore / targetStageScore, 1.5f)
-                    .OnComplete(() =>
-                    {
-                        if (_stageRewardSign)
-                        {
-                            UIKit.ClosePanel<UIMask>();
-                            var _packSO = mStageRewardCofigs[cacheStageRewardIndex].RewardPack;
-                            RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, true, () =>
-                            {
-                                //重新标记缓存数据
-                                CacheTempData();
-                                if (targetStageScore == -1)
-                                {
-                                    TxtProgress_Red.text = $"Completed!";
-                                    ImgProgressBar.fillAmount = 1;
-                                }
-                                _curPlayerStageScore = _curPlayerTotalScore - lastStageTotalScore;
-                                TxtProgress_Red.text = $"{_curPlayerStageScore} / {targetStageScore}";
-                                ImgProgressBar.fillAmount = (float)_curPlayerStageScore / targetStageScore;
-                            }, _packSO);
-                        }
-                    });
-                mTweenList.Add(_progressUp);
-            }
+                ExecuteAfterDoubleBuff(_stageRewardSign);
         }
 
         protected override void OnHide()
@@ -205,6 +206,8 @@ namespace QFramework.Example
                 tween?.Kill();
             }
 
+            mSequence.Kill();
+            mSequence = null;
             mRankNodePool.Clear();
             mRankNodePool = null;
             mTweenList.Clear();
@@ -219,6 +222,7 @@ namespace QFramework.Example
 
         private void CacheTempData()
         {
+            targetStageScore = -1;
             cacheStageRewardIndex = mMagicStreakActivity.CurStageReward;
             cachePlayerTotalScore = mMagicStreakActivity.MSAData.Player.Score;
             if (cacheStageRewardIndex == 0)
@@ -254,6 +258,82 @@ namespace QFramework.Example
                 TxtProgress_Red.text = $"{_playerStageScroe} / {targetStageScore}";
                 ImgProgressBar.fillAmount = (float)_playerStageScroe / targetStageScore;
             }
+
+            UpdateRewardUI(targetStageScore == -1);
+        }
+
+        //面板弹出逻辑()
+        private void ExecuteAfterDoubleBuff(bool stageRewardSign)
+        {
+            //当前玩家总分
+            var _curPlayerTotalScore = mMagicStreakActivity.MSAData.Player.Score;
+
+            //阶段奖励未领取完
+            if (targetStageScore != -1)
+            {
+                var _lastPlayerStageScore = cachePlayerTotalScore - lastStageTotalScore;
+                var _curPlayerStageScore = _curPlayerTotalScore - lastStageTotalScore;
+
+                Tween _txtUp2 = DOTween.To(() => _lastPlayerStageScore,
+                  x => TxtProgress_Red.text = $"{x} / {targetStageScore}",
+                  _curPlayerStageScore, 1.5f);
+                mTweenList.Add(_txtUp2);
+
+                Tween _progressUp = ImgProgressBar.DOFillAmount((float)_curPlayerStageScore / targetStageScore, 1.5f)
+                    .OnComplete(() =>
+                    {
+                        if (stageRewardSign)
+                        {
+                            UIKit.ClosePanel<UIMask>();
+                            var _packSO = mStageRewardCofigs[cacheStageRewardIndex].RewardPack;
+                            RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, true, () =>
+                            {
+                                //重新标记缓存数据
+                                CacheTempData();
+                                if (targetStageScore == -1)
+                                {
+                                    TxtProgress_Red.text = $"Completed!";
+                                    ImgProgressBar.fillAmount = 1;
+                                    return;
+                                }
+                                UpdateRewardUI(targetStageScore == -1);
+
+                                _curPlayerStageScore = _curPlayerTotalScore - lastStageTotalScore;
+                                TxtProgress_Red.text = $"{_curPlayerStageScore} / {targetStageScore}";
+                                ImgProgressBar.fillAmount = (float)_curPlayerStageScore / targetStageScore;
+                            }, _packSO);
+                        }
+                    });
+                mTweenList.Add(_progressUp);
+            }
+        }
+
+        private void UpdateRewardUI(bool rewardOver)
+        {
+            if (rewardOver)
+            {
+                ImgRewardUI.Hide();
+                return;
+            }
+
+            var _packSO = mStageRewardCofigs[cacheStageRewardIndex].RewardPack;
+
+            //阶段奖励礼包内容只有一个(一个特殊道具/普通道具/金币)
+            if (_packSO.ItemReward.Count != 0)
+            {
+                ImgRewardUI.sprite = RewardUIManager.Instance.GetRewardSprite(_packSO.ItemReward[0].NormalRewardsType);
+                TxtRewardNum.text = $"X{_packSO.ItemReward[0].Quantity}";
+            }
+            else if (_packSO.SpecialRewards.Count != 0)
+            {
+                ImgRewardUI.sprite = RewardUIManager.Instance.GetRewardSprite(_packSO.SpecialRewards[0].SpecialRewardType);
+                TxtRewardNum.text = $"X{_packSO.SpecialRewards[0].Duration}min";
+            }
+            else
+            {
+                ImgRewardUI.sprite = mCoinSprite;
+                TxtRewardNum.text = $"X{_packSO.Coins}";
+            }
         }
 
         private void RankNodeInit()
@@ -268,14 +348,14 @@ namespace QFramework.Example
                 var robot = mMagicStreakActivity.MSAData.MSARobots[i - 1];
                 var node = MSARankNodePool.Instance.Allocate();
                 node.transform.SetParent(mRankPar, false);
-                node.GetComponent<MSANodeCtrl>().InitRobot(i, robot);
+                node.GetComponent<MSANodeCtrl>().InitRobot(i, robot, GetRankPackSO(i));
                 mRankNodePool.Add(node);
             }
 
             //玩家节点
             var playerNode = MSARankNodePool.Instance.Allocate();
             playerNode.transform.SetParent(mRankPar, false);
-            playerNode.GetComponent<MSANodeCtrl>().InitPlayer(_playerRank, mMagicStreakActivity.MSAData.Player);
+            playerNode.GetComponent<MSANodeCtrl>().InitPlayer(_playerRank, mMagicStreakActivity.MSAData.Player , GetRankPackSO(_playerRank));
             mRankNodePool.Add(playerNode);
 
             //玩家后的节点
@@ -284,10 +364,10 @@ namespace QFramework.Example
                 var robot = mMagicStreakActivity.MSAData.MSARobots[i - 1];
                 var node = MSARankNodePool.Instance.Allocate();
                 node.transform.SetParent(mRankPar, false);
-                node.GetComponent<MSANodeCtrl>().InitRobot(i + 1, robot);
+                node.GetComponent<MSANodeCtrl>().InitRobot(i + 1, robot, GetRankPackSO(i + 1));
                 mRankNodePool.Add(node);
             }
-           
+
             FocusPlayerNode();
         }
 
@@ -313,7 +393,7 @@ namespace QFramework.Example
                 return;
 
             //计算content顶点Y坐标 、玩家节点与content顶部距离
-            float contentTopLocalY = mRankPar.rect.height * (1f - mRankPar.pivot.y); 
+            float contentTopLocalY = mRankPar.rect.height * (1f - mRankPar.pivot.y);
             float playerYFromTop = contentTopLocalY - playerLocalPosInContent.y;
 
             //计算玩家在 viewport 中间的滚动距离(减去viewport高度一半让玩家处于中心)。
@@ -322,7 +402,7 @@ namespace QFramework.Example
             float maxTopOffset = contentHeight - viewportHeight;
             float clampedTopOffset = Mathf.Clamp(desiredTopOffset, 0f, maxTopOffset);
             //1表示顶端,减去比例得到映射值
-            float normalized = 1f - (clampedTopOffset / maxTopOffset); 
+            float normalized = 1f - (clampedTopOffset / maxTopOffset);
 
             RankScrollRect.verticalNormalizedPosition = normalized;
         }
@@ -337,12 +417,11 @@ namespace QFramework.Example
             return 4;
         }
 
-        private RewardPackSO GetRankPackSO()
+        private RewardPackSO GetRankPackSO(int ranking)
         {
-            var _rank = mMagicStreakActivity.PlayerRank;
             foreach (var item in mRankRewardCofigs)
             {
-                if (_rank <= item.TriggerValue)
+                if (ranking <= item.TriggerValue)
                     return item.RewardPack;
             }
 

@@ -14,9 +14,8 @@ namespace QFramework.Example
 	public partial class UIHighTowerActivity : UIPanel ,ICanGetUtility
 	{
 		[SerializeField] private GameObject mStartNode;
+        [SerializeField] private GameObject mMidNode;
         [SerializeField] private GameObject mEndNode;
-        [SerializeField] private GameObject mBlueNode;
-        [SerializeField] private GameObject mRedNode;
         [SerializeField] private Transform mParNode;
 		//各阶段对应礼包
 		[SerializeField] private RewardPackSO[] mRewardPackSOs;
@@ -39,27 +38,23 @@ namespace QFramework.Example
             }, 1, 1f)
            .SetLoops(-1, LoopType.Restart)
            .SetUpdate(true);
+
+            BtnClose.onClick.AddListener(() =>
+            {
+                CloseSelf();
+            });
         }
 
         protected override void OnShow()
 		{
-			BtnClose.onClick.AddListener(() =>
-			{
-				CloseSelf();
-			});
-
+            //经测试:AB包关闭时，预制体会被自动销毁
             HTANodeCtrl _node;
             if (mHighTowerActivity.IsAtBaseNode)
                 _node = Instantiate(mStartNode, mParNode).GetComponent<HTANodeCtrl>();
             else if (mHighTowerActivity.IsAtTopNode)
                 _node = Instantiate(mEndNode, mParNode).GetComponent<HTANodeCtrl>();
             else
-            {
-                //根据索引判断使用预制体(奇 -> 蓝,偶 -> 红)
-                var _nextStage = mHighTowerActivity.NextRewardStageIndex;
-                GameObject _prefabToUse = (_nextStage % 2 == 1) ? mBlueNode : mRedNode;
-                _node = Instantiate(_prefabToUse, mParNode).GetComponent<HTANodeCtrl>();
-            }
+                _node = Instantiate(mMidNode, mParNode).GetComponent<HTANodeCtrl>();
             //Debug.Assert(_node != null, "HTANodeCtrl not found on instantiated node.");
             _node.Init(mHighTowerActivity);
 
@@ -80,6 +75,8 @@ namespace QFramework.Example
 		{
             BtnClose.onClick.RemoveAllListeners();
             mHighTowerActivity = null;
+           
+            mCountDownTween?.Kill();
 
             if (mData.IsManagedOpen ?? false)
                 StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);

@@ -42,6 +42,7 @@ public class SaveDataUtility : IUtility, ICanSendEvent
     {
         //Debug.Log("LevelBefore " + Convert.ToString(clearLevel, 2) + " clearNowLevel " + clearNowLevel + " LevelNow " + Convert.ToString((clearLevel | clearNowLevel), 2));
         PlayerPrefs.SetInt("g_ClearWaterLevel", level);
+        PlayerPrefs.Save();
     }
 
     /// <summary>
