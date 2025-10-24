@@ -5,19 +5,19 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:36766bc0-ae5f-4891-97be-dca98ad7c20b
+	// Generate Id:887289dd-978a-42d7-9b2f-31a69c6f0cbf
 	public partial class UIShop
 	{
 		public const string Name = "UIShop";
 		
 		[SerializeField]
-		public UnityEngine.UI.ScrollRect ShopScrollView;
+		public UnityEngine.UI.Button BtnClose;
 		
 		private UIShopData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
-			ShopScrollView = null;
+			BtnClose = null;
 			
 			mData = null;
 		}

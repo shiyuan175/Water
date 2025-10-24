@@ -20,18 +20,19 @@ namespace QFramework.Example
         [SerializeField] private Sprite[] btnStartSprites;
 
         #region BottomMenuSetting
-        [SerializeField] private List<Button> bottomMenuBtns;
-        [SerializeField] private List<RectTransform> bottomMenuRect;
+        [Header("底部菜单按钮UI")]
         [SerializeField] private List<GameObject> Panels;
-        [SerializeField] private RectTransform selectedImg;
+        [SerializeField] private List<LayoutElement> mLayoutElements_BgFrame;
+        [SerializeField] private List<Button> mMenuBtn;
+        [SerializeField] private RectTransform mSelected;
         private GameObject HomeNode => Panels[2];
-        private int nowButton = 2;
-        private readonly Vector2 SELECTED = new Vector2(256, 200);  // 选中放大的大小
-        private readonly Vector2 NSELECTED = new Vector2(206, 200); // 未选中的大小
-        private readonly float minScaleValue = 0.5f;                // 按钮的缩小值(先缩小后放大)
-        private readonly float maxScaleValue = 1.2f;                // 按钮的放大值
-        private readonly float targetPosY = 80f;                    // 按钮往上抬起的高度
-        private readonly float initPosY = 15f;                      // 按钮的初始位置
+        private List<LayoutElement> mLayoutElements_MenuBtn;
+        private List<RectTransform> mImgsRect;
+        // 初始位置
+        private float mInitPosY;
+        // 当前选中索引(-1表示未选中)
+        private int mCurSelectIndex = -1;
+       
         #endregion
 
         [SerializeField] private GameObject[] mSceneUnlockPanels;
@@ -78,12 +79,13 @@ namespace QFramework.Example
             LevelManager.Instance.InitBottle();
             if (saveData.GetCurrentLevel() <= GameConst.NEWBIE_LEVEL_COUNT)
             {
-                BottomMenuBtns.Hide();
+                BottomMenuNode.Hide();
                 HomeNode.Hide();
             }
 
             LoaderRes();
             BindBtn();
+            InitBottomMenu();
             RegisterEvent();
             InitSceneUI();
             ShowActivityState();
@@ -185,6 +187,7 @@ namespace QFramework.Example
                 else
                     UIKit.OpenPanel<UIMagicStreakActivity>();
             });
+
             BtnTTNode.onClick.RemoveAllListeners();
             BtnTTNode.onClick.AddListener(() =>
             {
@@ -222,49 +225,13 @@ namespace QFramework.Example
             });
 
             //底部区域按钮监听
-            foreach (var btn in bottomMenuBtns)
+            mMenuBtn.ForEach(btn => btn.onClick.RemoveAllListeners());
+            for (int i = 0; i < mMenuBtn.Count; i++)
             {
-                btn.onClick.RemoveAllListeners();
-                btn.onClick.AddListener(() =>
+                int _btnIdx = i;
+                mMenuBtn[_btnIdx].onClick.AddListener(() =>
                 {
-                   int index = bottomMenuBtns.IndexOf(btn);
-                   //切换界面
-                   ChangePanel(index);
-                   if (nowButton != index)
-                   {
-                       for (int i = 0; i < bottomMenuRect.Count; i++)
-                       {
-                           var rt = bottomMenuBtns[i].GetComponent<RectTransform>();
-                           if (i == index)
-                           {
-                               //设置选中效果
-                               rt.localScale = new Vector3(minScaleValue, minScaleValue, minScaleValue);
-                               rt.DOScale(new Vector3(maxScaleValue, maxScaleValue, 1), 0.1f);
-                               rt.DOLocalMoveY(targetPosY, 0.1f);
-                               bottomMenuRect[index].sizeDelta = SELECTED;
-                           }
-                           else
-                           {
-                               //设置未选中效果
-                               rt.DOScale(Vector3.one, 0.2f);
-                               rt.DOLocalMoveY(initPosY, 0.2f);
-                               bottomMenuRect[i].sizeDelta = NSELECTED;
-                           }
-                       }
-                       //等待一帧
-                       ActionKit.DelayFrame(1, () =>
-                       {
-                           //同步按钮中心位置(可以设置按钮下的字体显示)
-                           for (int i = 0; i < bottomMenuBtns.Count; i++)
-                           {
-                               var rt = bottomMenuBtns[i].GetComponent<RectTransform>();
-                               rt.DOLocalMoveX(bottomMenuRect[i].localPosition.x, 0.2f);
-                           }
-                           //更新滑动块
-                           selectedImg.DOMove(bottomMenuRect[index].position, 0.1f);
-                           nowButton = index;
-                       }).Start(this);
-                   }
+                    MenuBtnEvent(_btnIdx);
                 });
             }
         }
@@ -274,7 +241,9 @@ namespace QFramework.Example
             this.RegisterEvent<ReturnToMainEvent>(e =>
             {
                 LevelManager.Instance.InitBottle();
-                BottomMenuBtns.Show();
+                BottomMenuNode.Show();
+                //重启会使Aspect Ratio Fitter 将UI重新布局
+                mImgsRect[2].DOAnchorPosY(mInitPosY + 60f, 0);
                 HomeNode.Show();
                 SetStartLevel();
                 if (e.PassLevel)
@@ -296,6 +265,7 @@ namespace QFramework.Example
             this.RegisterEvent<UnlockSceneBackEvent>(e =>
             {
                 this.gameObject.Show();
+                mImgsRect[2].DOAnchorPosY(mInitPosY + 60f, 0);
                 SetScene();
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
@@ -303,7 +273,7 @@ namespace QFramework.Example
             {
                 UIKit.OpenPanel<UIGameNode>();
                 LevelManager.Instance.StartGame(saveData.GetCurrentLevel());
-                BottomMenuBtns.Hide();
+                BottomMenuNode.Hide();
                 HomeNode.Hide();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
@@ -344,12 +314,11 @@ namespace QFramework.Example
 
             StringEventSystem.Global.Register(GameConst.SCENE_UNLOCK_GUIDE_STEP1, () =>
             {
-                bottomMenuBtns.Last().onClick.Invoke();
+                mMenuBtn.Last().onClick.Invoke();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
-        //可拓展(段位活动暂关)
         private void TryStartGame()
         {
             if (mTierRankActivity != null)
@@ -374,11 +343,69 @@ namespace QFramework.Example
 
         #region 底部菜单栏按钮切换
 
+        private void MenuBtnEvent(int index)
+        {
+            if (mCurSelectIndex == index) return;
+
+            ChangePanel(index);
+
+            // 还原上一个
+            if (mCurSelectIndex >= 0 && mCurSelectIndex < mImgsRect.Count)
+            {
+                var _prevImg = mImgsRect[mCurSelectIndex];
+                _prevImg.DOScale(0.8f, 0.1f);
+                _prevImg.DOAnchorPosY(mInitPosY, 0.1f);
+                mLayoutElements_BgFrame[mCurSelectIndex].flexibleWidth = 1f;
+                mLayoutElements_MenuBtn[mCurSelectIndex].flexibleWidth = 1f;
+            }
+
+            // 当前点击动画
+            var _curImg = mImgsRect[index];
+            _curImg.localScale = Vector3.one * 0.5f;
+            _curImg.DOScale(1f, 0.1f);
+            _curImg.DOAnchorPosY(mInitPosY + 60f, 0.1f); 
+            mLayoutElements_BgFrame[index].flexibleWidth = 1.2f;
+            mLayoutElements_MenuBtn[index].flexibleWidth = 1.2f;
+
+            //延迟一帧等待 Layout 刷新,然后更新选中块
+            ActionKit.DelayFrame(1, () =>
+            {
+                var _rect = mLayoutElements_BgFrame[index].GetComponent<RectTransform>();
+                mSelected.DOMove(_rect.position, 0.2f);
+            }).Start(this);
+            mCurSelectIndex = index;
+        }
+
+        private void InitBottomMenu()
+        {
+            mImgsRect = mMenuBtn.Select(btn => btn.transform.GetChild(0).GetComponent<RectTransform>())
+            .ToList();
+            mLayoutElements_MenuBtn = mMenuBtn.Select(btn => btn.GetComponent<LayoutElement>())
+            .ToList();
+
+            mInitPosY = mImgsRect[0].anchoredPosition.y;
+
+            //初始化选择主城按钮(索引为2)
+            InitBeginMenuButton(2);
+
+            ActionKit.DelayFrame(1, () =>
+            {
+                var _rect = mLayoutElements_BgFrame[2].GetComponent<RectTransform>();
+
+                mSelected.anchorMin = _rect.anchorMin;
+                mSelected.anchorMax = _rect.anchorMax;
+                mSelected.pivot = _rect.pivot;
+                mSelected.position = _rect.position;
+                mSelected.sizeDelta = _rect.sizeDelta;
+
+            }).Start(this);
+        }
+
         /// <summary>
         /// 菜单按钮点击切换界面
         /// </summary>
         /// <param name="index"></param>
-        void ChangePanel(int index)
+        private void ChangePanel(int index)
         {
             for (int i = 0; i < Panels.Count; i++)
             {
@@ -392,12 +419,12 @@ namespace QFramework.Example
         /// <summary>
         /// 显示并初始化底部菜单按钮
         /// </summary>
-        void InitBeginMenuButton(int index = -1)
+        private void InitBeginMenuButton(int index = -1)
         {
-            BottomMenuBtns.Show();
+            BottomMenuNode.Show();
             //有参传入，初始按钮点击(切换对应界面)
             if (index > -1)
-                bottomMenuBtns[index].onClick.Invoke();
+                mMenuBtn[index].onClick.Invoke();
         }
 
         #endregion
