@@ -323,7 +323,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// </summary>
     public void SetIsBomb(bool bomb =true)
     {
-        isBomb = true;
+        isBomb = bomb;
     }
     // 先更新的炸弹，后倒的水
     public void UpdateBomb(BottleCtrl bottleCtrl = null, bool Init = false)
