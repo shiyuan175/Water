@@ -60,12 +60,12 @@ namespace QFramework.Example
                 ImgLevel.sprite = levelImgs[0];
                 TextLevel.text = level.ToString();
             }
-            // 设置领取条
+         /*   // 设置领取条
             if (level == bPModel.RewardLevel - 1)
             {
                 SetDividingLine(1);
 
-            }
+            }*/
             #region 设置freeGift
             if (bPModel.FreeRewardGotLevel > level)
             {
@@ -312,6 +312,7 @@ namespace QFramework.Example
 
         public void SetDividingLine(int endValue,int duraiton = 1)
         {
+
             ImgTopDividingLine.DOFillAmount(endValue, duraiton);
             ImgButtomDividingLine.DOFillAmount(endValue, duraiton);
         }

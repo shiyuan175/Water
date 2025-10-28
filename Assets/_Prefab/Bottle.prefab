@@ -1798,12 +1798,13 @@ MonoBehaviour:
   isPlayAnim: 0
   isClearHideAnim: 0
   hasUnlockHidePlayed: 0
-  bottleClickMask: {fileID: 4685643066533286338}
   isUp: 0
+  hidePriority: 0
   bottleIdx: 0
   maxNum: 4
   limitColor: 0
   unlockClear: 0
+  isBomb: 0
   waters: 
   hideWaters: 
   waterItems: 

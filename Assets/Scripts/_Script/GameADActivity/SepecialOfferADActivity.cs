@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SepecialOfferADActivity : BaseGameActivity
+public class SepecialOfferADActivity : BaseGameADActivity
 {
     public override string ActivitySign => GameConst.SEPECIALOFFER_AD_ACTIVITY_SIGN;
 
@@ -21,6 +21,10 @@ public class SepecialOfferADActivity : BaseGameActivity
             {
                 return GameActivityStatus.Locked;
             }
+            else if(mSOModel.IsBuy)
+            {
+                return GameActivityStatus.CoolingDown;
+            }
             else
             {
                 return GameActivityStatus.Active;
@@ -35,12 +39,13 @@ public class SepecialOfferADActivity : BaseGameActivity
     }
     public override void RestartActivity()
     {
-        CountDownTimerManager.Instance.ResetCountdownTimer(ActivitySign, 30);
+        CountDownTimerManager.Instance.ResetCountdownTimer(ActivitySign, 7 * 30);
+        mSOModel.ReStartActivity();
     }
 
     public override void StartActivity()
     {
-        CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign,30);
+        CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign, 7 * 30);
     }
     public override void Tick()
     {
@@ -51,15 +56,5 @@ public class SepecialOfferADActivity : BaseGameActivity
         }
 
         base.Tick();
-    }
-
-    public override void StreakWin()
-    {
-        
-    }
-
-    public override void Fail()
-    {
-        
     }
 }

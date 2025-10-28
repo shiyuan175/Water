@@ -36,6 +36,7 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterModel(new BattlePassModel());
         RegisterModel(new SepecialOfferADActivityModel());
         RegisterModel(new RemoveADACtivityModel());
+        RegisterModel(new DoubleGiftADActivityModel());      
         RegisterModel(new PrograssGiftADActivityModel());
     }
 

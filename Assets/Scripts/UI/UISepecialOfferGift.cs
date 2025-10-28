@@ -12,8 +12,13 @@ namespace QFramework.Example
 	public class UISepecialOfferGiftData : UIPanelData
 	{
         public bool? IsManagedOpen;
+
+        public IArchitecture GetArchitecture()
+        {
+            return GameMainArc.Interface;
+        }
     }
-	public partial class UISepecialOfferGift : UIPanel,ICanGetUtility
+	public partial class UISepecialOfferGift : UIPanel,ICanGetModel,ICanGetUtility
 	{
 		[SerializeField] private TextMeshProUGUI[] textRed;
 		private Tween mCountDownTween;
@@ -21,10 +26,13 @@ namespace QFramework.Example
         private GooglePayManager googlePay;
         private Dictionary<string, Action> giftPackBuySuccessActions;
         private RewardGrantUtility rewardGrantUtility;
+        private SepecialOfferADActivityModel mSOmodel;
         protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UISepecialOfferGiftData ?? new UISepecialOfferGiftData();
-			foreach (var i in textRed)
+            mSOmodel = this.GetModel<SepecialOfferADActivityModel>();
+
+            foreach (TextMeshProUGUI i in textRed)
 				i.font = LevelManager.Instance.redFont;
 
 		}
@@ -38,7 +46,7 @@ namespace QFramework.Example
             giftPackBuySuccessActions = new Dictionary<string, Action>();
             var _packSo = BtnBuy.GetComponent<GiftPack>().giftPack;
             giftPackBuySuccessActions[_packSo.ID] = () => OnPaySuccess(_packSo);
-         
+            
             SetBtnClick();
         }
 		
@@ -59,6 +67,10 @@ namespace QFramework.Example
           .SetLoops(-1, LoopType.Restart)
           .SetUpdate(isIndependentUpdate: true);
 
+            if (mSOmodel.IsBuy)
+                BtnBuy.interactable = false;
+            else
+                BtnBuy.interactable = true;
         }
 
         protected override void OnHide()
@@ -87,7 +99,6 @@ namespace QFramework.Example
             BtnBuy.onClick.RemoveAllListeners();
             BtnBuy.onClick.AddListener(() =>
 			{
-				Debug.Log(BtnBuy.GetComponent<GiftPack>());
 				var _packSo = BtnBuy.GetComponent<GiftPack>().giftPack;
                 googlePay.BuyProduct(_packSo.ID);
             });
@@ -99,7 +110,8 @@ namespace QFramework.Example
         {
             rewardGrantUtility.GrantReward(_packSo);
             RewardUIManager.Instance.PlayRewardAnim(_packSo.Coins, true, null, _packSo);
-
+            mSOmodel.BuyGift();
+            BtnBuy.interactable = false;
             UIKit.OpenPanel<UIBuyPackSuccess>();
             ActionKit.Delay(1, () =>
             {

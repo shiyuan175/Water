@@ -24,6 +24,10 @@ public class GooglePayManager : MonoSingleton<GooglePayManager>, IDetailedStoreL
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
         
         //初始化产品列表，这里要Google后台的产品列表一致
+        builder.AddProduct("battlepass_vip", ProductType.Consumable);
+
+        builder.AddProduct("dgpack_vip", ProductType.Consumable);
+
         builder.AddProduct("gift_1", ProductType.Consumable);
         builder.AddProduct("gift_2", ProductType.Consumable);
         builder.AddProduct("gift_3", ProductType.Consumable);
@@ -50,6 +54,7 @@ public class GooglePayManager : MonoSingleton<GooglePayManager>, IDetailedStoreL
 
         builder.AddProduct("removeadpack_1", ProductType.Consumable);
         builder.AddProduct("sepecialoffer", ProductType.Consumable);
+
 
         UnityPurchasing.Initialize(this, builder);
     }

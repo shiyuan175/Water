@@ -35,6 +35,15 @@ public class PassLevelCommand : AbstractCommand ,ICanGetModel
         {
             GameActivityManager.Instance.RegisterActivity<SepecialOfferADActivity>();
         }
+        if(currentLevel == GameConst.DG_AD_BEGIN_LEVEL)
+        {
+            GameActivityManager.Instance.RegisterActivity<DuobleGiftAdActivity>();
+        }
+        if(currentLevel == GameConst.PG_AD_BEGIN_LEVEL)
+        {
+            GameActivityManager.Instance.RegisterActivity<PrograssGiftADActivity>();
+        }
+
         if (currentLevel == GameConst.TT_AD_BEGIN_LEVEL)
         {
             GameActivityManager.Instance.RegisterActivity<TurnTableADActivity>();

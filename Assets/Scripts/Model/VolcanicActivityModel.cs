@@ -9,7 +9,6 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
     private const string VA_COUNT_PLAY_NUM_SIGN = "F_VACountPlayerNum";
     private const string VA_ACTIVATE_STATE_SIGN = "F_VAActivateState";
     private const string VA_DAILY_REFRESH_COUNT_SIGN = "F_VADailyRefreshCount";
-
     private const int VA_REWARD_COUNT_COINS = 10000;
 
     private SaveDataUtility storage;

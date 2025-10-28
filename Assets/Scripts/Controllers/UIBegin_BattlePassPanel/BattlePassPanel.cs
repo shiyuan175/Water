@@ -9,6 +9,7 @@ using TMPro;
 using DG.Tweening;
 using Sequence = DG.Tweening.Sequence;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 // 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间
 // 2.命名空间更改后，生成代码之后，需要把逻辑代码文件（非 Designer）的命名空间手动更改
@@ -18,12 +19,15 @@ namespace QFramework.Example
     {
         private BattlePassModel battlePassModel;
         private GooglePayManager googlePay;
+        private Dictionary<string, Action> giftPackBuySuccessActions;
         private RewardGrantUtility rewardGrantUtility;
         private BattlePassADActivity mBattlePassADActivity;
         private Tween mCountDownTween;
         private Sequence topImageFillSequence;
         private Sequence buttomImageFillSequence;
         private int oldLevel = 0;
+
+        private const string BPViP_GIFT_ID = "battlepass_vip";
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;
@@ -31,8 +35,12 @@ namespace QFramework.Example
 
         private void Awake()
         {
+            googlePay = GooglePayManager.Instance;
             mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();
             battlePassModel = this.GetModel<BattlePassModel>();
+            // 初始化购买成功回调
+            giftPackBuySuccessActions = new Dictionary<string, Action>();
+            giftPackBuySuccessActions[BPViP_GIFT_ID] = () => OnPaySuccess();
             // 发布需打开
             InitUI();
             SetBtnClick();
@@ -43,9 +51,14 @@ namespace QFramework.Example
         { 
             topImageFillSequence = DOTween.Sequence();
             buttomImageFillSequence = DOTween.Sequence();
-#if UNITY_EDITOR
+
             UpdateUI();
-#endif
+
+            // 注册购买成功事件
+            foreach (var kvp in giftPackBuySuccessActions)
+            {
+                StringEventSystem.Global.Register(kvp.Key, kvp.Value).UnRegisterWhenGameObjectDestroyed(gameObject);
+            }
         }
 
         private void OnDisable()
@@ -96,7 +109,7 @@ namespace QFramework.Example
             ImgBar.fillAmount = (float)battlePassModel.GameWinNum/ battlePassModel.CurrentGetConditions;
             ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = battlePassModel.RewardLevel.ToString();
             TextTaskProgressBar.text = $"{battlePassModel.GameWinNum}/{battlePassModel.CurrentGetConditions}";
-           
+            BtnActivate.interactable = !battlePassModel.IsVip;
         }
        
         public void InitButtomPanelUI()
@@ -193,7 +206,6 @@ namespace QFramework.Example
         public void UpButtomPanelUI()
         {
             // 设置旧的奖励条
-            Debug.Log(oldLevel);
             BattlePassContent.transform.GetChild(oldLevel).GetComponent<BattlePassContentPanel>().SetDividingLine(0);
             buttomImageFillSequence = DOTween.Sequence();
             // 设置进度条动画和面板内容
@@ -226,8 +238,8 @@ namespace QFramework.Example
         {
             /// 内购开启战令
             BtnActivate.onClick.AddListener(() =>
-            {         
-                battlePassModel.HightBattlePassActivation();
+            {
+                googlePay.BuyProduct(BPViP_GIFT_ID);
                 // 战令内容的更新
                 for (int i = 0; i < battlePassModel.BPDate.Rewards.Length; i++)
                 {
@@ -236,7 +248,18 @@ namespace QFramework.Example
                 }
             });
         }
-
+        /// <summary>
+        /// 礼包购买回调
+        /// </summary>
+        private void OnPaySuccess()
+        {
+            battlePassModel.HightBattlePassActivation();
+            UIKit.OpenPanel<UIBuyPackSuccess>();
+            ActionKit.Delay(1, () =>
+            {
+                //延迟1s等待协程结束关闭
+            }).Start(this);
+        }
         public  void SmoothScrollController(int index)
         {
             // 

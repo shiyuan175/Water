@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:5fe0b204-9888-4f3d-9c7d-174825ea9ba8
+	// Generate Id:cbf29063-c2d9-41de-8b06-2a723dc394b3
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
@@ -101,15 +101,41 @@ namespace QFramework.Example
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtTierRankActivity;
 		[SerializeField]
+		public UnityEngine.UI.Button BtnBPNode;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtBpActivity;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnPGNode;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtPGActivity;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnRemoveADNode;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtREmoveADActivity;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnSONode;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtSOActivity;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnDGNode;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtDGActivity;
+		[SerializeField]
 		public UnityEngine.UI.Button BtnTTNode;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtTTActivity;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnDRNode;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnSelect;
 		[SerializeField]
 		public UnityEngine.UI.Image ImgSelected;
 		[SerializeField]
 		public RectTransform BottomMenuBtns;
+		[SerializeField]
+		public UnityEngine.UI.Button BattlePassBtn;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgLock;
 		
 		private UIBeginData mPrivateData = null;
 		
@@ -160,11 +186,24 @@ namespace QFramework.Example
 			TxtHighTowerActivity = null;
 			BtnTRANode = null;
 			TxtTierRankActivity = null;
+			BtnBPNode = null;
+			TxtBpActivity = null;
+			BtnPGNode = null;
+			TxtPGActivity = null;
+			BtnRemoveADNode = null;
+			TxtREmoveADActivity = null;
+			BtnSONode = null;
+			TxtSOActivity = null;
+			BtnDGNode = null;
+			TxtDGActivity = null;
 			BtnTTNode = null;
 			TxtTTActivity = null;
+			BtnDRNode = null;
 			BtnSelect = null;
 			ImgSelected = null;
 			BottomMenuBtns = null;
+			BattlePassBtn = null;
+			ImgLock = null;
 			
 			mData = null;
 		}

@@ -39,7 +39,6 @@ namespace QFramework.Example
 
             // 初始化购买成功回调
             giftPackBuySuccessActions = new Dictionary<string, Action>();
-            Debug.Log(BtnBuy.GetComponent<GiftPack>());
             var _packSo = BtnBuy.GetComponent<GiftPack>().giftPack;
             giftPackBuySuccessActions[_packSo.ID] = () => OnPaySuccess(_packSo);
 
@@ -55,7 +54,7 @@ namespace QFramework.Example
             }
 
             // 多余处理
-            if (removeADModel.Isbuy == true)
+            if (removeADModel.IsBuy == true)
                 BtnBuy.interactable = false;
         }
 
@@ -75,7 +74,6 @@ namespace QFramework.Example
         }
         private void SetBtnClick()
         {
-            Debug.Log("sd");
             BtnClose.onClick.RemoveAllListeners();
             BtnClose.onClick.AddListener(() =>
             {
@@ -84,7 +82,7 @@ namespace QFramework.Example
             BtnBuy.onClick.RemoveAllListeners();
             BtnBuy.onClick.AddListener(() =>
             {
-                Debug.Log(BtnBuy.GetComponent<GiftPack>());
+
                 var _packSo = BtnBuy.GetComponent<GiftPack>().giftPack;
                 googlePay.BuyProduct(_packSo.ID);
             });

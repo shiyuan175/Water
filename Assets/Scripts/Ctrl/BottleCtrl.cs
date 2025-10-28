@@ -227,7 +227,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             limitColorSpine.gameObject.SetActive(false);
         }
 
-
         if (isFreeze)
         {
             freezeSpine.AnimationState.SetAnimation(0, "idle", false);
@@ -241,10 +240,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 break;
             }
         }
-
         SetMaxBottle();
-
-
     }
 
     /// <summary>
@@ -285,12 +281,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             }
         }
 
-
         SetBottleColor();
         PlaySpineWaitAnim();
 
         CheckFinish();
-
 
         //会重复触发(暂弃)
         if (isFinish)
@@ -298,7 +292,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             CheckFinishChange(to);
         }
     }
-
+    #region 炸弹类相关
+    #region 正常炸弹
     /// <summary>
     /// 炸弹是否爆炸判断,炸弹的爆炸是优先的，所以计数+1
     /// </summary>
@@ -307,10 +302,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         var moveNum = LevelManager.Instance.moveNum;
         for (int i = 0; i < bombCounts.Count; i++)
         {
-
             if (bombCounts[i] < moveNum + 1 && bombCounts[i] != 0)
             {
-
                 bombCounts[i] = 0;
                 waterImg[i].bombCtrl.BombBoom();
                 return true;
@@ -325,7 +318,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     {
         isBomb = bomb;
     }
-    // 先更新的炸弹，后倒的水
+    /// <summary>
+    /// 先更新的炸弹，后倒的水
+    /// </summary>
+    /// <param name="bottleCtrl"></param>
+    /// <param name="Init"></param>
     public void UpdateBomb(BottleCtrl bottleCtrl = null, bool Init = false)
     {
         
@@ -404,13 +401,16 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         }
         isBomb = false;
     }
+    #endregion
+    #region 飞天炸弹
     public void CheckFlyBomb()
-    {
-       
+    {      
         // 最高位置直接设置为100
         if (bombCounts.Count!=0&&bombCounts[bombCounts.Count - 1]!=0)
             bombCounts[bombCounts.Count-1]=100;
     }
+    #endregion
+    #endregion
     /// <summary>
     /// 判断瓶子完成后的消除逻辑
     /// </summary>

@@ -72,6 +72,8 @@ namespace QFramework.Example
 
         protected override void OnClose()
         {
+            if (mData.IsManagedOpen ?? false)
+                StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);
             buttomImageFillSequence?.Kill();
         }
 
@@ -80,7 +82,6 @@ namespace QFramework.Example
         /// </summary>
         protected void InitUI()
         {
-            Debug.Log("s");
             #region ¶¥²¿UI
             // ¼ÆÊ±Æ÷
             mCountDownTween = DOTween.To(() => 0, x =>
@@ -129,9 +130,6 @@ namespace QFramework.Example
             BtnClose.onClick.RemoveAllListeners();
             BtnClose.onClick.AddListener(() =>
             {
-                if (mData.IsManagedOpen ?? false)
-                    StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);
-                else
                     CloseSelf();
             });
         }
@@ -349,7 +347,6 @@ namespace QFramework.Example
 #endif
 
                 googlePay.BuyProduct(GiftIDs[mPGModel.GiftLevel]);
-                Debug.Log(isBuy);
                 return isBuy;
             }
 
@@ -357,7 +354,6 @@ namespace QFramework.Example
         }
         void Update()
         {
-            Debug.Log(isBuy);
             if (Input.GetKeyDown(KeyCode.L))
                 isBuy = true;
         }

@@ -7,7 +7,6 @@ namespace QFramework.Example
 {
     public class IStateClassExample : MonoBehaviour
     {
-
         public enum States
         {
             A,

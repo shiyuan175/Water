@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RemoveADACtivityModel : AbstractModel
 {
-    public bool Isbuy =>mIsBuy.Value;
+    public bool IsBuy =>mIsBuy.Value;
     private readonly string REMOVEAD_IS_BUY = "H_RemoveADIsBuy";
 
     private BindableProperty<bool> mIsBuy;

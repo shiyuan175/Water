@@ -36,7 +36,7 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
         });
         ADBtn.onClick.AddListener(() =>
         {
-            UIKit.OpenPanel<UIPrograssGiftADActivity>();
+            UIKit.OpenPanel<UIDoubleGiftADActivity>();
         });
     }
 

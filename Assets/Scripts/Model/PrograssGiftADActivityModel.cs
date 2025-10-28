@@ -51,8 +51,8 @@ public class PrograssGiftADActivityModel : AbstractModel
         if (!File.Exists(mCurFilePath))
             ReloadPGActivity();
 
-        // 测试，发布需删除
-        ReloadPGActivity();
+      /*  // 测试，发布需删除
+        ReloadPGActivity();*/
         mJsonFileUtility.LoadFromJson(mCurFilePath, jsonData =>
         {
             mPGData = JsonConvert.DeserializeObject<PGData>(jsonData);
