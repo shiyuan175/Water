@@ -35,4 +35,26 @@ namespace GameAttributes
             SpineType = spineType;
         }
     }
+
+    public class ClearItemState : WaterColorState
+    {
+        public readonly int TargetIndex;
+
+        public ClearItemState(int targetIndex, string spineAnim)
+            : base(true, false, false, false, spineAnim, EColorStateSpineType.EBroomSpine)
+        {
+            TargetIndex = targetIndex;
+        }
+    }
+
+    public class ChangeColorItemState : WaterColorState
+    {
+        public readonly int TargetIndex;
+
+        public ChangeColorItemState(int targetIndex, string spineAnim)
+            : base(false, false, true, false, spineAnim, EColorStateSpineType.EChangeSpine)
+        {
+            TargetIndex = targetIndex;
+        }
+    }
 }

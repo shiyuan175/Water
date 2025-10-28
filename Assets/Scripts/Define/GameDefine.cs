@@ -223,43 +223,43 @@ namespace GameDefine
         [WaterColorState(false, true, false, false, "idle", EColorStateSpineType.ECreateSpine)]
         MakeColorItem = 1003,
 
-        [WaterColorState(false, false, true, false, "idle_cl", EColorStateSpineType.EChangeSpine)]
+        [ChangeColorItemState(1, "idle_cl")]
         ChangeGreen = 2001,
 
-        [WaterColorState(false, false, true, false, "idle_jh", EColorStateSpineType.EChangeSpine)]
+        [ChangeColorItemState(7, "idle_jh")]
         ChangeOrange = 2002,
 
-        [WaterColorState(false, false, true, false, "idle_fs", EColorStateSpineType.EChangeSpine)]
+        [ChangeColorItemState(3, "idle_fs")]
         ChangePink = 2003,
 
-        [WaterColorState(false, false, true, false, "idle_zs", EColorStateSpineType.EChangeSpine)]
+        [ChangeColorItemState(10, "idle_zs")]
         ChangePurple = 2004,
 
-        [WaterColorState(false, false, true, false, "idle_hs", EColorStateSpineType.EChangeSpine)]
+        [ChangeColorItemState(6, "idle_hs")]
         ChangeYellow = 2005,
 
-        [WaterColorState(false, false, true, false, "idle_sl", EColorStateSpineType.EChangeSpine)]
+        [ChangeColorItemState(4, "idle_sl")]
         ChangeDarkBlue = 2006,
 
-        [WaterColorState(true, false, false, false, "idle_fh", EColorStateSpineType.EBroomSpine)]
+        [ClearItemState(3, "idle_fh")]
         ClearPink = 3001,
 
-        [WaterColorState(true, false, false, false, "idle_jh", EColorStateSpineType.EBroomSpine)]
+        [ClearItemState(7, "idle_jh")]
         ClearOrange = 3002,
 
-        [WaterColorState(true, false, false, false, "idle_gl", EColorStateSpineType.EBroomSpine)]
+        [ClearItemState(4, "idle_gl")]
         ClearBlue = 3003,
 
-        [WaterColorState(true, false, false, false, "idle_hs", EColorStateSpineType.EBroomSpine)]
+        [ClearItemState(6, "idle_hs")]
         ClearYellow = 3004,
 
-        [WaterColorState(true, false, false, false, "idle_sl", EColorStateSpineType.EBroomSpine)]
+        [ClearItemState(9, "idle_sl")]
         ClearDarkGreen = 3005,
 
-        [WaterColorState(true, false, false, false, "idle_dh", EColorStateSpineType.EBroomSpine)]
+        [ClearItemState(2, "idle_dh")]
         ClearRed = 3006,
 
-        [WaterColorState(true, false, false, false, "idle_cl", EColorStateSpineType.EBroomSpine)]
+        [ClearItemState(1, "idle_cl")]
         ClearGreen = 3007,
 
     }
