@@ -203,43 +203,8 @@ namespace QFramework.Example
             });
             BtnBPNode.onClick.RemoveAllListeners();
             BtnBPNode.onClick.AddListener(() =>
-            {         
-                ChangePanel(BPIndex);
-                if (nowButton != BPIndex)
-                {
-                    for (int i = 0; i < bottomMenuRect.Count; i++)
-                    {
-                        var rt = bottomMenuBtns[i].GetComponent<RectTransform>();
-                        if (i == BPIndex)
-                        {
-                            //设置选中效果
-                            rt.localScale = new Vector3(minScaleValue, minScaleValue, minScaleValue);
-                            rt.DOScale(new Vector3(maxScaleValue, maxScaleValue, 1), 0.1f);
-                            rt.DOLocalMoveY(targetPosY, 0.1f);
-                            bottomMenuRect[BPIndex].sizeDelta = SELECTED;
-                        }
-                        else
-                        {
-                            //设置未选中效果
-                            rt.DOScale(Vector3.one, 0.2f);
-                            rt.DOLocalMoveY(initPosY, 0.2f);
-                            bottomMenuRect[i].sizeDelta = NSELECTED;
-                        }
-                    }
-                    //等待一帧
-                    ActionKit.DelayFrame(1, () =>
-                    {
-                        //同步按钮中心位置(可以设置按钮下的字体显示)
-                        for (int i = 0; i < bottomMenuBtns.Count; i++)
-                        {
-                            var rt = bottomMenuBtns[i].GetComponent<RectTransform>();
-                            rt.DOLocalMoveX(bottomMenuRect[i].localPosition.x, 0.2f);
-                        }
-                        //更新滑动块
-                        selectedImg.DOMove(bottomMenuRect[BPIndex].position, 0.1f);
-                        nowButton = BPIndex;
-                    }).Start(this);
-                }
+            {
+                MenuBtnEvent(BPIndex);
             });
 
             BtnPGNode.onClick.RemoveAllListeners();
@@ -457,7 +422,6 @@ namespace QFramework.Example
             .ToList();
             mLayoutElements_MenuBtn = mMenuBtn.Select(btn => btn.GetComponent<LayoutElement>())
             .ToList();
-
             mInitPosY = mImgsRect[0].anchoredPosition.y;
 
             //初始化选择主城按钮(索引为2)
@@ -741,7 +705,7 @@ namespace QFramework.Example
             if (_curLevel >= GameConst.BP_AD_BEGIN_LEVEL)
                 BtnBPNode.Show();
 
-            if (_curLevel >= GameConst.DG_AD_BEGIN_LEVEL && !this.GetModel<DoubleGiftADActivityModel>().IsBuy)
+            if (_curLevel >= GameConst.DG_AD_BEGIN_LEVEL && (!this.GetModel<DoubleGiftADActivityModel>().IsBuy||! this.GetModel<DoubleGiftADActivityModel>().GiftIsGot))
                 BtnDGNode.Show();
 
             if (_curLevel >= GameConst.PG_AD_BEGIN_LEVEL)
@@ -1004,6 +968,7 @@ namespace QFramework.Example
         }
         private void UpdateDGState()
         {
+            Debug.Log("ds");
             TxtDGActivity.text = mDoubleGiftADAcitvity.ActivityStatus switch
             {
                 GameActivityStatus.Active => "Active",
@@ -1058,12 +1023,12 @@ namespace QFramework.Example
         {
             if(saveData.GetCurrentLevel()>=GameConst.BP_AD_BEGIN_LEVEL)
             {
-                BattlePassBtn.interactable = true;
+                Btn_Bp.interactable = true;
                 ImgLock.Hide();
             }
             else
             {
-                BattlePassBtn.interactable = false;
+                Btn_Bp.interactable = false;
                 ImgLock.Show();
             }
             

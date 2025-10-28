@@ -691,6 +691,14 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         }
         return flag;
     }
+    public void BombClear()
+    {
+        foreach(BottleCtrl bottle in bottles)
+        {
+            bottle.ClearBomb();
+            bottle.isBomb = false;
+        }
+    }
 
     #endregion
 

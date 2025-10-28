@@ -9,7 +9,7 @@ public class DoubleGiftADActivityModel : AbstractModel
     public bool IsBuy => mIsBuy.Value;
     public bool GiftIsGot => mGiftIsGot.Value;
     private const string DG_IS_BUY_SIGN = "H_DGisBuy";
-    private const string DG_GIFT_IS_GOT = "H_GiftisGot";
+    private const string DG_GIFT_IS_GOT = "H_DGGiftisGot";
     private SaveDataUtility mStorage;
     private IBindableProperty<bool> mIsBuy;
     private IBindableProperty<bool> mGiftIsGot;

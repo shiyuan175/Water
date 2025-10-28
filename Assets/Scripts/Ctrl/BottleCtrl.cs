@@ -40,9 +40,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     private int ReceiveCount = 0;
     // 标记本瓶子是否有炸弹
     [SerializeField]
-    private bool isBomb = false;
+    public bool isBomb = false;
     // 是否是浮空炸弹
-    private bool isFlyBomb = false;
+    public bool isFlyBomb = false;
     [SerializeField]
     // 水块颜色、黑水块标志、每层水块的附加状态(结冰、破冰)、水块脚本引用
     public List<int> waters = new List<int>();
@@ -356,8 +356,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         }
         return waters[topIdx];
     }
-    #region 炸弹类相关
-    #region 正常炸弹
+
     /// <summary>
     /// 获得剩余空位
     /// </summary>
@@ -1206,6 +1205,20 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             if (bombCounts[i] > 0)
                 isBomb = true;
         }
+    }
+    public void ClearBomb()
+    {
+        for (int i = 0; i < bombCounts.Count; i++)
+        {
+            if (bombCounts[i] > 0)
+            {
+                waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
+                waterImg[i].textItem.text = "";
+                bombCounts[i] = 0;
+            }
+
+        }
+        isBomb = false;
     }
 
     public void CheckFlyBomb()

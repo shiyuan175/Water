@@ -15,14 +15,12 @@ namespace QFramework.Example
 		public UnityEngine.UI.ScrollRect ShopScrollView;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnClose;
-		public UnityEngine.UI.Button BtnClose;
 		
 		private UIShopData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
 			ShopScrollView = null;
-			BtnClose = null;
 			BtnClose = null;
 			
 			mData = null;

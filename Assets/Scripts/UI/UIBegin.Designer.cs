@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:729aae75-66ab-4a96-bf7a-881f61e39160
+	// Generate Id:17d110ad-7a2d-4329-adb1-e3d20086ef0b
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
@@ -103,7 +103,7 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Button BtnBPNode;
 		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtBpActivity;
+		public TMPro.TextMeshProUGUI TxtBPActivity;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnPGNode;
 		[SerializeField]
@@ -111,7 +111,7 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Button BtnRemoveADNode;
 		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtREmoveADActivity;
+		public TMPro.TextMeshProUGUI TxtRemoveADActivity;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnSONode;
 		[SerializeField]
@@ -125,13 +125,15 @@ namespace QFramework.Example
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtTTActivity;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnDRNode;
-		[SerializeField]
 		public UnityEngine.UI.Button BtnSelect;
 		[SerializeField]
 		public UnityEngine.UI.Image ImgSelected;
 		[SerializeField]
 		public RectTransform BottomMenuNode;
+		[SerializeField]
+		public UnityEngine.UI.Button Btn_Bp;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgLock;
 		
 		private UIBeginData mPrivateData = null;
 		
@@ -183,21 +185,22 @@ namespace QFramework.Example
 			BtnTRANode = null;
 			TxtTierRankActivity = null;
 			BtnBPNode = null;
-			TxtBpActivity = null;
+			TxtBPActivity = null;
 			BtnPGNode = null;
 			TxtPGActivity = null;
 			BtnRemoveADNode = null;
-			TxtREmoveADActivity = null;
+			TxtRemoveADActivity = null;
 			BtnSONode = null;
 			TxtSOActivity = null;
 			BtnDGNode = null;
 			TxtDGActivity = null;
 			BtnTTNode = null;
 			TxtTTActivity = null;
-			BtnDRNode = null;
 			BtnSelect = null;
 			ImgSelected = null;
 			BottomMenuNode = null;
+			Btn_Bp = null;
+			ImgLock = null;
 			
 			mData = null;
 		}

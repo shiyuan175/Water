@@ -13,7 +13,7 @@ public class DuobleGiftAdActivity : BaseGameActivity, ICanGetModel
     public override int ActivityBeginLevel => GameConst.DG_AD_BEGIN_LEVEL;
 
 
-
+    private GameActivityStatus mCurrentStatus;
     public bool AllGot => mDGModel.IsBuy && mDGModel.GiftIsGot;
 
     public override GameActivityStatus ActivityStatus
@@ -22,21 +22,24 @@ public class DuobleGiftAdActivity : BaseGameActivity, ICanGetModel
         {
             if (mSaveUtility.GetCurrentLevel() < ActivityBeginLevel)
                 return GameActivityStatus.Locked;
-            else if (!CountDownTimerManager.Instance.IsTimerFinished(ActivitySign))
-                return GameActivityStatus.Active;
+            else if (AllGot)
+                return GameActivityStatus.CoolingDown;
 
-            else return GameActivityStatus.CoolingDown;
+            else return GameActivityStatus.Active;
         }
     }
     private DoubleGiftADActivityModel mDGModel;
     public DuobleGiftAdActivity()
     {
         mDGModel = this.GetModel<DoubleGiftADActivityModel>();
+        mCurrentStatus = ActivityStatus;
     }
     public override void RestartActivity()
     {
+
+        CountDownTimerManager.Instance.ResetCountdownTimer(ActivityCooldownSign, 7 * 30);
+
         mDGModel.ClearData();
-        CountDownTimerManager.Instance.ResetCountdownTimer(ActivitySign, 7 * 30);
     }
 
     public override void StartActivity()
@@ -47,14 +50,30 @@ public class DuobleGiftAdActivity : BaseGameActivity, ICanGetModel
     {
         switch (ActivityStatus)
         {
+
             case GameActivityStatus.Active:
-                if (CountDownTimerManager.Instance.IsTimerFinished(ActivitySign)||AllGot)
+                if (AllGot)
+                {
+                    CoolDownActivity();
+                    mCurrentStatus = GameActivityStatus.CoolingDown;
+                }
+
+                else if (CountDownTimerManager.Instance.IsTimerFinished(ActivitySign))
+                {
+
                     RestartActivity();
+                    mCurrentStatus = GameActivityStatus.Active;
+                }
+
                 break;
 
             case GameActivityStatus.CoolingDown:
-                if (CountDownTimerManager.Instance.IsTimerFinished(ActivityCooldownSign)) 
+                if (CountDownTimerManager.Instance.IsTimerFinished(ActivityCooldownSign))
+                {
+
                     RestartActivity();
+                    mCurrentStatus = GameActivityStatus.Active;
+                }
 
                 break;
         }
@@ -63,9 +82,9 @@ public class DuobleGiftAdActivity : BaseGameActivity, ICanGetModel
     }
 
     public override void StreakWin()
-    {
+    {/*
         if (AllGot)
-            Fail();
+            Fail();*/
     }
 
     public override void Fail()
@@ -75,6 +94,7 @@ public class DuobleGiftAdActivity : BaseGameActivity, ICanGetModel
     public override void CoolDownActivity()
     {
         CountDownTimerManager.Instance.ResetCountdownTimer(ActivityCooldownSign, 7 * 24);
+
     }
     public void BuyGift()
     {

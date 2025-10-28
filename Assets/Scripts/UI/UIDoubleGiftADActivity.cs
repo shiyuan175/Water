@@ -13,7 +13,7 @@ namespace QFramework.Example
 	{
         public bool? IsManagedOpen;
     }
-	public partial class UIDoubleGiftADActivity : UIPanel,ICanGetUtility
+	public partial class UIDoubleGiftADActivity : UIPanel,ICanGetUtility,ICanGetModel
 	{
         [SerializeField] TextMeshProUGUI[] redText;
         private GooglePayManager googlePay;
@@ -21,6 +21,7 @@ namespace QFramework.Example
         private Dictionary<string, Action> giftPackBuySuccessActions;
         private RewardGrantUtility rewardGrantUtility;
         private DuobleGiftAdActivity mDoubleGiftADActivity;
+        private DoubleGiftADActivityModel mDPModel;
         protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UIDoubleGiftADActivityData ?? new UIDoubleGiftADActivityData();
@@ -33,6 +34,7 @@ namespace QFramework.Example
             {
                 txt.font = LevelManager.Instance.redFont;
             }
+            mDPModel = this.GetModel<DoubleGiftADActivityModel>();
             rewardGrantUtility = this.GetUtility<RewardGrantUtility>();
             googlePay = GooglePayManager.Instance;
             // 初始化购买成功回调
@@ -41,7 +43,7 @@ namespace QFramework.Example
             giftPackBuySuccessActions[_packSo.ID] = () => OnPaySuccess(_packSo);
 
             mDoubleGiftADActivity = GameActivityManager.Instance.GetActivity<DuobleGiftAdActivity>();
-
+            
             SetBtnClick();
 
          /*   mCountDownTween = DOTween.To(() => 0, x =>
@@ -63,6 +65,15 @@ namespace QFramework.Example
             {
                 StringEventSystem.Global.Register(kvp.Key, kvp.Value).UnRegisterWhenGameObjectDestroyed(gameObject);
             }
+
+            if (mDPModel.IsBuy)
+                BtnBuy.interactable = false;
+            else
+                BtnBuy.interactable = true;
+            if(!mDPModel.GiftIsGot&&mDPModel.IsBuy)
+                BtnFree.interactable = true;
+            else
+                BtnFree.interactable = false;
         }
 		
 		protected override void OnHide()
