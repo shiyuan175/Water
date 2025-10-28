@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine.U2D;
+using UnityEngine.Rendering;
 
 
 namespace QFramework.Example
@@ -234,6 +235,11 @@ namespace QFramework.Example
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
+        #region UI初始化
+
+        /// <summary>
+        /// 前五关故事UI
+        /// </summary>
         private void InitStoryUI()
         {
             int _curLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
@@ -241,8 +247,7 @@ namespace QFramework.Example
                 return;
 
             g_Star_MagicBook_Guide.Show();
-            //不对，关卡起始是1，
-            //1是不亮，2亮一个，3亮2个，4亮3个，5亮4个，数组长4
+            
             var _temp = Mathf.Clamp(_curLevel - 1, 0, i_StarFrames.Length);
             for (int i = 0; i < _temp; i++)
             {
@@ -250,6 +255,9 @@ namespace QFramework.Example
             }
         }
 
+        /// <summary>
+        /// 修改难度UI
+        /// </summary>
         private void InitLevelUI()
         {
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
@@ -285,6 +293,9 @@ namespace QFramework.Example
 
         }
 
+        /// <summary>
+        /// 困难关卡弹窗UI
+        /// </summary>
         private void SetTextTip()
         {
             // 设置动画
@@ -307,36 +318,11 @@ namespace QFramework.Example
 
             // 设置文本 5-20的偏转值
             TextLevelTip.text = UnityEngine.Random.Range(50, 70).ToString() + "% of players were defeated at this level";
-
-
         }
 
         /// <summary>
-        /// 显示道具图标
+        /// 段位UI
         /// </summary>
-        private void InitItemUI()
-        {
-            int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
-                UnLockItem(NormalRewardsType.AddOneBottle);
-
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
-                UnLockItem(NormalRewardsType.AddHalfBottle);
-
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
-                UnLockItem(NormalRewardsType.RemoveHide);
-
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
-                UnLockItem(NormalRewardsType.RemoveAll);
-
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
-                UnLockItem(NormalRewardsType.StepBack);
-
-            if (level >= (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
-                BtnItemBg.Show();
-        }
-
         private void InitRankLevel()
         {
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
@@ -365,6 +351,40 @@ namespace QFramework.Example
             else ImgRankLevel.Hide();
         }
 
+        #endregion
+
+        #region 付费道具相关
+
+        /// <summary>
+        /// 显示道具图标
+        /// </summary>
+        private void InitItemUI()
+        {
+            int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
+                UnLockItem(NormalRewardsType.AddOneBottle);
+
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
+                UnLockItem(NormalRewardsType.AddHalfBottle);
+
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
+                UnLockItem(NormalRewardsType.RemoveHide);
+
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
+                UnLockItem(NormalRewardsType.RemoveAll);
+
+            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
+                UnLockItem(NormalRewardsType.StepBack);
+
+            if (level >= (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
+                BtnItemBg.Show();
+        }
+
+        /// <summary>
+        /// 道具解锁
+        /// </summary>
+        /// <param name="PropType"></param>
         private void UnLockItem(NormalRewardsType PropType)
         {
             Transform transform = null;
@@ -397,7 +417,6 @@ namespace QFramework.Example
             transform.Find("ImgItem").GetComponent<Image>().color = Color.white;
         }
 
-        #region 道具相关
         private void BtnSetpBackOnClick()
         {
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
@@ -508,7 +527,9 @@ namespace QFramework.Example
                 }
             }
         }
+        #endregion
 
+        #region 携带道具相关
         /// <summary>
         /// 使用携带道具
         /// </summary>
@@ -520,77 +541,86 @@ namespace QFramework.Example
             switch (itemID)
             {
                 case 6:
-                    LevelManager.Instance.AddBottle(true, () =>
-                    {
-                        TxtItem1.text = "0";
-                    });
+                    AddBottle();
                     break;
 
                 case 7:
-                    if (!(LevelManager.Instance.hideBottleList.Count > 0))
-                        return;
-                    ClearBottleBlackWater(true, () =>
-                    {
-                        TxtItem2.text = "0";
-                    });
+                    ReMoveHide();
                     break;
 
                 case 8:
-                    // 索引列表用于随机洗牌
-                    List<int> _indices = Enumerable.Range(0, botter.waters.Count).ToList();
-                    do
-                    {
-                        for (int i = 0; i < _indices.Count; i++)
-                        {
-                            int randIndex = UnityEngine.Random.Range(i, _indices.Count);
-                            (_indices[i], _indices[randIndex]) = (_indices[randIndex], _indices[i]);
-                        }
-                    }
-                    while (Enumerable.SequenceEqual(_indices.Select(i => botter.waters[i]), botter.waters));
-
-                    List<int> _newWaters = new List<int>();
-                    List<bool> _newHideWater = new List<bool>();
-                    List<WaterItem> _newWaterItems = new List<WaterItem>();
-                    List<int> _newBombs = new List<int>();
-
-                    foreach (int idx in _indices)
-                    {
-                        _newWaters.Add(botter.waters[idx]);
-                        _newHideWater.Add(botter.hideWaters[idx]);
-                        _newWaterItems.Add(botter.waterItems[idx]);
-                        _newBombs.Add(botter.bombCounts[idx]);
-                    }
-                    // 替换原列表
-                    botter.waters = _newWaters;
-                    botter.hideWaters = _newHideWater;
-                    botter.waterItems = _newWaterItems;
-                    botter.bombCounts = _newBombs;
-
-                    //修改水块颜色和切换道具位置
-                    for (int i = 0; i < botter.waters.Count; i++)
-                    {
-                        var useColor = botter.waters[i] - 1;
-                        if (useColor < 1000)
-                            botter.waterImg[i].SetColorState(ItemType.UseColor, LevelManager.Instance.waterColor[useColor], i == botter.topIdx);
-                        else
-                            botter.waterImg[i].SetColorState((ItemType)botter.waters[i], LevelManager.Instance.ItemColor, i == botter.topIdx);
-                    }
-
-                    //修改水面位置，修改水面颜色并播放水面动画
-                    botter.SetNowSpinePos(botter.waters.Count);
-                    botter.PlaySpineWaitAnim();
-                    botter.CheckWaterItem();
-                    botter.UpdateBomb();
-                    botter.SetHideShow(true);
-                    LevelManager.Instance.HideItemSelect();
-
-                    TxtItem3.text = "0";
-                    //Debug.Log("打乱顺序成功");
+                    RangeWater(botter);
                     break;
             }
-
-            //if (!CheckHaveItem(itemID))//调整为仅使用一次
             itemObj.interactable = false;
+        }
+
+        /// <summary>
+        /// 设置携带道具UI
+        /// </summary>
+        /// 进入游戏/重置关卡调用
+        private void SetTakeItem()
+        {
+            var takeItems = LevelManager.Instance.takeItem;
+            Button[] buttons = new[] { BtnItem1, BtnItem2, BtnItem3 };
+            var texts = new[] { TxtItem1, TxtItem2, TxtItem3 };
+            var itemIds = new[] { 6, 7, 8 };
+            bool _showItemBG = false;
+            for (int i = 0; i < itemIds.Length; i++)
+            {
+                int itemId = itemIds[i];
+                var _rewardType = (SpecialRewardsType)itemId;
+                string _sign = GameEnum.GetDescription(_rewardType);
+
+                bool _isTakeItem = (takeItems.Contains(itemId) && CheckHaveItem(itemId))
+                    || !CountDownTimerManager.Instance.IsTimerFinished(_sign);
+                buttons[i].interactable = _isTakeItem;
+                texts[i].text = _isTakeItem ? "1" : "0";
+
+                if (_isTakeItem 
+                    && CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_ChangeWater)))
+                    stageModel.ReduceItem(itemIds[i], 1);
+
+                // 取真
+                _showItemBG = _showItemBG | _isTakeItem;
+            }
+
+            if (!_showItemBG)
+                BtnItemBg.Hide();
+        }
+
+        /// <summary>
+        /// 下方道具栏UI更新
+        /// </summary>
+        private void SetItem()
+        {
+            stageModel = this.GetModel<StageModel>();
+            BtnAddStepBack.gameObject.SetActive(stageModel.ItemDic[1] <= 0);
+            TxtRefreshNum.text = stageModel.ItemDic[1].ToString();
+
+            BtnAddRemove.gameObject.SetActive(stageModel.ItemDic[2] <= 0);
+            TxtRemoveHideNum.text = stageModel.ItemDic[2].ToString();
+
+            BtnAddAddBottle.gameObject.SetActive(stageModel.ItemDic[3] <= 0);
+            TxtAddBottleNum.text = stageModel.ItemDic[3].ToString();
+
+            BtnAddHalfBottle.gameObject.SetActive(stageModel.ItemDic[4] <= 0);
+            TxtAddHalfBottleNum.text = stageModel.ItemDic[4].ToString();
+
+            BtnAddRemoveBottle.gameObject.SetActive(stageModel.ItemDic[5] <= 0);
+            TxtRemoveAllNum.text = stageModel.ItemDic[5].ToString();
+        }
+
+        /// <summary>
+        /// 检查是否拥有道具
+        /// </summary>
+        /// <param name="itemID"></param>
+        /// <returns></returns>
+        private bool CheckHaveItem(int itemID)
+        {
+            if (stageModel.ItemDic[itemID] > 0)
+                return true;
+            else return false;
         }
 
         /// <summary>
@@ -624,6 +654,11 @@ namespace QFramework.Example
             }
         }
 
+        /// <summary>
+        /// 连胜去黑
+        /// </summary>
+        /// <param name="tempList"></param>
+        /// <param name="action"></param>
         private void StreaWinClearBWater(List<BottleCtrl> tempList, Action action)
         {
             var _particle = Resources.Load(CLEAR_BWATER_PARTICLE_PATH);
@@ -642,96 +677,109 @@ namespace QFramework.Example
             });
         }
 
+        /// <summary>
+        /// 道具去黑
+        /// </summary>
+        /// <param name="tempList"></param>
+        /// <param name="action"></param>
         private void useItemClearBWater(List<BottleCtrl> tempList, Action action)
         {
-            //后续道具弹出的动画，
-            //动画结束回调执行去黑
-
-            foreach (var item in tempList)
-            {
-                //星星去黑效果
-                item.StarSetHideShow();
-
-                //原先的去黑效果
-                //for (int i = 0; i < item.hideWaters.Count; i++)
-                //{
-                //    item.hideWaters[i] = false;
-                //}
-                //item.SetHideShow(true);
-            }
-
+            tempList.ForEach(item => item.StarSetHideShow());
             action?.Invoke();
         }
 
-        /// <summary>
-        /// 使用携带道具按钮事件
-        /// </summary>
-        /// 进入游戏/重置关卡调用
-        private void SetTakeItem()
+        #region 进关选择道具事件
+        //方法名都暂定,后续修改
+
+        //后面做自动使用，就吧三个方法加入到时序动作管理中，
+        //根据是否携带道具自动加入
+        private void ReMoveHide()
         {
-            var takeItems = LevelManager.Instance.takeItem;
-            var buttons = new[] { BtnItem1, BtnItem2, BtnItem3 };
-            var texts = new[] { TxtItem1, TxtItem2, TxtItem3 };
-            var itemIds = new[] { 6, 7, 8 };
-            bool _showItem = false;
-            for (int i = 0; i < itemIds.Length; i++)
+            //后续道具弹出的动画，
+            //动画结束回调执行逻辑
+
+            ClearBottleBlackWater(true, () =>
             {
-                int itemId = itemIds[i];
-                var _rewardType = (SpecialRewardsType)itemId;
-                string _sign = GameEnum.GetDescription(_rewardType);
+                TxtItem2.text = "0";
+            });
+        }
+       
+        private void AddBottle()
+        {
+            //后续道具弹出的动画，
+            //动画结束回调执行逻辑
 
-                bool active = (takeItems.Contains(itemId) && CheckHaveItem(itemId))
-                    || !CountDownTimerManager.Instance.IsTimerFinished(_sign);
-                buttons[i].interactable = active;
-                texts[i].text = active ? "1" : "0";
+            LevelManager.Instance.AddBottle(true, () =>
+            {
+                TxtItem1.text = "0";
+            });
+        }
 
-                if (active)
+        private void RangeWater(BottleCtrl botter)
+        {
+            //后续道具弹出的动画，
+            //动画结束回调执行逻辑
+
+            // 索引列表用于随机洗牌
+            List<int> _indices = Enumerable.Range(0, botter.waters.Count).ToList();
+            do
+            {
+                for (int i = 0; i < _indices.Count; i++)
                 {
-                    if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_ChangeWater)))
-                        stageModel.ReduceItem(itemIds[i], 1);
+                    int randIndex = UnityEngine.Random.Range(i, _indices.Count);
+                    (_indices[i], _indices[randIndex]) = (_indices[randIndex], _indices[i]);
                 }
-                // 取真
-                _showItem = _showItem | active;
+            }
+            while (Enumerable.SequenceEqual(_indices.Select(i => botter.waters[i]), botter.waters));
+
+            List<int> _newWaters = new List<int>();
+            List<bool> _newHideWater = new List<bool>();
+            List<WaterItem> _newWaterItems = new List<WaterItem>();
+            List<int> _newBombs = new List<int>();
+
+            foreach (int idx in _indices)
+            {
+                _newWaters.Add(botter.waters[idx]);
+                _newHideWater.Add(botter.hideWaters[idx]);
+                _newWaterItems.Add(botter.waterItems[idx]);
+                _newBombs.Add(botter.bombCounts[idx]);
+            }
+            // 替换原列表
+            botter.waters = _newWaters;
+            botter.hideWaters = _newHideWater;
+            botter.waterItems = _newWaterItems;
+            botter.bombCounts = _newBombs;
+
+            //修改水块颜色和切换道具位置
+            for (int i = 0; i < botter.waters.Count; i++)
+            {
+                var useColor = botter.waters[i] - 1;
+                if (useColor < 1000)
+                    botter.waterImg[i].SetColorState(ItemType.UseColor, LevelManager.Instance.waterColor[useColor], i == botter.topIdx);
+                else
+                    botter.waterImg[i].SetColorState((ItemType)botter.waters[i], LevelManager.Instance.ItemColor, i == botter.topIdx);
             }
 
-            if (!_showItem)
-                BtnItemBg.Hide();
+            //修改水面位置，修改水面颜色并播放水面动画
+            botter.SetNowSpinePos(botter.waters.Count);
+            botter.PlaySpineWaitAnim();
+            botter.CheckWaterItem();
+            botter.UpdateBomb();
+            botter.SetHideShow(true);
+            LevelManager.Instance.HideItemSelect();
 
+            TxtItem3.text = "0";
+            //Debug.Log("打乱顺序成功");
         }
 
-        /// <summary>
-        /// 下方道具栏道具更新
-        /// </summary>
-        private void SetItem()
-        {
-            stageModel = this.GetModel<StageModel>();
-            BtnAddStepBack.gameObject.SetActive(stageModel.ItemDic[1] <= 0);
-            TxtRefreshNum.text = stageModel.ItemDic[1].ToString();
+        #endregion
 
-            BtnAddRemove.gameObject.SetActive(stageModel.ItemDic[2] <= 0);
-            TxtRemoveHideNum.text = stageModel.ItemDic[2].ToString();
+        #endregion
 
-            BtnAddAddBottle.gameObject.SetActive(stageModel.ItemDic[3] <= 0);
-            TxtAddBottleNum.text = stageModel.ItemDic[3].ToString();
+        #region 时序动作
+        private readonly Queue<Action<Action>> mActionQueue = new Queue<Action<Action>>();
+        private bool mIsRunning = false;
 
-            BtnAddHalfBottle.gameObject.SetActive(stageModel.ItemDic[4] <= 0);
-            TxtAddHalfBottleNum.text = stageModel.ItemDic[4].ToString();
-
-            BtnAddRemoveBottle.gameObject.SetActive(stageModel.ItemDic[5] <= 0);
-            TxtRemoveAllNum.text = stageModel.ItemDic[5].ToString();
-        }
-
-        /// <summary>
-        /// 检查是否拥有道具
-        /// </summary>
-        /// <param name="itemID"></param>
-        /// <returns></returns>
-        private bool CheckHaveItem(int itemID)
-        {
-            if (stageModel.ItemDic[itemID] > 0)
-                return true;
-            else return false;
-        }
 
         #endregion
 

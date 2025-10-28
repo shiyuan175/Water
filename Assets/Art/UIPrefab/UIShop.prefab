@@ -20081,7 +20081,7 @@ MonoBehaviour:
   ScriptsFolder: Assets/Scripts/Controllers/UIBegin_ShopPanel
   GeneratePrefab: 0
   PrefabFolder: Assets/Art/Prefab
-  ArchitectureFullTypeName: 
+  ArchitectureFullTypeName: GameMainArc
   ViewControllerFullTypeName: 
   buyGiftPackBtns:
   - {fileID: 9133265480397556747}
@@ -20179,6 +20179,7 @@ MonoBehaviour:
   - {fileID: 5574700865051510597}
   - {fileID: 5770197415559214059}
   ShopScrollView: {fileID: 8644404531041009252}
+  BtnClose: {fileID: 2100702216244264395}
 --- !u!1 &6895714329120204214
 GameObject:
   m_ObjectHideFlags: 0

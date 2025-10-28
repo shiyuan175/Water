@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:cbf29063-c2d9-41de-8b06-2a723dc394b3
+	// Generate Id:729aae75-66ab-4a96-bf7a-881f61e39160
 	public partial class UIBegin
 	{
 		public const string Name = "UIBegin";
@@ -131,11 +131,7 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Image ImgSelected;
 		[SerializeField]
-		public RectTransform BottomMenuBtns;
-		[SerializeField]
-		public UnityEngine.UI.Button BattlePassBtn;
-		[SerializeField]
-		public UnityEngine.UI.Image ImgLock;
+		public RectTransform BottomMenuNode;
 		
 		private UIBeginData mPrivateData = null;
 		
@@ -201,9 +197,7 @@ namespace QFramework.Example
 			BtnDRNode = null;
 			BtnSelect = null;
 			ImgSelected = null;
-			BottomMenuBtns = null;
-			BattlePassBtn = null;
-			ImgLock = null;
+			BottomMenuNode = null;
 			
 			mData = null;
 		}

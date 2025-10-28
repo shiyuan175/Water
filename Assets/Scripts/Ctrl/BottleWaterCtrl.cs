@@ -44,18 +44,6 @@ public class BottleWaterCtrl : MonoBehaviour
             }
         }
     }
-    // Start is called before the first frame update
-    private void Start()
-    {
-
-    }
-
-    
-
-    public void SetSpineActive(bool active)
-    {
-        spineGo.SetActive(active);
-    }
 
     public void PlayFillAnim(float time)
     {
@@ -91,53 +79,6 @@ public class BottleWaterCtrl : MonoBehaviour
 
     }
 
-   /* public void PlayUseBroom(BottleWaterCtrl hide)
-    {
-        StartCoroutine(CoroutinePlayUseBroom(hide));
-    }
-*/
-
-/*
-    IEnumerator CoroutinePlayUseBroom(BottleWaterCtrl hide)
-    {
-        isPlayItemAnim = true;
-        hide.gameObject.SetActive(true);
-        var go = Instantiate(broomItemGo);
-        var go1 = Instantiate(hide.broomItemGo);
-        go.transform.parent = transform;
-        go.transform.localScale = broomItemGo.transform.localScale;
-        go.transform.localPosition = broomItemGo.transform.localPosition;
-        go1.transform.parent = transform;
-        go1.transform.localScale = broomItemGo.transform.localScale;
-        go1.transform.localPosition = broomItemGo.transform.localPosition + new Vector3(0, 83.4f, 0);
-
-
-        var useSpine = go.GetComponent<SkeletonGraphic>();
-        var useSpine1 = go1.GetComponent<SkeletonGraphic>();
-        yield return new WaitForEndOfFrame();
-        go.transform.parent = LevelManager.Instance.gameCanvas;
-        go1.transform.parent = LevelManager.Instance.gameCanvas;
-        useSpine1.AnimationState.SetAnimation(0, broomSpine.AnimationState.ExpandToIndex(0).Animation.name, false);
-
-        go1.transform.DOLocalMove(go.transform.localPosition, 0.2f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            Destroy(go1);
-        });
-
-        broomItemGo.SetActive(false);
-        go.transform.Find("Top").gameObject.SetActive(false);
-        useSpine.AnimationState.SetAnimation(0, "disappear", false);
-        isPlayItemAnim = false;
-        hide.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1f);
-
-        hide.bottle.SetBottleColor();
-
-        Destroy(go);
-        //gameObject.SetActive(false);
-
-    }
-*/
     public IEnumerator ShowBroomAfter()
     {
         yield return new WaitForSeconds(1);
@@ -151,95 +92,6 @@ public class BottleWaterCtrl : MonoBehaviour
         broomAfterSpine.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
-
-   /* public void PlayUseCreate(BottleCtrl bottleCtrl, BottleWaterCtrl hide)
-    {
-        StartCoroutine(CoroutinePlayUseCreate(bottleCtrl, hide));
-    }
-
-
-
-    IEnumerator CoroutinePlayUseCreate(BottleCtrl bottleCtrl, BottleWaterCtrl hide)
-    {
-        isPlayItemAnim = true;
-        //broomItemGo.SetActive(true);
-        var go = Instantiate(createItemGo);
-        var go1 = Instantiate(hide.createItemGo);
-        go.transform.parent = transform;
-        go.transform.localScale = createItemGo.transform.localScale;
-        go.transform.localPosition = createItemGo.transform.localPosition;
-        go1.transform.parent = transform;
-        go1.transform.localScale = createItemGo.transform.localScale;
-        go1.transform.localPosition = createItemGo.transform.localPosition + new Vector3(0, 83.4f, 0);
-
-        var useSpine = go.GetComponent<SkeletonGraphic>();
-        var useSpine1 = go1.GetComponent<SkeletonGraphic>();
-        yield return new WaitForEndOfFrame();
-        go.transform.parent = LevelManager.Instance.gameCanvas;
-        go1.transform.parent = LevelManager.Instance.gameCanvas;
-        useSpine1.AnimationState.SetAnimation(0, createSpine.AnimationState.ExpandToIndex(0).Animation.name, false);
-
-        go1.transform.DOLocalMove(go.transform.localPosition, 0.2f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            Destroy(go1);
-        });
-        createItemGo.SetActive(false);
-        go.transform.Find("Top").gameObject.SetActive(false);
-        useSpine.AnimationState.SetAnimation(0, "combine", false);
-        isPlayItemAnim = false;
-        hide.gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(1f);
-        //gameObject.SetActive(false);
-        Destroy(go);
-        bottleCtrl.SetBottleColor();
-        isPlayItemAnim = false;
-        gameObject.SetActive(false);
-
-    }
-*/
-
-   /* public void PlayUseChange(BottleWaterCtrl hide)
-    {
-        StartCoroutine(CoroutinePlayUseChange(hide));
-    }
-
-    IEnumerator CoroutinePlayUseChange(BottleWaterCtrl hide)
-    {
-        isPlayItemAnim = true;
-        //broomItemGo.SetActive(true);
-        var go = Instantiate(changeItemGo);
-        var go1 = Instantiate(hide.changeItemGo);
-        go.transform.parent = transform;
-        go.transform.localScale = changeItemGo.transform.localScale;
-        go.transform.localPosition = changeItemGo.transform.localPosition;
-        go1.transform.parent = transform;
-        go1.transform.localScale = changeItemGo.transform.localScale;
-        go1.transform.localPosition = changeItemGo.transform.localPosition + new Vector3(0, 83.4f, 0);
-
-        var useSpine = go.GetComponent<SkeletonGraphic>();
-        var useSpine1 = go1.GetComponent<SkeletonGraphic>();
-        yield return new WaitForEndOfFrame();
-        go.transform.parent = LevelManager.Instance.gameCanvas;
-        go1.transform.parent = LevelManager.Instance.gameCanvas;
-        useSpine1.AnimationState.SetAnimation(0, changeSpine.AnimationState.ExpandToIndex(0).Animation.name, false);
-
-        go1.transform.DOLocalMove(go.transform.localPosition, 0.2f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            Destroy(go1);
-        });
-        changeItemGo.SetActive(false);
-        go.transform.Find("Top").gameObject.SetActive(false);
-        useSpine.AnimationState.SetAnimation(0, "combine", false);
-        isPlayItemAnim = false;
-        hide.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1f);
-
-        isPlayItemAnim = false;
-        Destroy(go);
-        gameObject.SetActive(false);
-    }
-*/
 
     #region 魔法阵动画
 
@@ -316,48 +168,6 @@ public class BottleWaterCtrl : MonoBehaviour
     }*/
     #endregion
 
-    public void PlayFillAnimConnect()
-    {
-        string spineAnimName = "";
-        switch (waterColor)
-        {
-            case 0:
-                spineAnimName = "daoshui_dh";
-                break;
-            case 1:
-                spineAnimName = "daoshui_cl";
-                break;
-        }
-        spineGo.SetActive(true);
-        anim.Play("WaterFillConnect");
-        spine.AnimationState.SetAnimation(0, spineAnimName, false);
-        //StartCoroutine(CoroutinePlayFillAnim());
-    }
-
-    public void PlayEmptyAnim()
-    {
-        anim.Play("NormalEmpty");
-    }
-
-    public void SetHide(bool isHide, bool noWait)
-    {
-        if (isHide || (!isHide && noWait) || !gameObject.activeSelf)
-        {
-            if (!isHide && HideGo.activeSelf)
-            {
-                wenhaoFxGo.SetActive(false);
-                wenhaoFxGo.SetActive(true);
-            }
-
-            HideGo.SetActive(isHide);
-
-        }
-        else
-        {
-            StartCoroutine(PlayHide(isHide, noWait));
-        }
-    }
-
     public void SetHide(bool isHide, bool noWait,GameDefine.ItemType itemType)
     {
         if (isHide || (!isHide && noWait) || !gameObject.activeSelf)
@@ -415,7 +225,6 @@ public class BottleWaterCtrl : MonoBehaviour
         HideGo.SetActive(isHide);
     }
 
-
     public IEnumerator ChangeShine()
     {
         LevelManager.Instance.isPlayFxAnim = true;
@@ -429,6 +238,7 @@ public class BottleWaterCtrl : MonoBehaviour
 
         LevelManager.Instance.isPlayFxAnim = false;
     }
+
     public IEnumerator ShowThunder(Transform target)
     {
         yield return new WaitForSeconds(1f);
@@ -461,6 +271,8 @@ public class BottleWaterCtrl : MonoBehaviour
         //thunderGo.SetActive(false);
 
     }
+
+    #region 破冰动画和回调
 
     public IEnumerator BreakIce(BottleWaterCtrl waterCtrl)
     {
@@ -511,16 +323,13 @@ public class BottleWaterCtrl : MonoBehaviour
 
         trackEntry.Complete += (entry) =>
         {
-            UnlockIceWater();
+            bottle.UnlockIceWater();
             fireRuneGo.SetActive(false);
             action?.Invoke();
         };
     }
 
-    public void UnlockIceWater()
-    {
-        bottle.UnlockIceWater();
-    }
+    #endregion
 
     public void SetColorState(GameDefine.ItemType itemType, Color inColor, bool isTopWater, int time = 0)
     {
