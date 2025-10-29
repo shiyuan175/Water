@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using GameAttributes;
 using GameDefine;
 using QFramework;
 using QFramework.Example;
@@ -7,6 +8,7 @@ using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 using static LevelCreateCtrl;
@@ -35,6 +37,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     public int maxNum = 4,
         limitColor = 0,     // 限制可倒入的颜色(0表示无限制)
         unlockClear = 0;    // 解锁魔法布的颜色编号
+
     // 用于接水次数计数
     // 修正（待确认）用于动画播放的锁问题
     private int ReceiveCount = 0;
@@ -43,13 +46,16 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     private bool isBomb = false;
     // 是否是浮空炸弹
     private bool isFlyBomb = false;
-    [SerializeField]
-    // 水块颜色、黑水块标志、每层水块的附加状态(结冰、破冰)、水块脚本引用
-    public List<int> waters = new List<int>();
-    public List<bool> hideWaters = new List<bool>();
-    public List<WaterItem> waterItems = new List<WaterItem>();
-    public List<BottleWaterCtrl> waterImg = new List<BottleWaterCtrl>();
-    public List<int> bombCounts = new List<int>();
+    //瓶子中的水块标识
+    public List<int> waters = new();
+    //瓶中的水是否为黑水
+    public List<bool> hideWaters = new ();
+    //瓶中的水的状态(冰块/火焰)
+    public List<WaterItem> waterItems = new ();
+    //水块脚本持有
+    public List<BottleWaterCtrl> waterImg = new();
+    //炸弹步数
+    public List<int> bombCounts = new ();
 
     // 操作记录(用于撤销功能)
     public List<BottleRecord> moveRecords = new List<BottleRecord>();
@@ -256,18 +262,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         ImgBottleFour.gameObject.SetActive(maxNum == 4);
     }
 
-    /// <summary>
-    /// 判断瓶子完成后的消除逻辑
-    /// </summary>
-    /// <param name="color"></param>
-    public void CheckFinishChange(int color)
-    {
-        foreach (var bottle in LevelManager.Instance.nowBottles)
-        {
-            bottle.CheckUnlockHide(color);
-        }
-    }
-
     #region 倒水相关
 
     #region 瓶子点击事件/选中/取消选中
@@ -432,7 +426,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <param name="topIndex"></param>
     /// <param name="numWater"></param>
     /// <param name="useColor"></param>
-    public void MoveToOtherAnim(BottleCtrl other, int topIndex, int numWater, int useColor = -1)
+    public void MoveToOtherAnim(BottleCtrl other, int topIndex, int numWater, int useColor)
     {
         UnityEngine.UI.Image bottleClickMask = bottle.GetComponent<Image>();
 
@@ -444,7 +438,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         //水柱相关
         bottleRenderUpdate.SetMoveBottleRenderState(true, other);
 
-        if (useColor < 1000)
+        ItemType _type = (ItemType)useColor;
+        WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
+        
+        //普通水/特殊水块
+        if (useColor < 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
         {
             topIndex += 1;
             //瓶身倾斜动画(BottleIn开始的Z轴大小要以BottleOut的结束为起点)
@@ -463,7 +461,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         modelGo.transform.DOMove(_targetPos, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
         {
             SetDownWaterSp(useColor);
-            if (useColor < 1000) ////非道具动画播放
+            //普通水/特殊水块
+            if (useColor < 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater) 
             {
                 fillWaterGoAnim.Play("FillWater");
                 // 因为先Play了动画片段在做的DoTween
@@ -575,19 +574,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// 设置水柱颜色
     /// </summary>
     /// <param name="useColor"></param>
-    public void SetDownWaterSp(int useColor = -1)
+    public void SetDownWaterSp(int useColor)
     {
-        var color = GetMoveOutTop();
-        if (useColor != -1)
-        {
-            color = useColor;
-        }
-
-        if (color < 1000)
-        {
-            ImgWaterTop.sprite = LevelManager.Instance.waterTopSp[color - 1];
-            ImgWaterDown.sprite = LevelManager.Instance.waterSp[color - 1];
-        }
+        var _waterInfo = LevelManager.Instance.waterSpriteInfos.FirstOrDefault(x => x.color == useColor);
+        ImgWaterTop.sprite = _waterInfo.waterTopSp;
+        ImgWaterDown.sprite = _waterInfo.waterSp;
     }
 
     /// <summary>
@@ -616,13 +607,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         int startIdx = useIdx;
         SetNowSpinePos(startIdx + 1);
 
-        if (useColor > 1000)
-        {
-            spineGoPosition.transform.localPosition = spineNode[useIdx + 1 - num].localPosition;
-            if (topIdx < 0)
-                spineGo.gameObject.SetActive(false);
-        }
-        else
+        var _type = (ItemType)useColor;
+        WaterAttrCache.Dict.TryGetValue(_type, out WaterColorState _attr);
+        bool _isRainBowWater = _attr?.SpineType is EColorStateSpineType.ERainBowWater;
+
+        if (useColor <= 1000 || _isRainBowWater)
         {
             spineGoPosition.DOLocalMove(spineNode[useIdx + 1 - num].localPosition, fillAlltime).SetEase(Ease.Linear).OnComplete(() =>
             {
@@ -630,11 +619,17 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     spineGo.gameObject.SetActive(false);
             });
         }
+        else
+        {
+            spineGoPosition.transform.localPosition = spineNode[useIdx + 1 - num].localPosition;
+            if (topIdx < 0)
+                spineGo.gameObject.SetActive(false);
+        }
 
         PlaySpineWaitAnim(useColor);
 
         float fillTime = fillAlltime / num;
-        if (useColor > 1000) fillTime = 0f;
+        if (useColor > 1000 && !_isRainBowWater) fillTime = 0f;
 
         for (int i = 0; i < num; i++)
         {
@@ -688,7 +683,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <returns></returns>
     IEnumerator CoroutinePlayFillAnim(int num, int color)
     {
-        if (BottleHasItem())
+        var _hasItemEffect = BottleHasItem();
+        if (_hasItemEffect)
             UIKit.OpenPanel<UIMask>(UILevel.PopUI);
 
         ++ReceiveCount;
@@ -697,8 +693,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         yield return new WaitForSeconds(fillAlltime);
         SetBottleColor();
         //float fillAlltime = 1.33f;
+
         int startIdx = topIdx + 1 - num;
-        if (color < 1000)
+        var _type = (ItemType)color;
+        WaterAttrCache.Dict.TryGetValue(_type, out WaterColorState _attr);
+        bool _isRainBowWater = _attr?.SpineType is EColorStateSpineType.ERainBowWater;
+
+        if (color < 1000 || _isRainBowWater)
         {
             spineGo.gameObject.SetActive(true);
             SetNowSpinePos(startIdx);
@@ -710,7 +711,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         PlaySpineAnim();
 
         float fillTime = fillAlltime / num;
-        if (color > 1000) fillTime = 0.1f;
+        if (color > 1000 && !_isRainBowWater) fillTime = 0.1f;
 
         for (int i = 0; i < num; i++)
         {
@@ -725,7 +726,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         --ReceiveCount;
 
-        CheckItem();
+        //待测试(原先是直接调用)
+        if (_hasItemEffect)
+            CheckItem();
+        //CheckItem();
         //CheckFill();
     }
 
@@ -735,38 +739,48 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <returns></returns>
     public bool BottleHasItem()
     {
-        //作用所有道具
-        int itemId = 0;
-        int itemPlace = 0;
+        // 是否检测到相邻可合成的道具
+        bool _hasPair = false;
+
+        // 记录上一个检测到的道具
+        int _itemId = 0;
+        int _itemPlace = 0;
 
         for (int i = 0; i < waters.Count; i++)
         {
-            int waterColor = waters[i];
+            int _waterColor = waters[i];
 
-            if (waterColor > 1000)
+            ItemType _type = (ItemType)_waterColor;
+            WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
+
+            // 普通水/特殊水/非可合成类道具
+            if (_waterColor <= 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater || !_attr.PairCombine)
             {
-                if (itemId == 0)
-                {
-                    itemPlace = i;
-                    itemId = waterColor;
-                }
-                else if (waterColor == itemId && i - itemPlace == 1)
-                {
-                    // 判断是否是符合条件的特殊道具
-                    bool isMatch =
-                        waterColor == (int)ItemType.ClearItem ||
-                        waterColor == (int)ItemType.MakeColorItem ||
-                        waterColor == (int)ItemType.MagnetItem ||
-                        (waterColor > 2000 && waterColor < 3000) ||
-                        waterColor > 3000;
-
-                    if (isMatch)
-                        return true;
-                }
+                _itemId = 0;
+                continue;
             }
+
+            // 第一次记录道具
+            if (_itemId == 0)
+            {
+                _itemId = _waterColor;
+                _itemPlace = i;
+                continue;
+            }
+
+            // 检查是否与上一个相邻且同类型
+            if (_waterColor == _itemId && i - _itemPlace == 1)
+            {
+                _hasPair = true;
+                break; 
+            }
+
+            // 不匹配则重置记录
+            _itemId = _waterColor;
+            _itemPlace = i;
         }
 
-        return false;
+        return _hasPair;
     }
 
     /// <summary>
@@ -780,6 +794,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         if (color > 0 && color < (int)EDaoShuiAnim.IDLE_MAX)
             spineAnimName = GameEnum.GetDescription<EDaoShuiAnim>((EDaoShuiAnim)color);
 
+        //水面的spine
+        Debug.Log(color);
+        Debug.Log("水面动画名：" + spineAnimName);
         if (color < 1000 && color != 0)
         {
             spine.AnimationState.SetAnimation(0, spineAnimName, false);
@@ -1018,7 +1035,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <param name="to"></param>
     /// <param name="target"></param>
     /// <returns></returns>
-    IEnumerator CheckChange(int from, int to, Transform target)
+    private IEnumerator CheckChange(int from, int to, Transform target)
     {
         yield return new WaitForSeconds(3f);
 
@@ -1035,6 +1052,18 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         //会重复触发
         if (isFinish) CheckFinishChange(to);
+    }
+
+    /// <summary>
+    /// 判断瓶子完成后是否有对应魔法布解锁
+    /// </summary>
+    /// <param name="color"></param>
+    private void CheckFinishChange(int color)
+    {
+        foreach (var bottle in LevelManager.Instance.nowBottles)
+        {
+            bottle.CheckUnlockHide(color);
+        }
     }
 
     #endregion
@@ -1282,6 +1311,42 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
     #endregion
 
+    #region 彩色水机制
+
+    public void ChangeWaterToRainBowWater(int sourceColor)
+    {
+        for (int i = 0; i < waters.Count; i++)
+        {
+            var _idx = i;
+            if (waters[_idx] == sourceColor)
+            {
+                //目标是黑水则显示
+                if (hideWaters[_idx])
+                {
+                    hideWaters[_idx] = false;
+                    waterImg[_idx].HideGo.Hide(); 
+                }
+
+                waters[_idx] = (int)ItemType.RainBowWater;
+                LevelManager.Instance.isPlayFxAnim = true;
+                waterImg[_idx].changeShineSpine.Show();
+                waterImg[_idx].changeShineSpine.AnimationState.SetEmptyAnimation(0, 0f);
+                waterImg[_idx].changeShineSpine.AnimationState.SetAnimation(0, "attack", false);
+
+                ActionKit.Delay(2f, () =>
+                {
+                    waterImg[_idx].changeShineSpine.Hide();
+                    LevelManager.Instance.isPlayFxAnim = false;
+
+                    //---------修改对应水的编号，然后修改倒水的精灵之类的，修改水面等等
+                    SetBottleColor();
+                }).Start(this);
+            }
+        }
+    }
+
+    #endregion
+
     /// <summary>
     /// 移除瓶内黑色水块
     /// </summary>
@@ -1360,24 +1425,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
     #endregion
 
-    /// <summary>
-    /// 设置魔法布Spine
-    /// </summary>
-    void SetClearHide()
-    {
-        if (!isClearHideAnim)
-        {
-            clearHide.gameObject.SetActive(isClearHide);
-            if (isClearHide)
-            {
-                if (unlockClear > 0 && unlockClear < (int)EIdleAnim.IDLE_MAX)
-                {
-                    clearHide.AnimationState.SetAnimation(0, GameEnum.GetDescription<EIdleAnim>((EIdleAnim)unlockClear), false);
-                }
-            }
-        }
-
-    }
+    #region 瓶子完成相关
 
     /// <summary>
     /// 判断是否完成
@@ -1424,7 +1472,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             }
         }
 
-        /* UpdateBomb();*/
         CheckWaterItem();
         StartCoroutine(ShowFinish());
     }
@@ -1493,6 +1540,27 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     {
         yield return new WaitForSeconds(1f);
         AudioKit.PlaySound("resources://Audio/BottleCap");
+
+    }
+
+    #endregion
+
+    /// <summary>
+    /// 设置魔法布Spine
+    /// </summary>
+    void SetClearHide()
+    {
+        if (!isClearHideAnim)
+        {
+            clearHide.gameObject.SetActive(isClearHide);
+            if (isClearHide)
+            {
+                if (unlockClear > 0 && unlockClear < (int)EIdleAnim.IDLE_MAX)
+                {
+                    clearHide.AnimationState.SetAnimation(0, GameEnum.GetDescription<EIdleAnim>((EIdleAnim)unlockClear), false);
+                }
+            }
+        }
 
     }
 
@@ -1576,7 +1644,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         // 遍历每层水块，设置颜色和状态
         for (int i = 0; i < waters.Count; i++)
         {
-            // 计算颜色索引，减一是因为颜色编号从 1 开始，而数组索引从 0 开始
+            // 计算颜色索引，减一是因为useColor颜色编号从 1 开始，而waterColor数组索引从 0 开始
             var useColor = waters[i] - 1;
             // 普通颜色水块
             if (useColor < 1000)
@@ -1685,7 +1753,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     /// <summary>
-    /// 入场动画
+    /// 入场动画(水面Spine动画)
     /// </summary>
     public void PlaySpineWaitAnim(int useColor = -1)
     {
@@ -1731,6 +1799,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             }
         }
 
+        Debug.Log("水面动画名：" + spineAnimName);
         CheckHide();
         //黑色水面特判
         if (topIdx >= 0 && spinePosIdx < hideWaters.Count && hideWaters[spinePosIdx])
@@ -1750,7 +1819,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         {
             for (int i = node - 1; i >= 0; i--)
             {
-                if (waters[i] < 1000)
+                ItemType _type = (ItemType)waters[i];
+                WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
+
+                if (waters[i] < 1000 || _attr.SpineType is EColorStateSpineType.ERainBowWater)
                 {
                     useNode = i + 1;
                     break;
@@ -1766,134 +1838,115 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// </summary>
     public void CheckItem()
     {
-        int itemId = 0;
-        int itemPlace = 0;
-        List<int> items = new List<int>();
+        //记录本次触发的所有道具类型
+        List<int> _items = new();
+        //是否有道具消除标记
+        bool _hasPair = false;
 
+        //记录上一个检测到的道具ID
+        int _itemId = 0;
+        //记录上一个道具所在的层(索引)
+        int _itemPlace = 0;
 
         for (int i = 0; i < waters.Count; i++)
         {
-            var waterColor = waters[i];
+            var _waterColor = waters[i];
 
-            if (waterColor > 1000)
+            ItemType _type = (ItemType)_waterColor;
+            WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
+
+            // 普通水/特殊水/非可合成类道具
+            if (_waterColor <= 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater || !_attr.PairCombine)
             {
-                if (itemId == 0)
+                _itemId = 0;
+                continue;
+            }
+
+            // 没有记录过道具，则记录当前位置与ID
+            if (_itemId == 0)
+            {
+                _itemId = _waterColor;
+                _itemPlace = i;
+                continue;
+            }
+
+            // 只处理相同类型且相邻的道具(i - itemPlace != 1 冗余条件)
+            if (_waterColor != _itemId || i - _itemPlace != 1)
+            {
+                _itemId = _waterColor;
+                _itemPlace = i;
+                continue;
+            }
+
+            // 相邻且同类的道具
+            _hasPair = true;
+            _items.Add(_waterColor);
+
+            switch (_type)
+            {
+                case ItemType.ClearRandomWaterItem:
+                    waterImg[i - 1].PlayUseBroom(waterImg[i]);
+                    break;
+
+                case ItemType.MakeColorItem:
+                    waterImg[i - 1].PlayUseCreate(this, waterImg[i]);
+                    waterImg[i].color = new Color(1, 1, 1, 0);
+                    waterImg[i].broomItemGo.SetActive(false);
+                    waterImg[i].createItemGo.SetActive(false);
+                    waterImg[i].changeItemGo.SetActive(false);
+                    waterImg[i].magnetItemGo.SetActive(false);
+                    break;
+
+                case ItemType.MagnetItem:
+                    StringEventSystem.Global.Send("CacheMagnetWater", waterImg[i - 1]);
+                    waterImg[i - 1].PlayUseMagnet(waterImg[i]);
+                    break;
+
+                default:
+
+                    if (_attr is GameAttributes.ChangeColorItemState)
+                        waterImg[i - 1].PlayUseChange(waterImg[i]);
+                    else if (_attr is GameAttributes.ClearItemState)
+                        waterImg[i - 1].PlayUseBroom(waterImg[i]);
+                    //else
+                    //    Debug.Log("其他机制道具");
+                    break;
+            }
+
+            // 清除被使用的道具,并清空标记
+            waters[i] = 0;
+            waters[_itemPlace] = 0;
+            _itemId = 0; 
+        }
+
+        // 清除道具所在的水块(重新排列水块)
+        if (_hasPair)
+        {
+            List<int> _tempWater = new List<int>();
+            List<WaterItem> _tempWaterItem = new List<WaterItem>();
+            for (int i = 0; i < waters.Count; i++)
+            {
+                if (waters[i] != 0)
                 {
-                    itemPlace = i;
-                    itemId = waterColor;
-                }
-                else
-                {
-                    if (waters[i] == itemId)
-                    {
-                        switch (waters[i])
-                        {
-                            case (int)ItemType.ClearItem:
-                                if (itemId == waterColor && i - itemPlace == 1)
-                                {
-                                    items.Add(waters[i]);
-                                    waterImg[i - 1].PlayUseBroom(waterImg[i]);
-                                    //waterImg[i].gameObject.SetActive(true);
-                                    //StartCoroutine(waterImg[i - 1].ShowBroomAfter());
-
-                                    waters[i] = 0;
-                                    waters[itemPlace] = 0;
-                                }
-                                break;
-                            case (int)ItemType.MakeColorItem:
-                                if (itemId == waterColor && i - itemPlace == 1)
-                                {
-                                    items.Add(waters[i]);
-                                    waterImg[i - 1].PlayUseCreate(this, waterImg[i]);
-                                    waters[i] = 0;
-                                    waters[itemPlace] = 0;
-                                    waterImg[i].color = new Color(1, 1, 1, 0);
-                                    waterImg[i].broomItemGo.SetActive(false);
-                                    waterImg[i].createItemGo.SetActive(false);
-                                    waterImg[i].changeItemGo.SetActive(false);
-                                    waterImg[i].magnetItemGo.SetActive(false);
-                                }
-                                break;
-                            case (int)ItemType.MagnetItem:
-                                if (itemId == waterColor && i - itemPlace == 1)
-                                {
-                                    items.Add(waters[i]);
-                                    StringEventSystem.Global.Send("CacheMagnetWater", waterImg[i - 1]);
-                                    waterImg[i - 1].PlayUseMagnet(waterImg[i]);
-                                    waters[i] = 0;
-                                    waters[itemPlace] = 0;
-                                }
-                                break;
-                            default:
-                                if (waters[i] > 2000 && waters[i] < 3000)
-                                {
-                                    if (itemId == waterColor && i - itemPlace == 1)
-                                    {
-                                        items.Add(waters[i]);
-                                        waterImg[i - 1].PlayUseChange(waterImg[i]);
-                                        waters[i] = 0;
-                                        waters[itemPlace] = 0;
-                                    }
-                                }
-                                else if (waters[i] > 3000)
-                                {
-                                    if (itemId == waterColor && i - itemPlace == 1)
-                                    {
-                                        items.Add(waters[i]);
-                                        waterImg[i - 1].PlayUseBroom(waterImg[i]);
-                                        //StartCoroutine(waterImg[i - 1].ShowBroomAfter());
-
-                                        waters[i] = 0;
-                                        waters[itemPlace] = 0;
-                                    }
-                                }
-
-                                break;
-                        }
-
-                        itemId = 0;
-                    }
-                    else
-                    {
-                        itemPlace = i;
-                        itemId = waterColor;
-                    }
+                    _tempWater.Add(waters[i]);
+                    _tempWaterItem.Add(waterItems[i]);
                 }
             }
-            else
+            waters = _tempWater;
+            waterItems = _tempWaterItem;
+
+            for (int i = 0; i < _items.Count; i++)
             {
-                itemId = 0;
+                int useItem = _items[i];
+                LevelManager.Instance.UseItem(useItem, waterImg[_itemPlace].transform);
             }
         }
-
-        List<int> temp = new List<int>();
-        List<WaterItem> tempItem = new List<WaterItem>();
-        List<int> bombTemp = new List<int>();
-        for (int i = 0; i < waters.Count; i++)
-        {
-            if (waters[i] != 0)
-            {
-                temp.Add(waters[i]);
-                tempItem.Add(waterItems[i]);
-                bombTemp.Add(bombCounts[i]);
-            }
-        }
-        // 
-        waters = temp;
-        waterItems = tempItem;
-        bombCounts = bombTemp;
-        for (int i = 0; i < items.Count; i++)
-        {
-            int useItem = items[i];
-            LevelManager.Instance.UseItem(useItem, waterImg[itemPlace].transform);
-        }
-
 
         spineGo.gameObject.SetActive(topIdx >= 0);
         PlaySpineWaitAnim();
         SetNowSpinePos(topIdx + 1);
 
-        if (items.Count > 0)
+        if (_items.Count > 0)
         {
             CheckHide();
             SetHideShow(false);

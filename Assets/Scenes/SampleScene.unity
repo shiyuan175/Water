@@ -29721,32 +29721,46 @@ MonoBehaviour:
   - {r: 0.39215687, g: 0, b: 0.6431373, a: 1}
   - {r: 0.7176471, g: 0.31764707, b: 0.31764707, a: 1}
   - {r: 0.7372549, g: 0.101960786, b: 0.6039216, a: 1}
-  waterTopSp:
-  - {fileID: 21300000, guid: 10dafd1d21e39434fa24610581e1c488, type: 3}
-  - {fileID: 21300000, guid: a160cb9612950a04d90dfe614bc96723, type: 3}
-  - {fileID: 21300000, guid: 774d99327f5d2f94e981ec1d8af5da8b, type: 3}
-  - {fileID: 21300000, guid: 891fda6b53328bd408da4aebbb4a865d, type: 3}
-  - {fileID: 21300000, guid: 59f859296ed11a04e9c6ef5790ff759d, type: 3}
-  - {fileID: 21300000, guid: 7b2d663e4db6d8449befedb9743cbe82, type: 3}
-  - {fileID: 21300000, guid: 5f886fc6e5c144b4a989283691dacfa1, type: 3}
-  - {fileID: 21300000, guid: 0c7ce5bb16526464dbdb019fc738d26f, type: 3}
-  - {fileID: 21300000, guid: c127ce93ef7a5d949967a3c3c5f8683b, type: 3}
-  - {fileID: 21300000, guid: 76934482f06a53a45aabdc3b1983fe1d, type: 3}
-  - {fileID: 21300000, guid: 63e2d7728e5af554cb392823fa0a983e, type: 3}
-  - {fileID: 21300000, guid: 69c96fa6ceca76b4c95cdebb06b56356, type: 3}
-  waterSp:
-  - {fileID: 21300000, guid: 8ba252dfa1cd276459c975c9c9e84040, type: 3}
-  - {fileID: 21300000, guid: 8bfb79cf94df77e4d97cedb0be29b449, type: 3}
-  - {fileID: 21300000, guid: c0b82789fd3464040afb436ab859979b, type: 3}
-  - {fileID: 21300000, guid: 786c7ad83b98b6d41845faa8925bcd14, type: 3}
-  - {fileID: 21300000, guid: c5fe39ec268677d4c977e07686e7a420, type: 3}
-  - {fileID: 21300000, guid: e2179f2a6e48c144d841d024765e2be3, type: 3}
-  - {fileID: 21300000, guid: 644ec0038d9fa61459480adf6d1cf13e, type: 3}
-  - {fileID: 21300000, guid: 678434e0422bd7e4c92b595c9aa522d0, type: 3}
-  - {fileID: 21300000, guid: 817843c99da44b04b99ee42ccc05a106, type: 3}
-  - {fileID: 21300000, guid: 178628f9c0d9ad84b895711e734f89fb, type: 3}
-  - {fileID: 21300000, guid: 56209813df2bbf2489cabd4021741a0f, type: 3}
-  - {fileID: 21300000, guid: 895cc3e4c4c53f84284c3481011eb099, type: 3}
+  waterSpriteInfos:
+  - color: 1
+    waterTopSp: {fileID: 21300000, guid: 10dafd1d21e39434fa24610581e1c488, type: 3}
+    waterSp: {fileID: 21300000, guid: 10dafd1d21e39434fa24610581e1c488, type: 3}
+  - color: 2
+    waterTopSp: {fileID: 21300000, guid: a160cb9612950a04d90dfe614bc96723, type: 3}
+    waterSp: {fileID: 21300000, guid: 8bfb79cf94df77e4d97cedb0be29b449, type: 3}
+  - color: 3
+    waterTopSp: {fileID: 21300000, guid: 774d99327f5d2f94e981ec1d8af5da8b, type: 3}
+    waterSp: {fileID: 21300000, guid: c0b82789fd3464040afb436ab859979b, type: 3}
+  - color: 4
+    waterTopSp: {fileID: 21300000, guid: 891fda6b53328bd408da4aebbb4a865d, type: 3}
+    waterSp: {fileID: 21300000, guid: 786c7ad83b98b6d41845faa8925bcd14, type: 3}
+  - color: 5
+    waterTopSp: {fileID: 21300000, guid: 59f859296ed11a04e9c6ef5790ff759d, type: 3}
+    waterSp: {fileID: 21300000, guid: c5fe39ec268677d4c977e07686e7a420, type: 3}
+  - color: 6
+    waterTopSp: {fileID: 21300000, guid: 7b2d663e4db6d8449befedb9743cbe82, type: 3}
+    waterSp: {fileID: 21300000, guid: e2179f2a6e48c144d841d024765e2be3, type: 3}
+  - color: 7
+    waterTopSp: {fileID: 21300000, guid: 5f886fc6e5c144b4a989283691dacfa1, type: 3}
+    waterSp: {fileID: 21300000, guid: 644ec0038d9fa61459480adf6d1cf13e, type: 3}
+  - color: 8
+    waterTopSp: {fileID: 21300000, guid: 0c7ce5bb16526464dbdb019fc738d26f, type: 3}
+    waterSp: {fileID: 21300000, guid: 678434e0422bd7e4c92b595c9aa522d0, type: 3}
+  - color: 9
+    waterTopSp: {fileID: 21300000, guid: c127ce93ef7a5d949967a3c3c5f8683b, type: 3}
+    waterSp: {fileID: 21300000, guid: 817843c99da44b04b99ee42ccc05a106, type: 3}
+  - color: 10
+    waterTopSp: {fileID: 21300000, guid: 76934482f06a53a45aabdc3b1983fe1d, type: 3}
+    waterSp: {fileID: 21300000, guid: 178628f9c0d9ad84b895711e734f89fb, type: 3}
+  - color: 11
+    waterTopSp: {fileID: 21300000, guid: 63e2d7728e5af554cb392823fa0a983e, type: 3}
+    waterSp: {fileID: 21300000, guid: 56209813df2bbf2489cabd4021741a0f, type: 3}
+  - color: 12
+    waterTopSp: {fileID: 21300000, guid: 69c96fa6ceca76b4c95cdebb06b56356, type: 3}
+    waterSp: {fileID: 21300000, guid: 895cc3e4c4c53f84284c3481011eb099, type: 3}
+  - color: 4001
+    waterTopSp: {fileID: 21300000, guid: a8ab0b6f9c669c9489dab1eda38ec1aa, type: 3}
+    waterSp: {fileID: 21300000, guid: e7e70a6eccf6ec841a76584d51a73bed, type: 3}
   emptyBottle:
     waterSet: 
     isHide: 
@@ -29762,7 +29776,6 @@ MonoBehaviour:
     hidePriority: 0
     isFlyBomb: 0
   gameCanvas: {fileID: 1628571911}
-  changeList: []
   createFx:
   - {fileID: 4010074694300780744, guid: a16faf96fe35f2943a7cb58d0318af6a, type: 3}
   - {fileID: 1017272283892693178, guid: 132a558e00d047449a796c3b050c3174, type: 3}
@@ -29784,8 +29797,6 @@ MonoBehaviour:
   countDownNum: 0
   playingHideAnimCount: 0
   moveNum: 0
-  timeCountDown: 0
-  timeNow: 0
   broomBullet: {fileID: 2768198876783416694, guid: adff4f81b2aa6ed49a500a58bc625fd2, type: 3}
   mahoujinSpine: {fileID: 1377963003}
   isPlayAnim: 0

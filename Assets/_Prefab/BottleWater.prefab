@@ -1084,7 +1084,7 @@ GameObject:
   - component: {fileID: 3665956994275714537}
   - component: {fileID: 1909796689267604980}
   m_Layer: 5
-  m_Name: Water_CS
+  m_Name: RainBowWater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1520,6 +1520,7 @@ MonoBehaviour:
   broomAfterGo: {fileID: 8335899519344133994}
   wenhaoFxGo: {fileID: 6434959716182373244}
   iceGo: {fileID: 8065537041360029008}
+  RainBowWater: {fileID: 2633352209347109297}
   anim: {fileID: 0}
   waterImg: {fileID: 5803998616557358016}
   waterColor: 0

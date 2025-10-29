@@ -28,8 +28,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     public List<int> hideColor = new List<int>();
     public List<Color> waterColor = new List<Color>();
-    public List<Sprite> waterTopSp;
-    public List<Sprite> waterSp;
+    public List<WaterSpriteInfo> waterSpriteInfos; 
+    //public List<Sprite> waterTopSp;
+    //public List<Sprite> waterSp;
+
+
     public LevelCreateCtrl.BottleProperty emptyBottle = new();
     public Transform gameCanvas;
     public List<GameObject> createFx = new List<GameObject>();
@@ -385,7 +388,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         switch ((ItemType)itemId)
         {
             //移除随机单色
-            case ItemType.ClearItem:
+            case ItemType.ClearRandomWaterItem:
                 var clearlist = CheckCanClearList();
                 int clearColorIdx = UnityEngine.Random.Range(0, clearlist.Count);
                 int clearColor = clearlist[clearColorIdx];
@@ -995,4 +998,15 @@ public class LevelManagerRecord
     public List<int> clearList;
     public List<int> hideColor;
     public List<ChangePair> changeList;
+}
+
+[Serializable]
+public class WaterSpriteInfo
+{
+    //颜色编号
+    public int color;
+    //水柱头
+    public Sprite waterTopSp;
+    //水柱
+    public Sprite waterSp;
 }
