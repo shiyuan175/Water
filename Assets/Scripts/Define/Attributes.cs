@@ -11,7 +11,12 @@ namespace GameAttributes
         EMagnetSpine = 2,
         ECreateSpine = 3,
         EChangeSpine = 4,
-        Max = 5,
+
+        //彩色水块
+        ERainBowWater = 5,
+        //其余特殊水块...
+        
+        Max = 6,
     }
     
     [AttributeUsage(AttributeTargets.Field)]
@@ -21,18 +26,25 @@ namespace GameAttributes
         public readonly bool CreateItemActive;
         public readonly bool ChangeItemActive;
         public readonly bool MagnetItemActive;
+        public readonly bool RainBowWaterActive;
+        
+        // 是否是两两合成道具
+        public readonly bool PairCombine; 
         public readonly string SpineAnim;
         public readonly EColorStateSpineType SpineType;
 
-        public WaterColorState(bool broomItemActive, bool createItemActive, bool changeItemActive, 
-            bool magnetItemActive, string spineAnim, EColorStateSpineType spineType = EColorStateSpineType.None)
+        public WaterColorState(string spineAnim,EColorStateSpineType spineType = EColorStateSpineType.None, bool pairCombine = true)
         {
-            BroomItemActive = broomItemActive;
-            CreateItemActive = createItemActive;
-            ChangeItemActive = changeItemActive;
-            MagnetItemActive = magnetItemActive;
             SpineAnim = spineAnim;
             SpineType = spineType;
+            PairCombine = pairCombine;
+
+            BroomItemActive = spineType == EColorStateSpineType.EBroomSpine;
+            CreateItemActive = spineType == EColorStateSpineType.ECreateSpine;
+            ChangeItemActive = spineType == EColorStateSpineType.EChangeSpine;
+            MagnetItemActive = spineType == EColorStateSpineType.EMagnetSpine;
+            RainBowWaterActive = spineType == EColorStateSpineType.ERainBowWater;
+            //局内机制道具补充...
         }
     }
 
@@ -40,8 +52,7 @@ namespace GameAttributes
     {
         public readonly int TargetIndex;
 
-        public ClearItemState(int targetIndex, string spineAnim)
-            : base(true, false, false, false, spineAnim, EColorStateSpineType.EBroomSpine)
+        public ClearItemState(int targetIndex, string spineAnim, bool pairCombine = true) : base(spineAnim, EColorStateSpineType.EBroomSpine, pairCombine)
         {
             TargetIndex = targetIndex;
         }
@@ -51,8 +62,7 @@ namespace GameAttributes
     {
         public readonly int TargetIndex;
 
-        public ChangeColorItemState(int targetIndex, string spineAnim)
-            : base(false, false, true, false, spineAnim, EColorStateSpineType.EChangeSpine)
+        public ChangeColorItemState(int targetIndex, string spineAnim, bool pairCombine = true) : base(spineAnim, EColorStateSpineType.EChangeSpine, pairCombine)
         {
             TargetIndex = targetIndex;
         }

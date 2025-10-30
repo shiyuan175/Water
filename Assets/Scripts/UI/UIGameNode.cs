@@ -709,10 +709,29 @@ namespace QFramework.Example
             //后续道具弹出的动画，
             //动画结束回调执行逻辑
 
-            LevelManager.Instance.AddBottle(true, () =>
+            //LevelManager.Instance.AddBottle(true, () =>
+            //{
+            //    TxtItem1.text = "0";
+            //});
+
+            //还要剔除有火焰的水
+            var _tempWater = new List<int>(LevelManager.Instance.clearList);
+            //1、移除药水需要消除的颜色
+            var changeColors = LevelManager.Instance.nowLevel.changeList.Select(x => x.NeedChangeColor);
+            _tempWater = _tempWater.Except(changeColors).ToList();
+            //2、移除需要消除多次颜色
+            _tempWater = _tempWater.GroupBy(x => x).Where(g => g.Count() == 1).Select(g => g.Key).ToList();
+            //3、取随机颜色
+            var _colorIdx = _tempWater[UnityEngine.Random.Range(0, _tempWater.Count)];
+            
+            //遍历有这个颜色的瓶子，执行方法
+            foreach (var bottle in LevelManager.Instance.nowBottles)
             {
-                TxtItem1.text = "0";
-            });
+                if (bottle.waters.Contains(_colorIdx))
+                {
+                    bottle.ChangeWaterToRainBowWater(_colorIdx);
+                }
+            }
         }
 
         private void RangeWater(BottleCtrl botter)

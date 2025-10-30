@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using GameAttributes;
 using JsonFileData;
@@ -202,6 +203,9 @@ namespace GameDefine
         Hide = 4,
     }
 
+    /// <summary>
+    /// 带有底部水的机制
+    /// </summary>
     public enum WaterItem
     {
         None = 0,
@@ -217,18 +221,21 @@ namespace GameDefine
         NearShow = 2
     }
 
+    /// <summary>
+    /// 不带底部水的机制(或特殊水块)
+    /// </summary>
     public enum ItemType
     {
-        [WaterColorState(false, false, false, false, "", EColorStateSpineType.None)]
+        [WaterColorState( "", EColorStateSpineType.None)]
         UseColor = 1,
 
-        [WaterColorState(true, false, false, false, "idle_cl", EColorStateSpineType.EBroomSpine)]
-        ClearItem = 1001,
+        [WaterColorState( "idle_cl", EColorStateSpineType.EBroomSpine)]
+        ClearRandomWaterItem = 1001,
 
-        [WaterColorState(false, false, false, true, "idle", EColorStateSpineType.EMagnetSpine)]
+        [WaterColorState( "idle", EColorStateSpineType.EMagnetSpine)]
         MagnetItem = 1002,
 
-        [WaterColorState(false, true, false, false, "idle", EColorStateSpineType.ECreateSpine)]
+        [WaterColorState( "idle", EColorStateSpineType.ECreateSpine)]
         MakeColorItem = 1003,
 
         [ChangeColorItemState(1, "idle_cl")]
@@ -270,6 +277,8 @@ namespace GameDefine
         [ClearItemState(1, "idle_cl")]
         ClearGreen = 3007,
 
+        [WaterColorState("" ,EColorStateSpineType.ERainBowWater ,false)]
+        RainBowWater = 4001,
     }
 
     public enum LanguageType
@@ -403,6 +412,9 @@ namespace GameDefine
         IDLE_MAX = 13
     }
 
+    /// <summary>
+    /// 水花动画名
+    /// </summary>
     public enum EDaoShuiAnim
     {
         [Description("daoshui_cl")]
@@ -444,6 +456,9 @@ namespace GameDefine
         IDLE_MAX = 13
     }
 
+    /// <summary>
+    /// 水面动画名
+    /// </summary>
     public enum ERuChangAnim
     {
         [Description("ruchanghuangdong_cl")]
@@ -512,8 +527,6 @@ namespace GameDefine
         F_Awards = 40,
     }
 
-
-
     public class GameEnum
     {
         public static string GetDescription<T>(T value)
@@ -552,6 +565,22 @@ namespace GameDefine
                 return int.Parse(match.Groups[1].Value);
             }
             return 0;
+        }
+    }
+
+    public static class WaterAttrCache
+    {
+        public static readonly Dictionary<ItemType, GameAttributes.WaterColorState> Dict = new();
+
+        static WaterAttrCache()
+        {
+            foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
+            {
+                var field = typeof(ItemType).GetField(type.ToString());
+                var attr = field?.GetCustomAttribute<GameAttributes.WaterColorState>();
+                if (attr != null)
+                    Dict[type] = attr;
+            }
         }
     }
 }

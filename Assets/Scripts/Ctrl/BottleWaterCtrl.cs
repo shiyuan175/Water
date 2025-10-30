@@ -17,7 +17,7 @@ using GameDefine;
 public class BottleWaterCtrl : MonoBehaviour
 {
     public SkeletonGraphic spine, broomSpine, createSpine, changeSpine, magnetSpine, changeShineSpine, thunderSpine, broomAfterSpine, fireRuneSpine,starBlackWater;
-    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo;
+    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater;
     public Animator anim;
     public Image waterImg;
     public int waterColor;
@@ -351,6 +351,9 @@ public class BottleWaterCtrl : MonoBehaviour
         changeItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
         magnetItemGo.SetActive(attribute.MagnetItemActive);
         magnetItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
+        //特殊水块
+        RainBowWater.SetActive(attribute.RainBowWaterActive);
+
         if (attribute.SpineAnim.IsNullOrEmpty() == false && attribute.SpineType > EColorStateSpineType.None && attribute.SpineType < EColorStateSpineType.Max)
         {
             switch (attribute.SpineType)
@@ -476,7 +479,7 @@ public class BottleWaterCtrl : MonoBehaviour
     {
         return itemType switch
         {
-            ItemType.ClearItem => (broomItemGo, broomSpine, "disappear", true),
+            ItemType.ClearRandomWaterItem => (broomItemGo, broomSpine, "disappear", true),
             ItemType.MakeColorItem => (createItemGo, createSpine, "combine", true),
             ItemType.MagnetItem => (magnetItemGo, magnetSpine, "combine", true),
             ItemType.ChangeGreen or ItemType.ChangeOrange or ItemType.ChangePink
@@ -488,7 +491,7 @@ public class BottleWaterCtrl : MonoBehaviour
     // 保持原有方法的兼容性
     public void PlayUseBroom(BottleWaterCtrl hide)
     {
-        PlayUseItem(hide, ItemType.ClearItem, () =>
+        PlayUseItem(hide, ItemType.ClearRandomWaterItem, () =>
         {
             hide.bottle.SetBottleColor();
         });
