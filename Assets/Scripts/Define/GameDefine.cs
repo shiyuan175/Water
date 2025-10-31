@@ -445,7 +445,10 @@ namespace GameDefine
         [Description("daoshui_mh")]
         DAOSHUI_MH = 12,
 
-        IDLE_MAX = 13
+        IDLE_MAX = 13,
+
+        [Description("daoshui_mh")]
+        RainBowWater = 4001
     }
 
     /// <summary>
@@ -489,7 +492,10 @@ namespace GameDefine
         [Description("ruchanghuangdong_mh")]
         RUCHANGANIM_MH = 12,
 
-        IDLE_MAX = 13
+        IDLE_MAX = 13,
+
+        [Description("ruchanghuangdong_mh")]
+        RainBowWater = 4001,
     }
 
     /// <summary>
