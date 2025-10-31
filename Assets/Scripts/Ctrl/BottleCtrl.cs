@@ -45,17 +45,19 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     [SerializeField]
     public bool isBomb = false;
     // 是否是浮空炸弹
-    private bool isFlyBomb = false;
+/*    private bool isFlyBomb = false;*/
     //瓶子中的水块标识
     public List<int> waters = new();
     //瓶中的水是否为黑水
-    public List<bool> hideWaters = new ();
+    public List<bool> hideWaters = new();
     //瓶中的水的状态(冰块/火焰)
-    public List<WaterItem> waterItems = new ();
+    public List<WaterItem> waterItems = new();
     //水块脚本持有
     public List<BottleWaterCtrl> waterImg = new();
-    //炸弹步数
-    public List<int> bombCounts = new ();
+    //泡沫步数
+    public Dictionary<BottleCtrl,int> bubbleDict = new();
+    // 炸弹步数
+    public List<int> bombCounts = new();
 
     // 操作记录(用于撤销功能)
     public List<BottleRecord> moveRecords = new List<BottleRecord>();
@@ -137,7 +139,22 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         waterItems = new List<WaterItem>(property.waterItem);
         bombCounts = new List<int>(property.bombCounts);
 
-        // 清空可能存在的残影？原理未知 
+
+
+        #region 瓶子标记初始化
+        isClearHide = property.isClearHide;
+        isNearHide = property.isNearHide;
+        isFreeze = property.isFreeze;
+        unlockClear = property.lockType;
+        limitColor = property.limitColor;
+        bottleIdx = idx;
+        hasUnlockHidePlayed = false;
+        hidePriority = property.hidePriority;
+
+        #endregion
+
+
+      /*  #region 炸弹初始化
         foreach (var i in waterImg)
         {
             i.bombCtrl.SetBomb();
@@ -150,21 +167,25 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 break;
             }
         }
+        #endregion*/
+        /* 
+
+           #region 泡沐初始化
+           for (int i = 0; i < waterImg.Count; i++)
+           {
+               if()
+               waterImg[i].bubbleCtrl.BubbleAppend(waterItems[i] == WaterItem.Bubble_Origin);
+           }
+
+           #endregion*/
+
+        #region 配表懒的配置的内容补齐
+        // 清空可能存在的残影？原理未知 
+
 
         // 对炸弹队列进行补录
         while (waters.Count > bombCounts.Count)
             bombCounts.Add(0);
-
-        isClearHide = property.isClearHide;
-        isNearHide = property.isNearHide;
-        isFreeze = property.isFreeze;
-        unlockClear = property.lockType;
-        limitColor = property.limitColor;
-        bottleIdx = idx;
-        hasUnlockHidePlayed = false;
-        hidePriority = property.hidePriority;
-        isFlyBomb = property.isFlyBomb;
-
 
         // 针对炸弹是否存在，将对应的位置修改为炸弹。
         if (bombCounts.Count > 0)
@@ -177,6 +198,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             }
 
         }
+        #endregion
+
         nearHide.gameObject.SetActive(isNearHide);
         if (nearHide)
         {
@@ -394,7 +417,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             if (topIdx < 0) _waterItem = WaterItem.None;
             else _waterItem = waterItems[topIdx];
 
-            other.ReceiveWater(color, _waterItem, bombCount, isFlyBomb);
+            other.ReceiveWater(color, _waterItem, bombCount);
 
             if (waters.Count > 0)
             {
@@ -436,7 +459,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         ItemType _type = (ItemType)useColor;
         WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
-        
+
         //普通水/特殊水块
         if (useColor < 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
         {
@@ -458,7 +481,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         {
             SetDownWaterSp(useColor);
             //普通水/特殊水块
-            if (useColor < 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater) 
+            if (useColor < 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
             {
                 fillWaterGoAnim.Play("FillWater");
                 // 因为先Play了动画片段在做的DoTween
@@ -653,7 +676,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// </summary>
     /// <param name="water"></param>
     /// <param name="item"></param>
-    public void ReceiveWater(int water, WaterItem item, int bombCount, bool isFlyBomb)
+    public void ReceiveWater(int water, WaterItem item, int bombCount)
     {
         if (water > 0)
         {
@@ -661,7 +684,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             waterItems.Add(item);
             bombCounts.Add(bombCount);
             hideWaters.Add(false);
-            this.isFlyBomb = isFlyBomb;
+
         }
         CheckFinish();
     }
@@ -730,7 +753,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         //有机制道具生效才执行会出现水花动画变长
         if (_hasItemEffect)
             CheckItem();
-        
+
         //CheckItem();
         //CheckFill();
     }
@@ -774,7 +797,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             if (_waterColor == _itemId && i - _itemPlace == 1)
             {
                 _hasPair = true;
-                break; 
+                break;
             }
 
             // 不匹配则重置记录
@@ -833,9 +856,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             hideWaters = new List<bool>(hideWaters),
             waterItems = new List<WaterItem>(waterItems),
             bombCount = new List<int>(bombCounts),
-            isFlyBomb = isFlyBomb
         };
-
         moveRecords.Add(record);
     }
     /// <summary>
@@ -854,7 +875,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             isClearHide = record.isClearHide,
             isFinish = record.isFinish,
             limitColor = record.limitColor,
-            isFlyBomb = record.isFlyBomb,
 
             waterSet = new List<int>(record.waters),
             isHide = new List<bool>(record.hideWaters),
@@ -923,7 +943,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
             //注释测试
             //SetClearHide();
-            
+
             StartCoroutine(CoroutinePlayNearHide());
         }
     }
@@ -1118,7 +1138,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         List<int> list = new List<int>();
         List<WaterItem> items = new List<WaterItem>();
         List<bool> hides = new List<bool>();
-        List<int> tempbomb = new (); 
+        List<int> tempbomb = new();
         for (int i = 0; i < waters.Count; i++)
         {
             if (waters[i] == color)
@@ -1179,6 +1199,49 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
     #endregion
 
+    #region 泡沐黑水
+
+    private void UpdateBubble(BottleCtrl bottleCtrl = null, bool Init = false)
+    {
+        int moveNum = LevelManager.Instance.moveNum;
+
+        if (bottleCtrl != null || Init)
+            bottleCtrl.isBomb = true;
+
+        if (!isBomb) return;
+/*
+        if (isFlyBomb)
+            CheckFlyBomb();*/
+
+        isBomb = false;
+
+        for (int i = 0; i < bombCounts.Count; i++)
+        {
+            // 设置时间
+            // waterImg[i].textItem.text = bombCounts[i] - moveNum > 0 && hideWaters[i] == false ? (bombCounts[i] - moveNum).ToString() : "";
+            // 100用来特殊标记
+            if (bombCounts[i] == 100)
+            {
+                waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
+                waterImg[i].textItem.text = "";
+                bombCounts[i] = 0;
+            }
+            else if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false && bombCounts[i] != 0)
+            {
+                waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - moveNum).ToString());
+            }
+            else
+            {
+                // 可能会在水中道具出现问题          
+                waterImg[i].bombCtrl.SetBomb();
+                waterImg[i].textItem.text = "";
+            }
+            if (bombCounts[i] > 0)
+                isBomb = true;
+        }
+    }
+    #endregion
+
     #region 炸弹机制
 
     /// <summary>
@@ -1210,10 +1273,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             bottleCtrl.isBomb = true;
 
         if (!isBomb) return;
-
+/*
         if (isFlyBomb)
             CheckFlyBomb();
-
+*/
         isBomb = false;
 
         for (int i = 0; i < bombCounts.Count; i++)
@@ -1340,7 +1403,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 if (hideWaters[_idx])
                 {
                     hideWaters[_idx] = false;
-                    waterImg[_idx].HideGo.Hide(); 
+                    waterImg[_idx].HideGo.Hide();
                 }
 
                 waters[_idx] = (int)ItemType.RainBowWater;
@@ -1432,7 +1495,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         isFreeze = false;
         isNearHide = false;
         isClearHide = false;
-        isFlyBomb = false;
+/*        isFlyBomb = false;*/
         StartCoroutine(CoroutinePlayNearHide(true));
 
         SetBottleColor(false, true);
@@ -1640,6 +1703,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     /// <summary>
+    /// <summary>
     /// 设置水块颜色
     /// </summary>
     /// <param name="isFirst"></param>
@@ -1689,7 +1753,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         {
             waterImg[i].gameObject.SetActive(i < waters.Count || waterImg[i].isPlayItemAnim);
         }
-        // 检查水块的道具状态
+        // 检查水块的道具状态 / 初始化道具spine
         CheckWaterItem();
         // 更新魔法布遮挡状态
         SetClearHide();
@@ -1731,7 +1795,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     /// <summary>
-    /// 判断水块道具
+    /// 判断水块道具 /初始化水块道具spine（setcolor里调用）
     /// </summary>
     public void CheckWaterItem()
     {
@@ -1751,9 +1815,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     waterImg[i].iceGo.SetActive(true);
                     break;
                 case WaterItem.Bomb:
-                    UpdateBomb();
-
-
+                case WaterItem.FlyBomb:
+                    waterImg[i].bombCtrl.SetBomb();
+                    isBomb = true;
+                    break;
+                case WaterItem.Bubble_Origin:
+                case WaterItem.Bubble:
+                    waterImg[i].bubbleCtrl.BubbleAppend(waterItems[i] == WaterItem.Bubble_Origin);
                     break;
                 case WaterItem.BreakIce:
                     waterImg[i].textItem.text = "";
@@ -1950,7 +2018,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             // 清除被使用的道具,并清空标记
             waters[i] = 0;
             waters[_itemPlace] = 0;
-            _itemId = 0; 
+            _itemId = 0;
         }
 
         // 清除道具所在的水块(重新排列水块)

@@ -1,0 +1,218 @@
+bomp-导出2.png
+size:1428,1032
+filter:Linear,Linear
+pma:true
+bomp
+bounds:1222,298,100,111
+rotate:90
+buble
+bounds:222,2,125,124
+offsets:8,9,140,140
+cb
+bounds:2,844,218,186
+saoguang/saoguang_00002
+bounds:819,18,100,42
+offsets:12,86,128,128
+rotate:90
+saoguang/saoguang_00003
+bounds:1329,170,112,45
+offsets:7,83,128,128
+rotate:90
+saoguang/saoguang_00004
+bounds:821,120,128,52
+offsets:0,76,128,128
+rotate:90
+saoguang/saoguang_00005
+bounds:2,5,128,55
+offsets:0,73,128,128
+saoguang/saoguang_00006
+bounds:1335,284,128,55
+offsets:0,73,128,128
+rotate:90
+saoguang/saoguang_00007
+bounds:1343,40,128,60
+offsets:0,68,128,128
+rotate:90
+saoguang/saoguang_00008
+bounds:1213,99,128,67
+offsets:0,58,128,128
+saoguang/saoguang_00009
+bounds:863,20,128,79
+offsets:0,44,128,128
+saoguang/saoguang_00010
+bounds:1333,772,128,93
+offsets:0,22,128,128
+rotate:90
+saoguang/saoguang_00011
+bounds:1333,642,128,93
+offsets:0,22,128,128
+rotate:90
+saoguang/saoguang_00012
+bounds:1222,168,128,105
+offsets:0,6,128,128
+rotate:90
+saoguang/saoguang_00013
+bounds:1322,902,128,104
+offsets:0,1,128,128
+rotate:90
+saoguang/saoguang_00014
+bounds:1222,780,128,98
+offsets:0,0,128,128
+rotate:90
+saoguang/saoguang_00015
+bounds:1334,512,128,84
+offsets:0,0,128,128
+rotate:90
+saoguang/saoguang_00016
+bounds:875,130,128,84
+offsets:0,0,128,128
+rotate:90
+saoguang/saoguang_00017
+bounds:993,27,128,71
+offsets:0,0,128,128
+saoguang/saoguang_00018
+bounds:1123,26,128,71
+offsets:0,0,128,128
+saoguang/saoguang_00019
+bounds:1100,100,111,67
+offsets:0,0,128,128
+saoguang/saoguang_00020
+bounds:1334,414,96,54
+offsets:0,0,128,128
+rotate:90
+saoguang/saoguang_00021
+bounds:1334,414,96,54
+offsets:0,0,128,128
+rotate:90
+saoguang/saoguang_00022
+bounds:132,18,77,42
+offsets:0,5,128,128
+合成 1/explosion_00002
+bounds:349,4,119,122
+offsets:1,47,120,218
+合成 1/explosion_00003
+bounds:1100,169,120,146
+offsets:0,33,120,218
+合成 1/explosion_00004
+bounds:470,15,120,168
+offsets:0,24,120,218
+rotate:90
+合成 1/explosion_00005
+bounds:640,16,120,177
+offsets:0,20,120,218
+rotate:90
+合成 1/explosion_00006
+bounds:978,101,120,177
+offsets:0,20,120,218
+合成 1/explosion_00007
+bounds:246,128,120,190
+offsets:0,13,120,218
+rotate:90
+合成 1/explosion_00008
+bounds:1100,317,120,193
+offsets:0,12,120,218
+合成 1/explosion_00009
+bounds:1100,512,120,196
+offsets:0,10,120,218
+合成 1/explosion_00010
+bounds:1100,710,120,198
+offsets:0,10,120,218
+合成 1/explosion_00011
+bounds:978,280,120,198
+offsets:0,10,120,218
+合成 1/explosion_00012
+bounds:856,260,120,208
+offsets:0,0,120,218
+合成 1/explosion_00013
+bounds:978,480,120,208
+offsets:0,0,120,218
+合成 1/explosion_00014
+bounds:2,624,120,218
+合成 1/explosion_00015
+bounds:222,910,120,218
+rotate:90
+合成 1/explosion_00016
+bounds:2,404,120,218
+合成 1/explosion_00017
+bounds:442,910,120,218
+rotate:90
+合成 1/explosion_00018
+bounds:2,184,120,218
+合成 1/explosion_00019
+bounds:662,910,120,218
+rotate:90
+合成 1/explosion_00020
+bounds:882,910,120,218
+rotate:90
+合成 1/explosion_00021
+bounds:1102,910,120,218
+rotate:90
+合成 1/explosion_00022
+bounds:124,624,120,218
+合成 1/explosion_00023
+bounds:124,404,120,218
+合成 1/explosion_00024
+bounds:124,184,120,218
+合成 1/explosion_00025
+bounds:2,62,120,218
+rotate:90
+合成 1/explosion_00026
+bounds:246,690,120,218
+合成 1/explosion_00027
+bounds:246,470,120,218
+合成 1/explosion_00028
+bounds:368,690,120,218
+合成 1/explosion_00029
+bounds:246,250,120,218
+合成 1/explosion_00030
+bounds:368,470,120,218
+合成 1/explosion_00031
+bounds:490,690,120,218
+合成 1/explosion_00032
+bounds:368,250,120,218
+合成 1/explosion_00033
+bounds:490,470,120,218
+合成 1/explosion_00034
+bounds:612,690,120,218
+合成 1/explosion_00035
+bounds:490,250,120,218
+合成 1/explosion_00036
+bounds:612,470,120,218
+合成 1/explosion_00037
+bounds:734,690,120,218
+合成 1/explosion_00038
+bounds:612,250,120,218
+合成 1/explosion_00039
+bounds:734,470,120,218
+合成 1/explosion_00040
+bounds:856,690,120,218
+合成 1/explosion_00041
+bounds:734,250,120,218
+合成 1/explosion_00042
+bounds:856,470,120,218
+合成 1/explosion_00043
+bounds:978,690,120,218
+合成 1/explosion_00044
+bounds:1222,590,109,188
+offsets:0,26,120,218
+合成 1/explosion_00045
+bounds:630,138,110,189
+offsets:0,26,120,218
+rotate:90
+合成 1/explosion_00046
+bounds:630,138,110,189
+offsets:0,26,120,218
+rotate:90
+合成 1/explosion_00047
+bounds:1222,400,110,188
+offsets:0,28,120,218
+合成 1/explosion_00048
+bounds:438,137,111,190
+offsets:0,28,120,218
+rotate:90
+合成 1/explosion_00049
+bounds:1329,291,4,5
+offsets:103,138,120,218
+合成 1/explosion_00050
+bounds:1329,284,4,5
+offsets:103,139,120,218

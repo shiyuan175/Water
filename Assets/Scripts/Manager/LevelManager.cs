@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public static LevelManager Instance;
     public List<LevelCreateCtrl> levels = new List<LevelCreateCtrl>();
     public List<int> clearList = new List<int>();
+    public Dictionary<BottleCtrl, int> bubbleDict= new();
     //带有阻碍的颜色(魔法布，藤曼，冰冻)
     public List<int> cantChangeColorList = new List<int>();
     public List<BottleCtrl> nowBottles = new List<BottleCtrl>();
@@ -37,6 +38,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public Transform gameCanvas;
     public List<GameObject> createFx = new List<GameObject>();
     public LevelCreateCtrl nowLevel;
+    public int bubbleCount = 0;
+    public int bubbleAddCount = 0;
     public Color ItemColor;
 
     public Material shineMaterial;
@@ -141,8 +144,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         //cantClearColorList.Clear();
         cantChangeColorList.Clear();
         hideBottleList.Clear();
+        bubbleDict.Clear();
         levelId = id;
-        var levelInfo = levels[levelId - 1];
+        LevelCreateCtrl levelInfo = levels[levelId - 1];
         iceBottles.Clear();
         nowLevel = levelInfo;
         bombMaxNum = levelInfo.bombNum;
@@ -154,6 +158,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
         clearList = new List<int>(levelInfo.clearList);
         hideColor = new List<int>(levelInfo.hideList);
+
+        foreach (var i in levelInfo.bubbleData)
+        {
+            bubbleDict.Add(i.bottleCtrl, i.bubbleCount);
+        }
         nowBottles.Clear();
 
         nowHalf = null;
@@ -848,7 +857,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         LevelManagerRecord record = new LevelManagerRecord();
         record.clearList = new List<int>(clearList);
         record.hideColor = new List<int>(hideColor);
-
+        record.bubbleDict = new(bubbleDict);
         LevelManagerRecords.Add(record);
 
         nowBottles.ForEach(bottle => bottle.RecordLast());
@@ -873,6 +882,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             var record = LevelManagerRecords.LastOrDefault();
             clearList = record.clearList;
             hideColor = record.hideColor;
+            bubbleDict = record.bubbleDict;
             LevelManagerRecords.Remove(record);
         }
         else
@@ -992,12 +1002,13 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 [Serializable]
 public class BottleRecord
 {
-    public bool isFinish, isFreeze, isClearHide, isNearHide, isFlyBomb;
+    public bool isFinish, isFreeze, isClearHide, isNearHide;
     public int limitColor;
     public List<int> waters = new List<int>();
     public List<bool> hideWaters = new List<bool>();
     public List<WaterItem> waterItems = new List<WaterItem>();
     public List<int> bombCount = new List<int>();
+   
 }
 
 [Serializable]
@@ -1005,6 +1016,7 @@ public class LevelManagerRecord
 {
     public List<int> clearList;
     public List<int> hideColor;
+    public Dictionary<BottleCtrl, int> bubbleDict;
     public List<ChangePair> changeList;
 }
 

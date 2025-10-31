@@ -37,6 +37,8 @@ public class LevelCreateCtrl : ScriptableObject
         public List<bool> isHide = new List<bool>();
         // 每层水的附加状态（如冰块、炸弹等）
         public List<WaterItem> waterItem = new List<WaterItem>();
+        // 炸弹计数器
+        public List<int> bombCounts = new List<int>();
         // 最大水层数
         public int numCake = 4;
         // 限制往瓶子倒水的颜色-同水颜色编号（0 表示无限制）
@@ -46,11 +48,12 @@ public class LevelCreateCtrl : ScriptableObject
         // 三种障碍(遮挡布，大型藤曼，底部藤曼)
         public bool isClearHide, isNearHide, isFreeze;
         public bool isFinish;
-        public List<int> bombCounts = new List<int>();
+
         // 弃用
         public bool hidePriority = false;
         // 是否是飞翔炸弹，注意，最好全设置飞翔炸弹存在,且飞翔炸弹最好不要设置在水面
         public bool isFlyBomb = false;
+
 
     }
     // 需要清除的颜色列表（关卡目标）
@@ -67,10 +70,10 @@ public class LevelCreateCtrl : ScriptableObject
     public int topNum;
     // 底部瓶子的数量（用于瓶子布局）
     public int bottomNum;
+    // 泡沫生成次数
+    public List<BubbleData> bubbleData;
     // 该关卡存在的颜色变换列表（用于某些特殊道具逻辑,2001-2006的道具需配置）
     public List<ChangePair> changeList;
-
-
 }
 
 [Serializable]
@@ -80,4 +83,10 @@ public class ChangePair
     public ItemType item;
     // 需要变换的颜色编号
     public int NeedChangeColor;
+}
+[Serializable]
+public class BubbleData
+{
+    public BottleCtrl bottleCtrl;
+    public int bubbleCount;
 }

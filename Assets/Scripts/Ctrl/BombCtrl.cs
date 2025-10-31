@@ -40,7 +40,7 @@ public class BombCtrl : MonoBehaviour
             UIKit.OpenPanel<UIRetry>();
             UIKit.ClosePanel<UIMask>();
 
-            skeletonAnimationCom.AnimationState.SetAnimation(0, "idle", false);
+            skeletonAnimationCom.AnimationState.SetAnimation(0, "idle",true);
 
             bombSpine.transform.localPosition = Vector3.zero;
 

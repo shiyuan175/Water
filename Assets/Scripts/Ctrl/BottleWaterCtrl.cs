@@ -24,9 +24,13 @@ public class BottleWaterCtrl : MonoBehaviour
     public bool isPlayItemAnim;
     public TextMeshProUGUI textItem;
     public GameObject fireRuneGo;
-    public BottleCtrl bottle; 
+    public BottleCtrl bottle;
+
+    #region NewMechineCtrl
     public BombCtrl bombCtrl;
-    
+    public BubbleCtrl bubbleCtrl;
+    #endregion
+
     public Color color
     {
         get
