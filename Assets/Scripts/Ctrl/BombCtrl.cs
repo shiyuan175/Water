@@ -7,6 +7,7 @@ using QFramework;
 using QFramework.Example;
 using DG.Tweening;
 using Spine;
+using UnityEngine.UI;
 
 public class BombCtrl : MonoBehaviour
 {
@@ -63,7 +64,6 @@ public class BombCtrl : MonoBehaviour
         skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
         bombSpine.SetActive(false);
     }
-
     public void SetBomb(bool isBomb = false, string time = "", string aniType = "combine")
     {
         if (aniType == "bomp_remove")
