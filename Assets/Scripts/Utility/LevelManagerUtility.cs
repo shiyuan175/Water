@@ -18,13 +18,14 @@ public class LevelManagerUtility : IUtility
     /// 随机选取一个水块进行黑水的变化
     /// </summary>
     /// <param name="expect">期望的黑水结果</param>
-    public GameObject RandomBarkWaterBottle(List<BottleCtrl> bottles, bool expect)
-    {
+    public BottleCtrl RandomBarkWaterBottle(List<BottleCtrl> bottles, bool expect)
+    {   
+        
         int i = UnityEngine.Random.Range(0, bottles.Count);
+        int old = i;
         while (true)
         {
-
-            int old = i;
+            
             BottleCtrl newBottleCtrl = bottles[i % bottles.Count];
             if (!BottleStateCheck(newBottleCtrl))
             {
@@ -40,7 +41,7 @@ public class LevelManagerUtility : IUtility
                 return null;
         }
     }
-    public GameObject RandomBarkWater(BottleCtrl bottleCtrl, bool expect)
+    private BottleCtrl RandomBarkWater(BottleCtrl bottleCtrl, bool expect)
     {
         // 去掉最顶上
         int random = UnityEngine.Random.Range(0, bottleCtrl.hideWaters.Count - 1);
@@ -52,7 +53,7 @@ public class LevelManagerUtility : IUtility
             if (bottleCtrl.hideWaters[i] != expect)
             {
                 bottleCtrl.hideWaters[i] = expect;
-                return bottleCtrl.gameObject;
+                return bottleCtrl;
             }
         }
         for (int i = 0; i < random; i++)
@@ -61,19 +62,18 @@ public class LevelManagerUtility : IUtility
             if (!WaterStateCheckForHide(bottleCtrl, i))
                 continue;
             bottleCtrl.hideWaters[i] = expect;
-            return bottleCtrl.gameObject;
+            return bottleCtrl;
 
         }
-
         return null;
     }
-    public bool WaterStateCheckForHide(BottleCtrl bottleCtrl, int index)
+    private bool WaterStateCheckForHide(BottleCtrl bottleCtrl, int index)
     {
         if (bottleCtrl.waterItems[index] != WaterItem.None)
             return false;
-        if (bottleCtrl.hideWaters[index] != true)
+        if (bottleCtrl.hideWaters[index] != false)
             return false;
-        if (bottleCtrl.waters[index] <= NORMALWATER_LIMITMAX)
+        if (bottleCtrl.waters[index] > NORMALWATER_LIMITMAX)
             return false;
         return true;
     }
@@ -84,12 +84,13 @@ public class LevelManagerUtility : IUtility
 
     public bool RandomBubleWaterBottle(List<BottleCtrl> bottles)
     {
-        int i = UnityEngine.Random.Range(0, bottles.Count);
+        int i = UnityEngine.Random.Range(0, bottles.Count); 
+        int old = i;
         while (true)
         {
-
-            int old = i;
+           
             BottleCtrl newBottleCtrl = bottles[i % bottles.Count];
+
             if (!BottleStateCheck(newBottleCtrl))
             {
                 i++;
@@ -97,14 +98,14 @@ public class LevelManagerUtility : IUtility
             }
 
             if (RandomBubbleWater(newBottleCtrl) )
-                return RandomBubbleWater(newBottleCtrl);
+                return true;
             else
                 i++;
             if (old == i % bottles.Count)
                 return false ;
         }
     }
-    public bool RandomBubbleWater(BottleCtrl bottleCtrl)
+    private bool RandomBubbleWater(BottleCtrl bottleCtrl)
     {
         // 去掉最顶上
         int random = UnityEngine.Random.Range(0, bottleCtrl.hideWaters.Count - 1);
@@ -114,31 +115,33 @@ public class LevelManagerUtility : IUtility
             if (!WaterStateCheckForBubble(bottleCtrl, i))
                 continue;
 
-                bottleCtrl.waterItems[i] = WaterItem.Bubble;
-                return bottleCtrl.gameObject;
+            bottleCtrl.waterItems[i] = WaterItem.Bubble;
+            bottleCtrl.waterImg[i].bubbleCtrl.BubbleAppend();
+            return true;
         }
         for (int i = 0; i < random; i++)
         {
             // 暂时留的一个判断函数，不确定是否需要
-            if (!WaterStateCheckForHide(bottleCtrl, i))
+            if (!WaterStateCheckForBubble(bottleCtrl, i))
                 continue;
 
             bottleCtrl.waterItems[i] = WaterItem.Bubble;
+            bottleCtrl.waterImg[i].bubbleCtrl.BubbleAppend();
             return true;
-
         }
 
         return false;
     }
-    public bool WaterStateCheckForBubble(BottleCtrl bottleCtrl, int index)
+    private bool WaterStateCheckForBubble(BottleCtrl bottleCtrl, int index)
     {
         return WaterStateCheckForHide(bottleCtrl, index);
     }
 
     #endregion
 
-    public bool BottleStateCheck(BottleCtrl bottleCtrl)
+    private bool BottleStateCheck(BottleCtrl bottleCtrl)
     {
         return true;
     }
+
 }

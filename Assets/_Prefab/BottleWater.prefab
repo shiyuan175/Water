@@ -1845,6 +1845,7 @@ GameObject:
   - component: {fileID: 570213613628556939}
   - component: {fileID: 3310801544493598531}
   - component: {fileID: 4708103311006971471}
+  - component: {fileID: 3260310823932443780}
   m_Layer: 5
   m_Name: BottleWater
   m_TagString: Untagged
@@ -1966,7 +1967,7 @@ MonoBehaviour:
   fireRuneGo: {fileID: 1357663516868119362}
   bottle: {fileID: 0}
   bombCtrl: {fileID: 4708103311006971471}
-  bubbleCtrl: {fileID: 0}
+  bubbleCtrl: {fileID: 3260310823932443780}
 --- !u!114 &4385134855748731431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2071,6 +2072,22 @@ MonoBehaviour:
   bombSpine: {fileID: 1819891118746285143}
   skeletonGraphic: {fileID: 1032423032277443207}
   skeletonAnimation: {fileID: 1417608747631409466}
+--- !u!114 &3260310823932443780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4712498587624630819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec1df43065621240baac33557307cd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeText: {fileID: 0}
+  bubbleSpine: {fileID: 0}
+  skeletonGraphic: {fileID: 0}
+  skeletonAnimation: {fileID: 2808916556884824277}
 --- !u!1 &4722259424287382597
 GameObject:
   m_ObjectHideFlags: 0

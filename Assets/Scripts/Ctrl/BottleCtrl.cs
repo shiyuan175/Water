@@ -138,7 +138,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         hideWaters = new List<bool>(property.isHide);
         waterItems = new List<WaterItem>(property.waterItem);
         bombCounts = new List<int>(property.bombCounts);
-
+ 
 
 
         #region 瓶子标记初始化
@@ -152,6 +152,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         hidePriority = property.hidePriority;
 
         #endregion
+
 
 
       /*  #region 炸弹初始化
@@ -991,8 +992,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
                 StartCoroutine(waterImg[i].BreakIce(breakTo));
                 waterItems[i] = WaterItem.None;
+                // 注释 冰块调用道具状态更新
                 CheckWaterItem();
-
+                Debug.Log(123123);
                 yield return new WaitForSeconds(0.3f);
             }
         }
@@ -1203,44 +1205,19 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
     #region 泡沐黑水
 
-    private void UpdateBubble(BottleCtrl bottleCtrl = null, bool Init = false)
+    private void UpdateBubble(BottleCtrl bottleCtrl )
     {
-        int moveNum = LevelManager.Instance.moveNum;
-
-        if (bottleCtrl != null || Init)
-            bottleCtrl.isBomb = true;
-
-        if (!isBomb) return;
-/*
-        if (isFlyBomb)
-            CheckFlyBomb();*/
-
-        isBomb = false;
-
-        for (int i = 0; i < bombCounts.Count; i++)
+        /*int _top = bottleCtrl.waters.Count-1;
+        bottleCtrl.waterImg[_top].bubbleCtrl.BubbleDead();
+        bottleCtrl.waterItems[_top] = WaterItem.None;
+        bool _flag = true;
+        for (int i = _top-1; i>0;i--)
         {
-            // 设置时间
-            // waterImg[i].textItem.text = bombCounts[i] - moveNum > 0 && hideWaters[i] == false ? (bombCounts[i] - moveNum).ToString() : "";
-            // 100用来特殊标记
-            if (bombCounts[i] == 100)
-            {
-                waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
-                waterImg[i].textItem.text = "";
-                bombCounts[i] = 0;
-            }
-            else if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false && bombCounts[i] != 0)
-            {
-                waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - moveNum).ToString());
-            }
-            else
-            {
-                // 可能会在水中道具出现问题          
-                waterImg[i].bombCtrl.SetBomb();
-                waterImg[i].textItem.text = "";
-            }
-            if (bombCounts[i] > 0)
-                isBomb = true;
+            if (bottleCtrl.waterItems[i]==WaterItem.None)
+            bottleCtrl.waters[]
         }
+*/
+       
     }
     #endregion
 
@@ -1543,7 +1520,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         for (int i = 0; i < waterItems.Count; i++)
         {
-            if (waterItems[i] == WaterItem.Bomb)
+            if (waterItems[i] == WaterItem.Bomb || waterItems[i] == WaterItem.FlyBomb)
             {
                 waterItems[i] = WaterItem.None;
                 if (bombCounts.Count > i)
@@ -1570,7 +1547,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             if ((ItemType)GetMoveOutTop() == ItemType.RainBowWater)
             {
                 //标记——增加bool判定是否能增加瓶子
-                LevelManager.Instance.AddBottle(true);
+                LevelManager.Instance.AddBottle(isHalf: true);
             }
         };
 
@@ -1647,7 +1624,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     /// <summary>
-    /// 判断黑色水块
+    /// 判断黑色类水块
     /// </summary>
     /// <param name="isFirst"></param>
     public void CheckHide(bool isFirst = false)
@@ -1673,12 +1650,16 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             {
                 //最上层的黑水块显示
                 hideWaters[waters.Count - 1] = false;
+                if (waterItems[waters.Count - 1]==WaterItem.Bubble_Origin || waterItems[waters.Count - 1] == WaterItem.Bubble)
+                    waterItems[waters.Count - 1] = WaterItem.None;
                 //黑水块的颜色与顶层是否相同(相同显示)
                 for (int i = waters.Count - 1; i >= 0; i--)
                 {
                     if ((topIdx >= 0) && (waters[i] == waters[topIdx]))
                     {
                         hideWaters[i] = false;
+                        if (waterItems[waters.Count - 1] == WaterItem.Bubble_Origin || waterItems[waters.Count - 1] == WaterItem.Bubble)
+                            waterItems[i] = WaterItem.None;
                     }
                     else
                     {
@@ -1813,6 +1794,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             {
                 case WaterItem.None:
                     waterImg[i].textItem.text = "";
+                    waterImg[i].bubbleCtrl.BubbleDead();
                     break;
                 case WaterItem.Ice:
                     waterImg[i].iceGo.SetActive(true);
@@ -2099,4 +2081,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         isPlayAnim = false;
     }
     #endregion
+
+    
 }

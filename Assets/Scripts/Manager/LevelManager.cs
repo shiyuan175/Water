@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public static LevelManager Instance;
     public List<LevelCreateCtrl> levels = new List<LevelCreateCtrl>();
     public List<int> clearList = new List<int>();
-    public Dictionary<BottleCtrl, int> bubbleDict= new();
+
     //带有阻碍的颜色(魔法布，藤曼，冰冻)
     public List<int> cantChangeColorList = new List<int>();
     public List<BottleCtrl> nowBottles = new List<BottleCtrl>();
@@ -51,7 +51,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     public GameObject broomBullet;
     public SkeletonGraphic mahoujinSpine;
-    bool isFinish = false, isBomb = false;
+    bool isFinish = false;
     public bool isPlayAnim, isPlayFxAnim;
 
     public BottleCtrl nowHalf;
@@ -65,8 +65,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     [SerializeField] private HorizontalLayoutGroup TopBottleLayoutGroup;
     [SerializeField] private List<BottleCtrl> bottles = new List<BottleCtrl>();
 
+    private LevelManagerUtility levelManagerUtility;
     private StageModel stageModel;
-
     private ResLoader mResLoader = ResLoader.Allocate();
     [HideInInspector]
     public TMP_FontAsset redFont;
@@ -75,6 +75,12 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     [HideInInspector]
     public TMP_FontAsset greenFont;
 
+    #region 新机记录存储结构
+    public Dictionary<BottleCtrl, int> bubbleDict =new();
+
+    #endregion
+
+
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;
@@ -82,13 +88,15 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     private void Awake()
     {
+        GameMainArc.InitArchitecture();
         Instance = this;
-        stageModel = this.GetModel<StageModel>();
 
+        /*       stageModel =this.get*/
+        levelManagerUtility = this.GetUtility<LevelManagerUtility>();
         redFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Red");
         blueFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Blue");
         greenFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Green");
-
+       /*   levelManagerUtility = this.GetUtility<LevelManagerUtility>();*/
         InitBottle();
     }
 
@@ -111,6 +119,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             UIKit.OpenPanel<UIGameNode>();
             StartGame(levelId);
         }
+
+     
     }
 
     private void OnDestroy()
@@ -144,25 +154,20 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         //cantClearColorList.Clear();
         cantChangeColorList.Clear();
         hideBottleList.Clear();
-        bubbleDict.Clear();
+        bubbleDict.Clear(); 
+        iceBottles.Clear();
         levelId = id;
         LevelCreateCtrl levelInfo = levels[levelId - 1];
-        iceBottles.Clear();
+      
         nowLevel = levelInfo;
-        bombMaxNum = levelInfo.bombNum;
         countDownNum = levelInfo.countDownNum;
-
-        // 关卡道具的开关可以移动到每个瓶子
-        if (bombMaxNum > 0)
-            isBomb = true;
-
+        moveNum = 0;
         clearList = new List<int>(levelInfo.clearList);
         hideColor = new List<int>(levelInfo.hideList);
 
-        foreach (var i in levelInfo.bubbleData)
-        {
-            bubbleDict.Add(i.bottleCtrl, i.bubbleCount);
-        }
+        int _i = 0;
+   
+
         nowBottles.Clear();
 
         nowHalf = null;
@@ -170,6 +175,19 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         TopBottleLayoutGroup.Show();
         BottomBottleLayoutGroup.Show();
         InitLevels(levelInfo);
+        #region 新机制初始化
+        #region 泡沐
+
+        foreach (var i in nowBottles)
+        {
+            foreach(var j in i.waterItems)
+                if(j == WaterItem.Bubble_Origin)
+                {
+                    bubbleDict.Add(i, levelInfo.bubbleCount[_i++]);
+                }
+        }
+        #endregion
+        #endregion
     }
 
     /// <summary>
@@ -201,7 +219,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         UpdateButtomLayoutSpcing();
         CheckGuideLevel();
     }
-
+    
     public void CheckGuideLevel()
     {
         // 关卡引导
@@ -261,6 +279,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                 GuideAnimName = value.guideAnimName
             });
     }
+  
 
     /// <summary>
     /// 判断显示那些瓶子（现用于初始化关卡的瓶子）
@@ -296,6 +315,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// <param name="levelInfo"></param>
     public void InitBottle(LevelCreateCtrl levelInfo)
     {
+        
         for (int i = 0; i < levelInfo.bottles.Count; i++)
         {
             var bottle = nowBottles[i];
@@ -689,6 +709,42 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     #endregion
 
+    #region 泡沐
+    /// <summary>
+    /// 清理消失泡沐
+    /// </summary>
+    /// <param name="bottleCtrl"></param>
+    public void DeleteBubble(BottleCtrl bottleCtrl)
+    {
+        bubbleDict.Remove(bottleCtrl);
+    }
+    /// <summary>
+    /// 生成泡沐前调用,
+    /// </summary>
+    public void CheckBubbleDict()
+    {
+        var keysToRemove = bubbleDict.Where(i => i.Value < moveNum)
+                                    .Select(i => i.Key)
+                                    .ToList();
+
+        foreach (var key in keysToRemove)
+        {
+            bubbleDict.Remove(key);
+        }
+    }
+
+    public void CreateBubble()
+    {
+        for(int i =0;i<bubbleDict.Count;i++)
+        {
+            Debug.Log(bubbleDict.Count);
+            // 失败表示没有可生成的位置
+            if (levelManagerUtility.RandomBubleWaterBottle(nowBottles) == false)
+                break;
+        }
+        return;
+    }
+    #endregion
     #region 炸弹相关
 
     /// <summary>
@@ -708,7 +764,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public bool BombUpdate(BottleCtrl bottleCtrl = null)
     {
         bool flag = false;
-        foreach (var bottle in bottles)
+        foreach (var bottle in nowBottles)
         {
             bottle.UpdateBomb(bottleCtrl);
 

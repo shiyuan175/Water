@@ -968,7 +968,6 @@ namespace QFramework.Example
         }
         private void UpdateDGState()
         {
-            Debug.Log("ds");
             TxtDGActivity.text = mDoubleGiftADAcitvity.ActivityStatus switch
             {
                 GameActivityStatus.Active => "Active",

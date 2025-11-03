@@ -39,19 +39,19 @@ public class BubbleCtrl : MonoBehaviour
     /// <param name="isOriginal">是否是原始泡沐</param>
     public void BubbleDead(bool isOriginal = false)
     {
-        // 关闭UI显示，展东动画
-        bubbleSpine.SetActive(false);
-     /*   timeText.Hide();*/
-        skeletonAnimation.SetActive(true);
-
+        // 没有泡沐，不执行消失动画
+        if (!skeletonAnimation.activeSelf)
+            return;
         TrackEntry track;
         if (isOriginal)
         {
             track = skeletonAnimationCom.AnimationState.SetAnimation(0, ORIGINAL_DISABLE, false);
+            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
         }
         else
         {
             track = skeletonAnimationCom.AnimationState.SetAnimation(0, NORMAL_DISABLE, false);
+            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
         }
 
         track.Complete += track =>
@@ -61,7 +61,7 @@ public class BubbleCtrl : MonoBehaviour
 
         skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
 
-        bubbleSpine.SetActive(false);
+    
     }
 
     /// <summary>
@@ -72,22 +72,19 @@ public class BubbleCtrl : MonoBehaviour
     public void BubbleAppend(bool isOriginal = false,int time=0)
     {
         // 动画
+        if (skeletonAnimation.activeSelf)
+            return;
         skeletonAnimation.SetActive(true);
         TrackEntry track;
         if (isOriginal)
         {
             track = skeletonAnimationCom.AnimationState.SetAnimation(0, ORIGINAL_APPEND, false);
+            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
         }       
         else
         {
             track = skeletonAnimationCom.AnimationState.SetAnimation(0, NORMAl_APPEND, false);
+            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
         }
-        track.Complete += _ =>
-        {
-          /*  timeText.Show();
-            timeText.text = time.ToString();*/
-            skeletonAnimation.SetActive(false); 
-            bubbleSpine.SetActive(true);
-        };
     }
 }

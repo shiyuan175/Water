@@ -59,8 +59,6 @@ public class BottleWaterCtrl : MonoBehaviour
     public void PlayOutAnim(float time)
     {
         //StartCoroutine(CoroutinePlayFillAnim());
-
-
         if (time == 0)
         {
             waterImg.fillAmount = 0;

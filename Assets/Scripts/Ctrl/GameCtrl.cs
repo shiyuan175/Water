@@ -61,7 +61,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                     FirstBottle = null;
                 }
             }
-
+            // 倒水
             if (FirstBottle != null && SecondBottle != null)
             {
                 control = true;
@@ -75,6 +75,8 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
 
                     LevelManager.Instance.AddMoveNum();
 
+                    #region 全局游戏机制--倒水前触发、玩家走一步触发
+                    #region 炸弹机制--失败检查
                     // 炸弹更新并进行失败检测
                     bool flag = LevelManager.Instance.BombUpdate(bottle);
                     // 炸弹爆炸要中断去执行瓶子的相关事件和动画
@@ -88,11 +90,22 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                         LevelManager.Instance.AddMoveNum(false);
                         return;
                     }
+                    #endregion
+
+                  
+                    #endregion
+
                     LevelManager.Instance.RecordLast();
                     FirstBottle.MoveTo(SecondBottle);
                     FirstBottle = null;
                     SecondBottle = null;
                     AudioKit.PlaySound("resources://Audio/PourWaterSound");
+                    #region 全局游戏机制--倒水后触发、玩家走一步触发
+                    #region 泡沐机制--生成检查 
+                    LevelManager.Instance.CheckBubbleDict();
+                    LevelManager.Instance.CreateBubble();
+                    #endregion
+                    #endregion
                     //LevelManager.Instance.AddMoveNum();//步数统计.暂时无用                
                 }
                 else

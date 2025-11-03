@@ -46,6 +46,7 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterUtility(new RewardGrantUtility());
         RegisterUtility(new LanguageUtility());
         RegisterUtility(new JsonFileUtility());
+        RegisterUtility(new LevelManagerUtility());
     }
 
     //Json数据更新
