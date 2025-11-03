@@ -199,12 +199,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         BottleLayoutRefresh();
         UpdapeTopLayoutSpcing();
         UpdateButtomLayoutSpcing();
-
-        //连胜去黑水
-        if (levelId >= (int)GameDefine.UnLockMechanism.RemoveHideWinStreakLevel
-            && stageModel.RemoveHideStreakWinNum >= GameConst.TEN_CONTINUE_WIN_NUM)
-            StringEventSystem.Global.Send(GameConst.STREAK_WIN_REMOVE_HIDE);
-
         CheckGuideLevel();
     }
 
@@ -451,7 +445,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// <returns></returns>
     IEnumerator ClearColorCoroutine(int color, Vector3 fromPos)
     {
-        isPlayFxAnim = true;
+        if (clearList.Contains(color))
+            isPlayFxAnim = true;
         yield return new WaitForSeconds(1f);
         AudioKit.PlaySound("resources://Audio/BroomBullet");
 
@@ -591,6 +586,25 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             bottle.CheckFinish(true);
         }
         UIKit.ClosePanel<UIMask>();
+    }
+
+    /// <summary>
+    /// 获取冰块瓶
+    /// </summary>
+    /// <returns></returns>
+    public BottleWaterCtrl BreakIce()
+    {
+        int iceIdx = UnityEngine.Random.Range(0, iceBottles.Count);
+
+        var bottle = iceBottles[iceIdx];
+        iceBottles.RemoveAt(iceIdx);
+
+        //获取冰块水 =》得到水的层级索引 =》得到水的颜色 =》从 cantChangeColorList 移除
+        var _IceWater = bottle.FindIceWater();
+        var _waterIdx = bottle.waterImg.IndexOf(_IceWater);
+        cantChangeColorList.Remove(bottle.waters[_waterIdx]);
+
+        return _IceWater;
     }
 
     #endregion
@@ -871,6 +885,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         bool ret = false;
         moveNum--;
+        //避免回退重复添加
+        cantChangeColorList.Clear();
         foreach (var bottle in nowBottles)
         {
             var needRet = bottle.ReturnLast();
@@ -949,51 +965,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         nowBottles.ForEach(bottle => bottle.RemovHide());
         action?.Invoke();
-    }
-
-    #endregion
-
-    #region 其他
-
-    /// <summary>
-    /// 获取冰块瓶
-    /// </summary>
-    /// <returns></returns>
-    public BottleWaterCtrl BreakIce()
-    {
-        int iceIdx = UnityEngine.Random.Range(0, iceBottles.Count);
-
-        var bottle = iceBottles[iceIdx];
-        iceBottles.RemoveAt(iceIdx);
-        return bottle.FindIceWater();
-    }
-
-    #endregion
-
-    #region 道具选择 后续可删除
-
-    /// <summary>
-    /// 道具选择(替换背景，更换瓶子材质)
-    /// </summary>
-    public void ShowItemSelect()
-    {
-        hideBg.SetActive(true);
-        for (int i = 0; i < nowBottles.Count; i++)
-        {
-            nowBottles[i].ShowItemSelect();
-        }
-    }
-
-    /// <summary>
-    /// 取消道具选择
-    /// </summary>
-    public void HideItemSelect()
-    {
-        hideBg.SetActive(false);
-        for (int i = 0; i < nowBottles.Count; i++)
-        {
-            nowBottles[i].HideItemSelect();
-        }
     }
 
     #endregion

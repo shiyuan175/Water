@@ -280,7 +280,7 @@ namespace GameDefine
         [ClearItemState(1, "idle_cl")]
         ClearGreen = 3007,
 
-        [WaterColorState("" ,EColorStateSpineType.ERainBowWater ,false)]
+        [RainBowWaterState("")]
         RainBowWater = 4001,
     }
 
