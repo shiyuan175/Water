@@ -758,7 +758,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
 
             // 普通水/特殊水/非可合成类道具
-            if (_waterColor <= 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater || !_attr.PairCombine)
+            if (_waterColor <= 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
             {
                 _itemId = 0;
                 continue;
@@ -795,8 +795,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         string spineAnimName = "";
         var color = GetMoveOutTop();
 
+        WaterAttrCache.Dict.TryGetValue((ItemType)color, out var _attr);
+
         if ((color > 0 && color < (int)EDaoShuiAnim.IDLE_MAX)
-            || (ItemType)color is ItemType.RainBowWater)
+            || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
             spineAnimName = GameEnum.GetDescription<EDaoShuiAnim>((EDaoShuiAnim)color);
 
         //Debug.Log("水花动画名：" + spineAnimName);
@@ -1476,7 +1478,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             }
         }
 
-        CheckWaterItem();
+        //标记——完成后不需要对自身更新水块机制状态
+        //CheckWaterItem();
         StartCoroutine(ShowFinish());
     }
 
@@ -1486,18 +1489,17 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <returns></returns>
     IEnumerator ShowFinish()
     {
-        var trackEntry = finishSpine.AnimationState.GetCurrent(0); // 获取轨道0上的当前动画条目
-        if (trackEntry != null)
+        var trackEntry = finishSpine.AnimationState.SetAnimation(0, "animation", false);
+        trackEntry.Complete += trackEntry =>
         {
-            //trackEntry.TimeScale = 1f;
-            finishSpine.Initialize(true);
-        }
-        else
-        {
-            // 如果当前没有动画，直接设置动画
-            finishSpine.AnimationState.SetAnimation(0, "animation", false);
-        }
+            if ((ItemType)GetMoveOutTop() == ItemType.RainBowWater)
+            {
+                //标记——增加bool判定是否能增加瓶子
+                LevelManager.Instance.AddBottle(true);
+            }
+        };
 
+        //等待水倒进去
         yield return new WaitForSeconds(0.8f);
         AudioKit.PlaySound("resources://Audio/Finish");
         StartCoroutine(PlayBottleCapSound());
@@ -1508,9 +1510,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             freezeSpine.AnimationState.SetAnimation(0, "attack", false);
         }
 
-        yield return new WaitForSeconds(0.2f);
+        //yield return new WaitForSeconds(0.2f);
         finishGo.SetActive(isFinish);
 
+        //等待瓶子合成动画完成
         yield return new WaitForSeconds(1f);
 
         if (limitColor != 0)
@@ -1878,7 +1881,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
 
             // 普通水/特殊水/非可合成类道具
-            if (_waterColor <= 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater || !_attr.PairCombine)
+            if (_waterColor <= 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
             {
                 _itemId = 0;
                 continue;
@@ -2015,31 +2018,5 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         isPlayAnim = false;
     }
-    #endregion
-
-    #region 后续道具自动生效可移除
-
-    /// <summary>
-    /// 道具显示材质切换
-    /// </summary>
-    public void ShowItemSelect()
-    {
-        ImgBottleOne.material = LevelManager.Instance.selectMaterial;
-        ImgBottleTwo.material = LevelManager.Instance.selectMaterial;
-        ImgBottleFour.material = LevelManager.Instance.selectMaterial;
-        ImgBottleFour.material = LevelManager.Instance.selectMaterial;
-    }
-
-    /// <summary>
-    /// 道具隐藏材质切换
-    /// </summary>
-    public void HideItemSelect()
-    {
-        ImgBottleOne.material = null;
-        ImgBottleTwo.material = null;
-        ImgBottleFour.material = null;
-        ImgBottleFour.material = null;
-    }
-
     #endregion
 }

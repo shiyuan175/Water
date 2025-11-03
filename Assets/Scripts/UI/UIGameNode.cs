@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine.U2D;
-using UnityEngine.Rendering;
 
 
 namespace QFramework.Example
@@ -18,7 +17,7 @@ namespace QFramework.Example
 
     public partial class UIGameNode : UIPanel, IController
     {
-        private const string CLEAR_BWATER_PARTICLE_PATH = "Prefab/BlackMaskItem";
+        private const string ITEM_ENTRANCE_EFFECT_PATH = "Prefab/ItemEntranceEffect";
         private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
 
         [Header("关卡难度UI")]
@@ -68,7 +67,9 @@ namespace QFramework.Example
             LoadRes();
             BindBtn();
             RegisterEvent();
-            SetTakeItem();
+            ConsumeTakeItems();
+
+            AutoUseAllItems();
         }
 
         protected override void OnShow()
@@ -93,9 +94,6 @@ namespace QFramework.Example
             BtnHalfBottle.onClick.RemoveAllListeners();
             BtnRemoveAll.onClick.RemoveAllListeners();
             BtnReturn.onClick.RemoveAllListeners();
-            BtnItem1.onClick.RemoveAllListeners();
-            BtnItem2.onClick.RemoveAllListeners();
-            BtnItem3.onClick.RemoveAllListeners();
 
             if (mResLoader != null)
             {
@@ -122,20 +120,6 @@ namespace QFramework.Example
                 UIKit.OpenPanel<UIRetry>();
             });
 
-            BtnItem1.onClick.AddListener(() =>
-            {
-                UseItem(6, BtnItem1);
-            });
-            BtnItem2.onClick.AddListener(() =>
-            {
-                UseItem(7, BtnItem2);
-            });
-            BtnItem3.onClick.AddListener(() =>
-            {
-                LevelManager.Instance.ShowItemSelect();
-                GameCtrl.Instance.SeletedItem(bottele => { UseItem(8, BtnItem3, bottele); });
-            });
-
             BtnRemoveAll.onClick.AddListener(BtnRemoveAllOnClick);
             BtnAddBottle.onClick.AddListener(BtnAddBottleOnClick);
             BtnHalfBottle.onClick.AddListener(BtnHalfBottleOnClick);
@@ -160,11 +144,6 @@ namespace QFramework.Example
                 TxtLevel.text = LevelManager.Instance.levelId.ToString();
                 InitStoryUI();
 
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-            StringEventSystem.Global.Register(GameConst.STREAK_WIN_REMOVE_HIDE, () =>
-            {
-                ClearBottleBlackWater(false);
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             StringEventSystem.Global.Register(GameConst.VICTORY_EVENT, () =>
@@ -351,6 +330,29 @@ namespace QFramework.Example
             else ImgRankLevel.Hide();
         }
 
+        /// <summary>
+        /// 扣除携带道具数量
+        /// </summary>
+        private void ConsumeTakeItems()
+        {
+            var takeItems = LevelManager.Instance.takeItem;
+            var itemIds = new[] 
+            {
+                NormalRewardsType.S_AddOneHalfBottle,
+                NormalRewardsType.S_RemoveOneBottleHideWater,
+                NormalRewardsType.S_RemoveOneDebuffBottle
+            };
+
+            for (int i = 0; i < itemIds.Length; i++)
+            {
+                string _sign = GameEnum.GetDescription(itemIds[i]);
+
+                bool _isTakeItem = (takeItems.Contains((int)itemIds[i]) && (stageModel.ItemDic[(int)itemIds[i]] > 0));
+                if (_isTakeItem && CountDownTimerManager.Instance.IsTimerFinished(_sign))
+                    stageModel.ReduceItem((int)itemIds[i], 1);
+            }
+        }
+
         #endregion
 
         #region 付费道具相关
@@ -376,9 +378,6 @@ namespace QFramework.Example
 
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
                 UnLockItem(NormalRewardsType.StepBack);
-
-            if (level >= (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
-                BtnItemBg.Show();
         }
 
         /// <summary>
@@ -415,6 +414,28 @@ namespace QFramework.Example
             transform.Find("ImgLock").Hide();
             transform.GetComponent<Button>().interactable = true;
             transform.Find("ImgItem").GetComponent<Image>().color = Color.white;
+        }
+
+        /// <summary>
+        /// 下方道具栏UI更新
+        /// </summary>
+        private void SetItem()
+        {
+            stageModel = this.GetModel<StageModel>();
+            BtnAddStepBack.gameObject.SetActive(stageModel.ItemDic[1] <= 0);
+            TxtRefreshNum.text = stageModel.ItemDic[1].ToString();
+
+            BtnAddRemove.gameObject.SetActive(stageModel.ItemDic[2] <= 0);
+            TxtRemoveHideNum.text = stageModel.ItemDic[2].ToString();
+
+            BtnAddAddBottle.gameObject.SetActive(stageModel.ItemDic[3] <= 0);
+            TxtAddBottleNum.text = stageModel.ItemDic[3].ToString();
+
+            BtnAddHalfBottle.gameObject.SetActive(stageModel.ItemDic[4] <= 0);
+            TxtAddHalfBottleNum.text = stageModel.ItemDic[4].ToString();
+
+            BtnAddRemoveBottle.gameObject.SetActive(stageModel.ItemDic[5] <= 0);
+            TxtRemoveAllNum.text = stageModel.ItemDic[5].ToString();
         }
 
         private void BtnSetpBackOnClick()
@@ -529,113 +550,95 @@ namespace QFramework.Example
         }
         #endregion
 
+        #region 时序动作
+        // 异步队列
+        private readonly Queue<Action<Action>> mActionQueue = new();
+        private bool mIsRunning = false;
+
+        private void EnqueueAction(Action<Action> action)
+        {
+            mActionQueue.Enqueue(action);
+            TryRunNext();
+        }
+
+        private void TryRunNext()
+        {
+            if (mIsRunning || mActionQueue.Count == 0) return;
+
+            mIsRunning = true;
+            var action = mActionQueue.Dequeue();
+            action.Invoke(() =>
+            {
+                mIsRunning = false;
+                ActionKit.Delay(0.3f, () =>
+                {
+                    TryRunNext();
+                }).Start(this);
+            });
+        }
+
+        private void AutoUseAllItems()
+        {
+            if (LevelManager.Instance.levelId >= (int)GameDefine.UnLockMechanism.RemoveHideWinStreakLevel
+                && stageModel.RemoveHideStreakWinNum >= GameConst.TEN_CONTINUE_WIN_NUM)
+            {
+                EnqueueAction(_nextItem =>
+                {
+                    //Debug.Log("连胜去黑生效");
+                    StreaWinClearBWater(_nextItem);
+                });
+            }
+
+            if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_RemoveOneBottleHideWater))
+            {
+                EnqueueAction(_nextItem =>
+                {
+                    //Debug.Log("去黑道具生效");
+                    RemoveOneBottleHideWater(_nextItem);
+                });
+            }
+
+            if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_RemoveOneDebuffBottle))
+            {
+                EnqueueAction(_nextItem =>
+                {
+                    //Debug.Log("去Debuff道具生效");
+                    RemoveOneDebuffBottle(_nextItem);
+                });
+            }
+
+            if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_AddOneHalfBottle))
+            {
+                EnqueueAction(_nextItem =>
+                {
+                    //Debug.Log("增加瓶子生效");
+                    AddOneHalfBottle(_nextItem);
+                });
+            }
+        }
+
+        #endregion
+
         #region 携带道具相关
-        /// <summary>
-        /// 使用携带道具
-        /// </summary>
-        /// <param name="itemID"></param>
-        /// <param name="itemObj"></param>
-        /// <param name="botter">作用与哪个瓶子(打乱水块道具传入)</param>
-        void UseItem(int itemID, Button itemObj, BottleCtrl botter = null)
-        {
-            switch (itemID)
-            {
-                case 6:
-                    AddBottle();
-                    break;
-
-                case 7:
-                    ReMoveHide();
-                    break;
-
-                case 8:
-                    RangeWater(botter);
-                    break;
-            }
-            itemObj.interactable = false;
-        }
-
-        /// <summary>
-        /// 设置携带道具UI
-        /// </summary>
-        /// 进入游戏/重置关卡调用
-        private void SetTakeItem()
-        {
-            var takeItems = LevelManager.Instance.takeItem;
-            Button[] buttons = new[] { BtnItem1, BtnItem2, BtnItem3 };
-            var texts = new[] { TxtItem1, TxtItem2, TxtItem3 };
-            var itemIds = new[] { 6, 7, 8 };
-            bool _showItemBG = false;
-            for (int i = 0; i < itemIds.Length; i++)
-            {
-                int itemId = itemIds[i];
-                var _rewardType = (SpecialRewardsType)itemId;
-                string _sign = GameEnum.GetDescription(_rewardType);
-
-                bool _isTakeItem = (takeItems.Contains(itemId) && CheckHaveItem(itemId))
-                    || !CountDownTimerManager.Instance.IsTimerFinished(_sign);
-                buttons[i].interactable = _isTakeItem;
-                texts[i].text = _isTakeItem ? "1" : "0";
-
-                if (_isTakeItem 
-                    && CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_ChangeWater)))
-                    stageModel.ReduceItem(itemIds[i], 1);
-
-                // 取真
-                _showItemBG = _showItemBG | _isTakeItem;
-            }
-
-            if (!_showItemBG)
-                BtnItemBg.Hide();
-        }
-
-        /// <summary>
-        /// 下方道具栏UI更新
-        /// </summary>
-        private void SetItem()
-        {
-            stageModel = this.GetModel<StageModel>();
-            BtnAddStepBack.gameObject.SetActive(stageModel.ItemDic[1] <= 0);
-            TxtRefreshNum.text = stageModel.ItemDic[1].ToString();
-
-            BtnAddRemove.gameObject.SetActive(stageModel.ItemDic[2] <= 0);
-            TxtRemoveHideNum.text = stageModel.ItemDic[2].ToString();
-
-            BtnAddAddBottle.gameObject.SetActive(stageModel.ItemDic[3] <= 0);
-            TxtAddBottleNum.text = stageModel.ItemDic[3].ToString();
-
-            BtnAddHalfBottle.gameObject.SetActive(stageModel.ItemDic[4] <= 0);
-            TxtAddHalfBottleNum.text = stageModel.ItemDic[4].ToString();
-
-            BtnAddRemoveBottle.gameObject.SetActive(stageModel.ItemDic[5] <= 0);
-            TxtRemoveAllNum.text = stageModel.ItemDic[5].ToString();
-        }
-
-        /// <summary>
-        /// 检查是否拥有道具
-        /// </summary>
-        /// <param name="itemID"></param>
-        /// <returns></returns>
-        private bool CheckHaveItem(int itemID)
-        {
-            if (stageModel.ItemDic[itemID] > 0)
-                return true;
-            else return false;
-        }
 
         /// <summary>
         /// 祛除瓶中所有黑水
         /// </summary>
         /// <param name="useItem">是否由道具生效</param>
-        /// <param name="action">回调(道具使用时传入)</param>
+        /// <param name="action"></param>
         private void ClearBottleBlackWater(bool useItem, Action action = null)
         {
             if (LevelManager.Instance.hideBottleList.Count > 0)
             {
                 //剔除魔法布和陶瓷瓶的瓶子
-                //即使列表为0也往下执行(需要播放动画)
                 var _tempList = new List<BottleCtrl>(LevelManager.Instance.hideBottleList);
                 _tempList.RemoveAll(item => item.isClearHide || item.isNearHide);
+
+                if (_tempList.Count == 0)
+                {
+                    action?.Invoke();
+                    return;
+                }
 
                 int _removeCount = useItem ? 1 : _tempList.Count / 2;
                 //特判处理(只有一个黑水瓶)
@@ -647,11 +650,15 @@ namespace QFramework.Example
                     _tempList.RemoveAt(randIndex);
                 }
 
-                if (useItem)
-                    useItemClearBWater(_tempList, action);
-                else
-                    StreaWinClearBWater(_tempList, action);
+                foreach (var item in _tempList)
+                {
+                    LevelManager.Instance.hideBottleList.Remove(item);
+                    item.StarSetHideShow();
+                }
+                action?.Invoke();
             }
+            else
+                action?.Invoke();
         }
 
         /// <summary>
@@ -659,86 +666,96 @@ namespace QFramework.Example
         /// </summary>
         /// <param name="tempList"></param>
         /// <param name="action"></param>
-        private void StreaWinClearBWater(List<BottleCtrl> tempList, Action action)
+        private void StreaWinClearBWater( Action action)
         {
-            var _particle = Resources.Load(CLEAR_BWATER_PARTICLE_PATH);
-            var _tempObj = Instantiate(_particle) as GameObject;
-            //UIKit.OpenPanel<UIMask>(UILevel.PopUI);//遮罩
-            _tempObj.transform.DOLocalMoveY(0, 0.8f);
-            _tempObj.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.8f)
-            .OnComplete(() =>
+            PlayParticleEffect(() =>
             {
-                foreach (var item in tempList)
+                ClearBottleBlackWater(false, () =>
                 {
-                    item.StarSetHideShow();
-                }
-                action?.Invoke();
-                Destroy(_tempObj);
+                    action?.Invoke();
+                });
             });
         }
 
         /// <summary>
-        /// 道具去黑
+        /// 去除一瓶黑水
         /// </summary>
-        /// <param name="tempList"></param>
-        /// <param name="action"></param>
-        private void useItemClearBWater(List<BottleCtrl> tempList, Action action)
+        /// <param name="onComplete"></param>
+        private void RemoveOneBottleHideWater(Action onComplete)
         {
-            tempList.ForEach(item => item.StarSetHideShow());
-            action?.Invoke();
-        }
-
-        #region 进关选择道具事件
-        //方法名都暂定,后续修改
-
-        //后面做自动使用，就吧三个方法加入到时序动作管理中，
-        //根据是否携带道具自动加入
-        private void ReMoveHide()
-        {
-            //后续道具弹出的动画，
-            //动画结束回调执行逻辑
-
-            ClearBottleBlackWater(true, () =>
+            var _sprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.S_RemoveOneBottleHideWater);
+            PlayParticleEffect(() =>
             {
-                TxtItem2.text = "0";
-            });
+                ClearBottleBlackWater(true, () =>
+                {
+                    // 队列通知动作完成
+                    onComplete?.Invoke();
+                });
+            }, _sprite);
         }
        
-        private void AddBottle()
+        /// <summary>
+        /// 增加一格瓶子
+        /// </summary>
+        /// <param name="onComplete"></param>
+        private void AddOneHalfBottle(Action onComplete)
         {
-            //后续道具弹出的动画，
-            //动画结束回调执行逻辑
-
-            //LevelManager.Instance.AddBottle(true, () =>
-            //{
-            //    TxtItem1.text = "0";
-            //});
-
-            //还要剔除有火焰的水
-            var _tempWater = new List<int>(LevelManager.Instance.clearList);
-            //1、移除药水需要消除的颜色
-            var changeColors = LevelManager.Instance.nowLevel.changeList.Select(x => x.NeedChangeColor);
-            _tempWater = _tempWater.Except(changeColors).ToList();
-            //2、移除需要消除多次颜色
-            _tempWater = _tempWater.GroupBy(x => x).Where(g => g.Count() == 1).Select(g => g.Key).ToList();
-            //3、取随机颜色
-            var _colorIdx = _tempWater[UnityEngine.Random.Range(0, _tempWater.Count)];
-            
-            //遍历有这个颜色的瓶子，执行方法
-            foreach (var bottle in LevelManager.Instance.nowBottles)
+            var _sprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.S_AddOneHalfBottle); 
+            void _changeRainBowWater(Action callback)
             {
-                if (bottle.waters.Contains(_colorIdx))
+                var _tempWater = new List<int>(LevelManager.Instance.clearList);
+                //1、移除药水需要消除的颜色
+                var changeColors = LevelManager.Instance.nowLevel.changeList.Select(x => x.NeedChangeColor);
+                _tempWater = _tempWater.Except(changeColors).ToList();
+                //2、移除需要消除多次颜色
+                _tempWater = _tempWater.GroupBy(x => x).Where(g => g.Count() == 1).Select(g => g.Key).ToList();
+                //3、取随机颜色
+                var _colorIdx = _tempWater[UnityEngine.Random.Range(0, _tempWater.Count)];
+                LevelManager.Instance.clearList.Remove(_colorIdx);
+
+                //遍历有这个颜色的瓶子，执行方法
+                foreach (var bottle in LevelManager.Instance.nowBottles)
                 {
-                    bottle.ChangeWaterToRainBowWater(_colorIdx);
+                    if (bottle.waters.Contains(_colorIdx))
+                    {
+                        bottle.ChangeWaterToRainBowWater(_colorIdx);
+                    }
                 }
+
+                callback?.Invoke();
             }
+
+            PlayParticleEffect(() => _changeRainBowWater(onComplete), _sprite);
         }
 
-        private void RangeWater(BottleCtrl botter)
+        /// <summary>
+        /// 移除一个瓶子的负面状态
+        /// </summary>
+        /// <param name="botter"></param>
+        private void RemoveOneDebuffBottle(Action onComplete)
         {
-            //后续道具弹出的动画，
-            //动画结束回调执行逻辑
+            var _sprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.S_RemoveOneDebuffBottle);
+            void _removeDeuff(Action callback)
+            {
+                var _tempbottle = new List<BottleCtrl>(LevelManager.Instance.nowBottles);
+                BottleCtrl _bottle = null;
+                while (_tempbottle.Count != 0)
+                {
+                    var _randomIndex = UnityEngine.Random.Range(0, _tempbottle.Count);
+                    _bottle = _tempbottle[_randomIndex];
+                    if (_bottle.isClearHide || _bottle.isFreeze || _bottle.isNearHide || _bottle.limitColor != 0)
+                        break;
+                    else
+                        _tempbottle.RemoveAt(_randomIndex);
+                }
 
+                _bottle?.SetNormal();
+
+                callback?.Invoke();
+            }
+
+            PlayParticleEffect(() => _removeDeuff(onComplete), _sprite);
+            /*#region 原打乱水块功能
             // 索引列表用于随机洗牌
             List<int> _indices = Enumerable.Range(0, botter.waters.Count).ToList();
             do
@@ -789,17 +806,30 @@ namespace QFramework.Example
 
             TxtItem3.text = "0";
             //Debug.Log("打乱顺序成功");
+            #endregion*/
         }
 
-        #endregion
+        /// <summary>
+        /// 道具入场动画
+        /// </summary>
+        /// <param name="action"></param>
+        private void PlayParticleEffect(Action action ,Sprite sprite = null)
+        {
+            var _particle = Resources.Load(ITEM_ENTRANCE_EFFECT_PATH);
+            var _tempObj = Instantiate(_particle) as GameObject;
 
-        #endregion
+            if (sprite != null)
+                _tempObj.GetComponent<SpriteRenderer>().sprite = sprite;
 
-        #region 时序动作
-        private readonly Queue<Action<Action>> mActionQueue = new Queue<Action<Action>>();
-        private bool mIsRunning = false;
-
-
+            //UIKit.OpenPanel<UIMask>(UILevel.PopUI);//遮罩
+            _tempObj.transform.DOLocalMoveY(0, 0.8f);
+            _tempObj.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.8f)
+            .OnComplete(() =>
+            {
+                action?.Invoke();
+                Destroy(_tempObj);
+            });
+        }
         #endregion
 
         private void OpenUIVictory()

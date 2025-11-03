@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6731456166674487864}
   - component: {fileID: 136091135785587955}
   m_Layer: 0
-  m_Name: BlackMaskItem
+  m_Name: ItemEntranceEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 94bc4ea0bef10b14bb587e35ca1891cb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 09a57ac6a3d877e4aa4cea4aaad15e3e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -21,9 +21,9 @@ public enum NormalRewardsType
     AddOneBottle = 3,
     AddHalfBottle = 4,
     RemoveAll = 5,
-    S_AddOneBottle = 6,
-    S_RemoveHide = 7,
-    S_ChangeWater = 8,
+    S_AddOneHalfBottle = 6,
+    S_RemoveOneBottleHideWater = 7,
+    S_RemoveOneDebuffBottle = 8,
 }
 
 public enum SpecialRewardsType
@@ -33,13 +33,12 @@ public enum SpecialRewardsType
     UnlimitedHp = 2,
     [Description("DoubleSettlement")]
     UnlimitedDoubleBuff = 3,
-    [Description("UnLimitAddBottleItem")]
-    Unlimited_S_AddOneBottle = 6,
-    [Description("UnLimitRemoveHideItem")]
-    Unlimited_S_RemoveHide = 7,
-    [Description("UnLimitChangeWaterItem")]
-    Unlimited_S_ChangeWater = 8,
-    
+    [Description("UnLimitAddOneHalfBottle")]
+    Unlimited_S_AddOneHalfBottle = 6,
+    [Description("UnLimitRemoveOneBottleHideWater")]
+    Unlimited_S_RemoveOneBottleHideWater = 7,
+    [Description("UnLimitRemoveOneDebuffBottle")]
+    Unlimited_S_RemoveOneDebuffBottle = 8,
 }
 
 [System.Serializable]

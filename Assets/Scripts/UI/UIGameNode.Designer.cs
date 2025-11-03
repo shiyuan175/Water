@@ -5,31 +5,15 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:28531646-ace1-4bab-915e-21913e7151c2
+	// Generate Id:2213b95d-22ba-454a-a7f9-9abc98ee2672
 	public partial class UIGameNode
 	{
 		public const string Name = "UIGameNode";
-
-        [Header("Bind UI")]
-
-        [SerializeField]
+		
+		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtLevel;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnReturn;
-		[SerializeField]
-		public UnityEngine.UI.Image BtnItemBg;
-		[SerializeField]
-		public UnityEngine.UI.Button BtnItem1;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtItem1;
-		[SerializeField]
-		public UnityEngine.UI.Button BtnItem2;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtItem2;
-		[SerializeField]
-		public UnityEngine.UI.Button BtnItem3;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtItem3;
 		[SerializeField]
 		public UnityEngine.UI.Image ImgRankLevel;
 		[SerializeField]
@@ -43,17 +27,17 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Image BtnAddStepBack;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnRemoveHide;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtRemoveHideNum;
-		[SerializeField]
-		public UnityEngine.UI.Image BtnAddRemove;
-		[SerializeField]
 		public UnityEngine.UI.Button BtnHalfBottle;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtAddHalfBottleNum;
 		[SerializeField]
 		public UnityEngine.UI.Image BtnAddHalfBottle;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnRemoveHide;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtRemoveHideNum;
+		[SerializeField]
+		public UnityEngine.UI.Image BtnAddRemove;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnAddBottle;
 		[SerializeField]
@@ -83,25 +67,18 @@ namespace QFramework.Example
 		{
 			TxtLevel = null;
 			BtnReturn = null;
-			BtnItemBg = null;
-			BtnItem1 = null;
-			TxtItem1 = null;
-			BtnItem2 = null;
-			TxtItem2 = null;
-			BtnItem3 = null;
-			TxtItem3 = null;
 			ImgRankLevel = null;
 			TxtRankLevel = null;
 			ImgRankLevel_Label = null;
 			BtnStepBack = null;
 			TxtRefreshNum = null;
 			BtnAddStepBack = null;
-			BtnRemoveHide = null;
-			TxtRemoveHideNum = null;
-			BtnAddRemove = null;
 			BtnHalfBottle = null;
 			TxtAddHalfBottleNum = null;
 			BtnAddHalfBottle = null;
+			BtnRemoveHide = null;
+			TxtRemoveHideNum = null;
+			BtnAddRemove = null;
 			BtnAddBottle = null;
 			TxtAddBottleNum = null;
 			BtnAddAddBottle = null;
