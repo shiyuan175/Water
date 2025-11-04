@@ -708,7 +708,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     }
 
     #endregion
-
+    #region 关卡机制相关
     #region 泡沐
     /// <summary>
     /// 清理消失泡沐
@@ -737,7 +737,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         for(int i =0;i<bubbleDict.Count;i++)
         {
-            Debug.Log(bubbleDict.Count);
             // 失败表示没有可生成的位置
             if (levelManagerUtility.RandomBubleWaterBottle(nowBottles) == false)
                 break;
@@ -783,7 +782,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     }
 
     #endregion
-
+    #endregion
     #region 付费道具相关
 
     #region Add Bottle

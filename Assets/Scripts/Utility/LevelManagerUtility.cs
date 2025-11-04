@@ -13,19 +13,18 @@ public class LevelManagerUtility : IUtility
 {
     private const int NORMALWATER_LIMITMAX = 1000;
 
-    #region 生成黑水
+    #region 随机生成黑水
     /// <summary>
-    /// 随机选取一个水块进行黑水的变化
+    /// 随机选取一个水块进行黑水的变化 hidebottle 没有更新
     /// </summary>
-    /// <param name="expect">期望的黑水结果</param>
-    public BottleCtrl RandomBarkWaterBottle(List<BottleCtrl> bottles, bool expect)
-    {   
-        
+    public BottleCtrl RandomBarkWaterBottle(List<BottleCtrl> bottles)
+    {
+
         int i = UnityEngine.Random.Range(0, bottles.Count);
         int old = i;
         while (true)
         {
-            
+
             BottleCtrl newBottleCtrl = bottles[i % bottles.Count];
             if (!BottleStateCheck(newBottleCtrl))
             {
@@ -33,15 +32,15 @@ public class LevelManagerUtility : IUtility
                 continue;
             }
 
-            if (RandomBarkWater(newBottleCtrl, expect) != null)
-                return RandomBarkWater(newBottleCtrl, expect);
+            if (RandomBarkWater(newBottleCtrl) != null)
+                return RandomBarkWater(newBottleCtrl);
             else
                 i++;
             if (old == i % bottles.Count)
                 return null;
         }
     }
-    private BottleCtrl RandomBarkWater(BottleCtrl bottleCtrl, bool expect)
+    private BottleCtrl RandomBarkWater(BottleCtrl bottleCtrl)
     {
         // 去掉最顶上
         int random = UnityEngine.Random.Range(0, bottleCtrl.hideWaters.Count - 1);
@@ -50,23 +49,22 @@ public class LevelManagerUtility : IUtility
             // 暂时留的一个判断函数，不确定是否需要
             if (!WaterStateCheckForHide(bottleCtrl, i))
                 continue;
-            if (bottleCtrl.hideWaters[i] != expect)
-            {
-                bottleCtrl.hideWaters[i] = expect;
-                return bottleCtrl;
-            }
+
+            bottleCtrl.hideWaters[i] = true;
+            return bottleCtrl;
         }
         for (int i = 0; i < random; i++)
         {
             // 暂时留的一个判断函数，不确定是否需要
             if (!WaterStateCheckForHide(bottleCtrl, i))
                 continue;
-            bottleCtrl.hideWaters[i] = expect;
+            bottleCtrl.hideWaters[i] = true;
             return bottleCtrl;
 
         }
         return null;
     }
+
     private bool WaterStateCheckForHide(BottleCtrl bottleCtrl, int index)
     {
         if (bottleCtrl.waterItems[index] != WaterItem.None)
@@ -75,20 +73,34 @@ public class LevelManagerUtility : IUtility
             return false;
         if (bottleCtrl.waters[index] > NORMALWATER_LIMITMAX)
             return false;
+        if (bottleCtrl.waters[index] == bottleCtrl.GetMoveOutTop())
+        {
+            bool _flag = false;
+            for (int i = index+1; i < bottleCtrl.topIdx; i++)
+            {
+                if (bottleCtrl.waters[i] != bottleCtrl.GetMoveOutTop())
+                    _flag = true;
+            }
+            return _flag;
+        }
+      
+
         return true;
     }
 
     #endregion
+    #region 随机删除黑水--单格
 
-    #region 生成泡沐
+    #endregion
+    #region 随机生成泡沐
 
     public bool RandomBubleWaterBottle(List<BottleCtrl> bottles)
     {
-        int i = UnityEngine.Random.Range(0, bottles.Count); 
+        int i = UnityEngine.Random.Range(0, bottles.Count);
         int old = i;
         while (true)
         {
-           
+
             BottleCtrl newBottleCtrl = bottles[i % bottles.Count];
 
             if (!BottleStateCheck(newBottleCtrl))
@@ -97,12 +109,12 @@ public class LevelManagerUtility : IUtility
                 continue;
             }
 
-            if (RandomBubbleWater(newBottleCtrl) )
+            if (RandomBubbleWater(newBottleCtrl))
                 return true;
             else
                 i++;
             if (old == i % bottles.Count)
-                return false ;
+                return false;
         }
     }
     private bool RandomBubbleWater(BottleCtrl bottleCtrl)

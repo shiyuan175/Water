@@ -45,7 +45,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     [SerializeField]
     public bool isBomb = false;
     // 是否是浮空炸弹
-/*    private bool isFlyBomb = false;*/
+    /*    private bool isFlyBomb = false;*/
     //瓶子中的水块标识
     public List<int> waters = new();
     //瓶中的水是否为黑水
@@ -54,8 +54,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     public List<WaterItem> waterItems = new();
     //水块脚本持有
     public List<BottleWaterCtrl> waterImg = new();
-    //泡沫步数
-    public Dictionary<BottleCtrl,int> bubbleDict = new();
+    //原始泡沐数量
+    public Dictionary<BottleCtrl, int> bubbleDict = new();
+    // 瓶中泡沐是否是原始泡沐
+    public bool[] IsOriginalBubble = new bool[4];
     // 炸弹步数
     public List<int> bombCounts = new();
 
@@ -138,8 +140,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         hideWaters = new List<bool>(property.isHide);
         waterItems = new List<WaterItem>(property.waterItem);
         bombCounts = new List<int>(property.bombCounts);
- 
-
 
         #region 瓶子标记初始化
         isClearHide = property.isClearHide;
@@ -1793,7 +1793,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             {
                 case WaterItem.None:
                     waterImg[i].textItem.text = "";
-                    waterImg[i].bubbleCtrl.BubbleDead();
+                    waterImg[i].bubbleCtrl.BubbleDead(IsOriginalBubble[i]);
                     break;
                 case WaterItem.Ice:
                     waterImg[i].iceGo.SetActive(true);
@@ -1804,6 +1804,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     isBomb = true;
                     break;
                 case WaterItem.Bubble_Origin:
+                    IsOriginalBubble[i] = true;
+                    goto case WaterItem.Bubble;
                 case WaterItem.Bubble:
                     waterImg[i].bubbleCtrl.BubbleAppend(waterItems[i] == WaterItem.Bubble_Origin);
                     break;
