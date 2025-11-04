@@ -182,6 +182,12 @@ namespace GameDefine
     {
         // 进关道具解锁
         EnterLevelSelectProps = 17,
+        // 增加瓶子(变彩虹水)解锁关
+        S_AddOneHalfBottle = 17,
+        // 去一瓶黑水解锁关
+        S_RemoveOneBottleHideWater = 22,
+        // 去一瓶Debuff解锁关
+        S_RemoveOneDebuffBottle = 27,
         // 1.5金币解锁
         TimesGoldCoin = 35,
         // 连胜去黑水
@@ -282,6 +288,9 @@ namespace GameDefine
 
         [RainBowWaterState("")]
         RainBowWater = 4001,
+
+        [RainBowWaterState("")]
+        FlashWater = 4002,
     }
 
     public enum LanguageType
@@ -458,8 +467,11 @@ namespace GameDefine
 
         IDLE_MAX = 13,
 
-        [Description("daoshui_mh")]
-        RainBowWater = 4001
+        [Description("daoshui_cs")]
+        RainBowWater = 4001,
+
+        [Description("daoshui_js")]
+        FlashWater = 4002,
     }
 
     /// <summary>
@@ -505,8 +517,11 @@ namespace GameDefine
 
         IDLE_MAX = 13,
 
-        [Description("ruchanghuangdong_mh")]
+        [Description("ruchanghuangdong_cs")]
         RainBowWater = 4001,
+
+        [Description("ruchanghuangdong_js")]
+        FlashWater = 4002,
     }
 
     /// <summary>

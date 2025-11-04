@@ -28,7 +28,7 @@ public class CoinManager : MonoSingleton<CoinManager>, ICanSendEvent, ICanGetUti
 
     private int GetCoinNum()
     {
-        return PlayerPrefs.GetInt("g_WaterCoinNum", 0);
+        return PlayerPrefs.GetInt("g_WaterCoinNum", 10000);
     }
     #endregion
 

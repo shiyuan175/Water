@@ -86,10 +86,10 @@ namespace QFramework.Example
                 if (!_isRewardSettled)
                 {
                     mRewardGrantUtility.GrantReward(mRankSettlementSO);
-                    RewardUIManager.Instance.PlayRewardAnim(null, true, _action, mStartActivitySO, mRankSettlementSO);
+                    RewardUIManager.Instance.PlayRewardAnim(mStartActivitySO.Coins, true, _action, mStartActivitySO, mRankSettlementSO);
                 }
                 else
-                    RewardUIManager.Instance.PlayRewardAnim(null, true, _action, mStartActivitySO);
+                    RewardUIManager.Instance.PlayRewardAnim(mStartActivitySO.Coins, true, _action, mStartActivitySO);
 
             });
         }
