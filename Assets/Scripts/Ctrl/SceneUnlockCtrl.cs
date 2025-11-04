@@ -10,15 +10,18 @@ public class SceneUnlockCtrl : MonoBehaviour
     [SerializeField] Image[] mUnitImgs;
     [SerializeField] Sprite[] mUnitSprites;
 
-    public int UnitCount => mUnitImgs.Length;
+    private bool mFirstStart = true;
 
-    public void Awake()
-    {
-        GameDefine.GameUtils.SotrArray(mUnitImgs);
-    }
+    public int UnitCount => mUnitImgs.Length;
 
     public void UpdateUnitSprite(int targetIndex)
     {
+        if (mFirstStart)
+        {
+            GameDefine.GameUtils.SotrArray(mUnitImgs);
+            mFirstStart = false;
+        }
+
         for (int i = 0; i < targetIndex; i++)
         {
             mUnitImgs[i].sprite = mUnitSprites[i];

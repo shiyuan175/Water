@@ -1344,7 +1344,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     waterImg[_idx].changeShineSpine.Hide();
                     LevelManager.Instance.isPlayFxAnim = false;
 
-                    //---------修改对应水的编号，然后修改倒水的精灵之类的，修改水面等等
                     SetBottleColor();
                 }).Start(this);
             }

@@ -77,11 +77,6 @@ namespace QFramework.Example
             mSepecialOfferADActivity = GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>();
 
             LevelManager.Instance.InitBottle();
-            if (saveData.GetCurrentLevel() <= GameConst.NEWBIE_LEVEL_COUNT)
-            {
-                BottomMenuNode.Hide();
-                HomeNode.Hide();
-            }
 
             LoaderRes();
             BindBtn();
@@ -92,6 +87,12 @@ namespace QFramework.Example
             InitActivityState();
 
             GameUtilityManager.Instance.RegisterTask(this, UpdateUI);
+
+            if (saveData.GetCurrentLevel() <= GameConst.NEWBIE_LEVEL_COUNT)
+            {
+                BottomMenuNode.Hide();
+                HomeNode.Hide();
+            }
         }
 
         protected override void OnShow()
@@ -242,9 +243,14 @@ namespace QFramework.Example
             {
                 LevelManager.Instance.InitBottle();
                 BottomMenuNode.Show();
-                //重启会使Aspect Ratio Fitter 将UI重新布局
-                mImgsRect[2].DOAnchorPosY(mInitPosY + 60f, 0);
                 HomeNode.Show();
+
+                //重启会使Aspect Ratio Fitter 将UI重新布局(等待一帧刷新)
+                ActionKit.DelayFrame(1, () =>
+                {
+                    mImgsRect[2].DOAnchorPosY(mInitPosY + 60f, 0);
+                }).Start(this);
+
                 SetStartLevel();
                 if (e.PassLevel)
                 {
@@ -388,6 +394,7 @@ namespace QFramework.Example
             //初始化选择主城按钮(索引为2)
             InitBeginMenuButton(2);
 
+            /*//延迟容易造成问题,外部直接配置长度
             ActionKit.DelayFrame(1, () =>
             {
                 var _rect = mLayoutElements_BgFrame[2].GetComponent<RectTransform>();
@@ -398,7 +405,7 @@ namespace QFramework.Example
                 mSelected.position = _rect.position;
                 mSelected.sizeDelta = _rect.sizeDelta;
 
-            }).Start(this);
+            }).Start(this);*/
         }
 
         /// <summary>

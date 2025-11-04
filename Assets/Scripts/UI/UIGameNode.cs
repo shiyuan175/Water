@@ -576,10 +576,12 @@ namespace QFramework.Example
                 }).Start(this);
             });
         }
-
+        
         private void AutoUseAllItems()
         {
-            if (LevelManager.Instance.levelId >= (int)GameDefine.UnLockMechanism.RemoveHideWinStreakLevel
+            var level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+
+            if (level >= (int)GameDefine.UnLockMechanism.RemoveHideWinStreakLevel
                 && stageModel.RemoveHideStreakWinNum >= GameConst.TEN_CONTINUE_WIN_NUM)
             {
                 EnqueueAction(_nextItem =>
@@ -589,7 +591,8 @@ namespace QFramework.Example
                 });
             }
 
-            if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_RemoveOneBottleHideWater))
+            if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_RemoveOneBottleHideWater)
+                && level >= (int)UnLockMechanism.S_RemoveOneBottleHideWater)
             {
                 EnqueueAction(_nextItem =>
                 {
@@ -598,7 +601,8 @@ namespace QFramework.Example
                 });
             }
 
-            if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_RemoveOneDebuffBottle))
+            if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_RemoveOneDebuffBottle)
+                && level >= (int)UnLockMechanism.S_RemoveOneDebuffBottle)
             {
                 EnqueueAction(_nextItem =>
                 {
@@ -607,7 +611,8 @@ namespace QFramework.Example
                 });
             }
 
-            if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_AddOneHalfBottle))
+            if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_AddOneHalfBottle)
+                && level >= (int)UnLockMechanism.S_AddOneHalfBottle)
             {
                 EnqueueAction(_nextItem =>
                 {

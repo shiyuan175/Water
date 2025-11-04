@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db40ed3e021d5d949966dc87098983d8, type: 3}
   m_Name: StartActivitySO
   m_EditorClassIdentifier: 
-  coins: 0
+  coins: 2000
   removeAdsForever: 0
-  items: []
+  items:
+  - normalRewardsType: 3
+    quantity: 2
+  - normalRewardsType: 4
+    quantity: 2
   specialReward:
   - specialRewardType: 2
     duration: 30
