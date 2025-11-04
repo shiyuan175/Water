@@ -981,14 +981,18 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// 破冰(入口)
     /// </summary>
     /// <returns></returns>
-    IEnumerator ShowBreakIce()
+    private IEnumerator ShowBreakIce()
     {
+        //等待一秒瓶子动画完成
         yield return new WaitForSeconds(1f);
+        
+        //先判定是否有冰块，有冰块的时候去做BreakIce
+
         for (int i = waterItems.Count - 1; i >= 0; i--)
         {
             if (waterItems[i] == WaterItem.BreakIce)
             {
-                var breakTo = LevelManager.Instance.BreakIce();
+                var breakTo = GetIceBottle();
 
                 StartCoroutine(waterImg[i].BreakIce(breakTo));
                 waterItems[i] = WaterItem.None;
@@ -1001,10 +1005,29 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     /// <summary>
+    ///获取冰块瓶
+    /// </summary>
+    /// <returns></returns>
+    private BottleWaterCtrl GetIceBottle()
+    {
+        int iceIdx = UnityEngine.Random.Range(0,LevelManager.Instance.iceBottles.Count);
+
+        var bottle = LevelManager.Instance.iceBottles[iceIdx];
+        LevelManager.Instance.iceBottles.RemoveAt(iceIdx);
+
+        //获取冰块水 =》得到水的层级索引 =》得到水的颜色 =》从 cantChangeColorList 移除
+        var _IceWater = bottle.FindIceWater();
+        var _waterIdx = bottle.waterImg.IndexOf(_IceWater);
+        LevelManager.Instance.cantChangeColorList.Remove(bottle.waters[_waterIdx]);
+
+        return _IceWater;
+    }
+
+    /// <summary>
     /// 找冰
     /// </summary>
     /// <returns></returns>
-    public BottleWaterCtrl FindIceWater()
+    private BottleWaterCtrl FindIceWater()
     {
         //从上往下找
         for (int i = waterItems.Count - 1; i >= 0; i--)
@@ -1266,7 +1289,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             if (bombCounts[i] == 100)
             {
                 waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
-                waterImg[i].textItem.text = "";
                 bombCounts[i] = 0;
             }
             else if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false && bombCounts[i] != 0)
@@ -1277,7 +1299,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             {
                 // 可能会在水中道具出现问题          
                 waterImg[i].bombCtrl.SetBomb();
-                waterImg[i].textItem.text = "";
             }
             if (bombCounts[i] > 0)
                 isBomb = true;
@@ -1545,8 +1566,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         {
             if ((ItemType)GetMoveOutTop() == ItemType.RainBowWater)
             {
-                //标记——增加bool判定是否能增加瓶子
-                LevelManager.Instance.AddBottle(isHalf: true);
+                if (!LevelManager.Instance.isRainbowBottleAdded)
+                {
+                    LevelManager.Instance.isRainbowBottleAdded = true;
+                    LevelManager.Instance.AddBottle(true);
+                }
             }
         };
 
@@ -1686,7 +1710,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     /// <summary>
-    /// <summary>
     /// 设置水块颜色
     /// </summary>
     /// <param name="isFirst"></param>
@@ -1792,7 +1815,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             switch (waterItems[i])
             {
                 case WaterItem.None:
-                    waterImg[i].textItem.text = "";
                     waterImg[i].bubbleCtrl.BubbleDead();
                     break;
                 case WaterItem.Ice:
@@ -1808,7 +1830,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     waterImg[i].bubbleCtrl.BubbleAppend(waterItems[i] == WaterItem.Bubble_Origin);
                     break;
                 case WaterItem.BreakIce:
-                    waterImg[i].textItem.text = "";
                     waterImg[i].fireRuneGo.SetActive(true);
                     if (waters[i] > 0 && waters[i] < (int)EIdleAnim.IDLE_MAX)
                     {
@@ -2080,6 +2101,4 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         isPlayAnim = false;
     }
     #endregion
-
-    
 }

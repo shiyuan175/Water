@@ -30,9 +30,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public List<int> hideColor = new List<int>();
     public List<Color> waterColor = new List<Color>();
     public List<WaterSpriteInfo> waterSpriteInfos; 
-    //public List<Sprite> waterTopSp;
-    //public List<Sprite> waterSp;
-
 
     public LevelCreateCtrl.BottleProperty emptyBottle = new();
     public Transform gameCanvas;
@@ -53,6 +50,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public SkeletonGraphic mahoujinSpine;
     bool isFinish = false;
     public bool isPlayAnim, isPlayFxAnim;
+    //表示进关选择道具的彩虹水完成后,瓶子是否添加
+    public bool isRainbowBottleAdded = true;
 
     public BottleCtrl nowHalf;
     public Material selectMaterial;
@@ -171,6 +170,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         nowBottles.Clear();
 
         nowHalf = null;
+        
+        isRainbowBottleAdded = true;
+        if (takeItem.Contains((int)NormalRewardsType.S_AddOneHalfBottle)
+            && levelId >= (int)UnLockMechanism.S_AddOneHalfBottle)
+            isRainbowBottleAdded = false;
 
         TopBottleLayoutGroup.Show();
         BottomBottleLayoutGroup.Show();
@@ -606,25 +610,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             bottle.CheckFinish(true);
         }
         UIKit.ClosePanel<UIMask>();
-    }
-
-    /// <summary>
-    /// 获取冰块瓶
-    /// </summary>
-    /// <returns></returns>
-    public BottleWaterCtrl BreakIce()
-    {
-        int iceIdx = UnityEngine.Random.Range(0, iceBottles.Count);
-
-        var bottle = iceBottles[iceIdx];
-        iceBottles.RemoveAt(iceIdx);
-
-        //获取冰块水 =》得到水的层级索引 =》得到水的颜色 =》从 cantChangeColorList 移除
-        var _IceWater = bottle.FindIceWater();
-        var _waterIdx = bottle.waterImg.IndexOf(_IceWater);
-        cantChangeColorList.Remove(bottle.waters[_waterIdx]);
-
-        return _IceWater;
     }
 
     #endregion
