@@ -37,7 +37,8 @@ public class BombCtrl : MonoBehaviour
         TrackEntry track = skeletonAnimationCom.AnimationState.SetAnimation(0, "combine", false);
         track.Complete += track =>
         {
-            UIKit.OpenPanel<UIRetry>();
+            if (UIKit.GetPanel<UIRetry>())
+                UIKit.OpenPanel<UIRetry>();
             UIKit.ClosePanel<UIMask>();
 
             skeletonAnimationCom.AnimationState.SetAnimation(0, "idle",true);
