@@ -46,7 +46,7 @@ public class LevelManagerUtility : IUtility
         int random = UnityEngine.Random.Range(0, bottleCtrl.hideWaters.Count - 1);
         for (int i = random; i < bottleCtrl.hideWaters.Count - 1; i++)
         {
-            // 暂时留的一个判断函数，不确定是否需要
+
             if (!WaterStateCheckForHide(bottleCtrl, i))
                 continue;
 
@@ -55,7 +55,7 @@ public class LevelManagerUtility : IUtility
         }
         for (int i = 0; i < random; i++)
         {
-            // 暂时留的一个判断函数，不确定是否需要
+
             if (!WaterStateCheckForHide(bottleCtrl, i))
                 continue;
             bottleCtrl.hideWaters[i] = true;
@@ -90,7 +90,60 @@ public class LevelManagerUtility : IUtility
 
     #endregion
     #region 随机删除黑水--单格
+    /// <summary>
+    /// 随机选取一个水块进行黑水的变化 hidebottle 没有更新
+    /// </summary>
+    public BottleCtrl RandomRomveBarkWaterBottle(List<BottleCtrl> bottles)
+    {
 
+        int i = UnityEngine.Random.Range(0, bottles.Count);
+        int old = i;
+        while (true)
+        {
+
+            BottleCtrl newBottleCtrl = bottles[i % bottles.Count];
+            if (!BottleStateCheck(newBottleCtrl))
+            {
+                i++;
+                continue;
+            }
+
+            if (RandomRomveBarkWater(newBottleCtrl) != null)
+                return RandomRomveBarkWater(newBottleCtrl);
+            else
+                i++;
+            if (old == i % bottles.Count)
+                return null;
+        }
+    }
+    private BottleCtrl RandomRomveBarkWater(BottleCtrl bottleCtrl)
+    {
+        // 去掉最顶上
+        int random = UnityEngine.Random.Range(0, bottleCtrl.hideWaters.Count - 1);
+        for (int i = random; i < bottleCtrl.hideWaters.Count - 1; i++)
+        {
+            if (!WaterStateCheckForClear(bottleCtrl, i))
+                continue;
+
+            bottleCtrl.hideWaters[i] = true;
+            return bottleCtrl;
+        }
+        for (int i = 0; i < random; i++)
+        {
+            if (!WaterStateCheckForClear(bottleCtrl, i))
+                continue;
+            bottleCtrl.hideWaters[i] = true;
+            return bottleCtrl;
+
+        }
+        return null;
+    }
+    private bool WaterStateCheckForClear(BottleCtrl bottleCtrl, int index)
+    {
+        if (bottleCtrl.hideWaters[index] != true)
+            return false;
+        return true;
+    }
     #endregion
     #region 随机生成泡沐
 

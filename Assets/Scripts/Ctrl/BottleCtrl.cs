@@ -1203,23 +1203,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
     #endregion
 
-    #region 泡沐黑水
 
-    private void UpdateBubble(BottleCtrl bottleCtrl )
-    {
-        /*int _top = bottleCtrl.waters.Count-1;
-        bottleCtrl.waterImg[_top].bubbleCtrl.BubbleDead();
-        bottleCtrl.waterItems[_top] = WaterItem.None;
-        bool _flag = true;
-        for (int i = _top-1; i>0;i--)
-        {
-            if (bottleCtrl.waterItems[i]==WaterItem.None)
-            bottleCtrl.waters[]
-        }
-*/
-       
-    }
-    #endregion
 
     #region 炸弹机制
 

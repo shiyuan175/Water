@@ -12,6 +12,8 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
     public Button button;
     public Button Btnfinish;
     public Button ADBtn;
+    public LevelManagerUtility levelManagerUtility;
+    public LevelManager levelManager;
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;
@@ -20,6 +22,8 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
     // Start is called before the first frame update
     void Start()
     {
+        levelManager = LevelManager.Instance;
+        levelManagerUtility = this.GetUtility<LevelManagerUtility>();
         button.onClick.AddListener(() =>
         {
             LevelManager.Instance.StartGame(int.Parse(inputField.text));
@@ -53,8 +57,19 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
             for (int i = 0; i < 10; i++)
                 this.SendEvent(new ReturnToMainEvent { PassLevel = true });
         }
-      
+
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            levelManagerUtility.RandomBarkWaterBottle(levelManager.nowBottles).SetHideShow(true);
+            Debug.Log(levelManagerUtility.RandomBarkWaterBottle(levelManager.nowBottles));
             
-        
+
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            levelManagerUtility.RandomRomveBarkWaterBottle(levelManager.nowBottles).SetHideShow(true);
+            Debug.Log( levelManagerUtility.RandomRomveBarkWaterBottle(levelManager.nowBottles));
+          
+        }
     }
 }
