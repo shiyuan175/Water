@@ -88,13 +88,11 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                         FirstBottle = null;
                         SecondBottle = null;
                         LevelManager.Instance.BombClear();
-                       LevelManager.Instance.AddMoveNum(false);
-                        
+                        LevelManager.Instance.AddMoveNum(false);         
                         return;
                     }
                     #endregion
 
-                  
                     #endregion
 
                     LevelManager.Instance.RecordLast();
@@ -108,7 +106,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                     LevelManager.Instance.CreateBubble();
                     #endregion
                     #endregion
-                    //LevelManager.Instance.AddMoveNum();//步数统计.暂时无用                
+            
                 }
                 else
                 {

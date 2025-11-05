@@ -1232,7 +1232,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         int moveNum = LevelManager.Instance.moveNum;
 
         if (bottleCtrl != null || Init)
-            isBomb = true;      
+            bottleCtrl.isBomb = true;      
         if (!isBomb) return;
         /*
                 if (isFlyBomb)
@@ -1245,7 +1245,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         
         if (bombCounts.Count != 0 && bombCounts[topIdx] != 0 && waterItems[topIdx] == WaterItem.FlyBomb)
         {
-            bombCounts[topIdx] = 100;
+            bombCounts[topIdx] = 200;
         }
 
            
@@ -1255,11 +1255,15 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             // waterImg[i].textItem.text = bombCounts[i] - moveNum > 0 && hideWaters[i] == false ? (bombCounts[i] - moveNum).ToString() : "";
             // 100用来特殊标记
             if (bombCounts[i] == 100)
+            {           
+                waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
+                waterImg[i].textItem.text = "";
+                bombCounts[i] = 0;
+               
+            }
+            else if(bombCounts[i] == 200)
             {
-                if(waterItems[topIdx] == WaterItem.FlyBomb)
-                    waterImg[i].bombCtrl.SetBomb(aniType: "flap");
-                else
-                    waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
+                waterImg[i].bombCtrl.SetBomb(aniType: "flap");
                 waterImg[i].textItem.text = "";
                 bombCounts[i] = 0;
             }
