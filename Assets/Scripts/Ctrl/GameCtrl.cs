@@ -87,7 +87,9 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                         InitPouringCount();
                         FirstBottle = null;
                         SecondBottle = null;
-                        LevelManager.Instance.AddMoveNum(false);
+                        LevelManager.Instance.BombClear();
+                       LevelManager.Instance.AddMoveNum(false);
+                        
                         return;
                     }
                     #endregion
