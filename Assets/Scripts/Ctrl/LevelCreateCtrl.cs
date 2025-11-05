@@ -49,12 +49,6 @@ public class LevelCreateCtrl : ScriptableObject
         public bool isClearHide, isNearHide, isFreeze;
         public bool isFinish;
 
-        // 弃用
-        public bool hidePriority = false;
-        // 是否是飞翔炸弹，注意，最好全设置飞翔炸弹存在,且飞翔炸弹最好不要设置在水面
-        public bool isFlyBomb = false;
-
-
     }
     // 需要清除的颜色列表（关卡目标）
     public List<int> clearList;

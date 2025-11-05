@@ -149,7 +149,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         limitColor = property.limitColor;
         bottleIdx = idx;
         hasUnlockHidePlayed = false;
-        hidePriority = property.hidePriority;
 
         #endregion
 
@@ -194,7 +193,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             for (int i = 0; i < bombCounts.Count; i++)
             {
                 // 0 表示占位
-                if (bombCounts[i] != 0)
+                if (bombCounts[i] != 0 && waterItems[i]==WaterItem.None)
                     waterItems[i] = WaterItem.Bomb;
             }
 
@@ -1233,15 +1232,23 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         int moveNum = LevelManager.Instance.moveNum;
 
         if (bottleCtrl != null || Init)
-            bottleCtrl.isBomb = true;
-
+            isBomb = true;      
         if (!isBomb) return;
-/*
-        if (isFlyBomb)
-            CheckFlyBomb();
-*/
-        isBomb = false;
+        /*
+                if (isFlyBomb)
+                    CheckFlyBomb();
+        */
 
+        // 检查飞天炸弹
+        
+        isBomb = false;
+        
+        if (bombCounts.Count != 0 && bombCounts[topIdx] != 0 && waterItems[topIdx] == WaterItem.FlyBomb)
+        {
+            bombCounts[topIdx] = 100;
+        }
+
+           
         for (int i = 0; i < bombCounts.Count; i++)
         {
             // 设置时间
@@ -1249,7 +1256,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             // 100用来特殊标记
             if (bombCounts[i] == 100)
             {
-                waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
+                if(waterItems[topIdx] == WaterItem.FlyBomb)
+                    waterImg[i].bombCtrl.SetBomb(aniType: "flap");
+                else
+                    waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
                 waterImg[i].textItem.text = "";
                 bombCounts[i] = 0;
             }

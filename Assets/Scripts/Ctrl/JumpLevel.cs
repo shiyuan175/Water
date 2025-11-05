@@ -61,9 +61,7 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
         if(Input.GetKeyDown(KeyCode.W))
         {
             levelManagerUtility.RandomBarkWaterBottle(levelManager.nowBottles).SetHideShow(true);
-            Debug.Log(levelManagerUtility.RandomBarkWaterBottle(levelManager.nowBottles));
-            
-
+            Debug.Log(levelManagerUtility.RandomBarkWaterBottle(levelManager.nowBottles));        
         }
         if (Input.GetKeyDown(KeyCode.D))
         {

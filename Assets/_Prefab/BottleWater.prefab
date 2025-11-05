@@ -644,7 +644,7 @@ MonoBehaviour:
   physicsMovementRelativeTo: {fileID: 0}
   updateTiming: 1
   unscaledTime: 0
-  _animationName: attack
+  _animationName: 
   loop: 0
   timeScale: 1
 --- !u!33 &1435937250126342930
@@ -2250,6 +2250,8 @@ MonoBehaviour:
   bombSpine: {fileID: 1819891118746285143}
   skeletonGraphic: {fileID: 1032423032277443207}
   skeletonAnimation: {fileID: 1417608747631409466}
+  normalBomb: {fileID: 11400000, guid: a3be886b841673849a1d35afabd2472c, type: 2}
+  flyBomb: {fileID: 11400000, guid: d2ef2eeab5916bd44bf1b222c4d9de35, type: 2}
 --- !u!114 &3260310823932443780
 MonoBehaviour:
   m_ObjectHideFlags: 0
