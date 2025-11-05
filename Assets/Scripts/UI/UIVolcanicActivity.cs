@@ -2,6 +2,18 @@ using UnityEngine;
 using QFramework;
 using System;
 using DG.Tweening;
+using System.Collections.Generic;
+using VolcanicActivityData;
+
+namespace VolcanicActivityData
+{
+    [Serializable]
+    public class LavaPosStruct
+    {
+        public Transform LavaTranPos1;
+        public Transform LavaTranPos2;
+    }
+}
 
 namespace QFramework.Example
 {
@@ -17,19 +29,12 @@ namespace QFramework.Example
     {
         private const int VA_MAX_STREAK_WIN_NUM = 7;
         private const int VA_MAX_PLAYER_NUM = 100;
-        //八个台阶起始点位(HeadNodesPar)
-        private readonly Vector2[] mSetpPos = new[]
-        {
-            new Vector2(428, -825),
-            new Vector2(50, -818),
-            new Vector2(-180, -731),
-            new Vector2(-318, -573),
-            new Vector2(0, -561),
-            new Vector2(224, -456),
-            new Vector2(224, -308),
-            new Vector2(0 , -204)
-        };
 
+        //每次跳跃掉落岩浆的点位(如索引0：表示台阶0跳到台阶1的岩浆点位)
+        [SerializeField] private List<LavaPosStruct> mLavaPosList;
+        //八个台阶(0为起始点台阶,7为终点台阶)
+        [SerializeField] private Transform[] mStep;
+        //三种头像预制体
         [SerializeField] private GameObject[] HeadNodes;
 
         private VolcanicActivity mVolcanicActivity;
@@ -84,7 +89,8 @@ namespace QFramework.Example
 
             //头像节点实例
             var _headNodes = Instantiate(HeadNodes[UnityEngine.Random.Range(0, HeadNodes.Length)], HeadNodesPar);
-            HeadNodesPar.localPosition = mSetpPos[_curStep];
+            Canvas.ForceUpdateCanvases();
+            HeadNodesPar.position = mStep[_curStep].position;
 
             if (mData.isSuceed == null)
                 return;
@@ -124,7 +130,9 @@ namespace QFramework.Example
                 x => Txt_Players.text = $"{x}/{VA_MAX_PLAYER_NUM}",
                 mVolcanicActivity.VACurrentPlayerNum,1f);
 
-            _headNodeCtrl.Jump(_curStep, _action);
+            //不考虑越界情况,活动结束时不会走到这一步(活动冷却胜利失败不弹出该面板，只能由主页进入)
+            var _targetStepPos = mStep[_curStep + 1].position;
+            _headNodeCtrl.Jump(_targetStepPos, mLavaPosList[_curStep], _action);
         }
         
         protected override void OnHide()
