@@ -31,9 +31,9 @@ public class LevelManagerUtility : IUtility
                 i++;
                 continue;
             }
-
-            if (RandomBarkWater(newBottleCtrl) != null)
-                return RandomBarkWater(newBottleCtrl);
+            BottleCtrl result = RandomBarkWater(newBottleCtrl);
+            if (result != null)
+                return result;
             else
                 i++;
             if (old == i % bottles.Count)
@@ -49,7 +49,7 @@ public class LevelManagerUtility : IUtility
 
             if (!WaterStateCheckForHide(bottleCtrl, i))
                 continue;
-
+            Debug.Log("adas");
             bottleCtrl.hideWaters[i] = true;
             return bottleCtrl;
         }
@@ -58,6 +58,7 @@ public class LevelManagerUtility : IUtility
 
             if (!WaterStateCheckForHide(bottleCtrl, i))
                 continue;
+            Debug.Log("adas");
             bottleCtrl.hideWaters[i] = true;
             return bottleCtrl;
 
@@ -83,8 +84,8 @@ public class LevelManagerUtility : IUtility
             }
             return _flag;
         }
-      
 
+      
         return true;
     }
 
@@ -107,9 +108,9 @@ public class LevelManagerUtility : IUtility
                 i++;
                 continue;
             }
-
-            if (RandomRomveBarkWater(newBottleCtrl) != null)
-                return RandomRomveBarkWater(newBottleCtrl);
+            BottleCtrl result = RandomRomveBarkWater(newBottleCtrl);
+            if (result != null)
+                return result;
             else
                 i++;
             if (old == i % bottles.Count)
@@ -125,14 +126,14 @@ public class LevelManagerUtility : IUtility
             if (!WaterStateCheckForClear(bottleCtrl, i))
                 continue;
 
-            bottleCtrl.hideWaters[i] = true;
+            bottleCtrl.hideWaters[i] = false;
             return bottleCtrl;
         }
         for (int i = 0; i < random; i++)
         {
             if (!WaterStateCheckForClear(bottleCtrl, i))
                 continue;
-            bottleCtrl.hideWaters[i] = true;
+            bottleCtrl.hideWaters[i] = false;
             return bottleCtrl;
 
         }

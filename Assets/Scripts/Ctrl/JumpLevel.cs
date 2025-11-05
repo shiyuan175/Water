@@ -60,14 +60,12 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
 
         if(Input.GetKeyDown(KeyCode.W))
         {
-            levelManagerUtility.RandomBarkWaterBottle(levelManager.nowBottles).SetHideShow(true);
-            Debug.Log(levelManagerUtility.RandomBarkWaterBottle(levelManager.nowBottles));        
+            levelManagerUtility.RandomBarkWaterBottle(levelManager.nowBottles).SetHideShow(true);      
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            levelManagerUtility.RandomRomveBarkWaterBottle(levelManager.nowBottles).SetHideShow(true);
-            Debug.Log( levelManagerUtility.RandomRomveBarkWaterBottle(levelManager.nowBottles));
-          
+            Debug.Log("12");
+            levelManagerUtility.RandomRomveBarkWaterBottle(levelManager.nowBottles).SetHideShow(true);  
         }
     }
 }

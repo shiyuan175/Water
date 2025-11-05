@@ -8,7 +8,9 @@ using QFramework.Example;
 using DG.Tweening;
 using Spine;
 using UnityEngine.UI;
-
+/// <summary>
+/// 炸弹标记 0 表示没有，100表示正常消失 ，200 表示飞天消失
+/// </summary>
 public class BombCtrl : MonoBehaviour
 {
     [SerializeField]
