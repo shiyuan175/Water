@@ -54,6 +54,12 @@ public class LevelCreateCtrl : ScriptableObject
     public List<int> clearList;
     // 隐藏的颜色列表（初始隐藏的颜色，通过道具1003触发然后显示）
     public List<int> hideList;
+    // 全局性机制配置
+    public GlobalMechanism globalMechanism;
+    // 全局性机制开启步数
+    public int GlobalMechanismBeginSetp;
+    // 全局性机制结束步数
+    public int GlobalMechanismContinueSetps;
     // 当前关卡的倒计时步数（用于步数限制模式）_配置都为0不确定用途
     public int countDownNum;
     // 当前关卡的倒计时时间（用于时间限制模式）_配置都为0不确定用途

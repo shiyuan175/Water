@@ -46,14 +46,10 @@ public class BubbleCtrl : MonoBehaviour
         if (isOriginal)
         {
             track = spine.AnimationState.SetAnimation(0, ORIGINAL_DISABLE, false);
-          /*  track = skeletonAnimationCom.AnimationState.SetAnimation(0, ORIGINAL_DISABLE, false);
-            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;*/
         }
         else
         {
             track=  spine.AnimationState.SetAnimation(0, NORMAL_DISABLE, false);
-            /* track = skeletonAnimationCom.AnimationState.SetAnimation(0, NORMAL_DISABLE, false);
-             skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;*/
         }
         track.TimeScale = 1.7f;
         track.Complete += track =>

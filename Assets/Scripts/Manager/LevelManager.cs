@@ -38,8 +38,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public Transform gameCanvas;
     public List<GameObject> createFx = new List<GameObject>();
     public LevelCreateCtrl nowLevel;
-    public int bubbleCount = 0;
-    public int bubbleAddCount = 0;
     public Color ItemColor;
 
     public Material shineMaterial;
@@ -75,9 +73,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     [HideInInspector]
     public TMP_FontAsset greenFont;
 
-    #region 新机记录存储结构
+    #region 新机制记录存储结构
     public Dictionary<BottleCtrl, int> bubbleDict =new();
-
+    public GlobalMechanism globalMechanism;
+    public int GlobalMechanismContinueSetps;
+    public int GlobalMechanismBeginSetp;
     #endregion
 
 
@@ -91,12 +91,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         GameMainArc.InitArchitecture();
         Instance = this;
 
-        /*       stageModel =this.get*/
         levelManagerUtility = this.GetUtility<LevelManagerUtility>();
         redFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Red");
         blueFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Blue");
         greenFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Green");
-       /*   levelManagerUtility = this.GetUtility<LevelManagerUtility>();*/
+
         InitBottle();
     }
 
@@ -116,8 +115,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
         if (levelId <= GameConst.NEWBIE_LEVEL_COUNT)
         {
-            UIKit.OpenPanel<UIGameNode>();
             StartGame(levelId);
+            UIKit.OpenPanel<UIGameNode>(new UIGameNodeData {  globalMechanism = this.globalMechanism });
+            
         }
 
      
@@ -164,7 +164,10 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         moveNum = 0;
         clearList = new List<int>(levelInfo.clearList);
         hideColor = new List<int>(levelInfo.hideList);
-
+        globalMechanism = levelInfo.globalMechanism;
+        GlobalMechanismBeginSetp = levelInfo.GlobalMechanismBeginSetp;
+        GlobalMechanismContinueSetps = levelInfo.GlobalMechanismContinueSetps;
+        Debug.Log(globalMechanism);
         int _i = 0;
    
 
@@ -755,6 +758,35 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             moveNum++;
         else
             moveNum--;
+        #region 依赖步数的全局机制
+
+        #region 魔法猫
+        if (globalMechanism == GlobalMechanism.BlackMagicCar)
+        {
+            if (moveNum >= GlobalMechanismBeginSetp && moveNum <= GlobalMechanismBeginSetp+GlobalMechanismContinueSetps)
+            {
+                StringEventSystem.Global.Send("MagicCatEven");
+                BottleCtrl _bottleCtrl = levelManagerUtility.RandomBarkWaterBottle(nowBottles);
+                if (_bottleCtrl != null)
+                    _bottleCtrl.SetHideShow(true);
+            }
+           
+        }
+        else if(globalMechanism == GlobalMechanism.WhiteMagicCar)
+        {
+            if (moveNum >= GlobalMechanismBeginSetp && moveNum <= GlobalMechanismBeginSetp + GlobalMechanismContinueSetps)
+            {
+                StringEventSystem.Global.Send("MagicCatEven");
+                BottleCtrl _bottleCtrl = levelManagerUtility.RandomRomveBarkWaterBottle(nowBottles);
+                if (_bottleCtrl != null)
+                    _bottleCtrl.SetHideShow(true);
+            }
+        }
+            
+        #endregion
+
+        #endregion
+
     }
 
     /// <summary>

@@ -15,7 +15,7 @@ public class LevelManagerUtility : IUtility
 
     #region 随机生成黑水
     /// <summary>
-    /// 随机选取一个水块进行黑水的变化 hidebottle 没有更新
+    /// 随机选取一个水块进行黑水的变化 hidebottle 没有更新 补sethide更新
     /// </summary>
     public BottleCtrl RandomBarkWaterBottle(List<BottleCtrl> bottles)
     {
@@ -49,7 +49,6 @@ public class LevelManagerUtility : IUtility
 
             if (!WaterStateCheckForHide(bottleCtrl, i))
                 continue;
-            Debug.Log("adas");
             bottleCtrl.hideWaters[i] = true;
             return bottleCtrl;
         }
@@ -58,7 +57,6 @@ public class LevelManagerUtility : IUtility
 
             if (!WaterStateCheckForHide(bottleCtrl, i))
                 continue;
-            Debug.Log("adas");
             bottleCtrl.hideWaters[i] = true;
             return bottleCtrl;
 
