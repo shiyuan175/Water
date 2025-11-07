@@ -17,6 +17,7 @@ public class RocketActivityModel : AbstractModel
     public int Robot1StreakWin => (mRAStreakWinNum.Value >> RA_ROBOT1_PROGRESS_SHIFT) & RA_PROGRESS_MASK;
     public int Robot2StreakWin => mRAStreakWinNum.Value & RA_PROGRESS_MASK;
     public int DailyUsedRefreshCount => mDailyUsedRefreshCount.Value;
+    public int RA_Max_StreakWin_Num => RA_MAX_STREAK_WIN_NUM;
 
     public bool PlayerWin => PlayerStreakWin >= RA_MAX_STREAK_WIN_NUM;
     public bool RobotWin => Robot1StreakWin >= RA_MAX_STREAK_WIN_NUM || Robot2StreakWin >= RA_MAX_STREAK_WIN_NUM;
