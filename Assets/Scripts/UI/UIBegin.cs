@@ -713,7 +713,12 @@ namespace QFramework.Example
                 BtnSONode.Show();
 
             if (_curLevel >= GameConst.BP_AD_BEGIN_LEVEL)
+            {
                 BtnBPNode.Show();
+                Btn_Bp.interactable = true;
+                ImgLock.Hide();
+            }
+                
 
             if (_curLevel >= GameConst.DG_AD_BEGIN_LEVEL && (!this.GetModel<DoubleGiftADActivityModel>().IsBuy||! this.GetModel<DoubleGiftADActivityModel>().GiftIsGot))
                 BtnDGNode.Show();

@@ -1,5 +1,5 @@
 ﻿{
-    "BPVersion": 1,
+    "BPVersion": 3,
     "Rewards": [
         {
             "Price": 0,
@@ -40,8 +40,8 @@
             "Price": 0,
             "RewardItem": [
                 {
-                    "itemType": "AvatarId",
-                    "itemQuantity": 6
+                    "itemType": "Coins",
+                    "itemQuantity": 4000
                 }
             ]
         },
@@ -111,15 +111,15 @@
             "Price": 0,
             "RewardItem": [
                 {
-                    "itemType": "S_AddOneBottle",
+                    "itemType": "S_RemoveOneBottleHideWater",
                     "itemQuantity": 2
                 },
                 {
-                    "itemType": "S_RemoveHide",
+                    "itemType": "S_AddOneHalfBottle",
                     "itemQuantity": 2
                 },
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 2
                 }
             ]
@@ -371,15 +371,15 @@
             "Price": 0,
             "RewardItem": [
                 {
-                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemType": "Unlimited_S_RemoveOneBottleHideWater",
                     "itemQuantity": 60
                 },
                 {
-                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemType": "Unlimited_S_AddOneHalfBottle",
                     "itemQuantity": 60
                 },
                 {
-                    "itemType": "Unlimited_S_ChangeWater",
+                    "itemType": "Unlimited_S_RemoveOneDebuffBottle",
                     "itemQuantity": 60
                 }
             ]
@@ -598,8 +598,8 @@
             "Price": 0,
             "RewardItem": [
                 {
-                    "itemType": "AvatarId",
-                    "itemQuantity": 7
+                    "itemType": "Coins",
+                    "itemQuantity": 20000
                 }
             ]
         }

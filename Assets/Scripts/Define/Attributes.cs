@@ -14,8 +14,12 @@ namespace GameAttributes
 
         //彩色水块
         ERainBowWater = 5,
+
+/*        //炸弹黑水
+        EBombBlackwater =6,*/
         //其余特殊水块...
-        
+
+
         Max = 6,
     }
     
