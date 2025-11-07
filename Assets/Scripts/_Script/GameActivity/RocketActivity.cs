@@ -35,6 +35,7 @@ public class RocketActivity : BaseGameActivity
     public int Robot1StreakWin => mRocketActivityModel.Robot1StreakWin;
     public int Robot2StreakWin => mRocketActivityModel.Robot2StreakWin;
     public int DailyUsedRefreshCount => mRocketActivityModel.DailyUsedRefreshCount;
+    public int RA_Max_StreakWin_Num => mRocketActivityModel.RA_Max_StreakWin_Num;
 
     public bool PlayWin => mRocketActivityModel.PlayerWin;
     public bool RobotWin => mRocketActivityModel.RobotWin;
