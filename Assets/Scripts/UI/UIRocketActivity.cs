@@ -15,8 +15,10 @@ namespace QFramework.Example
 	public partial class UIRocketActivity : UIPanel ,ICanSendEvent
 	{
         private const int REWARD_COIN = 1000;
-		//通过一关所上升高度
-		private const int RISE_HEIGHT = 60;
+
+        //起始、终点点位(做移动线性插值)
+        [SerializeField] private RectTransform mStartPos;
+        [SerializeField] private RectTransform mEndPos;
 
         [SerializeField] private Image mPlayerFrame;
         [SerializeField] private Image mPlayerAvatar;
@@ -31,6 +33,8 @@ namespace QFramework.Example
         private List<Tween> mTweenList;
         private RocketActivity mRocketActivity;
 
+        private float mTotalDistance;
+
         protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UIRocketActivityData ?? new UIRocketActivityData();
@@ -42,6 +46,12 @@ namespace QFramework.Example
 			InitAvatarImg();
             mRocketActivity = GameActivityManager.Instance.GetActivity<RocketActivity>();
             mTweenList = new List<Tween>();
+
+            Canvas.ForceUpdateCanvases();
+            //中心点偏移
+            float _pivotOffset1 = (0.5f - mEndPos.pivot.y) * mEndPos.rect.height;
+            float _pivotOffset2 = (0.5f - mStartPos.pivot.y) * mStartPos.rect.height;
+            mTotalDistance = (mEndPos.localPosition.y + _pivotOffset1) - (mStartPos.localPosition.y + _pivotOffset2);
 
             if (mRocketActivity.ActivityStatus == GameActivityStatus.Active)
                 TxtDailyRefresh.text = $"{mRocketActivity.DailyUsedRefreshCount}/3 Today";
@@ -70,10 +80,14 @@ namespace QFramework.Example
             Txt_PlayerWin.text = _playerStreakWin.ToString();
             Txt_Robot1Win.text = _robot1StreakWin.ToString();
             Txt_Robot2Win.text = _robot2StreakWin.ToString();
-            mPlayerCat.localPosition = new Vector2(mPlayerCat.localPosition.x, _playerStreakWin * RISE_HEIGHT);
-            mRobot1Cat.localPosition = new Vector2(mRobot1Cat.localPosition.x, _robot1StreakWin * RISE_HEIGHT);
-            mRobot2Cat.localPosition = new Vector2(mRobot2Cat.localPosition.x, _robot2StreakWin * RISE_HEIGHT);
-			Txt_Prompt.text = $"Beat {mRocketActivity.RAMaxStreakWinNum - _playerStreakWin} levels on your first try before others to win!";
+
+            mPlayerCat.anchoredPosition = new Vector2(mPlayerCat.anchoredPosition.x,
+                mStartPos.anchoredPosition.y + (_playerStreakWin / (float)mRocketActivity.RAMaxStreakWinNum) * mTotalDistance);
+            mRobot1Cat.anchoredPosition = new Vector2(mRobot1Cat.anchoredPosition.x,
+                mStartPos.anchoredPosition.y + (_robot1StreakWin / (float)mRocketActivity.RAMaxStreakWinNum) * mTotalDistance);
+            mRobot2Cat.anchoredPosition = new Vector2(mRobot2Cat.anchoredPosition.x,
+                mStartPos.anchoredPosition.y + (_robot2StreakWin / (float)mRocketActivity.RAMaxStreakWinNum) * mTotalDistance);
+            Txt_Prompt.text = $"Beat {mRocketActivity.RAMaxStreakWinNum - _playerStreakWin} levels on your first try before others to win!";
 
 			if (mData.isSuceed == null)
 				return;
@@ -94,8 +108,9 @@ namespace QFramework.Example
                     Txt_Prompt.text = $"You win!";
                     //Debug.Log("玩家获胜-发放奖励");
                 }
-
-                Tween _playerUp = mPlayerCat.DOLocalMoveY(mRocketActivity.PlayerStreakWin * RISE_HEIGHT, 2f).SetEase(Ease.OutBack)
+                var _targetPos = mStartPos.anchoredPosition.y + 
+                    (mRocketActivity.PlayerStreakWin / (float)mRocketActivity.RAMaxStreakWinNum) * mTotalDistance;
+                Tween _playerUp = mPlayerCat.DOAnchorPosY(_targetPos, 2f).SetEase(Ease.OutBack)
                     .OnComplete(() =>
                     {
                         if (_playerWin)
@@ -114,13 +129,14 @@ namespace QFramework.Example
 
                 if (!_playerWin)
                 {
-                    Tween _robot1Up = mRobot1Cat.DOLocalMoveY(mRocketActivity.Robot1StreakWin * RISE_HEIGHT, 2f).SetEase(Ease.OutBack);
-                    Tween _robot2Up = mRobot2Cat.DOLocalMoveY(mRocketActivity.Robot2StreakWin * RISE_HEIGHT, 2f).SetEase(Ease.OutBack);
+                    var _robot1TargetPos = mStartPos.anchoredPosition.y + (mRocketActivity.Robot1StreakWin / (float)mRocketActivity.RAMaxStreakWinNum) * mTotalDistance;
+                    var _robot2TargetPos = mStartPos.anchoredPosition.y + (mRocketActivity.Robot2StreakWin / (float)mRocketActivity.RAMaxStreakWinNum) * mTotalDistance;
+                    Tween _robot1Up = mRobot1Cat.DOAnchorPosY(_robot1TargetPos, 2f).SetEase(Ease.OutBack);
+                    Tween _robot2Up = mRobot2Cat.DOAnchorPosY(_robot2TargetPos, 2f).SetEase(Ease.OutBack);
                     mTweenList.Add(_robot1Up);
                     mTweenList.Add(_robot2Up);
 
                     //机器人文本更新
-
                     Tween _robot1UI = DOTween.To(() => _robot1StreakWin,
                         x => Txt_Robot1Win.text = $"{x}",
                         mRocketActivity.Robot1StreakWin, 1f);

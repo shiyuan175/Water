@@ -107,6 +107,11 @@ public class VolcanicActivity : BaseGameActivity
 
     public override void Tick()
     {
+        //活动结算后没有正确进入冷却(连胜7胜利还弹出面板的越界问题),可以加上该判断修正
+        //if (ActivityStatus is GameActivityStatus.Active && EndWin)
+        //{
+        //    CoolDownActivity();
+        //}
         switch (mCurrentStatus)
         {
             case GameActivityStatus.Inactive:

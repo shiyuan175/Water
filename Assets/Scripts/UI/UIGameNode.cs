@@ -726,7 +726,12 @@ namespace QFramework.Example
                 _tempWater = _tempWater.Except(changeColors).ToList();
                 //2、移除需要消除多次颜色
                 _tempWater = _tempWater.GroupBy(x => x).Where(g => g.Count() == 1).Select(g => g.Key).ToList();
-                //3、取随机颜色
+                //3、移除魔法布的颜色
+                var hideColors = LevelManager.Instance.nowBottles
+                    .Where(b => b.isClearHide)
+                    .Select(b => b.unlockClear);
+                _tempWater = _tempWater.Except(hideColors).ToList();
+                //4、取随机颜色
                 var _colorIdx = _tempWater[UnityEngine.Random.Range(0, _tempWater.Count)];
                 LevelManager.Instance.clearList.Remove(_colorIdx);
 

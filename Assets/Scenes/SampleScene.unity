@@ -29339,16 +29339,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8915bb1941eff8e4999bd3c72c5d25b9, type: 2}
   - {fileID: 11400000, guid: 3ab9c56c73d4edc4a805d40271084ece, type: 2}
   - {fileID: 11400000, guid: 3677598ad96ad2d4db505e1c612df017, type: 2}
-  - {fileID: 11400000, guid: cfc69d92111ad9a4c8c63428215db054, type: 2}
+  - {fileID: 11400000, guid: bd5fa574179f3cf49bb2ba6ad3c21749, type: 2}
   - {fileID: 11400000, guid: dc6f5525e3a8d744fb311ca5e5cea2fe, type: 2}
   - {fileID: 11400000, guid: 0287e535be4c380409e631f9bcbbbf26, type: 2}
   - {fileID: 11400000, guid: 55d5a0a1a64116649ac6614313f76400, type: 2}
-  - {fileID: 11400000, guid: bd5fa574179f3cf49bb2ba6ad3c21749, type: 2}
+  - {fileID: 11400000, guid: cfc69d92111ad9a4c8c63428215db054, type: 2}
   - {fileID: 11400000, guid: 90ce4a381af22644b932bccd476f5855, type: 2}
   - {fileID: 11400000, guid: 761f2590741690143957a9469a82a0db, type: 2}
   - {fileID: 11400000, guid: fb3a05999a3b3ba4eaa767fa7b7ea6e0, type: 2}
-  - {fileID: 11400000, guid: 2299c058e093f384ba5b342607c2c13f, type: 2}
   - {fileID: 11400000, guid: a9153498da43e7648aaf578b6e57ad69, type: 2}
+  - {fileID: 11400000, guid: 2299c058e093f384ba5b342607c2c13f, type: 2}
   - {fileID: 11400000, guid: fe150a5232e539c47bb50ca47a935e95, type: 2}
   - {fileID: 11400000, guid: e8623733e339621429765a1952a8e92e, type: 2}
   - {fileID: 11400000, guid: 62f2da33f60ce724699b9433dfa53cc1, type: 2}
@@ -29368,7 +29368,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b93da1bc4e56bfa479c0695a7c940698, type: 2}
   - {fileID: 11400000, guid: d96f3a8acbb38c44c836faffe2a34932, type: 2}
   - {fileID: 11400000, guid: 679f13e6be9c3d841b379f9e1c0525bf, type: 2}
-  - {fileID: 11400000, guid: d67773d34b5375b408ba15b508428bbf, type: 2}
+  - {fileID: 11400000, guid: 51ae2fd068ee0834faed4e01cfb6a1d7, type: 2}
   - {fileID: 11400000, guid: b68d8d116610d4d4dbfb3a473c0f9bb6, type: 2}
   - {fileID: 11400000, guid: eaf6f0713af5ef1479bfbf029b05292b, type: 2}
   - {fileID: 11400000, guid: 6d9273d1bb63ef54c93d90ac96511aef, type: 2}
@@ -29376,7 +29376,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9dc5684d68551eb4db09faef480db0e3, type: 2}
   - {fileID: 11400000, guid: 9b7f2f5612620d14faec8333382392b1, type: 2}
   - {fileID: 11400000, guid: 1562d02bb3a1c744db227e2f7f61bca6, type: 2}
-  - {fileID: 11400000, guid: 51ae2fd068ee0834faed4e01cfb6a1d7, type: 2}
+  - {fileID: 11400000, guid: d67773d34b5375b408ba15b508428bbf, type: 2}
   - {fileID: 11400000, guid: be567dfdb774f5c4fb6dc2b98b2567ac, type: 2}
   - {fileID: 11400000, guid: e508fa188ec19ed47a216f5ebf828402, type: 2}
   - {fileID: 11400000, guid: 769190c31f75c084c8c9b31b526e5d35, type: 2}
@@ -29732,6 +29732,7 @@ MonoBehaviour:
   mahoujinSpine: {fileID: 1377963003}
   isPlayAnim: 0
   isPlayFxAnim: 0
+  isRainbowBottleAdded: 1
   nowHalf: {fileID: 0}
   selectMaterial: {fileID: 2100000, guid: 832f7e60693e6b04b925463a993436cb, type: 2}
   hideBg: {fileID: 720305107}
