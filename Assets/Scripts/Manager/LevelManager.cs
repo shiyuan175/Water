@@ -167,7 +167,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         globalMechanism = levelInfo.globalMechanism;
         GlobalMechanismBeginSetp = levelInfo.GlobalMechanismBeginSetp;
         GlobalMechanismContinueSetps = levelInfo.GlobalMechanismContinueSetps;
-        Debug.Log(globalMechanism);
         int _i = 0;
    
 

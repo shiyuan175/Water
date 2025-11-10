@@ -298,6 +298,7 @@ namespace GameDefine
 
         [RainBowWaterState("")]
         FlashWater = 4002,
+        /*[WaterColorState()]*/
     }
 
     public enum LanguageType

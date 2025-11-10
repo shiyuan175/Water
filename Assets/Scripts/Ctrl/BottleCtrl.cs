@@ -1933,7 +1933,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         int _itemId = 0;
         //记录上一个道具所在的层(索引)
         int _itemPlace = 0;
-
+        // 遍历瓶子中的水，判断是否有相邻道具
         for (int i = 0; i < waters.Count; i++)
         {
             var _waterColor = waters[i];

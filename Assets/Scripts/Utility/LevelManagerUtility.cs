@@ -24,8 +24,7 @@ public class LevelManagerUtility : IUtility
         int old = i;
         while (true)
         {
-
-            BottleCtrl newBottleCtrl = bottles[i % bottles.Count];
+            BottleCtrl newBottleCtrl = bottles[i % bottles.Count];                                                   
             if (!BottleStateCheck(newBottleCtrl))
             {
                 i++;
@@ -50,6 +49,14 @@ public class LevelManagerUtility : IUtility
             if (!WaterStateCheckForHide(bottleCtrl, i))
                 continue;
             bottleCtrl.hideWaters[i] = true;
+            if(LevelManager.Instance.hideBottleList.Find(bottle => bottle == bottleCtrl) == null)
+            {
+                // 补充队列
+                LevelManager.Instance.hideBottleList.Add(bottleCtrl);
+                // 更新黑水状态
+                bottleCtrl.SetHideShow(true,i);
+            }
+                
             return bottleCtrl;
         }
         for (int i = 0; i < random; i++)
@@ -58,6 +65,13 @@ public class LevelManagerUtility : IUtility
             if (!WaterStateCheckForHide(bottleCtrl, i))
                 continue;
             bottleCtrl.hideWaters[i] = true;
+            if (LevelManager.Instance.hideBottleList.Find(bottle => bottle == bottleCtrl) == null)
+            {
+                // 补充队列
+                LevelManager.Instance.hideBottleList.Add(bottleCtrl);
+                // 更新黑水状态
+                bottleCtrl.SetHideShow(true, i);
+            }
             return bottleCtrl;
 
         }
@@ -125,6 +139,19 @@ public class LevelManagerUtility : IUtility
                 continue;
 
             bottleCtrl.hideWaters[i] = false;
+            // 判断是否需要移除黑水瓶子标记
+            bool flag = true;
+            foreach (var hide in bottleCtrl.hideWaters)
+            {
+                if (hide == true)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+                LevelManager.Instance.hideBottleList.Remove(bottleCtrl);
+            bottleCtrl.SetHideShow(true, i);
             return bottleCtrl;
         }
         for (int i = 0; i < random; i++)
@@ -132,6 +159,19 @@ public class LevelManagerUtility : IUtility
             if (!WaterStateCheckForClear(bottleCtrl, i))
                 continue;
             bottleCtrl.hideWaters[i] = false;
+            // 判断是否需要移除黑水瓶子标记
+            bool flag = true;
+            foreach(var hide in bottleCtrl.hideWaters)
+            {
+                if(hide == true)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+                LevelManager.Instance.hideBottleList.Remove(bottleCtrl);
+            bottleCtrl.SetHideShow(true, i);
             return bottleCtrl;
 
         }

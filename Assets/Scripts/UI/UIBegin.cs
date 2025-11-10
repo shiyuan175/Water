@@ -318,7 +318,6 @@ namespace QFramework.Example
             this.RegisterEvent<GameStartEvent>(e =>
             {
                 /*  UIKit.OpenPanel<UIGameNode>();*/
-                Debug.Log(LevelManager.Instance.globalMechanism);
                 LevelManager.Instance.StartGame(saveData.GetCurrentLevel());
                 UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { globalMechanism = LevelManager.Instance.globalMechanism });
                 

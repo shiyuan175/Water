@@ -13,11 +13,12 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.UI;
 using GameDefine;
+using static UnityEditor.Progress;
 
 public class BottleWaterCtrl : MonoBehaviour
 {
     public SkeletonGraphic spine, broomSpine, createSpine, changeSpine, magnetSpine, changeShineSpine, thunderSpine, broomAfterSpine, fireRuneSpine,starBlackWater;
-    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater;
+    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater,BombBlackWaterItemGo;
     public Animator anim;
     public Image waterImg;
     public int waterColor;
@@ -345,18 +346,44 @@ public class BottleWaterCtrl : MonoBehaviour
         var fieldInfo = type.GetField(fieldName);
         if (fieldInfo.GetCustomAttribute(typeof(WaterColorState), false) is not WaterColorState attribute) 
             return;
-        broomItemGo.SetActive(attribute.BroomItemActive);
-        broomItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
-        createItemGo.SetActive(attribute.CreateItemActive);
-        createItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
-        changeItemGo.SetActive(attribute.ChangeItemActive);
-        changeItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
-        magnetItemGo.SetActive(attribute.MagnetItemActive);
-        magnetItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
-        //特殊水块
-        RainBowWater.SetActive(attribute.RainBowWaterActive);
 
-        if (attribute.SpineAnim.IsNullOrEmpty() == false && attribute.SpineType > EColorStateSpineType.None && attribute.SpineType < EColorStateSpineType.Max)
+        GameObject _itemGo;
+        Debug.Log(attribute.SpineType);
+        switch (attribute.SpineType)
+        {
+            case EColorStateSpineType.EBroomSpine:
+                _itemGo = broomItemGo;
+                broomSpine.AnimationState.SetAnimation(0, attribute.SpineAnim, false);
+                break;
+            case EColorStateSpineType.EMagnetSpine:
+                _itemGo = magnetItemGo;
+                magnetSpine.AnimationState.SetAnimation(0, attribute.SpineAnim, false);
+                break;
+            case EColorStateSpineType.ECreateSpine:
+                _itemGo = createItemGo;
+                createSpine.AnimationState.SetAnimation(0, attribute.SpineAnim, false);
+                break;
+            case EColorStateSpineType.EChangeSpine:
+                _itemGo = changeItemGo;
+                changeSpine.AnimationState.SetAnimation(0, attribute.SpineAnim, false);
+                break;
+            // 特殊水块
+            case EColorStateSpineType.ERainBowWater:
+                _itemGo = RainBowWater;
+                break;
+   /*         case EColorStateSpineType.EBombBlackWater:
+                break;*/
+            default:
+                Debug.LogWarning("_itemGo 没有匹配到特性");
+                _itemGo = null;
+                break;
+        }
+        Debug.Log(_itemGo);
+     /*   Debug.Log(_itemGo.transform.Find("Top"));*/
+        _itemGo?.Show();
+        _itemGo?.transform.Find("Top")?.gameObject.SetActive(isTopWater);
+        /*暂存
+         * if (attribute.SpineAnim.IsNullOrEmpty() == false && attribute.SpineType > EColorStateSpineType.None && attribute.SpineType < EColorStateSpineType.Max)
         {
             switch (attribute.SpineType)
             {
@@ -373,7 +400,7 @@ public class BottleWaterCtrl : MonoBehaviour
                     changeSpine.AnimationState.SetAnimation(0, attribute.SpineAnim, false);
                     break;
             }
-        }
+        }*/
     }
 
     public void PlayStarBlackWaterEffect()
@@ -390,12 +417,12 @@ public class BottleWaterCtrl : MonoBehaviour
     /// <summary>
     /// 统一的道具使用动画方法
     /// </summary>
-    /// <param name="hide">另一个道具水块</param>
+    /// <param name="otherWater">另一个道具水块</param>
     /// <param name="itemType">道具类型</param>
     /// <param name="onComplete">完成回调</param>
-    public void PlayUseItem(BottleWaterCtrl hide, ItemType itemType, Action onComplete = null)
+    public void PlayUseItem(BottleWaterCtrl otherWater, ItemType itemType, Action onComplete = null)
     {
-        StartCoroutine(CoroutinePlayUseItem(hide, itemType, onComplete));
+        StartCoroutine(CoroutinePlayUseItem(otherWater, itemType, onComplete));
     }
 
     /// <summary>
