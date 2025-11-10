@@ -708,7 +708,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     {
         var _hasItemEffect = BottleHasItem();
         if (_hasItemEffect)
+        {
             UIKit.OpenPanel<UIMask>(UILevel.PopUI);
+        }
+            
 
         ++ReceiveCount;
 
@@ -2009,8 +2012,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     StringEventSystem.Global.Send("CacheMagnetWater", waterImg[i - 1]);
                     waterImg[i - 1].PlayUseMagnet(waterImg[i]);
                     break;
-                case ItemType.BombBlackWater:
-                    waterImg[i-1].PlayUseItem()
+                case ItemType.BombBlackWater:               
+                    waterImg[i - 1].PlayUseItem(waterImg[i], _type);
+                    break;
                 default:
 
                     if (_attr is GameAttributes.ChangeColorItemState)
@@ -2034,6 +2038,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             List<int> _tempWater = new List<int>();
             List<WaterItem> _tempWaterItem = new List<WaterItem>();
             List<int> _tempBomb = new List<int>();
+            List<bool> _tempHideWater = new List<bool>();
             for (int i = 0; i < waters.Count; i++)
             {
                 if (waters[i] != 0)
@@ -2041,12 +2046,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     _tempWater.Add(waters[i]);
                     _tempWaterItem.Add(waterItems[i]);
                     _tempBomb.Add(bombCounts[i]);
+                    _tempHideWater.Add(hideWaters[i]);
                 }
             }
             waters = _tempWater;
             waterItems = _tempWaterItem;
             bombCounts = _tempBomb;
-
+            hideWaters = _tempHideWater;
             for (int i = 0; i < _items.Count; i++)
             {
                 int useItem = _items[i];

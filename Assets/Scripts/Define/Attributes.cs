@@ -25,14 +25,13 @@ namespace GameAttributes
     [AttributeUsage(AttributeTargets.Field)]
     public class WaterColorState : Attribute
     {
-
-        /*用enum代替
         public readonly bool BroomItemActive;
         public readonly bool CreateItemActive;
         public readonly bool ChangeItemActive;
         public readonly bool MagnetItemActive;
-        public readonly bool RainBowWaterActive;*/
-    
+        public readonly bool RainBowWaterActive;
+        public readonly bool BombBlackWaterAvtive;
+
         public readonly string SpineAnim;
         public readonly EColorStateSpineType SpineType;
 
@@ -42,12 +41,14 @@ namespace GameAttributes
             SpineAnim = spineAnim;
             SpineType = spineType;
 
-          /* 暂存
-           * BroomItemActive = spineType == EColorStateSpineType.EBroomSpine;
+           
+            BroomItemActive = spineType == EColorStateSpineType.EBroomSpine;
             CreateItemActive = spineType == EColorStateSpineType.ECreateSpine;
             ChangeItemActive = spineType == EColorStateSpineType.EChangeSpine;
             MagnetItemActive = spineType == EColorStateSpineType.EMagnetSpine;
-            RainBowWaterActive = spineType == EColorStateSpineType.ERainBowWater;*/
+            RainBowWaterActive = spineType == EColorStateSpineType.ERainBowWater;
+            BombBlackWaterAvtive = spineType == EColorStateSpineType.EBombBlackWater;
+                
             //局内机制道具补充...
         }
     }

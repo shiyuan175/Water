@@ -62,7 +62,6 @@ namespace QFramework.Example
         protected override void OnInit(IUIData uiData = null)
         {
             mData = uiData as UIGameNodeData ?? new UIGameNodeData();
-            Debug.Log(mData.globalMechanism);
             #region 全局机制--魔法猫咪
             if (mData.globalMechanism==GlobalMechanism.WhiteMagicCar || mData.globalMechanism == GlobalMechanism.BlackMagicCar)
             {          

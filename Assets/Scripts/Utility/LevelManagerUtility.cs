@@ -15,7 +15,7 @@ public class LevelManagerUtility : IUtility
 
     #region 随机生成黑水
     /// <summary>
-    /// 随机选取一个水块进行黑水的变化 hidebottle 没有更新 补sethide更新
+    /// 随机选取一个水块进行黑水的变化
     /// </summary>
     public BottleCtrl RandomBarkWaterBottle(List<BottleCtrl> bottles)
     {
@@ -52,11 +52,10 @@ public class LevelManagerUtility : IUtility
             if(LevelManager.Instance.hideBottleList.Find(bottle => bottle == bottleCtrl) == null)
             {
                 // 补充队列
-                LevelManager.Instance.hideBottleList.Add(bottleCtrl);
-                // 更新黑水状态
-                bottleCtrl.SetHideShow(true,i);
+                LevelManager.Instance.hideBottleList.Add(bottleCtrl);               
             }
-                
+            // 更新黑水状态
+                bottleCtrl.SetHideShow(true,i);    
             return bottleCtrl;
         }
         for (int i = 0; i < random; i++)
@@ -68,10 +67,10 @@ public class LevelManagerUtility : IUtility
             if (LevelManager.Instance.hideBottleList.Find(bottle => bottle == bottleCtrl) == null)
             {
                 // 补充队列
-                LevelManager.Instance.hideBottleList.Add(bottleCtrl);
-                // 更新黑水状态
-                bottleCtrl.SetHideShow(true, i);
+                LevelManager.Instance.hideBottleList.Add(bottleCtrl);              
             }
+            // 更新黑水状态
+                bottleCtrl.SetHideShow(true, i);
             return bottleCtrl;
 
         }
@@ -80,6 +79,7 @@ public class LevelManagerUtility : IUtility
 
     private bool WaterStateCheckForHide(BottleCtrl bottleCtrl, int index)
     {
+
         if (bottleCtrl.waterItems[index] != WaterItem.None)
             return false;
         if (bottleCtrl.hideWaters[index] != false)

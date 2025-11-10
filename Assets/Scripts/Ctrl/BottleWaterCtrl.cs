@@ -15,7 +15,7 @@ using static UnityEditor.Progress;
 
 public class BottleWaterCtrl : MonoBehaviour
 {
-    public SkeletonGraphic spine, broomSpine, createSpine, changeSpine, magnetSpine, changeShineSpine, thunderSpine, broomAfterSpine, fireRuneSpine,starBlackWater;
+    public SkeletonGraphic spine, broomSpine, createSpine, changeSpine, magnetSpine, changeShineSpine, thunderSpine, broomAfterSpine, fireRuneSpine,starBlackWater,BombBlackWaterSpine;
     public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater,BombBlackWaterItemGo;
     public Animator anim;
     public Image waterImg;
@@ -345,43 +345,19 @@ public class BottleWaterCtrl : MonoBehaviour
         if (fieldInfo.GetCustomAttribute(typeof(WaterColorState), false) is not WaterColorState attribute) 
             return;
 
-        GameObject _itemGo;
-        Debug.Log(attribute.SpineType);
-        switch (attribute.SpineType)
-        {
-            case EColorStateSpineType.EBroomSpine:
-                _itemGo = broomItemGo;
-                broomSpine.AnimationState.SetAnimation(0, attribute.SpineAnim, false);
-                break;
-            case EColorStateSpineType.EMagnetSpine:
-                _itemGo = magnetItemGo;
-                magnetSpine.AnimationState.SetAnimation(0, attribute.SpineAnim, false);
-                break;
-            case EColorStateSpineType.ECreateSpine:
-                _itemGo = createItemGo;
-                createSpine.AnimationState.SetAnimation(0, attribute.SpineAnim, false);
-                break;
-            case EColorStateSpineType.EChangeSpine:
-                _itemGo = changeItemGo;
-                changeSpine.AnimationState.SetAnimation(0, attribute.SpineAnim, false);
-                break;
-            // 特殊水块
-            case EColorStateSpineType.ERainBowWater:
-                _itemGo = RainBowWater;
-                break;
-   /*         case EColorStateSpineType.EBombBlackWater:
-                break;*/
-            default:
-                Debug.LogWarning("_itemGo 没有匹配到特性");
-                _itemGo = null;
-                break;
-        }
-        Debug.Log(_itemGo);
-     /*   Debug.Log(_itemGo.transform.Find("Top"));*/
-        _itemGo?.Show();
-        _itemGo?.transform.Find("Top")?.gameObject.SetActive(isTopWater);
-        /*暂存
-         * if (attribute.SpineAnim.IsNullOrEmpty() == false && attribute.SpineType > EColorStateSpineType.None && attribute.SpineType < EColorStateSpineType.Max)
+        broomItemGo.SetActive(attribute.BroomItemActive);
+        broomItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
+        createItemGo.SetActive(attribute.CreateItemActive);
+        createItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
+        changeItemGo.SetActive(attribute.ChangeItemActive);
+        changeItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
+        magnetItemGo.SetActive(attribute.MagnetItemActive);
+        magnetItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
+        BombBlackWaterItemGo.SetActive(attribute.BombBlackWaterAvtive);
+        BombBlackWaterItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
+        // 特殊水等不需要22合成机制
+        RainBowWater.SetActive(attribute.RainBowWaterActive);
+        if (attribute.SpineAnim.IsNullOrEmpty() == false && attribute.SpineType > EColorStateSpineType.None && attribute.SpineType < EColorStateSpineType.Max)
         {
             switch (attribute.SpineType)
             {
@@ -398,7 +374,7 @@ public class BottleWaterCtrl : MonoBehaviour
                     changeSpine.AnimationState.SetAnimation(0, attribute.SpineAnim, false);
                     break;
             }
-        }*/
+        }
     }
 
     public void PlayStarBlackWaterEffect()
@@ -474,7 +450,7 @@ public class BottleWaterCtrl : MonoBehaviour
         {
             if (go1 != null) Destroy(go1);
         });
-
+        Debug.Log("12");
         // 6. 隐藏原始道具，播放消失动画
         itemGo.SetActive(false);
         if (useTopNode && go.transform.Find("Top") != null)
@@ -484,17 +460,15 @@ public class BottleWaterCtrl : MonoBehaviour
 
         if (useSpine != null)
         {
-            useSpine.AnimationState.SetAnimation(0, animName, false);
+            useSpine.AnimationState.SetAnimation(0, animName, loop: false);
         }
 
         isPlayItemAnim = false;
         hide.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(1f);
-
         // 7. 回调处理
         onComplete?.Invoke();
-
         // 8. 清理
         if (go != null) Destroy(go);
     }
@@ -507,6 +481,7 @@ public class BottleWaterCtrl : MonoBehaviour
         return itemType switch
         {
             ItemType.ClearRandomWaterItem => (broomItemGo, broomSpine, "disappear", true),
+            ItemType.BombBlackWater => (BombBlackWaterItemGo,BombBlackWaterSpine, "disappear", true),
             ItemType.MakeColorItem => (createItemGo, createSpine, "combine", true),
             ItemType.MagnetItem => (magnetItemGo, magnetSpine, "combine", true),
             ItemType.ChangeGreen or ItemType.ChangeOrange or ItemType.ChangePink

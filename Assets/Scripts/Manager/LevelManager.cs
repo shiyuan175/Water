@@ -432,9 +432,29 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             case ItemType.MakeColorItem:
                 StartCoroutine(AddColor(fromPos));
                 break;
+
+            case ItemType.BombBlackWater:
+                RandomHalfBlackWater();
+                break;  
+
         }
     }
+    /// <summary>
+    /// 黑水炸弹随机生成一半水数量的黑水
+    /// </summary>
+    public void RandomHalfBlackWater()
+    {
+        for(int i=0;i<clearList.Count*2;i++)
+        {
+            BottleCtrl a = levelManagerUtility.RandomBarkWaterBottle(nowBottles); 
+            // 提早结束黑水生成，因为已经没有可以生成的位置了
+            if (a==null)
+                break;       
+        }
 
+        UIKit.ClosePanel<UIMask>();
+
+    }
     /// <summary>
     /// 获取能移除的颜色
     /// </summary>
