@@ -1920,7 +1920,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     /// <summary>
-    /// 检查触发哪种机制道具
+    /// 检查触发哪种机制(合成)道具
     /// </summary>
     public void CheckItem()
     {
@@ -1987,7 +1987,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     StringEventSystem.Global.Send("CacheMagnetWater", waterImg[i - 1]);
                     waterImg[i - 1].PlayUseMagnet(waterImg[i]);
                     break;
-
+                case ItemType.BombBlackWater:
+                    waterImg[i-1].PlayUseItem()
                 default:
 
                     if (_attr is GameAttributes.ChangeColorItemState)

@@ -59,8 +59,6 @@ public class MagicCtrl : MonoBehaviour,ICanRegisterEvent
         {
             spine.AnimationState.SetAnimation(0, IDLE_POSI, true);
         };
-
-
     }
 
     public IArchitecture GetArchitecture()

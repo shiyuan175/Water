@@ -298,7 +298,8 @@ namespace GameDefine
 
         [RainBowWaterState("")]
         FlashWater = 4002,
-        /*[WaterColorState()]*/
+        [WaterColorState("idle_cl", EColorStateSpineType.EBombBlackWater)]
+        BombBlackWater = 5001
     }
 
     public enum LanguageType
