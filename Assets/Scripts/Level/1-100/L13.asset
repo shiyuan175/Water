@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottles:
   - waterSet: 08000000040000000b00000001000000
-    isHide: 00000100
+    isHide: 00000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
     hidePriority: 0
     isFlyBomb: 0
   - waterSet: 0b000000020000000200000003000000
-    isHide: 00000100
+    isHide: 00000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
     hidePriority: 0
     isFlyBomb: 0
   - waterSet: 0a000000010000000800000004000000
-    isHide: 00000100
+    isHide: 00000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
     hidePriority: 0
     isFlyBomb: 0
   - waterSet: 0a000000030000000300000002000000
-    isHide: 00000100
+    isHide: 00000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
     hidePriority: 0
     isFlyBomb: 0
   - waterSet: 0a00000001000000080000000b000000
-    isHide: 00000100
+    isHide: 00000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
     hidePriority: 0
     isFlyBomb: 0
   - waterSet: 010000000a0000000200000004000000
-    isHide: 00000100
+    isHide: 00000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
     hidePriority: 0
     isFlyBomb: 0
   - waterSet: 08000000030000000b00000004000000
-    isHide: 00000100
+    isHide: 00000000
     waterItem: 00000000000000000000000000000000
     numCake: 0
     limitColor: 0
