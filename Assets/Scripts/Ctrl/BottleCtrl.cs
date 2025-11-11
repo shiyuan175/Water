@@ -12,7 +12,6 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 using static LevelCreateCtrl;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 
 public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegisterEvent
@@ -2024,9 +2023,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             SetHideShow(false);
         }
 
-        spineGo.gameObject.SetActive(topIdx >= 0);
-
         /*  标记
+        //spineGo.gameObject.SetActive(topIdx >= 0);
         //机制道具生效不需要更新水面，接收水的地方会更新
         //PlaySpineWaitAnim();
 
