@@ -431,7 +431,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 if (bombCounts.Count > idx)
                     bombCounts.RemoveAt(idx);
 
-                other.ReceiveWater(color, _waterItem, bombCount, isFlyBomb);
+                other.ReceiveWater(color, _waterItem, bombCount);
             }
             GameCtrl.Instance.control = false;
         }
