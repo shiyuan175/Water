@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     public List<int> hideColor = new List<int>();
     public List<Color> waterColor = new List<Color>();
-    public List<WaterSpriteInfo> waterSpriteInfos; 
+    public List<WaterSpriteInfo> waterSpriteInfos;
 
     public LevelCreateCtrl.BottleProperty emptyBottle = new();
     public Transform gameCanvas;
@@ -170,7 +170,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         nowBottles.Clear();
 
         nowHalf = null;
-        
+
         isRainbowBottleAdded = true;
         if (takeItem.Contains((int)NormalRewardsType.S_AddOneHalfBottle)
             && levelId >= (int)UnLockMechanism.S_AddOneHalfBottle)
@@ -621,18 +621,10 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// </summary>
     /// <param name="clearColor"></param>
     /// <param name="botterIdx"></param>
-    public void FinishClear(int clearColor, int botterIdx)
+    public void FinishClear()
     {
-        //Debug.Log($"颜色编号：{clearColor}");
-        //Debug.Log($"idx：{botterIdx}");
-        foreach (var item in nowBottles)
-        {
-            item.CheckUnlockHide(clearColor);
-            item.CheckNearHide(botterIdx);
-        }
-
         StopCoroutine(WaitCheckFinish());
-        StartCoroutine(WaitCheckFinish(clearColor));
+        StartCoroutine(WaitCheckFinish());
     }
 
     /// <summary>
@@ -663,11 +655,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// </summary>
     /// <param name="clearColor"></param>
     /// <returns></returns>
-    public IEnumerator WaitCheckFinish(int clearColor = 0)
+    public IEnumerator WaitCheckFinish()
     {
-        if (clearColor != 0 && clearList.Count > 0)
-            clearList.Remove(clearColor);
-
         if (clearList.Count == 0 && !isFinish)
         {
             isFinish = true;
@@ -690,6 +679,68 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         }
         else
             yield return null;
+    }
+
+    /// <summary>
+    /// 检测倒水后是否死局
+    /// </summary>
+    /// <returns>Ture is dead</returns>
+    public bool CheckDeadAfterPour()
+    {
+        //能否倒水或接水（到处或接收的颜色）
+        List<(BottleCtrl outBottle, int outColor)> outBottles = new();
+        List<(BottleCtrl inBottle, int inColor)> inBottles = new();
+
+        foreach (var bottle in nowBottles)
+        {
+            if (bottle.isFinish || bottle.isClearHide || bottle.isNearHide)
+                continue;
+
+            //限制瓶特判
+            if (bottle.limitColor > 0)
+            {
+                //限制瓶满了是isFinish状态,所以不管限制瓶有没有水，就当做是接水瓶处理
+                inBottles.Add((bottle, bottle.limitColor));
+
+                //限制瓶非空瓶,且水块不是冰块状态，说明能倒水(倒出的水一定是限制颜色)
+                if (bottle.topIdx >= 0 && bottle.waterItems[bottle.topIdx] != WaterItem.Ice)
+                    outBottles.Add((bottle, bottle.limitColor));
+                continue;
+            }
+
+            //空瓶
+            if (bottle.topIdx < 0)
+                return false;
+
+            //非空瓶
+            int color = bottle.GetMoveOutTop();
+            //能倒水记录
+            if (!bottle.isFreeze && bottle.waterItems[bottle.topIdx] != WaterItem.Ice)
+                outBottles.Add((bottle, color));
+            //能接水记录
+            if (bottle.waters.Count != bottle.maxNum)
+                inBottles.Add((bottle, color));
+        }
+
+        // 死局检测
+        foreach ((BottleCtrl outBottle, int outColor) in outBottles)
+        {
+            //Debug测试
+            /*foreach ((BottleCtrl inBottle, int inColor) in inBottles)
+            {
+                if (inBottle != outBottle && inColor == outColor)
+                {
+                    Debug.Log($"能倒水颜色:{outColor}");
+                    Debug.Log($"倒水瓶:{outBottle}");
+                    Debug.Log($"接水瓶:{inBottle}");
+                    return false;
+                }
+            }*/
+
+            if (inBottles.Any(inB => inB.inBottle != outBottle && inB.inColor == outColor))
+                return false;
+        }
+        return true;
     }
 
     #endregion
