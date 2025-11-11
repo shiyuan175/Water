@@ -54,7 +54,7 @@ public class BottleWaterCtrl : MonoBehaviour
         waterImg.fillAmount = 0;
         waterImg.DOFillAmount(1, time).SetEase(Ease.Linear);
     }
-
+    
     public void PlayOutAnim(float time)
     {
         //StartCoroutine(CoroutinePlayFillAnim());

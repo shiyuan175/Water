@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:34b4a409-85a3-41c1-8f69-2db7e0957dce
+	// Generate Id:4befb7c9-0d3f-4fba-8814-8f227d050297
 	public partial class UIBeginSelect
 	{
 		public const string Name = "UIBeginSelect";
@@ -25,6 +25,12 @@ namespace QFramework.Example
 		[SerializeField]
 		public RectTransform UnLimitNode;
 		[SerializeField]
+		public RectTransform UnLimitItemNode1;
+		[SerializeField]
+		public RectTransform UnLimitItemNode2;
+		[SerializeField]
+		public RectTransform UnLimitItemNode3;
+		[SerializeField]
 		public UnityEngine.UI.Button BtnStart;
 		[SerializeField]
 		public UnityEngine.UI.Image ContinueWinGoalNode;
@@ -39,9 +45,13 @@ namespace QFramework.Example
 		[SerializeField]
 		public RectTransform ItemGuidePanel;
 		[SerializeField]
-		public Spine.Unity.SkeletonGraphic SpineHandleItem;
+		public UnityEngine.UI.Button GuideBtnItem1;
 		[SerializeField]
-		public TMPro.TextMeshProUGUI TextItemGuide;
+		public UnityEngine.UI.Button GuideBtnItem2;
+		[SerializeField]
+		public UnityEngine.UI.Button GuideBtnItem3;
+		[SerializeField]
+		public Spine.Unity.SkeletonGraphic SpineHandleItem;
 		[SerializeField]
 		public RectTransform GoldCoinGuidePanel;
 		[SerializeField]
@@ -58,6 +68,9 @@ namespace QFramework.Example
 			TxtProgress = null;
 			Mask = null;
 			UnLimitNode = null;
+			UnLimitItemNode1 = null;
+			UnLimitItemNode2 = null;
+			UnLimitItemNode3 = null;
 			BtnStart = null;
 			ContinueWinGoalNode = null;
 			Goal = null;
@@ -65,8 +78,10 @@ namespace QFramework.Example
 			BuffTag = null;
 			TxtCoinBuffTimer = null;
 			ItemGuidePanel = null;
+			GuideBtnItem1 = null;
+			GuideBtnItem2 = null;
+			GuideBtnItem3 = null;
 			SpineHandleItem = null;
-			TextItemGuide = null;
 			GoldCoinGuidePanel = null;
 			BtnGoldGuide = null;
 			

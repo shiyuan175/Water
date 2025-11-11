@@ -33,6 +33,15 @@ public class BubbleCtrl : MonoBehaviour
     {
         spine = bubbleSpine.GetComponent<SkeletonGraphic>();
     }
+    /*    private void OnEnable()
+        {
+            Debug.Log(1231241);
+        }*/
+
+    private void OnDisable()
+    {
+        spine.enabled = false;
+    }
     /// <summary>
     /// É¾³ýÅÝãå
     /// </summary>
@@ -69,7 +78,6 @@ public class BubbleCtrl : MonoBehaviour
     /// <param name="isOriginal"></param>
     public void BubbleAppend(bool isOriginal = false,int time=0)
     {
-        Debug.Log(123);
         // ¶¯»­
         if (spine.enabled)
             return;

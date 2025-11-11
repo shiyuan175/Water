@@ -138,6 +138,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         TopBottleLayoutGroup.Hide();
         BottomBottleLayoutGroup.Hide();
+        Debug.Log(nowBottles.Count);
+        foreach (var i in nowBottles)
+        {
+
+        }
         //foreach (var item in bottles)
         //{
         //    item.Init(emptyBottle, 0);
@@ -153,7 +158,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         //cantClearColorList.Clear();
         cantChangeColorList.Clear();
         hideBottleList.Clear();
-        bubbleDict.Clear(); 
+        
         iceBottles.Clear();
         levelId = id;
         LevelCreateCtrl levelInfo = levels[levelId - 1];
@@ -170,7 +175,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
    
 
         nowBottles.Clear();
-
+        bubbleDict.Clear(); 
         nowHalf = null;
         
         isRainbowBottleAdded = true;
@@ -181,16 +186,20 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         TopBottleLayoutGroup.Show();
         BottomBottleLayoutGroup.Show();
         InitLevels(levelInfo);
+
+
         #region 新机制初始化
         #region 泡沐
-
         foreach (var i in nowBottles)
         {
             foreach(var j in i.waterItems)
+            {
                 if(j == WaterItem.Bubble_Origin)
                 {
                     bubbleDict.Add(i, levelInfo.bubbleCount[_i++]);
                 }
+            }
+                
         }
         #endregion
         #endregion

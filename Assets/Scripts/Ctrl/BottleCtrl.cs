@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using GameAttributes;
 using GameDefine;
+using Newtonsoft.Json.Bson;
 using QFramework;
 using QFramework.Example;
 using Spine;
@@ -140,7 +141,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         hideWaters = new List<bool>(property.isHide);
         waterItems = new List<WaterItem>(property.waterItem);
         bombCounts = new List<int>(property.bombCounts);
-
+       
         #region 瓶子标记初始化
         isClearHide = property.isClearHide;
         isNearHide = property.isNearHide;
@@ -151,33 +152,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         hasUnlockHidePlayed = false;
 
         #endregion
-
-
-
-      /*  #region 炸弹初始化
-        foreach (var i in waterImg)
-        {
-            i.bombCtrl.SetBomb();
-        }
-        foreach (var i in bombCounts)
-        {
-            if (i != 0)
-            {
-                isBomb = true;
-                break;
-            }
-        }
-        #endregion*/
-        /* 
-
-           #region 泡沐初始化
-           for (int i = 0; i < waterImg.Count; i++)
-           {
-               if()
-               waterImg[i].bubbleCtrl.BubbleAppend(waterItems[i] == WaterItem.Bubble_Origin);
-           }
-
-           #endregion*/
 
         #region 配表懒的配置的内容补齐
         // 清空可能存在的残影？原理未知 
@@ -269,7 +243,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         }
         SetMaxBottle();
     }
-
+    /// <summary>
+    /// 结束游戏的时候清空瓶子的状态，类似于真正的初始化瓶子
+    /// </summary>
+    public void DisInit()
+    {
+                                   
+    }
     /// <summary>
     /// 设置瓶子最大装水数
     /// </summary>
@@ -1255,6 +1235,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     // 先更新的炸弹，后倒的水
     public void UpdateBomb(BottleCtrl bottleCtrl = null, bool Init = false)
     {
+        Debug.Log("dsa");
         int moveNum = LevelManager.Instance.moveNum;
 
         if (bottleCtrl != null || Init)
@@ -1675,7 +1656,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 //最上层的黑水块显示
                 hideWaters[waters.Count - 1] = false;
                 if (waterItems[waters.Count - 1]==WaterItem.Bubble_Origin || waterItems[waters.Count - 1] == WaterItem.Bubble)
+                {
                     waterItems[waters.Count - 1] = WaterItem.None;
+                    waterImg[waters.Count - 1].textItem.text = "";
+                    waterImg[waters.Count - 1].bubbleCtrl.BubbleDead(IsOriginalBubble[waters.Count - 1]);
+                }
+                  
                 //黑水块的颜色与顶层是否相同(相同显示)
                 for (int i = waters.Count - 1; i >= 0; i--)
                 {
@@ -1683,7 +1669,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     {
                         hideWaters[i] = false;
                         if (waterItems[waters.Count - 1] == WaterItem.Bubble_Origin || waterItems[waters.Count - 1] == WaterItem.Bubble)
+                        {
                             waterItems[i] = WaterItem.None;
+                            waterImg[i].textItem.text = "";
+                            waterImg[i].bubbleCtrl.BubbleDead(IsOriginalBubble[i]);
+                        }
+
                     }
                     else
                     {
@@ -1802,7 +1793,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     /// <summary>
-    /// 判断水块道具 /初始化水块道具spine（setcolor里调用）
+    /// 判断水块道具 /初始化水块道具spine（setcolor里调用）清空状态调整到init实现
     /// </summary>
     public void CheckWaterItem()
     {
@@ -1816,8 +1807,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             switch (waterItems[i])
             {
                 case WaterItem.None:
-                    waterImg[i].textItem.text = "";
-                    waterImg[i].bubbleCtrl.BubbleDead(IsOriginalBubble[i]);
+/*                    waterImg[i].textItem.text = "";
+                    waterImg[i].bubbleCtrl.BubbleDead(IsOriginalBubble[i]);*/
                     break;
                 case WaterItem.Ice:
                     waterImg[i].iceGo.SetActive(true);
