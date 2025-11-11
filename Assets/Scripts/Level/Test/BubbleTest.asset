@@ -54,7 +54,7 @@ MonoBehaviour:
     isFlyBomb: 0
   - waterSet: 07000000010000000c000000
     isHide: 000000
-    waterItem: 000000000600000000000000
+    waterItem: 060000000000000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0

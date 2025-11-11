@@ -101,6 +101,7 @@ namespace QFramework.Example
             });
             BtnQuit.onClick.AddListener(() =>
             {
+                
                 string _del = $"用户退出关卡:{mSaveData.GetCurrentLevel()}," +
                  $"当前关卡进度:{mSaveData.GetCurrentLevel()}";
                 AnalyticsManager.Instance.SendLevelEvent(_del);

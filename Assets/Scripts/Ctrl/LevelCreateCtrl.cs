@@ -49,17 +49,17 @@ public class LevelCreateCtrl : ScriptableObject
         public bool isClearHide, isNearHide, isFreeze;
         public bool isFinish;
 
-        // 弃用
-        public bool hidePriority = false;
-        // 是否是飞翔炸弹，注意，最好全设置飞翔炸弹存在,且飞翔炸弹最好不要设置在水面
-        public bool isFlyBomb = false;
-
-
     }
     // 需要清除的颜色列表（关卡目标）
     public List<int> clearList;
     // 隐藏的颜色列表（初始隐藏的颜色，通过道具1003触发然后显示）
     public List<int> hideList;
+    // 全局性机制配置
+    public GlobalMechanism globalMechanism;
+    // 全局性机制开启步数
+    public int GlobalMechanismBeginSetp;
+    // 全局性机制结束步数
+    public int GlobalMechanismContinueSetps;
     // 当前关卡的倒计时步数（用于步数限制模式）_配置都为0不确定用途
     public int countDownNum;
     // 当前关卡的倒计时时间（用于时间限制模式）_配置都为0不确定用途

@@ -11,11 +11,12 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.UI;
 using GameDefine;
+using static UnityEditor.Progress;
 
 public class BottleWaterCtrl : MonoBehaviour
 {
-    public SkeletonGraphic spine, broomSpine, createSpine, changeSpine, magnetSpine, changeShineSpine, thunderSpine, broomAfterSpine, fireRuneSpine,starBlackWater;
-    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater;
+    public SkeletonGraphic spine, broomSpine, createSpine, changeSpine, magnetSpine, changeShineSpine, thunderSpine, broomAfterSpine, fireRuneSpine,starBlackWater,BombBlackWaterSpine;
+    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater,BombBlackWaterItemGo;
     public Animator anim;
     public Image waterImg;
     public int waterColor;
@@ -53,7 +54,7 @@ public class BottleWaterCtrl : MonoBehaviour
         waterImg.fillAmount = 0;
         waterImg.DOFillAmount(1, time).SetEase(Ease.Linear);
     }
-
+    
     public void PlayOutAnim(float time)
     {
         //StartCoroutine(CoroutinePlayFillAnim());
@@ -343,6 +344,7 @@ public class BottleWaterCtrl : MonoBehaviour
         var fieldInfo = type.GetField(fieldName);
         if (fieldInfo.GetCustomAttribute(typeof(WaterColorState), false) is not WaterColorState attribute) 
             return;
+
         broomItemGo.SetActive(attribute.BroomItemActive);
         broomItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
         createItemGo.SetActive(attribute.CreateItemActive);
@@ -351,9 +353,10 @@ public class BottleWaterCtrl : MonoBehaviour
         changeItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
         magnetItemGo.SetActive(attribute.MagnetItemActive);
         magnetItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
-        //特殊水块
+        BombBlackWaterItemGo.SetActive(attribute.BombBlackWaterAvtive);
+        BombBlackWaterItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
+        // 特殊水等不需要22合成机制
         RainBowWater.SetActive(attribute.RainBowWaterActive);
-
         if (attribute.SpineAnim.IsNullOrEmpty() == false && attribute.SpineType > EColorStateSpineType.None && attribute.SpineType < EColorStateSpineType.Max)
         {
             switch (attribute.SpineType)
@@ -388,12 +391,12 @@ public class BottleWaterCtrl : MonoBehaviour
     /// <summary>
     /// 统一的道具使用动画方法
     /// </summary>
-    /// <param name="hide">另一个道具水块</param>
+    /// <param name="otherWater">另一个道具水块</param>
     /// <param name="itemType">道具类型</param>
     /// <param name="onComplete">完成回调</param>
-    public void PlayUseItem(BottleWaterCtrl hide, ItemType itemType, Action onComplete = null)
+    public void PlayUseItem(BottleWaterCtrl otherWater, ItemType itemType, Action onComplete = null)
     {
-        StartCoroutine(CoroutinePlayUseItem(hide, itemType, onComplete));
+        StartCoroutine(CoroutinePlayUseItem(otherWater, itemType, onComplete));
     }
 
     /// <summary>
@@ -447,7 +450,7 @@ public class BottleWaterCtrl : MonoBehaviour
         {
             if (go1 != null) Destroy(go1);
         });
-
+        Debug.Log("12");
         // 6. 隐藏原始道具，播放消失动画
         itemGo.SetActive(false);
         if (useTopNode && go.transform.Find("Top") != null)
@@ -457,17 +460,15 @@ public class BottleWaterCtrl : MonoBehaviour
 
         if (useSpine != null)
         {
-            useSpine.AnimationState.SetAnimation(0, animName, false);
+            useSpine.AnimationState.SetAnimation(0, animName, loop: false);
         }
 
         isPlayItemAnim = false;
         hide.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(1f);
-
         // 7. 回调处理
         onComplete?.Invoke();
-
         // 8. 清理
         if (go != null) Destroy(go);
     }
@@ -480,6 +481,7 @@ public class BottleWaterCtrl : MonoBehaviour
         return itemType switch
         {
             ItemType.ClearRandomWaterItem => (broomItemGo, broomSpine, "disappear", true),
+            ItemType.BombBlackWater => (BombBlackWaterItemGo,BombBlackWaterSpine, "disappear", true),
             ItemType.MakeColorItem => (createItemGo, createSpine, "combine", true),
             ItemType.MagnetItem => (magnetItemGo, magnetSpine, "combine", true),
             ItemType.ChangeGreen or ItemType.ChangeOrange or ItemType.ChangePink

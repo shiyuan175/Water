@@ -35,8 +35,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public Transform gameCanvas;
     public List<GameObject> createFx = new List<GameObject>();
     public LevelCreateCtrl nowLevel;
-    public int bubbleCount = 0;
-    public int bubbleAddCount = 0;
     public Color ItemColor;
 
     public Material shineMaterial;
@@ -74,9 +72,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     [HideInInspector]
     public TMP_FontAsset greenFont;
 
-    #region 新机记录存储结构
+    #region 新机制记录存储结构
     public Dictionary<BottleCtrl, int> bubbleDict =new();
-
+    public GlobalMechanism globalMechanism;
+    public int GlobalMechanismContinueSetps;
+    public int GlobalMechanismBeginSetp;
     #endregion
 
 
@@ -90,12 +90,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         GameMainArc.InitArchitecture();
         Instance = this;
 
-        /*       stageModel =this.get*/
         levelManagerUtility = this.GetUtility<LevelManagerUtility>();
         redFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Red");
         blueFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Blue");
         greenFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Green");
-       /*   levelManagerUtility = this.GetUtility<LevelManagerUtility>();*/
+
         InitBottle();
     }
 
@@ -115,8 +114,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
         if (levelId <= GameConst.NEWBIE_LEVEL_COUNT)
         {
-            UIKit.OpenPanel<UIGameNode>();
             StartGame(levelId);
+            UIKit.OpenPanel<UIGameNode>(new UIGameNodeData {  globalMechanism = this.globalMechanism });
+            
         }
 
      
@@ -138,6 +138,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         TopBottleLayoutGroup.Hide();
         BottomBottleLayoutGroup.Hide();
+        Debug.Log(nowBottles.Count);
+        foreach (var i in nowBottles)
+        {
+
+        }
         //foreach (var item in bottles)
         //{
         //    item.Init(emptyBottle, 0);
@@ -153,7 +158,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         //cantClearColorList.Clear();
         cantChangeColorList.Clear();
         hideBottleList.Clear();
-        bubbleDict.Clear(); 
+        
         iceBottles.Clear();
         levelId = id;
         LevelCreateCtrl levelInfo = levels[levelId - 1];
@@ -163,12 +168,14 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         moveNum = 0;
         clearList = new List<int>(levelInfo.clearList);
         hideColor = new List<int>(levelInfo.hideList);
-
+        globalMechanism = levelInfo.globalMechanism;
+        GlobalMechanismBeginSetp = levelInfo.GlobalMechanismBeginSetp;
+        GlobalMechanismContinueSetps = levelInfo.GlobalMechanismContinueSetps;
         int _i = 0;
    
 
         nowBottles.Clear();
-
+        bubbleDict.Clear(); 
         nowHalf = null;
 
         isRainbowBottleAdded = true;
@@ -179,16 +186,20 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         TopBottleLayoutGroup.Show();
         BottomBottleLayoutGroup.Show();
         InitLevels(levelInfo);
+
+
         #region 新机制初始化
         #region 泡沐
-
         foreach (var i in nowBottles)
         {
             foreach(var j in i.waterItems)
+            {
                 if(j == WaterItem.Bubble_Origin)
                 {
                     bubbleDict.Add(i, levelInfo.bubbleCount[_i++]);
                 }
+            }
+                
         }
         #endregion
         #endregion
@@ -430,9 +441,29 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             case ItemType.MakeColorItem:
                 StartCoroutine(AddColor(fromPos));
                 break;
+
+            case ItemType.BombBlackWater:
+                RandomHalfBlackWater();
+                break;  
+
         }
     }
+    /// <summary>
+    /// 黑水炸弹随机生成一半水数量的黑水
+    /// </summary>
+    public void RandomHalfBlackWater()
+    {
+        for(int i=0;i<clearList.Count*2;i++)
+        {
+            BottleCtrl a = levelManagerUtility.RandomBarkWaterBottle(nowBottles); 
+            // 提早结束黑水生成，因为已经没有可以生成的位置了
+            if (a==null)
+                break;       
+        }
 
+        UIKit.ClosePanel<UIMask>();
+
+    }
     /// <summary>
     /// 获取能移除的颜色
     /// </summary>
@@ -744,7 +775,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     }
 
     #endregion
-
+    #region 关卡机制相关
     #region 泡沐
     /// <summary>
     /// 清理消失泡沐
@@ -773,7 +804,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         for(int i =0;i<bubbleDict.Count;i++)
         {
-            Debug.Log(bubbleDict.Count);
             // 失败表示没有可生成的位置
             if (levelManagerUtility.RandomBubleWaterBottle(nowBottles) == false)
                 break;
@@ -792,6 +822,35 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             moveNum++;
         else
             moveNum--;
+        #region 依赖步数的全局机制
+
+        #region 魔法猫
+        if (globalMechanism == GlobalMechanism.BlackMagicCar)
+        {
+            if (moveNum >= GlobalMechanismBeginSetp && moveNum <= GlobalMechanismBeginSetp+GlobalMechanismContinueSetps)
+            {
+                StringEventSystem.Global.Send("MagicCatEven");
+                BottleCtrl _bottleCtrl = levelManagerUtility.RandomBarkWaterBottle(nowBottles);
+                if (_bottleCtrl != null)
+                    _bottleCtrl.SetHideShow(true);
+            }
+           
+        }
+        else if(globalMechanism == GlobalMechanism.WhiteMagicCar)
+        {
+            if (moveNum >= GlobalMechanismBeginSetp && moveNum <= GlobalMechanismBeginSetp + GlobalMechanismContinueSetps)
+            {
+                StringEventSystem.Global.Send("MagicCatEven");
+                BottleCtrl _bottleCtrl = levelManagerUtility.RandomRomveBarkWaterBottle(nowBottles);
+                if (_bottleCtrl != null)
+                    _bottleCtrl.SetHideShow(true);
+            }
+        }
+            
+        #endregion
+
+        #endregion
+
     }
 
     /// <summary>
@@ -819,7 +878,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     }
 
     #endregion
-
+    #endregion
     #region 付费道具相关
 
     #region Add Bottle

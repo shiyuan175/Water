@@ -1,18 +1,18 @@
 ﻿{
-    "BattlePassVersion": 1,
+    "BattlePassVersion": 3,
     "Rewards": [
         {
             "GetConditions": 0,
             "Free": [
                 {
-                    "itemType": "S_RemoveHide",
+                    "itemType": "S_AddOneHalfBottle",
                     "itemQuantity": 1
                 }
             ],
             "Vip": [
                 {
-                    "itemType": "AvatarId",
-                    "itemQuantity": 8
+                    "itemType": "Coins",
+                    "itemQuantity": 2000
                 }
             ],
             "FreeIsBox": false,
@@ -22,7 +22,7 @@
             "GetConditions": 1,
             "Free": [
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 1
                 }
             ],
@@ -39,7 +39,7 @@
             "GetConditions": 2,
             "Free": [
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 1
                 }
             ],
@@ -90,11 +90,11 @@
             "GetConditions": 5,
             "Free": [
                 {
-                    "itemType": "S_RemoveHide",
+                    "itemType": "S_AddOneHalfBottle",
                     "itemQuantity": 1
                 },
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 1
                 }
             ],
@@ -108,7 +108,7 @@
                     "itemQuantity": 1
                 },
                 {
-                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemType": "Unlimited_S_AddOneHalfBottle",
                     "itemQuantity": 15
                 }
             ],
@@ -125,7 +125,7 @@
             ],
             "Vip": [
                 {
-                    "itemType": "S_AddOneBottle",
+                    "itemType": "S_RemoveOneBottleHideWater",
                     "itemQuantity": 2
                 }
             ],
@@ -136,13 +136,13 @@
             "GetConditions": 7,
             "Free": [
                 {
-                    "itemType": "S_RemoveHide",
+                    "itemType": "S_AddOneHalfBottle",
                     "itemQuantity": 1
                 }
             ],
             "Vip": [
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 2
                 }
             ],
@@ -153,15 +153,15 @@
             "GetConditions": 8,
             "Free": [
                 {
-                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemType": "Unlimited_S_AddOneHalfBottle",
                     "itemQuantity": 15
                 },
                 {
-                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemType": "Unlimited_S_RemoveOneBottleHideWater",
                     "itemQuantity": 15
                 },
                 {
-                    "itemType": "Unlimited_S_ChangeWater",
+                    "itemType": "Unlimited_S_RemoveOneDebuffBottle",
                     "itemQuantity": 15
                 }
             ],
@@ -178,7 +178,7 @@
             "GetConditions": 9,
             "Free": [
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 1
                 }
             ],
@@ -195,11 +195,11 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 1
                 },
                 {
-                    "itemType": "S_AddOneBottle",
+                    "itemType": "S_RemoveOneBottleHideWater",
                     "itemQuantity": 1
                 }
             ],
@@ -209,15 +209,15 @@
                     "itemQuantity": 200
                 },
                 {
-                    "itemType": "S_AddOneBottle",
+                    "itemType": "S_RemoveOneBottleHideWater",
                     "itemQuantity": 2
                 },
                 {
-                    "itemType": "S_RemoveHide",
+                    "itemType": "S_AddOneHalfBottle",
                     "itemQuantity": 2
                 },
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 2
                 },
                 {
@@ -238,15 +238,15 @@
             ],
             "Vip": [
                 {
-                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemType": "Unlimited_S_RemoveOneBottleHideWater",
                     "itemQuantity": 15
                 },
                 {
-                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemType": "Unlimited_S_AddOneHalfBottle",
                     "itemQuantity": 15
                 },
                 {
-                    "itemType": "Unlimited_S_ChangeWater",
+                    "itemType": "Unlimited_S_RemoveOneDebuffBottle",
                     "itemQuantity": 15
                 }
             ],
@@ -291,7 +291,7 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 1
                 }
             ],
@@ -308,11 +308,11 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_RemoveHide",
+                    "itemType": "S_AddOneHalfBottle",
                     "itemQuantity": 1
                 },
                 {
-                    "itemType": "S_AddOneBottle",
+                    "itemType": "S_RemoveOneBottleHideWater",
                     "itemQuantity": 1
                 }
             ],
@@ -326,7 +326,7 @@
                     "itemQuantity": 60
                 },
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 2
                 },
                 {
@@ -341,7 +341,7 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_RemoveHide",
+                    "itemType": "S_AddOneHalfBottle",
                     "itemQuantity": 1
                 }
             ],
@@ -364,15 +364,15 @@
             ],
             "Vip": [
                 {
-                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemType": "Unlimited_S_RemoveOneBottleHideWater",
                     "itemQuantity": 30
                 },
                 {
-                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemType": "Unlimited_S_AddOneHalfBottle",
                     "itemQuantity": 30
                 },
                 {
-                    "itemType": "Unlimited_S_ChangeWater",
+                    "itemType": "Unlimited_S_RemoveOneDebuffBottle",
                     "itemQuantity": 30
                 }
             ],
@@ -383,7 +383,7 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_AddOneBottle",
+                    "itemType": "S_RemoveOneBottleHideWater",
                     "itemQuantity": 1
                 }
             ],
@@ -406,7 +406,7 @@
             ],
             "Vip": [
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 2
                 }
             ],
@@ -417,11 +417,11 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_RemoveHide",
+                    "itemType": "S_AddOneHalfBottle",
                     "itemQuantity": 1
                 },
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 1
                 }
             ],
@@ -431,7 +431,7 @@
                     "itemQuantity": 400
                 },
                 {
-                    "itemType": "S_RemoveHide",
+                    "itemType": "S_AddOneHalfBottle",
                     "itemQuantity": 2
                 },
                 {
@@ -467,13 +467,13 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 1
                 }
             ],
             "Vip": [
                 {
-                    "itemType": "S_RemoveHide",
+                    "itemType": "S_AddOneHalfBottle",
                     "itemQuantity": 2
                 }
             ],
@@ -490,15 +490,15 @@
             ],
             "Vip": [
                 {
-                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemType": "Unlimited_S_RemoveOneBottleHideWater",
                     "itemQuantity": 30
                 },
                 {
-                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemType": "Unlimited_S_AddOneHalfBottle",
                     "itemQuantity": 30
                 },
                 {
-                    "itemType": "Unlimited_S_ChangeWater",
+                    "itemType": "Unlimited_S_RemoveOneDebuffBottle",
                     "itemQuantity": 30
                 }
             ],
@@ -515,7 +515,7 @@
             ],
             "Vip": [
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 3
                 }
             ],
@@ -526,11 +526,11 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_ChangeWater",
+                    "itemType": "S_RemoveOneDebuffBottle",
                     "itemQuantity": 1
                 },
                 {
-                    "itemType": "S_AddOneBottle",
+                    "itemType": "S_RemoveOneBottleHideWater",
                     "itemQuantity": 1
                 }
             ],
@@ -544,15 +544,15 @@
                     "itemQuantity": 3
                 },
                 {
-                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemType": "Unlimited_S_RemoveOneBottleHideWater",
                     "itemQuantity": 30
                 },
                 {
-                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemType": "Unlimited_S_AddOneHalfBottle",
                     "itemQuantity": 30
                 },
                 {
-                    "itemType": "Unlimited_S_ChangeWater",
+                    "itemType": "Unlimited_S_RemoveOneDebuffBottle",
                     "itemQuantity": 30
                 }
             ],
@@ -569,7 +569,7 @@
             ],
             "Vip": [
                 {
-                    "itemType": "S_AddOneBottle",
+                    "itemType": "S_RemoveOneBottleHideWater",
                     "itemQuantity": 3
                 }
             ],
@@ -597,7 +597,7 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_RemoveHide",
+                    "itemType": "S_AddOneHalfBottle",
                     "itemQuantity": 2
                 }
             ],
@@ -631,11 +631,11 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_RemoveHide",
+                    "itemType": "S_AddOneHalfBottle",
                     "itemQuantity": 1
                 },
                 {
-                    "itemType": "S_AddOneBottle",
+                    "itemType": "S_RemoveOneBottleHideWater",
                     "itemQuantity": 1
                 }
             ],
@@ -649,15 +649,15 @@
                     "itemQuantity": 60
                 },
                 {
-                    "itemType": "Unlimited_S_AddOneBottle",
+                    "itemType": "Unlimited_S_RemoveOneBottleHideWater",
                     "itemQuantity": 60
                 },
                 {
-                    "itemType": "Unlimited_S_RemoveHide",
+                    "itemType": "Unlimited_S_AddOneHalfBottle",
                     "itemQuantity": 60
                 },
                 {
-                    "itemType": "Unlimited_S_ChangeWater",
+                    "itemType": "Unlimited_S_RemoveOneDebuffBottle",
                     "itemQuantity": 60
                 }
             ],

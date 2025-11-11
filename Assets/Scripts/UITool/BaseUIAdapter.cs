@@ -5,15 +5,30 @@ using UnityEngine;
  public abstract class BaseUIAdapter : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip("延后帧数，默认为1，设置此帧数控制不同的UIAdapter的执行顺序")] protected int frameCount = 1; 
+    [Tooltip("延后帧数，默认为1，设置此帧数控制不同的UIAdapter的执行顺序")] protected int frameCount = 1;
+    [SerializeField]
+    [Tooltip("是否只执行一次")]
+    bool oneTime = false;
+    bool mulitTime = true;
     #region 动态调整的触发与初始化
     void OnEnable()
     {
         // 延后执行，保证不受到动态ui的影响
-        ExecuteAfterFrames(Adapter);
+        if(oneTime && mulitTime)
+        {
+            mulitTime = false;
+            ExecuteAfterFrames(Adapter);
+        }
+        else if(!oneTime)
+        {
+            ExecuteAfterFrames(Adapter);
+        }
+            
+        
     }
     public void ExecuteAfterFrames(System.Action action)
     {
+
         StartCoroutine(ExecuteAfterFramesCoroutine(action));
     }
     private IEnumerator ExecuteAfterFramesCoroutine(System.Action action)

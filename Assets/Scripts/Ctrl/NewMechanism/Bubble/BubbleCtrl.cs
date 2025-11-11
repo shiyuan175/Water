@@ -21,8 +21,8 @@ public class BubbleCtrl : MonoBehaviour
 
     [SerializeField]
     GameObject skeletonAnimation;
-  
-    SkeletonAnimation skeletonAnimationCom;
+    SkeletonGraphic spine;
+
     // 通过spineui和ani实现，ani负责动画渲染，ui复杂游戏渲染
 
     private const string NORMAl_APPEND = "animation_blue1";
@@ -31,7 +31,16 @@ public class BubbleCtrl : MonoBehaviour
     private const string ORIGINAL_DISABLE = "animation_purple2";
     private void Awake()
     {
-        skeletonAnimationCom = skeletonAnimation.GetComponent<SkeletonAnimation>();
+        spine = bubbleSpine.GetComponent<SkeletonGraphic>();
+    }
+    /*    private void OnEnable()
+        {
+            Debug.Log(1231241);
+        }*/
+
+    private void OnDisable()
+    {
+        spine.enabled = false;
     }
     /// <summary>
     /// 删除泡沐
@@ -40,28 +49,26 @@ public class BubbleCtrl : MonoBehaviour
     public void BubbleDead(bool isOriginal = false)
     {
         // 没有泡沐，不执行消失动画
-        if (!skeletonAnimation.activeSelf)
+        if (!spine.enabled)
             return;
         TrackEntry track;
         if (isOriginal)
         {
-            track = skeletonAnimationCom.AnimationState.SetAnimation(0, ORIGINAL_DISABLE, false);
-            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
+            track = spine.AnimationState.SetAnimation(0, ORIGINAL_DISABLE, false);
         }
         else
         {
-            track = skeletonAnimationCom.AnimationState.SetAnimation(0, NORMAL_DISABLE, false);
-            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
+            track=  spine.AnimationState.SetAnimation(0, NORMAL_DISABLE, false);
         }
-
+        track.TimeScale = 1.7f;
         track.Complete += track =>
         {
-            skeletonAnimation.SetActive(false);
+            spine.enabled = false;
         };
 
-        skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
 
-    
+
+
     }
 
     /// <summary>
@@ -72,19 +79,22 @@ public class BubbleCtrl : MonoBehaviour
     public void BubbleAppend(bool isOriginal = false,int time=0)
     {
         // 动画
-        if (skeletonAnimation.activeSelf)
+        if (spine.enabled)
             return;
-        skeletonAnimation.SetActive(true);
+        spine.enabled = true;
         TrackEntry track;
         if (isOriginal)
         {
-            track = skeletonAnimationCom.AnimationState.SetAnimation(0, ORIGINAL_APPEND, false);
-            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
+            track = spine.AnimationState.SetAnimation(0, ORIGINAL_APPEND, false);
+          /*  track = skeletonAnimationCom.AnimationState.SetAnimation(0, ORIGINAL_APPEND, false);
+            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;*/
         }       
         else
         {
-            track = skeletonAnimationCom.AnimationState.SetAnimation(0, NORMAl_APPEND, false);
-            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
+            track = spine.AnimationState.SetAnimation(0, NORMAl_APPEND, false);
+           /* track = skeletonAnimationCom.AnimationState.SetAnimation(0, NORMAl_APPEND, false);
+            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;*/
         }
+        track.TimeScale = 1.7f;
     }
 }

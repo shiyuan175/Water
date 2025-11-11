@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using GameAttributes;
 using GameDefine;
+using Newtonsoft.Json.Bson;
 using QFramework;
 using QFramework.Example;
 using Spine;
@@ -45,7 +46,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     [SerializeField]
     public bool isBomb = false;
     // 是否是浮空炸弹
-/*    private bool isFlyBomb = false;*/
+    /*    private bool isFlyBomb = false;*/
     //瓶子中的水块标识
     public List<int> waters = new();
     //瓶中的水是否为黑水
@@ -54,8 +55,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     public List<WaterItem> waterItems = new();
     //水块脚本持有
     public List<BottleWaterCtrl> waterImg = new();
-    //泡沫步数
-    public Dictionary<BottleCtrl,int> bubbleDict = new();
+    //原始泡沐数量
+    public Dictionary<BottleCtrl, int> bubbleDict = new();
+    // 瓶中泡沐是否是原始泡沐
+    public bool[] IsOriginalBubble = new bool[4];
     // 炸弹步数
     public List<int> bombCounts = new();
 
@@ -138,9 +141,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         hideWaters = new List<bool>(property.isHide);
         waterItems = new List<WaterItem>(property.waterItem);
         bombCounts = new List<int>(property.bombCounts);
- 
-
-
+       
         #region 瓶子标记初始化
         isClearHide = property.isClearHide;
         isNearHide = property.isNearHide;
@@ -149,36 +150,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         limitColor = property.limitColor;
         bottleIdx = idx;
         hasUnlockHidePlayed = false;
-        hidePriority = property.hidePriority;
 
         #endregion
-
-
-
-      /*  #region 炸弹初始化
-        foreach (var i in waterImg)
-        {
-            i.bombCtrl.SetBomb();
-        }
-        foreach (var i in bombCounts)
-        {
-            if (i != 0)
-            {
-                isBomb = true;
-                break;
-            }
-        }
-        #endregion*/
-        /* 
-
-           #region 泡沐初始化
-           for (int i = 0; i < waterImg.Count; i++)
-           {
-               if()
-               waterImg[i].bubbleCtrl.BubbleAppend(waterItems[i] == WaterItem.Bubble_Origin);
-           }
-
-           #endregion*/
 
         #region 配表懒的配置的内容补齐
         // 清空可能存在的残影？原理未知 
@@ -194,7 +167,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             for (int i = 0; i < bombCounts.Count; i++)
             {
                 // 0 表示占位
-                if (bombCounts[i] != 0)
+                if (bombCounts[i] != 0 && waterItems[i]==WaterItem.None)
                     waterItems[i] = WaterItem.Bomb;
             }
 
@@ -270,7 +243,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         }
         SetMaxBottle();
     }
-
+    /// <summary>
+    /// 结束游戏的时候清空瓶子的状态，类似于真正的初始化瓶子
+    /// </summary>
+    public void DisInit()
+    {
+                                   
+    }
     /// <summary>
     /// 设置瓶子最大装水数
     /// </summary>
@@ -713,7 +692,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     {
         var _hasItemEffect = BottleHasItem();
         if (_hasItemEffect)
+        {
             UIKit.OpenPanel<UIMask>(UILevel.PopUI);
+        }
+            
 
         ++ReceiveCount;
 
@@ -1249,23 +1231,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
     #endregion
 
-    #region 泡沐黑水
 
-    private void UpdateBubble(BottleCtrl bottleCtrl )
-    {
-        /*int _top = bottleCtrl.waters.Count-1;
-        bottleCtrl.waterImg[_top].bubbleCtrl.BubbleDead();
-        bottleCtrl.waterItems[_top] = WaterItem.None;
-        bool _flag = true;
-        for (int i = _top-1; i>0;i--)
-        {
-            if (bottleCtrl.waterItems[i]==WaterItem.None)
-            bottleCtrl.waters[]
-        }
-*/
-       
-    }
-    #endregion
 
     #region 炸弹机制
 
@@ -1292,26 +1258,42 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     // 先更新的炸弹，后倒的水
     public void UpdateBomb(BottleCtrl bottleCtrl = null, bool Init = false)
     {
+        Debug.Log("dsa");
         int moveNum = LevelManager.Instance.moveNum;
 
         if (bottleCtrl != null || Init)
-            bottleCtrl.isBomb = true;
-
+            bottleCtrl.isBomb = true;      
         if (!isBomb) return;
-/*
-        if (isFlyBomb)
-            CheckFlyBomb();
-*/
-        isBomb = false;
+        /*
+                if (isFlyBomb)
+                    CheckFlyBomb();
+        */
 
+        // 检查飞天炸弹
+        
+        isBomb = false;
+        
+        if (bombCounts.Count != 0 && bombCounts[topIdx] != 0 && waterItems[topIdx] == WaterItem.FlyBomb)
+        {
+            bombCounts[topIdx] = 200;
+        }
+
+           
         for (int i = 0; i < bombCounts.Count; i++)
         {
             // 设置时间
             // waterImg[i].textItem.text = bombCounts[i] - moveNum > 0 && hideWaters[i] == false ? (bombCounts[i] - moveNum).ToString() : "";
             // 100用来特殊标记
             if (bombCounts[i] == 100)
-            {
+            {           
                 waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
+                bombCounts[i] = 0;
+               
+            }
+            else if(bombCounts[i] == 200)
+            {
+                waterImg[i].bombCtrl.SetBomb(aniType: "flap");
+                waterImg[i].textItem.text = "";
                 bombCounts[i] = 0;
             }
             else if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false && bombCounts[i] != 0)
@@ -1702,7 +1684,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 //最上层的黑水块显示
                 hideWaters[waters.Count - 1] = false;
                 if (waterItems[waters.Count - 1]==WaterItem.Bubble_Origin || waterItems[waters.Count - 1] == WaterItem.Bubble)
+                {
                     waterItems[waters.Count - 1] = WaterItem.None;
+                    waterImg[waters.Count - 1].textItem.text = "";
+                    waterImg[waters.Count - 1].bubbleCtrl.BubbleDead(IsOriginalBubble[waters.Count - 1]);
+                }
+                  
                 //黑水块的颜色与顶层是否相同(相同显示)
                 for (int i = waters.Count - 1; i >= 0; i--)
                 {
@@ -1710,7 +1697,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     {
                         hideWaters[i] = false;
                         if (waterItems[waters.Count - 1] == WaterItem.Bubble_Origin || waterItems[waters.Count - 1] == WaterItem.Bubble)
+                        {
                             waterItems[i] = WaterItem.None;
+                            waterImg[i].textItem.text = "";
+                            waterImg[i].bubbleCtrl.BubbleDead(IsOriginalBubble[i]);
+                        }
+
                     }
                     else
                     {
@@ -1829,7 +1821,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     /// <summary>
-    /// 判断水块道具 /初始化水块道具spine（setcolor里调用）
+    /// 判断水块道具 /初始化水块道具spine（setcolor里调用）清空状态调整到init实现
     /// </summary>
     public void CheckWaterItem()
     {
@@ -1843,7 +1835,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             switch (waterItems[i])
             {
                 case WaterItem.None:
-                    waterImg[i].bubbleCtrl.BubbleDead();
+/*                    waterImg[i].textItem.text = "";
+                    waterImg[i].bubbleCtrl.BubbleDead(IsOriginalBubble[i]);*/
                     break;
                 case WaterItem.Ice:
                     waterImg[i].iceGo.SetActive(true);
@@ -1854,6 +1847,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     isBomb = true;
                     break;
                 case WaterItem.Bubble_Origin:
+                    IsOriginalBubble[i] = true;
+                    goto case WaterItem.Bubble;
                 case WaterItem.Bubble:
                     waterImg[i].bubbleCtrl.BubbleAppend(waterItems[i] == WaterItem.Bubble_Origin);
                     break;
@@ -1969,7 +1964,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     /// <summary>
-    /// 检查触发哪种机制道具
+    /// 检查触发哪种机制(合成)道具
     /// </summary>
     public void CheckItem()
     {
@@ -1982,7 +1977,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         int _itemId = 0;
         //记录上一个道具所在的层(索引)
         int _itemPlace = 0;
-
+        // 遍历瓶子中的水，判断是否有相邻道具
         for (int i = 0; i < waters.Count; i++)
         {
             var _waterColor = waters[i];
@@ -2036,7 +2031,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     StringEventSystem.Global.Send("CacheMagnetWater", waterImg[i - 1]);
                     waterImg[i - 1].PlayUseMagnet(waterImg[i]);
                     break;
-
+                case ItemType.BombBlackWater:               
+                    waterImg[i - 1].PlayUseItem(waterImg[i], _type);
+                    break;
                 default:
 
                     if (_attr is GameAttributes.ChangeColorItemState)
@@ -2060,6 +2057,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             List<int> _tempWater = new List<int>();
             List<WaterItem> _tempWaterItem = new List<WaterItem>();
             List<int> _tempBomb = new List<int>();
+            List<bool> _tempHideWater = new List<bool>();
             for (int i = 0; i < waters.Count; i++)
             {
                 if (waters[i] != 0)
@@ -2067,12 +2065,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     _tempWater.Add(waters[i]);
                     _tempWaterItem.Add(waterItems[i]);
                     _tempBomb.Add(bombCounts[i]);
+                    _tempHideWater.Add(hideWaters[i]);
                 }
             }
             waters = _tempWater;
             waterItems = _tempWaterItem;
             bombCounts = _tempBomb;
-
+            hideWaters = _tempHideWater;
             for (int i = 0; i < _items.Count; i++)
             {
                 int useItem = _items[i];

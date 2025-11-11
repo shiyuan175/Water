@@ -57,20 +57,16 @@ namespace QFramework.Example
             {
                 StringEventSystem.Global.Register(kvp.Key, kvp.Value).UnRegisterWhenGameObjectDestroyed(gameObject);
             }
-            mCountDownTween = DOTween.To(() => 0, x =>
-            {
-                if (mSepecialOfferADActivity.ActivityStatus == GameActivityStatus.Active)
-                    Time_Red.text = mSepecialOfferADActivity.GetActivityReamingTime();
-                else
-                    Time_Red.text = "Finished";
-            }, 1, 1f)
-          .SetLoops(-1, LoopType.Restart)
-          .SetUpdate(isIndependentUpdate: true);
+        
+         
 
             if (mSOmodel.IsBuy)
                 BtnBuy.interactable = false;
             else
                 BtnBuy.interactable = true;
+
+            if (mSOmodel.IsBuy)
+                SetClockTime();
         }
 
         protected override void OnHide()
@@ -111,14 +107,28 @@ namespace QFramework.Example
             rewardGrantUtility.GrantReward(_packSo);
             RewardUIManager.Instance.PlayRewardAnim(_packSo.Coins, true, null, _packSo);
             mSOmodel.BuyGift();
+            mSepecialOfferADActivity.CoolDownActivity();
             BtnBuy.interactable = false;
+            SetClockTime();
             UIKit.OpenPanel<UIBuyPackSuccess>();
             ActionKit.Delay(1, () =>
             {
                 UIKit.ClosePanel<UIShop>();//延迟1s等待协程结束关闭
             }).Start(this);
         }
-
+        private void SetClockTime()
+        {
+            TimePanel.Show();
+            mCountDownTween = DOTween.To(() => 0, x =>
+            {
+                if (mSepecialOfferADActivity.ActivityStatus == GameActivityStatus.CoolingDown)
+                    Time_Red.text = mSepecialOfferADActivity.GetActivityReamingTime();
+                else
+                    Time_Red.text = "Finished";
+            }, 1, 1f)
+                   .SetLoops(-1, LoopType.Restart)
+                   .SetUpdate(isIndependentUpdate: true);
+        }
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;

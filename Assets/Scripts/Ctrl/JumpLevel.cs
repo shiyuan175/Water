@@ -12,6 +12,8 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
     public Button button;
     public Button Btnfinish;
     public Button ADBtn;
+    public LevelManagerUtility levelManagerUtility;
+    public LevelManager levelManager;
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;
@@ -20,12 +22,14 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
     // Start is called before the first frame update
     void Start()
     {
+        levelManager = LevelManager.Instance;
+        levelManagerUtility = this.GetUtility<LevelManagerUtility>();
         button.onClick.AddListener(() =>
         {
             LevelManager.Instance.StartGame(int.Parse(inputField.text));
-            this.GetUtility<SaveDataUtility>().SaveLevel(int.Parse(inputField.text));
+            this.GetUtility<SaveDataUtility>().SaveLevel(int.Parse(inputField.text));            
             UIKit.ClosePanel<UIGameNode>();
-            UIKit.OpenPanel<UIGameNode>();
+            UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { globalMechanism = LevelManager.Instance.globalMechanism });
             //this.SendEvent<GameStartEvent>();
             //GameCtrl.Instance.InitGameCtrl();
         });
@@ -53,8 +57,17 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
             for (int i = 0; i < 10; i++)
                 this.SendEvent(new ReturnToMainEvent { PassLevel = true });
         }
-      
-            
-        
+
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+/*            levelManagerUtility.RandomBarkWaterBottle(levelManager.nowBottles).SetHideShow(true);    */  
+            levelManagerUtility.RandomBarkWaterBottle(levelManager.nowBottles);      
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Debug.Log("12");
+            levelManagerUtility.RandomRomveBarkWaterBottle(levelManager.nowBottles);  
+/*            levelManagerUtility.RandomRomveBarkWaterBottle(levelManager.nowBottles).SetHideShow(true);  */
+        }
     }
 }

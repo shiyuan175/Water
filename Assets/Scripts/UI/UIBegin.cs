@@ -317,8 +317,10 @@ namespace QFramework.Example
 
             this.RegisterEvent<GameStartEvent>(e =>
             {
-                UIKit.OpenPanel<UIGameNode>();
+                /*  UIKit.OpenPanel<UIGameNode>();*/
                 LevelManager.Instance.StartGame(saveData.GetCurrentLevel());
+                UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { globalMechanism = LevelManager.Instance.globalMechanism });
+                
                 BottomMenuNode.Hide();
                 HomeNode.Hide();
 
@@ -710,7 +712,12 @@ namespace QFramework.Example
                 BtnSONode.Show();
 
             if (_curLevel >= GameConst.BP_AD_BEGIN_LEVEL)
+            {
                 BtnBPNode.Show();
+                Btn_Bp.interactable = true;
+                ImgLock.Hide();
+            }
+                
 
             if (_curLevel >= GameConst.DG_AD_BEGIN_LEVEL && (!this.GetModel<DoubleGiftADActivityModel>().IsBuy||! this.GetModel<DoubleGiftADActivityModel>().GiftIsGot))
                 BtnDGNode.Show();

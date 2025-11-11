@@ -14,9 +14,12 @@ namespace GameAttributes
 
         //彩色水块
         ERainBowWater = 5,
+
+        //炸弹黑水
+        EBombBlackWater = 6,
         //其余特殊水块...
-        
-        Max = 6,
+
+        Max = 7
     }
     
     [AttributeUsage(AttributeTargets.Field)]
@@ -27,22 +30,25 @@ namespace GameAttributes
         public readonly bool ChangeItemActive;
         public readonly bool MagnetItemActive;
         public readonly bool RainBowWaterActive;
-        
+        public readonly bool BombBlackWaterAvtive;
+
         public readonly string SpineAnim;
         public readonly EColorStateSpineType SpineType;
 
-        public Action<object> CompleteAction;
 
         public WaterColorState(string spineAnim,EColorStateSpineType spineType = EColorStateSpineType.None)
         {
             SpineAnim = spineAnim;
             SpineType = spineType;
 
+           
             BroomItemActive = spineType == EColorStateSpineType.EBroomSpine;
             CreateItemActive = spineType == EColorStateSpineType.ECreateSpine;
             ChangeItemActive = spineType == EColorStateSpineType.EChangeSpine;
             MagnetItemActive = spineType == EColorStateSpineType.EMagnetSpine;
             RainBowWaterActive = spineType == EColorStateSpineType.ERainBowWater;
+            BombBlackWaterAvtive = spineType == EColorStateSpineType.EBombBlackWater;
+                
             //局内机制道具补充...
         }
     }
@@ -74,4 +80,6 @@ namespace GameAttributes
 
         }
     }
+
+
 }

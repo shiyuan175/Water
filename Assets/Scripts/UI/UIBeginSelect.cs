@@ -24,6 +24,7 @@ namespace QFramework.Example
         [SerializeField] private Image ImgCoinWinProcess;
         [SerializeField] private TextMeshProUGUI TxtCoinWinProgress;
         [SerializeField] private Image ImgBg;
+        [SerializeField] TextMeshProUGUI[] redTXT;
         private StageModel stageModel;
 
         public IArchitecture GetArchitecture()
@@ -41,7 +42,8 @@ namespace QFramework.Example
         protected override void OnOpen(IUIData uiData = null)
         {
             TxtWinProcess.font = LevelManager.Instance.redFont;
-            TextItemGuide.font = LevelManager.Instance.redFont;
+            foreach (var i in redTXT)
+                i.font = LevelManager.Instance.redFont;
             stageModel = this.GetModel<StageModel>();
             StringEventSystem.Global.Send("ClearTakeItem");
             InitUI();
@@ -301,7 +303,7 @@ namespace QFramework.Example
         /// <summary>
         /// 设置进关道具引导动画
         /// </summary>
-        private void SetEnterPropsGuideUI()
+        private void SetEnterPropsGuideUI(UnLockMechanism type)
         {
 
             foreach(var i in addItemBtns)
@@ -311,63 +313,126 @@ namespace QFramework.Example
             ItemGuidePanel.gameObject.Show();
             int startID = 6;
             SpineHandleItem.AnimationState.SetAnimation(0, "animation", true);
-            SpineHandleItem.GetComponent<RectTransform>().anchoredPosition = selectBtns[0].GetComponent<RectTransform>().anchoredPosition;
-            for (int i = 0; i < ItemGuideBtns.Length; i++)
+            int _tempIndex = 0;
+            switch (type)
             {
-                int _itemId = i + startID;
-                var _rewardType = (SpecialRewardsType)_itemId;
-                string _sign = GameEnum.GetDescription(_rewardType);
-                var _tempIndex = i;
-                ItemGuideBtns[i].GetComponent<RectTransform>().anchoredPosition = selectBtns[i].GetComponent<RectTransform>().anchoredPosition;
-                ItemGuideBtns[i].onClick.AddListener(() =>
-                { 
-                    ItemGuidePanel.Hide();
-                    // 先解锁 再处理按钮的事件
-                    SetEnterPropsUnLockUI();
-                    if (stageModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
+                case UnLockMechanism.S_AddOneHalfBottle:
+                    GuideBtnItem1.Show();
+                    SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem1.GetComponent<RectTransform>().position;
+                    GuideBtnItem1.onClick.AddListener(() =>
                     {
-                        bool show = addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite != itemSubIcon[1];
-                        if (show)
-                        {
-                            addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite = itemSubIcon[1];
-                            addItemBtns[_tempIndex].interactable = false;
-                            addItemBtns[_tempIndex].transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
-                            /*UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);*/
-                            AddItemIfNotExists(_itemId);
-                        }
-                        else
-                        {
-                            UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
-                            RemoveItemIfExists(_itemId);
-                        }
+                        SetEnterPropsUnLockUI(UnLockMechanism.S_AddOneHalfBottle);
+                        ItemGuidePanel.Hide();
+                        _tempIndex = 1;
+                    });
+                    break;
+                case UnLockMechanism.S_RemoveOneBottleHideWater:
+                    GuideBtnItem2.Show();
+                    SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem2.GetComponent<RectTransform>().position;
+                    GuideBtnItem2.onClick.AddListener(() =>
+                    {
+                        SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneBottleHideWater);
+                        ItemGuidePanel.Hide();
+                        _tempIndex = 2;
+                    });
+                    break;
 
-                    }
-                   
-                });
+                case UnLockMechanism.S_RemoveOneDebuffBottle:
+                    GuideBtnItem3.Show();
+                    SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem3.GetComponent<RectTransform>().position;
+                    GuideBtnItem3.onClick.AddListener(() =>
+                    {
+                        SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
+                        ItemGuidePanel.Hide();
+                        _tempIndex = 3;
+                    });
+                    break;
             }
+            int _itemId = startID + _tempIndex;
+            var _rewardType = (SpecialRewardsType)_itemId;
+            string _sign = GameEnum.GetDescription(_rewardType);
+            if (stageModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
+            {
+                bool show = addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite != itemSubIcon[1];
+                if (show)
+                {
+                    addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite = itemSubIcon[1];
+                    addItemBtns[_tempIndex].interactable = false;
+                    addItemBtns[_tempIndex].transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
+                    /*UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);*/
+                    AddItemIfNotExists(_itemId);
+                }
+                else
+                {
+                    UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
+                    RemoveItemIfExists(_itemId);
+                }
 
+            }
         }
 
         /// <summary>
         /// 解锁进关道具状态
         /// </summary>
-        private void SetEnterPropsUnLockUI()
+        private void SetEnterPropsUnLockUI(UnLockMechanism type)
         {
-            foreach (var i in selectBtns)
+            Button _tempBtn;
+            switch (type)
             {
-                i.transform.Find("ImgLock").Hide();
-                i.interactable = true;
+                case UnLockMechanism.S_AddOneHalfBottle:
+                    _tempBtn = selectBtns[0];
+                    UnLimitItemNode1.Show();
+                    break;
+
+                case UnLockMechanism.S_RemoveOneBottleHideWater:
+                    _tempBtn = selectBtns[1];
+                    UnLimitItemNode2.Show();
+                    break;
+
+                case UnLockMechanism.S_RemoveOneDebuffBottle:
+                    _tempBtn = selectBtns[2];
+                    UnLimitItemNode3.Show();
+                    break;
+                default:
+                    Debug.Log("按钮设置出错");
+                    _tempBtn = null;
+                    break;
             }
-            UnLimitNode.Show();
+
+            _tempBtn.transform.Find("ImgLock").Hide();
+            _tempBtn.interactable = true;
+
             UpdateItem();
         }
-        private void SetEnterPropsLockUI()
+        private void SetEnterPropsLockUI(UnLockMechanism type)
         {
-            UnLimitNode.Hide();
-            foreach (var i in selectBtns)
+  /*          dasdas
+            UnLimitNode.Hide();*/
+            switch (type)
+            {
+                case UnLockMechanism.S_AddOneHalfBottle:
+                    selectBtns[0].interactable = false;
+                    addItemBtns[0].Hide();
+                    UnLimitItemNode1.Hide();
+                    break;
+
+                case UnLockMechanism.S_RemoveOneBottleHideWater:
+                    selectBtns[1].interactable = false;
+                    addItemBtns[1].Hide();
+                    UnLimitItemNode2.Hide();
+                    break;
+
+                case UnLockMechanism.S_RemoveOneDebuffBottle:
+                    selectBtns[2].interactable = false;
+                    addItemBtns[2].Hide();
+                    UnLimitItemNode3.Hide();
+                    break;
+            }
+
+          /*  foreach (var i in selectBtns)
                 i.interactable = false;
             foreach (var i in addItemBtns)
-                i.Hide();
+                i.Hide();*/
         }
         private void SetGoldCoinGuideUI()
         {
@@ -390,18 +455,60 @@ namespace QFramework.Example
         {
             int _level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
             // 引导动画开关
-            if (_level == (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
+            // 彩色水
+            if (_level == (int)GameDefine.UnLockMechanism.S_AddOneHalfBottle)
             {
-                SetEnterPropsGuideUI();
+                SetEnterPropsGuideUI(UnLockMechanism.S_AddOneHalfBottle);
             }
-            if (_level > (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
+
+            if (_level > (int)GameDefine.UnLockMechanism.S_AddOneHalfBottle)
+            {
+                SetEnterPropsUnLockUI(UnLockMechanism.S_AddOneHalfBottle);
+            }
+            else
+            {
+                SetEnterPropsLockUI(UnLockMechanism.S_AddOneHalfBottle);
+            }
+            // 去黑
+            if (_level == (int)GameDefine.UnLockMechanism.S_RemoveOneBottleHideWater)
+            {
+                SetEnterPropsGuideUI(UnLockMechanism.S_RemoveOneBottleHideWater);
+            }
+
+            if (_level > (int)GameDefine.UnLockMechanism.S_RemoveOneBottleHideWater)
+            {
+                SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneBottleHideWater);
+            }
+            else
+            {
+                SetEnterPropsLockUI(UnLockMechanism.S_RemoveOneBottleHideWater);
+            }
+            // 移除一个瓶子负面
+            if (_level == (int)GameDefine.UnLockMechanism.S_RemoveOneDebuffBottle)
+            {
+                SetEnterPropsGuideUI(UnLockMechanism.S_RemoveOneDebuffBottle);
+            }
+
+            if (_level > (int)GameDefine.UnLockMechanism.S_RemoveOneDebuffBottle)
+            {
+                SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
+            }
+            else
+            {
+                SetEnterPropsLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
+            }
+            /* if (_level == (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
+             {
+                 SetEnterPropsGuideUI();
+             }*/
+          /*  if (_level > (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
             {
                 SetEnterPropsUnLockUI();
             }
             else
             {
                 SetEnterPropsLockUI();
-            }
+            }*/
             if (_level == (int)GameDefine.UnLockMechanism.TimesGoldCoin)
             {
                 SetGoldCoinGuideUI();

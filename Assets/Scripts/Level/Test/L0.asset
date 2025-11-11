@@ -15,7 +15,8 @@ MonoBehaviour:
   bottles:
   - waterSet: 010000000100000002000000
     isHide: 000000
-    waterItem: 000000000000000000000000
+    waterItem: 030000000400000000000000
+    bombCounts: 0a00000009000000
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -23,12 +24,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 0a000000
     hidePriority: 0
-    isFlyBomb: 1
+    isFlyBomb: 0
   - waterSet: 010000000100000001000000
     isHide: 000000
     waterItem: 000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -36,12 +37,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
     isFlyBomb: 0
   - waterSet: 
     isHide: 
     waterItem: 
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -49,15 +50,14 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
     isFlyBomb: 0
   gameType: 0
   clearList: 01000000
   hideList: 
-  bombNum: 0
   countDownNum: 0
   timeCountDown: 0
   topNum: 3
   bottomNum: 0
+  bubbleCount: 
   changeList: []

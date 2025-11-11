@@ -173,8 +173,15 @@ namespace GameDefine
         UIGuideLevelHalfBottle = 12,
         UIGuideLevelRemoveAll = 28
     }
-
-
+    /// <summary>
+    ///  全局性机制，不依赖水块或者瓶子
+    /// </summary>
+    public enum GlobalMechanism
+    {
+        None =1,
+        WhiteMagicCar =2,
+        BlackMagicCar =3
+    }
     /// <summary>
     /// 解锁机制标记
     /// </summary>
@@ -291,6 +298,8 @@ namespace GameDefine
 
         [RainBowWaterState("")]
         FlashWater = 4002,
+        [WaterColorState("idle_cl", EColorStateSpineType.EBombBlackWater)]
+        BombBlackWater = 5001
     }
 
     public enum LanguageType

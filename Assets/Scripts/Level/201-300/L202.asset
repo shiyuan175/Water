@@ -16,6 +16,7 @@ MonoBehaviour:
   - waterSet: 0400000008000000060000000b000000
     isHide: 01010000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -23,11 +24,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 0b000000030000000100000003000000
     isHide: 01010000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -35,11 +37,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 02000000060000000a00000002000000
     isHide: 01010000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -47,11 +50,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 0700000005000000040000000a000000
     isHide: 01010000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -59,11 +63,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 05000000020000000100000001000000
     isHide: 01010000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -71,11 +76,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 010000000b0000000800000009000000
     isHide: 01010000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -83,11 +89,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 020000000b0000000800000006000000
     isHide: 01010000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -95,11 +102,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 07000000070000000700000005000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 3
@@ -107,11 +115,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 0a000000040000000500000009000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 3
@@ -119,11 +128,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 0800000006000000040000000a000000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 1
@@ -131,11 +141,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 0300000003000000
     isHide: 0000
     waterItem: 0000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -143,11 +154,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 1
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 
     isHide: 
     waterItem: 
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -155,11 +167,12 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   - waterSet: 0900000009000000
     isHide: 0000
     waterItem: 0000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
     lockType: 0
@@ -167,14 +180,14 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 1
     isFinish: 0
-    bombCounts: 
     hidePriority: 0
+    isFlyBomb: 0
   gameType: 0
   clearList: 010000000200000003000000040000000600000007000000080000000a0000000b0000000900000005000000
   hideList: 
-  bombNum: 0
   countDownNum: 0
   timeCountDown: 0
   topNum: 7
   bottomNum: 6
+  bubbleCount: 
   changeList: []

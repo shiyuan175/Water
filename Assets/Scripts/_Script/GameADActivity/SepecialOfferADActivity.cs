@@ -39,13 +39,17 @@ public class SepecialOfferADActivity : BaseGameADActivity
     }
     public override void RestartActivity()
     {
-        CountDownTimerManager.Instance.ResetCountdownTimer(ActivitySign, 7 * 30);
+        /*CountDownTimerManager.Instance.ResetCountdownTimer(ActivitySign, 7 * 24);*/
         mSOModel.ReStartActivity();
     }
 
-    public override void StartActivity()
+    public override void StartActivity() 
     {
-        CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign, 7 * 30);
+        /*CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign, 7 * 24);*/
+    }
+    public override void CoolDownActivity()
+    {
+        CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign, 7 * 24);
     }
     public override void Tick()
     {

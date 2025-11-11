@@ -13,10 +13,15 @@ namespace QFramework.Example
 {
     public class UIGameNodeData : UIPanelData
     {
+        public GlobalMechanism globalMechanism;
+        public int BeginSetp = 0;
+        public int CanUseSetps = 0;
     }
 
     public partial class UIGameNode : UIPanel, IController
     {
+        [SerializeField]
+        private MagicCtrl magicCtrl;
         private const string ITEM_ENTRANCE_EFFECT_PATH = "Prefab/ItemEntranceEffect";
         private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
 
@@ -57,6 +62,12 @@ namespace QFramework.Example
         protected override void OnInit(IUIData uiData = null)
         {
             mData = uiData as UIGameNodeData ?? new UIGameNodeData();
+            #region 全局机制--魔法猫咪
+            if (mData.globalMechanism==GlobalMechanism.WhiteMagicCar || mData.globalMechanism == GlobalMechanism.BlackMagicCar)
+            {          
+                magicCtrl.Init(mData.globalMechanism);
+            }
+            #endregion
             // please add init code here
         }
 

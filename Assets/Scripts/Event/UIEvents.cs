@@ -59,3 +59,4 @@ public struct OnActivityStatusChanged
     public IGameActivity Sender;
     public Enum Status;
 }
+
