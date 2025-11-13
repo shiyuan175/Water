@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -221,10 +222,13 @@ namespace GameDefine
     /// </summary>
     public enum WaterItem
     {
+        // 更新分为两类，一类是每一步都需要维护状态的如炸弹，一类是只维护消失结束的，如泡沐;
+        // 炸弹采用同黑水等机制的类update去维护，泡沐采用在边界情况维护，如removeall，退出游戏等
         None = 0,
         Ice = 1,
         BreakIce = 2,
         Bomb = 3,
+        // 弃用，在水块中的飞天炸弹
         FlyBomb = 4,
         Bubble = 5,
         Bubble_Origin =6
@@ -299,7 +303,10 @@ namespace GameDefine
         [RainBowWaterState("")]
         FlashWater = 4002,
         [WaterColorState("idle_cl", EColorStateSpineType.EBombBlackWater)]
-        BombBlackWater = 5001
+        BombBlackWater = 5001,
+        [WaterColorState("idle",EColorStateSpineType.EFlyBomb)]
+        FlyBomb =5002
+        
     }
 
     public enum LanguageType

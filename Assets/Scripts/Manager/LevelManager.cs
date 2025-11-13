@@ -138,11 +138,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         TopBottleLayoutGroup.Hide();
         BottomBottleLayoutGroup.Hide();
-        Debug.Log(nowBottles.Count);
         foreach (var i in nowBottles)
-        {
-
-        }
+            i.DisInit();
         //foreach (var item in bottles)
         //{
         //    item.Init(emptyBottle, 0);
@@ -171,6 +168,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         globalMechanism = levelInfo.globalMechanism;
         GlobalMechanismBeginSetp = levelInfo.GlobalMechanismBeginSetp;
         GlobalMechanismContinueSetps = levelInfo.GlobalMechanismContinueSetps;
+        
         int _i = 0;
    
 
@@ -334,8 +332,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         for (int i = 0; i < levelInfo.bottles.Count; i++)
         {
             var bottle = nowBottles[i];
-            //瓶子还没做初始配置，直接全部设置4（要改）
-            bottle.maxNum = 4;
+            
             bottle.Init(levelInfo.bottles[i], i);
         }
     }

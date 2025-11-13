@@ -15,8 +15,8 @@ using static UnityEditor.Progress;
 
 public class BottleWaterCtrl : MonoBehaviour
 {
-    public SkeletonGraphic spine, broomSpine, createSpine, changeSpine, magnetSpine, changeShineSpine, thunderSpine, broomAfterSpine, fireRuneSpine,starBlackWater,BombBlackWaterSpine;
-    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater,BombBlackWaterItemGo;
+    public SkeletonGraphic spine, broomSpine, createSpine, changeSpine, magnetSpine, changeShineSpine, thunderSpine, broomAfterSpine, fireRuneSpine,starBlackWater,BombBlackWaterSpine,FlyBombSpine;
+    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater,BombBlackWaterItemGo,FlyBombItemGo;
     public Animator anim;
     public Image waterImg;
     public int waterColor;
@@ -24,6 +24,7 @@ public class BottleWaterCtrl : MonoBehaviour
     public TextMeshProUGUI textItem;
     public GameObject fireRuneGo;
     public BottleCtrl bottle;
+    
 
     #region NewMechineCtrl
     public BombCtrl bombCtrl;
@@ -332,7 +333,7 @@ public class BottleWaterCtrl : MonoBehaviour
 
     #endregion
 
-    public void SetColorState(GameDefine.ItemType itemType, Color inColor, bool isTopWater, int time = 0)
+    public void SetColorState(GameDefine.ItemType itemType, Color inColor, bool isTopWater, int index = 0)
     {
         this.color = inColor;
         
@@ -357,6 +358,20 @@ public class BottleWaterCtrl : MonoBehaviour
         BombBlackWaterItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
         // 特殊水等不需要22合成机制
         RainBowWater.SetActive(attribute.RainBowWaterActive);
+    /*    FlyBombItemGo.SetActive(attribute.FlyBombActive);*/
+        // 更新飞天炸弹数值
+       /* if(attribute.FlyBombActive)
+        {
+            Debug.Log(bottle.bombCounts[index]);
+            int bombNum = bottle.bombCounts[index] - LevelManager.Instance.moveNum;
+            textItem.text = bombNum.ToString();
+            if (bombNum <= 0)
+            {
+                textItem.text = "";
+                Debug.Log(message: "bomb");
+            }
+                
+        }*/
         if (attribute.SpineAnim.IsNullOrEmpty() == false && attribute.SpineType > EColorStateSpineType.None && attribute.SpineType < EColorStateSpineType.Max)
         {
             switch (attribute.SpineType)
@@ -450,7 +465,7 @@ public class BottleWaterCtrl : MonoBehaviour
         {
             if (go1 != null) Destroy(go1);
         });
-        Debug.Log("12");
+
         // 6. 隐藏原始道具，播放消失动画
         itemGo.SetActive(false);
         if (useTopNode && go.transform.Find("Top") != null)

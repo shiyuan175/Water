@@ -17,9 +17,11 @@ namespace GameAttributes
 
         //炸弹黑水
         EBombBlackWater = 6,
+        // 飞天炸弹
+        EFlyBomb = 7,
         //其余特殊水块...
 
-        Max = 7
+        Max = 8
     }
     
     [AttributeUsage(AttributeTargets.Field)]
@@ -31,6 +33,7 @@ namespace GameAttributes
         public readonly bool MagnetItemActive;
         public readonly bool RainBowWaterActive;
         public readonly bool BombBlackWaterAvtive;
+        public readonly bool FlyBombActive;
 
         public readonly string SpineAnim;
         public readonly EColorStateSpineType SpineType;
@@ -48,7 +51,7 @@ namespace GameAttributes
             MagnetItemActive = spineType == EColorStateSpineType.EMagnetSpine;
             RainBowWaterActive = spineType == EColorStateSpineType.ERainBowWater;
             BombBlackWaterAvtive = spineType == EColorStateSpineType.EBombBlackWater;
-                
+            FlyBombActive = SpineType == EColorStateSpineType.EFlyBomb;
             //局内机制道具补充...
         }
     }

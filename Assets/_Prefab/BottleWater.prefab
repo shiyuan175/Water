@@ -2164,6 +2164,7 @@ MonoBehaviour:
   fireRuneSpine: {fileID: 705223860722037405}
   starBlackWater: {fileID: 2473617059092541022}
   BombBlackWaterSpine: {fileID: 5480325088127557261}
+  FlyBombSpine: {fileID: 0}
   spineGo: {fileID: 0}
   HideGo: {fileID: 3763177170642793450}
   broomItemGo: {fileID: 1642792008010929223}
@@ -2176,6 +2177,7 @@ MonoBehaviour:
   iceGo: {fileID: 8065537041360029008}
   RainBowWater: {fileID: 2633352209347109297}
   BombBlackWaterItemGo: {fileID: 7491063757773406001}
+  FlyBombItemGo: {fileID: 0}
   anim: {fileID: 0}
   waterImg: {fileID: 5803998616557358016}
   waterColor: 0
@@ -2288,6 +2290,7 @@ MonoBehaviour:
   timeText: {fileID: 573514860184324627}
   bombSpine: {fileID: 1819891118746285143}
   skeletonGraphic: {fileID: 1032423032277443207}
+  goMechine: {fileID: 7278143787643135267}
   skeletonAnimation: {fileID: 1417608747631409466}
   normalBomb: {fileID: 11400000, guid: a3be886b841673849a1d35afabd2472c, type: 2}
   flyBomb: {fileID: 11400000, guid: d2ef2eeab5916bd44bf1b222c4d9de35, type: 2}

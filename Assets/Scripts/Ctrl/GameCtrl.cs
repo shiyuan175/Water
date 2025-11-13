@@ -97,16 +97,16 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
 
                     LevelManager.Instance.RecordLast();
                     FirstBottle.MoveTo(SecondBottle);
-                    FirstBottle = null;
-                    SecondBottle = null;
-                    AudioKit.PlaySound("resources://Audio/PourWaterSound");
+                    
                     #region 全局游戏机制--倒水后触发、玩家走一步触发
                     #region 泡沐机制--生成检查 
                     LevelManager.Instance.CheckBubbleDict();
                     LevelManager.Instance.CreateBubble();
                     #endregion
                     #endregion
-            
+                    FirstBottle = null;
+                    SecondBottle = null;
+                    AudioKit.PlaySound("resources://Audio/PourWaterSound");
                 }
                 else
                 {
