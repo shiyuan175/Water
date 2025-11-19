@@ -1139,7 +1139,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         foreach (var ctrl in list)
         {
-            var go = Instantiate(LevelManager.Instance.broomBullet);
+            var go = Instantiate(LevelManager.Instance.broomBullet , LevelManager.Instance.mSpineIniPar);
 
             var fly = go.GetComponent<FlyCtrl>();
             fly.target = ctrl.transform;
@@ -1204,7 +1204,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     {
         isPlayAnim = true;
         var imgcmp = waterImg[i].transform.GetComponent<Image>();
-        imgcmp.material = LevelManager.Instance.shineMaterial;
         StartCoroutine(waterImg[i].ShowBroomAfter());
 
 
@@ -1843,8 +1842,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         int spinePosIdx = topIdx + 1;
         SetNowSpinePos(spinePosIdx);
         PlaySpineWaitAnim();
-
-
     }
 
     /// <summary>
@@ -1950,7 +1947,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 spine.AnimationState.SetAnimation(0, spineAnimName, false);
         }
         else
+        {
             spineGo.Hide();
+            //spine.AnimationState.SetAnimation(0, "ruchanghuangdong_mask", false);
+        }
 
         //Debug.Log($"水面动画名:{spineAnimName},瓶子：{this.gameObject.name}");
 
@@ -2016,6 +2016,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         }
 
         spineGoPosition.localPosition = spineNode[useNode].localPosition;
+        //spineGoPosition.localPosition = spineNode[waters.Count].localPosition;
     }
 
     /// <summary>

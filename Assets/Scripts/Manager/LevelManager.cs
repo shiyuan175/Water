@@ -37,13 +37,13 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public LevelCreateCtrl nowLevel;
     public Color ItemColor;
 
-    public Material shineMaterial;
-
     public int levelId = 1, bombMaxNum, countDownNum, playingHideAnimCount;
     public bool ISPlayingHideAnim => playingHideAnimCount == 0;
 
     public int moveNum = 0;
 
+    //机制道具Spine合成生成的实例父节点(用于将渲染置顶)
+    public Transform mSpineIniPar;
     public GameObject broomBullet;
     public SkeletonGraphic mahoujinSpine;
     bool isFinish = false;
@@ -52,8 +52,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public bool isRainbowBottleAdded = true;
 
     public BottleCtrl nowHalf;
-    public Material selectMaterial;
-    public GameObject hideBg;
+
     //携带的道具
     public List<int> takeItem = new List<int>();
     public List<LevelManagerRecord> LevelManagerRecords = new List<LevelManagerRecord>();
@@ -63,7 +62,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     [SerializeField] private List<BottleCtrl> bottles = new List<BottleCtrl>();
 
     private LevelManagerUtility levelManagerUtility;
-    private StageModel stageModel;
     private ResLoader mResLoader = ResLoader.Allocate();
     [HideInInspector]
     public TMP_FontAsset redFont;
@@ -981,7 +979,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         //TopBottleLayoutGroup.spacing = (8 - activeCount) * SPACING_UNIT;
 
         //新布局 
-        TopBottleLayoutGroup.spacing = -150f - (8 - activeCount) * 100f;
+        TopBottleLayoutGroup.spacing = -25f - (8 - activeCount) * 100f;
     }
 
     /// <summary>
@@ -994,7 +992,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         int activeCount = GetActiveChildCount(BottomBottleLayoutGroup.transform);
         //BottomBottleLayoutGroup.spacing = (8 - activeCount) * SPACING_UNIT;
 
-        BottomBottleLayoutGroup.spacing = -150f - (8 - activeCount) * 100f;
+        BottomBottleLayoutGroup.spacing = -25f - (8 - activeCount) * 100f;
     }
 
     /// <summary>

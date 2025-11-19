@@ -25,7 +25,7 @@ public class ThunderCtrl : MonoBehaviour
     {
         //transform.localScale = new Vector3(transform.localScale.x, Vector3.Distance(fromPos, transform.position) / 4f, transform.localScale.z);
         var fromPos = target.position;
-        transform.localScale = new Vector3(transform.localScale.x, Vector3.Distance(fromPos, transform.position) / 4f, transform.localScale.z);
+        transform.localScale = new Vector3(transform.localScale.x, Vector3.Distance(fromPos, transform.position) / 7f, transform.localScale.z);
         totalTime += Time.deltaTime;
         var angle = Vector3.Angle(fromPos - transform.position, Vector3.up);
 

@@ -38,6 +38,8 @@ public class BottleRenderUpdate : MonoBehaviour
     private Vector3 _originalScale;
     private float _originalWaterWidth;
 
+    [SerializeField] private Canvas mWaterItemSpineCanvas;
+
     public void Start()
     {
         _bottleCtrl = transform.parent.GetComponent<BottleCtrl>();
@@ -90,7 +92,7 @@ public class BottleRenderUpdate : MonoBehaviour
         var rectTransform = WaterSpine.GetComponent<RectTransform>();
         _originalWaterWidth = rectTransform.rect.width * _waterScale.x; // 原始本地宽度
 
-        SetWaterSortingOrder(2);
+        SetWaterSortingOrder(4);
     }
 
     /* public void LateUpdate()
@@ -253,13 +255,18 @@ public class BottleRenderUpdate : MonoBehaviour
     }
 
     // 移动的瓶子，最后渲染（改变）
+    // 渲染层级
+    // 移动的瓶子：7，水块8，机制spine 9
+    // 静止的瓶子：3，水块4，机制Spine 5 ，
+    // 陶瓷/魔法布/水面Spine 6
     public void SetMoveBottleRenderState(bool isMove, BottleCtrl otherBottle = null)
     {
         _otherBottle = otherBottle;
         if (isMove)
         {
-            //_bottleCtrl.GetComponent<Canvas>().sortingOrder = 1;
-            //SetWaterSortingOrder(1);
+            _bottleCtrl.GetComponent<Canvas>().sortingOrder = 7;
+            SetWaterSortingOrder(8);
+            mWaterItemSpineCanvas.sortingOrder = 9;
             if (_otherBottle != null)
             {
                 //_otherBottle.GetComponent<Canvas>().sortingOrder = 2;
@@ -271,8 +278,9 @@ public class BottleRenderUpdate : MonoBehaviour
         }
         else
         {
-            //_bottleCtrl.GetComponent<Canvas>().sortingOrder = 0;
-            //SetWaterSortingOrder(0);
+            _bottleCtrl.GetComponent<Canvas>().sortingOrder = 3;
+            SetWaterSortingOrder(4);
+            mWaterItemSpineCanvas.sortingOrder = 5;
             if (_otherBottle != null)
             {
                 //_otherBottle.GetComponent<Canvas>().sortingOrder = 0;

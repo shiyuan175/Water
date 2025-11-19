@@ -4,8 +4,6 @@ using QFramework;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
-using UnityEditor.VersionControl;
-using UnityEngine.Rendering;
 using System;
 
 namespace QFramework.Example

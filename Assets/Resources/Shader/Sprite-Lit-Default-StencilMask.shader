@@ -14,7 +14,6 @@ Shader "Water/2D/Sprite-Lit-Default_StencilMask"
         [HideInInspector] _StencilWriteMask ("Stencil Write Mask", Float) = 255
         [HideInInspector] _ColorMask ("Color Mask", Float) = 15
 
-        // 你实际使用的
         _StencilRef("Stencil Reference", Float) = 1.0
 
         // Legacy properties
@@ -29,21 +28,19 @@ Shader "Water/2D/Sprite-Lit-Default_StencilMask"
     {
         Tags {"Queue"="Transparent" "RenderType"="Transparent" "RenderPipeline"="UniversalPipeline"}
 
-        // 保持原逻辑：只写模板，不写颜色
         ColorMask 0
         Cull Off
         ZWrite Off
 
         Stencil
         {
-            Ref [_StencilRef]          // 用你自己的 Reference 值
-            Comp [_StencilComp]        // UI 需要的属性
+            Ref [_StencilRef]          
+            Comp [_StencilComp]        
             Pass Replace
             ReadMask [_StencilReadMask]
             WriteMask [_StencilWriteMask]
         }
 
-        // 下面两个 Pass 保持不变
         Pass
         {
             Tags { "LightMode" = "Universal2D" }

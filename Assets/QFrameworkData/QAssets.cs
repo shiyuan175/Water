@@ -100,6 +100,11 @@ namespace QAssetBundle
         public const string BundleName = "uidailytaskadactivities_prefab";
         public const string UIDailyTaskADActivities = "UIDailyTaskADActivities";
     }
+    public class Uidoublegiftadactivity_prefab
+    {
+        public const string BundleName = "uidoublegiftadactivity_prefab";
+        public const string UIDoubleGiftADActivity = "UIDoubleGiftADActivity";
+    }
     public class Uigamenode_prefab
     {
         public const string BundleName = "uigamenode_prefab";
@@ -169,6 +174,11 @@ namespace QAssetBundle
     {
         public const string BundleName = "uipersonal_prefab";
         public const string UIPersonal = "UIPersonal";
+    }
+    public class Uiprograssgiftadactivity_prefab
+    {
+        public const string BundleName = "uiprograssgiftadactivity_prefab";
+        public const string UIPrograssGiftADActivity = "UIPrograssGiftADActivity";
     }
     public class Uipropmask_prefab
     {

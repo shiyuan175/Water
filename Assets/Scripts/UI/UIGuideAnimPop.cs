@@ -21,8 +21,6 @@ namespace QFramework.Example
 		{
             TxtGuide.text = mData.GuideText;
 			GuideAni.Play(mData.GuideAnimName);
-
-			LevelManager.Instance.hideBg.Show();
         }
 		
 		protected override void OnShow()
@@ -39,7 +37,6 @@ namespace QFramework.Example
 		
 		protected override void OnClose()
 		{
-            LevelManager.Instance.hideBg.Hide();
         }
     }
 }

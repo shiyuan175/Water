@@ -11,7 +11,6 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.UI;
 using GameDefine;
-using static UnityEditor.Progress;
 
 public class BottleWaterCtrl : MonoBehaviour
 {
@@ -244,12 +243,11 @@ public class BottleWaterCtrl : MonoBehaviour
     public IEnumerator ShowThunder(Transform target)
     {
         yield return new WaitForSeconds(1f);
-        var go = Instantiate(thunderGo);
+        var go = Instantiate(thunderGo, transform);
         //var useSpine = go.GetComponent<SkeletonGraphic>();
         //useSpine.AnimationState.SetEmptyAnimation(0, 0f);
-        go.transform.parent = transform;
         go.transform.localPosition = Vector3.zero;
-        go.transform.parent = LevelManager.Instance.gameCanvas;
+        go.transform.parent = LevelManager.Instance.mSpineIniPar;
         go.transform.localScale = new Vector3(1, 1, 1);
         ThunderCtrl thunderCtrl = go.GetComponent<ThunderCtrl>();
         thunderCtrl.target = target;
@@ -287,10 +285,9 @@ public class BottleWaterCtrl : MonoBehaviour
         AudioKit.PlaySound("resources://Audio/FireBreakIce");
         yield return new WaitForSeconds(1.2f);
 
-        var go = GameObject.Instantiate(fireRuneGo);
-        go.transform.parent = transform;
+        var go = GameObject.Instantiate(fireRuneGo, transform);
         go.transform.localPosition = Vector3.zero;
-        go.transform.parent = LevelManager.Instance.gameCanvas;
+        go.transform.parent = LevelManager.Instance.mSpineIniPar;
         go.transform.localScale = new Vector3(1, 1, 1);
         var spine = go.transform.Find("FireRune").GetComponent<SkeletonGraphic>();
         spine.AnimationState.SetAnimation(0, "bullet", false);
@@ -356,22 +353,23 @@ public class BottleWaterCtrl : MonoBehaviour
         magnetItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
         BombBlackWaterItemGo.SetActive(attribute.BombBlackWaterAvtive);
         BombBlackWaterItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
-        // 特殊水等不需要22合成机制
+
+        // 特殊水等不需要两两合成
         RainBowWater.SetActive(attribute.RainBowWaterActive);
-    /*    FlyBombItemGo.SetActive(attribute.FlyBombActive);*/
+        //FlyBombItemGo.SetActive(attribute.FlyBombActive);
         // 更新飞天炸弹数值
-       /* if(attribute.FlyBombActive)
-        {
-            Debug.Log(bottle.bombCounts[index]);
-            int bombNum = bottle.bombCounts[index] - LevelManager.Instance.moveNum;
-            textItem.text = bombNum.ToString();
-            if (bombNum <= 0)
-            {
-                textItem.text = "";
-                Debug.Log(message: "bomb");
-            }
-                
-        }*/
+        /* if(attribute.FlyBombActive)
+         {
+             Debug.Log(bottle.bombCounts[index]);
+             int bombNum = bottle.bombCounts[index] - LevelManager.Instance.moveNum;
+             textItem.text = bombNum.ToString();
+             if (bombNum <= 0)
+             {
+                 textItem.text = "";
+                 Debug.Log(message: "bomb");
+             }
+
+         }*/
         if (attribute.SpineAnim.IsNullOrEmpty() == false && attribute.SpineType > EColorStateSpineType.None && attribute.SpineType < EColorStateSpineType.Max)
         {
             switch (attribute.SpineType)
@@ -451,8 +449,8 @@ public class BottleWaterCtrl : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         // 3. 移动到画布层级
-        go.transform.SetParent(LevelManager.Instance.gameCanvas, true);
-        go1.transform.SetParent(LevelManager.Instance.gameCanvas, true);
+        go.transform.SetParent(LevelManager.Instance.mSpineIniPar, true);
+        go1.transform.SetParent(LevelManager.Instance.mSpineIniPar, true);
 
         // 4. 播放Spine动画
         if (useSpine1 != null && hideSpineComponent != null)
@@ -481,7 +479,9 @@ public class BottleWaterCtrl : MonoBehaviour
         isPlayItemAnim = false;
         hide.gameObject.SetActive(false);
 
-        yield return new WaitForSeconds(1f);
+        int waitTime = itemType is ItemType.MagnetItem ? 2 : 1;
+
+        yield return new WaitForSeconds(waitTime);
         // 7. 回调处理
         onComplete?.Invoke();
         // 8. 清理
