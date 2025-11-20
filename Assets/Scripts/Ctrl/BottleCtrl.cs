@@ -68,6 +68,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     public List<Transform> spineNode = new List<Transform>();
     public List<Transform> waterNode = new List<Transform>();
 
+    // 机制引导的箭头点位
+    public RectTransform mGuideNode;
+
     public Transform
         spineGo,      // 倒水过程水花动画父节点(当前水面位置)
         spineGoPosition, // 专门用于计算spine位置的替代品

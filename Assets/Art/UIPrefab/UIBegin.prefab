@@ -2541,7 +2541,6 @@ MonoBehaviour:
   ImgSelected: {fileID: 120620133163915858}
   BottomMenuNode: {fileID: 7415087224644484512}
   Btn_Bp: {fileID: 3957365243187806011}
-  ImgBp: {fileID: 491486534709560676}
   ImgLock: {fileID: 7539375673239354088}
 --- !u!1 &475901884843129894
 GameObject:
@@ -29213,10 +29212,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5698040084702764571}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: -100}
-  m_SizeDelta: {x: 249.0769, y: 200}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4908036358694368844
 CanvasRenderer:

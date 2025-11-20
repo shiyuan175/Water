@@ -277,10 +277,9 @@ GameObject:
   - component: {fileID: 8596183865017497872}
   - component: {fileID: 740885871936749064}
   - component: {fileID: 5096653030107907155}
-  - component: {fileID: 3512080807456806787}
   - component: {fileID: 7445222217770273804}
   m_Layer: 5
-  m_Name: GuideAni
+  m_Name: GuideArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,30 +342,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!111 &3512080807456806787
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5873583997049534663}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 7400000, guid: 18cd43b9c77b6834c9460286263bd57e, type: 2}
-  - {fileID: 7400000, guid: 0f2701c6b2e4b8546b1db7921cda50ca, type: 2}
-  - {fileID: 7400000, guid: 7d86f52d177aaaf408b3a744847a6aea, type: 2}
-  - {fileID: 7400000, guid: 8405d1b408f5dff418f2e30e57aeeb49, type: 2}
-  - {fileID: 7400000, guid: bee5378bb650e514ba9f6f20bbbe2143, type: 2}
-  - {fileID: 7400000, guid: dfedd9474084c1f46980cd0b11c9b54c, type: 2}
-  - {fileID: 7400000, guid: 4d44a2819c231f74aac9d7c57eea5297, type: 2}
-  - {fileID: 7400000, guid: df0747efcd38ca2498b45da7a99c7b39, type: 2}
-  - {fileID: 7400000, guid: a5824a7360e654c4daa711cb2cacc78b, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &7445222217770273804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,7 +357,7 @@ MonoBehaviour:
   MarkType: 0
   CustomComponentName: GuideAni
   CustomComment: 
-  mComponentName: UnityEngine.Animation
+  mComponentName: UnityEngine.RectTransform
 --- !u!1 &6986750501271391922
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,4 +408,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TxtGuide: {fileID: 6034313272421844174}
-  GuideAni: {fileID: 3512080807456806787}
+  GuideArrow: {fileID: 8596183865017497872}

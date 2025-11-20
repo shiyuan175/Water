@@ -113,11 +113,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         if (levelId <= GameConst.NEWBIE_LEVEL_COUNT)
         {
             StartGame(levelId);
-            UIKit.OpenPanel<UIGameNode>(new UIGameNodeData {  globalMechanism = this.globalMechanism });
-            
+            UIKit.OpenPanel<UIGameNode>();
         }
-
-     
     }
 
     private void OnDestroy()
@@ -184,8 +181,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         InitLevels(levelInfo);
 
 
-        #region 新机制初始化
-        #region 泡沐
+        //新机制初始化
+        
+        //泡沫
         foreach (var i in nowBottles)
         {
             foreach(var j in i.waterItems)
@@ -197,8 +195,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             }
                 
         }
-        #endregion
-        #endregion
     }
 
     /// <summary>
@@ -283,15 +279,21 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         }
 
         // 新机制引导
-        if (GameDefine.GameConst.GuideLevelInfo.TryGetValue(levelId, out (string guideText, string guideAnimName) value))
-            UIKit.OpenPanel<UIGuideAnimPop>(new UIGuideAnimPopData
+        if (GameDefine.GameConst.GameplayTutorialInfo.TryGetValue(levelId,
+        out var info))
+        {
+            RectTransform GetNode(int idx) =>
+                idx >= 0 ? bottles[idx].mGuideNode : null;
+
+            UIKit.OpenPanel<UIGuideAnimPop>(UILevel.PopUI, new UIGuideAnimPopData
             {
-                GuideText = value.guideText,
-                GuideAnimName = value.guideAnimName
+                GuideText = info.guideInfo,
+                Node1 = GetNode(info.bottleIndex_1),
+                Node2 = GetNode(info.bottleIndex_2),
             });
+        }
     }
   
-
     /// <summary>
     /// 判断显示那些瓶子（现用于初始化关卡的瓶子）
     /// </summary>
@@ -770,8 +772,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     }
 
     #endregion
+
     #region 关卡机制相关
+
     #region 泡沐
+
     /// <summary>
     /// 清理消失泡沐
     /// </summary>
@@ -780,6 +785,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         bubbleDict.Remove(bottleCtrl);
     }
+
     /// <summary>
     /// 生成泡沐前调用,
     /// </summary>
@@ -806,6 +812,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         return;
     }
     #endregion
+
     #region 炸弹相关
 
     /// <summary>
@@ -863,6 +870,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         }
         return flag;
     }
+
     public void BombClear()
     {
         foreach(BottleCtrl bottle in bottles)
@@ -873,7 +881,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     }
 
     #endregion
+
     #endregion
+
     #region 付费道具相关
 
     #region Add Bottle
