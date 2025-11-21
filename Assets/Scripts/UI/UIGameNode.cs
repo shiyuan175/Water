@@ -13,7 +13,7 @@ namespace QFramework.Example
 {
     public class UIGameNodeData : UIPanelData
     {
-        public GlobalMechanism globalMechanism;
+        public GlobalMechanism GlobalMechanism;
         public int BeginSetp = 0;
         public int CanUseSetps = 0;
     }
@@ -62,12 +62,11 @@ namespace QFramework.Example
         protected override void OnInit(IUIData uiData = null)
         {
             mData = uiData as UIGameNodeData ?? new UIGameNodeData();
-            #region 全局机制--魔法猫咪
-            if (mData.globalMechanism==GlobalMechanism.WhiteMagicCar || mData.globalMechanism == GlobalMechanism.BlackMagicCar)
-            {          
-                magicCtrl.Init(mData.globalMechanism);
+            // 全局机制--魔法猫咪
+            if (mData.GlobalMechanism==GlobalMechanism.WhiteMagicCar || mData.GlobalMechanism == GlobalMechanism.BlackMagicCar)
+            {        
+                magicCtrl.Init(mData.GlobalMechanism);
             }
-            #endregion
             // please add init code here
         }
 

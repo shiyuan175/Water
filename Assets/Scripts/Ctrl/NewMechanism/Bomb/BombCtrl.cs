@@ -15,7 +15,6 @@ public class BombCtrl : MonoBehaviour
 {
     [SerializeField]
     TextMeshProUGUI timeText;
-
     [SerializeField]
     GameObject bombSpine;
     [SerializeField]
@@ -31,6 +30,7 @@ public class BombCtrl : MonoBehaviour
     [SerializeField]
     SkeletonDataAsset flyBomb;
     GameObject newAnimation;
+    float delayTime = 0.1f;
     // 炸弹爆炸，通过spineui和ani实现，ani负责动画渲染，ui复杂游戏渲染
 
     private void Awake()
@@ -41,7 +41,10 @@ public class BombCtrl : MonoBehaviour
         newAnimation.transform.SetParent(transform.parent); // true = 保持世界坐标
         newAnimation.SetActive(true);*/
     }
-
+    private void OnDisable()
+    {
+        bombSpine.SetActive( false);
+    }
     public void BombBoom()
     {
         newAnimation = Instantiate(skeletonAnimation, skeletonAnimation.transform);
@@ -65,6 +68,7 @@ public class BombCtrl : MonoBehaviour
             /*skeletonAnimation.transform.localPosition = Vector3.zero;
             skeletonAnimation.SetActive(false);*/
             Destroy(newAnimation);
+            LevelManager.Instance.haveBooming = false;
         };
 
         skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
@@ -77,7 +81,7 @@ public class BombCtrl : MonoBehaviour
 
     public void BombIsFinish()
     {
-        Debug.Log(this.name);
+
         newAnimation = Instantiate(skeletonAnimation, skeletonAnimation.transform);
         newAnimation.LocalScale(Vector3.one);
         newAnimation.transform.SetParent(transform.parent); // true = 保持世界坐标
@@ -98,10 +102,10 @@ public class BombCtrl : MonoBehaviour
     {
         newAnimation = Instantiate(skeletonAnimation, skeletonAnimation.transform);
         newAnimation.LocalScale(Vector3.one);
-        newAnimation.transform.SetParent(transform.parent); // true = 保持世界坐标
+        newAnimation.transform.SetParent(transform.parent.parent); // true = 保持世界坐标
         newAnimation.SetActive(true);
         skeletonAnimationCom = newAnimation.GetComponent<SkeletonAnimation>();
-        Debug.Log(skeletonAnimationCom);
+       /* Debug.Log(skeletonAnimationCom);
         Debug.Log(flyBomb);
         if (flyBomb != null)
         {
@@ -123,7 +127,7 @@ public class BombCtrl : MonoBehaviour
             {
                 Debug.LogError("无法获取 SkeletonData");
             }
-        }
+        }*/
         skeletonAnimationCom.skeletonDataAsset = flyBomb;
         skeletonAnimationCom.Initialize(true);
       
@@ -135,15 +139,26 @@ public class BombCtrl : MonoBehaviour
         skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
         bombSpine.SetActive(false);
     }
+    
     public void SetBomb(bool isBomb = false, string time = "", string aniType = "combine")
     {
+        
         if (aniType == "bomp_remove")
         {
-            BombIsFinish();
+            ActionKit.Delay(delayTime, () =>
+            {
+                BombIsFinish();
+
+            }).Start(this);
+         
             return;
         }
         if (aniType == "flap")
         {
+            /*ActionKit.Delay(delayTime, () =>
+            {
+                BombFling();
+            }).Start(this);*/
             BombFling();
             return;
         }
@@ -158,4 +173,14 @@ public class BombCtrl : MonoBehaviour
         timeText.text = time;
         // skeletonGraphic.AnimationState.SetAnimation(0, "idle", false);
     }
+   /* public void SetBomb(int bombCount)
+    {
+        switch(bombCount)
+        {
+            case BOMBING_SIGN:
+                BombBoom();
+                break;  
+        }
+            
+    }*/
 }

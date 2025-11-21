@@ -61,6 +61,10 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         if (_curLevel >= GameDefine.GameConst.BP_AD_BEGIN_LEVEL)
         {
             RegisterActivity<BattlePassADActivity>();
+            if (!GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.DAILYREWARD_AD_ACTIVITY_SIGN))
+            {
+                GetActivity<BattlePassADActivity>().StartActivity();
+            }
         }
         if (_curLevel >= GameDefine.GameConst.MS_BEGIN_LEVEL)
         {

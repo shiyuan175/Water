@@ -60,7 +60,7 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
     public override void RestartActivity()
     {
         CountDownTimerManager.Instance.ResetTimer(ActivitySign, ActivityDurationMinutes);
-
+        mBPModel.LoadBattlePassActivity();
         // 未领取的奖励发放?
         mBPModel.ReloadBattlePassActivity();
         mBPModel.LoadBattlePassActivity();

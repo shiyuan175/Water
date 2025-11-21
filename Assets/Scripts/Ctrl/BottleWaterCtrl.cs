@@ -11,7 +11,6 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.UI;
 using GameDefine;
-using static UnityEditor.Progress;
 
 public class BottleWaterCtrl : MonoBehaviour
 {
@@ -475,6 +474,7 @@ public class BottleWaterCtrl : MonoBehaviour
 
         if (useSpine != null)
         {
+
             useSpine.AnimationState.SetAnimation(0, animName, loop: false);
         }
 

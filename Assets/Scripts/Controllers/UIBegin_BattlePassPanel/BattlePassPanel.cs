@@ -115,7 +115,6 @@ namespace QFramework.Example
         public void InitButtomPanelUI()
         {
             GameObject _prefab = BattlePassContent.transform.GetChild(0).gameObject;
-
             // 战令预制体增删
             for (int i = BattlePassContent.transform.childCount; i < battlePassModel.BPDate.Rewards.Length; i++)
                 Instantiate(_prefab, BattlePassContent.transform);

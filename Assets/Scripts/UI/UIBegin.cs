@@ -319,7 +319,7 @@ namespace QFramework.Example
             {
                 /*  UIKit.OpenPanel<UIGameNode>();*/
                 LevelManager.Instance.StartGame(saveData.GetCurrentLevel());
-                UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { globalMechanism = LevelManager.Instance.globalMechanism });
+                UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { GlobalMechanism = LevelManager.Instance.globalMechanism });
                 
                 BottomMenuNode.Hide();
                 HomeNode.Hide();
@@ -1032,20 +1032,7 @@ namespace QFramework.Example
         #endregion
 
 
-        private void InitUI()
-        {
-            if(saveData.GetCurrentLevel()>=GameConst.BP_AD_BEGIN_LEVEL)
-            {
-                Btn_Bp.interactable = true;
-                ImgLock.Hide();
-            }
-            else
-            {
-                Btn_Bp.interactable = false;
-                ImgLock.Show();
-            }
-            
-        }
+    
     }
     
 }

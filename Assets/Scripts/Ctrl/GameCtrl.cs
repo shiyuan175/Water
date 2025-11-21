@@ -1,5 +1,6 @@
 using GameDefine;
 using QFramework;
+using QFramework.Example;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -75,35 +76,30 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
 
                     LevelManager.Instance.AddMoveNum();
 
-                    #region 全局游戏机制--倒水前触发、玩家走一步触发
+                    #region 倒水前触发、玩家走一步触发、倒水前全局游戏机制，
+
+                    #region 会中止逻辑，需要重新刷新UI
                     #region 炸弹机制--失败检查
                     // 炸弹更新并进行失败检测
-                    bool flag = LevelManager.Instance.BombUpdate(bottle);
+                    bool flag = LevelManager.Instance.CheckBomb();
                     // 炸弹爆炸要中断去执行瓶子的相关事件和动画
                     if (flag == true)
                     {
                         control = false;
                         FirstBottle.OnCancelSelect();
+                        //是否将flag作为需要刷新UI标记
                         InitPouringCount();
                         FirstBottle = null;
                         SecondBottle = null;
-                        LevelManager.Instance.BombClear();
-                        LevelManager.Instance.AddMoveNum(false);         
+                        LevelManager.Instance.AddMoveNum(false);
                         return;
                     }
                     #endregion
 
                     #endregion
-
+                    #endregion
                     LevelManager.Instance.RecordLast();
                     FirstBottle.MoveTo(SecondBottle);
-                    
-                    #region 全局游戏机制--倒水后触发、玩家走一步触发
-                    #region 泡沐机制--生成检查 
-                    LevelManager.Instance.CheckBubbleDict();
-                    LevelManager.Instance.CreateBubble();
-                    #endregion
-                    #endregion
                     FirstBottle = null;
                     SecondBottle = null;
                     AudioKit.PlaySound("resources://Audio/PourWaterSound");

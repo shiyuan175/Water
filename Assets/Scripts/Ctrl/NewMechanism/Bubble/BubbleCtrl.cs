@@ -19,8 +19,6 @@ public class BubbleCtrl : MonoBehaviour
     [SerializeField]
     SkeletonGraphic skeletonGraphic;
 
-    [SerializeField]
-    GameObject skeletonAnimation;
     SkeletonGraphic spine;
 
     // 通过spineui和ani实现，ani负责动画渲染，ui复杂游戏渲染
@@ -86,8 +84,7 @@ public class BubbleCtrl : MonoBehaviour
         if (isOriginal)
         {
             track = spine.AnimationState.SetAnimation(0, ORIGINAL_APPEND, false);
-          /*  track = skeletonAnimationCom.AnimationState.SetAnimation(0, ORIGINAL_APPEND, false);
-            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;*/
+            
         }       
         else
         {

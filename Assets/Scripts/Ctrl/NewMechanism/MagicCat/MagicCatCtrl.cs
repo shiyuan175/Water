@@ -6,6 +6,7 @@ using Spine.Unity;
 using System.Security.Cryptography;
 using GameDefine;
 using QFramework;
+using System.IO;
 
 public class MagicCtrl : MonoBehaviour,ICanRegisterEvent
 {
@@ -20,7 +21,8 @@ public class MagicCtrl : MonoBehaviour,ICanRegisterEvent
     bool isWiterCar;
     public void Init(GlobalMechanism mechanism)
     {
-        spine =GetComponent<SkeletonGraphic>();
+        spine = GetComponent<SkeletonGraphic>();
+ 
         switch (mechanism)
         {
             case GlobalMechanism.WhiteMagicCar:
@@ -33,10 +35,15 @@ public class MagicCtrl : MonoBehaviour,ICanRegisterEvent
                 break;
         }
         spine.enabled = true;
+        
         ShowIdleAnimation();
         
 
         StringEventSystem.Global.Register("MagicCatEven", ShowMoveAnimation);
+    }
+    public void OnDisable()
+    {
+        StringEventSystem.Global.UnRegister("MagicCatEven", ShowMoveAnimation);
     }
     //
     public void ShowIdleAnimation()
@@ -46,6 +53,7 @@ public class MagicCtrl : MonoBehaviour,ICanRegisterEvent
 
     public void ShowMoveAnimation()
     {
+
         TrackEntry track;
         if (isWiterCar)
         { 
