@@ -581,10 +581,11 @@ namespace QFramework.Example
             action.Invoke(() =>
             {
                 mIsRunning = false;
-                ActionKit.Delay(0.3f, () =>
-                {
-                    TryRunNext();
-                }).Start(this);
+                TryRunNext();
+                //ActionKit.Delay(0.3f, () =>
+                //{
+                   
+                //}).Start(this);
             });
         }
         
@@ -682,7 +683,7 @@ namespace QFramework.Example
         /// </summary>
         /// <param name="tempList"></param>
         /// <param name="action"></param>
-        private void StreaWinClearBWater( Action action)
+        private void StreaWinClearBWater(Action action)
         {
             PlayParticleEffect(() =>
             {
@@ -725,11 +726,12 @@ namespace QFramework.Example
                 _tempWater = _tempWater.Except(changeColors).ToList();
                 //2、移除需要消除多次颜色
                 _tempWater = _tempWater.GroupBy(x => x).Where(g => g.Count() == 1).Select(g => g.Key).ToList();
-                //3、移除魔法布的颜色
+                //3、移除魔法布的颜色 和 限制瓶颜色
                 var hideColors = LevelManager.Instance.nowBottles
-                    .Where(b => b.isClearHide)
-                    .Select(b => b.unlockClear);
+                    .Where(b => b.isClearHide || b.limitColor > 0)
+                    .Select(b => b.isClearHide ? b.unlockClear : b.limitColor);
                 _tempWater = _tempWater.Except(hideColors).ToList();
+
                 //4、取随机颜色
                 var _colorIdx = _tempWater[UnityEngine.Random.Range(0, _tempWater.Count)];
                 LevelManager.Instance.clearList.Remove(_colorIdx);
@@ -764,14 +766,13 @@ namespace QFramework.Example
                 {
                     var _randomIndex = UnityEngine.Random.Range(0, _tempbottle.Count);
                     _bottle = _tempbottle[_randomIndex];
-                    if (_bottle.isClearHide || _bottle.isFreeze || _bottle.isNearHide || _bottle.limitColor != 0)
+                    if (_bottle.CheckDebuff())
                         break;
                     else
                         _tempbottle.RemoveAt(_randomIndex);
                 }
 
-                _bottle?.SetNormal();
-
+                _bottle?.SetNormal(true);
                 callback?.Invoke();
             }
 
