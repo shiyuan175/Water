@@ -23,7 +23,8 @@ Shader "Water/2D/Sprite-Lit-Default-Water"
         Stencil
         {
             Ref[_StencilRef]
-			Comp[_StencilComp]
+			Comp Equal
+            //Comp[_StencilComp]
 			Pass Keep
         }
 

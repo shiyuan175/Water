@@ -77,6 +77,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     public List<Transform> spineNode = new List<Transform>();
     public List<Transform> waterNode = new List<Transform>();
 
+    // 机制引导的箭头点位
+    public RectTransform mGuideNode;
+
     public Transform
         spineGo,      // 倒水过程水花动画父节点(当前水面位置)
         spineGoPosition, // 专门用于计算spine位置的替代品
@@ -1167,7 +1170,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         foreach (var ctrl in list)
         {
-            var go = Instantiate(LevelManager.Instance.broomBullet);
+            var go = Instantiate(LevelManager.Instance.broomBullet , LevelManager.Instance.mSpineIniPar);
 
             var fly = go.GetComponent<FlyCtrl>();
             fly.target = ctrl.transform;
@@ -1232,7 +1235,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     {
         isPlayAnim = true;
         var imgcmp = waterImg[i].transform.GetComponent<Image>();
-        imgcmp.material = LevelManager.Instance.shineMaterial;
         StartCoroutine(waterImg[i].ShowBroomAfter());
 
 
@@ -2036,7 +2038,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 spine.AnimationState.SetAnimation(0, spineAnimName, false);
         }
         else
+        {
             spineGo.Hide();
+            //spine.AnimationState.SetAnimation(0, "ruchanghuangdong_mask", false);
+        }
 
         //Debug.Log($"水面动画名:{spineAnimName},瓶子：{this.gameObject.name}");
 
@@ -2103,6 +2108,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         }
 
         spineGoPosition.localPosition = spineNode[useNode].localPosition;
+        //spineGoPosition.localPosition = spineNode[waters.Count].localPosition;
     }
 
     /// <summary>

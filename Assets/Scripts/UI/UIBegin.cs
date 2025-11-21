@@ -317,7 +317,6 @@ namespace QFramework.Example
 
             this.RegisterEvent<GameStartEvent>(e =>
             {
-                /*  UIKit.OpenPanel<UIGameNode>();*/
                 LevelManager.Instance.StartGame(saveData.GetCurrentLevel());
                 UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { GlobalMechanism = LevelManager.Instance.globalMechanism });
                 
@@ -435,18 +434,22 @@ namespace QFramework.Example
             //初始化选择主城按钮(索引为2)
             InitBeginMenuButton(2);
 
-            /*//延迟容易造成问题,外部直接配置长度
-            ActionKit.DelayFrame(1, () =>
+            Canvas.ForceUpdateCanvases();
+            foreach (var rt in mImgsRect)
             {
-                var _rect = mLayoutElements_BgFrame[2].GetComponent<RectTransform>();
+                rt.GetComponent<AspectRatioFitter>().Disable();
+                var temp = rt.rect.size;
+                rt.anchorMin = Vector2.one * 0.5f;
+                rt.anchorMax = Vector2.one * 0.5f;
+                rt.sizeDelta = temp;
+            }
 
-                mSelected.anchorMin = _rect.anchorMin;
-                mSelected.anchorMax = _rect.anchorMax;
-                mSelected.pivot = _rect.pivot;
-                mSelected.position = _rect.position;
-                mSelected.sizeDelta = _rect.sizeDelta;
-
-            }).Start(this);*/
+            var _rect = mLayoutElements_BgFrame[2].GetComponent<RectTransform>();
+            mSelected.anchorMin = _rect.anchorMin;
+            mSelected.anchorMax = _rect.anchorMax;
+            mSelected.pivot = _rect.pivot;
+            mSelected.position = _rect.position;
+            mSelected.sizeDelta = _rect.sizeDelta;
         }
 
         /// <summary>

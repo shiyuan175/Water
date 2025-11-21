@@ -153,7 +153,7 @@ namespace QFramework.Example
 
                 TxtNewItem_Red.font = LevelManager.Instance.redFont;
 
-                TxtNewItem_Red.text = GameDefine.GameConst.GuideLevelInfo[curLevel].Item1;
+                TxtNewItem_Red.text = GameDefine.GameConst.GameplayTutorialInfo[curLevel].guideInfo;
                 ImgNewItem.sprite = unlockSprites[_idx];
                 ImgNewItem.SetNativeSize();
 

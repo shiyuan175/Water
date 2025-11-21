@@ -138,19 +138,18 @@ namespace GameDefine
         };
         #endregion
 
-        //关卡引导 
-        public static readonly Dictionary<int, (string, string)> GuideLevelInfo = new Dictionary<int, (string, string)>
+        //关卡引导(bottleIndex_1必须大于0，索引为瓶子在levelmanager的bottles所在索引)
+        public static readonly Dictionary<int, (int bottleIndex_1, int bottleIndex_2, string guideInfo)> GameplayTutorialInfo = new()
         {
-            { 3, ("Sort the gemstone color to lift the cloth", "GuideAnim_3") },
-            { 11, ("The bomb will explode when the countdown ends. Please synthesize water with bombs as soon as possible.", "GuideAnim_11") },
-            { 21, ("Water with Fire Emblem can thaw ice after being crafted", "GuideAnim_21") },
-            { 31, ("The water bottle entangled by the vines cannot be moved", "GuideAnim_31") },
-            { 41, ("The vine water bottle can break the entangled vines after the adjacent water bottles are combined", "GuideAnim_41") },
-            { 51, ("Combining two brooms can remove water of the same color", "GuideAnim_51") },
-            { 61, ("Bottles with gemstone emblems can only be filled with water of the same color as the gemstone", "GuideAnim_61") },
-            { 71, ("Combining two potion bottles can change 4 water of the same color", "GuideAnim_71") },
-            { 81, ("Synthesizing a magic book can remove all negative effects", "GuideAnim_81")}
-
+            {3,(0,-1 ,"Sort the gemstone color to lift the cloth")},
+            {11,(0,-1 ,"The bomb will explode when the countdown ends. Please synthesize water with bombs as soon as possible.")},
+            {21,(0,-1 ,"Water with Fire Emblem can thaw ice after being crafted")},
+            {31,(0,-1 ,"The water bottle entangled by the vines cannot be moved")},
+            {41,(2,-1 ,"The vine water bottle can break the entangled vines after the adjacent water bottles are combined")},
+            {51,(0,1 ,"Combining two brooms can remove water of the same color")},
+            {61,(2,-1 ,"Bottles with gemstone emblems can only be filled with water of the same color as the gemstone")},
+            {71,(1,3 ,"Combining two potion bottles can change 4 water of the same color")},
+            {81,(0,1 ,"Synthesizing a magic book can remove all negative effects")},
         };
 
         //场景解锁界面(索引对应AB包名)
@@ -174,15 +173,17 @@ namespace GameDefine
         UIGuideLevelHalfBottle = 12,
         UIGuideLevelRemoveAll = 28
     }
+
     /// <summary>
     ///  全局性机制，不依赖水块或者瓶子
     /// </summary>
     public enum GlobalMechanism
     {
-        None =1,
-        WhiteMagicCar =2,
-        BlackMagicCar =3
+        None = 1,
+        WhiteMagicCar = 2,
+        BlackMagicCar = 3
     }
+
     /// <summary>
     /// 解锁机制标记
     /// </summary>
@@ -231,7 +232,7 @@ namespace GameDefine
         // 弃用，在水块中的飞天炸弹
         FlyBomb = 4,
         Bubble = 5,
-        Bubble_Origin =6
+        Bubble_Origin = 6
     }
 
     public enum BottleType
@@ -246,16 +247,16 @@ namespace GameDefine
     /// </summary>
     public enum ItemType
     {
-        [WaterColorState( "", EColorStateSpineType.None)]
+        [WaterColorState("", EColorStateSpineType.None)]
         UseColor = 1,
 
-        [WaterColorState( "idle_cl", EColorStateSpineType.EBroomSpine)]
+        [WaterColorState("idle_cl", EColorStateSpineType.EBroomSpine)]
         ClearRandomWaterItem = 1001,
 
-        [WaterColorState( "idle", EColorStateSpineType.EMagnetSpine)]
+        [WaterColorState("idle", EColorStateSpineType.EMagnetSpine)]
         MagnetItem = 1002,
 
-        [WaterColorState( "idle", EColorStateSpineType.ECreateSpine)]
+        [WaterColorState("idle", EColorStateSpineType.ECreateSpine)]
         MakeColorItem = 1003,
 
         [ChangeColorItemState(1, "idle_cl")]
@@ -304,9 +305,9 @@ namespace GameDefine
         FlashWater = 4002,
         [WaterColorState("idle_cl", EColorStateSpineType.EBombBlackWater)]
         BombBlackWater = 5001,
-        [WaterColorState("idle",EColorStateSpineType.EFlyBomb)]
-        FlyBomb =5002
-        
+        [WaterColorState("idle", EColorStateSpineType.EFlyBomb)]
+        FlyBomb = 5002
+
     }
 
     public enum LanguageType
