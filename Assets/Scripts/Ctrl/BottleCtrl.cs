@@ -478,7 +478,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
 
         //普通水/特殊水块
-        if (useColor < 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
+        if (useColor < 1000 || _attr is RainBowWaterState)
         {
             topIndex += 1;
             //瓶身倾斜动画(BottleIn开始的Z轴大小要以BottleOut的结束为起点)
@@ -648,7 +648,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         var _type = (ItemType)useColor;
         WaterAttrCache.Dict.TryGetValue(_type, out WaterColorState _attr);
-        bool _isRainBowWater = _attr?.SpineType is EColorStateSpineType.ERainBowWater;
+        bool _isRainBowWater = _attr is RainBowWaterState;
 
         if (useColor <= 1000 || _isRainBowWater)
         {
@@ -741,7 +741,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         int startIdx = topIdx + 1 - num;
         var _type = (ItemType)color;
         WaterAttrCache.Dict.TryGetValue(_type, out WaterColorState _attr);
-        bool _isRainBowWater = _attr?.SpineType is EColorStateSpineType.ERainBowWater;
+        bool _isRainBowWater = _attr is RainBowWaterState;
 
         if (color < 1000 || _isRainBowWater)
         {
@@ -800,7 +800,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
 
             // 普通水/特殊水/非可合成类道具
-            if (_waterColor <= 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
+            if (_waterColor <= 1000 || _attr is RainBowWaterState)
             {
                 _itemId = 0;
                 continue;
@@ -840,7 +840,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         WaterAttrCache.Dict.TryGetValue((ItemType)color, out var _attr);
 
         if ((color > 0 && color < (int)EDaoShuiAnim.IDLE_MAX)
-            || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
+            || _attr is RainBowWaterState)
             spineAnimName = GameEnum.GetDescription<EDaoShuiAnim>((EDaoShuiAnim)color);
 
         //Debug.Log("水花动画名：" + spineAnimName);
@@ -1012,6 +1012,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             {
                 var iceWater = GetIceWater();
                 waterItems[idx] = WaterItem.None;
+                if (iceWater == null) continue;
                 breakList.Add((idx, iceWater));
             }
         }
@@ -1057,6 +1058,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         //获取冰块水 =》得到水的层级索引 =》得到水的颜色 =》从 cantChangeColorList 移除
         var _IceWater = bottle.FindIceWater();
         var _waterIdx = bottle.waterImg.IndexOf(_IceWater);
+        if (_waterIdx < 0) return null;
         LevelManager.Instance.cantChangeColorList.Remove(bottle.waters[_waterIdx]);
 
         return _IceWater;
@@ -1170,7 +1172,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         foreach (var ctrl in list)
         {
-            var go = Instantiate(LevelManager.Instance.broomBullet , LevelManager.Instance.mSpineIniPar);
+            var go = Instantiate(LevelManager.Instance.broomBullet, LevelManager.Instance.mSpineIniPar);
 
             var fly = go.GetComponent<FlyCtrl>();
             fly.target = ctrl.transform;
@@ -1263,8 +1265,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     #endregion
-
-
 
     #region 炸弹机制
 
@@ -1405,6 +1405,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             SetBottleColor();
         }
     }
+
     public void ClearBomb()
     {
         for (int i = 0; i < bombCounts.Count; i++)
@@ -1528,9 +1529,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     }
 
     #endregion
+
+    /// <summary>
+    /// 清空空水块(机制水块)
+    /// </summary>
     public void RemoveItem()
     {
-
         List<int> _tempWater = new List<int>();
         List<WaterItem> _tempWaterItem = new List<WaterItem>();
         List<int> _tempBomb = new List<int>();
@@ -1549,9 +1553,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         waterItems = _tempWaterItem;
         bombCounts = _tempBomb;
         hideWaters = _tempHideWater;
-
-
     }
+
     /// <summary>
     /// 移除瓶内黑色水块
     /// </summary>
@@ -1585,13 +1588,16 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <summary>
     /// 清除所有特殊情况(魔法阵/魔法棒道具)
     /// </summary>
-    /// <returns></returns>
-    public void SetNormal()
+    /// <param name="removeOne">清除单瓶负面</param>
+    public void SetNormal(bool removeOne = false)
     {
+        //黑水移除
         for (int i = 0; i < hideWaters.Count; i++)
         {
             hideWaters[i] = false;
         }
+
+        //移除WaterItem
         bool _needDisWater = false;
         for (int i = 0; i < waterItems.Count; i++)
         {
@@ -1612,22 +1618,31 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     break;
             }
 
-
+            if (removeOne && waterItems[i] == WaterItem.BreakIce)
+            {
+                continue;
+            }
             waterItems[i] = WaterItem.None;
         }
+
+        //移除炸弹 (0表示爆炸后的状态)
         for (int i = 0; i < bombCounts.Count; i++)
         {
-            // 0表示爆炸后的状态
             bombCounts[i] = 0;
         }
+
+        //清理空水块
         if (_needDisWater)
             RemoveItem();
+
+        //藤曼底座
         if (isFreeze)
         {
             AudioKit.PlaySound("resources://Audio/ThornBase");
             freezeSpine.AnimationState.SetAnimation(0, "attack", false);
         }
 
+        //限制瓶
         if (limitColor != 0 && !isFinish)
         {
             if (limitColor > 0 && limitColor < (int)ECombimeAnim.IDLE_MAX)
@@ -1640,7 +1655,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         isFreeze = false;
         isNearHide = false;
         isClearHide = false;
-        /*        isFlyBomb = false;*/
+
         StartCoroutine(CoroutinePlayNearHide(true));
 
         SetBottleColor(false, true);
@@ -2026,7 +2041,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         //方案1
         var color = waters[topIdx];
         WaterAttrCache.Dict.TryGetValue((ItemType)color, out WaterColorState _attr);
-        if (color < 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
+        if (color < 1000 || _attr is RainBowWaterState)
         {
             spineAnimName = GameEnum.GetDescription<ERuChangAnim>((ERuChangAnim)color);
             //黑色水面特判
@@ -2099,7 +2114,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 ItemType _type = (ItemType)waters[i];
                 WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
 
-                if (waters[i] < 1000 || _attr.SpineType is EColorStateSpineType.ERainBowWater)
+                if (waters[i] < 1000 || _attr is RainBowWaterState)
                 {
                     useNode = i + 1;
                     break;
@@ -2134,7 +2149,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
 
             // 普通水/特殊水/非可合成类道具
-            if (_waterColor <= 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
+            if (_waterColor <= 1000 || _attr is RainBowWaterState)
             {
                 _itemId = 0;
                 continue;
@@ -2225,6 +2240,40 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         //    SetHideShow(false);
         //}
         */
+    }
+
+    /// <summary>
+    /// 判断瓶子是否有负面状态
+    /// </summary>
+    /// <returns></returns>
+    public bool CheckDebuff()
+    {
+        if (isClearHide || isFreeze || isNearHide || limitColor != 0)
+        {
+            //Debug.Log("1、" + (isClearHide || isFreeze || isNearHide || limitColor != 0));
+            return true;
+        }
+
+        foreach (var item in waterItems)
+        {
+            //除火焰外都算负面
+            if (item != WaterItem.None && item != WaterItem.BreakIce)
+            {
+                //Debug.Log("2、" + (item != WaterItem.None && item != WaterItem.BreakIce));
+                return true;
+            }
+        }
+
+        foreach (var item in hideWaters)
+        {
+            if (item == true)
+            {
+                //Debug.Log("3、黑水" + (item == true));
+                return true;
+            }
+        }
+
+        return false;
     }
 
     #region obsolete
