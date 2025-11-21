@@ -1006,7 +1006,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         if (TopBottleLayoutGroup == null) return;
 
         int activeCount = GetActiveChildCount(TopBottleLayoutGroup.transform);
-        TopBottleLayoutGroup.spacing = (8 - activeCount) * SPACING_UNIT;
+        //原布局
+        //TopBottleLayoutGroup.spacing = (8 - activeCount) * SPACING_UNIT;
+
+        //新布局 
+        TopBottleLayoutGroup.spacing = -150f - (8 - activeCount) * 100f;
     }
 
     /// <summary>
@@ -1017,7 +1021,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         if (BottomBottleLayoutGroup == null) return;
 
         int activeCount = GetActiveChildCount(BottomBottleLayoutGroup.transform);
-        BottomBottleLayoutGroup.spacing = (8 - activeCount) * SPACING_UNIT;
+        //BottomBottleLayoutGroup.spacing = (8 - activeCount) * SPACING_UNIT;
+
+        BottomBottleLayoutGroup.spacing = -150f - (8 - activeCount) * 100f;
     }
 
     /// <summary>
