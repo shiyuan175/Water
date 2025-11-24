@@ -22,7 +22,7 @@ MonoBehaviour:
     lockType: 0
     isClearHide: 0
     isNearHide: 0
-    isFreeze: 1
+    isFreeze: 0
     isFinish: 0
   - waterSet: 02000000
     isHide: 00

@@ -14,14 +14,14 @@ namespace GameAttributes
 
         //彩色水块
         ERainBowWater = 5,
-
+        EFlashWater = 6,
         //炸弹黑水
-        EBombBlackWater = 6,
+        EBombBlackWater = 7,
         // 飞天炸弹
-        EFlyBomb = 7,
+        EFlyBomb = 8,
         //其余特殊水块...
 
-        Max = 8
+        Max = 9
     }
     
     [AttributeUsage(AttributeTargets.Field)]
@@ -34,6 +34,7 @@ namespace GameAttributes
         public readonly bool RainBowWaterActive;
         public readonly bool BombBlackWaterAvtive;
         public readonly bool FlyBombActive;
+        public readonly bool FlashWaterActive;
 
         public readonly string SpineAnim;
         public readonly EColorStateSpineType SpineType;
@@ -43,13 +44,13 @@ namespace GameAttributes
         {
             SpineAnim = spineAnim;
             SpineType = spineType;
-
-           
+  
             BroomItemActive = spineType == EColorStateSpineType.EBroomSpine;
             CreateItemActive = spineType == EColorStateSpineType.ECreateSpine;
             ChangeItemActive = spineType == EColorStateSpineType.EChangeSpine;
             MagnetItemActive = spineType == EColorStateSpineType.EMagnetSpine;
             RainBowWaterActive = spineType == EColorStateSpineType.ERainBowWater;
+            FlashWaterActive = spineType == EColorStateSpineType.EFlashWater;
             BombBlackWaterAvtive = spineType == EColorStateSpineType.EBombBlackWater;
             FlyBombActive = SpineType == EColorStateSpineType.EFlyBomb;
             //局内机制道具补充...
@@ -78,9 +79,9 @@ namespace GameAttributes
 
     public class RainBowWaterState : WaterColorState
     {
-        public RainBowWaterState(string spineAnim) : base(spineAnim, EColorStateSpineType.ERainBowWater)
+        public RainBowWaterState(string spineAnim,EColorStateSpineType EColor = EColorStateSpineType.ERainBowWater) : base(spineAnim, EColor)
         {
-
+           
         }
     }
 

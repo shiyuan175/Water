@@ -203,6 +203,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         for (int i = 0; i < waters.Count; i++)
         {
             var color = waters[i];
+            // 初始化闪亮水
+            if (waters[i] == (int)(ItemType.FlashWater))
+            {
+                if (LevelManager.Instance.isFlashWaterBottleAdded)
+                    LevelManager.Instance.isFlashWaterBottleAdded = false;
+            }
             if (isClearHide || isNearHide || waterItems[i] == WaterItem.Ice)
             {
                 LevelManager.Instance.cantChangeColorList.Add(color);
@@ -498,7 +504,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         {
             SetDownWaterSp(useColor);
             //普通水/特殊水块
-            if (useColor < 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
+            if (useColor < 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater || _attr?.SpineType is EColorStateSpineType.EFlashWater)
             {
                 fillWaterGoAnim.Play("FillWater");
                 // 因为先Play了动画片段在做的DoTween
@@ -774,8 +780,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         //有机制道具生效才执行会出现水花动画变长
         if (_hasItemEffect)
             CheckItem();
-
-        //CheckItem();
+   /*     SetBottleColor();*/
+        /*CheckItem();*/
         //CheckFill();
     }
 
@@ -1246,9 +1252,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
-
         SetBottleColor();
         CheckItem();
+     
         if (sameBottle)
         {
             //Debug.Log("在一个瓶子：" + sameBottle);
@@ -1309,7 +1315,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         // 飞天炸弹的连锁更新 
         for (int i = waters.Count - 1; i >= 0; i--)
         {
-            Debug.Log(i);
             if (waters[i] == 5002)
             {
                 waterImg[i].bombCtrl.SetBomb(aniType: "flap");
@@ -1322,18 +1327,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             {
                 break;
             }
-            /*   else if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false && bombCounts[i] != 0)
-               {
-                   waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - moveNum).ToString());
-               }
-               else
-               {
-                   // 可能会在水中道具出现问题          
-                   waterImg[i].bombCtrl.SetBomb();
-               }
-               if (bombCounts[i] > 0)
-                   isBomb = true;*/
         }
+
         // UI更新
         for (int i = 0; i < bombCounts.Count; i++)
         {
@@ -1343,7 +1338,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
                     break;
                 case FLYBOMBING_SIGN:
-                    Debug.Log("adasd");
                     waterImg[i].bombCtrl.SetBomb(aniType: "flap");
                     break; 
                 case NULLBOMB_SIGN:
@@ -1359,43 +1353,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             }
         }
 
-        /*        if (bombCounts.Count != 0 && bombCounts[topIdx] != 0 && waterItems[topIdx] == WaterItem.FlyBomb)
-                {
-                    bombCounts[topIdx] = 200;
-                }*/
-
-
-        /*     for (int i = 0; i < bombCounts.Count; i++)
-             {
-                 // 设置时间
-                 // waterImg[i].textItem.text = bombCounts[i] - moveNum > 0 && hideWaters[i] == false ? (bombCounts[i] - moveNum).ToString() : "";
-                 // 100用来特殊标记
-                 if (bombCounts[i] == 100)
-                 {
-                     waterImg[i].bombCtrl.SetBomb(aniType: "bomp_remove");
-                     bombCounts[i] = 0;
-
-                 }
-                 else if (bombCounts[i] == 200)
-                 {
-                     waterImg[i].bombCtrl.SetBomb(aniType: "flap");
-                     waterImg[i].textItem.text = "";
-                     bombCounts[i] = 0;
-                     waters[i] = 0;
-                     _flag = true;
-                 }
-                 else if (bombCounts[i] - moveNum > 0 && hideWaters[i] == false && bombCounts[i] != 0)
-                 {
-                     waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - moveNum).ToString());
-                 }
-                 else
-                 {
-                     // 可能会在水中道具出现问题          
-                     waterImg[i].bombCtrl.SetBomb();
-                 }
-                 if (bombCounts[i] > 0)
-                     isBomb = true;
-             }*/
         if (!haveBomb)
             LevelManager.Instance.bombList.Remove(this);
 
@@ -1735,6 +1692,15 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 if (!LevelManager.Instance.isRainbowBottleAdded)
                 {
                     LevelManager.Instance.isRainbowBottleAdded = true;
+                    LevelManager.Instance.AddBottle(true);
+                }
+            }
+
+            if ((ItemType)GetMoveOutTop() == ItemType.FlashWater)
+            {
+                if (!LevelManager.Instance.isFlashWaterBottleAdded)
+                {
+                    LevelManager.Instance.isFlashWaterBottleAdded = true;
                     LevelManager.Instance.AddBottle(true);
                 }
             }
@@ -2174,7 +2140,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             // 相邻且同类的道具
             _hasPair = true;
             _items.Add(_waterColor);
-
             switch (_type)
             {
                 case ItemType.ClearRandomWaterItem:
@@ -2209,8 +2174,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             }
 
             // 清除被使用的道具,并清空标记
-            waters[i] = 0;
             waters[_itemPlace] = 0;
+            waters[i] = 0;
+           /* waters[_itemPlace] = 0;*/
             _itemId = 0;
         }
 
@@ -2220,10 +2186,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             RemoveItem();
             for (int i = 0; i < _items.Count; i++)
             {
+
                 int useItem = _items[i];
                 LevelManager.Instance.UseItem(useItem, waterImg[_itemPlace].transform);
             }
-
             CheckHide();
             SetHideShow(false);
         }

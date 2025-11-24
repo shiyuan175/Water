@@ -15,6 +15,7 @@ public class WaterRenderUpdate : MonoBehaviour
     public Image blackWater;// 黑水的效果。
     public Image iceEffect;// 冰效果的图片。
     public Image water_cs;  
+    public Image water_fw;  
     private Mesh _mesh;
     private MeshRenderer _meshRenderer = null;
     private MeshFilter _meshFilter = null;
@@ -32,10 +33,15 @@ public class WaterRenderUpdate : MonoBehaviour
     private MeshFilter _iceEffectFilter = null;
     private Material _iceEffectMaterial = null;
 
-    // 冰效果辅助参数
+    // 彩色效果辅助参数
     private MeshRenderer _csEffectRenderer = null;
     private MeshFilter _csEffectFilter = null;
     private Material _csEffectMaterial = null;
+
+    // 闪亮水效果辅助参数
+    private MeshRenderer _fwEffectRenderer = null;
+    private MeshFilter _fwEffectFilter = null;
+    private Material _fwEffectMaterial = null;
 
     private readonly Vector3[] _verts = new Vector3[4];
 
@@ -75,6 +81,15 @@ public class WaterRenderUpdate : MonoBehaviour
                 _csEffectRenderer = water_cs.GetComponent<MeshRenderer>();
             }
             _csEffectMaterial = _csEffectRenderer.material;
+        }
+
+        if (!_fwEffectMaterial)
+        {
+            if (!_fwEffectRenderer)
+            {
+                _fwEffectRenderer = water_fw.GetComponent<MeshRenderer>();
+            }
+            _fwEffectMaterial = _fwEffectRenderer.material;
         }
     }
     
@@ -135,6 +150,7 @@ public class WaterRenderUpdate : MonoBehaviour
             _blackWaterMaterial.SetFloat("_StencilRef", value);
             _iceEffectMaterial.SetFloat("_StencilRef", value);
             _csEffectMaterial.SetFloat("_StencilRef", value);
+            _fwEffectMaterial.SetFloat("_StencilRef", value);
         }
     }
 
@@ -160,6 +176,7 @@ public class WaterRenderUpdate : MonoBehaviour
             _blackWaterRenderer.sortingOrder = value;
             _iceEffectRenderer.sortingOrder = value;
             _csEffectRenderer.sortingOrder = value;
+            _fwEffectRenderer.sortingOrder = value;
         }
     }
 
@@ -209,6 +226,9 @@ public class WaterRenderUpdate : MonoBehaviour
         _csEffectRenderer = water_cs.GetComponent<MeshRenderer>();
         _csEffectFilter = water_cs.GetComponent<MeshFilter>();
 
+        _fwEffectRenderer = water_fw.GetComponent<MeshRenderer>();
+        _fwEffectFilter = water_fw.GetComponent<MeshFilter>();
+
         ValidMaterial();
         _blackWaterMaterial.color = Color.black;
         _blackWaterMaterial.renderQueue = 2902;
@@ -220,11 +240,15 @@ public class WaterRenderUpdate : MonoBehaviour
         _csEffectMaterial.renderQueue = 2902;
         _csEffectMaterial.SetFloat("_FillHeight", 1000);
 
+        _fwEffectMaterial.renderQueue = 2902;
+        _fwEffectMaterial.SetFloat("_FillHeight", 1000);
+
 
         _meshFilter.mesh = _mesh;
         _iceEffectFilter.mesh = _mesh;
         _blackWaterFilter.mesh = _mesh;
         _csEffectFilter.mesh = _mesh;
+        _fwEffectFilter.mesh = _mesh;
     }
     
     // Update is called once per frame

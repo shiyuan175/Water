@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -8,8 +8,9 @@ using QFramework.Example;
 using DG.Tweening;
 using Spine;
 using UnityEngine.UI;
+using UnityEditor.Rendering;
 /// <summary>
-/// ’®µØ±Íº« 0 ±Ì æ√ª”–£¨100±Ì æ’˝≥£œ˚ ß £¨200 ±Ì æ∑…ÃÏœ˚ ß
+/// ÁÇ∏ÂºπÊ†áËÆ∞ 0 Ë°®Á§∫Ê≤°ÊúâÔºå100Ë°®Á§∫Ê≠£Â∏∏Ê∂àÂ§± Ôºå200 Ë°®Á§∫È£ûÂ§©Ê∂àÂ§±
 /// </summary>
 public class BombCtrl : MonoBehaviour
 {
@@ -18,131 +19,131 @@ public class BombCtrl : MonoBehaviour
     [SerializeField]
     GameObject bombSpine;
     [SerializeField]
-    SkeletonGraphic skeletonGraphic;
+    SkeletonGraphic spine;
     [SerializeField]
     GameObject newMechine;
     [SerializeField]
     GameObject skeletonAnimation;
-    Transform originTransfomer;
-    SkeletonAnimation skeletonAnimationCom;
     [SerializeField]
     SkeletonDataAsset normalBomb;
     [SerializeField]
     SkeletonDataAsset flyBomb;
-    GameObject newAnimation;
     float delayTime = 0.1f;
-    // ’®µØ±¨’®£¨Õ®π˝spineui∫Õani µœ÷£¨ani∏∫‘∂Øª≠‰÷»æ£¨ui∏¥‘””Œœ∑‰÷»æ
+    // ÁÇ∏ÂºπÁàÜÁÇ∏ÔºåÈÄöËøáspineuiÂíåaniÂÆûÁé∞ÔºåaniË¥üË¥£Âä®ÁîªÊ∏≤ÊüìÔºåuiÂ§çÊùÇÊ∏∏ÊàèÊ∏≤Êüì
 
     private void Awake()
     {
-        /*skeletonAnimationCom = skeletonAnimation.GetComponent<SkeletonAnimation>();*/
-
-        /*newAnimation = Instantiate(skeletonAnimation,skeletonAnimation.transform);
-        newAnimation.transform.SetParent(transform.parent); // true = ±£≥÷ ¿ΩÁ◊¯±Í
-        newAnimation.SetActive(true);*/
     }
     private void OnDisable()
     {
-        bombSpine.SetActive( false);
+        bombSpine.SetActive(false);
     }
     public void BombBoom()
     {
-        newAnimation = Instantiate(skeletonAnimation, skeletonAnimation.transform);
-        newAnimation.LocalScale(Vector3.one);
-        newAnimation.transform.SetParent(transform.parent); // true = ±£≥÷ ¿ΩÁ◊¯±Í
-        newAnimation.SetActive(true);
-        skeletonAnimationCom = newAnimation.GetComponent<SkeletonAnimation>();
-        /*skeletonAnimation.SetActive(true);*/
+        spine.skeletonDataAsset = normalBomb;
+        spine.Initialize(true);
+        timeText.text = "";
+        Vector3 oldScale = bombSpine.LocalScale();    
+        spine.skeletonDataAsset = normalBomb;
+        bombSpine.SetActive(true);
         UIKit.OpenPanel<UIMask>();
-        TrackEntry track = skeletonAnimationCom.AnimationState.SetAnimation(0, "combine", false);
+        bombSpine.transform.DOScale(oldScale * 5, 0.3f).SetEase(Ease.OutQuad);
+
+        TrackEntry track = spine.AnimationState.SetAnimation(0, "combine", false);
         track.Complete += track =>
         {
             if (!UIKit.GetPanel<UIRetry>())
                 UIKit.OpenPanel<UIRetry>();
+
             UIKit.ClosePanel<UIMask>();
-
-            skeletonAnimationCom.AnimationState.SetAnimation(0, "idle", true);
-
-            bombSpine.transform.localPosition = Vector3.zero;
-
-            /*skeletonAnimation.transform.localPosition = Vector3.zero;
-            skeletonAnimation.SetActive(false);*/
-            Destroy(newAnimation);
             LevelManager.Instance.haveBooming = false;
+            bombSpine.SetActive(false);
+            bombSpine.transform.localScale = oldScale;
         };
-
-        skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
         Camera mainCamera = Camera.main;
+        var animation = spine.SkeletonData.FindAnimation("combine");
         Vector3 targetPosition = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, mainCamera.nearClipPlane));
-
-        newAnimation.transform.DOMove(targetPosition, 0.3f).SetEase(Ease.OutQuad);
-        bombSpine.SetActive(false);
+        Vector3 finalPosition = new Vector3(targetPosition.x, targetPosition.y, bombSpine.transform.position.z);
+        bombSpine.transform.DOMove(finalPosition, 0.3f).SetEase(Ease.OutQuad);
     }
+    
+
+
+
 
     public void BombIsFinish()
     {
-
-        newAnimation = Instantiate(skeletonAnimation, skeletonAnimation.transform);
-        newAnimation.LocalScale(Vector3.one);
-        newAnimation.transform.SetParent(transform.parent); // true = ±£≥÷ ¿ΩÁ◊¯±Í
-        newAnimation.SetActive(true);
-        skeletonAnimationCom = newAnimation.GetComponent<SkeletonAnimation>();
-        /*  skeletonAnimation.SetActive(true);*/
-
-        TrackEntry track = skeletonAnimationCom.AnimationState.SetAnimation(0, "bomp_remove", false);
-        track.Complete += track =>
+        spine.skeletonDataAsset = normalBomb;
+        spine.Initialize(true);
+        /*  Debug.Log(spine);
+        if (spine != null)
         {
-            Destroy(newAnimation);
-        };
-        skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
-        bombSpine.SetActive(false);
-    }
-
-    public void BombFling()
-    {
-        newAnimation = Instantiate(skeletonAnimation, skeletonAnimation.transform);
-        newAnimation.LocalScale(Vector3.one);
-        newAnimation.transform.SetParent(transform.parent.parent); // true = ±£≥÷ ¿ΩÁ◊¯±Í
-        newAnimation.SetActive(true);
-        skeletonAnimationCom = newAnimation.GetComponent<SkeletonAnimation>();
-       /* Debug.Log(skeletonAnimationCom);
-        Debug.Log(flyBomb);
-        if (flyBomb != null)
-        {
-            Debug.Log("wqewqe");
-            // ªÒ»° SkeletonData
-            var skeletonData = flyBomb.GetSkeletonData(false);
+            Debug.Log(message: "wqewqe");
+            // ÔøΩÔøΩ»° SkeletonData
+            var skeletonData = spine.skeletonDataAsset.GetSkeletonData(false);
             if (skeletonData != null)
             {
-                // ªÒ»°À˘”–∂Øª≠¡–±Ì
+                // ÔøΩÔøΩ»°ÔøΩÔøΩÔøΩ–∂ÔøΩÔøΩÔøΩÔøΩ–±ÔøΩ
                 var animations = skeletonData.Animations;
-                Debug.Log($"flyBomb ÷–π≤”– {animations.Count} ∏ˆ∂Øª≠:");
+                Debug.Log($" {animations.Count} ");
 
                 foreach (var animation in animations)
                 {
-                    Debug.Log($"∂Øª≠√˚≥∆: {animation.Name},  ±≥§: {animation.Duration}√Î");
+                    Debug.Log($": {animation.Name}, : {animation.Duration}");
                 }
             }
             else
             {
-                Debug.LogError("Œﬁ∑®ªÒ»° SkeletonData");
+                Debug.LogError(" SkeletonData");
             }
         }*/
-        skeletonAnimationCom.skeletonDataAsset = flyBomb;
-        skeletonAnimationCom.Initialize(true);
-      
-        TrackEntry track = skeletonAnimationCom.AnimationState.SetAnimation(0, "flap", false);
+       
+        bombSpine.SetActive(value: true); 
+        TrackEntry track = spine.AnimationState.SetAnimation(0, "bomp_remove", false);
         track.Complete += track =>
         {
-            Destroy(newAnimation);
+            bombSpine.SetActive(false);
         };
-        skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;
+
+    }
+
+    public void BombFling()
+    {
+        Transform parentParent = transform.parent?.parent;
+        timeText.text = ""; 
+        // Â§çÂà∂ÂΩìÂâçÁöÑSpineÂØπË±°
+        GameObject bombCopy = Instantiate(bombSpine, parentParent);
+        bombCopy.transform.localScale = Vector3.one;
+        // Ëé∑ÂèñÂ§çÂà∂ÂØπË±°ÁöÑSpineÁªÑ‰ª∂
+        SkeletonGraphic spineCopy = bombCopy.GetComponent<SkeletonGraphic>();
         bombSpine.SetActive(false);
+        
+        Debug.Log(spineCopy);
+        // ËÆæÁΩÆSpineÊï∞ÊçÆÂπ∂ÂàùÂßãÂåñ
+        spineCopy.skeletonDataAsset = flyBomb;
+        spineCopy.Initialize(true);
+
+        // Êí≠ÊîæÂä®Áîª
+        TrackEntry track = spineCopy.AnimationState.SetAnimation(0, "flap", false);
+        track.Complete += track =>
+        {
+            // Âä®ÁîªÂÆåÊàêÂêéÈîÄÊØÅÂ§çÂà∂ÁöÑÂØπË±°
+            Destroy(bombCopy);
+        };
+        /*spine.skeletonDataAsset = flyBomb;
+        spine.Initialize(true);
+        bombSpine.SetActive(true);
+        TrackEntry track = spine.AnimationState.SetAnimation(0, "flap", false);
+        track.Complete += track =>
+        {
+            bombSpine.SetActive(false);
+        };*/
     }
     
     public void SetBomb(bool isBomb = false, string time = "", string aniType = "combine")
     {
-        
+        spine.skeletonDataAsset = normalBomb;
+        spine.Initialize(true);
         if (aniType == "bomp_remove")
         {
             ActionKit.Delay(delayTime, () =>
@@ -162,7 +163,7 @@ public class BombCtrl : MonoBehaviour
             BombFling();
             return;
         }
-        var currentTrackEntry = skeletonGraphic.AnimationState.GetCurrent(0);
+        var currentTrackEntry = spine.AnimationState.GetCurrent(0);
         if (currentTrackEntry != null && (currentTrackEntry.Animation.Name == "combine"
             || currentTrackEntry.Animation.Name == "bomp_remove" || currentTrackEntry.Animation.Name == "flap"))
         {
@@ -171,16 +172,6 @@ public class BombCtrl : MonoBehaviour
 
         bombSpine.SetActive(isBomb);
         timeText.text = time;
-        // skeletonGraphic.AnimationState.SetAnimation(0, "idle", false);
     }
-   /* public void SetBomb(int bombCount)
-    {
-        switch(bombCount)
-        {
-            case BOMBING_SIGN:
-                BombBoom();
-                break;  
-        }
-            
-    }*/
+
 }

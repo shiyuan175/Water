@@ -301,10 +301,12 @@ namespace GameDefine
         [RainBowWaterState("")]
         RainBowWater = 4001,
 
-        [RainBowWaterState("")]
+        [RainBowWaterState("",EColorStateSpineType.EFlashWater)]
         FlashWater = 4002,
-        [WaterColorState("idle_cl", EColorStateSpineType.EBombBlackWater)]
+
+        [WaterColorState("Combile", EColorStateSpineType.EBombBlackWater)]
         BombBlackWater = 5001,
+
         [WaterColorState("idle", EColorStateSpineType.EFlyBomb)]
         FlyBomb = 5002
 

@@ -170,7 +170,7 @@ MonoBehaviour:
   gameType: 0
   clearList: 01000000020000000300000004000000050000000600000007000000080000000a0000000b00000009000000
   hideList: 
-  globalMechanism: 3
+  globalMechanism: 2
   GlobalMechanismBeginSetp: 0
   GlobalMechanismContinueSetps: 100
   countDownNum: 0

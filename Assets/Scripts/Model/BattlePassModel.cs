@@ -111,6 +111,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     /// </summary>
     public void ReloadBattlePassActivity()
     {
+        Debug.Log("asdsa");
         // 清除战令高级激活和进度(奖励领取，战令级别)
         mGameWinNum.Value = 0;
         mRewardLevel.Value = 1;

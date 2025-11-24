@@ -15,7 +15,7 @@ using GameDefine;
 public class BottleWaterCtrl : MonoBehaviour
 {
     public SkeletonGraphic spine, broomSpine, createSpine, changeSpine, magnetSpine, changeShineSpine, thunderSpine, broomAfterSpine, fireRuneSpine,starBlackWater,BombBlackWaterSpine,FlyBombSpine;
-    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater,BombBlackWaterItemGo,FlyBombItemGo;
+    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater,BombBlackWaterItemGo,FlyBombItemGo,FlashWaterGo;
     public Animator anim;
     public Image waterImg;
     public int waterColor;
@@ -222,7 +222,6 @@ public class BottleWaterCtrl : MonoBehaviour
             wenhaoFxGo.SetActive(true);
         }
 
-
         HideGo.SetActive(isHide);
     }
 
@@ -356,6 +355,7 @@ public class BottleWaterCtrl : MonoBehaviour
 
         // 特殊水等不需要两两合成
         RainBowWater.SetActive(attribute.RainBowWaterActive);
+        FlashWaterGo.SetActive(attribute.FlashWaterActive);
         //FlyBombItemGo.SetActive(attribute.FlyBombActive);
         // 更新飞天炸弹数值
         /* if(attribute.FlyBombActive)
@@ -386,6 +386,7 @@ public class BottleWaterCtrl : MonoBehaviour
                 case EColorStateSpineType.EChangeSpine:
                     changeSpine.AnimationState.SetAnimation(0, attribute.SpineAnim, false);
                     break;
+                
             }
         }
     }
@@ -473,7 +474,6 @@ public class BottleWaterCtrl : MonoBehaviour
 
         if (useSpine != null)
         {
-
             useSpine.AnimationState.SetAnimation(0, animName, loop: false);
         }
 
@@ -497,7 +497,7 @@ public class BottleWaterCtrl : MonoBehaviour
         return itemType switch
         {
             ItemType.ClearRandomWaterItem => (broomItemGo, broomSpine, "disappear", true),
-            ItemType.BombBlackWater => (BombBlackWaterItemGo,BombBlackWaterSpine, "disappear", true),
+            ItemType.BombBlackWater => (BombBlackWaterItemGo,BombBlackWaterSpine, "combine", true),
             ItemType.MakeColorItem => (createItemGo, createSpine, "combine", true),
             ItemType.MagnetItem => (magnetItemGo, magnetSpine, "combine", true),
             ItemType.ChangeGreen or ItemType.ChangeOrange or ItemType.ChangePink
