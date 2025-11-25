@@ -50,9 +50,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     // 用于接水次数计数
     // 修正（待确认）用于动画播放的锁问题
     private int ReceiveCount = 0;
-    // 标记本瓶子是否有炸弹
-    [SerializeField]
-    public bool isBomb = false;
     // 是否是浮空炸弹
     /*    private bool isFlyBomb = false;*/
     //瓶子中的水块标识
@@ -1378,7 +1375,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 bombCounts[i] = 0;
                 waterItems[i] = WaterItem.None;
             }
-
         }
         RemoveItem();
         SetBottleColor();
@@ -1959,19 +1955,17 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             switch (waterItems[i])
             {
                 case WaterItem.None:
-                    /*                    waterImg[i].textItem.text = "";
-                                        waterImg[i].bubbleCtrl.BubbleDead(IsOriginalBubble[i]);*/
                     break;
                 case WaterItem.Ice:
                     waterImg[i].iceGo.SetActive(true);
                     break;
                 case WaterItem.Bomb:
-                    waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(), "idle", false);
-                    isBomb = true;
+                    if (bombCounts[i]!=(int)BOMBREMOVE_SIGN)
+                        waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(), "idle", false);
                     break;
                 case WaterItem.FlyBomb:
-                    waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(),"idle",true);
-                    isBomb = true;
+                    if (bombCounts[i] != (int)BOMBREMOVE_SIGN)
+                        waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(),"idle",true);
                     break;
                 case WaterItem.Bubble_Origin:
                     IsOriginalBubble[i] = true;
