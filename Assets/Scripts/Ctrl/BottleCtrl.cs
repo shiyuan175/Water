@@ -1689,11 +1689,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         {
             if ((ItemType)GetMoveOutTop() == ItemType.RainBowWater)
             {
-                if (!LevelManager.Instance.isRainbowBottleAdded)
-                {
-                    LevelManager.Instance.isRainbowBottleAdded = true;
-                    LevelManager.Instance.AddBottle(true);
-                }
+                waters.Clear();
+                isFinish = false;
+                finishSpine.Hide();
+                SetBottleColor();
+                RemoveItem();
             }
 
             if ((ItemType)GetMoveOutTop() == ItemType.FlashWater)

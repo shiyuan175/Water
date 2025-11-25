@@ -48,8 +48,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public SkeletonGraphic mahoujinSpine;
     bool isFinish = false;
     public bool isPlayAnim, isPlayFxAnim;
-    //表示进关选择道具的彩虹水完成后,瓶子是否添加
-    public bool isRainbowBottleAdded = true;
     // 表示关卡彩色水瓶子是否添加
     public bool isFlashWaterBottleAdded = true;
 
@@ -176,12 +174,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         bubbleDict.Clear();
         bombList.Clear();
         nowHalf = null;
-
-        isRainbowBottleAdded = true;
-        isFlashWaterBottleAdded = true;
-        if (takeItem.Contains((int)NormalRewardsType.S_AddOneHalfBottle)
-            && levelId >= (int)UnLockMechanism.S_AddOneHalfBottle)
-            isRainbowBottleAdded = false;
 
         TopBottleLayoutGroup.Show();
         BottomBottleLayoutGroup.Show();
@@ -474,7 +466,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         }
         foreach (var i in nowBottles)
             i.SetBottleColor();
-       /* SetBottleColor();*/
         UIKit.ClosePanel<UIMask>();
 
     }
@@ -898,11 +889,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             item.UpdateBomb();
         }
 
-        /*bool flag = false;
-        foreach (var bottle in nowBottles)
-        {
-            bottle.UpdateUIBomb(bottleCtrl);
-        }*/
+       
 
     }
     /// <summary>

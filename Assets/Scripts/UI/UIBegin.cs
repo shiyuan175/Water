@@ -219,12 +219,6 @@ namespace QFramework.Example
                 UIKit.OpenPanel<UISepecialOfferGift>();
             });
 
-            BtnRANode.onClick.RemoveAllListeners();
-            BtnRANode.onClick.AddListener(() =>
-            {
-                UIKit.OpenPanel<UIRemoveAdADActivity>();
-            });
-
             BtnDGNode.onClick.RemoveAllListeners();
             BtnDGNode.onClick.AddListener(() =>
             {
@@ -548,7 +542,7 @@ namespace QFramework.Example
             }
             TxtStartLevel.text = $"Level {currentLevel}"+$"<br><size=45>{appendString}</size>";
 
-            TxtStraightWin_Red.text = $"{stageModel.InGameRankStreakWinNum} Straight Wins";
+            TxtStraightWin_Red.text = $"{stageModel.InGameRankStreakWinNum} Straight";
         }
 
         /// <summary>

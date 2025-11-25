@@ -404,10 +404,9 @@ namespace QFramework.Example
 
             UpdateItem();
         }
+
         private void SetEnterPropsLockUI(UnLockMechanism type)
         {
-  /*          dasdas
-            UnLimitNode.Hide();*/
             switch (type)
             {
                 case UnLockMechanism.S_AddOneHalfBottle:
@@ -428,12 +427,8 @@ namespace QFramework.Example
                     UnLimitItemNode3.Hide();
                     break;
             }
-
-          /*  foreach (var i in selectBtns)
-                i.interactable = false;
-            foreach (var i in addItemBtns)
-                i.Hide();*/
         }
+
         private void SetGoldCoinGuideUI()
         {
             GoldCoinGuidePanel.gameObject.Show();
@@ -469,6 +464,7 @@ namespace QFramework.Example
             {
                 SetEnterPropsLockUI(UnLockMechanism.S_AddOneHalfBottle);
             }
+
             // 去黑
             if (_level == (int)GameDefine.UnLockMechanism.S_RemoveOneBottleHideWater)
             {
@@ -483,6 +479,7 @@ namespace QFramework.Example
             {
                 SetEnterPropsLockUI(UnLockMechanism.S_RemoveOneBottleHideWater);
             }
+
             // 移除一个瓶子负面
             if (_level == (int)GameDefine.UnLockMechanism.S_RemoveOneDebuffBottle)
             {
@@ -497,18 +494,8 @@ namespace QFramework.Example
             {
                 SetEnterPropsLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
             }
-            /* if (_level == (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
-             {
-                 SetEnterPropsGuideUI();
-             }*/
-          /*  if (_level > (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
-            {
-                SetEnterPropsUnLockUI();
-            }
-            else
-            {
-                SetEnterPropsLockUI();
-            }*/
+
+            //双倍金币
             if (_level == (int)GameDefine.UnLockMechanism.TimesGoldCoin)
             {
                 SetGoldCoinGuideUI();
@@ -518,10 +505,14 @@ namespace QFramework.Example
                 SetGoldCoinUnClockUI();
             }
 
+            //连胜去黑
             if (_level >= (int)GameDefine.UnLockMechanism.RemoveHideWinStreakLevel)
                 Mask.Hide();
             else
+            {
                 Mask.Show();
+                Mask.GetComponentInChildren<TextMeshProUGUI>().font = LevelManager.Instance.redFont;
+            }
         }
         #endregion
     }
