@@ -68,6 +68,11 @@ public class BombCtrl : MonoBehaviour
             UIKit.ClosePanel<UIMask>();
             LevelManager.Instance.haveBooming = false;
             Destroy(bombCopy);
+            spine.enabled = false;
+            spine.AnimationState?.ClearTracks();
+            spine.skeletonDataAsset = null;
+            spine.Initialize(true);
+            bombSpine.SetActive(false);
         }; 
 
         bombCopy.transform.DOScale(bombCopy.transform.localScale * 5, 0.3f).SetEase(Ease.OutQuad);
@@ -103,6 +108,10 @@ public class BombCtrl : MonoBehaviour
         track.Complete += track =>
         {
             bombSpine.SetActive(false);
+            spine.enabled = false;
+            spine.AnimationState?.ClearTracks();
+            spine.skeletonDataAsset = null;
+            spine.Initialize(true);
         };
 
     }
@@ -126,6 +135,11 @@ public class BombCtrl : MonoBehaviour
         TrackEntry track = spineCopy.AnimationState.SetAnimation(0, "flap", false);
         track.Complete += track =>
         {
+            bombSpine.SetActive(false);
+            spine.enabled = false;
+            spine.AnimationState?.ClearTracks();
+            spine.skeletonDataAsset = null;
+            spine.Initialize(true);
             // 动画完成后销毁复制的对象
             Destroy(bombCopy);
         };
@@ -135,7 +149,6 @@ public class BombCtrl : MonoBehaviour
     {
         bombSpine.SetActive(true);
         timeText.text = time;
-        //Debug.Log(spine.AnimationState?.GetCurrent(0));
         if (aniType == "bomp_remove")
         {
             ActionKit.Delay(delayTime, () =>
