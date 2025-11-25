@@ -7,8 +7,6 @@ using QFramework;
 using QFramework.Example;
 using DG.Tweening;
 using Spine;
-using UnityEngine.UI;
-using UnityEditor.Rendering;
 /// <summary>
 /// 炸弹标记 0 表示没有，100表示正常消失 ，200 表示飞天消失
 /// </summary>
@@ -38,18 +36,32 @@ public class BombCtrl : MonoBehaviour
     {
         bombSpine.SetActive(false);
     }
+    private void OnEnable()
+    {
+        Debug.Log("sdas");
+        spine.AnimationState?.ClearTracks();
+        spine.skeletonDataAsset = null;
+        spine.Initialize(true);
+        Debug.Log(spine.AnimationState?.GetCurrent(0));
+    }
     public void BombBoom()
     {
+        Transform parentParent = LevelManager.Instance.mSpineIniPar;
         spine.skeletonDataAsset = normalBomb;
         spine.Initialize(true);
+        bombSpine.SetActive(false);
         timeText.text = "";
-        Vector3 oldScale = bombSpine.LocalScale();    
-        spine.skeletonDataAsset = normalBomb;
-        bombSpine.SetActive(true);
-        UIKit.OpenPanel<UIMask>();
-        bombSpine.transform.DOScale(oldScale * 5, 0.3f).SetEase(Ease.OutQuad);
+        
+        GameObject bombCopy = Instantiate(bombSpine, bombSpine.transform.parent);
+        bombCopy.SetActive(true);
 
-        TrackEntry track = spine.AnimationState.SetAnimation(0, "combine", false);
+        Camera mainCamera = Camera.main;
+        Vector3 targetPosition = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, mainCamera.nearClipPlane));
+        Vector3 finalPosition = new Vector3(targetPosition.x, targetPosition.y, bombCopy.transform.position.z);
+
+        SkeletonGraphic spineCopy = bombCopy.GetComponent<SkeletonGraphic>();
+        UIKit.OpenPanel<UIMask>();
+        TrackEntry track = spineCopy.AnimationState.SetAnimation(0, "combine", false);
         track.Complete += track =>
         {
             if (!UIKit.GetPanel<UIRetry>())
@@ -57,48 +69,38 @@ public class BombCtrl : MonoBehaviour
 
             UIKit.ClosePanel<UIMask>();
             LevelManager.Instance.haveBooming = false;
-            bombSpine.SetActive(false);
-            bombSpine.transform.localScale = oldScale;
-        };
-        Camera mainCamera = Camera.main;
-        var animation = spine.SkeletonData.FindAnimation("combine");
-        Vector3 targetPosition = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, mainCamera.nearClipPlane));
-        Vector3 finalPosition = new Vector3(targetPosition.x, targetPosition.y, bombSpine.transform.position.z);
-        bombSpine.transform.DOMove(finalPosition, 0.3f).SetEase(Ease.OutQuad);
+            Destroy(bombCopy);
+        }; 
+
+        bombCopy.transform.DOScale(bombCopy.transform.localScale * 5, 0.3f).SetEase(Ease.OutQuad);
+        bombCopy.transform.DOMove(finalPosition, 0.3f).SetEase(Ease.OutQuad)
+          .OnComplete(() =>
+          {
+              // 记录当前的世界坐标
+              Vector3 worldPosition = bombCopy.transform.position;
+              Vector3 worldScale = bombCopy.transform.lossyScale;
+
+              // 改变父对象
+              bombCopy.transform.SetParent(parentParent);
+
+              // 恢复世界坐标和缩放
+              bombCopy.transform.position = worldPosition;
+
+              // 如果需要保持缩放，可以这样设置
+              // bombCopy.transform.localScale = worldScale;
+              // 或者重置为合适的本地缩放
+              /*bombCopy.transform.localScale = Vector3.one;*/
+              
+          });
+           
     }
-    
-
-
-
 
     public void BombIsFinish()
     {
         spine.skeletonDataAsset = normalBomb;
         spine.Initialize(true);
-        /*  Debug.Log(spine);
-        if (spine != null)
-        {
-            Debug.Log(message: "wqewqe");
-            // ��ȡ SkeletonData
-            var skeletonData = spine.skeletonDataAsset.GetSkeletonData(false);
-            if (skeletonData != null)
-            {
-                // ��ȡ���ж����б�
-                var animations = skeletonData.Animations;
-                Debug.Log($" {animations.Count} ");
-
-                foreach (var animation in animations)
-                {
-                    Debug.Log($": {animation.Name}, : {animation.Duration}");
-                }
-            }
-            else
-            {
-                Debug.LogError(" SkeletonData");
-            }
-        }*/
        
-        bombSpine.SetActive(value: true); 
+        bombSpine.SetActive( true); 
         TrackEntry track = spine.AnimationState.SetAnimation(0, "bomp_remove", false);
         track.Complete += track =>
         {
@@ -117,8 +119,7 @@ public class BombCtrl : MonoBehaviour
         // 获取复制对象的Spine组件
         SkeletonGraphic spineCopy = bombCopy.GetComponent<SkeletonGraphic>();
         bombSpine.SetActive(false);
-        
-        Debug.Log(spineCopy);
+
         // 设置Spine数据并初始化
         spineCopy.skeletonDataAsset = flyBomb;
         spineCopy.Initialize(true);
@@ -130,20 +131,13 @@ public class BombCtrl : MonoBehaviour
             // 动画完成后销毁复制的对象
             Destroy(bombCopy);
         };
-        /*spine.skeletonDataAsset = flyBomb;
-        spine.Initialize(true);
-        bombSpine.SetActive(true);
-        TrackEntry track = spine.AnimationState.SetAnimation(0, "flap", false);
-        track.Complete += track =>
-        {
-            bombSpine.SetActive(false);
-        };*/
     }
     
-    public void SetBomb(bool isBomb = false, string time = "", string aniType = "combine")
+    public void SetBomb(bool isBomb = false, string time = "", string aniType = "combine",bool isFly = false)
     {
-        spine.skeletonDataAsset = normalBomb;
-        spine.Initialize(true);
+        bombSpine.SetActive(true);
+        timeText.text = time;
+        Debug.Log(spine.AnimationState?.GetCurrent(0));
         if (aniType == "bomp_remove")
         {
             ActionKit.Delay(delayTime, () =>
@@ -154,24 +148,29 @@ public class BombCtrl : MonoBehaviour
          
             return;
         }
+
         if (aniType == "flap")
         {
-            /*ActionKit.Delay(delayTime, () =>
-            {
-                BombFling();
-            }).Start(this);*/
             BombFling();
             return;
         }
-        var currentTrackEntry = spine.AnimationState.GetCurrent(0);
+        var currentTrackEntry = spine.AnimationState?.GetCurrent(0);
         if (currentTrackEntry != null && (currentTrackEntry.Animation.Name == "combine"
-            || currentTrackEntry.Animation.Name == "bomp_remove" || currentTrackEntry.Animation.Name == "flap"))
+            || currentTrackEntry.Animation.Name == "bomp_remove" || currentTrackEntry.Animation.Name == "flap"
+            || currentTrackEntry.Animation.Name == "idle")) 
         {
             return;
         }
-
-        bombSpine.SetActive(isBomb);
+        Debug.Log(isFly);
+        if(isFly)
+            spine.skeletonDataAsset = flyBomb;
+        else
+            spine.skeletonDataAsset = normalBomb;
         timeText.text = time;
+        spine.enabled = isBomb;
+        spine.Initialize(true);
+        bombSpine.SetActive(isBomb);
+        spine.AnimationState.SetAnimation(0,"idle",true);
     }
 
 }

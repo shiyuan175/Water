@@ -52,8 +52,8 @@ MonoBehaviour:
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 2
-    isClearHide: 1
+    lockType: 0
+    isClearHide: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
@@ -74,8 +74,8 @@ MonoBehaviour:
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
-    isClearHide: 0
+    lockType: 3
+    isClearHide: 1
     isNearHide: 0
     isFreeze: 0
     isFinish: 0

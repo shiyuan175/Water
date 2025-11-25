@@ -123,6 +123,17 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 1
     isFinish: 0
+  - waterSet: 
+    isHide: 
+    waterItem: 
+    bombCounts: 
+    numCake: 0
+    limitColor: 0
+    lockType: 0
+    isClearHide: 0
+    isNearHide: 0
+    isFreeze: 1
+    isFinish: 0
   gameType: 0
   clearList: 0200000008000000030000000400000001000000050000000700000006000000
   hideList: 
@@ -132,6 +143,6 @@ MonoBehaviour:
   countDownNum: 0
   timeCountDown: 0
   topNum: 5
-  bottomNum: 5
+  bottomNum: 6
   bubbleCount: 
   changeList: []

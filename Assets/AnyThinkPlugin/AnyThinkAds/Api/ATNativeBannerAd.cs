@@ -6,6 +6,7 @@ using System;
 
 using AnyThinkAds.Common;
 using AnyThinkAds.ThirdParty.LitJson;
+using System.Xml.Serialization;
 
 
 namespace AnyThinkAds.Api
@@ -61,10 +62,10 @@ namespace AnyThinkAds.Api
 		}
 
 		public void removeAd(string placementId) {
-            Debug.Log("ATNativeBannerAd::removeAd");
+            Debug.Log("ATNativeBannerAd::removeAd");Debug.Log("sdas");
 			client.removeAd(placementId);
 		}
-
+        
 		public IATNativeBannerAdClient GetATNativeBannerAdClient()
         {
             return AnyThinkAds.ATAdsClientFactory.BuildNativeBannerAdClient();

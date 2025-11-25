@@ -35,7 +35,8 @@ public class MagicCtrl : MonoBehaviour,ICanRegisterEvent
                 break;
         }
         spine.enabled = true;
-        
+        spine.raycastTarget = false;
+        spine.maskable = false;
         ShowIdleAnimation();
         
 
@@ -53,7 +54,6 @@ public class MagicCtrl : MonoBehaviour,ICanRegisterEvent
 
     public void ShowMoveAnimation()
     {
-
         TrackEntry track;
         if (isWiterCar)
         { 

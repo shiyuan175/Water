@@ -1291,9 +1291,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 if (waters[i] == 5002)
                 {
                     waters[i] = 0;
-                    Debug.Log("dd");
                 }
-
                 waterImg[i].bombCtrl.BombBoom();
                 return true;
             }
@@ -1346,8 +1344,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     break;
                 // 正常炸弹
                 default:
-                    waterImg[i].bombCtrl.SetBomb(true,(bombCounts[i] - moveNum).ToString()) ;
-                    /*waterImg[i].textItem.text = (bombCounts[i] - moveNum).ToString();*/
+                    if(waterItems[i] == WaterItem.Bomb)
+                        waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(), "idle", false);
+                    else
+                        waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(), "idle", true);
                     haveBomb = true;
                     break;
             }
@@ -1966,8 +1966,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     waterImg[i].iceGo.SetActive(true);
                     break;
                 case WaterItem.Bomb:
+                    waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(), "idle", false);
+                    isBomb = true;
+                    break;
                 case WaterItem.FlyBomb:
-                    waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString());
+                    waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(),"idle",true);
                     isBomb = true;
                     break;
                 case WaterItem.Bubble_Origin:

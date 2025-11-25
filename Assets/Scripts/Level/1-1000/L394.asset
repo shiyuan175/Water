@@ -148,9 +148,9 @@ MonoBehaviour:
   gameType: 0
   clearList: 010000000200000003000000040000000b0000000600000007000000080000000a000000
   hideList: 
-  globalMechanism: 0
+  globalMechanism: 2
   GlobalMechanismBeginSetp: 0
-  GlobalMechanismContinueSetps: 0
+  GlobalMechanismContinueSetps: 100
   countDownNum: 0
   timeCountDown: 0
   topNum: 6

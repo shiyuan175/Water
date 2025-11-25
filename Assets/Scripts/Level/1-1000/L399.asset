@@ -46,7 +46,7 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: a20f000004000000a20f0000a20f0000
+  - waterSet: 0200000004000000a20f0000a20f0000
     isHide: 00010000
     waterItem: 00000000000000000000000000000000
     bombCounts: 

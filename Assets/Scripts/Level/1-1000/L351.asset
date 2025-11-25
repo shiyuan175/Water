@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L351
   m_EditorClassIdentifier: 
   bottles:
-  - waterSet: 04000000020000000800000007000000
+  - waterSet: 040000000200000008000000a20f0000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
@@ -35,7 +35,7 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 01000000050000000700000006000000
+  - waterSet: 0100000005000000a20f000006000000
     isHide: 00000000
     waterItem: 02000000000000000000000000000000
     bombCounts: 
@@ -68,7 +68,7 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 060000000b0000000b00000007000000
+  - waterSet: 060000000b0000000b000000a20f0000
     isHide: 00000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
@@ -101,7 +101,7 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 03000000040000000b00000007000000
+  - waterSet: 03000000040000000b000000a20f0000
     isHide: 00000000
     waterItem: 00000000010000000000000000000000
     bombCounts: 
@@ -135,7 +135,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   gameType: 0
-  clearList: 01000000020000000300000004000000050000000600000007000000080000000b000000
+  clearList: 010000000200000003000000040000000500000006000000a20f0000080000000b000000
   hideList: 
   globalMechanism: 0
   GlobalMechanismBeginSetp: 0
