@@ -27,21 +27,24 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
 
     private string mDelFilePath;
     private string mCurFilePath;
+
     private JsonFileUtility mJsonFileUtility;
     private BattlePassData mBPDate;
-    private SaveDataUtility mStorage; 
+    private SaveDataUtility mStorage;
+    private TwoBitUtility m2BitTool;
+
     private int mCurrentGetConditions;
     private BindableProperty<int> mGameWinNum;
     private BindableProperty<int> mRewardLevel;
     private BindableProperty<int> mFreeRewardGotLevel;
     private BindableProperty<int> mVipRewardGotLevel;
-  
     private BindableProperty<bool> mIsVip;
 
     protected override void OnInit()
     {
         mStorage = this.GetUtility<SaveDataUtility>();
         mJsonFileUtility = this.GetUtility<JsonFileUtility>();
+        m2BitTool = this.GetUtility<TwoBitUtility>();
         mGameWinNum = new BindableProperty<int>();
         mRewardLevel = new BindableProperty<int>();
         mFreeRewardGotLevel = new BindableProperty<int>();
@@ -93,14 +96,14 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         // 新版本直接代替旧版本，游戏内容的更新放到活动的重新开启
 
 
-/*        // 测试，发布需删除
-        ReloadBattlePassActivity();*/
+        /*        // 测试，发布需删除
+                ReloadBattlePassActivity();*/
         //数据持有
         mJsonFileUtility.LoadFromJson(mCurFilePath, jsonData =>
         {
             mBPDate = JsonConvert.DeserializeObject<BattlePassData>(jsonData);
         });
-        if (RewardLevel < BPDate.Rewards.Length )
+        if (RewardLevel < BPDate.Rewards.Length)
             mCurrentGetConditions = BPDate.Rewards[RewardLevel].GetConditions;
         else
             mCurrentGetConditions = GameDefine.GameConst.MAX_INT;
@@ -141,25 +144,25 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
             else
                 mCurrentGetConditions = GameDefine.GameConst.MAX_INT;
         }
-   }
+    }
     /// <summary>
     /// 充值开启
     /// </summary>
     public void HightBattlePassActivation()
     {
-       
         mIsVip.Value = true;
     }
     /// <summary>
     /// 增加奖励的领取进度
     /// </summary>
     /// <param name="isVipPack">领取的奖励类型 真为HightLevel，假为</param>
-    public void AddRewardGotLevel(bool isVipPack)
+    public void AddRewardGotLevel(bool isVipPack, int level)
     {
         if (isVipPack)
-            mVipRewardGotLevel.Value++;
+            mVipRewardGotLevel.Value += m2BitTool.Get2BitValue(level);
         else
-            mFreeRewardGotLevel.Value++;
+            mFreeRewardGotLevel.Value += m2BitTool.Get2BitValue(level);
     }
+
 
 }
