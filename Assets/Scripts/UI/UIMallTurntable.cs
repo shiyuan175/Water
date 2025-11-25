@@ -21,7 +21,7 @@ namespace QFramework.Example
         private const int TURNTABLE_PROBABIlITY = 100;
         // 轮盘游戏次数
      /*   private const int TURNTABLE_LIMIT_GAMETIMES_PER_CYCLE = 6;*/
-        private const int TURNTABLE_LIMIT_GAMETIMES_PER_CYCLE = 5656;
+        private const int TURNTABLE_LIMIT_GAMETIMES_PER_CYCLE = 6;
 
         [SerializeField] private float MinRingCount = 1f;
 
@@ -192,10 +192,10 @@ namespace QFramework.Example
             {
                 /*int timeProbability = (int)allValues[mTurnTableADActivity.CurrentTurnTableCount];*/
                 int giftProbability = (int)mTurnTableNode[i].GetComponent<TurnTableNode>().AwardLevel;
-                if (mTurnTableNode[i].name == "TurnSoRightTop")
+             /*   if (mTurnTableNode[i].name == "TurnSoRightTop")
                     return mTurnTableNode[i];
                 else
-                    continue;
+                    continue;*/
                 if (probabilityNumber - giftProbability<0)
                 {
                   /*  // 同一个概率的礼物有多个，需要随机取其中一个 从0开始是为了把自己也丢进数组
