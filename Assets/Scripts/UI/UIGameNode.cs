@@ -64,10 +64,11 @@ namespace QFramework.Example
         {
             mData = uiData as UIGameNodeData ?? new UIGameNodeData();
             #region 全局机制--魔法猫咪
-            if (mData.globalMechanism == GlobalMechanism.WhiteMagicCar || mData.globalMechanism == GlobalMechanism.BlackMagicCar)
+            if (mData.GlobalMechanism == GlobalMechanism.WhiteMagicCar || mData.GlobalMechanism == GlobalMechanism.BlackMagicCar)
             {          
-                magicCtrl.Init(mData.globalMechanism);
+                magicCtrl.Init(mData.GlobalMechanism);
             }
+            #endregion
             // please add init code here
         }
 
@@ -859,7 +860,6 @@ namespace QFramework.Example
                 Destroy(_tempObj);
             });
         }
-        #endregion
 
         private void OpenUIVictory()
         {
@@ -870,5 +870,6 @@ namespace QFramework.Example
                 UIKit.OpenPanel<UIVictory>();
             }).Start(this);
         }
+        #endregion
     }
 }

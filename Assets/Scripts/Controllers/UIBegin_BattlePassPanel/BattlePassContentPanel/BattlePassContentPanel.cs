@@ -12,7 +12,7 @@ using System.Security.Cryptography;
 // 2.命名空间更改后，生成代码之后，需要把逻辑代码文件（非 Designer）的命名空间手动更改
 namespace QFramework.Example
 {
-    public partial class BattlePassContentPanel : ViewController, ICanGetModel
+    public partial class BattlePassContentPanel : ViewController, ICanGetModel,ICanGetUtility
     {
         [SerializeField] public Sprite[] boxImgs;
         [SerializeField] public Sprite[] levelImgs; // 0表示还不能，1表示能
@@ -21,7 +21,7 @@ namespace QFramework.Example
 
         private BattlePassADActivity mBattlePassADActivity;
         private BattlePassModel bPModel;
-
+        private TwoBitUtility m2BitTool;
 
         public void Awake()
         {
@@ -29,6 +29,7 @@ namespace QFramework.Example
             mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();
             rewardSprite.Initialize();
             bPModel = this.GetModel<BattlePassModel>();
+            m2BitTool = this.GetUtility<TwoBitUtility>();
         }
         public IArchitecture GetArchitecture()
         {
@@ -74,12 +75,12 @@ namespace QFramework.Example
             else
             {
                 freeGiftPanel.ImgAlReceive.Hide();
-                if (level < bPModel.RewardLevel)
+                if (level < bPModel.RewardLevel && !m2BitTool.HasBitValue(bPModel.FreeRewardGotLevel, level))
                 {
                     freeGiftPanel.BtnClaim.Show();
                     var _freeGiftPanel = freeGiftPanel;
                     freeGiftPanel.BtnClaim.onClick.RemoveAllListeners();
-                    freeGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(freeData, _freeGiftPanel, false));
+                    freeGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(freeData, _freeGiftPanel, false,level));
                 }
                 else
                 {
@@ -118,7 +119,6 @@ namespace QFramework.Example
                     }
                     else
                     {
-
                         if (rewardSprite.GetRewardSprite(freeData[i].itemType) != null)
                             itemImg.sprite = rewardSprite.GetRewardSprite(freeData[i].itemType);
                         else
@@ -150,12 +150,12 @@ namespace QFramework.Example
                 else
                 {
                     vipGiftPanel.ImgAlReceive.Hide();
-                    if (level < bPModel.RewardLevel)
+                    if (level < bPModel.RewardLevel &&!m2BitTool.HasBitValue(bPModel.VipRewardGorLevel,level))
                     {
                         vipGiftPanel.BtnClaim.Show();
                         var _vipGiftPanle = vipGiftPanel;
                         vipGiftPanel.BtnClaim.onClick.RemoveAllListeners();
-                        vipGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(vipData, _vipGiftPanle, true));
+                        vipGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(vipData, _vipGiftPanle, true,level));
                     }
                     else
                     {
@@ -233,9 +233,9 @@ namespace QFramework.Example
                 _ => new Vector2(100, 100)
             };
         }
-        public void SetBtnOnClike(RewardItem[] rewardItem, GiftPanel giftPanel, bool isVipPack)
+        public void SetBtnOnClike(RewardItem[] rewardItem, GiftPanel giftPanel, bool isVipPack,int level)
         {
-            mBattlePassADActivity.DistributeReward(rewardItem, isVipPack);
+            mBattlePassADActivity.DistributeReward(rewardItem, isVipPack,level);
             giftPanel.BtnClaim.Hide();
             giftPanel.ImgAlReceive.Show();
         }
@@ -264,12 +264,12 @@ namespace QFramework.Example
 
             #region 设置freeGift
             freeGiftPanel.ImgAlReceive.Hide();
-            if (level < bPModel.RewardLevel)
+            if (level < bPModel.RewardLevel &&!m2BitTool.HasBitValue(bPModel.FreeRewardGotLevel,level))
             {
                 freeGiftPanel.BtnClaim.Show();
                 var _freeGiftPanel = freeGiftPanel;
                 freeGiftPanel.BtnClaim.onClick.RemoveAllListeners();
-                freeGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(freeData, _freeGiftPanel, false));
+                freeGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(freeData, _freeGiftPanel, false,level));
             }
             else
             {
@@ -288,12 +288,12 @@ namespace QFramework.Example
                 else
                 {
                     vipGiftPanel.ImgAlReceive.Hide();
-                    if (level < bPModel.RewardLevel)
+                    if (level < bPModel.RewardLevel&&!m2BitTool.HasBitValue(bPModel.VipRewardGorLevel,level))
                     {
                         vipGiftPanel.BtnClaim.Show();
                         var _vipGiftPanle = vipGiftPanel;
                         vipGiftPanel.BtnClaim.onClick.RemoveAllListeners();
-                        vipGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(vipData, _vipGiftPanle, true));
+                        vipGiftPanel.BtnClaim.onClick.AddListener(() => SetBtnOnClike(vipData, _vipGiftPanle, true,level));
                     }
                     else
                     {

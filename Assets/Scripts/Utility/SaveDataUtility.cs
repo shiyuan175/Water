@@ -31,13 +31,12 @@ public class SaveDataUtility : IUtility, ICanSendEvent
             PlayerPrefs.SetInt(key, 0);
         PlayerPrefs.Save();
     }
-
+   
     public bool LoadBoolValue(string key, bool defaultValue = true)
     {
         var value = PlayerPrefs.GetInt(key, defaultValue ? 1 : 0);
         return value == 1;
     }
-
     public void SaveLevel(int level)
     {
         //Debug.Log("LevelBefore " + Convert.ToString(clearLevel, 2) + " clearNowLevel " + clearNowLevel + " LevelNow " + Convert.ToString((clearLevel | clearNowLevel), 2));

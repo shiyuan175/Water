@@ -38,11 +38,9 @@ public class BombCtrl : MonoBehaviour
     }
     private void OnEnable()
     {
-        Debug.Log("sdas");
         spine.AnimationState?.ClearTracks();
         spine.skeletonDataAsset = null;
         spine.Initialize(true);
-        Debug.Log(spine.AnimationState?.GetCurrent(0));
     }
     public void BombBoom()
     {
@@ -161,7 +159,6 @@ public class BombCtrl : MonoBehaviour
         {
             return;
         }
-        Debug.Log(isFly);
         if(isFly)
             spine.skeletonDataAsset = flyBomb;
         else

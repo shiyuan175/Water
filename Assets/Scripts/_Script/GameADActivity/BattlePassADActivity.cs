@@ -70,11 +70,11 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
     /// </summary>
     /// <param name="pack">Àñ°ü</param>
     /// <param name="isVIPPack"></param>
-    public void DistributeReward(RewardItem[] pack, bool isVipPack = false)
+    public void DistributeReward(RewardItem[] pack, bool isVipPack = false,int level = 0)
     {  
         RewardUIManager.Instance.PlayRewardAnim( null, false, pack);
         mRewardGrantUtility.GrantReward(pack);
-        mBPModel.AddRewardGotLevel(isVipPack);
+        mBPModel.AddRewardGotLevel(isVipPack, level);
 
     }
 }
