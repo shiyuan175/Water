@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine.U2D;
+using TMPro;
 
 
 namespace QFramework.Example
@@ -44,8 +45,8 @@ namespace QFramework.Example
         [Header("前五关故事引导UI")]
         #region 前五关故事引导UI
         [SerializeField] private GameObject g_Star_MagicBook_Guide;
-        [SerializeField] private Sprite s_StarSprite;
-        [SerializeField] private Image[] i_StarFrames;
+        [SerializeField] private Image mImgProgressBar;
+        [SerializeField] private TextMeshProUGUI mStoryTxt;
         #endregion
 
         private ResLoader mResLoader;
@@ -63,7 +64,7 @@ namespace QFramework.Example
         {
             mData = uiData as UIGameNodeData ?? new UIGameNodeData();
             #region 全局机制--魔法猫咪
-            if (mData.globalMechanism==GlobalMechanism.WhiteMagicCar || mData.globalMechanism == GlobalMechanism.BlackMagicCar)
+            if (mData.globalMechanism == GlobalMechanism.WhiteMagicCar || mData.globalMechanism == GlobalMechanism.BlackMagicCar)
             {          
                 magicCtrl.Init(mData.globalMechanism);
             }
@@ -236,12 +237,19 @@ namespace QFramework.Example
             if (_curLevel > GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
                 return;
 
-            g_Star_MagicBook_Guide.Show();
-            
-            var _temp = Mathf.Clamp(_curLevel - 1, 0, i_StarFrames.Length);
-            for (int i = 0; i < _temp; i++)
+            if (!g_Star_MagicBook_Guide.gameObject.activeSelf)
             {
-                i_StarFrames[i].sprite = s_StarSprite;
+                g_Star_MagicBook_Guide.Show();
+                mStoryTxt.font = LevelManager.Instance.greenFont;
+
+                mImgProgressBar.fillAmount = (float)(_curLevel) / GameConst.NEWBIE_LEVEL_COUNT;
+                mStoryTxt.text = $"Story {_curLevel}/{GameConst.NEWBIE_LEVEL_COUNT}";
+            }
+            else
+            {
+                var fillamount = (float)(_curLevel) / GameConst.NEWBIE_LEVEL_COUNT;
+                mImgProgressBar.DOFillAmount(fillamount, 1f);
+                mStoryTxt.text = $"Story {_curLevel}/{GameConst.NEWBIE_LEVEL_COUNT}";
             }
         }
 
@@ -844,8 +852,8 @@ namespace QFramework.Example
                 _tempObj.GetComponent<SpriteRenderer>().sprite = sprite;
 
             //UIKit.OpenPanel<UIMask>(UILevel.PopUI);//遮罩
-            _tempObj.transform.DOLocalMoveY(0, 0.8f);
-            _tempObj.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.8f)
+            _tempObj.transform.DOLocalMoveY(0, 1f);
+            _tempObj.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 1f)
             .OnComplete(() =>
             {
                 action?.Invoke();

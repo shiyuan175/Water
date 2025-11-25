@@ -48,8 +48,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public SkeletonGraphic mahoujinSpine;
     bool isFinish = false;
     public bool isPlayAnim, isPlayFxAnim;
-    //表示进关选择道具的彩虹水完成后,瓶子是否添加
-    public bool isRainbowBottleAdded = true;
 
     public BottleCtrl nowHalf;
 
@@ -170,11 +168,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         nowBottles.Clear();
         bubbleDict.Clear(); 
         nowHalf = null;
-
-        isRainbowBottleAdded = true;
-        if (takeItem.Contains((int)NormalRewardsType.S_AddOneHalfBottle)
-            && levelId >= (int)UnLockMechanism.S_AddOneHalfBottle)
-            isRainbowBottleAdded = false;
 
         TopBottleLayoutGroup.Show();
         BottomBottleLayoutGroup.Show();
