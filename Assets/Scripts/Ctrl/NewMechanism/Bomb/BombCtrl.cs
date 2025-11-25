@@ -135,7 +135,7 @@ public class BombCtrl : MonoBehaviour
     {
         bombSpine.SetActive(true);
         timeText.text = time;
-        Debug.Log(spine.AnimationState?.GetCurrent(0));
+        //Debug.Log(spine.AnimationState?.GetCurrent(0));
         if (aniType == "bomp_remove")
         {
             ActionKit.Delay(delayTime, () =>

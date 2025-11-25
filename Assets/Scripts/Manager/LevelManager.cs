@@ -247,13 +247,13 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                 //UIKit.OpenPanel<UIGuideLevel2>(UILevel.PopUI);
                 break;
 
-            // 道具使用引导
-            case (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack:
-                UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
-                {
-                    PropType = NormalRewardsType.StepBack,
-                });
-                break;
+            // 道具使用引导(只保留去黑和魔法棒)
+            //case (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack:
+            //    UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
+            //    {
+            //        PropType = NormalRewardsType.StepBack,
+            //    });
+            //    break;
 
             case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide:
                 UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
@@ -262,19 +262,19 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                 });
                 break;
 
-            case (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle:
-                UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
-                {
-                    PropType = NormalRewardsType.AddOneBottle,
-                });
-                break;
+            //case (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle:
+            //    UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
+            //    {
+            //        PropType = NormalRewardsType.AddOneBottle,
+            //    });
+            //    break;
 
-            case (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle:
-                UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
-                {
-                    PropType = NormalRewardsType.AddHalfBottle,
-                });
-                break;
+            //case (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle:
+            //    UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
+            //    {
+            //        PropType = NormalRewardsType.AddHalfBottle,
+            //    });
+            //    break;
 
             case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll:
                 UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()

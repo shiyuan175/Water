@@ -87,10 +87,10 @@ public class StageModel : AbstractModel
             storage.SaveInt(REMAINING_STARS, value);
         });
 
+        //NormalRewardsType 为道具ID
         for (int i = 1; i <= GameDefine.GameConst.ITEM_COUNT; i++)
         {
-            //前五个为付费道具(初始为0个)，否则初始为4个
-            int del = 0;
+            int del = 3;
             var key = $"{ITEM_SIGN}{i}";
             if (i > 5)
                 del = 4;

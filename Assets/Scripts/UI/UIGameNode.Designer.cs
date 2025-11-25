@@ -9,8 +9,9 @@ namespace QFramework.Example
 	public partial class UIGameNode
 	{
 		public const string Name = "UIGameNode";
-		
-		[SerializeField]
+
+		[Header("Bind UI")]
+        [SerializeField]
 		public TMPro.TextMeshProUGUI TxtLevel;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnReturn;

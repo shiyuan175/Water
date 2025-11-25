@@ -17,7 +17,7 @@ namespace QFramework.Example
     {
         [SerializeField] private TextMeshProUGUI[] mTxtRed;
 
-        private const int DelItemCount = 3;
+        private const int DelItemCount = 1;
         private readonly Dictionary<NormalRewardsType, string> PropRules = new Dictionary<NormalRewardsType, string>
         {
             { NormalRewardsType.StepBack, "Take a step back" },

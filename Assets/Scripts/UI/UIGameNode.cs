@@ -49,6 +49,14 @@ namespace QFramework.Example
         [SerializeField] private TextMeshProUGUI mStoryTxt;
         #endregion
 
+        [Header("付费道具解锁UI")]
+        [SerializeField] private TextMeshProUGUI mTxtAddHalfBottle;
+        [SerializeField] private TextMeshProUGUI mTxtAddBottle;
+        [SerializeField] private TextMeshProUGUI mTxtStepBack;
+        [SerializeField] private TextMeshProUGUI mTxtRemoveHide;
+        [SerializeField] private TextMeshProUGUI mTxtRemoveAll;
+
+
         private ResLoader mResLoader;
         private StageModel stageModel;
         private SpriteAtlas mRankLevelSpriteAtlas;
@@ -237,7 +245,7 @@ namespace QFramework.Example
             if (_curLevel > GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
                 return;
 
-            if (!g_Star_MagicBook_Guide.gameObject.activeSelf)
+            if (!g_Star_MagicBook_Guide.activeSelf)
             {
                 g_Star_MagicBook_Guide.Show();
                 mStoryTxt.font = LevelManager.Instance.greenFont;
@@ -383,20 +391,45 @@ namespace QFramework.Example
         {
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
+            if (level >= (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
                 UnLockItem(NormalRewardsType.AddOneBottle);
+            else
+            {
+                mTxtAddBottle.font = LevelManager.Instance.redFont;
+                mTxtAddBottle.text = $"{(int)UIGuideLevel.UIGuideLevelAddBottle}";
+            }
 
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
+            if (level >= (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
                 UnLockItem(NormalRewardsType.AddHalfBottle);
+            else
+            {
+                mTxtAddHalfBottle.font = LevelManager.Instance.redFont;
+                mTxtAddHalfBottle.text = $"{(int)UIGuideLevel.UIGuideLevelHalfBottle}";
+            }
 
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
                 UnLockItem(NormalRewardsType.RemoveHide);
+            else
+            {
+                mTxtRemoveHide.font = LevelManager.Instance.redFont;
+                mTxtRemoveHide.text = $"{(int)UIGuideLevel.UIGuideLevelRemoveHide}";
+            }
 
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
                 UnLockItem(NormalRewardsType.RemoveAll);
+            else
+            {
+                mTxtRemoveAll.font = LevelManager.Instance.redFont;
+                mTxtRemoveAll.text = $"{(int)UIGuideLevel.UIGuideLevelRemoveAll}";
+            }
 
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
+            if (level >= (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
                 UnLockItem(NormalRewardsType.StepBack);
+            else
+            {
+                mTxtStepBack.font = LevelManager.Instance.redFont;
+                mTxtStepBack.text = $"{(int)UIGuideLevel.UIGuideLevelStepBack}";
+            }
         }
 
         /// <summary>
