@@ -53,7 +53,7 @@ public class GooglePayManager : MonoSingleton<GooglePayManager>, IDetailedStoreL
         builder.AddProduct("pg_gift9", ProductType.Consumable);
 
         builder.AddProduct("removeadpack_1", ProductType.Consumable);
-        builder.AddProduct("sepecialoffer", ProductType.Consumable);
+        builder.AddProduct("sepecialoffer_1", ProductType.Consumable);
 
 
         UnityPurchasing.Initialize(this, builder);

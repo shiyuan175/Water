@@ -26,6 +26,9 @@ MonoBehaviour:
       PathToRoot: Mesh/ButtomPanel/ScrollView/Viewport/BattlePassContent
       MemberName: BattlePassContent
     - TypeName: UnityEngine.UI.Button
+      PathToRoot: Mesh/TopPanel/BtnClose
+      MemberName: BtnClose
+    - TypeName: UnityEngine.UI.Button
       PathToRoot: Mesh/TopPanel/BtnInfo
       MemberName: BtnInfo
     - TypeName: UnityEngine.UI.Image

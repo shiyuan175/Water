@@ -884,6 +884,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// </summary>
     public void BombUIUpdate()
     {
+        Debug.Log(bombList.Count);
         foreach (var item in bombList.ToList())
         {
             item.UpdateBomb();

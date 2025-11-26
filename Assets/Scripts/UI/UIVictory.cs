@@ -144,7 +144,8 @@ namespace QFramework.Example
 
                 return false;
             });
-            //轮盘活动
+          /* 暂时关闭  
+             //轮盘活动
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 // 没有计时的时候显示 并进行时间的初始化
@@ -156,7 +157,7 @@ namespace QFramework.Example
                     return true;
                 }
                 return false;
-            });
+            });*/
             //高塔活动
             PanelQueueManager.Instance.Enqueue(() =>
             {
@@ -176,11 +177,11 @@ namespace QFramework.Example
             // 特惠礼包
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                if (GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>() is SepecialOfferADActivity sepecialOfferADActivity1
-                   && sepecialOfferADActivity1.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.SEPECIALOFFER_AD_ACTIVITY_SIGN))
+                if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.SO_AD_BEGIN_LEVEL
+                || (this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL > 0&&(this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL)%7==0))
                 {
                     GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>().StartActivity();
-                    UIKit.OpenPanel<UISepecialOfferGift>(new UISepecialOfferGiftData()
+                    UIKit.OpenPanel<UISepecialOfferGift>(new UISepecialOfferGiftData
                     {
                         IsManagedOpen = true,
                     });

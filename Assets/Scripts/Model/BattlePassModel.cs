@@ -39,7 +39,6 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     private BindableProperty<int> mFreeRewardGotLevel;
     private BindableProperty<int> mVipRewardGotLevel;
     private BindableProperty<bool> mIsVip;
-
     protected override void OnInit()
     {
         mStorage = this.GetUtility<SaveDataUtility>();
@@ -86,7 +85,6 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     }
     public void LoadBattlePassActivity()
     {
-
         mBPDate = null;
 
         if (!File.Exists(mCurFilePath))
@@ -103,10 +101,13 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         {
             mBPDate = JsonConvert.DeserializeObject<BattlePassData>(jsonData);
         });
+
         if (RewardLevel < BPDate.Rewards.Length)
             mCurrentGetConditions = BPDate.Rewards[RewardLevel].GetConditions;
         else
             mCurrentGetConditions = GameDefine.GameConst.MAX_INT;
+
+
     }
 
     /// <summary>
@@ -114,7 +115,6 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     /// </summary>
     public void ReloadBattlePassActivity()
     {
-        Debug.Log("asdsa");
         // 清除战令高级激活和进度(奖励领取，战令级别)
         mGameWinNum.Value = 0;
         mRewardLevel.Value = 1;
@@ -127,7 +127,9 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
             if (!File.Exists(mCurFilePath))
                 using (File.Create(mCurFilePath)) { }
             mJsonFileUtility.SaveToJson(mCurFilePath, tempData);
+            mBPDate = tempData;
         });
+        
     }
     /// <summary>
     /// 增加计数，如果计数达到下一级的条件时，就增加级别,修改完成条件，清空计数
