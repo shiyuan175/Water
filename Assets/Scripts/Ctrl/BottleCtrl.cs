@@ -438,8 +438,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         // 瓶子检查
         other.CheckFinish();
         // 炸弹更新
-        if (!LevelManager.Instance.bombList.Contains(other))
-            LevelManager.Instance.bombList.Add(other);
+        if (!LevelManager.Instance.bombList.Contains(other) )
+        {
+            Debug.Log("dsa");
+LevelManager.Instance.bombList.Add(other);
+        }
+            
         LevelManager.Instance.BombUIUpdate();
 
         // 泡沐机制--生成检查 

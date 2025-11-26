@@ -79,7 +79,7 @@ namespace QFramework.Example
             mHighTowerActivity = GameActivityManager.Instance.GetActivity<HighTowerActivity>();
             mMagicStreakActivity = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
             mTierRankActivity = GameActivityManager.Instance.GetActivity<TierRankActivity>();
-            mTurnTableADActivity = GameActivityManager.Instance.GetActivity<TurnTableADActivity>();
+            /*  mTurnTableADActivity = GameActivityManager.Instance.GetActivity<TurnTableADActivity>();*/
             mSepecialOfferADActivity = GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>();
             mPrograssGiftADActivity = GameActivityManager.Instance.GetActivity<PrograssGiftADActivity>();
             mDoubleGiftADAcitvity = GameActivityManager.Instance.GetActivity<DuobleGiftAdActivity>();
@@ -384,7 +384,7 @@ namespace QFramework.Example
 
         #region 底部菜单栏按钮切换
 
-        private void MenuBtnEvent(int index)
+        public void MenuBtnEvent(int index)
         {
             if (mCurSelectIndex == index) return;
 
@@ -695,9 +695,9 @@ namespace QFramework.Example
 
             if (_curLevel >= GameConst.TRA_BEGIN_LEVEL)
                 BtnTRANode.Show();
-
+            /* 轮盘活动暂时关闭
             if (_curLevel >= GameConst.TT_AD_BEGIN_LEVEL)
-                BtnTTNode.Show();
+                BtnTTNode.Show();*/
 
             if (_curLevel >= 26)
                 BtnMSANode.Show();
@@ -772,12 +772,12 @@ namespace QFramework.Example
                 mMagicStreakActivity ??= _activity as MagicStreakActivity;
                 UpdateMSAState();
             }
-
+            /* 暂时关闭轮盘活动
             else if(_activity is TurnTableADActivity)
             {
                 mTurnTableADActivity ??= _activity as TurnTableADActivity;
                 UpdateTTState();
-            }
+            }*/
             else if (_activity is PrograssGiftADActivity)
             {
                 mPrograssGiftADActivity ??= _activity as PrograssGiftADActivity;
@@ -952,7 +952,7 @@ namespace QFramework.Example
                 };
             }
         }
-        
+        /* 暂时关闭轮盘活动
         private void UpdateTTState()
         {  
             TxtTTActivity.text = mTurnTableADActivity.ActivityStatus switch
@@ -960,7 +960,7 @@ namespace QFramework.Example
                 GameActivityStatus.Active => "Active",
                 _ => "Finished"
             };
-        }
+        }*/
         private void UpdatePGState()
         {
             TxtPGActivity.text = mPrograssGiftADActivity.ActivityStatus switch

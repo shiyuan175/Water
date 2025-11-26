@@ -171,7 +171,7 @@ namespace QFramework.Example
         private Tween DisappearGiftPanel(Transform disapperPanel)
         {
             // 动画时长
-            float durationTime = 0.7f;
+            float durationTime = 0.5f;
 
             return disapperPanel.DOScale(Vector3.zero, durationTime)
                 .OnStart(() =>
@@ -202,7 +202,7 @@ namespace QFramework.Example
         private Tween AppearGiftPanel(Transform AppearPanel, Transform targerPanel)
         {
             // 动画时长
-            float durationTime = 0.6f;
+            float durationTime = 0.35f;
 
               AppearPanel.gameObject.SetActive(true);
             return AppearPanel.DOScale(Vector3.one, durationTime)
@@ -262,7 +262,7 @@ namespace QFramework.Example
         }
         private Tween ChangeGiftPanelPostion(Transform changePanel, Transform targerPanel)
         {
-            float durationTime = 0.7f;
+            float durationTime = 0.4f;
             // 保存当前位置和尺寸
             RectTransform changeRect = changePanel.GetComponent<RectTransform>();
             RectTransform targerRect = targerPanel.GetComponent<RectTransform>();
@@ -317,7 +317,6 @@ namespace QFramework.Example
           
             if (CheckBuy() == true)
             {
-                Debug.Log(123);
                 // 进入下一个奖励
                 mPGModel.AddRewardLevel();
                 /*   ReFreshUI();*/
@@ -329,8 +328,7 @@ namespace QFramework.Example
 
         }
         public bool CheckBuy()
-        {
-            Debug.Log(mPGModel.RewardLevel);
+        {;
             // 免费获取
             if (mPGModel.mPGData.Rewards[mPGModel.RewardLevel].Price == 0)
             {

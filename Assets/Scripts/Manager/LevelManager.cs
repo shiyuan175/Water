@@ -884,6 +884,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// </summary>
     public void BombUIUpdate()
     {
+        Debug.Log(bombList.Count);
         foreach (var item in bombList.ToList())
         {
             item.UpdateBomb();
@@ -1063,7 +1064,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         LevelManagerRecords.Add(record);
 
         nowBottles.ForEach(bottle => bottle.RecordLast());
-        Debug.Log(bombList.Count);
     }
 
     /// <summary>

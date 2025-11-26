@@ -26108,7 +26108,6 @@ MonoBehaviour:
   mahoujinSpine: {fileID: 1377963003}
   isPlayAnim: 0
   isPlayFxAnim: 0
-  isRainbowBottleAdded: 1
   isFlashWaterBottleAdded: 1
   nowHalf: {fileID: 0}
   takeItem: 

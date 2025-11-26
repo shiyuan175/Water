@@ -75,7 +75,7 @@ namespace QFramework.Example
         {
           
             if (price == 0)
-                BtnBuy.transform.Find("Txt_Red").GetComponent<TextMeshProUGUI>().text = "Fress";
+                BtnBuy.transform.Find("Txt_Red").GetComponent<TextMeshProUGUI>().text = "Free";
             else
                 BtnBuy.transform.Find("Txt_Red").GetComponent<TextMeshProUGUI>().text = $"$ {price}";
 
@@ -109,7 +109,7 @@ namespace QFramework.Example
                 if (Buy())
                 {
                     BtnBuy.interactable = false;
-                    float durationTime = 0.5f;
+                    float durationTime = 0.4f;
                     BtnBuy.transform.Find("Txt_Red").GetComponent<TextMeshProUGUI>().text = "";
                     BtnBuy.transform.DOScale(1.2f, durationTime * 0.3f)
                     .SetEase(Ease.OutBack)
@@ -132,7 +132,7 @@ namespace QFramework.Example
             Image img = BtnBuy.transform.Find("ImgLock").GetComponent<Image>();
             Color oldColor = img.color;
             // 单个 Tween 完成所有动画
-            float duration = 0.9f;
+            float duration = 0.4f;
             float elapsed = 0f;
 
             Tween unlockTween = DOTween.To(() => elapsed, x => elapsed = x, duration, duration)                
@@ -151,7 +151,7 @@ namespace QFramework.Example
                 })
                 .OnComplete(() =>
                 {
-                    DOVirtual.DelayedCall(4f, () =>
+                    DOVirtual.DelayedCall(2f, () =>
                     {
                         BtnBuy.interactable = true;
                         img.gameObject.SetActive(false);

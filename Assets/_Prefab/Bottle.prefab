@@ -1603,7 +1603,6 @@ MonoBehaviour:
   maxNum: 4
   limitColor: 0
   unlockClear: 0
-  isBomb: 0
   waters: 
   hideWaters: 
   waterItems: 

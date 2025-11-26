@@ -47,10 +47,11 @@ public class PassLevelCommand : AbstractCommand ,ICanGetModel
         {
             GameActivityManager.Instance.RegisterActivity<BattlePassADActivity>();
         }
+       /* 暂时关闭
         if (currentLevel == GameConst.TT_AD_BEGIN_LEVEL)
         {
             GameActivityManager.Instance.RegisterActivity<TurnTableADActivity>();
-        }
+        }*/
 
         //通过第七关开启首个横幅活动
         if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)

@@ -45,10 +45,11 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<HighTowerActivity>();
         }
+        /* ÔÝÊ±¹Ø±Õ
         if (_curLevel >= GameDefine.GameConst.TT_AD_BEGIN_LEVEL)
         {
             RegisterActivity<TurnTableADActivity>();
-        }
+        }*/
         if (_curLevel >= GameDefine.GameConst.DR_AD_BEGIN_LEVEL)
         {
             RegisterActivity<DailyRewardADActivity>();
