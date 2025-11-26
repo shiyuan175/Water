@@ -1,12 +1,14 @@
 using UnityEngine;
 using QFramework;
 using UnityEngine.UI;
+using QFramework.Example;
 
 namespace SceneUnlock
 {
     public partial class UnlockPreview : ViewController
     {
         [SerializeField] private UnlockPreviewNode[] mUnlockPreviewNode;
+        [SerializeField] private Button mCloseBtn;
 
         private SceneUnlockModel mSceneUnlockModel;
       
@@ -28,6 +30,14 @@ namespace SceneUnlock
             {
                 item.CheckUnlockFinish();
             }
+        }
+
+        private void Start()
+        {
+            mCloseBtn.onClick.AddListener(() =>
+            {
+                UIKit.GetPanel<UIBegin>().MenuBtnEvent(2);
+            });
         }
     }
 }

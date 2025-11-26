@@ -25,7 +25,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
     private List<System.Action> actionList;
     private System.Action openBoxCallBack;
 
-    private const int YAXIS = 0;//800
+    private const int YAXIS = 250;//800
 
     public override void OnSingletonInit()
     {
@@ -291,9 +291,9 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         availableSlots.Remove(slotIndex);
 
         // 每行最大个数
-        int maxPerRow = 5;
-        // 道具间隔 210，整体居中
-        float spacing = 210f;
+        int maxPerRow = 4;
+        // 道具间隔，整体居中
+        float spacing = 270f;
         // 行间隔
         float rowSpacing = 250f;
 

@@ -1734,7 +1734,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 152a318750b9a234e878c9d82137d901, type: 2}
   - {fileID: 11400000, guid: 550237c005fbbc8429a96183010141fc, type: 2}
   - {fileID: 11400000, guid: 3e555d4e5bb131c4a8ae68d7a301d8f3, type: 2}
-  - {fileID: 11400000, guid: 550237c005fbbc8429a96183010141fc, type: 2}
+  - {fileID: 11400000, guid: 83d334c3dd633da40b849c0bbcfa0c50, type: 2}
   - {fileID: 11400000, guid: 3e555d4e5bb131c4a8ae68d7a301d8f3, type: 2}
   mCupPos: {fileID: 28786202081147808}
   mCoinSprite: {fileID: 21300000, guid: 8fa0c956bfff3fb47a65c1fe3d01e183, type: 3}

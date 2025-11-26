@@ -384,7 +384,7 @@ namespace QFramework.Example
 
         #region µ×²¿²Ëµ¥À¸°´Å¥ÇÐ»»
 
-        private void MenuBtnEvent(int index)
+        public void MenuBtnEvent(int index)
         {
             if (mCurSelectIndex == index) return;
 

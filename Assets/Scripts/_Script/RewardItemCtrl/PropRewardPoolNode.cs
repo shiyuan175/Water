@@ -7,6 +7,7 @@ using TMPro;
 
 public class PropRewardPoolNode : MonoBehaviour
 {
+    [SerializeField] private Image mRibbonImg;
     private Image propImage;
     private TextMeshProUGUI propNumText;
 
@@ -28,6 +29,11 @@ public class PropRewardPoolNode : MonoBehaviour
         //先启用调用Awake
         this.Show();
         propImage.sprite = sprite;
+        if (specialRewards)
+            mRibbonImg.Show();
+        else
+            mRibbonImg.Hide();
+
         propNumText.text = specialRewards ? itemNum + "min" : "X" + itemNum;
         propImage.rectTransform.anchoredPosition = pos;
     }
@@ -41,7 +47,7 @@ public class PropRewardPoolNode : MonoBehaviour
             .SetEase(Ease.InQuart)
             .OnComplete(() =>
             {
-               RewardUIManager.Instance.RewardPool.Recycle(propImage);
+                RewardUIManager.Instance.RewardPool.Recycle(propImage);
             });
     }
 }

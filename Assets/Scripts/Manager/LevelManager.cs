@@ -1063,7 +1063,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         LevelManagerRecords.Add(record);
 
         nowBottles.ForEach(bottle => bottle.RecordLast());
-        Debug.Log(bombList.Count);
     }
 
     /// <summary>
