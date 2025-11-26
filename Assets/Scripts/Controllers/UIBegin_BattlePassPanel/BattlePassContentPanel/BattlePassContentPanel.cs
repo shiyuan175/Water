@@ -38,6 +38,7 @@ namespace QFramework.Example
 
         public void Initialize(int level)
         {
+            m2BitTool = this.GetUtility<TwoBitUtility>();
             // awake获取到了，这里为null，所以补了一个get
             bPModel = this.GetModel<BattlePassModel>();
 
@@ -75,6 +76,7 @@ namespace QFramework.Example
             else
             {
                 freeGiftPanel.ImgAlReceive.Hide();
+            
                 if (level < bPModel.RewardLevel && !m2BitTool.HasBitValue(bPModel.FreeRewardGotLevel, level))
                 {
                     freeGiftPanel.BtnClaim.Show();

@@ -59,6 +59,10 @@ namespace QFramework.Example
             {
                 StringEventSystem.Global.Register(kvp.Key, kvp.Value).UnRegisterWhenGameObjectDestroyed(gameObject);
             }
+
+            BtnClose.onClick.AddListener(() => {
+                UIKit.OpenPanel<UIBegin>();
+            });
         }
 
         private void OnDisable()
