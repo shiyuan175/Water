@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:67c84190-9a58-4700-9781-5d9b2b97c46b
+	// Generate Id:f2ad3299-3724-4480-a095-a5a32da7e726
 	public partial class UISepecialOfferGift
 	{
 		public const string Name = "UISepecialOfferGift";
@@ -14,10 +14,6 @@ namespace QFramework.Example
 		public UnityEngine.UI.Button BtnBuy;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnClose;
-		[SerializeField]
-		public RectTransform TimePanel;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI Time_Red;
 		
 		private UISepecialOfferGiftData mPrivateData = null;
 		
@@ -25,8 +21,6 @@ namespace QFramework.Example
 		{
 			BtnBuy = null;
 			BtnClose = null;
-			TimePanel = null;
-			Time_Red = null;
 			
 			mData = null;
 		}

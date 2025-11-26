@@ -52,7 +52,7 @@ public class AnalyticsManager : MonoSingleton<AnalyticsManager>, ICanGetUtility,
         // ·¢ËÍÊÂ¼ş
         AnalyticsService.Instance.RecordEvent(customEvent);
     }
-   
+
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;

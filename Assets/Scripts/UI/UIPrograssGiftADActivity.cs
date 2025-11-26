@@ -24,7 +24,7 @@ namespace QFramework.Example
         private Sequence buttomImageFillSequence;
         private Dictionary<string, Action> giftPackBuySuccessActions;
         bool isBuy = false;
-       
+
         protected override void OnInit(IUIData uiData = null)
         {
             mData = uiData as UIPrograssGiftADActivityData ?? new UIPrograssGiftADActivityData();
@@ -96,7 +96,7 @@ namespace QFramework.Example
 
             for (int i = 0; i < giftPanels.Count; i++)
             {
-                if(mPGModel.RewardLevel+6<=mPGModel.mPGData.Rewards.Length)
+                if (mPGModel.RewardLevel + 6 <= mPGModel.mPGData.Rewards.Length)
                 {
                     int level = mPGModel.RewardLevel + i;
                     if (i == 0)
@@ -116,7 +116,7 @@ namespace QFramework.Example
                     else
                         giftPanels[i].GetComponent<PrograssGiftPanel>().Initialize(BuyItem, mPGModel.mPGData.Rewards[level], false, true);
                 }
-                
+
             }
 
 
@@ -127,7 +127,7 @@ namespace QFramework.Example
             BtnClose.onClick.RemoveAllListeners();
             BtnClose.onClick.AddListener(() =>
             {
-                    CloseSelf();
+                CloseSelf();
             });
         }
         /// <summary>
@@ -135,10 +135,10 @@ namespace QFramework.Example
         /// </summary>
         private void UIPlayAnimation()
         {
-           
+
             // 奖励已经被领取
             buttomImageFillSequence = DOTween.Sequence();
-            int lodLevel = mPGModel.TempLevel-1;
+            int lodLevel = mPGModel.TempLevel - 1;
             // 判断是否需要动画 执行动画前要先存放位置
             if (mPGModel.mPGData.Rewards.Length - lodLevel >= giftPanels.Count)
             {
@@ -152,12 +152,12 @@ namespace QFramework.Example
                     {
                         buttomImageFillSequence.Append(ChangeGiftPanelPostion(changerTransform, panelPosions[i - 1]));
                         buttomImageFillSequence.Join(changerTransform.GetComponent<PrograssGiftPanel>().UnLock());
-                    }     
+                    }
                     else
                         buttomImageFillSequence.Append(ChangeGiftPanelPostion(changerTransform, panelPosions[i - 1]));
                 }
 
-                buttomImageFillSequence.Append(AppearGiftPanel(giftPanels[(lodLevel) % 6], panelPosions[panelPosions.Count-1]));
+                buttomImageFillSequence.Append(AppearGiftPanel(giftPanels[(lodLevel) % 6], panelPosions[panelPosions.Count - 1]));
             }
             else
             {
@@ -196,7 +196,7 @@ namespace QFramework.Example
                     rectTransform.anchoredPosition += positionCompensation;
                 })
                 .SetEase(Ease.InBack);
-               
+
         }
 
         private Tween AppearGiftPanel(Transform AppearPanel, Transform targerPanel)
@@ -204,13 +204,13 @@ namespace QFramework.Example
             // 动画时长
             float durationTime = 0.35f;
 
-              AppearPanel.gameObject.SetActive(true);
+            AppearPanel.gameObject.SetActive(true);
             return AppearPanel.DOScale(Vector3.one, durationTime)
                 .SetDelay(0.1f)
                 .OnStart(() =>
                 {
                     #region 设置位置
-                    AppearPanel.GetComponent<PrograssGiftPanel>().Initialize(BuyItem,mPGModel.mPGData.Rewards[mPGModel.RewardLevel + 6], false, true);
+                    AppearPanel.GetComponent<PrograssGiftPanel>().Initialize(BuyItem, mPGModel.mPGData.Rewards[mPGModel.RewardLevel + 6], false, true);
                     AppearPanel.localScale = Vector3.one;
                     // 移动位置
                     RectTransform changeRect = AppearPanel.GetComponent<RectTransform>();
@@ -279,11 +279,11 @@ namespace QFramework.Example
             Vector2 pivotDelta = targerRect.pivot - originalPivot;
             Vector2 positionCompensation = new Vector2(pivotDelta.x * savedSize.x, pivotDelta.y * savedSize.y);
 
-            
+
             changeRect.position = savedWorldPosition;
             changeRect.anchoredPosition += positionCompensation;
             return changePanel.DOMove(targerPanel.position, durationTime);
-               
+
         }
         #endregion
         private void ReFreshUI()
@@ -314,7 +314,7 @@ namespace QFramework.Example
         /// <returns></returns>
         public bool BuyItem()
         {
-          
+
             if (CheckBuy() == true)
             {
                 // 进入下一个奖励
@@ -328,7 +328,8 @@ namespace QFramework.Example
 
         }
         public bool CheckBuy()
-        {;
+        {
+            ;
             // 免费获取
             if (mPGModel.mPGData.Rewards[mPGModel.RewardLevel].Price == 0)
             {
@@ -355,5 +356,5 @@ namespace QFramework.Example
     }
 
 
-    
+
 }

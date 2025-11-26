@@ -9,8 +9,8 @@ using System;
 
 namespace QFramework.Example
 {
-	public class UISepecialOfferGiftData : UIPanelData
-	{
+    public class UISepecialOfferGiftData : UIPanelData
+    {
         public bool? IsManagedOpen;
 
         public IArchitecture GetArchitecture()
@@ -18,55 +18,50 @@ namespace QFramework.Example
             return GameMainArc.Interface;
         }
     }
-	public partial class UISepecialOfferGift : UIPanel,ICanGetModel,ICanGetUtility
-	{
-		[SerializeField] private TextMeshProUGUI[] textRed;
-		private Tween mCountDownTween;
-		private SepecialOfferADActivity mSepecialOfferADActivity;
+    public partial class UISepecialOfferGift : UIPanel, ICanGetModel, ICanGetUtility
+    {
+        [SerializeField] private TextMeshProUGUI[] textRed;
+        private Tween mCountDownTween;
+        private SepecialOfferADActivity mSepecialOfferADActivity;
         private GooglePayManager googlePay;
         private Dictionary<string, Action> giftPackBuySuccessActions;
         private RewardGrantUtility rewardGrantUtility;
         private SepecialOfferADActivityModel mSOmodel;
         protected override void OnInit(IUIData uiData = null)
-		{
-			mData = uiData as UISepecialOfferGiftData ?? new UISepecialOfferGiftData();
+        {
+            mData = uiData as UISepecialOfferGiftData ?? new UISepecialOfferGiftData();
             mSOmodel = this.GetModel<SepecialOfferADActivityModel>();
 
             foreach (TextMeshProUGUI i in textRed)
-				i.font = LevelManager.Instance.redFont;
+                i.font = LevelManager.Instance.redFont;
 
-		}
-		
-		protected override void OnOpen(IUIData uiData = null)
-		{
-			mSepecialOfferADActivity = GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>();
+        }
+
+        protected override void OnOpen(IUIData uiData = null)
+        {
+            mSepecialOfferADActivity = GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>();
             googlePay = GooglePayManager.Instance;
             rewardGrantUtility = this.GetUtility<RewardGrantUtility>();
             // 初始化购买成功回调
             giftPackBuySuccessActions = new Dictionary<string, Action>();
             var _packSo = BtnBuy.GetComponent<GiftPack>().giftPack;
             giftPackBuySuccessActions[_packSo.ID] = () => OnPaySuccess(_packSo);
-            
+
             SetBtnClick();
         }
-		
-		protected override void OnShow()
-		{
+
+        protected override void OnShow()
+        {
             // 注册购买成功事件
             foreach (var kvp in giftPackBuySuccessActions)
             {
                 StringEventSystem.Global.Register(kvp.Key, kvp.Value).UnRegisterWhenGameObjectDestroyed(gameObject);
             }
-        
-         
 
             if (mSOmodel.IsBuy)
                 BtnBuy.interactable = false;
             else
                 BtnBuy.interactable = true;
-
-            if (mSOmodel.IsBuy)
-                SetClockTime();
         }
 
         protected override void OnHide()
@@ -79,26 +74,26 @@ namespace QFramework.Example
         }
 
         protected override void OnClose()
-		{
+        {
             if (mData.IsManagedOpen ?? false)
                 StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);
         }
 
 
-		private void SetBtnClick()
-		{
-			BtnClose.onClick.RemoveAllListeners();
+        private void SetBtnClick()
+        {
+            BtnClose.onClick.RemoveAllListeners();
             BtnClose.onClick.AddListener(() =>
-			{
-				CloseSelf();
-			});
+            {
+                CloseSelf();
+            });
             BtnBuy.onClick.RemoveAllListeners();
             BtnBuy.onClick.AddListener(() =>
-			{
-				var _packSo = BtnBuy.GetComponent<GiftPack>().giftPack;
+            {
+                var _packSo = BtnBuy.GetComponent<GiftPack>().giftPack;
                 googlePay.BuyProduct(_packSo.ID);
             });
-		}
+        }
         /// <summary>
         /// 礼包购买成功回调
         /// </summary>
@@ -106,29 +101,17 @@ namespace QFramework.Example
         {
             rewardGrantUtility.GrantReward(_packSo);
             RewardUIManager.Instance.PlayRewardAnim(_packSo.Coins, true, null, _packSo);
+            CloseSelf();
             mSOmodel.BuyGift();
             mSepecialOfferADActivity.CoolDownActivity();
             BtnBuy.interactable = false;
-            SetClockTime();
             UIKit.OpenPanel<UIBuyPackSuccess>();
             ActionKit.Delay(1, () =>
             {
                 UIKit.ClosePanel<UIShop>();//延迟1s等待协程结束关闭
             }).Start(this);
         }
-        private void SetClockTime()
-        {
-            TimePanel.Show();
-            mCountDownTween = DOTween.To(() => 0, x =>
-            {
-                if (mSepecialOfferADActivity.ActivityStatus == GameActivityStatus.CoolingDown)
-                    Time_Red.text = mSepecialOfferADActivity.GetActivityReamingTime();
-                else
-                    Time_Red.text = "Finished";
-            }, 1, 1f)
-                   .SetLoops(-1, LoopType.Restart)
-                   .SetUpdate(isIndependentUpdate: true);
-        }
+
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;

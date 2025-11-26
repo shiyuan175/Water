@@ -438,25 +438,24 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         // 瓶子检查
         other.CheckFinish();
         // 炸弹更新
-        if (!LevelManager.Instance.bombList.Contains(other) )
+        if (!LevelManager.Instance.bombList.Contains(other))
         {
-            Debug.Log("dsa");
-LevelManager.Instance.bombList.Add(other);
+            LevelManager.Instance.bombList.Add(other);
         }
-            
+
         LevelManager.Instance.BombUIUpdate();
 
         // 泡沐机制--生成检查 
         LevelManager.Instance.CheckBubbleDict();
         LevelManager.Instance.CreateBubble();
- 
-        
+
+
 
 
         //死局判定
         if (LevelManager.Instance.CheckDeadAfterPour())
             UIKit.OpenPanel<UIRetry>();
- 
+
         #endregion
         //OnCancelSelect();
         other.PlayFillAnim(moveNum, color);
@@ -781,7 +780,7 @@ LevelManager.Instance.bombList.Add(other);
         //有机制道具生效才执行会出现水花动画变长
         if (_hasItemEffect)
             CheckItem();
-   /*     SetBottleColor();*/
+        /*     SetBottleColor();*/
         /*CheckItem();*/
         //CheckFill();
     }
@@ -1255,7 +1254,7 @@ LevelManager.Instance.bombList.Add(other);
         yield return new WaitForEndOfFrame();
         SetBottleColor();
         CheckItem();
-     
+
         if (sameBottle)
         {
             //Debug.Log("在一个瓶子：" + sameBottle);
@@ -1338,14 +1337,14 @@ LevelManager.Instance.bombList.Add(other);
                     break;
                 case FLYBOMBING_SIGN:
                     waterImg[i].bombCtrl.SetBomb(aniType: "flap");
-                    break; 
+                    break;
                 case NULLBOMB_SIGN:
                     Debug.LogWarning("出现标记为0的炸弹");
                     // 处理空炸弹逻辑
                     break;
                 // 正常炸弹
                 default:
-                    if(waterItems[i] == WaterItem.Bomb)
+                    if (waterItems[i] == WaterItem.Bomb)
                         waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(), "idle", false);
                     else
                         waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(), "idle", true);
@@ -1964,12 +1963,12 @@ LevelManager.Instance.bombList.Add(other);
                     waterImg[i].iceGo.SetActive(true);
                     break;
                 case WaterItem.Bomb:
-                    if (bombCounts[i]!=(int)BOMBREMOVE_SIGN)
+                    if (bombCounts[i] != (int)BOMBREMOVE_SIGN)
                         waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(), "idle", false);
                     break;
                 case WaterItem.FlyBomb:
                     if (bombCounts[i] != (int)BOMBREMOVE_SIGN)
-                        waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(),"idle",true);
+                        waterImg[i].bombCtrl.SetBomb(true, (bombCounts[i] - LevelManager.Instance.moveNum).ToString(), "idle", true);
                     break;
                 case WaterItem.Bubble_Origin:
                     IsOriginalBubble[i] = true;
@@ -2177,7 +2176,7 @@ LevelManager.Instance.bombList.Add(other);
             // 清除被使用的道具,并清空标记
             waters[_itemPlace] = 0;
             waters[i] = 0;
-           /* waters[_itemPlace] = 0;*/
+            /* waters[_itemPlace] = 0;*/
             _itemId = 0;
         }
 
