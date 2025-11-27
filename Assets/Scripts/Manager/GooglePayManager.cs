@@ -22,7 +22,7 @@ public class GooglePayManager : MonoSingleton<GooglePayManager>, IDetailedStoreL
     void InitializePurchasing()
     {
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-        
+
         //初始化产品列表，这里要Google后台的产品列表一致
         builder.AddProduct("battlepass_vip", ProductType.Consumable);
 

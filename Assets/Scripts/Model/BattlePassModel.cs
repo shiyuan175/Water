@@ -129,7 +129,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
             mJsonFileUtility.SaveToJson(mCurFilePath, tempData);
             mBPDate = tempData;
         });
-        
+
     }
     /// <summary>
     /// 增加计数，如果计数达到下一级的条件时，就增加级别,修改完成条件，清空计数

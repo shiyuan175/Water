@@ -11,7 +11,7 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
     public TMP_InputField inputField;
     public Button button;
     public Button Btnfinish;
-
+    public GameObject debugPanel;
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;
@@ -52,6 +52,10 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
         if(Input.GetKey(KeyCode.L))
         {
             LevelManager.Instance.AddMoveNum();
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            debugPanel.SetActive(true);
         }
     }
 }

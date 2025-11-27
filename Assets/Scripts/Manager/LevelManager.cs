@@ -181,7 +181,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
 
         //新机制初始化
-        
+
         //泡沫
         foreach (var i in nowBottles)
         {
@@ -299,7 +299,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             });
         }
     }
-  
+
     /// <summary>
     /// 判断显示那些瓶子（现用于初始化关卡的瓶子）
     /// </summary>
@@ -334,11 +334,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// <param name="levelInfo"></param>
     public void InitBottle(LevelCreateCtrl levelInfo)
     {
-        
+
         for (int i = 0; i < levelInfo.bottles.Count; i++)
         {
             var bottle = nowBottles[i];
-            
+
             bottle.Init(levelInfo.bottles[i], i);
         }
     }
@@ -447,7 +447,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
             //黑水炸弹
             case ItemType.BombBlackWater:
-                RandomHalfBlackWater();           
+                RandomHalfBlackWater();
                 break;
 
         }
@@ -851,14 +851,14 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         else if (globalMechanism == GlobalMechanism.WhiteMagicCar)
         {
             if (moveNum >= GlobalMechanismBeginSetp && moveNum <= GlobalMechanismBeginSetp + GlobalMechanismContinueSetps)
-            { 
+            {
                 BottleCtrl _bottleCtrl = levelManagerUtility.RandomRomveBarkWaterBottle(nowBottles);
                 if (_bottleCtrl != null)
                 {
                     _bottleCtrl.SetHideShow(true);
                     StringEventSystem.Global.Send("MagicCatEven");
                 }
-                    
+
             }
         }
 
@@ -897,8 +897,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         foreach (var item in bombList.ToList())
         {
             item.ClearBomb();
-           /* item.Key.textItem.text = (item.Value - moveNum).ToString();
-            item.Key.bombCtrl.SetBomb(aniType: "bomp_remove");*/
+            /* item.Key.textItem.text = (item.Value - moveNum).ToString();
+             item.Key.bombCtrl.SetBomb(aniType: "bomp_remove");*/
             bombList.Remove(item);
         }
     }

@@ -14,7 +14,7 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
     public override int ActivityBeginLevel => GameConst.BP_AD_BEGIN_LEVEL;
 
     private BattlePassModel mBPModel;
-    public override float ActivityDurationMinutes => 30*24*60;
+    public override float ActivityDurationMinutes => 30 * 24 * 60;
     public override GameActivityStatus ActivityStatus
     {
         get
@@ -70,9 +70,9 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
     /// </summary>
     /// <param name="pack">Àñ°ü</param>
     /// <param name="isVIPPack"></param>
-    public void DistributeReward(RewardItem[] pack, bool isVipPack = false,int level = 0)
-    {  
-        RewardUIManager.Instance.PlayRewardAnim( null, false, pack);
+    public void DistributeReward(RewardItem[] pack, bool isVipPack = false, int level = 0)
+    {
+        RewardUIManager.Instance.PlayRewardAnim(null, false, pack);
         mRewardGrantUtility.GrantReward(pack);
         mBPModel.AddRewardGotLevel(isVipPack, level);
 
