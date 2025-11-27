@@ -14,8 +14,8 @@ using GameDefine;
 
 public class BottleWaterCtrl : MonoBehaviour
 {
-    public SkeletonGraphic spine, broomSpine, createSpine, changeSpine, magnetSpine, changeShineSpine, thunderSpine, broomAfterSpine, fireRuneSpine,starBlackWater,BombBlackWaterSpine,FlyBombSpine;
-    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater,BombBlackWaterItemGo,FlyBombItemGo,FlashWaterGo;
+    public SkeletonGraphic spine, broomSpine, createSpine, changeSpine, magnetSpine, changeShineSpine, thunderSpine, broomAfterSpine, fireRuneSpine, starBlackWater, BombBlackWaterSpine, FlyBombSpine;
+    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater, BombBlackWaterItemGo, FlyBombItemGo, FlashWaterGo;
     public Animator anim;
     public Image waterImg;
     public int waterColor;
@@ -23,7 +23,7 @@ public class BottleWaterCtrl : MonoBehaviour
     public TextMeshProUGUI textItem;
     public GameObject fireRuneGo;
     public BottleCtrl bottle;
-    
+
 
     #region NewMechineCtrl
     public BombCtrl bombCtrl;
@@ -54,7 +54,7 @@ public class BottleWaterCtrl : MonoBehaviour
         waterImg.fillAmount = 0;
         waterImg.DOFillAmount(1, time).SetEase(Ease.Linear);
     }
-    
+
     public void PlayOutAnim(float time)
     {
         //StartCoroutine(CoroutinePlayFillAnim());
@@ -100,10 +100,10 @@ public class BottleWaterCtrl : MonoBehaviour
     private GameObject magnetGo;
     private GameObject magnetGo1;
 
-   /* public void PlayUseMagnet(BottleWaterCtrl hide)
-    {
-        playMagnetCoroutine = StartCoroutine(CoroutinePlayUseMagnet(hide));
-    }*/
+    /* public void PlayUseMagnet(BottleWaterCtrl hide)
+     {
+         playMagnetCoroutine = StartCoroutine(CoroutinePlayUseMagnet(hide));
+     }*/
 
     /// <summary>
     /// 提供外部终止动画播放的方法
@@ -131,45 +131,45 @@ public class BottleWaterCtrl : MonoBehaviour
         isPlayItemAnim = false;
     }
 
-   /* IEnumerator CoroutinePlayUseMagnet(BottleWaterCtrl hide)
-    {
-        isPlayItemAnim = true;
-        //broomItemGo.SetActive(true);
-        magnetGo = Instantiate(magnetItemGo);
-        magnetGo1 = Instantiate(hide.magnetItemGo);
-        magnetGo.transform.parent = transform;
-        magnetGo.transform.localScale = magnetItemGo.transform.localScale;
-        magnetGo.transform.localPosition = magnetItemGo.transform.localPosition;
-        magnetGo1.transform.parent = transform;
-        magnetGo1.transform.localScale = magnetItemGo.transform.localScale;
-        magnetGo1.transform.localPosition = magnetItemGo.transform.localPosition + new Vector3(0, 83.4f, 0);
+    /* IEnumerator CoroutinePlayUseMagnet(BottleWaterCtrl hide)
+     {
+         isPlayItemAnim = true;
+         //broomItemGo.SetActive(true);
+         magnetGo = Instantiate(magnetItemGo);
+         magnetGo1 = Instantiate(hide.magnetItemGo);
+         magnetGo.transform.parent = transform;
+         magnetGo.transform.localScale = magnetItemGo.transform.localScale;
+         magnetGo.transform.localPosition = magnetItemGo.transform.localPosition;
+         magnetGo1.transform.parent = transform;
+         magnetGo1.transform.localScale = magnetItemGo.transform.localScale;
+         magnetGo1.transform.localPosition = magnetItemGo.transform.localPosition + new Vector3(0, 83.4f, 0);
 
-        var useSpine = magnetGo.GetComponent<SkeletonGraphic>();
-        var useSpine1 = magnetGo1.GetComponent<SkeletonGraphic>();
-        yield return new WaitForEndOfFrame();
-        magnetGo.transform.parent = LevelManager.Instance.gameCanvas;
-        magnetGo1.transform.parent = LevelManager.Instance.gameCanvas;
-        useSpine1.AnimationState.SetAnimation(0, magnetSpine.AnimationState.ExpandToIndex(0).Animation.name, false);
+         var useSpine = magnetGo.GetComponent<SkeletonGraphic>();
+         var useSpine1 = magnetGo1.GetComponent<SkeletonGraphic>();
+         yield return new WaitForEndOfFrame();
+         magnetGo.transform.parent = LevelManager.Instance.gameCanvas;
+         magnetGo1.transform.parent = LevelManager.Instance.gameCanvas;
+         useSpine1.AnimationState.SetAnimation(0, magnetSpine.AnimationState.ExpandToIndex(0).Animation.name, false);
 
-        magnetGo1.transform.DOLocalMove(magnetGo.transform.localPosition, 0.2f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            if (magnetGo1 != null) Destroy(magnetGo1);
-        });
-        magnetItemGo.SetActive(false);
-        magnetGo.transform.Find("Top").gameObject.SetActive(false);
-        useSpine.AnimationState.SetAnimation(0, "combine", false);
-        isPlayItemAnim = false;
-        hide.gameObject.SetActive(false);
-        yield return new WaitForSeconds(2f);
-        isPlayItemAnim = false;
-        //gameObject.SetActive(false);
-        if (magnetGo != null) Destroy(magnetGo);
-        gameObject.SetActive(false);
-        playMagnetCoroutine = null;
-    }*/
+         magnetGo1.transform.DOLocalMove(magnetGo.transform.localPosition, 0.2f).SetEase(Ease.Linear).OnComplete(() =>
+         {
+             if (magnetGo1 != null) Destroy(magnetGo1);
+         });
+         magnetItemGo.SetActive(false);
+         magnetGo.transform.Find("Top").gameObject.SetActive(false);
+         useSpine.AnimationState.SetAnimation(0, "combine", false);
+         isPlayItemAnim = false;
+         hide.gameObject.SetActive(false);
+         yield return new WaitForSeconds(2f);
+         isPlayItemAnim = false;
+         //gameObject.SetActive(false);
+         if (magnetGo != null) Destroy(magnetGo);
+         gameObject.SetActive(false);
+         playMagnetCoroutine = null;
+     }*/
     #endregion
 
-    public void SetHide(bool isHide, bool noWait,GameDefine.ItemType itemType)
+    public void SetHide(bool isHide, bool noWait, GameDefine.ItemType itemType)
     {
         if (isHide || (!isHide && noWait) || !gameObject.activeSelf)
         {
@@ -185,7 +185,7 @@ public class BottleWaterCtrl : MonoBehaviour
             if (fieldName == null)
                 return;
             var fieldInfo = type.GetField(fieldName);
-            
+
             if (fieldInfo.GetCustomAttribute(typeof(WaterColorState), false) is not WaterColorState attribute)
                 return;
 
@@ -292,7 +292,7 @@ public class BottleWaterCtrl : MonoBehaviour
         spine.AnimationState.SetAnimation(0, "bullet", false);
 
         var offset = waterCtrl.transform.position - transform.position;
-        if(offset.x < 0)
+        if (offset.x < 0)
         {
             go.transform.localScale = new Vector3(1, 1, 1);
         }
@@ -332,14 +332,14 @@ public class BottleWaterCtrl : MonoBehaviour
     public void SetColorState(GameDefine.ItemType itemType, Color inColor, bool isTopWater, int index = 0)
     {
         this.color = inColor;
-        
+
         var type = itemType.GetType();
         var fieldName = Enum.GetName(type, itemType);
 
-        if (fieldName == null) 
+        if (fieldName == null)
             return;
         var fieldInfo = type.GetField(fieldName);
-        if (fieldInfo.GetCustomAttribute(typeof(WaterColorState), false) is not WaterColorState attribute) 
+        if (fieldInfo.GetCustomAttribute(typeof(WaterColorState), false) is not WaterColorState attribute)
             return;
 
         broomItemGo.SetActive(attribute.BroomItemActive);
@@ -386,7 +386,7 @@ public class BottleWaterCtrl : MonoBehaviour
                 case EColorStateSpineType.EChangeSpine:
                     changeSpine.AnimationState.SetAnimation(0, attribute.SpineAnim, false);
                     break;
-                
+
             }
         }
     }
@@ -497,7 +497,7 @@ public class BottleWaterCtrl : MonoBehaviour
         return itemType switch
         {
             ItemType.ClearRandomWaterItem => (broomItemGo, broomSpine, "disappear", true),
-            ItemType.BombBlackWater => (BombBlackWaterItemGo,BombBlackWaterSpine, "combine", true),
+            ItemType.BombBlackWater => (BombBlackWaterItemGo, BombBlackWaterSpine, "combine", true),
             ItemType.MakeColorItem => (createItemGo, createSpine, "combine", true),
             ItemType.MagnetItem => (magnetItemGo, magnetSpine, "combine", true),
             ItemType.ChangeGreen or ItemType.ChangeOrange or ItemType.ChangePink

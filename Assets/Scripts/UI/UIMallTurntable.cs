@@ -20,7 +20,7 @@ namespace QFramework.Example
         // 轮盘概率计算归一化 默认为100 轮盘基本概率 = enum概率/本常量
         private const int TURNTABLE_PROBABIlITY = 100;
         // 轮盘游戏次数
-     /*   private const int TURNTABLE_LIMIT_GAMETIMES_PER_CYCLE = 6;*/
+        /*   private const int TURNTABLE_LIMIT_GAMETIMES_PER_CYCLE = 6;*/
         private const int TURNTABLE_LIMIT_GAMETIMES_PER_CYCLE = 6;
 
         [SerializeField] private float MinRingCount = 1f;
@@ -155,11 +155,9 @@ namespace QFramework.Example
         {
             // 计算目标
             targetGameObject = CalculateProbability();
-            Debug.Log(targetGameObject.name);
             Transform targetTransform = targetGameObject.transform;
             // 计算目标选项与上方世界的夹角
             float angle = Vector3.Angle(transform.up, targetTransform.up);
-            Debug.Log(angle);
             // 确定目标在左方还是右方（叉积判断）
             Vector3 dir = Vector3.Cross(targetTransform.up, transform.up);
             // 如果在左方，需要计算优弧角度（360-角度）
@@ -185,31 +183,31 @@ namespace QFramework.Example
         {
             int probabilityNumber = UnityEngine.Random.Range(0, TURNTABLE_PROBABIlITY);
 
-/*            // 用来做同概率礼物的随机取值
-            GameObject[] _SameTypeGift = new GameObject[mTurnTableNode.Count];
-            int _index = 0;*/
+            /*            // 用来做同概率礼物的随机取值
+                        GameObject[] _SameTypeGift = new GameObject[mTurnTableNode.Count];
+                        int _index = 0;*/
             for (int i = 0; i < mTurnTableNode.Count; i++)
             {
                 /*int timeProbability = (int)allValues[mTurnTableADActivity.CurrentTurnTableCount];*/
                 int giftProbability = (int)mTurnTableNode[i].GetComponent<TurnTableNode>().AwardLevel;
-             /*   if (mTurnTableNode[i].name == "TurnSoRightTop")
-                    return mTurnTableNode[i];
-                else
-                    continue;*/
-                if (probabilityNumber - giftProbability<0)
+                /*   if (mTurnTableNode[i].name == "TurnSoRightTop")
+                       return mTurnTableNode[i];
+                   else
+                       continue;*/
+                if (probabilityNumber - giftProbability < 0)
                 {
-                  /*  // 同一个概率的礼物有多个，需要随机取其中一个 从0开始是为了把自己也丢进数组
-                    for (int j = 0; j + i < mTurnTableNode.Count; j++)
-                    {
-                        int _giftProbability = (int)mTurnTableNode[i + j].GetComponent<TurnTableNode>().AwardLevel;
-                        if (_giftProbability != giftProbability)
-                            break;
-                        GameObject _gameObject = mTurnTableNode[i + j];
-                        _SameTypeGift[_index++] = _gameObject;
-                    }*/
+                    /*  // 同一个概率的礼物有多个，需要随机取其中一个 从0开始是为了把自己也丢进数组
+                      for (int j = 0; j + i < mTurnTableNode.Count; j++)
+                      {
+                          int _giftProbability = (int)mTurnTableNode[i + j].GetComponent<TurnTableNode>().AwardLevel;
+                          if (_giftProbability != giftProbability)
+                              break;
+                          GameObject _gameObject = mTurnTableNode[i + j];
+                          _SameTypeGift[_index++] = _gameObject;
+                      }*/
 
-/*
-                    return _SameTypeGift[UnityEngine.Random.Range(0, _index)];*/
+                    /*
+                                        return _SameTypeGift[UnityEngine.Random.Range(0, _index)];*/
                     return mTurnTableNode[i];
                 }
                 probabilityNumber -= giftProbability;

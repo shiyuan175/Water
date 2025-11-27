@@ -28,7 +28,7 @@ namespace QFramework.Example
 
         [Header("关卡难度UI")]
         #region 关卡难度UI
-        
+
         [SerializeField] private Sprite[] imgBtnItemBgSprites;
         [SerializeField] private Sprite[] imgTopBgSprites;
         [SerializeField] private Sprite[] imgBottomSpirtes;
@@ -73,7 +73,7 @@ namespace QFramework.Example
             mData = uiData as UIGameNodeData ?? new UIGameNodeData();
             #region 全局机制--魔法猫咪
             if (mData.GlobalMechanism == GlobalMechanism.WhiteMagicCar || mData.GlobalMechanism == GlobalMechanism.BlackMagicCar)
-            {          
+            {
                 magicCtrl.Init(mData.GlobalMechanism);
             }
             #endregion
@@ -363,7 +363,7 @@ namespace QFramework.Example
         private void ConsumeTakeItems()
         {
             var takeItems = LevelManager.Instance.takeItem;
-            var itemIds = new[] 
+            var itemIds = new[]
             {
                 NormalRewardsType.S_AddOneHalfBottle,
                 NormalRewardsType.S_RemoveOneBottleHideWater,
@@ -625,11 +625,11 @@ namespace QFramework.Example
                 TryRunNext();
                 //ActionKit.Delay(0.3f, () =>
                 //{
-                   
+
                 //}).Start(this);
             });
         }
-        
+
         private void AutoUseAllItems()
         {
             var level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
@@ -645,7 +645,7 @@ namespace QFramework.Example
             }
 
             if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_RemoveOneBottleHideWater)
-                && level >= (int)UnLockMechanism.S_RemoveOneBottleHideWater)
+                && level >= (int)UnLockMechanism.EnterLevelSelectProps)
             {
                 EnqueueAction(_nextItem =>
                 {
@@ -655,7 +655,7 @@ namespace QFramework.Example
             }
 
             if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_RemoveOneDebuffBottle)
-                && level >= (int)UnLockMechanism.S_RemoveOneDebuffBottle)
+                && level >= (int)UnLockMechanism.EnterLevelSelectProps)
             {
                 EnqueueAction(_nextItem =>
                 {
@@ -665,7 +665,7 @@ namespace QFramework.Example
             }
 
             if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_AddOneHalfBottle)
-                && level >= (int)UnLockMechanism.S_AddOneHalfBottle)
+                && level >= (int)UnLockMechanism.EnterLevelSelectProps)
             {
                 EnqueueAction(_nextItem =>
                 {
@@ -751,14 +751,14 @@ namespace QFramework.Example
                 });
             }, _sprite);
         }
-       
+
         /// <summary>
         /// 增加一格瓶子
         /// </summary>
         /// <param name="onComplete"></param>
         private void AddOneHalfBottle(Action onComplete)
         {
-            var _sprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.S_AddOneHalfBottle); 
+            var _sprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.S_AddOneHalfBottle);
             void _changeRainBowWater(Action callback)
             {
                 var _tempWater = new List<int>(LevelManager.Instance.clearList);
@@ -776,6 +776,7 @@ namespace QFramework.Example
                 //4、取随机颜色
                 var _colorIdx = _tempWater[UnityEngine.Random.Range(0, _tempWater.Count)];
                 LevelManager.Instance.clearList.Remove(_colorIdx);
+                LevelManager.Instance.clearList.Add((int)ItemType.RainBowWater);
 
                 //遍历有这个颜色的瓶子，执行方法
                 foreach (var bottle in LevelManager.Instance.nowBottles)
@@ -876,7 +877,7 @@ namespace QFramework.Example
         /// 道具入场动画
         /// </summary>
         /// <param name="action"></param>
-        private void PlayParticleEffect(Action action ,Sprite sprite = null)
+        private void PlayParticleEffect(Action action, Sprite sprite = null)
         {
             var _particle = Resources.Load(ITEM_ENTRANCE_EFFECT_PATH);
             var _tempObj = Instantiate(_particle) as GameObject;

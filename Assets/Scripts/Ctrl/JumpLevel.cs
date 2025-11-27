@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
+public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
 {
     public TMP_InputField inputField;
     public Button button;
@@ -39,9 +39,9 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-           for(int i =0;i<2;i++)
+            for (int i = 0; i < 2; i++)
                 this.SendEvent(new ReturnToMainEvent { PassLevel = true });
         }
         if (Input.GetKeyDown(KeyCode.S))
@@ -49,7 +49,7 @@ public class JumpLevel : MonoBehaviour ,ICanSendEvent, ICanGetUtility
             for (int i = 0; i < 10; i++)
                 this.SendEvent(new ReturnToMainEvent { PassLevel = true });
         }
-        if(Input.GetKey(KeyCode.L))
+        if (Input.GetKey(KeyCode.L))
         {
             LevelManager.Instance.AddMoveNum();
         }

@@ -65,7 +65,6 @@ namespace QFramework.Example
         {
             for (int i = 0; i < dailyRewardADActivityPackSO.Length; i++)
             {
-                Debug.Log(mDailyRewardADActivity.CurrentWatchADCount);
                 // <=
                 if (i == mDailyRewardADActivity.CurrentWatchADCount)
                     adBtns[i].interactable = true;

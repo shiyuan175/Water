@@ -15,7 +15,7 @@ namespace QFramework
 {
     [Serializable]
     public class BindableDictionary<TKey, TValue> : IDictionary<TKey, TValue>,
-        IDictionary,ISerializable, IDeserializationCallback
+        IDictionary, ISerializable, IDeserializationCallback
     {
         private readonly Dictionary<TKey, TValue> mInner;
 
@@ -91,34 +91,34 @@ namespace QFramework
         public bool TryGetValue(TKey key, out TValue value) => mInner.TryGetValue(key, out value);
 
         public Dictionary<TKey, TValue>.Enumerator GetEnumerator() => mInner.GetEnumerator();
-        
-        
+
+
         [NonSerialized]
         private EasyEvent<int> mOnCountChanged;
         public EasyEvent<int> OnCountChanged => mOnCountChanged ?? (mOnCountChanged = new EasyEvent<int>());
-        
-            
+
+
         [NonSerialized]
         private EasyEvent mOnClear;
         public EasyEvent OnClear => mOnClear ?? (mOnClear = new EasyEvent());
-        
+
         [NonSerialized]
         private EasyEvent<TKey, TValue> mOnAdd;
         public EasyEvent<TKey, TValue> OnAdd => mOnAdd ?? (mOnAdd = new EasyEvent<TKey, TValue>());
-        
+
         [NonSerialized]
-        private EasyEvent<TKey,TValue> mOnRemove;
+        private EasyEvent<TKey, TValue> mOnRemove;
         public EasyEvent<TKey, TValue> OnRemove => mOnRemove ?? (mOnRemove = new EasyEvent<TKey, TValue>());
-        
+
         [NonSerialized]
-        private EasyEvent<TKey, TValue,TValue> mOnReplace;
+        private EasyEvent<TKey, TValue, TValue> mOnReplace;
 
         /// <summary>
         /// TKey:key
         /// TValue:oldValue
         /// TValue:newValue
         /// </summary>
-        public EasyEvent<TKey, TValue,TValue> OnReplace => mOnReplace ?? (mOnReplace = new EasyEvent<TKey, TValue, TValue>());
+        public EasyEvent<TKey, TValue, TValue> OnReplace => mOnReplace ?? (mOnReplace = new EasyEvent<TKey, TValue, TValue>());
 
 
 
@@ -139,7 +139,7 @@ namespace QFramework
         object ICollection.SyncRoot => ((IDictionary)mInner).SyncRoot;
 
         ICollection IDictionary.Values => ((IDictionary)mInner).Values;
-        
+
         bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly => ((ICollection<KeyValuePair<TKey, TValue>>)mInner).IsReadOnly;
 
         ICollection<TKey> IDictionary<TKey, TValue>.Keys => mInner.Keys;

@@ -76,7 +76,7 @@ namespace JsonFileData
         List<TaskGroup> DailyTaskData;
     }
     #endregion
-     public class RewardItem
+    public class RewardItem
     {
         public string itemType;
         public int itemQuantity;
@@ -108,12 +108,12 @@ namespace JsonFileData
 
 
     #region BattlePass Data
-   
+
     public class BattlePassData
     {
         public int BattlePassVersion;
         public BPReward[] Rewards;
-    } 
+    }
     public class BPReward
     {
         public int GetConditions;
@@ -166,7 +166,7 @@ public class JsonFileUtility : IUtility
     {
         if (!File.Exists(filePath))
         {
-         /*   Debug.Log($"文件不存在: {filePath}");*/
+            /*   Debug.Log($"文件不存在: {filePath}");*/
             return;
         }
 
@@ -280,9 +280,9 @@ public class JsonFileUtility : IUtility
 #else
                 // 非安卓
                 await Task.Run(() =>
-                {            
+                {
                     File.Copy(Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName), _perFilePath, overwrite: true);
-        
+
                 });
 #endif
             }
