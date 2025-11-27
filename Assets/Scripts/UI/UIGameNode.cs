@@ -369,14 +369,23 @@ namespace QFramework.Example
                 NormalRewardsType.S_RemoveOneBottleHideWater,
                 NormalRewardsType.S_RemoveOneDebuffBottle
             };
-
+            var unlimitItems = new[]
+            {
+               SpecialRewardsType.Unlimited_S_AddOneHalfBottle,
+               SpecialRewardsType.Unlimited_S_RemoveOneBottleHideWater,
+               SpecialRewardsType.Unlimited_S_RemoveOneDebuffBottle
+            };
             for (int i = 0; i < itemIds.Length; i++)
             {
                 string _sign = GameEnum.GetDescription(itemIds[i]);
 
                 bool _isTakeItem = (takeItems.Contains((int)itemIds[i]) && (stageModel.ItemDic[(int)itemIds[i]] > 0));
+                _sign = GameEnum.GetDescription(unlimitItems[i]);
                 if (_isTakeItem && CountDownTimerManager.Instance.IsTimerFinished(_sign))
+                {
                     stageModel.ReduceItem((int)itemIds[i], 1);
+                }
+
             }
         }
 
