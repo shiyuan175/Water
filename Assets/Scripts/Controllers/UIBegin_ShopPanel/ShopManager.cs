@@ -9,6 +9,7 @@ namespace QFramework.Example
 {
 	public partial class ShopManager : ViewController, IController
 	{
+        [SerializeField] private Button mCloseBtn;
         [SerializeField] private List<Button> buyGiftPackBtns;
         [SerializeField] private List<TMPro.TextMeshProUGUI> mRedTMP;
         [SerializeField] private List<TMPro.TextMeshProUGUI> mBlueTMP;
@@ -73,6 +74,11 @@ namespace QFramework.Example
 
         private void Start()
 		{
+            mCloseBtn.onClick.AddListener(() =>
+            {
+                UIKit.GetPanel<UIBegin>().MenuBtnEvent(2);
+            });
+
             //注册按钮
             foreach (var btn in buyGiftPackBtns)
             {

@@ -17,5 +17,9 @@ MonoBehaviour:
   removeAdsForever: 0
   items: []
   specialsItem:
-  - specialRewardType: 2
+  - specialRewardType: 6
+    duration: 30
+  - specialRewardType: 7
+    duration: 30
+  - specialRewardType: 8
     duration: 30
