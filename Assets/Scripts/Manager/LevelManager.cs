@@ -884,14 +884,10 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// </summary>
     public void BombUIUpdate()
     {
-        Debug.Log(bombList.Count);
         foreach (var item in bombList.ToList())
         {
             item.UpdateBomb();
         }
-
-       
-
     }
     /// <summary>
     /// 清空游戏中的炸弹
