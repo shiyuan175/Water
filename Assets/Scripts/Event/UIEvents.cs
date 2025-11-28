@@ -39,6 +39,7 @@ public struct UnlockSceneBackEvent
 
 public struct RefreshItemEvent
 {
+    public int itemID;
 }
 
 public struct GameStartEvent

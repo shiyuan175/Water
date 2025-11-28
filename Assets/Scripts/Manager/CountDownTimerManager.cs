@@ -35,6 +35,7 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
     public void AddTimer(string id, double minutes)
     {
         string key = COUNTDOWN_TIMER_SIGN + id;
+        Debug.Log(key);
         TimeSpan duration = TimeSpan.FromMinutes(minutes);
         //无记录创建
         if (!PlayerPrefs.HasKey(key))

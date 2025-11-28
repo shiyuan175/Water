@@ -177,8 +177,10 @@ namespace QFramework.Example
             // ÌØ»ÝÀñ°ü
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.SO_AD_BEGIN_LEVEL
+                if ((this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.SO_AD_BEGIN_LEVEL
                 || (this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL > 0&&(this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL)%7==0))
+                && GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>() is SepecialOfferADActivity soActivity
+                    && soActivity.ActivityStatus != GameActivityStatus.CoolingDown)
                 {
                     GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>().StartActivity();
                     UIKit.OpenPanel<UISepecialOfferGift>(new UISepecialOfferGiftData

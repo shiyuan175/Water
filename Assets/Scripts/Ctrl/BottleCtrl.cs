@@ -1339,7 +1339,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                     waterImg[i].bombCtrl.SetBomb(aniType: "flap");
                     break;
                 case NULLBOMB_SIGN:
-                    Debug.LogWarning("出现标记为0的炸弹");
                     // 处理空炸弹逻辑
                     break;
                 // 正常炸弹
