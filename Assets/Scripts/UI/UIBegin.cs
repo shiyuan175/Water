@@ -542,7 +542,7 @@ namespace QFramework.Example
             }
             TxtStartLevel.text = $"Level {currentLevel}"+$"<br><size=45>{appendString}</size>";
 
-            TxtStraightWin_Red.text = $"{stageModel.InGameRankStreakWinNum} Straight";
+            TxtStraightWin_Red.text = $"{stageModel.InGameRankStreakWinNum} Streak";
         }
 
         /// <summary>
@@ -1027,9 +1027,6 @@ namespace QFramework.Example
         }
 
         #endregion
-
-
-    
     }
     
 }

@@ -49,14 +49,6 @@ namespace QFramework.Example
         [SerializeField] private TextMeshProUGUI mStoryTxt;
         #endregion
 
-        [Header("付费道具解锁UI")]
-        [SerializeField] private TextMeshProUGUI mTxtAddHalfBottle;
-        [SerializeField] private TextMeshProUGUI mTxtAddBottle;
-        [SerializeField] private TextMeshProUGUI mTxtStepBack;
-        [SerializeField] private TextMeshProUGUI mTxtRemoveHide;
-        [SerializeField] private TextMeshProUGUI mTxtRemoveAll;
-
-
         private ResLoader mResLoader;
         private StageModel stageModel;
         private SpriteAtlas mRankLevelSpriteAtlas;
@@ -391,44 +383,27 @@ namespace QFramework.Example
         {
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
-            if (level >= (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle)
-                UnLockItem(NormalRewardsType.AddOneBottle);
-            else
-            {
-                mTxtAddBottle.font = LevelManager.Instance.redFont;
-                mTxtAddBottle.text = $"{(int)UIGuideLevel.UIGuideLevelAddBottle}";
-            }
-
-            if (level >= (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle)
+            if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
                 UnLockItem(NormalRewardsType.AddHalfBottle);
-            else
-            {
-                mTxtAddHalfBottle.font = LevelManager.Instance.redFont;
-                mTxtAddHalfBottle.text = $"{(int)UIGuideLevel.UIGuideLevelHalfBottle}";
-            }
+
+            if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+                UnLockItem(NormalRewardsType.AddOneBottle);
+           
+            if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+                UnLockItem(NormalRewardsType.StepBack);
 
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
                 UnLockItem(NormalRewardsType.RemoveHide);
-            else
+            else if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
             {
-                mTxtRemoveHide.font = LevelManager.Instance.redFont;
-                mTxtRemoveHide.text = $"{(int)UIGuideLevel.UIGuideLevelRemoveHide}";
+                BtnRemoveHide.transform.Find("ImgLock").Show();
             }
 
             if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
                 UnLockItem(NormalRewardsType.RemoveAll);
-            else
+            else if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
             {
-                mTxtRemoveAll.font = LevelManager.Instance.redFont;
-                mTxtRemoveAll.text = $"{(int)UIGuideLevel.UIGuideLevelRemoveAll}";
-            }
-
-            if (level >= (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack)
-                UnLockItem(NormalRewardsType.StepBack);
-            else
-            {
-                mTxtStepBack.font = LevelManager.Instance.redFont;
-                mTxtStepBack.text = $"{(int)UIGuideLevel.UIGuideLevelStepBack}";
+                BtnRemoveAll.transform.Find("ImgLock").Show();
             }
         }
 
@@ -441,14 +416,6 @@ namespace QFramework.Example
             Transform transform = null;
             switch (PropType)
             {
-                case NormalRewardsType.StepBack:
-                    transform = BtnStepBack.transform;
-                    break;
-
-                case NormalRewardsType.RemoveHide:
-                    transform = BtnRemoveHide.transform;
-                    break;
-
                 case NormalRewardsType.AddHalfBottle:
                     transform = BtnHalfBottle.transform;
                     break;
@@ -457,13 +424,23 @@ namespace QFramework.Example
                     transform = BtnAddBottle.transform;
                     break;
 
+                case NormalRewardsType.StepBack:
+                    transform = BtnStepBack.transform;
+                    break;
+
+                case NormalRewardsType.RemoveHide:
+                    transform = BtnRemoveHide.transform;
+                    transform.Find("ImgLock").Hide();
+                    break;
+
                 case NormalRewardsType.RemoveAll:
                     transform = BtnRemoveAll.transform;
+                    transform.Find("ImgLock").Hide();
                     break;
             }
 
             transform.Find("ImgItem").Show();
-            transform.Find("ImgLock").Hide();
+            transform.Find("ItemNumBg").Show();
             transform.GetComponent<Button>().interactable = true;
             transform.Find("ImgItem").GetComponent<Image>().color = Color.white;
         }
@@ -606,6 +583,7 @@ namespace QFramework.Example
         // 异步队列
         private readonly Queue<Action<Action>> mActionQueue = new();
         private bool mIsRunning = false;
+        private bool mAutoItemsExecuted = false;
 
         private void EnqueueAction(Action<Action> action)
         {
@@ -632,6 +610,11 @@ namespace QFramework.Example
         
         private void AutoUseAllItems()
         {
+            //双重保护(避免快速点击重复打开该面板导致错误表现)
+            if (mAutoItemsExecuted) return;
+            mAutoItemsExecuted = true;
+            mActionQueue.Clear();
+
             var level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
             if (level >= (int)GameDefine.UnLockMechanism.RemoveHideWinStreakLevel
