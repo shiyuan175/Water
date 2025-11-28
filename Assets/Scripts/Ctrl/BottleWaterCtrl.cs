@@ -169,7 +169,7 @@ public class BottleWaterCtrl : MonoBehaviour
      }*/
     #endregion
 
-    public void SetHide(bool isHide, bool noWait,GameDefine.ItemType itemType)
+    public void SetHide(bool isHide, bool noWait, GameDefine.ItemType itemType)
     {
         if (isHide || (!isHide && noWait) || !gameObject.activeSelf)
         {

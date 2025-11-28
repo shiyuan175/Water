@@ -5,6 +5,7 @@ using System;
 using TMPro;
 using GameDefine;
 using Unity.Mathematics;
+using UnityEngine.Purchasing;
 
 namespace QFramework.Example
 {
@@ -173,7 +174,7 @@ namespace QFramework.Example
                 selectBtns[i].onClick.AddListener(() =>
                 {
                     if (stageModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
-                    {               
+                    {
                         bool show = addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite != itemSubIcon[1];
                         if (show)
                         {
@@ -198,8 +199,7 @@ namespace QFramework.Example
         {
             this.RegisterEvent<RefreshItemEvent>(e =>
             {
-                UpdateItem();
-
+                UpdateItemDisplay(stageModel.ItemDic[e.itemID], addItemBtns[e.itemID-6]);
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
@@ -249,6 +249,7 @@ namespace QFramework.Example
         /// </summary>
         void UpdateItem()
         {
+            Debug.Log("das");
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneHalfBottle)))
                 AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_AddOneHalfBottle);
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveOneBottleHideWater)))
@@ -295,7 +296,7 @@ namespace QFramework.Example
             //后续如果是其他buff时长也要处理显示,每个buff的条件单独处理
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.DOUBLE_COIN_SIGN))
                 BuffTag.Show();
-            else 
+            else
                 BuffTag.Hide();
         }
 
@@ -306,14 +307,56 @@ namespace QFramework.Example
         private void SetEnterPropsGuideUI(UnLockMechanism type)
         {
 
-            foreach(var i in addItemBtns)
+            foreach (var i in addItemBtns)
             {
                 i.Hide();
             }
             ItemGuidePanel.gameObject.Show();
             int startID = 6;
-            SpineHandleItem.AnimationState.SetAnimation(0, "animation", true);
             int _tempIndex = 0;
+            SpineHandleItem.AnimationState.SetAnimation(0, "animation", true);
+            //是否可以递归调用
+            if (type == UnLockMechanism.EnterLevelSelectProps)
+            {
+                GuideBtnItem1.Show();
+                SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem1.GetComponent<RectTransform>().position;
+                GuideBtnItem1.onClick.AddListener(() =>
+                {
+                    SetEnterPropsUnLockUI(UnLockMechanism.S_AddOneHalfBottle);
+
+                    _tempIndex = 0;
+                    SetEnterPropsUnlimitTime(startID, _tempIndex);
+                    GuideBtnItem1.Hide();
+                    selectBtns[_tempIndex].onClick?.Invoke();
+                    // 引导2
+                    GuideBtnItem2.Show();
+                    SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem2.GetComponent<RectTransform>().position;
+                    GuideBtnItem2.onClick.AddListener(() =>
+                    {
+                        SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneBottleHideWater);
+
+                        _tempIndex = 1;
+                        SetEnterPropsUnlimitTime(startID, _tempIndex);
+                        GuideBtnItem2.Hide();
+                        selectBtns[_tempIndex].onClick?.Invoke();
+                        // 引导3
+                        GuideBtnItem3.Show();
+                        SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem3.GetComponent<RectTransform>().position;
+                        GuideBtnItem3.onClick.AddListener(() =>
+                        {
+                            SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
+
+                            _tempIndex = 2;
+
+                            SetEnterPropsUnlimitTime(startID, _tempIndex);
+                            ItemGuidePanel.Hide();
+                            selectBtns[_tempIndex].onClick?.Invoke();
+                        });
+                    });
+                });
+                return;
+            }
+
             switch (type)
             {
                 case UnLockMechanism.S_AddOneHalfBottle:
@@ -359,7 +402,7 @@ namespace QFramework.Example
                     addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite = itemSubIcon[1];
                     addItemBtns[_tempIndex].interactable = false;
                     addItemBtns[_tempIndex].transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
-                    /*UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);*/
+                    UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
                     AddItemIfNotExists(_itemId);
                 }
                 else
@@ -376,6 +419,20 @@ namespace QFramework.Example
         /// </summary>
         private void SetEnterPropsUnLockUI(UnLockMechanism type)
         {
+            if (type == UnLockMechanism.EnterLevelSelectProps)
+            {
+                foreach (var btn in selectBtns)
+                {
+                    btn.transform.Find("ImgLock").Hide();
+                    btn.interactable = true;
+                }
+                UnLimitItemNode1.Show();
+                UnLimitItemNode2.Show();
+                UnLimitItemNode3.Show();
+                UpdateItem();
+                return;
+            }
+
             Button _tempBtn;
             switch (type)
             {
@@ -402,11 +459,29 @@ namespace QFramework.Example
             _tempBtn.transform.Find("ImgLock").Hide();
             _tempBtn.interactable = true;
 
-            UpdateItem();
+            /*            UpdateItem();*/
         }
 
+        /// <summary>
+        /// 上锁进关道具状态
+        /// </summary>
         private void SetEnterPropsLockUI(UnLockMechanism type)
         {
+            if (type == UnLockMechanism.EnterLevelSelectProps)
+            {
+                foreach (var btn in selectBtns)
+                {
+                    btn.transform.Find("ImgLock").Hide();
+                    btn.interactable = false;
+                }
+                addItemBtns[0].Hide();
+                addItemBtns[1].Hide();
+                addItemBtns[2].Hide();
+                UnLimitItemNode1.Hide();
+                UnLimitItemNode2.Hide();
+                UnLimitItemNode3.Hide();
+                return;
+            }
             switch (type)
             {
                 case UnLockMechanism.S_AddOneHalfBottle:
@@ -450,7 +525,20 @@ namespace QFramework.Example
         {
             int _level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
             // 引导动画开关
-            // 彩色水
+            if (_level == (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
+            {
+                SetEnterPropsGuideUI(UnLockMechanism.EnterLevelSelectProps);
+            }
+            if (_level > (int)GameDefine.UnLockMechanism.S_AddOneHalfBottle)
+            {
+                SetEnterPropsUnLockUI(UnLockMechanism.EnterLevelSelectProps);
+            }
+            else
+            {
+                SetEnterPropsLockUI(UnLockMechanism.EnterLevelSelectProps);
+            }
+
+            /*// 彩色水
             if (_level == (int)GameDefine.UnLockMechanism.S_AddOneHalfBottle)
             {
                 SetEnterPropsGuideUI(UnLockMechanism.S_AddOneHalfBottle);
@@ -494,7 +582,7 @@ namespace QFramework.Example
             {
                 SetEnterPropsLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
             }
-
+*/
             //双倍金币
             if (_level == (int)GameDefine.UnLockMechanism.TimesGoldCoin)
             {
@@ -512,6 +600,31 @@ namespace QFramework.Example
             {
                 Mask.Show();
                 Mask.GetComponentInChildren<TextMeshProUGUI>().font = LevelManager.Instance.redFont;
+            }
+        }
+
+        private void SetEnterPropsUnlimitTime(int startID, int _tempIndex)
+        {
+            int _itemId = startID + _tempIndex;
+            var _rewardType = (SpecialRewardsType)(_itemId);
+            string _sign = GameEnum.GetDescription(_rewardType);
+            if (stageModel.ItemDic[_itemId] >= 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
+            {
+                bool show = addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite != itemSubIcon[1];
+                if (show)
+                {
+                    addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite = itemSubIcon[1];
+                    addItemBtns[_tempIndex].interactable = false;
+                    addItemBtns[_tempIndex].transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
+                    UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
+                    AddItemIfNotExists(_itemId);
+                }
+                else
+                {
+                    UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
+                    RemoveItemIfExists(_itemId);
+                }
+
             }
         }
         #endregion

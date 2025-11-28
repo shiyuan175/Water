@@ -338,7 +338,7 @@ namespace QFramework.Example
             else
             {
 #if UNITY_EDITOR
-                Debug.Log("yes");
+                Debug.Log("购买成功回调");
 
 #endif
 

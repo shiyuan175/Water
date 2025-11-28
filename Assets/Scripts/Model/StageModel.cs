@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using QFramework;
 using GameDefine;
+using static UnityEditor.Progress;
 
 public class StageModel : AbstractModel
 {
@@ -99,7 +100,7 @@ public class StageModel : AbstractModel
         ItemDic.OnReplace.Register((itemID, oldValue, newValue) =>
         {
             storage.SaveInt($"{ITEM_SIGN}{itemID}", newValue);
-            this.SendEvent<RefreshItemEvent>();
+            this.SendEvent(new RefreshItemEvent() { itemID = itemID });
             //Debug.Log($"道具ID：{itemID} 数量更新为:{newValue},发送事件通知...");
         });
 

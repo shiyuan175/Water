@@ -191,14 +191,14 @@ namespace GameDefine
     {
         // 进关道具解锁
         EnterLevelSelectProps = 17,
-        // 增加瓶子(变彩虹水)解锁关
-        S_AddOneHalfBottle = 17,
+        // 增加瓶子(变彩虹水)解锁关 原本是17
+        S_AddOneHalfBottle = 18,
         // 去一瓶黑水解锁关
         S_RemoveOneBottleHideWater = 22,
         // 去一瓶Debuff解锁关
         S_RemoveOneDebuffBottle = 27,
         // 1.5金币解锁
-        TimesGoldCoin = 35,
+        TimesGoldCoin = 45,
         // 连胜去黑水
         RemoveHideWinStreakLevel = 60
     }
@@ -301,7 +301,7 @@ namespace GameDefine
         [RainBowWaterState("")]
         RainBowWater = 4001,
 
-        [RainBowWaterState("",EColorStateSpineType.EFlashWater)]
+        [RainBowWaterState("", EColorStateSpineType.EFlashWater)]
         FlashWater = 4002,
 
         [WaterColorState("Combile", EColorStateSpineType.EBombBlackWater)]
