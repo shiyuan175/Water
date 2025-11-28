@@ -34,9 +34,21 @@ namespace QFramework.Example
         private float mInitPosY;
         // 当前选中索引(-1表示未选中)
         private int mCurSelectIndex = -1;
-       
+
         #endregion
 
+        #region RedPoint
+        [Header("红点相关")]
+        [SerializeField] private GameObject mRedPoint;
+        [SerializeField] private Text mRedPointMessText;
+        [SerializeField] private RectTransform mPopDialogBoxNode;
+
+        //第一个场景部件消耗
+        private readonly int[] mConsume = new int[]
+        {
+            1,2,2,3,3,3,4,4,4,5,5,5,6,7,
+        };
+        #endregion
         [SerializeField] private GameObject[] mSceneUnlockPanels;
 
         private StageModel stageModel;
@@ -55,7 +67,7 @@ namespace QFramework.Example
         private GameObject mCurBannerActivity;
 
 
-        
+
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;
@@ -117,7 +129,7 @@ namespace QFramework.Example
 
         protected override void OnClose()
         {
-            
+
         }
 
         private void BindBtn()
@@ -135,7 +147,7 @@ namespace QFramework.Example
             BtnArea.onClick.AddListener(() =>
             {
                 string _sceneName;
-                if(mSceneUnlockModel.SceneIndex >= GameConst.SceneUnlock.Count)
+                if (mSceneUnlockModel.SceneIndex >= GameConst.SceneUnlock.Count)
                 {
                     int maxKey = GameConst.SceneUnlock.Keys.Max();
                     _sceneName = GameConst.SceneUnlock[maxKey];
@@ -226,7 +238,8 @@ namespace QFramework.Example
             });
 
             BtnRemoveADNode.onClick.RemoveAllListeners();
-            BtnRemoveADNode.onClick.AddListener(() =>{
+            BtnRemoveADNode.onClick.AddListener(() =>
+            {
                 UIKit.OpenPanel<UIRemoveAdADActivity>();
             });
             BtnTRANode.onClick.RemoveAllListeners();
@@ -252,7 +265,7 @@ namespace QFramework.Example
                             _openRankPanel = false;
                         break;
                 }
-            
+
                 if (_openRankPanel)
                     UIKit.OpenPanel<UITierRankActivity>();
                 else
@@ -289,6 +302,7 @@ namespace QFramework.Example
                 if (e.PassLevel)
                 {
                     StartCoroutine(ShowFx());
+                    SetSceneRedPoint();
                     ShowActivityState();
 
                     if (mSceneUnlockModel.SceneIndex == 0 && mSceneUnlockModel.SceneUnlockUnitIndex == 0)
@@ -313,7 +327,7 @@ namespace QFramework.Example
             {
                 LevelManager.Instance.StartGame(saveData.GetCurrentLevel());
                 UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { GlobalMechanism = LevelManager.Instance.globalMechanism });
-                
+
                 BottomMenuNode.Hide();
                 HomeNode.Hide();
 
@@ -347,7 +361,7 @@ namespace QFramework.Example
                 SetCoin();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
-      
+
             StringEventSystem.Global.Register(GameConst.UNLOCK_NEW_SCENES, () =>
             {
                 SetScene();
@@ -378,7 +392,7 @@ namespace QFramework.Example
                     return;
                 }
             }
-            
+
             UIKit.OpenPanel<UIBeginSelect>();
         }
 
@@ -404,7 +418,7 @@ namespace QFramework.Example
             var _curImg = mImgsRect[index];
             _curImg.localScale = Vector3.one * 0.5f;
             _curImg.DOScale(1f, 0.1f);
-            _curImg.DOAnchorPosY(mInitPosY + 60f, 0.1f); 
+            _curImg.DOAnchorPosY(mInitPosY + 60f, 0.1f);
             mLayoutElements_BgFrame[index].flexibleWidth = 1.2f;
             mLayoutElements_MenuBtn[index].flexibleWidth = 1.2f;
 
@@ -475,7 +489,7 @@ namespace QFramework.Example
         #endregion
 
         #region 字体/金币/体力/星星/头像/建筑 初始化更新
-        
+
         private void LoaderRes()
         {
             TxtImgprogress.font = LevelManager.Instance.blueFont;
@@ -491,14 +505,14 @@ namespace QFramework.Example
             //Init Avatar
             BtnHead.GetComponent<Image>().sprite = AvatarManager.Instance.GetAvatarSprite(true);
             ImgHeadFrame.sprite = AvatarManager.Instance.GetAvatarSprite(false);
-      
+
             SetVitality();
             SetCoin();
             SetStar();
             SetScene();
             SetStartLevel();
         }
-    
+
         private void SetCoin()
         {
             TxtCoin.text = CoinManager.Instance.Coin.ToString();
@@ -520,11 +534,11 @@ namespace QFramework.Example
         private void SetStartLevel()
         {
             int currentLevel = saveData.GetCurrentLevel();
-            string appendString="";
+            string appendString = "";
             // 设置图案和附加文本
             if (currentLevel > GameConst.LEVEL_TYPE_LAST_DIGIT)
             {
-                switch (currentLevel% GameConst.LEVEL_TYPE_LAST_DIGIT)
+                switch (currentLevel % GameConst.LEVEL_TYPE_LAST_DIGIT)
                 {
                     case 4:
                         appendString = "Hard Level";
@@ -537,10 +551,10 @@ namespace QFramework.Example
                     default:
                         appendString = "";
                         BtnStart.transform.GetComponent<Image>().sprite = btnStartSprites[0];
-                        break;  
+                        break;
                 }
             }
-            TxtStartLevel.text = $"Level {currentLevel}"+$"<br><size=45>{appendString}</size>";
+            TxtStartLevel.text = $"Level {currentLevel}" + $"<br><size=45>{appendString}</size>";
 
             TxtStraightWin_Red.text = $"{stageModel.InGameRankStreakWinNum} Streak";
         }
@@ -587,6 +601,7 @@ namespace QFramework.Example
             mSceneUnlockPanels[_sceneIndex].GetComponent<SceneUnlockCtrl>().UpdateUnitSprite(_unitUnlockProgress);
 
             SetStar();
+            SetSceneRedPoint();
 
             ImgProgress.fillAmount = (float)_unitUnlockProgress / _unitCount;
             TxtImgprogress.text = $"{_unitUnlockProgress} / {_unitCount}";
@@ -595,6 +610,52 @@ namespace QFramework.Example
             if (_sceneIndex == 0 && _unitUnlockProgress == _unitCount)
             {
                 UIKit.OpenPanel<PlotUnlockGuide>(UILevel.PopUI);
+            }
+        }
+
+        /// <summary>
+        /// 解锁红点
+        /// </summary>
+        private void SetSceneRedPoint()
+        {
+            var unitUnlockProgress = mSceneUnlockModel.SceneUnlockUnitIndex;
+            var sceneIndex = mSceneUnlockModel.SceneIndex;
+            if (sceneIndex > 0 || unitUnlockProgress >= mConsume.Length) return;
+
+            var _remainingStar = stageModel.RemainingStars;
+            if (_remainingStar <= 0 || _remainingStar < mConsume[unitUnlockProgress])
+            {
+                mRedPoint.Hide();
+                return;
+            }
+            //剩余星星，mConsume是部件消耗对应的表，计算有几个部件能解锁
+
+            int _unlockableCount = 1;
+            _remainingStar -= mConsume[unitUnlockProgress];
+            for (int i = unitUnlockProgress + 1; i < mConsume.Length; i++)
+            {
+                if (_remainingStar >= mConsume[i])
+                {
+                    _remainingStar -= mConsume[i];
+                    _unlockableCount++;
+                }
+                else
+                    break;
+            }
+
+            mRedPoint.Show();
+            mRedPointMessText.text = _unlockableCount.ToString();
+
+            //有五个以上能解锁,触发手引导
+            if (_unlockableCount >= 5)
+            {
+                UIKit.OpenPanel<PopDialogBox>(UILevel.PopUI, new PopDialogBoxData()
+                {
+                    DialogBoxPosNode = mPopDialogBoxNode,
+                    DialogBoxMes = "Click here to help this poor girl rebuilding the Home",
+                    HandleSpineNode = BtnArea.GetComponent<RectTransform>(),
+                    AutoClose = 3
+                });
             }
         }
 
@@ -639,7 +700,7 @@ namespace QFramework.Example
 
                 if (mHighTowerActivity is not null)
                 {
-                    if (mHighTowerActivity.ActivityStatus is GameActivityStatus.Active) 
+                    if (mHighTowerActivity.ActivityStatus is GameActivityStatus.Active)
                         TxtHighTowerActivity.text = mHighTowerActivity.GetActivityReamingTime();
                 }
 
@@ -661,24 +722,25 @@ namespace QFramework.Example
                         TxtRocketActivity.text = mRocketActivity.GetActivityReamingTime();
                 }
 
-              /* if (mPrograssGiftADActivity is not null)
-               {
-                    if (mPrograssGiftADActivity.ActivityStatus is GameActivityStatus.Active)
-                        TxtPGActivity.text = mPrograssGiftADActivity.GetActivityReamingTime();
-               }
+                /* if (mPrograssGiftADActivity is not null)
+                 {
+                      if (mPrograssGiftADActivity.ActivityStatus is GameActivityStatus.Active)
+                          TxtPGActivity.text = mPrograssGiftADActivity.GetActivityReamingTime();
+                 }
 
-               if(mSepecialOfferADActivity is not null)
-               {
-                    if (mSepecialOfferADActivity.ActivityStatus is GameActivityStatus.Active)
-                        TxtSOActivity.text = mSepecialOfferADActivity.GetActivityReamingTime();
-               }
-               if(mDoubleGiftADAcitvity is not null)
-               {
-                    if (mDoubleGiftADAcitvity.ActivityStatus is GameActivityStatus.Active)
-                        TxtDGActivity.text = mDoubleGiftADAcitvity.GetActivityReamingTime();
-               }    */
+                 if(mSepecialOfferADActivity is not null)
+                 {
+                      if (mSepecialOfferADActivity.ActivityStatus is GameActivityStatus.Active)
+                          TxtSOActivity.text = mSepecialOfferADActivity.GetActivityReamingTime();
+                 }
+                 if(mDoubleGiftADAcitvity is not null)
+                 {
+                      if (mDoubleGiftADAcitvity.ActivityStatus is GameActivityStatus.Active)
+                          TxtDGActivity.text = mDoubleGiftADAcitvity.GetActivityReamingTime();
+                 }    */
             }
         }
+
         #endregion
 
         #region 活动模块
@@ -714,17 +776,17 @@ namespace QFramework.Example
                 Btn_Bp.interactable = true;
                 ImgLock.Hide();
             }
-                
 
-            if (_curLevel >= GameConst.DG_AD_BEGIN_LEVEL && (!this.GetModel<DoubleGiftADActivityModel>().IsBuy||! this.GetModel<DoubleGiftADActivityModel>().GiftIsGot))
+
+            if (_curLevel >= GameConst.DG_AD_BEGIN_LEVEL && (!this.GetModel<DoubleGiftADActivityModel>().IsBuy || !this.GetModel<DoubleGiftADActivityModel>().GiftIsGot))
                 BtnDGNode.Show();
 
             if (_curLevel >= GameConst.PG_AD_BEGIN_LEVEL)
                 BtnPGNode.Show();
 
-            if (_curLevel >= GameConst.REMOVE_AD_BEGIN_LEVEL &&!this.GetModel<RemoveADACtivityModel>().IsBuy)
+            if (_curLevel >= GameConst.REMOVE_AD_BEGIN_LEVEL && !this.GetModel<RemoveADACtivityModel>().IsBuy)
                 BtnRemoveADNode.Show();
-            
+
         }
 
         private void InitActivityState()
@@ -812,10 +874,10 @@ namespace QFramework.Example
                     }
                 }
             }
-          
+
             //...Other Activity
         }
-        
+
         private void UpdateVAState()
         {
             if (mVolcanicActivity is null)
@@ -838,7 +900,7 @@ namespace QFramework.Example
                     BtnVANode.Show();
                     TxtVolcanicActivity.text = mVolcanicActivity.GetActivityReamingTime();
                     break;
-                    
+
                 case GameActivityStatus.CoolingDown:
                     BtnVANode.Show();
                     TxtVolcanicActivity.text = mVolcanicActivity.GetCooldownReamingTime();
@@ -943,7 +1005,7 @@ namespace QFramework.Example
                 ChangeActivityIcon(BtnTRANode.gameObject);
                 BtnTRANode.interactable = true;
                 //更换横幅精灵
-              
+
                 TxtTierRankActivity.text = mTierRankActivity.ActivityStatus switch
                 {
                     SettlementActivityStatus.Inactive => "START",
@@ -969,8 +1031,8 @@ namespace QFramework.Example
                 _ => "Finished"
             };
         }
-       private void UpdateSOState()
-       {
+        private void UpdateSOState()
+        {
             TxtSOActivity.text = mSepecialOfferADActivity.ActivityStatus switch
             {
                 GameActivityStatus.Active => "Active",
@@ -1028,5 +1090,5 @@ namespace QFramework.Example
 
         #endregion
     }
-    
+
 }
