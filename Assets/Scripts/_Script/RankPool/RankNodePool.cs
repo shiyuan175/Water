@@ -133,9 +133,10 @@ public class RankNodePool : MonoSingleton<RankNodePool>, ICanGetModel
             return;
         }
 
-        scrollRect.StartCoroutine(SetScrollPositionCoroutine(scrollRect, curRank));
+        //初始玩家视口位置
+        SetScrollPositionCoroutine(scrollRect, curRank);
 
-        // 目标排名
+        //获取目标排名
         var playerTargetRank = mRankDataModel.GetPlayerRank(targetScore);
 
         if (curRank == playerTargetRank)
@@ -144,7 +145,7 @@ public class RankNodePool : MonoSingleton<RankNodePool>, ICanGetModel
             return;
         }
 
-        //滚动到GridLayoutGroup第二个节点的位置情况
+        //等待0.5f后开始滚动到GridLayoutGroup第二个节点的位置情况
         ActionKit.Delay(0.5f, () =>
         {
             int rankDifference = curRank - playerTargetRank; // 提升名次数
@@ -172,12 +173,18 @@ public class RankNodePool : MonoSingleton<RankNodePool>, ICanGetModel
 
             #region 排名上升+玩家排名变化
 
-            // 1、玩家节点上升
+            // 1、玩家节点上升(禁用组件避免组件控制子节点)
+            scrollRect.content.GetComponent<GridLayoutGroup>().Disable();
+            scrollRect.content.GetComponent<ContentSizeFitter>().Disable();
+
             float targetY = CalculateGridChildLocalY(scrollRect, moveToIndex);
             var rect = mPlayerNode.GetComponent<RectTransform>();
             rect.DOScale(1.2f, 0.5f);
             rect.DOLocalMoveY(targetY, 2f).OnComplete(() =>
             {
+                scrollRect.content.GetComponent<GridLayoutGroup>().Enable();
+                scrollRect.content.GetComponent<ContentSizeFitter>().Enable();
+
                 mPlayerNode.transform.SetSiblingIndex(moveToIndex);
                 rect.localScale = Vector3.one;
 
@@ -259,7 +266,6 @@ public class RankNodePool : MonoSingleton<RankNodePool>, ICanGetModel
             #endregion
 
         }).Start(this);
-
     }
 
     public void ClearRankNode()
@@ -287,12 +293,11 @@ public class RankNodePool : MonoSingleton<RankNodePool>, ICanGetModel
     #region 节点位置等计算
     
     // 设置玩家节点在视口底部
-    private IEnumerator SetScrollPositionCoroutine(ScrollRect scrollRect, int curRank)
+    private void SetScrollPositionCoroutine(ScrollRect scrollRect, int curRank)
     {
-        yield return null;
-        yield return null;
+        Canvas.ForceUpdateCanvases();
 
-        if (mPlayerNode == null) yield break;
+        if (mPlayerNode == null) return;
 
         var content = scrollRect.content;
         var viewport = scrollRect.viewport;

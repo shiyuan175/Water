@@ -54,6 +54,7 @@ namespace QFramework.Example
         private SpriteAtlas mRankLevelSpriteAtlas;
 
         private int mCacheRankSpriteIndex;
+        private bool mIsOpenUIVictory;
 
         public IArchitecture GetArchitecture()
         {
@@ -75,6 +76,7 @@ namespace QFramework.Example
         protected override void OnOpen(IUIData uiData = null)
         {
             stageModel = this.GetModel<StageModel>();
+            mIsOpenUIVictory = false;
 
             LoadRes();
             BindBtn();
@@ -887,15 +889,21 @@ namespace QFramework.Example
             });
         }
 
+        #endregion
+
         private void OpenUIVictory()
         {
-            ActionKit.Delay(0.5f, () =>
+            if (!mIsOpenUIVictory)
             {
-                UIKit.ClosePanel<UIMask>();
-                AudioKit.PlaySound("resources://Audio/Victory");
-                UIKit.OpenPanel<UIVictory>();
-            }).Start(this);
+                ActionKit.Delay(0.5f, () =>
+                {
+                    UIKit.ClosePanel<UIMask>();
+                    AudioKit.PlaySound("resources://Audio/Victory");
+                    UIKit.OpenPanel<UIVictory>();
+                }).Start(this);
+            }
+
+            mIsOpenUIVictory = true;
         }
-        #endregion
     }
 }

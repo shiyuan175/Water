@@ -135,7 +135,10 @@ namespace QFramework.Example
 
         private void OnDestroy()
         {
+#if UNITY_EDITOR
             if (!Application.isPlaying) return;
+            if (!UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode) return;
+#endif
             if (rewardImg != null)
                 RewardUIManager.Instance.Recycle(rewardImg);
         }

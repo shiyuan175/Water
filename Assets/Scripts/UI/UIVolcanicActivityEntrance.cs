@@ -6,8 +6,9 @@ namespace QFramework.Example
 {
 	public class UIVolcanicActivityEntranceData : UIPanelData
 	{
-	}
-	public partial class UIVolcanicActivityEntrance : UIPanel
+        public bool? IsManagedOpen;
+    }
+    public partial class UIVolcanicActivityEntrance : UIPanel
 	{
 		protected override void OnInit(IUIData uiData = null)
 		{
@@ -31,7 +32,11 @@ namespace QFramework.Example
 				var _va = GameActivityManager.Instance.GetActivity<VolcanicActivity>();
 				_va.StartActivity();
 
-                UIKit.OpenPanel<UIVolcanicActivity>();
+                mData.IsManagedOpen = false;
+                UIKit.OpenPanel<UIVolcanicActivity>(new UIVolcanicActivityData()
+                {
+                    IsManagedOpen = true,
+                });
                 CloseSelf();
             });
         }
@@ -44,6 +49,9 @@ namespace QFramework.Example
 		{
 			BtnClose.onClick.RemoveAllListeners();
 			BtnStart.onClick.RemoveAllListeners();
-		}
+
+            if (mData.IsManagedOpen ?? false)
+                StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);
+        }
 	}
 }

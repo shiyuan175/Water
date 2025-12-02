@@ -6,8 +6,9 @@ namespace QFramework.Example
 {
 	public class UIMagicStreakActivityEntranceData : UIPanelData
 	{
-	}
-	public partial class UIMagicStreakActivityEntrance : UIPanel
+        public bool? IsManagedOpen;
+    }
+    public partial class UIMagicStreakActivityEntrance : UIPanel
 	{
 		protected override void OnInit(IUIData uiData = null)
 		{
@@ -30,7 +31,11 @@ namespace QFramework.Example
 				var _msa = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
 				_msa.StartActivity();
 
-				UIKit.OpenPanel<UIMagicStreakActivity>();
+				mData.IsManagedOpen = false;
+				UIKit.OpenPanel<UIMagicStreakActivity>(new UIMagicStreakActivityData
+				{
+					IsManagedOpen = true,
+				});
 				CloseSelf();
 			});
 		}
@@ -43,6 +48,9 @@ namespace QFramework.Example
 		{
             BtnClose.onClick.RemoveAllListeners();
 			BtnStart.onClick.RemoveAllListeners();
+
+            if (mData.IsManagedOpen ?? false)
+                StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);
         }
 	}
 }

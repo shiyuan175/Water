@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
-using UnityEngine.SocialPlatforms.Impl;
 
 namespace QFramework.Example
 {

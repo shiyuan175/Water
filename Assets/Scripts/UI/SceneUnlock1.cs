@@ -53,8 +53,6 @@ namespace QFramework.Example
             new(130, -257),
 
         };
-        //特效目标位置(宝箱)
-        private readonly Vector2 mEffectBoxTargetPos = new (-220, 900);
 
         [SerializeField] private SkeletonGraphic[] mAllUnitSpines;
         [SerializeField] private CanvasGroup[] mSpineCanvasGroups;
@@ -273,7 +271,7 @@ namespace QFramework.Example
         {
             FlightEffectsToBox.Show();
             FlightEffectsToBox.localPosition = mEffectToBoxStartPos[realIndex];
-            FlightEffectsToBox.DOLocalMove(mEffectBoxTargetPos, 0.5f).OnComplete(() =>
+            FlightEffectsToBox.DOMove(BtnBox.transform.position, 0.5f).OnComplete(() =>
             {
                 FlightEffectsToBox.Hide();
                 mProgressNodes[realIndex].Find("Over").Show();

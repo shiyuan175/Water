@@ -56,8 +56,6 @@ namespace QFramework.Example
             new(0, 0),
 
         };
-        //特效目标位置(宝箱)
-        private readonly Vector2 mEffectBoxTargetPos = new (-220, 900);
         //待机动画的索引
         private readonly int[] mStandbySpineIdx = new int[] { 0, 12, 13 };
 
@@ -290,7 +288,7 @@ namespace QFramework.Example
         {
             FlightEffectsToBox.Show();
             FlightEffectsToBox.localPosition = mEffectToBoxStartPos[realIndex];
-            FlightEffectsToBox.DOLocalMove(mEffectBoxTargetPos, 0.5f).OnComplete(() =>
+            FlightEffectsToBox.DOMove(BtnBox.transform.position, 0.5f).OnComplete(() =>
             {
                 FlightEffectsToBox.Hide();
                 mProgressNodes[realIndex].Find("Over").Show();
