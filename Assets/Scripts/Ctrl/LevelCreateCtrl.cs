@@ -43,10 +43,15 @@ public class LevelCreateCtrl : ScriptableObject
         public int numCake = 4;
         // 限制往瓶子倒水的颜色-同水颜色编号（0 表示无限制）
         public int limitColor;
+        public bool isClearHide;
         // 不确定（可能用于控制瓶子的解锁逻辑。需要特定颜色编号才能解锁隐藏内容）
         public int lockType;
+        // 纯黑遮罩瓶子
+        public bool blackBottle = false;
+        // 帘子高度
+        public int CurtainHight = 0;
         // 三种障碍(遮挡布，大型藤曼，底部藤曼)
-        public bool isClearHide, isNearHide, isFreeze;
+        public bool isNearHide, isFreeze;
         public bool isFinish;
 
     }
@@ -72,6 +77,7 @@ public class LevelCreateCtrl : ScriptableObject
     public List<int> bubbleCount;
     // 该关卡存在的颜色变换列表（用于某些特殊道具逻辑,2001-2006的道具需配置）
     public List<ChangePair> changeList;
+
 }
 
 [Serializable]

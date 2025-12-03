@@ -12,6 +12,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using static LevelCreateCtrl;
 
@@ -66,7 +67,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     public bool[] IsOriginalBubble = new bool[4];
     // 炸弹步数
     public List<int> bombCounts = new();
-
+    // 纯黑水瓶子 
+    public bool IsBlackBottle = false;
+    public int curtainHight = 0;
     // 操作记录(用于撤销功能)
     public List<BottleRecord> moveRecords = new List<BottleRecord>();
 
@@ -104,6 +107,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     public GameObject finishGo;
 
     // 当前顶部水块的索引
+    /// <summary>
+    /// 索引从0-3
+    /// </summary>
     public int topIdx
     {
         get
@@ -112,7 +118,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             return waters.Count - 1;
         }
     }
-
+    // 新机制相关
+    public GameObject BlackBottlGo;
+    /// <summary>
+    /// 索引0-4
+    /// </summary>
+    public CurtainCtrl curtainCtrl;
     public Button bottle;
     // 瓶子的初始属性配置
     BottleProperty originProperty;
@@ -156,6 +167,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         isFreeze = property.isFreeze;
         unlockClear = property.lockType;
         limitColor = property.limitColor;
+        IsBlackBottle = property.blackBottle;
+        curtainHight = property.CurtainHight;
         bottleIdx = idx;
         hasUnlockHidePlayed = false;
 
@@ -181,7 +194,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 if (waters[i] == 5002)
                     waterItems[i] = WaterItem.FlyBomb;
             }
-
         }
         #endregion
 
@@ -206,7 +218,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 if (LevelManager.Instance.isFlashWaterBottleAdded)
                     LevelManager.Instance.isFlashWaterBottleAdded = false;
             }
-            if (isClearHide || isNearHide || waterItems[i] == WaterItem.Ice)
+            if (curtainHight != 0 || isClearHide || isNearHide || waterItems[i] == WaterItem.Ice)
             {
                 LevelManager.Instance.cantChangeColorList.Add(color);
             }
@@ -245,6 +257,15 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             limitColorSpine.gameObject.SetActive(false);
         }
 
+        if (IsBlackBottle && !isFinish)
+        {
+            BlackBottlGo.SetActive(true);
+        }
+        else
+        {
+            BlackBottlGo.SetActive(false);
+        }
+
         if (isFreeze)
         {
             freezeSpine.AnimationState.SetAnimation(0, "idle", false);
@@ -258,6 +279,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 break;
             }
         }
+
+        if (curtainHight != 0)
+        {
+            curtainCtrl.InitCurtain(curtainHight);
+        }
         SetMaxBottle();
     }
     /// <summary>
@@ -267,6 +293,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     {
         foreach (var i in this.waterImg)
             i.textItem.text = "";
+
+        BlackBottlGo.SetActive(false);
     }
     /// <summary>
     /// 设置瓶子最大装水数
@@ -300,7 +328,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <returns></returns>
     public bool OnSelect(bool needUp)
     {
-        if ((isFreeze && needUp) || isClearHide || isNearHide || isFinish || isClearHideAnim || ReceiveCount != 0)
+        // 无法选中状态：魔法布、陶瓷瓶、冰冻、魔法布动画播放时、满帘子瓶子、？倒水锁？待确认
+        if ((isFreeze && needUp) || isClearHide || isNearHide || isFinish || isClearHideAnim || ReceiveCount != 0 || curtainHight == 4)
             return false;
         if (needUp)
             modelGo.transform.DOLocalMoveY(modelGo.transform.localPosition.y + 100f, 2f / 30f);
@@ -323,7 +352,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <returns></returns>
     public bool CheckMoveOut()
     {
-        if (topIdx < 0 || waterItems[topIdx] == WaterItem.Ice)
+        // 不能倒水情况，瓶子错误的，顶部水是冰块，顶部水没有高于帘子
+        if (topIdx < 0 || waterItems[topIdx] == WaterItem.Ice || topIdx <= curtainHight - 1)
             return false;
 
         return true;
@@ -336,12 +366,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <returns></returns>
     public bool CheckMoveIn(int color)
     {
-        if (topIdx < 0 && limitColor == 0 && !isClearHide)
+        if (topIdx < 0 && limitColor == 0 && !isClearHide && curtainHight == 0)
             return true;
 
         var top = GetMoveOutTop();
 
-        if (isClearHide || isNearHide || isFinish || GetLeftEmpty() == 0 || (limitColor != 0 && limitColor != color))
+        if (isClearHide || isNearHide || isFinish || GetLeftEmpty() == 0 || (limitColor != 0 && limitColor != color) || topIdx < curtainHight - 1)
             return false;
 
         //color非道具
@@ -393,7 +423,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         for (int i = topIdx - 1; i >= 0; i--)
         {
-            if (waters[i] == GetMoveOutTop() && waterItems[i] != WaterItem.Ice)
+            if (waters[i] == GetMoveOutTop() && waterItems[i] != WaterItem.Ice && i > curtainHight - 1)
                 sameNum++;
             else
                 break;
@@ -449,7 +479,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         LevelManager.Instance.CheckBubbleDict();
         LevelManager.Instance.CreateBubble();
 
-
+        // 魔法猫机制检查 后面可以改为全局机制检查，且不冲突，减少重复的入口判断。是否会有全局机制同时生效
+        if (LevelManager.Instance.globalMechanism != GlobalMechanism.None)
+            LevelManager.Instance.CheckMagicCat();
 
 
         //死局判定
@@ -881,6 +913,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             isClearHide = isClearHide,
             isFreeze = isFreeze,
             limitColor = limitColor,
+            isBlackBottle = IsBlackBottle,
             waters = new List<int>(waters),
             hideWaters = new List<bool>(hideWaters),
             waterItems = new List<WaterItem>(waterItems),
@@ -904,7 +937,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             isClearHide = record.isClearHide,
             isFinish = record.isFinish,
             limitColor = record.limitColor,
-
+            blackBottle = record.isBlackBottle,
             waterSet = new List<int>(record.waters),
             isHide = new List<bool>(record.hideWaters),
             waterItem = new List<WaterItem>(record.waterItems),
@@ -1485,6 +1518,19 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
     #endregion
 
+    #region 帘子机制
+    public void UpdateCurtain(int stage)
+    {
+        curtainHight = stage - 1;
+        curtainCtrl.SetCurtain(curtainHight);
+    }
+    public void InitCurtain(int stage)
+    {
+        curtainHight = stage;
+        curtainCtrl.InitCurtain(stage);
+    }
+
+    #endregion
     /// <summary>
     /// 清空空水块(机制水块)
     /// </summary>
@@ -1558,10 +1604,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         {
             switch (waterItems[i])
             {
+                // 泡沫
                 case WaterItem.Bubble or WaterItem.Bubble_Origin:
                     waterImg[i].bubbleCtrl.BubbleDead(waterItems[i] == WaterItem.Bubble_Origin);
                     LevelManager.Instance.DeleteBubble(this);
                     break;
+
+                // 炸弹
                 case WaterItem.Bomb or WaterItem.FlyBomb:
                     waterImg[i].bombCtrl.SetBomb(true, "", "bomp_remove");
                     if (waters[i] == 5002)
@@ -1606,6 +1655,18 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 limitColor = 0;
             }
         }
+        // 帘子瓶
+        if (LevelManager.Instance.curtainDict.ContainsKey(this))
+        {
+            curtainCtrl.ClearCurtain();
+            curtainHight = 0;
+        }
+
+        // 纯黑瓶
+        if (BlackBottlGo && !isFinish)
+        {
+            BlackBottlGo.SetActive(false);
+        }
 
         isFreeze = false;
         isNearHide = false;
@@ -1648,6 +1709,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// </summary>
     public void OnFinish(int finishColor)
     {
+        // 帘子机制
+        LevelManager.Instance.CurtainUpdate();
         isFinish = true;
         //———标记———
         //原debuff状态逻辑是在表现动画回调修改的(现改成触发时直接修改)
@@ -2054,7 +2117,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         spineAnimName = GameEnum.GetDescription<ERuChangAnim>((ERuChangAnim)color);
         spineGo.Show();
         spine.AnimationState.SetAnimation(0, spineAnimName, false);
-        
+
 
         Debug.Log($"水面动画名:{spineAnimName},瓶子：{this.gameObject.name}");
         CheckHide();

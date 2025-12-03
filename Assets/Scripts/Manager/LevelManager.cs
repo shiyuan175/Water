@@ -74,6 +74,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     #region 新机制记录存储结构
     public Dictionary<BottleCtrl, int> bubbleDict = new();
     public List<BottleCtrl> bombList = new();
+    public Dictionary<BottleCtrl, int> curtainDict = new Dictionary<BottleCtrl, int>();
     public GlobalMechanism globalMechanism;
     public int GlobalMechanismContinueSetps;
     public int GlobalMechanismBeginSetp;
@@ -119,6 +120,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             UIKit.OpenPanel<UIGameNode>();
         }
     }
+
 
     private void OnDestroy()
     {
@@ -172,6 +174,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
         nowBottles.Clear();
         bubbleDict.Clear();
+        curtainDict.Clear();
         bombList.Clear();
         nowHalf = null;
 
@@ -182,7 +185,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
         //新机制初始化
 
-        //泡沫
         foreach (var i in nowBottles)
         {
             for (int j = 0; j < i.waterItems.Count; j++)
@@ -200,6 +202,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                 }
             }
 
+            if (i.curtainHight != 0)
+                curtainDict.Add(i, i.curtainHight);
         }
     }
 
@@ -743,13 +747,26 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                     outBottles.Add((bottle, bottle.limitColor));
                 continue;
             }
+            int color;
+            // 帘子瓶子特判
+            if (bottle.curtainHight > 0)
+            {
+                color = bottle.GetMoveOutTop();
+                // 当瓶子的水高于帘子的高度时，是可以倒出水的
+                if (bottle.topIdx >= bottle.curtainHight)
+                    outBottles.Add((bottle, color));
+                //能接水需要满足，水没有满，帘子有下降
+                if (bottle.waters.Count != bottle.maxNum && bottle.curtainHight != bottle.maxNum)
+                    inBottles.Add((bottle, color));
+                continue;
+            }
 
             //空瓶
             if (bottle.topIdx < 0)
                 return false;
 
             //非空瓶
-            int color = bottle.GetMoveOutTop();
+            color = bottle.GetMoveOutTop();
             //能倒水记录
             if (!bottle.isFreeze && bottle.waterItems[bottle.topIdx] != WaterItem.Ice)
                 outBottles.Add((bottle, color));
@@ -782,6 +799,49 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     #endregion
 
     #region 关卡机制相关
+    /// <summary>
+    /// 移动步数记录
+    /// </summary>
+    public void AddMoveNum(bool flag = true)
+    {
+        if (flag)
+            moveNum++;
+        else
+            moveNum--;
+    }
+
+    #region 魔法猫
+    public void CheckMagicCat()
+    {
+        if (globalMechanism == GlobalMechanism.BlackMagicCar)
+        {
+            if (moveNum >= GlobalMechanismBeginSetp && moveNum <= GlobalMechanismBeginSetp + GlobalMechanismContinueSetps)
+            {
+                BottleCtrl _bottleCtrl = levelManagerUtility.RandomBarkWaterBottle(nowBottles);
+                if (_bottleCtrl != null)
+                {
+                    _bottleCtrl.SetHideShow(true);
+                    StringEventSystem.Global.Send("MagicCatEven");
+                }
+            }
+
+        }
+        else if (globalMechanism == GlobalMechanism.WhiteMagicCar)
+        {
+            if (moveNum >= GlobalMechanismBeginSetp && moveNum <= GlobalMechanismBeginSetp + GlobalMechanismContinueSetps)
+            {
+                BottleCtrl _bottleCtrl = levelManagerUtility.RandomRomveBarkWaterBottle(nowBottles);
+                if (_bottleCtrl != null)
+                {
+                    _bottleCtrl.SetHideShow(true);
+                    StringEventSystem.Global.Send("MagicCatEven");
+                }
+
+            }
+        }
+    }
+
+    #endregion
 
     #region 泡沐
 
@@ -823,50 +883,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     #region 炸弹相关
 
-    /// <summary>
-    /// 移动步数记录
-    /// </summary>
-    public void AddMoveNum(bool flag = true)
-    {
-        if (flag)
-            moveNum++;
-        else
-            moveNum--;
-        #region 依赖步数的全局机制
 
-        #region 魔法猫
-        if (globalMechanism == GlobalMechanism.BlackMagicCar)
-        {
-            if (moveNum >= GlobalMechanismBeginSetp && moveNum <= GlobalMechanismBeginSetp + GlobalMechanismContinueSetps)
-            {
-                BottleCtrl _bottleCtrl = levelManagerUtility.RandomBarkWaterBottle(nowBottles);
-                if (_bottleCtrl != null)
-                {
-                    _bottleCtrl.SetHideShow(true);
-                    StringEventSystem.Global.Send("MagicCatEven");
-                }
-            }
-
-        }
-        else if (globalMechanism == GlobalMechanism.WhiteMagicCar)
-        {
-            if (moveNum >= GlobalMechanismBeginSetp && moveNum <= GlobalMechanismBeginSetp + GlobalMechanismContinueSetps)
-            {
-                BottleCtrl _bottleCtrl = levelManagerUtility.RandomRomveBarkWaterBottle(nowBottles);
-                if (_bottleCtrl != null)
-                {
-                    _bottleCtrl.SetHideShow(true);
-                    StringEventSystem.Global.Send("MagicCatEven");
-                }
-
-            }
-        }
-
-        #endregion
-
-        #endregion
-
-    }
     public bool CheckBomb()
     {
         foreach (var item in bombList.ToList())
@@ -884,14 +901,10 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// </summary>
     public void BombUIUpdate()
     {
-        Debug.Log(bombList.Count);
         foreach (var item in bombList.ToList())
         {
             item.UpdateBomb();
         }
-
-
-
     }
     /// <summary>
     /// 清空游戏中的炸弹
@@ -908,6 +921,39 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     }
     #endregion
 
+    #region 帘子相关
+    public void CurtainUpdate()
+    {
+        // 播放动画
+        foreach (var key in curtainDict.Keys.ToList())
+        {
+            // 使用 key 而不是 item.Key
+            key.UpdateCurtain(curtainDict[key]);
+            curtainDict[key] = curtainDict[key] - 1;
+        }
+        // 移除不再需要更新的瓶子
+        var keysToRemove = curtainDict.Where(i => i.Value <= 0)
+                                    .Select(i => i.Key)
+                                    .ToList();
+        foreach (var key in keysToRemove)
+        {
+            curtainDict.Remove(key);
+        }
+    }
+    public void CurtainUpdateByRecord()
+    {
+        foreach (var key in curtainDict.Keys.ToList())
+        {
+            // 使用 key 而不是 item.Key
+            key.InitCurtain(curtainDict[key]);
+            curtainDict[key] = curtainDict[key] - 1;
+        }
+    }
+    public void DeleteCurtain(BottleCtrl bottleCtrl)
+    {
+        curtainDict.Remove(bottleCtrl);
+    }
+    #endregion
     #endregion
 
     #region 付费道具相关
@@ -1061,6 +1107,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         record.hideColor = new List<int>(hideColor);
         record.bubbleDict = new(bubbleDict);
         record.bombList = new(bombList);
+        record.curtainDict = new(curtainDict);
         LevelManagerRecords.Add(record);
 
         nowBottles.ForEach(bottle => bottle.RecordLast());
@@ -1081,14 +1128,20 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             var needRet = bottle.ReturnLast();
             ret = ret || needRet;
         }
-
         if (ret)
         {
             var record = LevelManagerRecords.LastOrDefault();
-            clearList = record.clearList;
             hideColor = record.hideColor;
             bubbleDict = record.bubbleDict;
             bombList = record.bombList;
+            curtainDict = record.curtainDict;
+            // 该记录需要更新关于过关的机制
+            if (clearList.Count != record.clearList.Count)
+            {
+                CurtainUpdateByRecord();
+            }
+            clearList = record.clearList;
+
             LevelManagerRecords.Remove(record);
         }
         else
@@ -1127,7 +1180,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         foreach (var bottle in nowBottles)
         {
             //是否有阻碍效果
-            if (bottle.isFreeze || bottle.limitColor != 0 || bottle.isNearHide || bottle.isClearHide)
+            if (bottle.isFreeze || bottle.limitColor != 0 || bottle.isNearHide || bottle.isClearHide || bottle.curtainHight != 0 || bottle.IsBlackBottle)
             {
                 return true;
             }
@@ -1163,7 +1216,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 [Serializable]
 public class BottleRecord
 {
-    public bool isFinish, isFreeze, isClearHide, isNearHide;
+    public bool isFinish, isFreeze, isClearHide, isNearHide, isBlackBottle;
     public int limitColor;
     public List<int> waters = new List<int>();
     public List<bool> hideWaters = new List<bool>();
@@ -1180,6 +1233,7 @@ public class LevelManagerRecord
     public Dictionary<BottleCtrl, int> bubbleDict;
     public List<BottleCtrl> bombList;
     public List<ChangePair> changeList;
+    public Dictionary<BottleCtrl, int> curtainDict;
 }
 
 [Serializable]

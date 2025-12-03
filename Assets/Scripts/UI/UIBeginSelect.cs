@@ -199,7 +199,7 @@ namespace QFramework.Example
         {
             this.RegisterEvent<RefreshItemEvent>(e =>
             {
-                UpdateItemDisplay(stageModel.ItemDic[e.itemID], addItemBtns[e.itemID-6]);
+                UpdateItemDisplay(stageModel.ItemDic[e.itemID], addItemBtns[e.itemID - 6]);
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
@@ -249,7 +249,6 @@ namespace QFramework.Example
         /// </summary>
         void UpdateItem()
         {
-            Debug.Log("das");
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneHalfBottle)))
                 AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_AddOneHalfBottle);
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveOneBottleHideWater)))

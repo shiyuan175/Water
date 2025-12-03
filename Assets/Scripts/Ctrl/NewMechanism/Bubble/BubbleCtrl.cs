@@ -56,17 +56,13 @@ public class BubbleCtrl : MonoBehaviour
         }
         else
         {
-            track=  spine.AnimationState.SetAnimation(0, NORMAL_DISABLE, false);
+            track = spine.AnimationState.SetAnimation(0, NORMAL_DISABLE, false);
         }
         track.TimeScale = 1.7f;
         track.Complete += track =>
         {
             spine.enabled = false;
         };
-
-
-
-
     }
 
     /// <summary>
@@ -74,7 +70,7 @@ public class BubbleCtrl : MonoBehaviour
     /// </summary>
     /// <param name="time">¼ÆÊý</param>
     /// <param name="isOriginal"></param>
-    public void BubbleAppend(bool isOriginal = false,int time=0)
+    public void BubbleAppend(bool isOriginal = false, int time = 0)
     {
         // ¶¯»­
         if (spine.enabled)
@@ -84,13 +80,13 @@ public class BubbleCtrl : MonoBehaviour
         if (isOriginal)
         {
             track = spine.AnimationState.SetAnimation(0, ORIGINAL_APPEND, false);
-            
-        }       
+
+        }
         else
         {
             track = spine.AnimationState.SetAnimation(0, NORMAl_APPEND, false);
-           /* track = skeletonAnimationCom.AnimationState.SetAnimation(0, NORMAl_APPEND, false);
-            skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;*/
+            /* track = skeletonAnimationCom.AnimationState.SetAnimation(0, NORMAl_APPEND, false);
+             skeletonAnimationCom.GetComponent<MeshRenderer>().sortingOrder += 2;*/
         }
         track.TimeScale = 1.7f;
     }

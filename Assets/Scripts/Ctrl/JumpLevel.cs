@@ -57,5 +57,9 @@ public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
         {
             debugPanel.SetActive(true);
         }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            LevelManager.Instance.CurtainUpdate();
+        }
     }
 }

@@ -11,15 +11,18 @@ using System.Text.RegularExpressions;
 /// </summary>
 public class LevelObjectCreator : EditorWindow
 {
-    #region 生成的物品的基本配置
+    #region SO对象生成配置
     private string baseName = "Level";
-    private int startNum = 1;
-    private int endNum = 1;
-    private string folderPath = "Assets/Scripts/Level/";
-    private string objectType = null;
+    private int soStartNum = 1;
+    private int soEndNum = 1;
+    private string folderPath = "Assets/Scripts/Level/1-1000";
     #endregion
 
+    #region LevelManager赋值配置
     private LevelManager levelManager;
+    private int managerStartIndex = 0;  // LevelManager列表的开始索引
+    private int managerEndIndex = 0;    // LevelManager列表的结束索引
+    #endregion
 
     [MenuItem("Tools/Create Level Object Assets")]
     public static void ShowWindow()
@@ -31,17 +34,24 @@ public class LevelObjectCreator : EditorWindow
     {
         GUILayout.Label("Level Object Creation Settings", EditorStyles.boldLabel);
 
+        EditorGUILayout.Space();
+        GUILayout.Label("SO Object Generation Settings", EditorStyles.boldLabel);
         baseName = EditorGUILayout.TextField("Base Name:", baseName);
-        startNum = EditorGUILayout.IntField("Start Number:", startNum);
-        endNum = EditorGUILayout.IntField("End Number:", endNum);
+        soStartNum = EditorGUILayout.IntField("SO Start Number:", soStartNum);
+        soEndNum = EditorGUILayout.IntField("SO End Number:", soEndNum);
         folderPath = EditorGUILayout.TextField("Folder Path:", folderPath);
-        objectType = EditorGUILayout.TextField("Object Type:", objectType);
+
+        EditorGUILayout.Space();
+        GUILayout.Label("Level Manager Assignment Settings", EditorStyles.boldLabel);
         levelManager = (LevelManager)EditorGUILayout.ObjectField(
             "Level Manager:",
             levelManager,
             typeof(LevelManager),
             true);
+        managerStartIndex = EditorGUILayout.IntField("Manager Start Index:", managerStartIndex);
+        managerEndIndex = EditorGUILayout.IntField("Manager End Index:", managerEndIndex);
 
+        EditorGUILayout.Space();
         if (GUILayout.Button("Create Level Data Assets"))
         {
             CreateLevelObject();
@@ -52,11 +62,17 @@ public class LevelObjectCreator : EditorWindow
             BatchLevelToManager();
         }
 
-        // 新增的批量重命名按钮
         if (GUILayout.Button("Batch Rename Level Objects"))
         {
             BatchRenameLevelObjects();
         }
+
+        // 添加一些说明
+        EditorGUILayout.HelpBox(
+            "SO对象编号: 控制生成的asset文件名\n" +
+            "Manager索引: 控制赋值到LevelManager的哪个位置\n" +
+            "例如: SO编号1-10, Manager索引5-14, 则Level1.asset赋值给levels[5], Level2.asset赋值给levels[6], 以此类推",
+            MessageType.Info);
     }
 
     /// <summary>
@@ -70,7 +86,7 @@ public class LevelObjectCreator : EditorWindow
             AssetDatabase.Refresh();
         }
 
-        for (int i = startNum; i <= endNum; i++)
+        for (int i = soStartNum; i <= soEndNum; i++)
         {
             string assetName = $"{baseName}{i}";
             string path = $"{folderPath}/{assetName}.asset";
@@ -97,7 +113,7 @@ public class LevelObjectCreator : EditorWindow
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        Debug.Log($"Successfully created {endNum - startNum + 1} LevelCreateCtrl assets in {folderPath}");
+        Debug.Log($"Successfully created {soEndNum - soStartNum + 1} LevelCreateCtrl assets in {folderPath}");
     }
 
     /// <summary>
@@ -105,28 +121,72 @@ public class LevelObjectCreator : EditorWindow
     /// </summary>
     private void BatchLevelToManager()
     {
+        managerStartIndex -= 1;
+        managerEndIndex -= 1;
         if (levelManager == null)
         {
             Debug.LogError("LevelManager is not assigned!");
             return;
         }
 
-        while (levelManager.levels.Count < endNum)
-            levelManager.levels.Add(new LevelCreateCtrl());
-
-        for (int i = startNum; i <= endNum; i++)
+        // 验证索引范围
+        if (managerStartIndex < 0 || managerEndIndex < 0)
         {
-            string objectPath = $"{folderPath}/{baseName}{i}.asset";
-            levelManager.levels[i - 1] = AssetDatabase.LoadAssetAtPath<LevelCreateCtrl>(objectPath);
+            Debug.LogError("Manager indices cannot be negative!");
+            return;
+        }
+
+        if (managerStartIndex > managerEndIndex)
+        {
+            Debug.LogError("Manager start index cannot be greater than end index!");
+            return;
+        }
+
+        // 计算需要的SO对象数量
+        int requiredSOCount = managerEndIndex - managerStartIndex + 1;
+        int availableSOCount = soEndNum - soStartNum + 1;
+
+        if (availableSOCount < requiredSOCount)
+        {
+            Debug.LogError($"Not enough SO objects! Need {requiredSOCount}, but only have {availableSOCount} SO objects ({soStartNum}-{soEndNum})");
+            return;
+        }
+
+        // 确保LevelManager的列表足够大
+        if (managerEndIndex >= levelManager.levels.Count)
+        {
+            int oldCount = levelManager.levels.Count;
+            levelManager.levels.AddRange(
+                Enumerable.Repeat<LevelCreateCtrl>(null, managerEndIndex - oldCount + 1));
+            Debug.Log($"Expanded LevelManager.levels from {oldCount} to {levelManager.levels.Count}");
+        }
+
+        // 赋值：将SO对象按顺序赋值到LevelManager的指定位置
+        int soIndex = soStartNum;
+        for (int managerIndex = managerStartIndex;
+             managerIndex <= managerEndIndex && soIndex <= soEndNum;
+             managerIndex++, soIndex++)
+        {
+            string objectPath = $"{folderPath}/{baseName}{soIndex}.asset";
+            LevelCreateCtrl soAsset = AssetDatabase.LoadAssetAtPath<LevelCreateCtrl>(objectPath);
+
+            if (soAsset == null)
+            {
+                Debug.LogError($"SO asset not found at path: {objectPath}");
+                continue;
+            }
+
+            levelManager.levels[managerIndex] = soAsset;
+            Debug.Log($"Assigned {baseName}{soIndex}.asset to levels[{managerIndex}]");
         }
 
         EditorUtility.SetDirty(levelManager);
         AssetDatabase.SaveAssets();
-        Debug.Log("赋值完成");
+        Debug.Log($"赋值完成: 将SO对象 {soStartNum}-{soIndex - 1} 赋值到 LevelManager.levels[{managerStartIndex}]-[{managerEndIndex}]");
     }
 
     /// <summary>
-    /// 新增方法：批量重命名指定文件夹中的Level对象
+    /// 改进的批量重命名方法
     /// </summary>
     private void BatchRenameLevelObjects()
     {
@@ -144,44 +204,79 @@ public class LevelObjectCreator : EditorWindow
             return;
         }
 
-        // 排序文件，确保按正确顺序重命名
-        var sortedPaths = guids
-            .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
-            .ToList();
-
-
-
-        foreach (var path in sortedPaths)
+        // 提取文件中的数字并排序
+        var fileInfos = new List<FileInfo>();
+        foreach (var guid in guids)
         {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            string fileName = Path.GetFileNameWithoutExtension(path);
 
-           
-            Match match = Regex.Match(Path.GetFileNameWithoutExtension(path), @"\d+$");
-          
-            int currentNumber = match.Success ? int.Parse(match.Value) : 0;
-            string newName = $"{baseName}{currentNumber}";
-            string newPath = $"{folderPath}/{newName}.asset";
-            
-            
-            if (Path.GetFileNameWithoutExtension(path) == newName)
+            // 使用正则表达式提取数字
+            Match match = Regex.Match(fileName, @"(\d+)$");
+            if (match.Success)
             {
-                Debug.LogError("重复");
-            }
-
-            string error = AssetDatabase.RenameAsset(path, newName);
-            if (!string.IsNullOrEmpty(error))
-            {
-                Debug.LogError($"Failed to rename {path}: {error}");
+                int number = int.Parse(match.Value);
+                fileInfos.Add(new FileInfo
+                {
+                    Path = path,
+                    Number = number,
+                    FileName = fileName
+                });
             }
             else
             {
-                Debug.Log($"Renamed {Path.GetFileName(path)} to {newName}");
+                Debug.LogWarning($"Could not extract number from filename: {fileName}");
             }
+        }
 
-            
+        // 按数字排序
+        fileInfos = fileInfos.OrderBy(f => f.Number).ToList();
+
+        // 检查是否有重复的数字
+        var duplicates = fileInfos.GroupBy(f => f.Number)
+                                  .Where(g => g.Count() > 1)
+                                  .Select(g => g.Key)
+                                  .ToList();
+
+        if (duplicates.Count > 0)
+        {
+            Debug.LogError($"Found duplicate numbers: {string.Join(", ", duplicates)}");
+            return;
+        }
+
+        // 重命名文件
+        int renameCount = 0;
+        foreach (var fileInfo in fileInfos)
+        {
+            string expectedName = $"{baseName}{fileInfo.Number}";
+
+            if (fileInfo.FileName != expectedName)
+            {
+                string error = AssetDatabase.RenameAsset(fileInfo.Path, expectedName);
+                if (!string.IsNullOrEmpty(error))
+                {
+                    Debug.LogError($"Failed to rename {fileInfo.FileName}: {error}");
+                }
+                else
+                {
+                    renameCount++;
+                    Debug.Log($"Renamed {fileInfo.FileName} to {expectedName}");
+                }
+            }
         }
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        Debug.Log($"批量重命名完成，共处理了{guids.Length}个文件");
+        Debug.Log($"批量重命名完成，共处理了{renameCount}个文件");
+    }
+
+    /// <summary>
+    /// 辅助类，存储文件信息
+    /// </summary>
+    private class FileInfo
+    {
+        public string Path { get; set; }
+        public int Number { get; set; }
+        public string FileName { get; set; }
     }
 }
