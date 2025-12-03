@@ -13,8 +13,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
     public BottleCtrl FirstBottle, SecondBottle;
 
     public bool control = false;
-
-    //µ¹Ë®¼ÆÊı£¬´¦ÓÚ0±íÊ¾µ±Ç°²»´¦ÓÚµ¹Ë®¹ı³Ì
+    //å€’æ°´é‡è®¡æ•°å™¨ï¼Œåˆå§‹ä¸º0ï¼Œç”¨äºæ§åˆ¶å€’æ°´åŠ¨ç”»
     private int pouringCount = 0;
     public bool IsPouring => pouringCount == 0;
 
@@ -34,7 +33,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
     }
 
     /// <summary>
-    /// Ñ¡ÖĞÆ¿×Ó
+    /// é€‰ä¸­ç“¶å­çš„å¤„ç†é€»è¾‘
     /// </summary>
     /// <param name="bottle"></param>
     public void OnSelect(BottleCtrl bottle)
@@ -62,30 +61,30 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                     FirstBottle = null;
                 }
             }
-            // µ¹Ë®
+            // æ£€æŸ¥ä¸¤ä¸ªç“¶å­æ˜¯å¦éƒ½å·²é€‰ä¸­
             if (FirstBottle != null && SecondBottle != null)
             {
                 control = true;
                 if (FirstBottle.CheckMoveOut() && SecondBottle.CheckMoveIn(FirstBottle.GetMoveOutTop())
                     && !FirstBottle.isPlayAnim && !SecondBottle.isPlayAnim)
                 {
-                    //Debug.Log("ÒÆ¶¯ " + FirstCake.gameObject.name + "->" + SecondCake.gameObject.name);
+                    //Debug.Log("??? " + FirstCake.gameObject.name + "->" + SecondCake.gameObject.name);
 
                     ++pouringCount;
-                    // Õ¨µ¯µÄÅĞ¶ÏÓÅÏÈÓÚË®Æ¿µÄÄÚÈİ£¬¹Ì½«¼ÆÊıÒÆ¶¯µ½Ç°Ãæ
+                    // è®°å½•æ­¥æ•°
 
                     LevelManager.Instance.AddMoveNum();              
                     
-                    #region »áÖĞÖ¹Âß¼­£¬ĞèÒªÖØĞÂË¢ĞÂUI
-                    #region Õ¨µ¯»úÖÆ--Ê§°Ü¼ì²é
-                    // Õ¨µ¯¸üĞÂ²¢½øĞĞÊ§°Ü¼ì²â
+                    #region ç‚¸å¼¹æ£€æµ‹å’Œç›¸å…³UIæ˜¾ç¤º
+                    #region ç‚¸å¼¹æ£€æµ‹--æ˜¯å¦è§¦å‘çˆ†ç‚¸
+                    // æ£€æŸ¥æ˜¯å¦è§¦å‘ç‚¸å¼¹çˆ†ç‚¸
                     bool flag = LevelManager.Instance.CheckBomb();
-                    // Õ¨µ¯±¬Õ¨ÒªÖĞ¶ÏÈ¥Ö´ĞĞÆ¿×ÓµÄÏà¹ØÊÂ¼şºÍ¶¯»­
+                    // å¦‚æœè§¦å‘ç‚¸å¼¹çˆ†ç‚¸åˆ™å–æ¶ˆæœ¬æ¬¡æ“ä½œ
                     if (flag == true)
                     {
                         control = false;
                         FirstBottle.OnCancelSelect();
-                        //ÊÇ·ñ½«flag×÷ÎªĞèÒªË¢ĞÂUI±ê¼Ç
+                        //???flag?????????UI???
                         InitPouringCount();
                         FirstBottle = null;
                         SecondBottle = null;
@@ -113,7 +112,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
     }
 
     /// <summary>
-    /// ÖØÖÃ×´Ì¬
+    /// åˆå§‹åŒ–æ¸¸æˆæ§åˆ¶å™¨
     /// </summary>
     public void InitGameCtrl()
     {
@@ -123,7 +122,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
     }
 
     /// <summary>
-    /// µ¹Ë®×´Ì¬Íê³É
+    /// å‡å°‘å€’æ°´é‡è®¡æ•°å™¨
     /// </summary>
     public void ReducePouringCount()
     {
@@ -133,7 +132,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
     }
 
     /// <summary>
-    /// ÖØÖÃµ¹Ë®×´Ì¬
+    /// é‡ç½®å€’æ°´é‡è®¡æ•°å™¨
     /// </summary>
     public void InitPouringCount()
     {

@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using GameAttributes;
 using GameDefine;
 using Newtonsoft.Json.Bson;
@@ -61,8 +61,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     public List<WaterItem> waterItems = new();
     //水块脚本持有
     public List<BottleWaterCtrl> waterImg = new();
-    //原始泡沐数量
-    public Dictionary<BottleCtrl, int> bubbleDict = new();
+    //原始泡沐数量 - 已移至LevelManager.cs管理，此处不再使用
+    // public Dictionary<BottleCtrl, int> bubbleDict = new();
     // 瓶中泡沐是否是原始泡沐
     public bool[] IsOriginalBubble = new bool[4];
     // 炸弹步数
@@ -178,6 +178,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         if (maxNum == 0)
             maxNum = 4;
+
+        // 修复：根据瓶子最大容量动态调整IsOriginalBubble数组长度
+        IsOriginalBubble = new bool[maxNum];
 
         // 对炸弹队列进行补录
         while (waters.Count > bombCounts.Count)

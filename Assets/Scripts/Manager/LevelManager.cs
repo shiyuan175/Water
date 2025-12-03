@@ -727,9 +727,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// <returns>Ture is dead</returns>
     public bool CheckDeadAfterPour()
     {
-        //能否倒水或接水（到处或接收的颜色）
+        // 使用哈希表优化查找性能
+        Dictionary<int, List<BottleCtrl>> colorToInBottles = new();
         List<(BottleCtrl outBottle, int outColor)> outBottles = new();
-        List<(BottleCtrl inBottle, int inColor)> inBottles = new();
 
         foreach (var bottle in nowBottles)
         {
@@ -740,13 +740,14 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             if (bottle.limitColor > 0)
             {
                 //限制瓶满了是isFinish状态,所以不管限制瓶有没有水，就当做是接水瓶处理
-                inBottles.Add((bottle, bottle.limitColor));
+                AddToColorDict(colorToInBottles, bottle.limitColor, bottle);
 
                 //限制瓶非空瓶,且水块不是冰块状态，说明能倒水(倒出的水一定是限制颜色)
                 if (bottle.topIdx >= 0 && bottle.waterItems[bottle.topIdx] != WaterItem.Ice)
                     outBottles.Add((bottle, bottle.limitColor));
                 continue;
             }
+            
             int color;
             // 帘子瓶子特判
             if (bottle.curtainHight > 0)
@@ -757,11 +758,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                     outBottles.Add((bottle, color));
                 //能接水需要满足，水没有满，帘子有下降
                 if (bottle.waters.Count != bottle.maxNum && bottle.curtainHight != bottle.maxNum)
-                    inBottles.Add((bottle, color));
+                    AddToColorDict(colorToInBottles, color, bottle);
                 continue;
             }
 
-            //空瓶
+            //空瓶 - 只要有空瓶就不是死局
             if (bottle.topIdx < 0)
                 return false;
 
@@ -772,28 +773,41 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                 outBottles.Add((bottle, color));
             //能接水记录
             if (bottle.waters.Count != bottle.maxNum)
-                inBottles.Add((bottle, color));
+                AddToColorDict(colorToInBottles, color, bottle);
         }
 
-        // 死局检测
+        // 死局检测 
         foreach ((BottleCtrl outBottle, int outColor) in outBottles)
         {
-            //Debug测试
-            /*foreach ((BottleCtrl inBottle, int inColor) in inBottles)
+            if (colorToInBottles.TryGetValue(outColor, out var inBottlesForColor))
             {
-                if (inBottle != outBottle && inColor == outColor)
+                if (inBottlesForColor.Any(inB => inB != outBottle))
+                    return false;
+                // debug测试用
+                /*var inB = inBottlesForColor.FirstOrDefault(inB => inB != outBottle);
+                if (inB != null)
                 {
                     Debug.Log($"能倒水颜色:{outColor}");
                     Debug.Log($"倒水瓶:{outBottle}");
-                    Debug.Log($"接水瓶:{inBottle}");
+                    Debug.Log($"接水瓶:{inB}");
                     return false;
-                }
-            }*/
-
-            if (inBottles.Any(inB => inB.inBottle != outBottle && inB.inColor == outColor))
-                return false;
+                }*/
+            }
         }
         return true;
+    }
+    
+    /// <summary>
+    /// 将瓶子添加到颜色字典中
+    /// </summary>
+    private void AddToColorDict(Dictionary<int, List<BottleCtrl>> colorDict, int color, BottleCtrl bottle)
+    {
+        if (!colorDict.TryGetValue(color, out var bottleList))
+        {
+            bottleList = new List<BottleCtrl>();
+            colorDict[color] = bottleList;
+        }
+        bottleList.Add(bottle);
     }
 
     #endregion
@@ -855,10 +869,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     }
 
     /// <summary>
-    /// 生成泡沐前调用,
+    /// 生成泡沐前调用,清理过期的泡沐
     /// </summary>
     public void CheckBubbleDict()
     {
+        // 一次性移除所有过期的泡沐
         var keysToRemove = bubbleDict.Where(i => i.Value < moveNum)
                                     .Select(i => i.Key)
                                     .ToList();
@@ -869,6 +884,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         }
     }
 
+    /// <summary>
+    /// 生成泡沐
+    /// </summary>
     public void CreateBubble()
     {
         for (int i = 0; i < bubbleDict.Count; i++)
@@ -922,31 +940,70 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     #endregion
 
     #region 帘子相关
+    /// <summary>
+    /// 更新帘子状态
+    /// </summary>
     public void CurtainUpdate()
     {
-        // 播放动画
+        // 如果没有需要更新的帘子，直接返回
+        if (curtainDict.Count == 0)
+            return;
+            
+        // 合并遍历：更新状态并收集需要移除的瓶子
+        List<BottleCtrl> keysToRemove = new();
+        
         foreach (var key in curtainDict.Keys.ToList())
         {
-            // 使用 key 而不是 item.Key
+            int newHeight = curtainDict[key] - 1;
             key.UpdateCurtain(curtainDict[key]);
-            curtainDict[key] = curtainDict[key] - 1;
+            
+            if (newHeight <= 0)
+            {
+                keysToRemove.Add(key);
+            }
+            else
+            {
+                curtainDict[key] = newHeight;
+            }
         }
-        // 移除不再需要更新的瓶子
-        var keysToRemove = curtainDict.Where(i => i.Value <= 0)
-                                    .Select(i => i.Key)
-                                    .ToList();
+        
+        // 一次性移除所有需要移除的瓶子
         foreach (var key in keysToRemove)
         {
             curtainDict.Remove(key);
         }
     }
+    /// <summary>
+    /// 根据记录更新帘子状态
+    /// </summary>
     public void CurtainUpdateByRecord()
     {
+        // 如果没有需要更新的帘子，直接返回
+        if (curtainDict.Count == 0)
+            return;
+            
+        // 合并遍历：更新状态并收集需要移除的瓶子
+        List<BottleCtrl> keysToRemove = new();
+        
         foreach (var key in curtainDict.Keys.ToList())
         {
-            // 使用 key 而不是 item.Key
+            int newHeight = curtainDict[key] - 1;
             key.InitCurtain(curtainDict[key]);
-            curtainDict[key] = curtainDict[key] - 1;
+            
+            if (newHeight <= 0)
+            {
+                keysToRemove.Add(key);
+            }
+            else
+            {
+                curtainDict[key] = newHeight;
+            }
+        }
+        
+        // 一次性移除所有需要移除的瓶子
+        foreach (var key in keysToRemove)
+        {
+            curtainDict.Remove(key);
         }
     }
     public void DeleteCurtain(BottleCtrl bottleCtrl)
