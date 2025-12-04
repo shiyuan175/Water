@@ -81,6 +81,7 @@ public class RankNodePool : MonoSingleton<RankNodePool>, ICanGetModel
             if (_index >= 0 && _index < mRankDataModel.RankDataList.Count)
             {
                 var _node = mRankNodePool.Allocate();
+                _node.transform.localScale = Vector3.one;
                 _node.Show();
                 _node.TryGetComponent<RankNode>(out var _rankNode);
                 var _data = mRankDataModel.RankDataList[_index];
@@ -92,6 +93,7 @@ public class RankNodePool : MonoSingleton<RankNodePool>, ICanGetModel
 
         // Íæ¼Ò½Úµã
         mPlayerNode = mRankNodePool.Allocate();
+        mPlayerNode.transform.localScale = Vector3.one;
         mPlayerNode.Show();
         mPlayerNode.GetComponent<Image>().sprite = mPlayerSprite;
         mPlayerNode.TryGetComponent<RankNode>(out var playerRankNode);
@@ -105,6 +107,7 @@ public class RankNodePool : MonoSingleton<RankNodePool>, ICanGetModel
             if (_index >= 0 && _index < mRankDataModel.RankDataList.Count)
             {
                 var _node = mRankNodePool.Allocate();
+                _node.transform.localScale = Vector3.one;
                 _node.Show();
                 _node.TryGetComponent<RankNode>(out var _rankNode);
                 var _data = mRankDataModel.RankDataList[_index];

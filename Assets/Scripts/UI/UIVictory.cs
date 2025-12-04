@@ -133,8 +133,7 @@ namespace QFramework.Example
                     return true;
                 }
 
-                else if (volcanicActivity.ActivityStatus == GameActivityStatus.WaitStart ||
-                volcanicActivity.ActivityStatus == GameActivityStatus.Inactive)
+                else if (volcanicActivity.ActivityStatus == GameActivityStatus.Inactive)
                 {
                     UIKit.OpenPanel<UIVolcanicActivityEntrance>(new UIVolcanicActivityEntranceData
                     {
