@@ -1,91 +1,162 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using GameDefine;
 using System;
+using System.Collections.Generic;
+using GameDefine;
+using UnityEngine;
 
-//1£ºÇ³ÂÌÉ«
-//2£ºÉîºìÉ«
-//3£ºÇ³·ÛÉ«
-//4£ºÉîÀ¶É«
-//5£ºÇ³À¶É«
-//6£º»ÆÉ«
-//7£º³ÈÉ«
-//8£ºÇ³×ÏÉ«
-//9£ºÉîÂÌÉ«
-//10£ºÉî×ÏÉ«
-//11£ºÇ³ºì(×Ø)É«
-//12£ºÉî·ÛÉ«
+/// <summary>
+///     å…³å¡åˆ›å»ºæ§åˆ¶å™¨ - ç”¨äºå®šä¹‰æ¸¸æˆå…³å¡çš„é…ç½®æ•°æ®
+/// </summary>
 [CreateAssetMenu(fileName = "Level", menuName = "Levels")]
 public class LevelCreateCtrl : ScriptableObject
 {
-    // Æ¿×ÓÅäÖÃ(×ÜÊıÎªtopNum + bottomNum)
+    /// <summary>
+    ///     æ‰€æœ‰ç“¶å­çš„å±æ€§åˆ—è¡¨ (æ€»æ•°ä¸ºtopNum + bottomNum)
+    /// </summary>
     public List<BottleProperty> bottles;
-    // µ±Ç°¹Ø¿¨µÄÓÎÏ·ÀàĞÍ
+
+    /// <summary>
+    ///     å½“å‰å…³å¡çš„æ¸¸æˆæ¨¡å¼
+    /// </summary>
     public GameType gameType;
 
     /// <summary>
-    /// Æ¿×ÓµÄÊôĞÔ¶¨Òå
+    ///     éœ€è¦æ¸…ç©ºçš„é¢œè‰²åˆ—è¡¨ (å…³å¡ç›®æ ‡)
     /// </summary>
-    [System.Serializable]
-    public class BottleProperty
-    {
-        // Æ¿×ÓÖĞÃ¿²ãË®µÄÑÕÉ«±àºÅ£¨1-12 ±íÊ¾ÑÕÉ«£¬>1000 ±íÊ¾ÌØÊâµÀ¾ß£©
-        // ÅäÖÃĞŞ¸ÄÑÕÉ«µÀ¾ßĞèÍ¬Ê±ÅäÖÃchangeList
-        public List<int> waterSet = new List<int>();
-        // ÊÇ·ñÒş²ØË®ÑÕÉ«£¨ºÚÉ«ÎÊºÅ£©
-        public List<bool> isHide = new List<bool>();
-        // Ã¿²ãË®µÄ¸½¼Ó×´Ì¬£¨Èç±ù¿é¡¢Õ¨µ¯µÈ£©
-        public List<WaterItem> waterItem = new List<WaterItem>();
-        // Õ¨µ¯¼ÆÊıÆ÷
-        public List<int> bombCounts = new List<int>();
-        // ×î´óË®²ãÊı
-        public int numCake = 4;
-        // ÏŞÖÆÍùÆ¿×Óµ¹Ë®µÄÑÕÉ«-Í¬Ë®ÑÕÉ«±àºÅ£¨0 ±íÊ¾ÎŞÏŞÖÆ£©
-        public int limitColor;
-        public bool isClearHide;
-        // ²»È·¶¨£¨¿ÉÄÜÓÃÓÚ¿ØÖÆÆ¿×ÓµÄ½âËøÂß¼­¡£ĞèÒªÌØ¶¨ÑÕÉ«±àºÅ²ÅÄÜ½âËøÒş²ØÄÚÈİ£©
-        public int lockType;
-        // ´¿ºÚÕÚÕÖÆ¿×Ó
-        public bool blackBottle = false;
-        // Á±×Ó¸ß¶È
-        public int CurtainHight = 0;
-        // ÈıÖÖÕÏ°­(ÕÚµ²²¼£¬´óĞÍÌÙÂü£¬µ×²¿ÌÙÂü)
-        public bool isNearHide, isFreeze;
-        public bool isFinish;
-
-    }
-    // ĞèÒªÇå³ıµÄÑÕÉ«ÁĞ±í£¨¹Ø¿¨Ä¿±ê£©
     public List<int> clearList;
-    // Òş²ØµÄÑÕÉ«ÁĞ±í£¨³õÊ¼Òş²ØµÄÑÕÉ«£¬Í¨¹ıµÀ¾ß1003´¥·¢È»ºóÏÔÊ¾£©
+
+    /// <summary>
+    ///     éšè—çš„é¢œè‰²åˆ—è¡¨ (åˆå§‹éšè—çš„é¢œè‰²ï¼Œé€šè¿‡é“å…·1003ç­‰æ˜¾ç¤º)
+    /// </summary>
     public List<int> hideList;
-    // È«¾ÖĞÔ»úÖÆÅäÖÃ
+
+    /// <summary>
+    ///     å…¨å±€æœºåˆ¶é…ç½®
+    /// </summary>
     public GlobalMechanism globalMechanism;
-    // È«¾ÖĞÔ»úÖÆ¿ªÆô²½Êı
+
+    /// <summary>
+    ///     å…¨å±€æœºåˆ¶å¼€å§‹æ­¥æ•°
+    /// </summary>
     public int GlobalMechanismBeginSetp;
-    // È«¾ÖĞÔ»úÖÆ½áÊø²½Êı
+
+    /// <summary>
+    ///     å…¨å±€æœºåˆ¶æŒç»­æ­¥æ•°
+    /// </summary>
     public int GlobalMechanismContinueSetps;
-    // µ±Ç°¹Ø¿¨µÄµ¹¼ÆÊ±²½Êı£¨ÓÃÓÚ²½ÊıÏŞÖÆÄ£Ê½£©_ÅäÖÃ¶¼Îª0²»È·¶¨ÓÃÍ¾
+
+    /// <summary>
+    ///     å½“å‰å…³å¡çš„å€’è®¡æ—¶æ•°å­— (åœ¨å…³å¡æ¨¡å¼ä¸­ï¼Œ0è¡¨ç¤ºä¸å¯ç”¨)
+    /// </summary>
     public int countDownNum;
-    // µ±Ç°¹Ø¿¨µÄµ¹¼ÆÊ±Ê±¼ä£¨ÓÃÓÚÊ±¼äÏŞÖÆÄ£Ê½£©_ÅäÖÃ¶¼Îª0²»È·¶¨ÓÃÍ¾
+
+    /// <summary>
+    ///     å½“å‰å…³å¡çš„å€’è®¡æ—¶æ—¶é—´ (åœ¨å…³å¡æ¨¡å¼ä¸­ï¼Œ0è¡¨ç¤ºä¸å¯ç”¨)
+    /// </summary>
     public float timeCountDown;
-    // ¶¥²¿Æ¿×ÓµÄÊıÁ¿£¨ÓÃÓÚÆ¿×Ó²¼¾Ö£©
+
+    /// <summary>
+    ///     é¡¶éƒ¨ç“¶å­çš„æ•°é‡ (æ¸¸æˆç•Œé¢ä¸Šæ–¹ç“¶å­æ•°é‡)
+    /// </summary>
     public int topNum;
-    // µ×²¿Æ¿×ÓµÄÊıÁ¿£¨ÓÃÓÚÆ¿×Ó²¼¾Ö£©
+
+    /// <summary>
+    ///     åº•éƒ¨ç“¶å­çš„æ•°é‡ (æ¸¸æˆç•Œé¢ä¸‹æ–¹ç“¶å­æ•°é‡)
+    /// </summary>
     public int bottomNum;
-    // ÅİÄ­Éú³É´ÎÊı
+
+    /// <summary>
+    ///     é»˜è®¤æ°”æ³¡æ•°é‡
+    /// </summary>
     public List<int> bubbleCount;
-    // ¸Ã¹Ø¿¨´æÔÚµÄÑÕÉ«±ä»»ÁĞ±í£¨ÓÃÓÚÄ³Ğ©ÌØÊâµÀ¾ßÂß¼­,2001-2006µÄµÀ¾ßĞèÅäÖÃ£©
+
+    /// <summary>
+    ///     å½“å‰å…³å¡ä¸­çš„é¢œè‰²è½¬æ¢åˆ—è¡¨ (æ§åˆ¶æŸäº›ç‰¹æ®Šæ•ˆæœ, 2001-2006ä¸ºç‰¹æ®Šæ•ˆæœ)
+    /// </summary>
     public List<ChangePair> changeList;
 
+    /// <summary>
+    ///     ç“¶å­çš„å±æ€§æ•°æ®ç±»
+    /// </summary>
+    [Serializable]
+    public class BottleProperty
+    {
+        /// <summary>
+        ///     ç“¶å­ä¸­æ¯å±‚æ°´çš„é¢œè‰²æ•°ç»„ (1-12 è¡¨ç¤ºé¢œè‰², >1000 è¡¨ç¤ºç‰¹æ®Šæ•ˆæœ)
+        /// </summary>
+        public List<int> waterSet = new();
+
+        /// <summary>
+        ///     æ¯å±‚æ°´æ˜¯å¦è¢«éšè—çš„æ ‡è®°
+        /// </summary>
+        public List<bool> isHide = new();
+
+        /// <summary>
+        ///     æ¯å±‚æ°´çš„è¯¦ç»†çŠ¶æ€ (ç‚¸å¼¹ã€å†°å†»ç­‰)
+        /// </summary>
+        public List<WaterItem> waterItem = new();
+
+        /// <summary>
+        ///     ç‚¸å¼¹å€’è®¡æ—¶åˆ—è¡¨
+        /// </summary>
+        public List<int> bombCounts = new();
+
+        /// <summary>
+        ///     è›‹ç³•æ•°é‡
+        /// </summary>
+        public int numCake = 4;
+
+        /// <summary>
+        ///     é™åˆ¶é¢œè‰² - ç›¸åŒé¢œè‰²æ•°é‡ (0 è¡¨ç¤ºæ— é™åˆ¶)
+        /// </summary>
+        public int limitColor;
+
+        /// <summary>
+        ///     æ˜¯å¦æ¸…é™¤éšè—çŠ¶æ€
+        /// </summary>
+        public bool isClearHide;
+
+        /// <summary>
+        ///     é”å®šç±»å‹ - ç¡®å®šç“¶å­ä¸­æ¶²ä½“éœ€è¦ç‰¹å®šé¢œè‰²æ‰èƒ½æ··åˆæˆ–æ¸…ç©º
+        /// </summary>
+        public int lockType;
+
+        /// <summary>
+        ///     æ˜¯å¦ä¸ºé»‘è‰²ç“¶å­
+        /// </summary>
+        public List<bool> BlackBottleList = new();
+
+        public bool isBlackBottle = false;
+
+        /// <summary>
+        ///     çª—å¸˜é«˜åº¦
+        /// </summary>
+        public int CurtainHight;
+
+        /// <summary>
+        ///     æ˜¯å¦é è¿‘éšè—ã€æ˜¯å¦å†»ç»“ (åœ¨å…³å¡ä¸­æ§åˆ¶æ˜¾ç¤º/éšè—)
+        /// </summary>
+        public bool isNearHide, isFreeze;
+
+        /// <summary>
+        ///     æ˜¯å¦å·²å®Œæˆ
+        /// </summary>
+        public bool isFinish;
+    }
 }
 
+/// <summary>
+///     é¢œè‰²è½¬æ¢å¯¹æ•°æ®ç±»
+/// </summary>
 [Serializable]
 public class ChangePair
 {
-    // ´¥·¢±ä»»µÄµÀ¾ßÀàĞÍ(±ä»»µÄÄ¿±êÑÕÉ«)
+    /// <summary>
+    ///     è½¬æ¢ç›®æ ‡çš„é“å…·ç±»å‹ (è½¬æ¢åç›®æ ‡é¢œè‰²)
+    /// </summary>
     public ItemType item;
-    // ĞèÒª±ä»»µÄÑÕÉ«±àºÅ
+
+    /// <summary>
+    ///     éœ€è¦è½¬æ¢çš„é¢œè‰²æ•°å€¼
+    /// </summary>
     public int NeedChangeColor;
 }
-

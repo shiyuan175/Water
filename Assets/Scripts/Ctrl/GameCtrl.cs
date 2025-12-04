@@ -46,6 +46,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                 {
                     AudioKit.PlaySound("resources://Audio/SelectBottle");
                     FirstBottle = bottle;
+                    
                 }
 
             }

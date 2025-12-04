@@ -37,7 +37,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public LevelCreateCtrl nowLevel;
     public Color ItemColor;
 
-    public int levelId = 1, bombMaxNum, countDownNum, playingHideAnimCount;
+    public int levelId = 1, playingHideAnimCount;
     public bool ISPlayingHideAnim => playingHideAnimCount == 0;
 
     public int moveNum = 0;
@@ -161,7 +161,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         LevelCreateCtrl levelInfo = levels[levelId - 1];
 
         nowLevel = levelInfo;
-        countDownNum = levelInfo.countDownNum;
         moveNum = 0;
         clearList = new List<int>(levelInfo.clearList);
         hideColor = new List<int>(levelInfo.hideList);
