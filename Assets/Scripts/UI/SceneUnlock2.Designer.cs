@@ -31,7 +31,7 @@ namespace QFramework.Example
 		[SerializeField]
 		public RectTransform FlightEffectsToBtn;
 		
-		private SceneUnlock1Data mPrivateData = null;
+		private SceneUnlock2Data mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
@@ -49,7 +49,7 @@ namespace QFramework.Example
 			mData = null;
 		}
 		
-		public SceneUnlock1Data Data
+		public SceneUnlock2Data Data
 		{
 			get
 			{
@@ -57,11 +57,11 @@ namespace QFramework.Example
 			}
 		}
 		
-		SceneUnlock1Data mData
+		SceneUnlock2Data mData
 		{
 			get
 			{
-				return mPrivateData ?? (mPrivateData = new SceneUnlock1Data());
+				return mPrivateData ?? (mPrivateData = new SceneUnlock2Data());
 			}
 			set
 			{

@@ -35,7 +35,7 @@ namespace QFramework.Example
               (7, new Vector2(0, -137))
         };
         //Spine完成后飞向宝箱特效初始位置
-        private readonly Vector2[] mEffectToBoxStartPos = new Vector2[]
+        /*private readonly Vector2[] mEffectToBoxStartPos = new Vector2[]
         {
             new(-50, 580),
             new(-422, 128),
@@ -52,7 +52,7 @@ namespace QFramework.Example
             new(0, 100),
             new(130, -257),
 
-        };
+        };*/
 
         [SerializeField] private SkeletonGraphic[] mAllUnitSpines;
         [SerializeField] private CanvasGroup[] mSpineCanvasGroups;
@@ -71,16 +71,16 @@ namespace QFramework.Example
         //用于维护Spine的回调监听和注销
         private SkeletonGraphic[] mUnActiveUnitSpines;
         private int mStartUnitIndex;
-        private bool mRewardSign = false;
+        private bool mRewardSign;
 
         protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as SceneUnlock1Data ?? new SceneUnlock1Data();
 			// please add init code here
 		}
-		
-		protected override void OnOpen(IUIData uiData = null)
-		{
+
+        protected override void OnOpen(IUIData uiData = null)
+        {
             mSceneUnlockModel = this.GetModel<SceneUnlockModel>();
             mRewardGrantUtility = this.GetUtility<RewardGrantUtility>();
             GameDefine.GameUtils.SotrArray(mAllUnitSpines);
@@ -234,7 +234,7 @@ namespace QFramework.Example
                 mOnCompleteHandlers.Add(handler);
             }
 
-            mHeartRiseCallBack = (TrackEntry trackEntry) =>
+            mHeartRiseCallBack = _ =>
             {
                 SpineHeartRise.GetComponent<CanvasGroup>().alpha = 0f;
                 SpineHeartRise.AnimationState.SetEmptyAnimation(0, 0);
@@ -270,7 +270,8 @@ namespace QFramework.Example
         private void FlightEffectsTo_Box(int realIndex)
         {
             FlightEffectsToBox.Show();
-            FlightEffectsToBox.localPosition = mEffectToBoxStartPos[realIndex];
+            FlightEffectsToBox.position = mAllUnitSpines[realIndex].transform.position;
+            //FlightEffectsToBox.localPosition = mEffectToBoxStartPos[realIndex];
             FlightEffectsToBox.DOMove(BtnBox.transform.position, 0.5f).OnComplete(() =>
             {
                 FlightEffectsToBox.Hide();

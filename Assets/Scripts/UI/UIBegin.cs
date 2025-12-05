@@ -22,7 +22,7 @@ namespace QFramework.Example
         private const int BPIndex = 1;
 
         #region BottomMenuSetting
-        [Header("µ×²¿²Ëµ¥°´Å¥UI")]
+        [Header("ï¿½×²ï¿½ï¿½Ëµï¿½ï¿½ï¿½Å¥UI")]
         [SerializeField] private List<GameObject> Panels;
         [SerializeField] private List<LayoutElement> mLayoutElements_BgFrame;
         [SerializeField] private List<Button> mMenuBtn;
@@ -30,20 +30,20 @@ namespace QFramework.Example
         private GameObject HomeNode => Panels[2];
         private List<LayoutElement> mLayoutElements_MenuBtn;
         private List<RectTransform> mImgsRect;
-        // ³õÊ¼Î»ÖÃ
+        // ï¿½ï¿½Ê¼Î»ï¿½ï¿½
         private float mInitPosY;
-        // µ±Ç°Ñ¡ÖÐË÷Òý(-1±íÊ¾Î´Ñ¡ÖÐ)
+        // ï¿½ï¿½Ç°Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(-1ï¿½ï¿½Ê¾Î´Ñ¡ï¿½ï¿½)
         private int mCurSelectIndex = -1;
 
         #endregion
 
         #region RedPoint
-        [Header("ºìµãÏà¹Ø")]
+        [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
         [SerializeField] private GameObject mRedPoint;
         [SerializeField] private Text mRedPointMessText;
         [SerializeField] private RectTransform mPopDialogBoxNode;
 
-        //µÚÒ»¸ö³¡¾°²¿¼þÏûºÄ
+        //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         private readonly int[] mConsume = new int[]
         {
             1,2,2,3,3,3,4,4,4,5,5,5,6,7,
@@ -81,7 +81,7 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-            //Õæ»úÄ£Ê½ÏÂ£¬AssetBundle ¼ÓÔØ×ÊÔ´ºóÐèÒª¹ØÁª²ÄÖÊ
+            //ï¿½ï¿½ï¿½Ä£Ê½ï¿½Â£ï¿½AssetBundle ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             //TxtImgprogress.font.material.shader = Shader.Find(TxtImgprogress.font.material.shader.name);
             stageModel = this.GetModel<StageModel>();
             saveData = this.GetUtility<SaveDataUtility>();
@@ -147,7 +147,13 @@ namespace QFramework.Example
             BtnArea.onClick.AddListener(() =>
             {
                 string _sceneName;
-                if (mSceneUnlockModel.SceneIndex >= GameConst.SceneUnlock.Count)
+                var key = mSceneUnlockModel.SceneIndex >= GameConst.SceneUnlock.Count
+                    ? GameConst.SceneUnlock.Keys.Max()
+                    : mSceneUnlockModel.SceneIndex;
+
+                _sceneName = GameConst.SceneUnlock[key];
+                
+                /*if (mSceneUnlockModel.SceneIndex >= GameConst.SceneUnlock.Count)
                 {
                     int maxKey = GameConst.SceneUnlock.Keys.Max();
                     _sceneName = GameConst.SceneUnlock[maxKey];
@@ -155,7 +161,7 @@ namespace QFramework.Example
                 else
                 {
                     _sceneName = GameConst.SceneUnlock[mSceneUnlockModel.SceneIndex];
-                }
+                }*/
                 this.gameObject.Hide();
                 UIKit.OpenPanel(_sceneName);
             });
@@ -169,7 +175,7 @@ namespace QFramework.Example
             BtnCoin.onClick.RemoveAllListeners();
             BtnCoin.onClick.AddListener(() =>
             {
-                //Ìø×ªÉÌµê
+                //ï¿½ï¿½×ªï¿½Ìµï¿½
                 InitBeginMenuButton(0);
             });
 
@@ -272,7 +278,7 @@ namespace QFramework.Example
                     UIKit.OpenPanel<UITierRankActivityEntrance>();
             });
 
-            //µ×²¿ÇøÓò°´Å¥¼àÌý
+            //ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½
             mMenuBtn.ForEach(btn => btn.onClick.RemoveAllListeners());
             for (int i = 0; i < mMenuBtn.Count; i++)
             {
@@ -292,7 +298,7 @@ namespace QFramework.Example
                 BottomMenuNode.Show();
                 HomeNode.Show();
 
-                //ÖØÆô»áÊ¹Aspect Ratio Fitter ½«UIÖØÐÂ²¼¾Ö(µÈ´ýÒ»Ö¡Ë¢ÐÂ)
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹Aspect Ratio Fitter ï¿½ï¿½UIï¿½ï¿½ï¿½Â²ï¿½ï¿½ï¿½(ï¿½È´ï¿½Ò»Ö¡Ë¢ï¿½ï¿½)
                 ActionKit.DelayFrame(1, () =>
                 {
                     mImgsRect[2].DOAnchorPosY(mInitPosY + 60f, 0);
@@ -396,7 +402,7 @@ namespace QFramework.Example
             UIKit.OpenPanel<UIBeginSelect>();
         }
 
-        #region µ×²¿²Ëµ¥À¸°´Å¥ÇÐ»»
+        #region ï¿½×²ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½Ð»ï¿½
 
         public void MenuBtnEvent(int index)
         {
@@ -404,7 +410,7 @@ namespace QFramework.Example
 
             ChangePanel(index);
 
-            // »¹Ô­ÉÏÒ»¸ö
+            // ï¿½ï¿½Ô­ï¿½ï¿½Ò»ï¿½ï¿½
             if (mCurSelectIndex >= 0 && mCurSelectIndex < mImgsRect.Count)
             {
                 var _prevImg = mImgsRect[mCurSelectIndex];
@@ -414,7 +420,7 @@ namespace QFramework.Example
                 mLayoutElements_MenuBtn[mCurSelectIndex].flexibleWidth = 1f;
             }
 
-            // µ±Ç°µã»÷¶¯»­
+            // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             var _curImg = mImgsRect[index];
             _curImg.localScale = Vector3.one * 0.5f;
             _curImg.DOScale(1f, 0.1f);
@@ -422,7 +428,7 @@ namespace QFramework.Example
             mLayoutElements_BgFrame[index].flexibleWidth = 1.2f;
             mLayoutElements_MenuBtn[index].flexibleWidth = 1.2f;
 
-            //ÑÓ³ÙÒ»Ö¡µÈ´ý Layout Ë¢ÐÂ,È»ºó¸üÐÂÑ¡ÖÐ¿é
+            //ï¿½Ó³ï¿½Ò»Ö¡ï¿½È´ï¿½ Layout Ë¢ï¿½ï¿½,È»ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½Ð¿ï¿½
             ActionKit.DelayFrame(1, () =>
             {
                 var _rect = mLayoutElements_BgFrame[index].GetComponent<RectTransform>();
@@ -439,7 +445,7 @@ namespace QFramework.Example
             .ToList();
             mInitPosY = mImgsRect[0].anchoredPosition.y;
 
-            //³õÊ¼»¯Ñ¡ÔñÖ÷³Ç°´Å¥(Ë÷ÒýÎª2)
+            //ï¿½ï¿½Ê¼ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½Å¥(ï¿½ï¿½ï¿½ï¿½Îª2)
             InitBeginMenuButton(2);
 
             Canvas.ForceUpdateCanvases();
@@ -461,7 +467,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ²Ëµ¥°´Å¥µã»÷ÇÐ»»½çÃæ
+        /// ï¿½Ëµï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="index"></param>
         private void ChangePanel(int index)
@@ -476,19 +482,19 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ÏÔÊ¾²¢³õÊ¼»¯µ×²¿²Ëµ¥°´Å¥
+        /// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½×²ï¿½ï¿½Ëµï¿½ï¿½ï¿½Å¥
         /// </summary>
         private void InitBeginMenuButton(int index = -1)
         {
             BottomMenuNode.Show();
-            //ÓÐ²Î´«Èë£¬³õÊ¼°´Å¥µã»÷(ÇÐ»»¶ÔÓ¦½çÃæ)
+            //ï¿½Ð²Î´ï¿½ï¿½ë£¬ï¿½ï¿½Ê¼ï¿½ï¿½Å¥ï¿½ï¿½ï¿½(ï¿½Ð»ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½)
             if (index > -1)
                 mMenuBtn[index].onClick.Invoke();
         }
 
         #endregion
 
-        #region ×ÖÌå/½ð±Ò/ÌåÁ¦/ÐÇÐÇ/Í·Ïñ/½¨Öþ ³õÊ¼»¯¸üÐÂ
+        #region ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½/Í·ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         private void LoaderRes()
         {
@@ -525,7 +531,7 @@ namespace QFramework.Example
 
         private void SetVitality()
         {
-            TxtHeart.text = HealthManager.Instance.UnLimitHp ? "¡Þ" : HealthManager.Instance.NowHp.ToString();
+            TxtHeart.text = HealthManager.Instance.UnLimitHp ? "ï¿½ï¿½" : HealthManager.Instance.NowHp.ToString();
 
             if (!HealthManager.Instance.UnLimitHp && HealthManager.Instance.IsMaxHp)
                 TxtTime.text = "FULL";
@@ -535,7 +541,7 @@ namespace QFramework.Example
         {
             int currentLevel = saveData.GetCurrentLevel();
             string appendString = "";
-            // ÉèÖÃÍ¼°¸ºÍ¸½¼ÓÎÄ±¾
+            // ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½Ä±ï¿½
             if (currentLevel > GameConst.LEVEL_TYPE_LAST_DIGIT)
             {
                 switch (currentLevel % GameConst.LEVEL_TYPE_LAST_DIGIT)
@@ -560,7 +566,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ½ð±ÒºÍÐÇÐÇµÄ·ÉÐÐÁ£×ÓÐ§¹û
+        /// ï¿½ï¿½Òºï¿½ï¿½ï¿½ï¿½ÇµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
         /// </summary>
         /// <returns></returns>
         private IEnumerator ShowFx()
@@ -575,13 +581,13 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ¸üÐÂÖ÷Ò³³¡¾°½¨Öþ
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         private void SetScene()
         {
             var _unitUnlockProgress = mSceneUnlockModel.SceneUnlockUnitIndex;
             var _sceneIndex = mSceneUnlockModel.SceneIndex;
-            //×¢ÊÍ´úÂëÊÇ×îºóÒ»¸ö³¡¾°µÄÅÐ¶¨,¿É×÷Îª°²È«´úÂë±£Áô
+            //×¢ï¿½Í´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½,ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½È«ï¿½ï¿½ï¿½ë±£ï¿½ï¿½
             //bool isLastScene = _sceneIndex >= GameConst.SceneUnlock.Count;
             //if (isLastScene)
             //    _sceneIndex = GameConst.SceneUnlock.Keys.Max();
@@ -606,7 +612,7 @@ namespace QFramework.Example
             ImgProgress.fillAmount = (float)_unitUnlockProgress / _unitCount;
             TxtImgprogress.text = $"{_unitUnlockProgress} / {_unitCount}";
 
-            //Ê×Ì×³¡¾°½âËøÍê³É
+            //ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (_sceneIndex == 0 && _unitUnlockProgress == _unitCount)
             {
                 UIKit.OpenPanel<PlotUnlockGuide>(UILevel.PopUI);
@@ -614,7 +620,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ½âËøºìµã
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         private void SetSceneRedPoint()
         {
@@ -628,7 +634,7 @@ namespace QFramework.Example
                 mRedPoint.Hide();
                 return;
             }
-            //Ê£ÓàÐÇÐÇ£¬mConsumeÊÇ²¿¼þÏûºÄ¶ÔÓ¦µÄ±í£¬¼ÆËãÓÐ¼¸¸ö²¿¼þÄÜ½âËø
+            //Ê£ï¿½ï¿½ï¿½ï¿½ï¿½Ç£ï¿½mConsumeï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½Ó¦ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü½ï¿½ï¿½ï¿½
 
             int _unlockableCount = 1;
             _remainingStar -= mConsume[unitUnlockProgress];
@@ -646,7 +652,7 @@ namespace QFramework.Example
             mRedPoint.Show();
             mRedPointMessText.text = _unlockableCount.ToString();
 
-            //ÓÐÎå¸öÒÔÉÏÄÜ½âËø,´¥·¢ÊÖÒýµ¼
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (_unlockableCount >= 5)
             {
                 UIKit.OpenPanel<PopDialogBox>(UILevel.PopUI, new PopDialogBoxData()
@@ -743,12 +749,12 @@ namespace QFramework.Example
 
         #endregion
 
-        #region »î¶¯Ä£¿é
+        #region ï¿½î¶¯Ä£ï¿½ï¿½
         private void ShowActivityState()
         {
             var _curLevel = saveData.GetCurrentLevel();
-            //¸÷»î¶¯ÔÚÖ÷Ò³ÏÔÊ¾µÄÌõ¼þ(µ½´ïµÚ¼¸¹ØÔÚÖ÷Ò³ÏÔÊ¾£¬²¿·Ö»î¶¯½áÊøÊ±ÐèÒþ²Ø×ÔÉí)
-            //»î¶¯Î´×¢²áÊ±¹ÜÀíÏÔÊ¾£¬×¢²áºóÓÉ»î¶¯×ÔÉí¹ÜÀí
+            //ï¿½ï¿½ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ö»î¶¯ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+            //ï¿½î¶¯Î´×¢ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½É»î¶¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (_curLevel >= 7 && mVolcanicActivity is null)
                 BtnVANode.Show();
 
@@ -757,7 +763,7 @@ namespace QFramework.Example
 
             if (_curLevel >= GameConst.TRA_BEGIN_LEVEL)
                 BtnTRANode.Show();
-            /* ÂÖÅÌ»î¶¯ÔÝÊ±¹Ø±Õ
+            /* ï¿½ï¿½ï¿½Ì»î¶¯ï¿½ï¿½Ê±ï¿½Ø±ï¿½
             if (_curLevel >= GameConst.TT_AD_BEGIN_LEVEL)
                 BtnTTNode.Show();*/
 
@@ -797,7 +803,7 @@ namespace QFramework.Example
             UpdateMSAState();
             UptateTRAState();
 
-            //ºá·ù»î¶¯
+            //ï¿½ï¿½ï¿½ï¿½î¶¯
             if (saveData.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             {
                 RegisterBannerActivity();
@@ -805,11 +811,11 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// »î¶¯×´Ì¬±ä¸üÊÂ¼þ
+        /// ï¿½î¶¯×´Ì¬ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
         /// </summary>
         private void ActivityStatusChangeEvent(OnActivityStatusChanged eventData)
         {
-            //Debug.Log("ÊÕµ½ÊÂ¼þ¡¢×´Ì¬£º" + eventData.Status);
+            //Debug.Log("ï¿½Õµï¿½ï¿½Â¼ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½" + eventData.Status);
             var _activity = eventData.Sender;
             if (_activity is VolcanicActivity)
             {
@@ -834,7 +840,7 @@ namespace QFramework.Example
                 mMagicStreakActivity ??= _activity as MagicStreakActivity;
                 UpdateMSAState();
             }
-            /* ÔÝÊ±¹Ø±ÕÂÖÅÌ»î¶¯
+            /* ï¿½ï¿½Ê±ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ì»î¶¯
             else if(_activity is TurnTableADActivity)
             {
                 mTurnTableADActivity ??= _activity as TurnTableADActivity;
@@ -1004,7 +1010,7 @@ namespace QFramework.Example
 
                 ChangeActivityIcon(BtnTRANode.gameObject);
                 BtnTRANode.interactable = true;
-                //¸ü»»ºá·ù¾«Áé
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
                 TxtTierRankActivity.text = mTierRankActivity.ActivityStatus switch
                 {
@@ -1014,7 +1020,7 @@ namespace QFramework.Example
                 };
             }
         }
-        /* ÔÝÊ±¹Ø±ÕÂÖÅÌ»î¶¯
+        /* ï¿½ï¿½Ê±ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ì»î¶¯
         private void UpdateTTState()
         {  
             TxtTTActivity.text = mTurnTableADActivity.ActivityStatus switch
@@ -1056,11 +1062,11 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ºá·ùÁ¬Ê¤»î¶¯
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½î¶¯
         /// </summary>
         private void RegisterBannerActivity()
         {
-            //Debug.Log("ÊµÀý»î¶¯");
+            //Debug.Log("Êµï¿½ï¿½ï¿½î¶¯");
             //CountDownTimerManager.Instance.ResetTimer(GameConst.POTION_ACTIVITY_SIGN, 10);
             CountDownTimerManager.Instance.StartTimer(GameConst.POTION_ACTIVITY_SIGN, 1440f);
             var potionActivityModel = this.GetModel<PotionActivityModel>();
@@ -1070,7 +1076,7 @@ namespace QFramework.Example
                 {
                     var potionNode = Resources.Load("Prefab/PotionActivityNode");
                     var node = Instantiate(potionNode, HomeNode.transform);
-                    //Debug.Log("Ê£ÓàÊ±³¤£º" + CountDownTimerManager.Instance.GetRemainingTimeText(GameConst.POTION_ACTIVITY_SIGN));
+                    //Debug.Log("Ê£ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½" + CountDownTimerManager.Instance.GetRemainingTimeText(GameConst.POTION_ACTIVITY_SIGN));
                 }
             }
             else

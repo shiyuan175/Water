@@ -156,7 +156,8 @@ namespace GameDefine
         public static readonly Dictionary<int, string> SceneUnlock = new Dictionary<int, string>
         {
             {0, "SceneUnlock1"},
-            {1, "SceneUnlock2" }
+            {1, "SceneUnlock2"},
+            {2, "SceneUnlock3"},
         };
     }
 
