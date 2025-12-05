@@ -94,7 +94,7 @@ public class BottleWaterCtrl : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    #region Ä§·¨Õó¶¯»­
+    #region é­”æ³•é˜µåŠ¨ç”»
 
     private Coroutine playMagnetCoroutine;
     private GameObject magnetGo;
@@ -106,7 +106,7 @@ public class BottleWaterCtrl : MonoBehaviour
      }*/
 
     /// <summary>
-    /// Ìá¹©Íâ²¿ÖÕÖ¹¶¯»­²¥·ÅµÄ·½·¨
+    /// æä¾›å¤–éƒ¨ç»ˆæ­¢åŠ¨ç”»æ’­æ”¾çš„æ–¹æ³•
     /// </summary>
     public void StopPlayUseMagnet()
     {
@@ -271,7 +271,7 @@ public class BottleWaterCtrl : MonoBehaviour
 
     }
 
-    #region ÆÆ±ù¶¯»­ºÍ»Øµ÷
+    #region ç ´å†°åŠ¨ç”»å’Œå›è°ƒ
 
     public IEnumerator BreakIce(BottleWaterCtrl waterCtrl)
     {
@@ -353,11 +353,11 @@ public class BottleWaterCtrl : MonoBehaviour
         BombBlackWaterItemGo.SetActive(attribute.BombBlackWaterAvtive);
         BombBlackWaterItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
 
-        // ÌØÊâË®µÈ²»ĞèÒªÁ½Á½ºÏ³É
+        // ç‰¹æ®Šæ°´ç­‰ä¸éœ€è¦ä¸¤ä¸¤åˆæˆ
         RainBowWater.SetActive(attribute.RainBowWaterActive);
         FlashWaterGo.SetActive(attribute.FlashWaterActive);
         //FlyBombItemGo.SetActive(attribute.FlyBombActive);
-        // ¸üĞÂ·ÉÌìÕ¨µ¯ÊıÖµ
+        // æ›´æ–°é£å¤©ç‚¸å¼¹æ•°å€¼
         /* if(attribute.FlyBombActive)
          {
              Debug.Log(bottle.bombCounts[index]);
@@ -403,39 +403,39 @@ public class BottleWaterCtrl : MonoBehaviour
     }
 
     /// <summary>
-    /// Í³Ò»µÄµÀ¾ßÊ¹ÓÃ¶¯»­·½·¨
+    /// ç»Ÿä¸€çš„é“å…·ä½¿ç”¨åŠ¨ç”»æ–¹æ³•
     /// </summary>
-    /// <param name="otherWater">ÁíÒ»¸öµÀ¾ßË®¿é</param>
-    /// <param name="itemType">µÀ¾ßÀàĞÍ</param>
-    /// <param name="onComplete">Íê³É»Øµ÷</param>
+    /// <param name="otherWater">å¦ä¸€ä¸ªé“å…·æ°´å—</param>
+    /// <param name="itemType">é“å…·ç±»å‹</param>
+    /// <param name="onComplete">å®Œæˆå›è°ƒ</param>
     public void PlayUseItem(BottleWaterCtrl otherWater, ItemType itemType, Action onComplete = null)
     {
         StartCoroutine(CoroutinePlayUseItem(otherWater, itemType, onComplete));
     }
 
     /// <summary>
-    /// Í³Ò»µÄµÀ¾ß¶¯»­Ğ­³Ì
+    /// ç»Ÿä¸€çš„é“å…·åŠ¨ç”»åç¨‹
     /// </summary>
     private IEnumerator CoroutinePlayUseItem(BottleWaterCtrl hide, ItemType itemType, Action onComplete)
     {
         isPlayItemAnim = true;
         hide.gameObject.SetActive(true);
 
-        // ¸ù¾İµÀ¾ßÀàĞÍ»ñÈ¡¶ÔÓ¦µÄ×ÊÔ´ÒıÓÃ
+        // æ ¹æ®é“å…·ç±»å‹è·å–å¯¹åº”çš„èµ„æºå¼•ç”¨
         var (itemGo, spineComponent, animName, useTopNode) = GetItemResources(itemType);
         var (hideItemGo, hideSpineComponent, _, _) = GetItemResources(itemType);
 
         if (itemGo == null || hideItemGo == null)
         {
-            Debug.LogError($"µÀ¾ß×ÊÔ´Î´ÕÒµ½: {itemType}");
+            Debug.LogError($"é“å…·èµ„æºæœªæ‰¾åˆ°: {itemType}");
             yield break;
         }
 
-        // 1. ´´½¨µÀ¾ßÊµÀı
+        // 1. åˆ›å»ºé“å…·å®ä¾‹
         var go = Instantiate(itemGo);
         var go1 = Instantiate(hideItemGo);
 
-        // 2. ÉèÖÃ³õÊ¼Î»ÖÃ
+        // 2. è®¾ç½®åˆå§‹ä½ç½®
         go.transform.SetParent(transform, false);
         go.transform.localScale = itemGo.transform.localScale;
         go.transform.localPosition = itemGo.transform.localPosition;
@@ -449,23 +449,23 @@ public class BottleWaterCtrl : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        // 3. ÒÆ¶¯µ½»­²¼²ã¼¶
+        // 3. ç§»åŠ¨åˆ°ç”»å¸ƒå±‚çº§
         go.transform.SetParent(LevelManager.Instance.mSpineIniPar, true);
         go1.transform.SetParent(LevelManager.Instance.mSpineIniPar, true);
 
-        // 4. ²¥·ÅSpine¶¯»­
+        // 4. æ’­æ”¾SpineåŠ¨ç”»
         if (useSpine1 != null && hideSpineComponent != null)
         {
             useSpine1.AnimationState.SetAnimation(0, hideSpineComponent.AnimationState.ExpandToIndex(0).Animation.name, false);
         }
 
-        // 5. ÒÆ¶¯¶¯»­
+        // 5. ç§»åŠ¨åŠ¨ç”»
         go1.transform.DOLocalMove(go.transform.localPosition, 0.2f).SetEase(Ease.Linear).OnComplete(() =>
         {
             if (go1 != null) Destroy(go1);
         });
 
-        // 6. Òş²ØÔ­Ê¼µÀ¾ß£¬²¥·ÅÏûÊ§¶¯»­
+        // 6. éšè—åŸå§‹é“å…·ï¼Œæ’­æ”¾æ¶ˆå¤±åŠ¨ç”»
         itemGo.SetActive(false);
         if (useTopNode && go.transform.Find("Top") != null)
         {
@@ -483,14 +483,14 @@ public class BottleWaterCtrl : MonoBehaviour
         int waitTime = itemType is ItemType.MagnetItem ? 2 : 1;
 
         yield return new WaitForSeconds(waitTime);
-        // 7. »Øµ÷´¦Àí
+        // 7. å›è°ƒå¤„ç†
         onComplete?.Invoke();
-        // 8. ÇåÀí
+        // 8. æ¸…ç†
         if (go != null) Destroy(go);
     }
 
     /// <summary>
-    /// ¸ù¾İµÀ¾ßÀàĞÍ»ñÈ¡¶ÔÓ¦µÄ×ÊÔ´
+    /// æ ¹æ®é“å…·ç±»å‹è·å–å¯¹åº”çš„èµ„æº
     /// </summary>
     private (GameObject itemGo, SkeletonGraphic spine, string animName, bool useTopNode) GetItemResources(ItemType itemType)
     {
@@ -506,7 +506,7 @@ public class BottleWaterCtrl : MonoBehaviour
             _ => (null, null, "", false)
         };
     }
-    // ±£³ÖÔ­ÓĞ·½·¨µÄ¼æÈİĞÔ
+    // ä¿æŒåŸæœ‰æ–¹æ³•çš„å…¼å®¹æ€§
     public void PlayUseBroom(BottleWaterCtrl hide)
     {
         PlayUseItem(hide, ItemType.ClearRandomWaterItem, () =>
@@ -527,7 +527,7 @@ public class BottleWaterCtrl : MonoBehaviour
     {
         PlayUseItem(hide, ItemType.ChangeGreen, () =>
         {
-            // ±äÉ«µÀ¾ßµÄÌØ¶¨Âß¼­
+            // å˜è‰²é“å…·çš„ç‰¹å®šé€»è¾‘
         });
     }
 
@@ -535,7 +535,7 @@ public class BottleWaterCtrl : MonoBehaviour
     {
         PlayUseItem(hide, ItemType.MagnetItem, () =>
         {
-            // ´ÅÌúµÀ¾ßµÄÌØ¶¨Âß¼­
+            // ç£é“é“å…·çš„ç‰¹å®šé€»è¾‘
         });
     }
 

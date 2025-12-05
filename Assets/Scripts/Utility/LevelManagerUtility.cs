@@ -24,7 +24,7 @@ public class LevelManagerUtility : IUtility
         int old = i;
         while (true)
         {
-            BottleCtrl newBottleCtrl = bottles[i % bottles.Count];                                                   
+            BottleCtrl newBottleCtrl = bottles[i % bottles.Count];
             if (!BottleStateCheck(newBottleCtrl))
             {
                 i++;
@@ -49,14 +49,14 @@ public class LevelManagerUtility : IUtility
             if (!WaterStateCheckForHide(bottleCtrl, i))
                 continue;
             bottleCtrl.hideWaters[i] = true;
-            if(LevelManager.Instance.hideBottleList.Find(bottle => bottle == bottleCtrl) == null)
+            if (LevelManager.Instance.hideBottleList.Find(bottle => bottle == bottleCtrl) == null)
             {
                 // ???????
-                LevelManager.Instance.hideBottleList.Add(bottleCtrl);               
+                LevelManager.Instance.hideBottleList.Add(bottleCtrl);
             }
 
             // ????????
-                bottleCtrl.SetHideShow(true,i);    
+            bottleCtrl.SetHideShow(true, i);
             return bottleCtrl;
         }
         for (int i = 0; i < random; i++)
@@ -68,11 +68,11 @@ public class LevelManagerUtility : IUtility
             if (LevelManager.Instance.hideBottleList.Find(bottle => bottle == bottleCtrl) == null)
             {
                 // ???????
-                LevelManager.Instance.hideBottleList.Add(bottleCtrl);              
+                LevelManager.Instance.hideBottleList.Add(bottleCtrl);
             }
 
             // ????????
-                bottleCtrl.SetHideShow(true, i);
+            bottleCtrl.SetHideShow(true, i);
             return bottleCtrl;
 
         }
@@ -93,7 +93,7 @@ public class LevelManagerUtility : IUtility
         if (bottleCtrl.waters[index] == bottleCtrl.GetMoveOutTop())
         {
             bool _flag = false;
-            for (int i = index+1; i < bottleCtrl.topIdx; i++)
+            for (int i = index + 1; i < bottleCtrl.topIdx; i++)
             {
                 if (bottleCtrl.waters[i] != bottleCtrl.GetMoveOutTop())
                     _flag = true;
@@ -101,7 +101,7 @@ public class LevelManagerUtility : IUtility
             return _flag;
         }
 
-      
+
         return true;
     }
 
@@ -166,9 +166,9 @@ public class LevelManagerUtility : IUtility
             bottleCtrl.hideWaters[i] = false;
             // ?ж??????????????????
             bool flag = true;
-            foreach(var hide in bottleCtrl.hideWaters)
+            foreach (var hide in bottleCtrl.hideWaters)
             {
-                if(hide == true)
+                if (hide == true)
                 {
                     flag = false;
                     break;
@@ -217,7 +217,7 @@ public class LevelManagerUtility : IUtility
     }
     private bool RandomBubbleWater(BottleCtrl bottleCtrl)
     {
-        
+
         int random = UnityEngine.Random.Range(0, bottleCtrl.hideWaters.Count - 1);
         for (int i = random; i < bottleCtrl.hideWaters.Count - 1; i++)
         {

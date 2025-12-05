@@ -4,16 +4,17 @@ using UnityEngine;
 
  public abstract class BaseUIAdapter : MonoBehaviour
 {
-    [SerializeField]
-    [Tooltip("ÑÓºóÖ¡Êı£¬Ä¬ÈÏÎª1£¬ÉèÖÃ´ËÖ¡Êı¿ØÖÆ²»Í¬µÄUIAdapterµÄÖ´ĞĞË³Ğò")] protected int frameCount = 1;
-    [SerializeField]
-    [Tooltip("ÊÇ·ñÖ»Ö´ĞĞÒ»´Î")]
+    [SerializeField] [Tooltip("UIAdapteræ›´æ–°é¡ºåº")]
+    protected int frameCount = 1;
+
+    [SerializeField] [Tooltip("æ˜¯å¦åªæ‰§è¡Œä¸€æ¬¡")]
     bool oneTime = false;
     bool mulitTime = true;
-    #region ¶¯Ì¬µ÷ÕûµÄ´¥·¢Óë³õÊ¼»¯
+
+    #region åˆå§‹åŒ–
     void OnEnable()
     {
-        // ÑÓºóÖ´ĞĞ£¬±£Ö¤²»ÊÜµ½¶¯Ì¬uiµÄÓ°Ïì
+        // è®¾ç½®æ˜¯å¦åªæ‰§è¡Œä¸€æ¬¡
         if(oneTime && mulitTime)
         {
             mulitTime = false;

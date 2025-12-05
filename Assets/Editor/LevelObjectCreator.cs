@@ -66,7 +66,7 @@ public class LevelObjectCreator : EditorWindow
             BatchRenameLevelObjects();
         }
 
-        // ????§»???
+        // ????Ð©???
         EditorGUILayout.HelpBox(
             "SO Generation: Creates level asset files based on number range\n" +
             "Manager Assignment: Assigns level objects to specified indices in LevelManager\n" +
@@ -75,7 +75,7 @@ public class LevelObjectCreator : EditorWindow
     }
 
     /// <summary>
-    /// ´´½¨½Å±¾
+    /// åˆ›å»ºè„šæœ¬
     /// </summary>
     private void CreateLevelObject()
     {
@@ -127,7 +127,7 @@ public class LevelObjectCreator : EditorWindow
             return;
         }
 
-        // ?????????¦¶
+        // ?????????Î§
         if (managerStartIndex < 0 || managerEndIndex < 0)
         {
             Debug.LogError("Manager indices cannot be negative!");
@@ -150,7 +150,7 @@ public class LevelObjectCreator : EditorWindow
             return;
         }
 
-        // ???LevelManager???§Ò?????
+        // ???LevelManager???Ð±?????
         if (managerEndIndex >= levelManager.levels.Count)
         {
             int oldCount = levelManager.levels.Count;
@@ -159,7 +159,7 @@ public class LevelObjectCreator : EditorWindow
             Debug.Log($"Expanded LevelManager.levels from {oldCount} to {levelManager.levels.Count}");
         }
 
-        // ???????SO??????????LevelManager?????¦Ë??
+        // ???????SO??????????LevelManager?????Î»??
         int soIndex = soStartNum;
         for (int managerIndex = managerStartIndex;
              managerIndex <= managerEndIndex && soIndex <= soEndNum;
@@ -195,7 +195,7 @@ public class LevelObjectCreator : EditorWindow
             return;
         }
 
-        // ?????????????§Ö?Level????
+        // ?????????????Ðµ?Level????
         var guids = AssetDatabase.FindAssets("t:LevelCreateCtrl", new[] { folderPath });
         if (guids.Length == 0)
         {
@@ -203,7 +203,7 @@ public class LevelObjectCreator : EditorWindow
             return;
         }
 
-        // ???????§Ö??????????
+        // ???????Ðµ??????????
         var fileInfos = new List<FileInfo>();
         foreach (var guid in guids)
         {
@@ -270,7 +270,7 @@ public class LevelObjectCreator : EditorWindow
     }
 
     /// <summary>
-    /// ???????›¥??????
+    /// ???????æ´¢??????
     /// </summary>
     private class FileInfo
     {
