@@ -1,16 +1,14 @@
 ﻿using DG.Tweening;
 using GameAttributes;
 using GameDefine;
-using Newtonsoft.Json.Bson;
 using QFramework;
 using QFramework.Example;
 using Spine;
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 using static LevelCreateCtrl;
@@ -216,10 +214,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         {
             spineGo.gameObject.SetActive(false);
         }
-        SetBottleColor(true, true);
-        int spinePosIdx = topIdx + 1;
-        SetNowSpinePos(spinePosIdx);
-        //PlaySpineWaitAnim();//重复调用
+        SetBottleColor(true);
 
         foreach (var item in waterItems)
         {
@@ -228,7 +223,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 LevelManager.Instance.iceBottles.Add(this);
             }
         }
-        //CheckFinish();
 
         freezeGo.gameObject.SetActive(isFreeze);
         //!isFinish针对回退时是否触发
@@ -260,6 +254,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         }
         SetMaxBottle();
     }
+
     /// <summary>
     /// 结束游戏的时候清空瓶子的状态，类似于真正的初始化瓶子
     /// </summary>
@@ -268,6 +263,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         foreach (var i in this.waterImg)
             i.textItem.text = "";
     }
+
     /// <summary>
     /// 设置瓶子最大装水数
     /// </summary>
@@ -387,7 +383,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// <param name="other"></param>
     public void MoveTo(BottleCtrl other)
     {
-
         int moveNum = other.GetLeftEmpty();
         int sameNum = 1;
 
@@ -436,7 +431,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         #region 倒水后触发、玩家走一步触发、倒水后全局机制
 
         // 瓶子检查
-        other.CheckFinish();
+        other.CheckFinish();        
         // 炸弹更新
         if (!LevelManager.Instance.bombList.Contains(other))
         {
@@ -456,13 +451,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         if (LevelManager.Instance.CheckDeadAfterPour())
             UIKit.OpenPanel<UIRetry>();
 
-        #endregion
+        #endregion  
         //OnCancelSelect();
         other.PlayFillAnim(moveNum, color);
     }
 
     /// <summary>
-    /// 瓶子倒水动画
+    /// 瓶子移动动画
     /// </summary>
     /// <param name="other"></param>
     /// <param name="topIndex"></param>
@@ -513,7 +508,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
                 // 方案二:保持原55帧长度、将Exit Time调整为0.74618(以0.384f结束计算得到、缺点是二次倾斜没完全做完)    
                 ActionKit.Delay(0.384f, () =>
                 {
-                    SetNowSpinePos(topIndex - numWater);
+                    //标记--------瓶子移动不需要更新水面(初始化或接水的时候水面都会更新,所以倒水前不需要再次更新)
+                    //SetNowSpinePos(topIndex - numWater);
                     //回归原点(瓶子摆正动画需同步0.46f 约等于27帧)
                     modelGo.transform.DOLocalMove(Vector3.zero, 0.46f).SetEase(Ease.Linear).OnComplete(() =>
                     {
@@ -542,7 +538,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             }
 
         });
-
     }
 
     /// <summary>
@@ -650,7 +645,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         spineGo.gameObject.SetActive(true);
         int startIdx = useIdx;
-        SetNowSpinePos(startIdx + 1);
+        //标记-----SetBottleColor会调用水面位置更新
+        //SetNowSpinePos(startIdx + 1);
 
         var _type = (ItemType)useColor;
         WaterAttrCache.Dict.TryGetValue(_type, out WaterColorState _attr);
@@ -688,10 +684,10 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             yield return new WaitForSeconds(fillTime);
         }
 
+        SetBottleColor();
+
         //倒水过程结束
         GameCtrl.Instance.ReducePouringCount();
-
-        SetBottleColor();
     }
 
     /// <summary>
@@ -736,27 +732,30 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
             UIKit.OpenPanel<UIMask>(UILevel.PopUI);
         }
 
-
         ++ReceiveCount;
-
-        float fillAlltime = 0.46f;
+        //等待的时长为瓶子移动的第一段时长。
+        float fillAlltime = 0.3f;//0.46f;
         yield return new WaitForSeconds(fillAlltime);
-        SetBottleColor();
-        //float fillAlltime = 1.33f;
+        //不更新水面位置,下方做水面上升动画
+        SetBottleColor(NeedUpdateWaterPos:false);
 
         int startIdx = topIdx + 1 - num;
         var _type = (ItemType)color;
         WaterAttrCache.Dict.TryGetValue(_type, out WaterColorState _attr);
         bool _isRainBowWater = _attr is RainBowWaterState;
-
+        
         if (color < 1000 || _isRainBowWater)
         {
+            //原先是 SetBottleColor 把水面更新到顶部了，然后又要模拟水面上升的效果
+            //所以再把水面设置到接水前的高度，然后通过动画进行水面上升效果
+            //现引入参数，SetBottleColor 时不更新水面位置
             spineGo.gameObject.SetActive(true);
-            SetNowSpinePos(startIdx);
+            //SetNowSpinePos(startIdx);
             spineGoPosition.DOMove(spineNode[topIdx + 1].position, fillAlltime).SetEase(Ease.Linear);
         }
-        else
-            if (startIdx >= 0) SetNowSpinePos(startIdx);
+        //道具没有水面(道具水面不由Spine控制)
+        //else
+        //    if (startIdx >= 0) SetNowSpinePos(startIdx);
 
         PlaySpineAnim();
 
@@ -780,8 +779,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         //有机制道具生效才执行会出现水花动画变长
         if (_hasItemEffect)
             CheckItem();
-        /*     SetBottleColor();*/
-        /*CheckItem();*/
+        //SetBottleColor();
+        //CheckItem();
         //CheckFill();
     }
 
@@ -1279,7 +1278,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// </summary>
     public bool CheckBoomFailure()
     {
-        bool _flag = false;
         var moveNum = LevelManager.Instance.moveNum;
 
         for (int i = 0; i < bombCounts.Count; i++)
@@ -1613,7 +1611,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
 
         StartCoroutine(CoroutinePlayNearHide(true));
 
-        SetBottleColor(false, true);
+        SetBottleColor(false);
         CheckFinish();
     }
 
@@ -1856,8 +1854,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
     /// 设置水块颜色
     /// </summary>
     /// <param name="isFirst"></param>
-    /// <param name="nowaitHide"></param>
-    public void SetBottleColor(bool isFirst = false, bool nowaitHide = false)
+    public void SetBottleColor(bool isFirst = false ,bool NeedUpdateWaterPos = true)
     {
         CheckHide(isFirst);
 
@@ -1903,13 +1900,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent, ICanRegiste
         }
         // 检查水块的道具状态 / 初始化道具spine
         CheckWaterItem();
-        // 更新炸弹
-        /*      UpdateBomb();*/
         // 更新魔法布遮挡状态
         SetClearHide();
+
         // 更新水面位置
-        int spinePosIdx = topIdx + 1;
-        SetNowSpinePos(spinePosIdx);
+        if (NeedUpdateWaterPos)
+            SetNowSpinePos(topIdx + 1);
+
         PlaySpineWaitAnim();
     }
 

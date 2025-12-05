@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using System;
@@ -26,8 +26,8 @@ namespace QFramework.Example
         private const string ITEM_ENTRANCE_EFFECT_PATH = "Prefab/ItemEntranceEffect";
         private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
 
-        [Header("¹Ø¿¨ÄÑ¶ÈUI")]
-        #region ¹Ø¿¨ÄÑ¶ÈUI
+        [Header("å…³å¡éš¾åº¦UI")]
+        #region å…³å¡éš¾åº¦UI
 
         [SerializeField] private Sprite[] imgBtnItemBgSprites;
         [SerializeField] private Sprite[] imgTopBgSprites;
@@ -42,8 +42,8 @@ namespace QFramework.Example
 
         #endregion
 
-        [Header("Ç°Îå¹Ø¹ÊÊÂÒıµ¼UI")]
-        #region Ç°Îå¹Ø¹ÊÊÂÒıµ¼UI
+        [Header("å‰äº”å…³æ•…äº‹å¼•å¯¼UI")]
+        #region å‰äº”å…³æ•…äº‹å¼•å¯¼UI
         [SerializeField] private GameObject g_Star_MagicBook_Guide;
         [SerializeField] private Image mImgProgressBar;
         [SerializeField] private TextMeshProUGUI mStoryTxt;
@@ -64,7 +64,7 @@ namespace QFramework.Example
         protected override void OnInit(IUIData uiData = null)
         {
             mData = uiData as UIGameNodeData ?? new UIGameNodeData();
-            #region È«¾Ö»úÖÆ--Ä§·¨Ã¨ßä
+            #region å…¨å±€æœºåˆ¶--é­”æ³•çŒ«å’ª
             if (mData.GlobalMechanism == GlobalMechanism.WhiteMagicCar || mData.GlobalMechanism == GlobalMechanism.BlackMagicCar)
             {
                 magicCtrl.Init(mData.GlobalMechanism);
@@ -163,8 +163,8 @@ namespace QFramework.Example
             StringEventSystem.Global.Register(GameConst.VICTORY_EVENT, () =>
             {
                 int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-                //Ô­ÊÇµÚ°Ë¹Ø²ÅÏÔÊ¾¶ÎÎ»(5~7¹ØÖ±½Ó·µ»Ø)
-                //ÏÖÔÚÊÇµÚÁù¹ØÏÔÊ¾£¬µÚÎå¹ØÍ¨¹ıÊ±»á´¥·¢·µ»Ø
+                //åŸæ˜¯ç¬¬å…«å…³æ‰æ˜¾ç¤ºæ®µä½(5~7å…³ç›´æ¥è¿”å›)
+                //ç°åœ¨æ˜¯ç¬¬å…­å…³æ˜¾ç¤ºï¼Œç¬¬äº”å…³é€šè¿‡æ—¶ä¼šè§¦å‘è¿”å›
                 if (level - 1 < GameConst.IN_GAME_RANK_BEGIN_LEVEL)
                 {
                     OpenUIVictory();
@@ -173,7 +173,7 @@ namespace QFramework.Example
 
                 var _tempWin = stageModel.InGameRankStreakWinNum;
 
-                //·ÉĞÇĞ§¹û
+                //é£æ˜Ÿæ•ˆæœ
                 var curRankIndex = Mathf.Min(8, Mathf.Max(0, (_tempWin - 1) / 5));
                 FlightEffects.Show();
                 FlightEffects.DOMove(ImgRankLevel.transform.position, 1f)
@@ -181,7 +181,7 @@ namespace QFramework.Example
                 {
                     TxtRankLevel.text = _tempWin.ToString();
 
-                    //¶ÎÎ»ÎŞ½úÉı
+                    //æ®µä½æ— æ™‹å‡
                     if (curRankIndex <= mCacheRankSpriteIndex)
                     {
                         OpenUIVictory();
@@ -210,7 +210,7 @@ namespace QFramework.Example
 
                         if (stageModel.CompareWithHistoryBestRank(curRankIndex))
                         {
-                            //Debug.Log("Ê×´Î½úÉı¶ÎÎ»");
+                            //Debug.Log("é¦–æ¬¡æ™‹å‡æ®µä½");
                             CoinManager.Instance.AddCoin(300);
                             RewardUIManager.Instance.PlayRewardAnim(300, true, null);
 
@@ -220,7 +220,7 @@ namespace QFramework.Example
                             }).Start(this);
                             return;
                         }
-                        //½±ÀøÒÑ¾­ÁìÈ¡
+                        //å¥–åŠ±å·²ç»é¢†å–
                         OpenUIVictory();
                     };
                 });
@@ -228,10 +228,10 @@ namespace QFramework.Example
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
-        #region UI³õÊ¼»¯
+        #region UIåˆå§‹åŒ–
 
         /// <summary>
-        /// Ç°Îå¹Ø¹ÊÊÂUI
+        /// å‰äº”å…³æ•…äº‹UI
         /// </summary>
         private void InitStoryUI()
         {
@@ -256,7 +256,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ĞŞ¸ÄÄÑ¶ÈUI
+        /// ä¿®æ”¹éš¾åº¦UI
         /// </summary>
         private void InitLevelUI()
         {
@@ -279,11 +279,11 @@ namespace QFramework.Example
                     _index = 2;
                     break;
 
-                    // t³õÊ¼»¯Îª0£¬ËùÒÔÃ»ÓĞÓÃDefailtÈ¡0
+                    // tåˆå§‹åŒ–ä¸º0ï¼Œæ‰€ä»¥æ²¡æœ‰ç”¨Defailtå–0
             }
             if (_index != 0)
                 SetTextTip();
-            // »»°´Å¥µÄ±³¾°ÑÕÉ«
+            // æ¢æŒ‰é’®çš„èƒŒæ™¯é¢œè‰²
             /*foreach (var i in imgBtnItemBg)
                 i.sprite = imgBtnItemBgSprites[_index];*/
             imgTopBg.sprite = imgTopBgSprites[_index];
@@ -294,11 +294,11 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// À§ÄÑ¹Ø¿¨µ¯´°UI
+        /// å›°éš¾å…³å¡å¼¹çª—UI
         /// </summary>
         private void SetTextTip()
         {
-            // ÉèÖÃ¶¯»­
+            // è®¾ç½®åŠ¨ç”»
             LevelTipPanel.Show();
             float _durationTime = 1.5f;
             CanvasGroup _canvasGroup = LevelTipPanel.GetComponent<CanvasGroup>();
@@ -316,12 +316,12 @@ namespace QFramework.Example
 
                 });
 
-            // ÉèÖÃÎÄ±¾ 5-20µÄÆ«×ªÖµ
+            // è®¾ç½®æ–‡æœ¬ 5-20çš„åè½¬å€¼
             TextLevelTip.text = UnityEngine.Random.Range(50, 70).ToString() + "% of players were defeated at this level";
         }
 
         /// <summary>
-        /// ¶ÎÎ»UI
+        /// æ®µä½UI
         /// </summary>
         private void InitRankLevel()
         {
@@ -343,7 +343,7 @@ namespace QFramework.Example
                 ImgRankLevel.Show();
                 var _tempWin = stageModel.InGameRankStreakWinNum;
                 TxtRankLevel.text = _tempWin.ToString();
-                //5´ÎÁ¬Ê¤½úÉıÒ»¸ö¶ÎÎ»,×Ü¶ÎÎ»Êı9(ÆğÊ¼0)
+                //5æ¬¡è¿èƒœæ™‹å‡ä¸€ä¸ªæ®µä½,æ€»æ®µä½æ•°9(èµ·å§‹0)
                 mCacheRankSpriteIndex = Mathf.Min(8, Mathf.Max(0, (_tempWin - 1) / 5));
                 ImgRankLevel.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mCacheRankSpriteIndex));
             }
@@ -352,7 +352,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ¿Û³ıĞ¯´øµÀ¾ßÊıÁ¿
+        /// æ‰£é™¤æºå¸¦é“å…·æ•°é‡
         /// </summary>
         private void ConsumeTakeItems()
         {
@@ -385,10 +385,10 @@ namespace QFramework.Example
 
         #endregion
 
-        #region ¸¶·ÑµÀ¾ßÏà¹Ø
+        #region ä»˜è´¹é“å…·ç›¸å…³
 
         /// <summary>
-        /// ÏÔÊ¾µÀ¾ßÍ¼±ê
+        /// æ˜¾ç¤ºé“å…·å›¾æ ‡
         /// </summary>
         private void InitItemUI()
         {
@@ -419,7 +419,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// µÀ¾ß½âËø
+        /// é“å…·è§£é”
         /// </summary>
         /// <param name="PropType"></param>
         private void UnLockItem(NormalRewardsType PropType)
@@ -457,7 +457,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ÏÂ·½µÀ¾ßÀ¸UI¸üĞÂ
+        /// ä¸‹æ–¹é“å…·æ UIæ›´æ–°
         /// </summary>
         private void SetItem()
         {
@@ -502,7 +502,7 @@ namespace QFramework.Example
                     UIKit.OpenPanel<UIBuyItem>(data);
                     return;
                 }
-                //ÅĞ¶ÏÊÇ·ñÓĞºÚË®Æ¿
+                //åˆ¤æ–­æ˜¯å¦æœ‰é»‘æ°´ç“¶
                 if (LevelManager.Instance.hideBottleList.Count != 0)
                 {
                     LevelManager.Instance.RemoveHide(() =>
@@ -558,7 +558,7 @@ namespace QFramework.Example
                 {
                     LevelManager.Instance.RemoveAll(() =>
                     {
-                        //Çå¿Õ²Ù×÷¼ÇÂ¼µÄÕÏ°­(±ÜÃâ»ØÍË»Ö¸´)
+                        //æ¸…ç©ºæ“ä½œè®°å½•çš„éšœç¢(é¿å…å›é€€æ¢å¤)
                         foreach (var bottle in LevelManager.Instance.nowBottles)
                         {
                             foreach (var record in bottle.moveRecords)
@@ -590,8 +590,8 @@ namespace QFramework.Example
         }
         #endregion
 
-        #region Ê±Ğò¶¯×÷
-        // Òì²½¶ÓÁĞ
+        #region æ—¶åºåŠ¨ä½œ
+        // å¼‚æ­¥é˜Ÿåˆ—
         private readonly Queue<Action<Action>> mActionQueue = new();
         private bool mIsRunning = false;
         private bool mAutoItemsExecuted = false;
@@ -621,7 +621,7 @@ namespace QFramework.Example
 
         private void AutoUseAllItems()
         {
-            //Ë«ÖØ±£»¤(±ÜÃâ¿ìËÙµã»÷ÖØ¸´´ò¿ª¸ÃÃæ°åµ¼ÖÂ´íÎó±íÏÖ)
+            //åŒé‡ä¿æŠ¤(é¿å…å¿«é€Ÿç‚¹å‡»é‡å¤æ‰“å¼€è¯¥é¢æ¿å¯¼è‡´é”™è¯¯è¡¨ç°)
             if (mAutoItemsExecuted) return;
             mAutoItemsExecuted = true;
             mActionQueue.Clear();
@@ -633,7 +633,7 @@ namespace QFramework.Example
             {
                 EnqueueAction(_nextItem =>
                 {
-                    //Debug.Log("Á¬Ê¤È¥ºÚÉúĞ§");
+                    //Debug.Log("è¿èƒœå»é»‘ç”Ÿæ•ˆ");
                     StreaWinClearBWater(_nextItem);
                 });
             }
@@ -643,7 +643,7 @@ namespace QFramework.Example
             {
                 EnqueueAction(_nextItem =>
                 {
-                    //Debug.Log("È¥ºÚµÀ¾ßÉúĞ§");
+                    //Debug.Log("å»é»‘é“å…·ç”Ÿæ•ˆ");
                     RemoveOneBottleHideWater(_nextItem);
                 });
             }
@@ -653,7 +653,7 @@ namespace QFramework.Example
             {
                 EnqueueAction(_nextItem =>
                 {
-                    //Debug.Log("È¥DebuffµÀ¾ßÉúĞ§");
+                    //Debug.Log("å»Debuffé“å…·ç”Ÿæ•ˆ");
                     RemoveOneDebuffBottle(_nextItem);
                 });
             }
@@ -663,7 +663,7 @@ namespace QFramework.Example
             {
                 EnqueueAction(_nextItem =>
                 {
-                    //Debug.Log("Ôö¼ÓÆ¿×ÓÉúĞ§");
+                    //Debug.Log("å¢åŠ ç“¶å­ç”Ÿæ•ˆ");
                     AddOneHalfBottle(_nextItem);
                 });
             }
@@ -671,18 +671,18 @@ namespace QFramework.Example
 
         #endregion
 
-        #region Ğ¯´øµÀ¾ßÏà¹Ø
+        #region æºå¸¦é“å…·ç›¸å…³
 
         /// <summary>
-        /// ìî³ıÆ¿ÖĞËùÓĞºÚË®
+        /// ç¥›é™¤ç“¶ä¸­æ‰€æœ‰é»‘æ°´
         /// </summary>
-        /// <param name="useItem">ÊÇ·ñÓÉµÀ¾ßÉúĞ§</param>
+        /// <param name="useItem">æ˜¯å¦ç”±é“å…·ç”Ÿæ•ˆ</param>
         /// <param name="action"></param>
         private void ClearBottleBlackWater(bool useItem, Action action = null)
         {
             if (LevelManager.Instance.hideBottleList.Count > 0)
             {
-                //ÌŞ³ıÄ§·¨²¼ºÍÌÕ´ÉÆ¿µÄÆ¿×Ó
+                //å‰”é™¤é­”æ³•å¸ƒå’Œé™¶ç“·ç“¶çš„ç“¶å­
                 var _tempList = new List<BottleCtrl>(LevelManager.Instance.hideBottleList);
                 _tempList.RemoveAll(item => item.isClearHide || item.isNearHide);
 
@@ -693,7 +693,7 @@ namespace QFramework.Example
                 }
 
                 int _removeCount = useItem ? 1 : _tempList.Count / 2;
-                //ÌØÅĞ´¦Àí(Ö»ÓĞÒ»¸öºÚË®Æ¿)
+                //ç‰¹åˆ¤å¤„ç†(åªæœ‰ä¸€ä¸ªé»‘æ°´ç“¶)
                 _removeCount = Math.Min(_removeCount, _tempList.Count);
 
                 while (_tempList.Count > _removeCount)
@@ -714,7 +714,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// Á¬Ê¤È¥ºÚ
+        /// è¿èƒœå»é»‘
         /// </summary>
         /// <param name="tempList"></param>
         /// <param name="action"></param>
@@ -730,7 +730,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// È¥³ıÒ»Æ¿ºÚË®
+        /// å»é™¤ä¸€ç“¶é»‘æ°´
         /// </summary>
         /// <param name="onComplete"></param>
         private void RemoveOneBottleHideWater(Action onComplete)
@@ -740,14 +740,14 @@ namespace QFramework.Example
             {
                 ClearBottleBlackWater(true, () =>
                 {
-                    // ¶ÓÁĞÍ¨Öª¶¯×÷Íê³É
+                    // é˜Ÿåˆ—é€šçŸ¥åŠ¨ä½œå®Œæˆ
                     onComplete?.Invoke();
                 });
             }, _sprite);
         }
 
         /// <summary>
-        /// Ôö¼ÓÒ»¸ñÆ¿×Ó
+        /// å¢åŠ ä¸€æ ¼ç“¶å­
         /// </summary>
         /// <param name="onComplete"></param>
         private void AddOneHalfBottle(Action onComplete)
@@ -756,23 +756,23 @@ namespace QFramework.Example
             void _changeRainBowWater(Action callback)
             {
                 var _tempWater = new List<int>(LevelManager.Instance.clearList);
-                //1¡¢ÒÆ³ıÒ©Ë®ĞèÒªÏû³ıµÄÑÕÉ«
+                //1ã€ç§»é™¤è¯æ°´éœ€è¦æ¶ˆé™¤çš„é¢œè‰²
                 var changeColors = LevelManager.Instance.nowLevel.changeList.Select(x => x.NeedChangeColor);
                 _tempWater = _tempWater.Except(changeColors).ToList();
-                //2¡¢ÒÆ³ıĞèÒªÏû³ı¶à´ÎÑÕÉ«
+                //2ã€ç§»é™¤éœ€è¦æ¶ˆé™¤å¤šæ¬¡é¢œè‰²
                 _tempWater = _tempWater.GroupBy(x => x).Where(g => g.Count() == 1).Select(g => g.Key).ToList();
-                //3¡¢ÒÆ³ıÄ§·¨²¼µÄÑÕÉ« ºÍ ÏŞÖÆÆ¿ÑÕÉ«
+                //3ã€ç§»é™¤é­”æ³•å¸ƒçš„é¢œè‰² å’Œ é™åˆ¶ç“¶é¢œè‰²
                 var hideColors = LevelManager.Instance.nowBottles
                     .Where(b => b.isClearHide || b.limitColor > 0)
                     .Select(b => b.isClearHide ? b.unlockClear : b.limitColor);
                 _tempWater = _tempWater.Except(hideColors).ToList();
 
-                //4¡¢È¡Ëæ»úÑÕÉ«
+                //4ã€å–éšæœºé¢œè‰²
                 var _colorIdx = _tempWater[UnityEngine.Random.Range(0, _tempWater.Count)];
                 LevelManager.Instance.clearList.Remove(_colorIdx);
                 LevelManager.Instance.clearList.Add((int)ItemType.RainBowWater);
 
-                //±éÀúÓĞÕâ¸öÑÕÉ«µÄÆ¿×Ó£¬Ö´ĞĞ·½·¨
+                //éå†æœ‰è¿™ä¸ªé¢œè‰²çš„ç“¶å­ï¼Œæ‰§è¡Œæ–¹æ³•
                 foreach (var bottle in LevelManager.Instance.nowBottles)
                 {
                     if (bottle.waters.Contains(_colorIdx))
@@ -788,7 +788,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ÒÆ³ıÒ»¸öÆ¿×ÓµÄ¸ºÃæ×´Ì¬
+        /// ç§»é™¤ä¸€ä¸ªç“¶å­çš„è´Ÿé¢çŠ¶æ€
         /// </summary>
         /// <param name="botter"></param>
         private void RemoveOneDebuffBottle(Action onComplete)
@@ -813,8 +813,8 @@ namespace QFramework.Example
             }
 
             PlayParticleEffect(() => _removeDeuff(onComplete), _sprite);
-            /*#region Ô­´òÂÒË®¿é¹¦ÄÜ
-            // Ë÷ÒıÁĞ±íÓÃÓÚËæ»úÏ´ÅÆ
+            /*#region åŸæ‰“ä¹±æ°´å—åŠŸèƒ½
+            // ç´¢å¼•åˆ—è¡¨ç”¨äºéšæœºæ´—ç‰Œ
             List<int> _indices = Enumerable.Range(0, botter.waters.Count).ToList();
             do
             {
@@ -838,13 +838,13 @@ namespace QFramework.Example
                 _newWaterItems.Add(botter.waterItems[idx]);
                 _newBombs.Add(botter.bombCounts[idx]);
             }
-            // Ìæ»»Ô­ÁĞ±í
+            // æ›¿æ¢åŸåˆ—è¡¨
             botter.waters = _newWaters;
             botter.hideWaters = _newHideWater;
             botter.waterItems = _newWaterItems;
             botter.bombCounts = _newBombs;
 
-            //ĞŞ¸ÄË®¿éÑÕÉ«ºÍÇĞ»»µÀ¾ßÎ»ÖÃ
+            //ä¿®æ”¹æ°´å—é¢œè‰²å’Œåˆ‡æ¢é“å…·ä½ç½®
             for (int i = 0; i < botter.waters.Count; i++)
             {
                 var useColor = botter.waters[i] - 1;
@@ -854,7 +854,7 @@ namespace QFramework.Example
                     botter.waterImg[i].SetColorState((ItemType)botter.waters[i], LevelManager.Instance.ItemColor, i == botter.topIdx);
             }
 
-            //ĞŞ¸ÄË®ÃæÎ»ÖÃ£¬ĞŞ¸ÄË®ÃæÑÕÉ«²¢²¥·ÅË®Ãæ¶¯»­
+            //ä¿®æ”¹æ°´é¢ä½ç½®ï¼Œä¿®æ”¹æ°´é¢é¢œè‰²å¹¶æ’­æ”¾æ°´é¢åŠ¨ç”»
             botter.SetNowSpinePos(botter.waters.Count);
             botter.PlaySpineWaitAnim();
             botter.CheckWaterItem();
@@ -863,12 +863,12 @@ namespace QFramework.Example
             LevelManager.Instance.HideItemSelect();
 
             TxtItem3.text = "0";
-            //Debug.Log("´òÂÒË³Ğò³É¹¦");
+            //Debug.Log("æ‰“ä¹±é¡ºåºæˆåŠŸ");
             #endregion*/
         }
 
         /// <summary>
-        /// µÀ¾ßÈë³¡¶¯»­
+        /// é“å…·å…¥åœºåŠ¨ç”»
         /// </summary>
         /// <param name="action"></param>
         private void PlayParticleEffect(Action action, Sprite sprite = null)
@@ -879,7 +879,7 @@ namespace QFramework.Example
             if (sprite != null)
                 _tempObj.GetComponent<SpriteRenderer>().sprite = sprite;
 
-            //UIKit.OpenPanel<UIMask>(UILevel.PopUI);//ÕÚÕÖ
+            //UIKit.OpenPanel<UIMask>(UILevel.PopUI);//é®ç½©
             _tempObj.transform.DOLocalMoveY(0, 1f);
             _tempObj.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 1f)
             .OnComplete(() =>

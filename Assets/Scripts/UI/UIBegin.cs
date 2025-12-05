@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using GameDefine;
 using QFramework;
 using System;
@@ -332,7 +332,8 @@ namespace QFramework.Example
             this.RegisterEvent<GameStartEvent>(e =>
             {
                 LevelManager.Instance.StartGame(saveData.GetCurrentLevel());
-                UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { GlobalMechanism = LevelManager.Instance.globalMechanism });
+                if (!UIKit.GetPanel<UIGameNode>())
+                    UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { GlobalMechanism = LevelManager.Instance.globalMechanism });
 
                 BottomMenuNode.Hide();
                 HomeNode.Hide();
