@@ -1,4 +1,4 @@
-using JsonFileData;
+ï»¿using JsonFileData;
 using Newtonsoft.Json;
 using QFramework;
 using System.Collections;
@@ -15,7 +15,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     public int FreeRewardGotLevel => mFreeRewardGotLevel.Value;
     public int VipRewardGorLevel => mVipRewardGotLevel.Value;
     /// <summary>
-    /// ±ê¼Çµ±Ç°½±ÀøËùµ½µÄµÈ¼¶´Ó1 ¿ªÊ¼£¬Êı¾İµÄ½±ÀøÊÇ´Ó0¿ªÊ¼
+    /// æ ‡è®°å½“å‰å¥–åŠ±æ‰€åˆ°çš„ç­‰çº§ä»1 å¼€å§‹ï¼Œæ•°æ®çš„å¥–åŠ±æ˜¯ä»0å¼€å§‹
     /// </summary>
     public int RewardLevel => mRewardLevel.Value;
     public bool IsVip => mIsVip.Value;
@@ -39,6 +39,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     private BindableProperty<int> mFreeRewardGotLevel;
     private BindableProperty<int> mVipRewardGotLevel;
     private BindableProperty<bool> mIsVip;
+
     protected override void OnInit()
     {
         mStorage = this.GetUtility<SaveDataUtility>();
@@ -50,8 +51,8 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         mVipRewardGotLevel = new BindableProperty<int>();
         mIsVip = new BindableProperty<bool>();
 
-        mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.BPDefaultJson.FileName);
-        mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.BPCurrentJson.FileName);
+        mDelFilePath = Path.Combine(Application.streamingAssetsPath, GameDefine.GameConst.BP_DEFAULT_JSON);
+        mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.BP_CURRENT_JSON);
 
         mGameWinNum.SetValueWithoutEvent(mStorage.LoadIntValue(BP_GAMEWIN_NUM, 0));
         mGameWinNum.Register(value =>
@@ -90,13 +91,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         if (!File.Exists(mCurFilePath))
             ReloadBattlePassActivity();
 
-        //°æ±¾¶Ô±È´úÂëĞ´ÔÚÕâ...
-        // ĞÂ°æ±¾Ö±½Ó´úÌæ¾É°æ±¾£¬ÓÎÏ·ÄÚÈİµÄ¸üĞÂ·Åµ½»î¶¯µÄÖØĞÂ¿ªÆô
-
-
-        /*        // ²âÊÔ£¬·¢²¼ĞèÉ¾³ı
-                ReloadBattlePassActivity();*/
-        //Êı¾İ³ÖÓĞ
+        //æ•°æ®æŒæœ‰
         mJsonFileUtility.LoadFromJson(mCurFilePath, jsonData =>
         {
             mBPDate = JsonConvert.DeserializeObject<BattlePassData>(jsonData);
@@ -106,16 +101,14 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
             mCurrentGetConditions = BPDate.Rewards[RewardLevel].GetConditions;
         else
             mCurrentGetConditions = GameDefine.GameConst.MAX_INT;
-
-
     }
 
     /// <summary>
-    ///  Õ½Áî¸üĞÂµÄÊ±ºò£¬Ö±½ÓÓÃÄ¬ÈÏjson´úÌæµ±Ç°json,Í¬Ê±Çå¿Õ¹ı¹ØÊı¼ÇÂ¼
+    ///  æˆ˜ä»¤æ›´æ–°çš„æ—¶å€™ï¼Œç›´æ¥ç”¨é»˜è®¤jsonä»£æ›¿å½“å‰json,åŒæ—¶æ¸…ç©ºè¿‡å…³æ•°è®°å½•
     /// </summary>
     public void ReloadBattlePassActivity()
     {
-        // Çå³ıÕ½Áî¸ß¼¶¼¤»îºÍ½ø¶È(½±ÀøÁìÈ¡£¬Õ½Áî¼¶±ğ)
+        // æ¸…é™¤æˆ˜ä»¤é«˜çº§æ¿€æ´»å’Œè¿›åº¦(å¥–åŠ±é¢†å–ï¼Œæˆ˜ä»¤çº§åˆ«)
         mGameWinNum.Value = 0;
         mRewardLevel.Value = 1;
         mVipRewardGotLevel.Value = 0;
@@ -124,15 +117,13 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         mJsonFileUtility.LoadFromJson(mDelFilePath, jsonData =>
         {
             BattlePassData tempData = JsonConvert.DeserializeObject<BattlePassData>(jsonData);
-            if (!File.Exists(mCurFilePath))
-                using (File.Create(mCurFilePath)) { }
             mJsonFileUtility.SaveToJson(mCurFilePath, tempData);
             mBPDate = tempData;
         });
 
     }
     /// <summary>
-    /// Ôö¼Ó¼ÆÊı£¬Èç¹û¼ÆÊı´ïµ½ÏÂÒ»¼¶µÄÌõ¼şÊ±£¬¾ÍÔö¼Ó¼¶±ğ,ĞŞ¸ÄÍê³ÉÌõ¼ş£¬Çå¿Õ¼ÆÊı
+    /// å¢åŠ è®¡æ•°ï¼Œå¦‚æœè®¡æ•°è¾¾åˆ°ä¸‹ä¸€çº§çš„æ¡ä»¶æ—¶ï¼Œå°±å¢åŠ çº§åˆ«,ä¿®æ”¹å®Œæˆæ¡ä»¶ï¼Œæ¸…ç©ºè®¡æ•°
     /// </summary>
     public void AddGameWinCount()
     {
@@ -148,16 +139,16 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         }
     }
     /// <summary>
-    /// ³äÖµ¿ªÆô
+    /// å……å€¼å¼€å¯
     /// </summary>
     public void HightBattlePassActivation()
     {
         mIsVip.Value = true;
     }
     /// <summary>
-    /// Ôö¼Ó½±ÀøµÄÁìÈ¡½ø¶È
+    /// å¢åŠ å¥–åŠ±çš„é¢†å–è¿›åº¦
     /// </summary>
-    /// <param name="isVipPack">ÁìÈ¡µÄ½±ÀøÀàĞÍ ÕæÎªHightLevel£¬¼ÙÎª</param>
+    /// <param name="isVipPack">é¢†å–çš„å¥–åŠ±ç±»å‹ çœŸä¸ºHightLevelï¼Œå‡ä¸º</param>
     public void AddRewardGotLevel(bool isVipPack, int level)
     {
         if (isVipPack)

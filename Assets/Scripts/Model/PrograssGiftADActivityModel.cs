@@ -1,4 +1,4 @@
-using JsonFileData;
+ï»¿using JsonFileData;
 using Newtonsoft.Json;
 using QFramework;
 using System.Collections;
@@ -29,8 +29,8 @@ public class PrograssGiftADActivityModel : AbstractModel
         mRewardLevel = new BindableProperty<int>();
         mGiftLevel = new BindableProperty<int>();
 
-        mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.PGDefaultJson.FileName);
-        mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.PGCurrentJson.FileName);
+        mDelFilePath = Path.Combine(Application.streamingAssetsPath, GameDefine.GameConst.PGDefaultJson);
+        mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.PGCurrentJson);
 
         mRewardLevel.SetValueWithoutEvent(mStorage.LoadIntValue(PG_REWARD_LEVEl,0));
         mRewardLevel.Register(value =>
@@ -51,15 +51,11 @@ public class PrograssGiftADActivityModel : AbstractModel
         if (!File.Exists(mCurFilePath))
             ReloadPGActivity();
 
-      /*  // ²âÊÔ£¬·¢²¼ÐèÉ¾³ý
-        ReloadPGActivity();*/
         mJsonFileUtility.LoadFromJson(mCurFilePath, jsonData =>
         {
             mPGData = JsonConvert.DeserializeObject<PGData>(jsonData);
   
         });
-   
-
     }
 
     public void ReloadPGActivity()
@@ -68,8 +64,6 @@ public class PrograssGiftADActivityModel : AbstractModel
         mJsonFileUtility.LoadFromJson(mDelFilePath, jsonData =>
         {
             PGData tempData = JsonConvert.DeserializeObject<PGData>(jsonData);
-            if (!File.Exists(mCurFilePath))
-                using (File.Create(mCurFilePath)) { }
             mJsonFileUtility.SaveToJson(mCurFilePath, tempData);
         });
     }

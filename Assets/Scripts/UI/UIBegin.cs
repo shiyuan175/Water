@@ -1,12 +1,9 @@
 ﻿using DG.Tweening;
 using GameDefine;
-using QFramework;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 
 namespace QFramework.Example

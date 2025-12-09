@@ -1,9 +1,5 @@
-using GameDefine;
+ï»¿using GameDefine;
 using QFramework;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class GameMainArc : Architecture<GameMainArc>
 {
@@ -11,7 +7,7 @@ public class GameMainArc : Architecture<GameMainArc>
     {
         ResKit.Init();
         RegisterUtilitys();
-        CheckUpdateJsonFile();
+        //CheckUpdateJsonFile();
 
         RegisterModels();
         
@@ -50,14 +46,15 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterUtility(new TwoBitUtility());
     }
 
-    //JsonÊı¾İ¸üĞÂ
-    private void CheckUpdateJsonFile()
-    {
-        JsonFileUtility jsonUtility = this.GetUtility<JsonFileUtility>();
-        _ = jsonUtility.UpdateJsonFiles();
-    }
+    //Jsonæ•°æ®æ›´æ–°
+    //private void CheckUpdateJsonFile()
+    //{
+    //    JsonFileUtility jsonUtility = this.GetUtility<JsonFileUtility>();
+    //    _ = jsonUtility.UpdateJsonFiles();
+    //}
 
-    //µ¥Àı¹¹½¨
+    //å•ä¾‹æ„å»º
+
     private void CreateInstance()
     {
         //ResourceManager.Instance.LoadABPackage("uieveladdheart_prefab");
@@ -73,10 +70,10 @@ public class GameMainArc : Architecture<GameMainArc>
         CountDownTimerManager.Instance.StartEasternMidnightTimer(GameDefine.GameConst.FIRST_LAUNCH_SIGN);
     }
 
-    //»î¶¯¿ªÆô
+    //æ´»åŠ¨å¼€å¯
     private void ActivityStart()
     {
-        //Ê×¸öºá·ù»î¶¯
+        //é¦–ä¸ªæ¨ªå¹…æ´»åŠ¨
         var saveData = this.GetUtility<SaveDataUtility>();
         if (saveData.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             CountDownTimerManager.Instance.StartTimer(GameConst.RANKA_ACTIVITY_SIGN, 1440f);

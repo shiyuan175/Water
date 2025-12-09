@@ -1,5 +1,4 @@
-using System;
-using System.Collections;
+ï»¿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -7,12 +6,11 @@ using JsonFileData;
 using Newtonsoft.Json;
 using QFramework;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace JsonFileData
 {
     /// <summary>
-    /// ÓÃÓÚ°æ±¾¶Ô±È
+    /// ç”¨äºç‰ˆæœ¬å¯¹æ¯”
     /// </summary>
     public class VersionWrapper
     {
@@ -20,13 +18,28 @@ namespace JsonFileData
     }
 
     /// <summary>
-    /// ÓÃÓÚÉùÃ÷ÎÄ¼şĞÅÏ¢ºÍ°æ±¾
+    /// ç”¨äºå£°æ˜æ–‡ä»¶ä¿¡æ¯å’Œç‰ˆæœ¬
     /// </summary>
-    public class JsonFileInfo
+    //public class JsonFileInfo
+    //{
+    //    public string FileName;
+    //    public int TargetVersion;
+    //}
+
+    #region é€šç”¨é…ç½®Json
+
+    /// <summary>
+    /// æ¯æ—¥å¥–åŠ±
+    /// </summary>
+    public class DailyReward
     {
-        public string FileName;
-        public int TargetVersion;
+        public bool IsClaim_PlotRewards;
+
     }
+
+
+
+    #endregion
 
     #region Magic Streak Activity Data
     public class MSActivityData
@@ -75,12 +88,15 @@ namespace JsonFileData
     {
         List<TaskGroup> DailyTaskData;
     }
-    #endregion
+
     public class RewardItem
     {
         public string itemType;
         public int itemQuantity;
     }
+
+    #endregion
+
     #region Tier Rank Activity Data
 
     public class TRActivityData
@@ -106,7 +122,6 @@ namespace JsonFileData
     }
     #endregion
 
-
     #region BattlePass Data
 
     public class BattlePassData
@@ -122,8 +137,6 @@ namespace JsonFileData
         public bool FreeIsBox;
         public bool VipIsBox;
     }
-
-
 
     #endregion
 
@@ -141,24 +154,16 @@ namespace JsonFileData
     }
 
     #endregion
-
-
-
 }
 
 public class JsonFileUtility : IUtility
 {
-    // Ä¬ÈÏµÄjsonÊÇÓÃÀ´Í¬²½°æ±¾£¬current
-    private readonly JsonFileInfo[] mJsonFileData = new JsonFileInfo[]
-    {
-        GameDefine.GameConst.MSADefaultJson,
-        GameDefine.GameConst.TRADefaultJson,
-        GameDefine.GameConst.BPDefaultJson,
-        GameDefine.GameConst.PGDefaultJson
-    };
+    /// æ³¨æ„äº‹é¡¹ï¼š
+    /// æ¯ä¸ªJsonæ–‡ä»¶åº”æœ‰ Version å­—æ®µ
+    /// StreamingAssets ä¸‹çš„ Json åº”ä¸ºæœ€æ–°é»˜è®¤ç‰ˆæœ¬
 
     /// <summary>
-    /// ´Ó JSON ÎÄ¼ş¶ÁÈ¡¶ÔÏó
+    /// ä» JSON æ–‡ä»¶è¯»å–å¯¹è±¡
     /// </summary>
     /// <param name="filePath"></param>
     /// <param name="action"></param>
@@ -166,7 +171,7 @@ public class JsonFileUtility : IUtility
     {
         if (!File.Exists(filePath))
         {
-            /*   Debug.Log($"ÎÄ¼ş²»´æÔÚ: {filePath}");*/
+            /*   Debug.Log($"æ–‡ä»¶ä¸å­˜åœ¨: {filePath}");*/
             return;
         }
 
@@ -175,24 +180,30 @@ public class JsonFileUtility : IUtility
     }
 
     /// <summary>
-    /// ±£´æ¶ÔÏóÎª JSON ÎÄ¼ş
+    /// ä¿å­˜å¯¹è±¡ä¸º JSON æ–‡ä»¶
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="filePath"></param>
     /// <param name="data"></param>
     public void SaveToJson<T>(string filePath, T data)
     {
-        //È·±£Â·¾¶´æÔÚ
+        //ç¡®ä¿è·¯å¾„å­˜åœ¨
         Directory.CreateDirectory(Path.GetDirectoryName(filePath));
         string _json = JsonConvert.SerializeObject(data, Formatting.Indented);
         File.WriteAllText(filePath, _json);
-        //Debug.Log($"Êı¾İÒÑ±£´æ: {filePath}");
+        //Debug.Log($"æ•°æ®å·²ä¿å­˜: {filePath}");
     }
 
-    #region ¿½±´ÎÄ¼şµ½³Ö¾Ã»¯Â·¾¶
-    /// ×¢ÒâÊÂÏî£º
-    /// Ã¿¸öJsonÎÄ¼şÓ¦ÓĞ Version ×Ö¶Î ,ÎÄ¼şĞÅÏ¢ĞèÅäÖÃÄ¿±ê°æ±¾
-    /// StreamingAssets ÏÂµÄ Json Ó¦Îª×îĞÂ°æ±¾
+    #region æ‹·è´æ–‡ä»¶åˆ°æŒä¹…åŒ–è·¯å¾„â€”â€”å¼ƒç”¨,é»˜è®¤æ–‡ä»¶ä½¿ç”¨StreamingAssetsä¸‹çš„å³å¯
+
+    // é»˜è®¤çš„jsonæ˜¯ç”¨æ¥åŒæ­¥ç‰ˆæœ¬ï¼Œcurrent
+    //private readonly JsonFileInfo[] mJsonFileData =
+    //{
+    //    //GameDefine.GameConst.MSADefaultJson,
+    //    //GameDefine.GameConst.TRADefaultJson,
+    //    //GameDefine.GameConst.BPDefaultJson,
+    //    //GameDefine.GameConst.PGDefaultJson
+    //};
 
     /*public IEnumerator UpdateJsonFiles()
     {
@@ -205,9 +216,9 @@ public class JsonFileUtility : IUtility
             var _perFilePath = Path.Combine(Application.persistentDataPath, mJsonFileData[i].FileName);
             if (File.Exists(_perFilePath))
             {
-                Debug.Log($"ÎÄ¼ş:{mJsonFileData[i].FileName} ÒÑ´æÔÚ");
+                Debug.Log($"æ–‡ä»¶:{mJsonFileData[i].FileName} å·²å­˜åœ¨");
                 int _localVersion = GetFileVersion(_perFilePath);
-                Debug.Log("µ±Ç°Json°æ±¾£º" + _localVersion);
+                Debug.Log("å½“å‰Jsonç‰ˆæœ¬ï¼š" + _localVersion);
 
                 if (_localVersion >= mJsonFileData[i].TargetVersion)
                     _needUpdate = false;
@@ -217,7 +228,7 @@ public class JsonFileUtility : IUtility
 
             if (_needUpdate)
             {
-                Debug.Log($"ÎÄ¼ş:{mJsonFileData[i]} ²»´æÔÚ»ò°æ±¾¹ıµÍ£¬¸üĞÂÖĞ...");
+                Debug.Log($"æ–‡ä»¶:{mJsonFileData[i]} ä¸å­˜åœ¨æˆ–ç‰ˆæœ¬è¿‡ä½ï¼Œæ›´æ–°ä¸­...");
 #if UNITY_ANDROID && !UNITY_EDITOR
                 var streamingAssetsFilePath = Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName);
                 UnityWebRequest request = UnityWebRequest.Get(streamingAssetsFilePath);
@@ -228,10 +239,10 @@ public class JsonFileUtility : IUtility
                 }
                 else
                 {
-                    Debug.LogError("¿½±´Ê§°Ü: " + request.error);
+                    Debug.LogError("æ‹·è´å¤±è´¥: " + request.error);
                 }
 #else
-                //·Ç°²×¿
+                //éå®‰å“
                 File.Copy(Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName), _perFilePath, true);
                 yield return null;
 #endif
@@ -239,7 +250,7 @@ public class JsonFileUtility : IUtility
         }
     }*/
 
-    public async Task UpdateJsonFiles()
+    /*public async Task UpdateJsonFiles()
     {
         bool _needUpdate;
         for (int i = 0; i < mJsonFileData.Length; i++)
@@ -249,17 +260,17 @@ public class JsonFileUtility : IUtility
             var _perFilePath = Path.Combine(Application.persistentDataPath, mJsonFileData[i].FileName);
             if (File.Exists(_perFilePath))
             {
-                //Debug.Log($"ÎÄ¼ş:{mJsonFileData[i].FileName} ÒÑ´æÔÚ");
+                //Debug.Log($"æ–‡ä»¶:{mJsonFileData[i].FileName} å·²å­˜åœ¨");
                 int _localVersion = GetFileVersion(_perFilePath);
-                //Debug.Log($"{mJsonFileData[i].FileName} µ±Ç°°æ±¾£º" + _localVersion);
-                // ¶ÁÈ¡Ä¬ÈÏµÄjson±È¶ÔjsonµÄversionºÍtargeversion
+                //Debug.Log($"{mJsonFileData[i].FileName} å½“å‰ç‰ˆæœ¬ï¼š" + _localVersion);
+                // è¯»å–é»˜è®¤çš„jsonæ¯”å¯¹jsonçš„versionå’Œtargeversion
                 if (_localVersion >= mJsonFileData[i].TargetVersion)
                     _needUpdate = false;
             }
 
             if (_needUpdate)
             {
-                //Debug.Log($"ÎÄ¼ş:{mJsonFileData[i]} ²»´æÔÚ»ò°æ±¾¹ıµÍ£¬¸üĞÂÖĞ...");
+                //Debug.Log($"æ–‡ä»¶:{mJsonFileData[i]} ä¸å­˜åœ¨æˆ–ç‰ˆæœ¬è¿‡ä½ï¼Œæ›´æ–°ä¸­...");
 #if UNITY_ANDROID && !UNITY_EDITOR
            var streamingAssetsFilePath = Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName);
            using (UnityWebRequest request = UnityWebRequest.Get(streamingAssetsFilePath))
@@ -274,11 +285,11 @@ public class JsonFileUtility : IUtility
                }
                else
                {
-                   //Debug.LogError("¿½±´Ê§°Ü: " + request.error);
+                   //Debug.LogError("æ‹·è´å¤±è´¥: " + request.error);
                }
            }
 #else
-                // ·Ç°²×¿
+                // éå®‰å“
                 await Task.Run(() =>
                 {
                     File.Copy(Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName), _perFilePath, overwrite: true);
@@ -287,10 +298,10 @@ public class JsonFileUtility : IUtility
 #endif
             }
         }
-    }
+    }*/
 
     /// <summary>
-    /// »ñÈ¡Json°æ±¾ºÅ
+    /// è·å–Jsonç‰ˆæœ¬å·
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>

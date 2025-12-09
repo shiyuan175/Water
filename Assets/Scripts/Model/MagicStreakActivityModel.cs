@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using JsonFileData;
@@ -42,8 +42,8 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility ,ICanGetMo
         mJsonFileUtility = this.GetUtility<JsonFileUtility>();
         mStorage = this.GetUtility<SaveDataUtility>();
         mStageModel = this.GetModel<StageModel>();
-        mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.MSADefaultJson.FileName);
-        mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.MSACurrentJson.FileName);
+        mDelFilePath = Path.Combine(Application.streamingAssetsPath, GameDefine.GameConst.MSA_DEFAULT_JSON);
+        mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.MSA_CURRENT_JSON);
 
         mStreakWinNum = new BindableProperty<int>();
         mCurStageReward = new BindableProperty<int>();
@@ -75,9 +75,15 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility ,ICanGetMo
         if (!File.Exists(mCurFilePath))
             ReloadMagicStreakActivity();
 
-        //°æ±¾¶Ô±È´úÂëĞ´ÔÚÕâ...
+        //ç‰ˆæœ¬å¯¹æ¯”ä»£ç å†™åœ¨è¿™...
+        //var localV = this.GetUtility<JsonFileUtility>().GetFileVersion(mCurFilePath);
+        //var dev = this.GetUtility<JsonFileUtility>().GetFileVersion(mDelFilePath);
+        //if (localV < dev)
+        //{
+        //    //ç‰ˆæœ¬å·®å¼‚,æ–°å­—æ®µè¡¥å……æ›´æ–°...
+        //}
 
-        //Êı¾İ³ÖÓĞ
+        //æ•°æ®æŒæœ‰
         mJsonFileUtility.LoadFromJson(mCurFilePath, jsonData =>
         {
             mMSAData = JsonConvert.DeserializeObject<MSActivityData>(jsonData);
@@ -97,8 +103,6 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility ,ICanGetMo
             {
                 item.Score = Random.Range(item.MinInitScore, item.MaxInitScore);
             }
-            if (!File.Exists(mCurFilePath))
-                using (File.Create(mCurFilePath)) { }
             tempData.MSARobots.Sort((a, b) => b.Score.CompareTo(a.Score));
             mJsonFileUtility.SaveToJson(mCurFilePath, tempData);
         });
@@ -109,11 +113,11 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility ,ICanGetMo
         ++mStreakWinNum.Value;
         mMSAData.Player.Score += WinStreakPoints * mStageModel.SettlementMultiple;
 
-        //»úÆ÷ÈË·ÖÊıÔö¼Ó¹æÔò
-        //1     100*H£¬£¨HÎª0-2Ö®¼äµÄËæ»úÊı£©
-        //2-10  1*A+5*B+10*C+25*D+100*E£¬£¨A,B,C,D,EÎª0-1Ö®¼äµÄËæ»úÊı£©
-        //11-30 1*A+5*B+10*C             £¨A,B,CÎª0-2Ö®¼äµÄËæ»úÊı£©
-        //31-50 1*A+5*B                  £¨A,BÎª0-5Ö®¼äµÄËæ»úÊı£©
+        //æœºå™¨äººåˆ†æ•°å¢åŠ è§„åˆ™
+        //1     100*Hï¼Œï¼ˆHä¸º0-2ä¹‹é—´çš„éšæœºæ•°ï¼‰
+        //2-10  1*A+5*B+10*C+25*D+100*Eï¼Œï¼ˆA,B,C,D,Eä¸º0-1ä¹‹é—´çš„éšæœºæ•°ï¼‰
+        //11-30 1*A+5*B+10*C             ï¼ˆA,B,Cä¸º0-2ä¹‹é—´çš„éšæœºæ•°ï¼‰
+        //31-50 1*A+5*B                  ï¼ˆA,Bä¸º0-5ä¹‹é—´çš„éšæœºæ•°ï¼‰
         foreach (var item in mMSAData.MSARobots)
         {
             if (item.Score < item.LimitScore)
@@ -129,10 +133,10 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility ,ICanGetMo
                                     25 * Random.Range(0, 2) + 100 * Random.Range(0, 2));
                         break;
                     case >= 11 and <= 30:
-                        item.Score += (item.Score = 1 * Random.Range(0, 3) + 5 * Random.Range(0, 3) + 10 * Random.Range(0, 3));
+                        item.Score += (1 * Random.Range(0, 3) + 5 * Random.Range(0, 3) + 10 * Random.Range(0, 3));
                         break;
                     case >= 31 and <= 50:
-                        item.Score += (item.Score = 1 * Random.Range(0, 6) + 5 * Random.Range(0, 6));
+                        item.Score += (1 * Random.Range(0, 6) + 5 * Random.Range(0, 6));
                         break;
                 }
             }

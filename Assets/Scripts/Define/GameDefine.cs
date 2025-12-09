@@ -1,4 +1,4 @@
-
+﻿
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -84,58 +84,59 @@ namespace GameDefine
 
         #region Json file info
 
-        public readonly static JsonFileInfo MSADefaultJson = new()
-        {
-            FileName = "MSADefaultData.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo MSACurrentJson = new()
-        {
-            FileName = "MSACurrent.json",
-            TargetVersion = 1
-        };
+        //public static readonly JsonFileInfo MSADefaultJson = new()
+        //{
+        //    FileName = "MSADefaultData.json",
+        //    TargetVersion = 1
+        //};
+        //public static readonly JsonFileInfo MSACurrentJson = new()
+        //{
+        //    FileName = "MSACurrent.json",
+        //    TargetVersion = 1
+        //};
+        public static readonly string MSA_DEFAULT_JSON = "MSADefaultData.json";
+        public static readonly string MSA_CURRENT_JSON = "MSACurrent.json";
 
-        public readonly static JsonFileInfo TRADefaultJson = new()
-        {
-            FileName = "TRADefaultData.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo TRACurrentJson = new()
-        {
-            FileName = "TRA_Data.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo DTDefaultJson = new()
-        {
-            FileName = "DTDefaultData.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo DTCurrentJson = new()
-        {
-            FileName = "DT_Data.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo BPDefaultJson = new()
-        {
-            FileName = "BPDefaultData.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo BPCurrentJson = new()
-        {
-            FileName = "BP_Data.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo PGDefaultJson = new JsonFileInfo()
-        {
-            FileName = "PGDefaultData.json",
-            TargetVersion = 1
-        };
+        //public static readonly JsonFileInfo TRADefaultJson = new()
+        //{
+        //    FileName = "TRADefaultData.json",
+        //    TargetVersion = 1
+        //};
+        //public static readonly JsonFileInfo TRACurrentJson = new()
+        //{
+        //    FileName = "TRA_Data.json",
+        //    TargetVersion = 1
+        //};
+        public static readonly string TRA_DEFAULT_JSON = "TRADefaultData.json";
+        public static readonly string TRA_CURRENT_JSON = "TRA_Data.json";
 
-        public readonly static JsonFileInfo PGCurrentJson = new JsonFileInfo()
-        {
-            FileName = "PG_Data.json",
-            TargetVersion = 1
-        };
+        //public static readonly JsonFileInfo BPDefaultJson = new()
+        //{
+        //    FileName = "BPDefaultData.json",
+        //    TargetVersion = 1
+        //};
+        //public static readonly JsonFileInfo BPCurrentJson = new()
+        
+        //{
+        //    FileName = "BP_Data.json",
+        //    TargetVersion = 1
+        //};
+        public static readonly string BP_DEFAULT_JSON = "BPDefaultData.json";
+        public static readonly string BP_CURRENT_JSON = "BP_Data.json";
+
+        //public static readonly JsonFileInfo PGDefaultJson = new()
+        //{
+        //    FileName = "PGDefaultData.json",
+        //    TargetVersion = 1
+        //};
+        //public static readonly JsonFileInfo PGCurrentJson = new()
+        //{
+        //    FileName = "PG_Data.json",
+        //    TargetVersion = 1
+        //};
+        public static readonly string PGDefaultJson = "PGDefaultData.json";
+        public static readonly string PGCurrentJson = "PG_Data.json";
+
         #endregion
 
         //关卡引导(bottleIndex_1必须大于0，索引为瓶子在levelmanager的bottles所在索引)

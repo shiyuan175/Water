@@ -1,4 +1,4 @@
-using GameDefine;
+ï»¿using GameDefine;
 using JsonFileData;
 using QFramework;
 using System.Collections;
@@ -8,12 +8,8 @@ using UnityEngine;
 public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
 {
     public override string ActivitySign => GameConst.BATTLEPASS_AD_ACTIVITY_SIGN;
-
     public override string ActivityID => GetType().Name;
-
     public override int ActivityBeginLevel => GameConst.BP_AD_BEGIN_LEVEL;
-
-    private BattlePassModel mBPModel;
     public override float ActivityDurationMinutes => 30 * 24 * 60;
     public override GameActivityStatus ActivityStatus
     {
@@ -27,20 +23,24 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
                 return GameActivityStatus.Active;
         }
     }
-    private GameActivityStatus mCurrentStatus;
+
+    private BattlePassModel mBPModel;
+
     public BattlePassADActivity()
     {
         mBPModel = this.GetModel<BattlePassModel>();
         /*        if (GameUtils.DoesCountDownKeyExist(GameConst.BATTLEPASS_AD_ACTIVITY_SIGN))*/
+
         mBPModel.LoadBattlePassActivity();
         this.RegisterEvent<ReturnToMainEvent>((_event) =>
         {
-            // »î¶¯Æô¶¯²Å¼ÆÊı
-            // »î¶¯Æô¶¯²Å¼ÆÊı
+            // æ´»åŠ¨å¯åŠ¨æ‰è®¡æ•°
+            // æ´»åŠ¨å¯åŠ¨æ‰è®¡æ•°
             if (ActivityStatus == GameActivityStatus.Active && _event.PassLevel)
                 mBPModel.AddGameWinCount();
         });
     }
+
     public override void Tick()
     {
         if (!GameUtils.DoesCountDownKeyExist(ActivitySign) &&
@@ -61,14 +61,15 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
     {
         CountDownTimerManager.Instance.ResetTimer(ActivitySign, ActivityDurationMinutes);
         mBPModel.LoadBattlePassActivity();
-        // Î´ÁìÈ¡µÄ½±Àø·¢·Å?
+        // æœªé¢†å–çš„å¥–åŠ±å‘æ”¾?
         mBPModel.ReloadBattlePassActivity();
         mBPModel.LoadBattlePassActivity();
     }
+
     /// <summary>
-    /// ·¢·Å½±Àø
+    /// å‘æ”¾å¥–åŠ±
     /// </summary>
-    /// <param name="pack">Àñ°ü</param>
+    /// <param name="pack">ç¤¼åŒ…</param>
     /// <param name="isVIPPack"></param>
     public void DistributeReward(RewardItem[] pack, bool isVipPack = false, int level = 0)
     {

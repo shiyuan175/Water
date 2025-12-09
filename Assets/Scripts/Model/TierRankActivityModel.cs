@@ -1,4 +1,4 @@
-using JsonFileData;
+ï»¿using JsonFileData;
 using Newtonsoft.Json;
 using QFramework;
 using System.Collections;
@@ -19,8 +19,8 @@ public class TierRankActivityModel : AbstractModel
     protected override void OnInit()
     {
         mJsonFileUtility = this.GetUtility<JsonFileUtility>();
-        mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.TRADefaultJson.FileName);
-        mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.TRACurrentJson.FileName);
+        mDelFilePath = Path.Combine(Application.streamingAssetsPath, GameDefine.GameConst.TRA_DEFAULT_JSON);
+        mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.TRA_CURRENT_JSON);
     }
 
     public void LoadTRAData()
@@ -30,10 +30,10 @@ public class TierRankActivityModel : AbstractModel
         if (!File.Exists(mCurFilePath))
             ReloadTRAData();
 
-        //°æ±¾¶Ô±È
+        //ç‰ˆæœ¬å¯¹æ¯”
         //...
 
-        //Êı¾İ³ÖÓĞ
+        //æ•°æ®æŒæœ‰
         mJsonFileUtility.LoadFromJson(mCurFilePath, jsonData =>
         {
             mTRAData = JsonConvert.DeserializeObject<TRActivityData>(jsonData);
@@ -46,9 +46,6 @@ public class TierRankActivityModel : AbstractModel
         {
             TRActivityData tempData = JsonConvert.DeserializeObject<TRActivityData>(jsonData);
 
-            if (!File.Exists(mCurFilePath))
-                using (File.Create(mCurFilePath)) { }
-
             tempData.TRARobots.Sort((a, b) => b.StreamWinNum.CompareTo(a.StreamWinNum));
             mJsonFileUtility.SaveToJson(mCurFilePath, tempData);
         });
@@ -57,8 +54,8 @@ public class TierRankActivityModel : AbstractModel
     public void StreakWin()
     {
         ++mTRAData.Player.StreamWinNum;
-        //»úÆ÷ÈË¹æÔò
-        //Ò»Î»80%¸ÅÂÊÔö¼ÓÁ¬Ê¤£¬Ò»Î»50%¸ÅÂÊÔö¼ÓÁ¬Ê¤£¬Ê£Óà²»Ôö¼Ó
+        //æœºå™¨äººè§„åˆ™
+        //ä¸€ä½80%æ¦‚ç‡å¢åŠ è¿èƒœï¼Œä¸€ä½50%æ¦‚ç‡å¢åŠ è¿èƒœï¼Œå‰©ä½™ä¸å¢åŠ 
         for (int i = 0; i < mTRAData.TRARobots.Count; i++)
         {
             var _tempBool = false;
@@ -72,7 +69,7 @@ public class TierRankActivityModel : AbstractModel
                 ++mTRAData.TRARobots[i].StreamWinNum;
         }
 
-        //½µĞò
+        //é™åº
         mTRAData.TRARobots.Sort((a, b) => b.StreamWinNum.CompareTo(a.StreamWinNum));
         if (TRAData.Player.StreamWinNum > TRAData.TRARobots[0].StreamWinNum 
             && !CountDownTimerManager.Instance.IsTimerFinished(GameDefine.GameConst.TRA_HALF_ONE_HOUR_RANK))
