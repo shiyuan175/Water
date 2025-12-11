@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class SepecialOfferADActivity : BaseGameADActivity
 {
-    public override string ActivitySign => GameConst.SEPECIALOFFER_AD_ACTIVITY_SIGN;
+    public override string ActivitySign => GameConst.SPECIAL_OFFER_AD_ACTIVITY_SIGN;
 
     public override string ActivityID => GetType().Name;
 

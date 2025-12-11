@@ -9,7 +9,7 @@ public class BannerActivityModel : AbstractModel, ICanGetModel
     public int BACurrentGoal => mBACurrentGoal.Value;
     public int BATotalGoal => mBATotalGoal.Value;
     public int BARewardProgress => mBARewardProgress.Value;
-    //ÎåµµÁ¬Ê¤Ëù¼Ó»ý·Ö
+    //ï¿½åµµï¿½ï¿½Ê¤ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½
     public int WinStreakPoints => mBAStreakWin.Value switch
     {
         >= 5 => 100,
@@ -19,7 +19,7 @@ public class BannerActivityModel : AbstractModel, ICanGetModel
         1 => 1,
         _ => 0
     };
-    //µµÎ»½±ÀøÊÇ·ñÁìÈ¡Íê
+    //ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È¡ï¿½ï¿½
     public bool ProgressEnd => mBARewardProgress.Value >= REWARD_TARGET_GOALS.Length - 1;
     public int[] Reware_Target_Goals => REWARD_TARGET_GOALS;
 
@@ -27,7 +27,7 @@ public class BannerActivityModel : AbstractModel, ICanGetModel
     private const string BA_CURRENT_GOAL = "I_BACurrentGoal";
     private const string BA_TOTAL_GOAL = "I_BATotalGoal";
     private const string BA_REWARD_PROGRESS = "I_BARewardProgress";
-    //¸÷µµÎ»ËùÐè»ý·Ö(25µµ)
+    //ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(25ï¿½ï¿½)
     private readonly int[] REWARD_TARGET_GOALS = new int[]
     {
         1,20,100,300,200,300,400,400,400,500,400,600,500,400,400,800,600,800,700,900,800,800,1000,2000,5000
@@ -39,12 +39,12 @@ public class BannerActivityModel : AbstractModel, ICanGetModel
     private BindableProperty<int> mBARewardProgress;
 
     private SaveDataUtility mSaveDataUtility;
-    private StageModel mStageModel;
+    private GameGlobalModel mGameGlobalModel;
 
     protected override void OnInit()
     {
         mSaveDataUtility = this.GetUtility<SaveDataUtility>();
-        mStageModel = this.GetModel<StageModel>();
+        mGameGlobalModel = this.GetModel<GameGlobalModel>();
 
         mBAStreakWin = new BindableProperty<int>();
         mBACurrentGoal = new BindableProperty<int>();
@@ -76,7 +76,7 @@ public class BannerActivityModel : AbstractModel, ICanGetModel
         });
     }
 
-    //»î¶¯ÖØÖÃ
+    //ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½
     public void ResetBA()
     {
         mBAStreakWin.Value = 0;
@@ -85,21 +85,21 @@ public class BannerActivityModel : AbstractModel, ICanGetModel
         mBARewardProgress.Value = 0;
     }
 
-    //Á¬Ê¤
+    //ï¿½ï¿½Ê¤
     public void BAStrekWin()
     {
         ++mBAStreakWin.Value;
-        mBACurrentGoal.Value += WinStreakPoints * mStageModel.SettlementMultiple;
-        mBATotalGoal.Value += WinStreakPoints * mStageModel.SettlementMultiple;
+        mBACurrentGoal.Value += WinStreakPoints * mGameGlobalModel.SettlementMultiple;
+        mBATotalGoal.Value += WinStreakPoints * mGameGlobalModel.SettlementMultiple;
     }
 
-    //Ê§°Ü
+    //Ê§ï¿½ï¿½
     public void BAFail()
     {
         mBAStreakWin.Value = 0;
     }
 
-    //½øÈëÏÂÒ»½±Àø½ø¶È
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void NextRewardProgress()
     {
         if (!ProgressEnd)

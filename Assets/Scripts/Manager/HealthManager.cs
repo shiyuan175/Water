@@ -1,68 +1,77 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using QFramework;
 using UnityEngine;
 
 [MonoSingletonPath("[Health]/HealthManager")]
-public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
+public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent ,ICanGetModel
 {
-    private const int MAXHP = 5;
-    private const float RECOVERTIME = 1800;
-    private const float SECOND = 60;
-
-    private int nowHp;
-    private DateTime recoverEndTime;        // ÌåÁ¦ÍêÈ«»Ö¸´µÄÊ±¼äµã
-    private string recoverTimeStr;
-
-    private DateTime unLimitHpEndTime;      // ÎŞÏŞÌåÁ¦½ØÖ¹µÄÊ±¼äµã
-    private string unLimitHpTimeStr;
-    private bool unLimitHp;                
-    
+    #region Public Field
     /// <summary>
-    /// ÀëÏßÍ¨ÖªÓÃ
+    /// ç¦»çº¿é€šçŸ¥ç”¨
     /// </summary>
     public DateTime RecoverEndTime => recoverEndTime;
 
     /// <summary>
-    /// µ±Ç°ÌåÁ¦»Ö¸´Ê£ÓàÊ±¼ä
+    /// å½“å‰ä½“åŠ›æ¢å¤å‰©ä½™æ—¶é—´
     /// </summary>
     public string RecoverTimerStr => recoverTimeStr;
 
     /// <summary>
-    /// µ±Ç°ÌåÁ¦
+    /// å½“å‰ä½“åŠ›
     /// </summary>
     public int NowHp => nowHp;
 
     /// <summary>
-    /// ÒÑÊ¹ÓÃÌåÁ¦
+    /// å·²ä½¿ç”¨ä½“åŠ›
     /// </summary>
-    public int UsedHp => MAXHP - nowHp;
+    public int UsedHp => maxHp - nowHp;
 
     /// <summary>
-    /// ÊÇ·ñÂúÌåÁ¦
+    /// æ˜¯å¦æ»¡ä½“åŠ›
     /// </summary>
-    public bool IsMaxHp => nowHp == MAXHP;
+    public bool IsMaxHp => nowHp == maxHp;
 
     /// <summary>
-    /// µ±Ç°»Ö¸´µÄÌåÁ¦µã
+    /// å½“å‰æ¢å¤çš„ä½“åŠ›ç‚¹
     /// </summary>
-    public int CurRecoverySlot => nowHp == MAXHP ? MAXHP : nowHp + 1;
+    public int CurRecoverySlot => nowHp == maxHp ? maxHp : nowHp + 1;
 
     /// <summary>
-    /// ÊÇ·ñÓĞÌåÁ¦
+    /// æ˜¯å¦æœ‰ä½“åŠ›
     /// </summary>
     public bool HasHp => nowHp > 0;
 
     /// <summary>
-    /// ÎŞÏŞÌåÁ¦×´Ì¬
+    /// æ— é™ä½“åŠ›çŠ¶æ€
     /// </summary>
     public bool UnLimitHp => unLimitHp;
 
     /// <summary>
-    /// ÎŞÏŞÌåÁ¦Ê£ÓàÊ±³¤
+    /// æ— é™ä½“åŠ›å‰©ä½™æ—¶é•¿
     /// </summary>
     public string UnLimitHpTimeStr => unLimitHpTimeStr;
+    
+    #endregion
+    
+    #region private Field
+    private const int MINHP = 5;
+    private const float SECOND = 60;
+
+    private int maxHp;
+    private int nowHp;
+    private float recovertimer;
+    
+    private DateTime recoverEndTime;        // ä½“åŠ›å®Œå…¨æ¢å¤çš„æ—¶é—´ç‚¹
+    private string recoverTimeStr;
+
+    private DateTime unLimitHpEndTime;      // æ— é™ä½“åŠ›æˆªæ­¢çš„æ—¶é—´ç‚¹
+    private string unLimitHpTimeStr;
+    private bool unLimitHp;
+    
+    private GameGlobalModel mGameGlobalModel;
+
+    
+    #endregion
 
     #region QF
 
@@ -82,6 +91,11 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
 
     private void Init()
     {
+        mGameGlobalModel = this.GetModel<GameGlobalModel>();
+        mGameGlobalModel.LoadGlobalJson();
+        maxHp = mGameGlobalModel.GameGlobalJsonData.MaxHp > MINHP ? mGameGlobalModel.GameGlobalJsonData.MaxHp : MINHP;
+        recovertimer = mGameGlobalModel.GameGlobalJsonData.HpRecoverTimer;
+        
         nowHp = GetNowHp();
         recoverTimeStr = "00:00";
         string time = GetRecoverEndTime();
@@ -92,7 +106,7 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
             recoverEndTime = DateTime.MinValue;
 
 
-        //¼ì²éÌåÁ¦ÊÇ·ñĞèÒª»Ö¸´
+        //æ£€æŸ¥ä½“åŠ›æ˜¯å¦éœ€è¦æ¢å¤
         CheckRecoverHp();
 
         unLimitHpTimeStr = "00:00";
@@ -102,44 +116,44 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
         else
             unLimitHpEndTime = DateTime.MinValue;
 
-        //¼ì²éÎŞÏŞÌåÁ¦ÊÇ·ñµ½ÆÚ
+        //æ£€æŸ¥æ— é™ä½“åŠ›æ˜¯å¦åˆ°æœŸ
         unLimitHp = CheckUnLimitHp();
     }
 
     /// <summary>
-    /// ¼ì²éÌåÁ¦ÊÇ·ñĞèÒª»Ö¸´
+    /// æ£€æŸ¥ä½“åŠ›æ˜¯å¦éœ€è¦æ¢å¤
     /// </summary>
     private void CheckRecoverHp()
     {
-        //Ä¬ÈÏÖµÎŞÏûºÄÌåÁ¦
+        //é»˜è®¤å€¼æ— æ¶ˆè€—ä½“åŠ›
         if (recoverEndTime == DateTime.MinValue)
             return;
 
         float timer = GetRemainingTime(recoverEndTime);
-        // ÌåÁ¦»Ö¸´Íê³É
+        // ä½“åŠ›æ¢å¤å®Œæˆ
         if (timer <= 0)
             SaveNowHpToMax();
         else
         {
-            //¼ÆËã»¹ĞèÒª»Ö¸´¶àÉÙµãÌåÁ¦ £¬ »ØÂúËùĞèÊ±¼ä / Ò»µãÌåÁ¦»Ö¸´Ê±¼ä  =¡· ÏòÉÏÈ¡Õû
-            int num = (int)Math.Ceiling(timer / RECOVERTIME);
-            //µ±»ØÂúËùĞèÖµ num´óÓÚ»òÕßµÈÓÚ5Ê±(ÀíÂÛ²»»á³öÏÖ´óÓÚmaxHpÇé¿ö) £¬´ú±íÌåÁ¦Ò»¶¨ÊÇ0µã
-            nowHp = num >= MAXHP ? 0 : MAXHP - num;
+            //è®¡ç®—è¿˜éœ€è¦æ¢å¤å¤šå°‘ç‚¹ä½“åŠ› ï¼Œ å›æ»¡æ‰€éœ€æ—¶é—´ / ä¸€ç‚¹ä½“åŠ›æ¢å¤æ—¶é—´  =ã€‹ å‘ä¸Šå–æ•´
+            int num = (int)Math.Ceiling(timer / recovertimer);
+            //å½“å›æ»¡æ‰€éœ€å€¼ numå¤§äºæˆ–è€…ç­‰äº5æ—¶(ç†è®ºä¸ä¼šå‡ºç°å¤§äºmaxHpæƒ…å†µ) ï¼Œä»£è¡¨ä½“åŠ›ä¸€å®šæ˜¯0ç‚¹
+            nowHp = num >= maxHp ? 0 : maxHp - num;
             SaveNowHp(nowHp);
         }
     }
 
     /// <summary>
-    /// »ñÈ¡µ±Ç°ÕâÒ»µãÌåÁ¦µÄ»Ö¸´Ê±¼ä
+    /// è·å–å½“å‰è¿™ä¸€ç‚¹ä½“åŠ›çš„æ¢å¤æ—¶é—´
     /// </summary>
     /// <returns></returns>
     private TimeSpan GetNowRecoverTime()
     {
-        // ÓÃÓÚ¼ÆËãµ±Ç°ÌåÁ¦¶ÔÓ¦µÄ»Ö¸´Ê±¼ä(¼´ÍùÇ°µ¹ÍÆ hpDifference ¸ö»Ö¸´ÖÜÆÚ)
-        int hpDifference = MAXHP - nowHp - 1;
-        // AddSeconds,Ôö¼ÓÃëÊı(¿ÛµôhpDifferenceµã»Ö¸´Ê±¼ä£¬Ê£ÓàµÄ±íÊ¾µ±Ç°ÌåÁ¦»Ö¸´Ê±³¤)
-        DateTime nowRecoverTime = recoverEndTime.AddSeconds(-RECOVERTIME * hpDifference);
-        // »ñÈ¡µ±Ç°Ê±¼äÓë»Ö¸´Íê³ÉÊ±¼äµÄÊ±¼ä¼ä¸ô
+        // ç”¨äºè®¡ç®—å½“å‰ä½“åŠ›å¯¹åº”çš„æ¢å¤æ—¶é—´(å³å¾€å‰å€’æ¨ hpDifference ä¸ªæ¢å¤å‘¨æœŸ)
+        int hpDifference = maxHp - nowHp - 1;
+        // AddSeconds,å¢åŠ ç§’æ•°(æ‰£æ‰hpDifferenceç‚¹æ¢å¤æ—¶é—´ï¼Œå‰©ä½™çš„è¡¨ç¤ºå½“å‰ä½“åŠ›æ¢å¤æ—¶é•¿)
+        DateTime nowRecoverTime = recoverEndTime.AddSeconds(-recovertimer * hpDifference);
+        // è·å–å½“å‰æ—¶é—´ä¸æ¢å¤å®Œæˆæ—¶é—´çš„æ—¶é—´é—´éš”
         TimeSpan recoverInterval = nowRecoverTime - DateTime.Now;
         if (recoverInterval.TotalSeconds < 0)
         {
@@ -149,16 +163,16 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
     }
 
     /// <summary>
-    /// µ¹¼ÆÊ±½áÊø»Ö¸´Ò»µãÌåÁ¦
+    /// å€’è®¡æ—¶ç»“æŸæ¢å¤ä¸€ç‚¹ä½“åŠ›
     /// </summary>
     private void CountDownAddHp()
     {
-        nowHp = nowHp + 1 > MAXHP ? MAXHP : nowHp + 1;
+        nowHp = nowHp + 1 > maxHp ? maxHp : nowHp + 1;
         SaveNowHp(nowHp);
     }
 
     /// <summary>
-    /// ¼ì²éÎŞÏŞÌåÁ¦ÊÇ·ñµ½ÆÚ
+    /// æ£€æŸ¥æ— é™ä½“åŠ›æ˜¯å¦åˆ°æœŸ
     /// </summary>
     private bool CheckUnLimitHp()
     {
@@ -178,31 +192,29 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
     }
 
     /// <summary>
-    /// »ñÈ¡»Ö¸´ËùÓĞÌåÁ¦µÄËùĞèÊ±¼ä
-    /// »ñÈ¡ÎŞÏŞÌåÁ¦Ê£ÓàÊ±¼ä
+    /// è·å–æ¢å¤æ‰€æœ‰ä½“åŠ›çš„æ‰€éœ€æ—¶é—´
+    /// è·å–æ— é™ä½“åŠ›å‰©ä½™æ—¶é—´
     /// </summary>
     /// <returns></returns>
     private float GetRemainingTime(DateTime endTime)
     {
-        //»ñÈ¡µ±Ç°Ê±¼äÓë Ä¿±êÊ±¼äµÄÊ±¼ä¼ä¸ô
+        //è·å–å½“å‰æ—¶é—´ä¸ ç›®æ ‡æ—¶é—´çš„æ—¶é—´é—´éš”
         TimeSpan recoverInterval = endTime - DateTime.Now;
         float remainingTime = (float)recoverInterval.TotalSeconds;
         return remainingTime;
     }
 
-    #endregion
-
     private void Update()
     {
-        if (nowHp < MAXHP)
+        if (nowHp < maxHp)
         {
-            //TotalMinutes×ªÎª×Ü·ÖÖÓÊı
-            //TotalSeconds×ªÎª×ÜÃëÊı
+            //TotalMinutesè½¬ä¸ºæ€»åˆ†é’Ÿæ•°
+            //TotalSecondsè½¬ä¸ºæ€»ç§’æ•°
             TimeSpan timer = GetNowRecoverTime();
-            //Debug.Log($"×Ü·ÖÖÓÊı:{timer.TotalSeconds}");
-            //Debug.Log($"×ÜÃëÊı:{timer.TotalMinutes}");
-            //Debug.Log($"·ÖÖÓÊı:{timer.Seconds}");
-            //Debug.Log($"ÃëÊı:{timer.Minutes}");
+            //Debug.Log($"æ€»åˆ†é’Ÿæ•°:{timer.TotalSeconds}");
+            //Debug.Log($"æ€»ç§’æ•°:{timer.TotalMinutes}");
+            //Debug.Log($"åˆ†é’Ÿæ•°:{timer.Seconds}");
+            //Debug.Log($"ç§’æ•°:{timer.Minutes}");
             int minutes = (int)timer.TotalMinutes;
             int seconds = timer.Seconds;
             recoverTimeStr = $"{minutes}:{seconds:D2}";
@@ -222,49 +234,52 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
                 unLimitHpTimeStr = "00:00";
                 SaveUnLimitHpEndTime(string.Empty);
                 unLimitHp = false;
-                // ¸üĞÂUI×´Ì¬(È¡ÏûÎŞÏŞÌåÁ¦×´Ì¬)
+                // æ›´æ–°UIçŠ¶æ€(å–æ¶ˆæ— é™ä½“åŠ›çŠ¶æ€)
                 this.SendEvent<VitalityChangeEvent>(new VitalityChangeEvent());
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            mGameGlobalModel.ReduceHpRecoverTimer(1200);
+        }
     }
-
-    #region Data Storage
-
+    
     /// <summary>
-    /// ´æ´¢µ±Ç°ÌåÁ¦
+    /// å­˜å‚¨å½“å‰ä½“åŠ›
     /// </summary>
     /// <param name="value"></param>
     private void SaveNowHp(int value)
     {
         PlayerPrefs.SetInt("_NowHp", value);
-        //·¢ËÍÊÂ¼şÍ¨ÖªÌåÁ¦±ä¸üµÈ
+        //å‘é€äº‹ä»¶é€šçŸ¥ä½“åŠ›å˜æ›´ç­‰
         this.SendEvent<VitalityChangeEvent>(new VitalityChangeEvent());
         
     }
     
     /// <summary>
-    /// ¹ºÂòÌåÁ¦/ÀëÏßÌåÁ¦»Ö¸´Âú/ÂúÌåÁ¦µÈÇé¿öµ÷ÓÃ
+    /// è´­ä¹°ä½“åŠ›/ç¦»çº¿ä½“åŠ›æ¢å¤æ»¡/æ»¡ä½“åŠ›ç­‰æƒ…å†µè°ƒç”¨
     /// </summary>
     private void SaveNowHpToMax()
     {
-        nowHp = MAXHP;
+        nowHp = maxHp;
         recoverEndTime = DateTime.MinValue;
         recoverTimeStr = "00:00";
-        SaveNowHp(MAXHP);
+        SaveNowHp(maxHp);
         SaveRecoverEndTime(string.Empty);
     }
 
     /// <summary>
-    /// »ñÈ¡µ±Ç°ÌåÁ¦
+    /// è·å–å½“å‰ä½“åŠ›
     /// </summary>
     /// <returns></returns>
     private int GetNowHp()
     {
-        return PlayerPrefs.GetInt("_NowHp", MAXHP);
+        return PlayerPrefs.GetInt("_NowHp", maxHp);
     }
 
     /// <summary>
-    /// »ñÈ¡ÌåÁ¦ÍêÈ«»Ö¸´µÄÊ±¼äµã
+    /// è·å–ä½“åŠ›å®Œå…¨æ¢å¤çš„æ—¶é—´ç‚¹
     /// </summary>
     /// <returns></returns>
     private string GetRecoverEndTime()
@@ -273,7 +288,7 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
     }
 
     /// <summary>
-    /// ±£´æÌåÁ¦ÍêÈ«»Ö¸´µÄÊ±¼äµã
+    /// ä¿å­˜ä½“åŠ›å®Œå…¨æ¢å¤çš„æ—¶é—´ç‚¹
     /// </summary>
     /// <param name="value"></param>
     private void SaveRecoverEndTime(string value)
@@ -282,7 +297,7 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
     }
 
     /// <summary>
-    /// ÉèÖÃÎŞÏŞÌåÁ¦½ØÖ¹Ê±¼ä
+    /// è®¾ç½®æ— é™ä½“åŠ›æˆªæ­¢æ—¶é—´
     /// </summary>
     /// <param name="value"></param>
     private void SaveUnLimitHpEndTime(string value)
@@ -291,34 +306,35 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
     }
 
     /// <summary>
-    /// »ñÈ¡ÎŞÏŞÌåÁ¦½ØÖ¹Ê±¼ä
+    /// è·å–æ— é™ä½“åŠ›æˆªæ­¢æ—¶é—´
     /// </summary>
     private string GetUnLimitHpEndTime()
     {
         return PlayerPrefs.GetString("_UnLimitHpEndTime", string.Empty);
     }
+    
     #endregion
 
     /// <summary>
-    /// »Ö¸´Ò»µãÌåÁ¦
+    /// æ¢å¤ä¸€ç‚¹ä½“åŠ›
     /// </summary>
     public void AddHp()
     {
-        nowHp = nowHp + 1 > MAXHP ? MAXHP : nowHp + 1;
-        if (nowHp == MAXHP)
+        nowHp = nowHp + 1 > maxHp ? maxHp : nowHp + 1;
+        if (nowHp == maxHp)
         {
             SaveNowHpToMax();
             return;
         }
 
         SaveNowHp(nowHp);
-        //ÖØĞÂÉèÖÃÌåÁ¦»Ö¸´ÂúµÄÊ±¼äµã(ÓÃÒÑÊ¹ÓÃÌåÁ¦ÉèÖÃ)
-        recoverEndTime = DateTime.Now.AddSeconds(UsedHp * RECOVERTIME);
+        //é‡æ–°è®¾ç½®ä½“åŠ›æ¢å¤æ»¡çš„æ—¶é—´ç‚¹(ç”¨å·²ä½¿ç”¨ä½“åŠ›è®¾ç½®)
+        recoverEndTime = DateTime.Now.AddSeconds(UsedHp * recovertimer);
         SaveRecoverEndTime(recoverEndTime.ToString());
     }
 
     /// <summary>
-    /// ÏûºÄÌåÁ¦µÄ·½·¨(ÏûºÄÒ»µãÌåÁ¦)
+    /// æ¶ˆè€—ä½“åŠ›çš„æ–¹æ³•(æ¶ˆè€—ä¸€ç‚¹ä½“åŠ›)
     /// </summary>
     public void UseHp()
     {
@@ -329,17 +345,17 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
         {
             nowHp--;
             SaveNowHp(nowHp);
-            if (nowHp == MAXHP - 1)
+            if (nowHp == maxHp - 1)
             {
-                recoverEndTime = DateTime.Now.AddSeconds(RECOVERTIME);
+                recoverEndTime = DateTime.Now.AddSeconds(recovertimer);
                 SaveRecoverEndTime(recoverEndTime.ToString());
             }
             else if (nowHp >= 0)
             {
-                //»ñÈ¡ÌåÁ¦»Ö¸´ÍêÈ«µÄÊ±¼ä
+                //è·å–ä½“åŠ›æ¢å¤å®Œå…¨çš„æ—¶é—´
                 string time = GetRecoverEndTime();
                 DateTime lastTime = DateTime.Parse(time);
-                recoverEndTime = lastTime.AddSeconds(RECOVERTIME);
+                recoverEndTime = lastTime.AddSeconds(recovertimer);
                 SaveRecoverEndTime(recoverEndTime.ToString());
             }
         }
@@ -351,7 +367,7 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
     }
 
     /// <summary>
-    /// »Ö¸´ÂúÌåÁ¦
+    /// æ¢å¤æ»¡ä½“åŠ›
     /// </summary>
     public void SetNowHpToMax()
     {
@@ -359,14 +375,14 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
     }
 
     /// <summary>
-    /// ÉèÖÃÎŞÏŞÌåÁ¦
+    /// è®¾ç½®æ— é™ä½“åŠ›
     /// </summary>
-    /// <param name="minute">Ê±³¤(µ¥Î»·ÖÖÓ)</param>
+    /// <param name="minute">æ—¶é•¿(å•ä½åˆ†é’Ÿ)</param>
     public void SetUnLimitHp(int minute)
     {
         unLimitHp = true;
 
-        // ÅĞ¶ÏÊÇ·ñÀÛ¼ÓÊ±³¤
+        // åˆ¤æ–­æ˜¯å¦ç´¯åŠ æ—¶é•¿
         string time = GetUnLimitHpEndTime();
         if (!string.IsNullOrEmpty(time))
             unLimitHpEndTime = unLimitHpEndTime.AddSeconds(minute * SECOND);
@@ -374,9 +390,9 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
             unLimitHpEndTime = DateTime.Now.AddSeconds(minute * SECOND);
         SaveUnLimitHpEndTime(unLimitHpEndTime.ToString());
 
-        // ÓÅ»¯Ïî
-        // ÎŞÏŞÌåÁ¦µÄÊ±¼ä´óÓÚµ±Ç°µÄÌåÁ¦»Ö¸´Ê±¼äÔò»Ö¸´Âú
-        if (nowHp < MAXHP)
+        // ä¼˜åŒ–é¡¹
+        // æ— é™ä½“åŠ›çš„æ—¶é—´å¤§äºå½“å‰çš„ä½“åŠ›æ¢å¤æ—¶é—´åˆ™æ¢å¤æ»¡
+        if (nowHp < maxHp)
         {
             float remainingRecoverTime = GetRemainingTime(recoverEndTime);
             //float unLimitDuration = minute * SECOND;
@@ -385,10 +401,22 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent
                 SetNowHpToMax();
         }
 
-        // ¸üĞÂUI×´Ì¬(ÉèÖÃÎŞÏŞÌåÁ¦×´Ì¬)
+        // æ›´æ–°UIçŠ¶æ€(è®¾ç½®æ— é™ä½“åŠ›çŠ¶æ€)
         this.SendEvent<VitalityChangeEvent>(new VitalityChangeEvent());
     }
 
+    /// <summary>
+    /// é‡æ–°æ›´æ–°ä½“åŠ›æ¢å¤æ»¡çš„æ—¶åˆ»
+    /// </summary>
+    public void RecalculateRecoverEndTime()
+    {
+        maxHp = mGameGlobalModel.GameGlobalJsonData.MaxHp > MINHP ? mGameGlobalModel.GameGlobalJsonData.MaxHp : MINHP;
+        recovertimer = mGameGlobalModel.GameGlobalJsonData.HpRecoverTimer;
+        
+        if (nowHp >= maxHp) return;
+        recoverEndTime = DateTime.Now.AddSeconds(UsedHp * recovertimer);
+        SaveRecoverEndTime(recoverEndTime.ToString());
+    }
 
     #region TestFun
 

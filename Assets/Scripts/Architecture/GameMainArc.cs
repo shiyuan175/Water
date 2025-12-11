@@ -1,5 +1,6 @@
 ﻿using GameDefine;
 using QFramework;
+using UnityEngine;
 
 public class GameMainArc : Architecture<GameMainArc>
 {
@@ -14,10 +15,12 @@ public class GameMainArc : Architecture<GameMainArc>
         CreateInstance();
         ActivityStart();
     }
+    
+    
 
     private void RegisterModels()
     {
-        RegisterModel(new StageModel());
+        RegisterModel(new GameGlobalModel());
         RegisterModel(new PotionActivityModel());
         RegisterModel(new BannerActivityModel());
         RegisterModel(new RankDataModel());

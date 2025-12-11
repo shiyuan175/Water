@@ -8,23 +8,23 @@ using UnityEngine;
 
 public class RewardGrantUtility : IUtility, ICanGetModel
 {
-    StageModel _StageModel;
+    GameGlobalModel _gameGlobalModel;
     public void GrantReward(IPackSoInterface rewardPackSO)
     {
-        _StageModel = this.GetModel<StageModel>();
+        _gameGlobalModel = this.GetModel<GameGlobalModel>();
         CoinManager.Instance.AddCoin(rewardPackSO.Coins);
-        //ÓÀ¾ÃÈ¥¹ã¸æÂß¼­´ý²¹³ä rewardPackSO.RemoveAdsForever
+        //ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ rewardPackSO.RemoveAdsForever
 
         foreach (var item in rewardPackSO.ItemReward)
         {
-            _StageModel.AddItem((int)item.NormalRewardsType, item.Quantity);
+            _gameGlobalModel.AddItem((int)item.NormalRewardsType, item.Quantity);
         }
         foreach (var item in rewardPackSO.SpecialRewards)
         {
             switch (item.SpecialRewardType)
             {
                 case SpecialRewardsType.RemoveAds:
-                    Debug.Log("È¥³ý¹ã¸æÂß¼­ÔÝ¿Õ");
+                    Debug.Log("È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½Ý¿ï¿½");
                     break;
                 case SpecialRewardsType.DoubleCoin:
                     CountDownTimerManager.Instance.AddTimer(GameDefine.GameConst.DOUBLE_COIN_SIGN, item.Duration);
@@ -33,7 +33,7 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                     HealthManager.Instance.SetUnLimitHp(item.Duration);
                     break;
 
-                //ÓÐÅäÖÃ Description ÌØÐÔ×ßÄ¬ÈÏ´¦ÀíÂß¼­
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Description ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
                 default:
                     CountDownTimerManager.Instance.AddTimer(GameEnum.GetDescription(item.SpecialRewardType), item.Duration);
                     break;
@@ -42,7 +42,7 @@ public class RewardGrantUtility : IUtility, ICanGetModel
     }
     public void GrantReward(RewardItem[] rewardItems)
     {
-        _StageModel = this.GetModel<StageModel>();
+        _gameGlobalModel = this.GetModel<GameGlobalModel>();
         foreach (var item in rewardItems)
         {
             string rewardString = item.itemType;
@@ -52,7 +52,7 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                 switch (_rewardEnum1)
                 {
                     case SpecialRewardsType.RemoveAds:
-                        Debug.Log("È¥³ý¹ã¸æÂß¼­ÔÝ¿Õ");
+                        Debug.Log("È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½Ý¿ï¿½");
                         break;
                     case SpecialRewardsType.DoubleCoin:
                         CountDownTimerManager.Instance.AddTimer(GameDefine.GameConst.DOUBLE_COIN_SIGN, item.itemQuantity);
@@ -61,7 +61,7 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                         HealthManager.Instance.SetUnLimitHp(item.itemQuantity);
                         break;
 
-                    //ÓÐÅäÖÃ Description ÌØÐÔ×ßÄ¬ÈÏ´¦ÀíÂß¼­
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Description ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
                     default:
                         CountDownTimerManager.Instance.AddTimer(GameEnum.GetDescription(_rewardEnum1), item.itemQuantity);
                         break;
@@ -71,7 +71,7 @@ public class RewardGrantUtility : IUtility, ICanGetModel
             NormalRewardsType _rewardEnum2;
             if (Enum.TryParse<NormalRewardsType>(rewardString, out _rewardEnum2))
             {
-                _StageModel.AddItem((int)_rewardEnum2, item.itemQuantity);
+                _gameGlobalModel.AddItem((int)_rewardEnum2, item.itemQuantity);
             }
         }
     }

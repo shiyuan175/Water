@@ -50,7 +50,7 @@ namespace QFramework.Example
         #endregion
 
         private ResLoader mResLoader;
-        private StageModel stageModel;
+        private GameGlobalModel gameGlobalModel;
         private SpriteAtlas mRankLevelSpriteAtlas;
 
         private int mCacheRankSpriteIndex;
@@ -75,7 +75,7 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-            stageModel = this.GetModel<StageModel>();
+            gameGlobalModel = this.GetModel<GameGlobalModel>();
             mIsOpenUIVictory = false;
 
             LoadRes();
@@ -101,7 +101,7 @@ namespace QFramework.Example
 
         protected override void OnClose()
         {
-            stageModel = null;
+            gameGlobalModel = null;
             BtnStepBack.onClick.RemoveAllListeners();
             BtnRemoveHide.onClick.RemoveAllListeners();
             BtnAddBottle.onClick.RemoveAllListeners();
@@ -171,7 +171,7 @@ namespace QFramework.Example
                     return;
                 }
 
-                var _tempWin = stageModel.InGameRankStreakWinNum;
+                var _tempWin = gameGlobalModel.InGameRankStreakWinNum;
 
                 //飞星效果
                 var curRankIndex = Mathf.Min(8, Mathf.Max(0, (_tempWin - 1) / 5));
@@ -208,7 +208,7 @@ namespace QFramework.Example
                     {
                         SpineRankPromotion.Hide();
 
-                        if (stageModel.CompareWithHistoryBestRank(curRankIndex))
+                        if (gameGlobalModel.CompareWithHistoryBestRank(curRankIndex))
                         {
                             //Debug.Log("首次晋升段位");
                             CoinManager.Instance.AddCoin(300);
@@ -341,7 +341,7 @@ namespace QFramework.Example
             if (level >= GameConst.IN_GAME_RANK_BEGIN_LEVEL)
             {
                 ImgRankLevel.Show();
-                var _tempWin = stageModel.InGameRankStreakWinNum;
+                var _tempWin = gameGlobalModel.InGameRankStreakWinNum;
                 TxtRankLevel.text = _tempWin.ToString();
                 //5次连胜晋升一个段位,总段位数9(起始0)
                 mCacheRankSpriteIndex = Mathf.Min(8, Mathf.Max(0, (_tempWin - 1) / 5));
@@ -373,11 +373,11 @@ namespace QFramework.Example
             {
                 string _sign = GameEnum.GetDescription(itemIds[i]);
 
-                bool _isTakeItem = (takeItems.Contains((int)itemIds[i]) && (stageModel.ItemDic[(int)itemIds[i]] > 0));
+                bool _isTakeItem = (takeItems.Contains((int)itemIds[i]) && (gameGlobalModel.ItemDic[(int)itemIds[i]] > 0));
                 _sign = GameEnum.GetDescription(unlimitItems[i]);
                 if (_isTakeItem && CountDownTimerManager.Instance.IsTimerFinished(_sign))
                 {
-                    stageModel.ReduceItem((int)itemIds[i], 1);
+                    gameGlobalModel.ReduceItem((int)itemIds[i], 1);
                 }
 
             }
@@ -461,42 +461,42 @@ namespace QFramework.Example
         /// </summary>
         private void SetItem()
         {
-            stageModel = this.GetModel<StageModel>();
-            BtnAddStepBack.gameObject.SetActive(stageModel.ItemDic[1] <= 0);
-            TxtRefreshNum.text = stageModel.ItemDic[1].ToString();
+            gameGlobalModel = this.GetModel<GameGlobalModel>();
+            BtnAddStepBack.gameObject.SetActive(gameGlobalModel.ItemDic[1] <= 0);
+            TxtRefreshNum.text = gameGlobalModel.ItemDic[1].ToString();
 
-            BtnAddRemove.gameObject.SetActive(stageModel.ItemDic[2] <= 0);
-            TxtRemoveHideNum.text = stageModel.ItemDic[2].ToString();
+            BtnAddRemove.gameObject.SetActive(gameGlobalModel.ItemDic[2] <= 0);
+            TxtRemoveHideNum.text = gameGlobalModel.ItemDic[2].ToString();
 
-            BtnAddAddBottle.gameObject.SetActive(stageModel.ItemDic[3] <= 0);
-            TxtAddBottleNum.text = stageModel.ItemDic[3].ToString();
+            BtnAddAddBottle.gameObject.SetActive(gameGlobalModel.ItemDic[3] <= 0);
+            TxtAddBottleNum.text = gameGlobalModel.ItemDic[3].ToString();
 
-            BtnAddHalfBottle.gameObject.SetActive(stageModel.ItemDic[4] <= 0);
-            TxtAddHalfBottleNum.text = stageModel.ItemDic[4].ToString();
+            BtnAddHalfBottle.gameObject.SetActive(gameGlobalModel.ItemDic[4] <= 0);
+            TxtAddHalfBottleNum.text = gameGlobalModel.ItemDic[4].ToString();
 
-            BtnAddRemoveBottle.gameObject.SetActive(stageModel.ItemDic[5] <= 0);
-            TxtRemoveAllNum.text = stageModel.ItemDic[5].ToString();
+            BtnAddRemoveBottle.gameObject.SetActive(gameGlobalModel.ItemDic[5] <= 0);
+            TxtRemoveAllNum.text = gameGlobalModel.ItemDic[5].ToString();
         }
 
         private void BtnSetpBackOnClick()
         {
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
-                if (stageModel.ItemDic[1] <= 0)
+                if (gameGlobalModel.ItemDic[1] <= 0)
                 {
                     UIBuyItemData data = new UIBuyItemData() { item = 1 };
                     UIKit.OpenPanel<UIBuyItem>(data);
                     return;
                 }
                 if (LevelManager.Instance.ReturnLast())
-                    stageModel.ReduceItem(1, 1);
+                    gameGlobalModel.ReduceItem(1, 1);
             }
         }
         private void BtnRemoveHideOnClick()
         {
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
-                if (stageModel.ItemDic[2] <= 0)
+                if (gameGlobalModel.ItemDic[2] <= 0)
                 {
                     UIBuyItemData data = new UIBuyItemData() { item = 2 };
                     UIKit.OpenPanel<UIBuyItem>(data);
@@ -507,7 +507,7 @@ namespace QFramework.Example
                 {
                     LevelManager.Instance.RemoveHide(() =>
                     {
-                        stageModel.ReduceItem(2, 1);
+                        gameGlobalModel.ReduceItem(2, 1);
                     });
                 }
             }
@@ -516,7 +516,7 @@ namespace QFramework.Example
         {
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
-                if (stageModel.ItemDic[3] <= 0)
+                if (gameGlobalModel.ItemDic[3] <= 0)
                 {
                     UIBuyItemData data = new UIBuyItemData() { item = 3 };
                     UIKit.OpenPanel<UIBuyItem>(data);
@@ -524,7 +524,7 @@ namespace QFramework.Example
                 }
                 LevelManager.Instance.AddBottle(false, () =>
                 {
-                    stageModel.ReduceItem(3, 1);
+                    gameGlobalModel.ReduceItem(3, 1);
                 });
             }
         }
@@ -532,7 +532,7 @@ namespace QFramework.Example
         {
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
-                if (stageModel.ItemDic[4] <= 0)
+                if (gameGlobalModel.ItemDic[4] <= 0)
                 {
                     UIBuyItemData data = new UIBuyItemData() { item = 4 };
                     UIKit.OpenPanel<UIBuyItem>(data);
@@ -540,7 +540,7 @@ namespace QFramework.Example
                 }
                 LevelManager.Instance.AddBottle(true, () =>
                 {
-                    stageModel.ReduceItem(4, 1);
+                    gameGlobalModel.ReduceItem(4, 1);
                 });
             }
         }
@@ -548,7 +548,7 @@ namespace QFramework.Example
         {
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
-                if (stageModel.ItemDic[5] <= 0)
+                if (gameGlobalModel.ItemDic[5] <= 0)
                 {
                     UIBuyItemData data = new UIBuyItemData() { item = 5 };
                     UIKit.OpenPanel<UIBuyItem>(data);
@@ -584,7 +584,7 @@ namespace QFramework.Example
                             }
                         }
                     });
-                    stageModel.ReduceItem(5, 1);
+                    gameGlobalModel.ReduceItem(5, 1);
                 }
             }
         }
@@ -629,7 +629,7 @@ namespace QFramework.Example
             var level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
             if (level >= (int)GameDefine.UnLockMechanism.RemoveHideWinStreakLevel
-                && stageModel.RemoveHideStreakWinNum >= GameConst.TEN_CONTINUE_WIN_NUM)
+                && gameGlobalModel.RemoveHideStreakWinNum >= GameConst.TEN_CONTINUE_WIN_NUM)
             {
                 EnqueueAction(_nextItem =>
                 {

@@ -5,7 +5,7 @@ public class PassLevelCommand : AbstractCommand ,ICanGetModel
 {
     private TierRankActivity mTierRankActivity;
     private BannerActivity mBannerActivity;
-    private StageModel mStageModel;
+    private GameGlobalModel mGameGlobalModel;
 
     protected override void OnExecute()
     {
@@ -47,27 +47,27 @@ public class PassLevelCommand : AbstractCommand ,ICanGetModel
         {
             GameActivityManager.Instance.RegisterActivity<BattlePassADActivity>();
         }
-       /* ÔÝÊ±¹Ø±Õ
+       /* ï¿½ï¿½Ê±ï¿½Ø±ï¿½
         if (currentLevel == GameConst.TT_AD_BEGIN_LEVEL)
         {
             GameActivityManager.Instance.RegisterActivity<TurnTableADActivity>();
         }*/
 
-        //Í¨¹ýµÚÆß¹Ø¿ªÆôÊ×¸öºá·ù»î¶¯
+        //Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ß¹Ø¿ï¿½ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½î¶¯
         if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)
         {
             StringEventSystem.Global.Send(GameConst.START_POTION_ACTIVITY);
-            //¿ªÆôÅÅÐÐ°ñ»î¶¯
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð°ï¿½î¶¯
             CountDownTimerManager.Instance.StartTimer(GameConst.RANKA_ACTIVITY_SIGN, 1440f);
         }
 
-        //¸÷Ä£¿éÔö¼ÓÁ¬Ê¤Âß¼­...
+        //ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½ß¼ï¿½...
         mTierRankActivity ??= GameActivityManager.Instance.GetActivity<TierRankActivity>();
         if (mTierRankActivity?.ActivityStatus == SettlementActivityStatus.Active)
             mTierRankActivity?.StreakWin();
 
-        mStageModel ??= this.GetModel<StageModel>();
-        mStageModel?.PassLevel();
+        mGameGlobalModel ??= this.GetModel<GameGlobalModel>();
+        mGameGlobalModel?.PassLevel();
 
         mBannerActivity ??= GameActivityManager.Instance.GetActivity<BannerActivity>();
         if (mBannerActivity?.ActivityStatus == GameActivityStatus.Active)

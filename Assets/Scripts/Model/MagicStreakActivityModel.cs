@@ -32,7 +32,7 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility ,ICanGetMo
     private JsonFileUtility mJsonFileUtility;
     private MSActivityData mMSAData;
     private SaveDataUtility mStorage;
-    private StageModel mStageModel;
+    private GameGlobalModel mGameGlobalModel;
     private BindableProperty<int> mStreakWinNum;
     private BindableProperty<int> mCurStageReward;
     private BindableProperty<bool> mIsRewardSettled;
@@ -41,7 +41,7 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility ,ICanGetMo
     {
         mJsonFileUtility = this.GetUtility<JsonFileUtility>();
         mStorage = this.GetUtility<SaveDataUtility>();
-        mStageModel = this.GetModel<StageModel>();
+        mGameGlobalModel = this.GetModel<GameGlobalModel>();
         mDelFilePath = Path.Combine(Application.streamingAssetsPath, GameDefine.GameConst.MSA_DEFAULT_JSON);
         mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.MSA_CURRENT_JSON);
 
@@ -111,7 +111,7 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility ,ICanGetMo
     public void StreakWin()
     {
         ++mStreakWinNum.Value;
-        mMSAData.Player.Score += WinStreakPoints * mStageModel.SettlementMultiple;
+        mMSAData.Player.Score += WinStreakPoints * mGameGlobalModel.SettlementMultiple;
 
         //机器人分数增加规则
         //1     100*H，（H为0-2之间的随机数）

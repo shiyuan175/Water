@@ -26,7 +26,7 @@ namespace QFramework.Example
         [SerializeField] private TextMeshProUGUI TxtCoinWinProgress;
         [SerializeField] private Image ImgBg;
         [SerializeField] TextMeshProUGUI[] redTXT;
-        private StageModel stageModel;
+        private GameGlobalModel gameGlobalModel;
 
         public IArchitecture GetArchitecture()
         {
@@ -45,7 +45,7 @@ namespace QFramework.Example
             TxtWinProcess.font = LevelManager.Instance.redFont;
             foreach (var i in redTXT)
                 i.font = LevelManager.Instance.redFont;
-            stageModel = this.GetModel<StageModel>();
+            gameGlobalModel = this.GetModel<GameGlobalModel>();
             StringEventSystem.Global.Send("ClearTakeItem");
             InitUI();
             RigesterEvent();
@@ -112,7 +112,7 @@ namespace QFramework.Example
             TxtWinProcess.font = LevelManager.Instance.redFont;
             TxtLevelTitle.text = $"Level {currentLevel}";
 
-            // ³õÊ¼»¯Ä¬ÈÏÉÏËø
+            // ï¿½ï¿½Ê¼ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             for (int i = 0; i < selectBtns.Length; i++)
             {
                 Transform _transform = selectBtns[i].transform;
@@ -151,10 +151,10 @@ namespace QFramework.Example
                 UIKit.OpenPanel<UIWinStreakRemoveHide>(UILevel.PopUI);
             });
 
-            int startID = 6; //µÀ¾ßÆðÊ¼ID
+            int startID = 6; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ID
             for (int i = 0; i < addItemBtns.Length; i++)
             {
-                //±Õ°ü
+                //ï¿½Õ°ï¿½
                 int _itemId = i + startID;
                 var _rewardType = (SpecialRewardsType)_itemId;
                 string _sign = GameEnum.GetDescription(_rewardType);
@@ -173,7 +173,7 @@ namespace QFramework.Example
                 var _tempIndex = i;
                 selectBtns[i].onClick.AddListener(() =>
                 {
-                    if (stageModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
+                    if (gameGlobalModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
                     {
                         bool show = addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite != itemSubIcon[1];
                         if (show)
@@ -186,7 +186,7 @@ namespace QFramework.Example
                         }
                         else
                         {
-                            UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
+                            UpdateItemDisplay(gameGlobalModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
                             RemoveItemIfExists(_itemId);
                         }
 
@@ -199,53 +199,53 @@ namespace QFramework.Example
         {
             this.RegisterEvent<RefreshItemEvent>(e =>
             {
-                UpdateItemDisplay(stageModel.ItemDic[e.itemID], addItemBtns[e.itemID-6]);
+                UpdateItemDisplay(gameGlobalModel.ItemDic[e.itemID], addItemBtns[e.itemID-6]);
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
         /// <summary>
-        /// Ð¯´øµÀ¾ß
+        /// Ð¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="itemId"></param>
         void AddItemIfNotExists(int itemId)
         {
-            //±ÜÃâÖØ¸´ÈëÁÐ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½
             if (!LevelManager.Instance.takeItem.Contains(itemId))
                 LevelManager.Instance.takeItem.Add(itemId);
         }
 
         /// <summary>
-        /// ÒÆ³ýÐ¯´øµÄµÀ¾ß
+        /// ï¿½Æ³ï¿½Ð¯ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="itemId"></param>
         void RemoveItemIfExists(int itemId)
         {
-            //±ÜÃâÈ¡ÏûÑ¡ÖÐÈÔÐ¯´ø
+            //ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ð¯ï¿½ï¿½
             if (LevelManager.Instance.takeItem.Contains(itemId))
                 LevelManager.Instance.takeItem.Remove(itemId);
         }
 
         /// <summary>
-        /// ¸üÐÂÁ¬Ê¤Ïà¹ØÏÔÊ¾
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
         /// </summary>
         void UpdateWinNum()
         {
-            //1.5±¶½ð±ÒÁ¬Ê¤Ïà¹Ø
-            int _curCoinWinNum = stageModel.GoldCoinsMultipleStreakWinNum;
+            //1.5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½
+            int _curCoinWinNum = gameGlobalModel.GoldCoinsMultipleStreakWinNum;
             int _winNum_Coin = math.min(_curCoinWinNum, GameDefine.GameConst.TEN_CONTINUE_WIN_NUM);
             TxtCoinWinProgress.text = $"{_winNum_Coin}/{GameDefine.GameConst.TEN_CONTINUE_WIN_NUM}";
-            //0.081f * Á¬Ê¤´ÎÊý + 0.095fÓ³ÉäÖµ(1-10Á¬Ê¤Ó³Éä¹«Ê½)
+            //0.081f * ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ + 0.095fÓ³ï¿½ï¿½Öµ(1-10ï¿½ï¿½Ê¤Ó³ï¿½ä¹«Ê½)
             ImgCoinWinProcess.fillAmount = 0.081f * _winNum_Coin + 0.095f;
 
-            //Á¬Ê¤È¥ºÚË®Ïà¹Ø
-            int _curRemoveHideWinNum = stageModel.RemoveHideStreakWinNum;
+            //ï¿½ï¿½Ê¤È¥ï¿½ï¿½Ë®ï¿½ï¿½ï¿½
+            int _curRemoveHideWinNum = gameGlobalModel.RemoveHideStreakWinNum;
             int _winNum_RemoveHide = math.min(_curRemoveHideWinNum, GameDefine.GameConst.TEN_CONTINUE_WIN_NUM);
             TxtProgress.text = $"{_winNum_RemoveHide} / {GameDefine.GameConst.TEN_CONTINUE_WIN_NUM}";
             ImgProgress.fillAmount = _winNum_RemoveHide * 1f / GameDefine.GameConst.TEN_CONTINUE_WIN_NUM;
         }
 
         /// <summary>
-        /// ¸üÐÂµÀ¾ßÏÔÊ¾×´Ì¬
+        /// ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½Ê¾×´Ì¬
         /// </summary>
         void UpdateItem()
         {
@@ -256,28 +256,28 @@ namespace QFramework.Example
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveOneDebuffBottle)))
                 AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_RemoveOneDebuffBottle);
 
-            //¸üÐÂµÀ¾ßÊýÁ¿
-            UpdateItemDisplay(stageModel.ItemDic[6], addItemBtns[0]);
-            UpdateItemDisplay(stageModel.ItemDic[7], addItemBtns[1]);
-            UpdateItemDisplay(stageModel.ItemDic[8], addItemBtns[2]);
+            //ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            UpdateItemDisplay(gameGlobalModel.ItemDic[6], addItemBtns[0]);
+            UpdateItemDisplay(gameGlobalModel.ItemDic[7], addItemBtns[1]);
+            UpdateItemDisplay(gameGlobalModel.ItemDic[8], addItemBtns[2]);
         }
 
         /// <summary>
-        /// ¸üÐÂµÀ¾ß½Ç±ê×´Ì¬
+        /// ï¿½ï¿½ï¿½Âµï¿½ï¿½ß½Ç±ï¿½×´Ì¬
         /// </summary>
         /// <param name="itemCount"></param>
         /// <param name="btnAdd"></param>
         void UpdateItemDisplay(int itemCount, Button btnAdd)
         {
             btnAdd.Show();
-            // ÓÐÎïÆ·ºìµ×£¬Êý×Ö£¬²»µã»÷
+            // ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½×£ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (itemCount > 0)
             {
                 btnAdd.transform.GetComponent<Image>().sprite = itemSubIcon[0];
                 btnAdd.interactable = false;
                 btnAdd.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = itemCount.ToString();
             }
-            // Ã»ÓÐÎïÆ·£¬Êý×Ö¿Éµã»÷
+            // Ã»ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿Éµï¿½ï¿½
             else
             {
                 btnAdd.transform.GetComponent<Image>().sprite = itemSubIcon[2];
@@ -288,20 +288,20 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// buff UIÏÔÊ¾(Ä¿Ç°Ö»ÓÐË«±¶½ð±Ò)
+        /// buff UIï¿½ï¿½Ê¾(Ä¿Ç°Ö»ï¿½ï¿½Ë«ï¿½ï¿½ï¿½ï¿½ï¿½)
         /// </summary>
         private void SetBuffUI()
         {
-            //ºóÐøÈç¹ûÊÇÆäËûbuffÊ±³¤Ò²Òª´¦ÀíÏÔÊ¾,Ã¿¸öbuffµÄÌõ¼þµ¥¶À´¦Àí
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½buffÊ±ï¿½ï¿½Ò²Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾,Ã¿ï¿½ï¿½buffï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.DOUBLE_COIN_SIGN))
                 BuffTag.Show();
             else
                 BuffTag.Hide();
         }
 
-        #region Òýµ¼¶¯»­Ïà¹Ø
+        #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// <summary>
-        /// ÉèÖÃ½ø¹ØµÀ¾ßÒýµ¼¶¯»­
+        /// ï¿½ï¿½ï¿½Ã½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         private void SetEnterPropsGuideUI(UnLockMechanism type)
         {
@@ -314,7 +314,7 @@ namespace QFramework.Example
             int startID = 6;
             int _tempIndex = 0;
             SpineHandleItem.AnimationState.SetAnimation(0, "animation", true);
-            //ÊÇ·ñ¿ÉÒÔµÝ¹éµ÷ÓÃ
+            //ï¿½Ç·ï¿½ï¿½ï¿½ÔµÝ¹ï¿½ï¿½ï¿½ï¿½
             if (type == UnLockMechanism.EnterLevelSelectProps)
             {
                 GuideBtnItem1.Show();
@@ -327,7 +327,7 @@ namespace QFramework.Example
                     SetEnterPropsUnlimitTime(startID, _tempIndex);
                     GuideBtnItem1.Hide();
                     selectBtns[_tempIndex].onClick?.Invoke();
-                    // Òýµ¼2
+                    // ï¿½ï¿½ï¿½ï¿½2
                     GuideBtnItem2.Show();
                     SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem2.GetComponent<RectTransform>().position;
                     GuideBtnItem2.onClick.AddListener(() =>
@@ -338,7 +338,7 @@ namespace QFramework.Example
                         SetEnterPropsUnlimitTime(startID, _tempIndex);
                         GuideBtnItem2.Hide();
                         selectBtns[_tempIndex].onClick?.Invoke();
-                        // Òýµ¼3
+                        // ï¿½ï¿½ï¿½ï¿½3
                         GuideBtnItem3.Show();
                         SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem3.GetComponent<RectTransform>().position;
                         GuideBtnItem3.onClick.AddListener(() =>
@@ -393,7 +393,7 @@ namespace QFramework.Example
             int _itemId = startID + _tempIndex;
             var _rewardType = (SpecialRewardsType)_itemId;
             string _sign = GameEnum.GetDescription(_rewardType);
-            if (stageModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
+            if (gameGlobalModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
             {
                 bool show = addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite != itemSubIcon[1];
                 if (show)
@@ -401,12 +401,12 @@ namespace QFramework.Example
                     addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite = itemSubIcon[1];
                     addItemBtns[_tempIndex].interactable = false;
                     addItemBtns[_tempIndex].transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
-                    UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
+                    UpdateItemDisplay(gameGlobalModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
                     AddItemIfNotExists(_itemId);
                 }
                 else
                 {
-                    UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
+                    UpdateItemDisplay(gameGlobalModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
                     RemoveItemIfExists(_itemId);
                 }
 
@@ -414,7 +414,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ½âËø½ø¹ØµÀ¾ß×´Ì¬
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½×´Ì¬
         /// </summary>
         private void SetEnterPropsUnLockUI(UnLockMechanism type)
         {
@@ -450,7 +450,7 @@ namespace QFramework.Example
                     UnLimitItemNode3.Show();
                     break;
                 default:
-                    Debug.Log("°´Å¥ÉèÖÃ³ö´í");
+                    Debug.Log("ï¿½ï¿½Å¥ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½");
                     _tempBtn = null;
                     break;
             }
@@ -462,7 +462,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ÉÏËø½ø¹ØµÀ¾ß×´Ì¬
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½×´Ì¬
         /// </summary>
         private void SetEnterPropsLockUI(UnLockMechanism type)
         {
@@ -523,7 +523,7 @@ namespace QFramework.Example
         private void CheckGuideLevel()
         {
             int _level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-            // Òýµ¼¶¯»­¿ª¹Ø
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (_level == (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
             {
                 SetEnterPropsGuideUI(UnLockMechanism.EnterLevelSelectProps);
@@ -537,7 +537,7 @@ namespace QFramework.Example
                 SetEnterPropsLockUI(UnLockMechanism.EnterLevelSelectProps);
             }
 
-            /*// ²ÊÉ«Ë®
+            /*// ï¿½ï¿½É«Ë®
             if (_level == (int)GameDefine.UnLockMechanism.S_AddOneHalfBottle)
             {
                 SetEnterPropsGuideUI(UnLockMechanism.S_AddOneHalfBottle);
@@ -552,7 +552,7 @@ namespace QFramework.Example
                 SetEnterPropsLockUI(UnLockMechanism.S_AddOneHalfBottle);
             }
 
-            // È¥ºÚ
+            // È¥ï¿½ï¿½
             if (_level == (int)GameDefine.UnLockMechanism.S_RemoveOneBottleHideWater)
             {
                 SetEnterPropsGuideUI(UnLockMechanism.S_RemoveOneBottleHideWater);
@@ -567,7 +567,7 @@ namespace QFramework.Example
                 SetEnterPropsLockUI(UnLockMechanism.S_RemoveOneBottleHideWater);
             }
 
-            // ÒÆ³ýÒ»¸öÆ¿×Ó¸ºÃæ
+            // ï¿½Æ³ï¿½Ò»ï¿½ï¿½Æ¿ï¿½Ó¸ï¿½ï¿½ï¿½
             if (_level == (int)GameDefine.UnLockMechanism.S_RemoveOneDebuffBottle)
             {
                 SetEnterPropsGuideUI(UnLockMechanism.S_RemoveOneDebuffBottle);
@@ -582,7 +582,7 @@ namespace QFramework.Example
                 SetEnterPropsLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
             }
 */
-            //Ë«±¶½ð±Ò
+            //Ë«ï¿½ï¿½ï¿½ï¿½ï¿½
             if (_level == (int)GameDefine.UnLockMechanism.TimesGoldCoin)
             {
                 SetGoldCoinGuideUI();
@@ -592,7 +592,7 @@ namespace QFramework.Example
                 SetGoldCoinUnClockUI();
             }
 
-            //Á¬Ê¤È¥ºÚ
+            //ï¿½ï¿½Ê¤È¥ï¿½ï¿½
             if (_level >= (int)GameDefine.UnLockMechanism.RemoveHideWinStreakLevel)
                 Mask.Hide();
             else
@@ -607,7 +607,7 @@ namespace QFramework.Example
             int _itemId = startID + _tempIndex;
             var _rewardType = (SpecialRewardsType)(_itemId);
             string _sign = GameEnum.GetDescription(_rewardType);
-            if (stageModel.ItemDic[_itemId] >= 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
+            if (gameGlobalModel.ItemDic[_itemId] >= 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
             {
                 bool show = addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite != itemSubIcon[1];
                 if (show)
@@ -615,12 +615,12 @@ namespace QFramework.Example
                     addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite = itemSubIcon[1];
                     addItemBtns[_tempIndex].interactable = false;
                     addItemBtns[_tempIndex].transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
-                    UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
+                    UpdateItemDisplay(gameGlobalModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
                     AddItemIfNotExists(_itemId);
                 }
                 else
                 {
-                    UpdateItemDisplay(stageModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
+                    UpdateItemDisplay(gameGlobalModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
                     RemoveItemIfExists(_itemId);
                 }
 

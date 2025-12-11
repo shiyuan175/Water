@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using JsonFileData;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using QFramework;
 using UnityEngine;
 
@@ -29,21 +30,37 @@ namespace JsonFileData
     #region 通用配置Json
 
     /// <summary>
-    /// 每日奖励
+    /// 每日奖励领取记录
+    /// 后续可拓展每日增益效果
     /// </summary>
     public class DailyReward
     {
-        public bool IsClaim_PlotRewards;
-
+        public int Version;
+        //剧情解锁-每日宝箱
+        public bool IsClaim_PlotReward;
+        public bool IsClaim_UnlockScene2Reward;
     }
 
+    public class GameGlobalData
+    {
+        public int Version;
+        
+        //场景解锁1、3的增益领取记录(只领一次)
+        public bool IsClaim_UnlockScene1Reward;
+        public bool IsClaim_UnlockScene3Reward;
+        
+        //体力上限
+        public int MaxHp;
+        public int HpRecoverTimer;
 
+    }
 
     #endregion
 
     #region Magic Streak Activity Data
     public class MSActivityData
     {
+        public int Version;
         public MSAPlayer Player;
         public List<MSARobotsData> MSARobots;
     }
@@ -101,6 +118,7 @@ namespace JsonFileData
 
     public class TRActivityData
     {
+        public int Version;
         public TRAPlayer Player;
         public List<TRARobotsData> TRARobots;
     }
@@ -194,6 +212,40 @@ public class JsonFileUtility : IUtility
         //Debug.Log($"数据已保存: {filePath}");
     }
 
+    /// <summary>
+    /// 获取Json版本号
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
+    public int GetFileVersion(string filePath)
+    {
+        try
+        {
+            string json = File.ReadAllText(filePath);
+            var versionData = JsonConvert.DeserializeObject<VersionWrapper>(json);
+            return versionData.Version;
+        }
+        catch
+        {
+            return 0;
+        }
+    }
+
+    /// <summary>
+    /// 当版本不一致时，使用该方法插入新字段到当前Json中(不覆盖已有字段)
+    /// </summary>
+    /// <param name="curPath"></param>
+    /// <param name="delPath"></param>
+    public void AutoFixFields(string curPath, string delPath)
+    {
+        JObject cur = JObject.Parse(File.ReadAllText(curPath));
+        JObject def = JObject.Parse(File.ReadAllText(delPath));
+
+        MergeMissingFields(cur, def);
+
+        File.WriteAllText(curPath, cur.ToString());
+    }
+    
     #region 拷贝文件到持久化路径——弃用,默认文件使用StreamingAssets下的即可
 
     // 默认的json是用来同步版本，current
@@ -300,24 +352,28 @@ public class JsonFileUtility : IUtility
         }
     }*/
 
-    /// <summary>
-    /// 获取Json版本号
-    /// </summary>
-    /// <param name="filePath"></param>
-    /// <returns></returns>
-    public int GetFileVersion(string filePath)
+    #endregion
+    
+    private void MergeMissingFields(JObject target, JObject template)
     {
-        try
+        foreach (var prop in template.Properties())
         {
-            string json = File.ReadAllText(filePath);
-            var versionData = JsonConvert.DeserializeObject<VersionWrapper>(json);
-            return versionData.Version;
-        }
-        catch
-        {
-            return 0;
+            if (!target.TryGetValue(prop.Name, out var value))
+            {
+                // 补字段
+                target[prop.Name] = prop.Value.DeepClone();
+            }
+            else
+            {
+                // 如果是对象则递归
+                if (prop.Value.Type == JTokenType.Object)
+                {
+                    MergeMissingFields(
+                        (JObject)value,
+                        (JObject)prop.Value
+                    );
+                }
+            }
         }
     }
-
-    #endregion
 }

@@ -11,15 +11,15 @@ public class SceneUnlockModel : AbstractModel,ICanGetUtility ,ICanGetModel
     private BindableProperty<int> mSceneIndex;
     private BindableProperty<int> mUnitIndex;
     private SaveDataUtility mStorage;
-    private StageModel mStageModel;
+    private GameGlobalModel mGameGlobalModel;
 
-    public int RemainingStars => mStageModel.RemainingStars;
+    public int RemainingStars => mGameGlobalModel.RemainingStars;
     public int SceneIndex => mSceneIndex.Value;
     public int SceneUnlockUnitIndex => mUnitIndex.Value;
 
     protected override void OnInit()
     {
-        mStageModel = this.GetModel<StageModel>();
+        mGameGlobalModel = this.GetModel<GameGlobalModel>();
         mStorage = this.GetUtility<SaveDataUtility>();
         mSceneIndex = new BindableProperty<int>();
         mUnitIndex = new BindableProperty<int>();
@@ -41,7 +41,7 @@ public class SceneUnlockModel : AbstractModel,ICanGetUtility ,ICanGetModel
 
     public void UseStar(int value)
     {
-        mStageModel.UsedStar(value);
+        mGameGlobalModel.UsedStar(value);
     }
 
     public void UpdateSceneIdx(int value)

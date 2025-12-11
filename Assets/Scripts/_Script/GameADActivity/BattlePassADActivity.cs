@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
 {
-    public override string ActivitySign => GameConst.BATTLEPASS_AD_ACTIVITY_SIGN;
+    public override string ActivitySign => GameConst.BATTLE_PASS_AD_ACTIVITY_SIGN;
     public override string ActivityID => GetType().Name;
     public override int ActivityBeginLevel => GameConst.BP_AD_BEGIN_LEVEL;
     public override float ActivityDurationMinutes => 30 * 24 * 60;
