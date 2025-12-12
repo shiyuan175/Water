@@ -14,8 +14,33 @@ using GameDefine;
 
 public class BottleWaterCtrl : MonoBehaviour
 {
-    public SkeletonGraphic spine, broomSpine, createSpine, changeSpine, magnetSpine, changeShineSpine, thunderSpine, broomAfterSpine, fireRuneSpine, starBlackWater, BombBlackWaterSpine, FlyBombSpine;
-    public GameObject spineGo, HideGo, broomItemGo, createItemGo, changeItemGo, magnetItemGo, thunderGo, broomAfterGo, wenhaoFxGo, iceGo, RainBowWater, BombBlackWaterItemGo, FlyBombItemGo, FlashWaterGo;
+    public SkeletonGraphic spine,
+        broomSpine,
+        createSpine,
+        changeSpine,
+        magnetSpine,
+        changeShineSpine,
+        thunderSpine,
+        broomAfterSpine,
+        fireRuneSpine,
+        starBlackWater,
+        BombBlackWaterSpine,
+        InWaterItem;
+
+
+    public GameObject spineGo,
+        HideGo,
+        broomItemGo,
+        createItemGo,
+        changeItemGo,
+        magnetItemGo,
+        thunderGo,
+        broomAfterGo,
+        wenhaoFxGo,
+        iceGo,
+        RainBowWater,
+        BombBlackWaterItemGo,
+        FlashWaterGo;
     public Animator anim;
     public Image waterImg;
     public int waterColor;
@@ -24,10 +49,11 @@ public class BottleWaterCtrl : MonoBehaviour
     public GameObject fireRuneGo;
     public BottleCtrl bottle;
 
-
     #region NewMechineCtrl
     public BombCtrl bombCtrl;
     public BubbleCtrl bubbleCtrl;
+    public HideWaterCtrl hideWaterCtrl;
+    public GrassBombCtrl grassWaterCtrl;
     #endregion
 
     public Color color
@@ -130,99 +156,41 @@ public class BottleWaterCtrl : MonoBehaviour
 
         isPlayItemAnim = false;
     }
-
-    /* IEnumerator CoroutinePlayUseMagnet(BottleWaterCtrl hide)
-     {
-         isPlayItemAnim = true;
-         //broomItemGo.SetActive(true);
-         magnetGo = Instantiate(magnetItemGo);
-         magnetGo1 = Instantiate(hide.magnetItemGo);
-         magnetGo.transform.parent = transform;
-         magnetGo.transform.localScale = magnetItemGo.transform.localScale;
-         magnetGo.transform.localPosition = magnetItemGo.transform.localPosition;
-         magnetGo1.transform.parent = transform;
-         magnetGo1.transform.localScale = magnetItemGo.transform.localScale;
-         magnetGo1.transform.localPosition = magnetItemGo.transform.localPosition + new Vector3(0, 83.4f, 0);
-
-         var useSpine = magnetGo.GetComponent<SkeletonGraphic>();
-         var useSpine1 = magnetGo1.GetComponent<SkeletonGraphic>();
-         yield return new WaitForEndOfFrame();
-         magnetGo.transform.parent = LevelManager.Instance.gameCanvas;
-         magnetGo1.transform.parent = LevelManager.Instance.gameCanvas;
-         useSpine1.AnimationState.SetAnimation(0, magnetSpine.AnimationState.ExpandToIndex(0).Animation.name, false);
-
-         magnetGo1.transform.DOLocalMove(magnetGo.transform.localPosition, 0.2f).SetEase(Ease.Linear).OnComplete(() =>
-         {
-             if (magnetGo1 != null) Destroy(magnetGo1);
-         });
-         magnetItemGo.SetActive(false);
-         magnetGo.transform.Find("Top").gameObject.SetActive(false);
-         useSpine.AnimationState.SetAnimation(0, "combine", false);
-         isPlayItemAnim = false;
-         hide.gameObject.SetActive(false);
-         yield return new WaitForSeconds(2f);
-         isPlayItemAnim = false;
-         //gameObject.SetActive(false);
-         if (magnetGo != null) Destroy(magnetGo);
-         gameObject.SetActive(false);
-         playMagnetCoroutine = null;
-     }*/
+    
     #endregion
 
-    public void SetHide(bool isHide, bool noWait, GameDefine.ItemType itemType)
+    public void SetHide(HideWaterType hideWaterType, bool noWait)
     {
-        if (isHide || (!isHide && noWait) || !gameObject.activeSelf)
+        if (hideWaterType != HideWaterType.None || noWait || !gameObject.activeSelf)
         {
-            if (!isHide && HideGo.activeSelf)
+            // 黑水出现动画
+            if (hideWaterType == HideWaterType.None && HideGo.activeSelf)
             {
                 wenhaoFxGo.SetActive(false);
                 wenhaoFxGo.SetActive(true);
             }
-            HideGo.SetActive(isHide);
-            var type = itemType.GetType();
-            var fieldName = Enum.GetName(type, itemType);
 
-            if (fieldName == null)
-                return;
-            var fieldInfo = type.GetField(fieldName);
-
-            if (fieldInfo.GetCustomAttribute(typeof(WaterColorState), false) is not WaterColorState attribute)
-                return;
-
-            switch (attribute.SpineType)
-            {
-                case EColorStateSpineType.EBroomSpine:
-                    broomItemGo.SetActive(!isHide);
-                    break;
-                case EColorStateSpineType.EMagnetSpine:
-                    magnetItemGo.SetActive(!isHide);
-                    break;
-                case EColorStateSpineType.ECreateSpine:
-                    createItemGo.SetActive(!isHide);
-                    break;
-                case EColorStateSpineType.EChangeSpine:
-                    changeItemGo.SetActive(!isHide);
-                    break;
-            }
-
+            hideWaterCtrl.SetHideShow(hideWaterType);
+            // 黑水隐藏动画
+            HideGo.SetActive(hideWaterType != HideWaterType.None);
         }
         else
         {
-            StartCoroutine(PlayHide(isHide, noWait));
+            StartCoroutine(PlayHide());
         }
     }
 
-    public IEnumerator PlayHide(bool isHide, bool noWait)
+    public IEnumerator PlayHide()
     {
         yield return new WaitForSeconds(0.6f);
 
-        if (!isHide && HideGo.activeSelf)
+        if (HideGo.activeSelf)
         {
             wenhaoFxGo.SetActive(false);
             wenhaoFxGo.SetActive(true);
         }
 
-        HideGo.SetActive(isHide);
+        HideGo.SetActive(false);
     }
 
     public IEnumerator ChangeShine()
@@ -356,20 +324,8 @@ public class BottleWaterCtrl : MonoBehaviour
         // 特殊水等不需要两两合成
         RainBowWater.SetActive(attribute.RainBowWaterActive);
         FlashWaterGo.SetActive(attribute.FlashWaterActive);
-        //FlyBombItemGo.SetActive(attribute.FlyBombActive);
-        // 更新飞天炸弹数值
-        /* if(attribute.FlyBombActive)
-         {
-             Debug.Log(bottle.bombCounts[index]);
-             int bombNum = bottle.bombCounts[index] - LevelManager.Instance.moveNum;
-             textItem.text = bombNum.ToString();
-             if (bombNum <= 0)
-             {
-                 textItem.text = "";
-                 Debug.Log(message: "bomb");
-             }
 
-         }*/
+        // 道具水
         if (attribute.SpineAnim.IsNullOrEmpty() == false && attribute.SpineType > EColorStateSpineType.None && attribute.SpineType < EColorStateSpineType.Max)
         {
             switch (attribute.SpineType)

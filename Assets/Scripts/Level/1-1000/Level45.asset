@@ -15,120 +15,164 @@ MonoBehaviour:
   bottles:
   - waterSet: 02000000060000000400000001000000
     isHide: 01000100
+    hideTypes: 01000000000000000100000000000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 010000000a0000000400000006000000
     isHide: 01000100
+    hideTypes: 01000000000000000100000000000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 07000000030000000600000001000000
     isHide: 01000100
+    hideTypes: 01000000000000000100000000000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 0a00000007000000060000000a000000
     isHide: 01000100
+    hideTypes: 01000000000000000100000000000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 08000000040000000a00000002000000
     isHide: 01000100
+    hideTypes: 01000000000000000100000000000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 04000000020000000100000002000000
     isHide: 01000100
+    hideTypes: 01000000000000000100000000000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 03000000030000000800000007000000
     isHide: 01000100
+    hideTypes: 01000000000000000100000000000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 1
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 
     isHide: 
+    hideTypes: 
     waterItem: 
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 1
     isFinish: 0
-    bombCounts: 
   - waterSet: 
     isHide: 
+    hideTypes: 
     waterItem: 
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 1
     isFinish: 0
-    bombCounts: 
   - waterSet: 08000000070000000800000003000000
     isHide: 01000100
+    hideTypes: 01000000000000000100000000000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 1
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   gameType: 0
   clearList: 01000000020000000400000006000000030000000a0000000700000008000000
   hideList: 
-  bombNum: 0
+  hideTypes: 
+  globalMechanism: 0
+  GlobalMechanismBeginSetp: 0
+  GlobalMechanismContinueSetps: 0
   countDownNum: 0
   timeCountDown: 0
   topNum: 6
   bottomNum: 4
+  bubbleCount: 
   changeList: []

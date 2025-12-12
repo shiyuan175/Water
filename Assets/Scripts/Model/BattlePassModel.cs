@@ -15,7 +15,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     public int FreeRewardGotLevel => mFreeRewardGotLevel.Value;
     public int VipRewardGorLevel => mVipRewardGotLevel.Value;
     /// <summary>
-    /// ±ê¼Çµ±Ç°½±ÀøËùµ½µÄµÈ¼¶´Ó1 ¿ªÊ¼£¬Êý¾ÝµÄ½±ÀøÊÇ´Ó0¿ªÊ¼
+    /// ï¿½ï¿½Çµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÄµÈ¼ï¿½ï¿½ï¿½1 ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½0ï¿½ï¿½Ê¼
     /// </summary>
     public int RewardLevel => mRewardLevel.Value;
     public bool IsVip => mIsVip.Value;
@@ -90,13 +90,13 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         if (!File.Exists(mCurFilePath))
             ReloadBattlePassActivity();
 
-        //°æ±¾¶Ô±È´úÂëÐ´ÔÚÕâ...
-        // ÐÂ°æ±¾Ö±½Ó´úÌæ¾É°æ±¾£¬ÓÎÏ·ÄÚÈÝµÄ¸üÐÂ·Åµ½»î¶¯µÄÖØÐÂ¿ªÆô
+        //ï¿½æ±¾ï¿½Ô±È´ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½...
+        // ï¿½Â°æ±¾Ö±ï¿½Ó´ï¿½ï¿½ï¿½É°æ±¾ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ÝµÄ¸ï¿½ï¿½Â·Åµï¿½ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½
 
 
-        /*        // ²âÊÔ£¬·¢²¼ÐèÉ¾³ý
+        /*        // ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½
                 ReloadBattlePassActivity();*/
-        //Êý¾Ý³ÖÓÐ
+        //ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
         mJsonFileUtility.LoadFromJson(mCurFilePath, jsonData =>
         {
             mBPDate = JsonConvert.DeserializeObject<BattlePassData>(jsonData);
@@ -111,11 +111,11 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     }
 
     /// <summary>
-    ///  Õ½Áî¸üÐÂµÄÊ±ºò£¬Ö±½ÓÓÃÄ¬ÈÏjson´úÌæµ±Ç°json,Í¬Ê±Çå¿Õ¹ý¹ØÊý¼ÇÂ¼
+    ///  Õ½ï¿½ï¿½ï¿½ï¿½Âµï¿½Ê±ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½jsonï¿½ï¿½ï¿½æµ±Ç°json,Í¬Ê±ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼
     /// </summary>
     public void ReloadBattlePassActivity()
     {
-        // Çå³ýÕ½Áî¸ß¼¶¼¤»îºÍ½ø¶È(½±ÀøÁìÈ¡£¬Õ½Áî¼¶±ð)
+        // ï¿½ï¿½ï¿½Õ½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½Í½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Õ½ï¿½î¼¶ï¿½ï¿½)
         mGameWinNum.Value = 0;
         mRewardLevel.Value = 1;
         mVipRewardGotLevel.Value = 0;
@@ -129,10 +129,9 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
             mJsonFileUtility.SaveToJson(mCurFilePath, tempData);
             mBPDate = tempData;
         });
-
     }
     /// <summary>
-    /// Ôö¼Ó¼ÆÊý£¬Èç¹û¼ÆÊý´ïµ½ÏÂÒ»¼¶µÄÌõ¼þÊ±£¬¾ÍÔö¼Ó¼¶±ð,ÐÞ¸ÄÍê³ÉÌõ¼þ£¬Çå¿Õ¼ÆÊý
+    /// ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ïµ½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½,ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½
     /// </summary>
     public void AddGameWinCount()
     {
@@ -148,16 +147,16 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         }
     }
     /// <summary>
-    /// ³äÖµ¿ªÆô
+    /// ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public void HightBattlePassActivation()
     {
         mIsVip.Value = true;
     }
     /// <summary>
-    /// Ôö¼Ó½±ÀøµÄÁìÈ¡½ø¶È
+    /// ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
     /// </summary>
-    /// <param name="isVipPack">ÁìÈ¡µÄ½±ÀøÀàÐÍ ÕæÎªHightLevel£¬¼ÙÎª</param>
+    /// <param name="isVipPack">ï¿½ï¿½È¡ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÎªHightLevelï¿½ï¿½ï¿½ï¿½Îª</param>
     public void AddRewardGotLevel(bool isVipPack, int level)
     {
         if (isVipPack)

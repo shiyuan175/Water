@@ -15,117 +15,158 @@ MonoBehaviour:
   bottles:
   - waterSet: 030000000100000008000000a20f0000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
   - waterSet: 060000000100000006000000a20f0000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
   - waterSet: 040000000b00000002000000a20f0000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
   - waterSet: 04000000a20f00000400000008000000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
   - waterSet: 060000000a000000010000000a000000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
   - waterSet: 08000000020000000a00000003000000
     isHide: 00000000
+    hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
   - waterSet: 01000000030000000300000006000000
     isHide: 00000000
+    hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
   - waterSet: 0b00000008000000020000000a000000
     isHide: 00000000
+    hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
   - waterSet: 020000000b000000040000000b000000
     isHide: 00000000
+    hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
   - waterSet: 
     isHide: 
+    hideTypes: 
     waterItem: 
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
   gameType: 0
   clearList: 030000000100000008000000a20f000006000000040000000b000000020000000a000000
   hideList: 
+  hideTypes: 
   globalMechanism: 0
   GlobalMechanismBeginSetp: 0
   GlobalMechanismContinueSetps: 0

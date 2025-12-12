@@ -1,0 +1,19 @@
+luye 折分.png
+size:154,106
+filter:Linear,Linear
+pma:true
+scale:0.73
+buble
+bounds:2,2,102,102
+ye-001
+bounds:130,6,17,28
+ye-002
+bounds:106,82,27,22
+ye_003
+bounds:106,31,21,26
+ye_004
+bounds:129,36,23,21
+ye_005
+bounds:106,59,27,21
+ye_006
+bounds:106,6,22,23

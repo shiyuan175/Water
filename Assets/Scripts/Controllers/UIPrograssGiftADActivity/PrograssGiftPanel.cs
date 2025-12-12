@@ -139,7 +139,6 @@ namespace QFramework.Example
                 .OnUpdate(() =>
                 {
                     float progress = elapsed / duration;
-
                     // 控制透明度：先保持全亮，后段淡出
                     float alpha = progress < 0.5f ? 1f : Mathf.Lerp(1f, 0f, (progress - 0.5f) * 2f);
 
@@ -159,10 +158,7 @@ namespace QFramework.Example
                         img.color = oldColor;
                     });
                 });
-               
-
             return unlockTween;
-
         }
 
         public IArchitecture GetArchitecture()

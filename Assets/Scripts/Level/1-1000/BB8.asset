@@ -15,6 +15,7 @@ MonoBehaviour:
   bottles:
   - waterSet: 05000000030000000600000004000000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
@@ -29,6 +30,7 @@ MonoBehaviour:
     isFinish: 0
   - waterSet: 04000000020000000300000009000000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 03000000000000000000000000000000
     bombCounts: 19000000
     numCake: 0
@@ -43,6 +45,7 @@ MonoBehaviour:
     isFinish: 0
   - waterSet: 05000000040000000100000008000000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
@@ -57,6 +60,7 @@ MonoBehaviour:
     isFinish: 0
   - waterSet: 03000000070000000500000006000000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
@@ -71,6 +75,7 @@ MonoBehaviour:
     isFinish: 0
   - waterSet: 06000000070000000100000004000000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
@@ -85,6 +90,7 @@ MonoBehaviour:
     isFinish: 0
   - waterSet: 01000000010000000300000008000000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
@@ -99,6 +105,7 @@ MonoBehaviour:
     isFinish: 0
   - waterSet: 09000000050000000700000009000000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
@@ -113,6 +120,7 @@ MonoBehaviour:
     isFinish: 0
   - waterSet: 09000000020000000200000008000000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
@@ -127,6 +135,7 @@ MonoBehaviour:
     isFinish: 0
   - waterSet: 02000000080000000600000007000000
     isHide: 01010100
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
@@ -141,6 +150,7 @@ MonoBehaviour:
     isFinish: 0
   - waterSet: 
     isHide: 
+    hideTypes: 
     waterItem: 
     bombCounts: 
     numCake: 0
@@ -155,6 +165,7 @@ MonoBehaviour:
     isFinish: 0
   - waterSet: 
     isHide: 
+    hideTypes: 
     waterItem: 
     bombCounts: 
     numCake: 0
@@ -169,6 +180,7 @@ MonoBehaviour:
     isFinish: 0
   - waterSet: 
     isHide: 
+    hideTypes: 
     waterItem: 
     bombCounts: 
     numCake: 1
@@ -184,6 +196,7 @@ MonoBehaviour:
   gameType: 0
   clearList: 010000000200000003000000040000000500000006000000070000000800000009000000
   hideList: 
+  hideTypes: 
   globalMechanism: 0
   GlobalMechanismBeginSetp: 0
   GlobalMechanismContinueSetps: 0

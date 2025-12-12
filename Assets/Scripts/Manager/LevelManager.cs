@@ -73,12 +73,12 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     #region 新机制记录存储结构
     public Dictionary<BottleCtrl, int> bubbleDict = new();
-    public List<BottleCtrl> bombList = new();
-    public Dictionary<BottleCtrl, int> curtainDict = new Dictionary<BottleCtrl, int>();
+    public HashSet<BottleCtrl> bombList = new();
+    public Dictionary<BottleCtrl, int> curtainDict = new();
+    public HashSet<BottleCtrl> grassList = new();
     public GlobalMechanism globalMechanism;
     public int GlobalMechanismContinueSetps;
     public int GlobalMechanismBeginSetp;
-    public bool haveBooming = false;
     #endregion
 
 
@@ -175,6 +175,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         bubbleDict.Clear();
         curtainDict.Clear();
         bombList.Clear();
+        grassList.Clear();
         nowHalf = null;
 
         TopBottleLayoutGroup.Show();
@@ -196,8 +197,13 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                 // 炸弹
                 if (i.waterItems[j] == WaterItem.Bomb || i.waterItems[j] == WaterItem.FlyBomb)
                 {
-                    if (!bombList.Contains(i))
-                        bombList.Add(i);
+                    bombList.Add(i);
+                }
+
+                // 草炸弹
+                if (i.waterItems[j] == WaterItem.GrassBomb)
+                {
+                    grassList.Add(i);
                 }
             }
 
@@ -452,7 +458,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             case ItemType.BombBlackWater:
                 RandomHalfBlackWater();
                 break;
-
         }
     }
     /// <summary>
@@ -462,15 +467,26 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         for (int i = 0; i < clearList.Count * 2; i++)
         {
-            BottleCtrl a = levelManagerUtility.RandomBarkWaterBottle(nowBottles);
+            BottleCtrl a = levelManagerUtility.RandomBarkWaterBottle(nowBottles, HideWaterType.HideWater);
             // 提早结束黑水生成，因为已经没有可以生成的位置了
             if (a == null)
                 break;
         }
         foreach (var i in nowBottles)
             i.SetBottleColor();
-        UIKit.ClosePanel<UIMask>();
+        // UIKit.ClosePanel<UIMask>();
+    }
 
+    public void RandomHalfGrassWater()
+    {
+        for (int i = 0; i < clearList.Count * 2; i++)
+        {
+            BottleCtrl a = levelManagerUtility.RandomBarkWaterBottle(nowBottles, HideWaterType.GrassWater);
+            // 提早结束黑水生成，因为已经没有可以生成的位置了
+            if (a == null)
+                break;
+        }
+        
     }
     /// <summary>
     /// 获取能移除的颜色
@@ -830,7 +846,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         {
             if (moveNum >= GlobalMechanismBeginSetp && moveNum <= GlobalMechanismBeginSetp + GlobalMechanismContinueSetps)
             {
-                BottleCtrl _bottleCtrl = levelManagerUtility.RandomBarkWaterBottle(nowBottles);
+                BottleCtrl _bottleCtrl = levelManagerUtility.RandomBarkWaterBottle(nowBottles, HideWaterType.HideWater);
                 if (_bottleCtrl != null)
                 {
                     _bottleCtrl.SetHideShow(true);
@@ -903,6 +919,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     public bool CheckBomb()
     {
+        Debug.Log(bombList.Count);
         foreach (var item in bombList.ToList())
         {
             if (item.CheckBoomFailure())
@@ -1009,6 +1026,24 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         curtainDict.Remove(bottleCtrl);
     }
+    #endregion
+
+    #region 草炸弹相关
+
+    public void GrassBombing()
+    {
+        RandomHalfGrassWater();
+
+
+        // 清理其他草炸弹
+        foreach (var bottle in grassList)
+        {
+            bottle.ClearGrassBomb();
+        }
+
+        grassList.Clear();
+    }
+
     #endregion
     #endregion
 
@@ -1275,7 +1310,7 @@ public class BottleRecord
     public bool isFinish, isFreeze, isClearHide, isNearHide, isBlackBottle;
     public int limitColor;
     public List<int> waters = new List<int>();
-    public List<bool> hideWaters = new List<bool>();
+    public List<HideWaterType> HideWaterTypes = new List<HideWaterType>();
     public List<WaterItem> waterItems = new List<WaterItem>();
     public List<int> bombCount = new List<int>();
 
@@ -1287,7 +1322,8 @@ public class LevelManagerRecord
     public List<int> clearList;
     public List<int> hideColor;
     public Dictionary<BottleCtrl, int> bubbleDict;
-    public List<BottleCtrl> bombList;
+    public HashSet<BottleCtrl> bombList;
+    public HashSet<BottleCtrl> grassList;
     public List<ChangePair> changeList;
     public Dictionary<BottleCtrl, int> curtainDict;
 }

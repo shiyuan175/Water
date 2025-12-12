@@ -15,122 +15,166 @@ MonoBehaviour:
   bottles:
   - waterSet: 070000000100000004000000
     isHide: 010100
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 0600000001000000
     isHide: 0100
+    hideTypes: 0100000000000000
     waterItem: 0000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: d50700000700000002000000
     isHide: 010100
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 0700000001000000
     isHide: 0100
+    hideTypes: 0100000000000000
     waterItem: 0000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 060000000700000002000000
     isHide: 010100
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 0a0000000400000004000000
     isHide: 010100
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 020000000a000000
     isHide: 0100
+    hideTypes: 0100000000000000
     waterItem: 0000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 6
     isClearHide: 1
+    lockType: 6
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: d50700000600000006000000
     isHide: 010100
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 0100000002000000
     isHide: 0100
+    hideTypes: 0100000000000000
     waterItem: 0000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 6
     isClearHide: 1
+    lockType: 6
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   - waterSet: 0a000000040000000a000000
     isHide: 010100
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
   gameType: 0
   clearList: 07000000010000000400000006000000020000000a000000
   hideList: 
-  bombNum: 0
+  hideTypes: 
+  globalMechanism: 0
+  GlobalMechanismBeginSetp: 0
+  GlobalMechanismContinueSetps: 0
   countDownNum: 0
   timeCountDown: 0
   topNum: 5
   bottomNum: 5
+  bubbleCount: 
   changeList:
   - item: 2005
     NeedChangeColor: 7

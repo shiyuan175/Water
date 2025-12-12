@@ -12,7 +12,7 @@ using UnityEngine.Networking;
 namespace JsonFileData
 {
     /// <summary>
-    /// ÓÃÓÚ°æ±¾¶Ô±È
+    /// ï¿½ï¿½ï¿½Ú°æ±¾ï¿½Ô±ï¿½
     /// </summary>
     public class VersionWrapper
     {
@@ -20,7 +20,7 @@ namespace JsonFileData
     }
 
     /// <summary>
-    /// ÓÃÓÚÉùÃ÷ÎÄ¼þÐÅÏ¢ºÍ°æ±¾
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ï¢ï¿½Í°æ±¾
     /// </summary>
     public class JsonFileInfo
     {
@@ -54,28 +54,7 @@ namespace JsonFileData
     }
 
     #endregion
-
-    #region DailyTask AD Activity Data
-
-    public class DTRewardItem
-    { }
-    public class TaskItem
-    {
-        public string TypeName;
-        public List<DTRewardItem> Rewards;
-    }
-
-    public class TaskGroup
-    {
-        public int TaskId;
-        public List<TaskItem> TaskItems;
-    }
-
-    public class DailyTaskActivityData
-    {
-        List<TaskGroup> DailyTaskData;
-    }
-    #endregion
+    
     public class RewardItem
     {
         public string itemType;
@@ -148,7 +127,7 @@ namespace JsonFileData
 
 public class JsonFileUtility : IUtility
 {
-    // Ä¬ÈÏµÄjsonÊÇÓÃÀ´Í¬²½°æ±¾£¬current
+    // Ä¬ï¿½Ïµï¿½jsonï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½æ±¾ï¿½ï¿½current
     private readonly JsonFileInfo[] mJsonFileData = new JsonFileInfo[]
     {
         GameDefine.GameConst.MSADefaultJson,
@@ -158,7 +137,7 @@ public class JsonFileUtility : IUtility
     };
 
     /// <summary>
-    /// ´Ó JSON ÎÄ¼þ¶ÁÈ¡¶ÔÏó
+    /// ï¿½ï¿½ JSON ï¿½Ä¼ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     /// <param name="filePath"></param>
     /// <param name="action"></param>
@@ -166,7 +145,7 @@ public class JsonFileUtility : IUtility
     {
         if (!File.Exists(filePath))
         {
-            /*   Debug.Log($"ÎÄ¼þ²»´æÔÚ: {filePath}");*/
+            /*   Debug.Log($"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: {filePath}");*/
             return;
         }
 
@@ -175,24 +154,24 @@ public class JsonFileUtility : IUtility
     }
 
     /// <summary>
-    /// ±£´æ¶ÔÏóÎª JSON ÎÄ¼þ
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª JSON ï¿½Ä¼ï¿½
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="filePath"></param>
     /// <param name="data"></param>
     public void SaveToJson<T>(string filePath, T data)
     {
-        //È·±£Â·¾¶´æÔÚ
+        //È·ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         Directory.CreateDirectory(Path.GetDirectoryName(filePath));
         string _json = JsonConvert.SerializeObject(data, Formatting.Indented);
         File.WriteAllText(filePath, _json);
-        //Debug.Log($"Êý¾ÝÒÑ±£´æ: {filePath}");
+        //Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½Ñ±ï¿½ï¿½ï¿½: {filePath}");
     }
 
-    #region ¿½±´ÎÄ¼þµ½³Ö¾Ã»¯Â·¾¶
-    /// ×¢ÒâÊÂÏî£º
-    /// Ã¿¸öJsonÎÄ¼þÓ¦ÓÐ Version ×Ö¶Î ,ÎÄ¼þÐÅÏ¢ÐèÅäÖÃÄ¿±ê°æ±¾
-    /// StreamingAssets ÏÂµÄ Json Ó¦Îª×îÐÂ°æ±¾
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ö¾Ã»ï¿½Â·ï¿½ï¿½
+    /// ×¢ï¿½ï¿½ï¿½ï¿½ï¿½î£º
+    /// Ã¿ï¿½ï¿½Jsonï¿½Ä¼ï¿½Ó¦ï¿½ï¿½ Version ï¿½Ö¶ï¿½ ,ï¿½Ä¼ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½æ±¾
+    /// StreamingAssets ï¿½Âµï¿½ Json Ó¦Îªï¿½ï¿½ï¿½Â°æ±¾
 
     /*public IEnumerator UpdateJsonFiles()
     {
@@ -205,9 +184,9 @@ public class JsonFileUtility : IUtility
             var _perFilePath = Path.Combine(Application.persistentDataPath, mJsonFileData[i].FileName);
             if (File.Exists(_perFilePath))
             {
-                Debug.Log($"ÎÄ¼þ:{mJsonFileData[i].FileName} ÒÑ´æÔÚ");
+                Debug.Log($"ï¿½Ä¼ï¿½:{mJsonFileData[i].FileName} ï¿½Ñ´ï¿½ï¿½ï¿½");
                 int _localVersion = GetFileVersion(_perFilePath);
-                Debug.Log("µ±Ç°Json°æ±¾£º" + _localVersion);
+                Debug.Log("ï¿½ï¿½Ç°Jsonï¿½æ±¾ï¿½ï¿½" + _localVersion);
 
                 if (_localVersion >= mJsonFileData[i].TargetVersion)
                     _needUpdate = false;
@@ -217,7 +196,7 @@ public class JsonFileUtility : IUtility
 
             if (_needUpdate)
             {
-                Debug.Log($"ÎÄ¼þ:{mJsonFileData[i]} ²»´æÔÚ»ò°æ±¾¹ýµÍ£¬¸üÐÂÖÐ...");
+                Debug.Log($"ï¿½Ä¼ï¿½:{mJsonFileData[i]} ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½æ±¾ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...");
 #if UNITY_ANDROID && !UNITY_EDITOR
                 var streamingAssetsFilePath = Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName);
                 UnityWebRequest request = UnityWebRequest.Get(streamingAssetsFilePath);
@@ -228,10 +207,10 @@ public class JsonFileUtility : IUtility
                 }
                 else
                 {
-                    Debug.LogError("¿½±´Ê§°Ü: " + request.error);
+                    Debug.LogError("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½: " + request.error);
                 }
 #else
-                //·Ç°²×¿
+                //ï¿½Ç°ï¿½×¿
                 File.Copy(Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName), _perFilePath, true);
                 yield return null;
 #endif
@@ -249,17 +228,17 @@ public class JsonFileUtility : IUtility
             var _perFilePath = Path.Combine(Application.persistentDataPath, mJsonFileData[i].FileName);
             if (File.Exists(_perFilePath))
             {
-                //Debug.Log($"ÎÄ¼þ:{mJsonFileData[i].FileName} ÒÑ´æÔÚ");
+                //Debug.Log($"ï¿½Ä¼ï¿½:{mJsonFileData[i].FileName} ï¿½Ñ´ï¿½ï¿½ï¿½");
                 int _localVersion = GetFileVersion(_perFilePath);
-                //Debug.Log($"{mJsonFileData[i].FileName} µ±Ç°°æ±¾£º" + _localVersion);
-                // ¶ÁÈ¡Ä¬ÈÏµÄjson±È¶ÔjsonµÄversionºÍtargeversion
+                //Debug.Log($"{mJsonFileData[i].FileName} ï¿½ï¿½Ç°ï¿½æ±¾ï¿½ï¿½" + _localVersion);
+                // ï¿½ï¿½È¡Ä¬ï¿½Ïµï¿½jsonï¿½È¶ï¿½jsonï¿½ï¿½versionï¿½ï¿½targeversion
                 if (_localVersion >= mJsonFileData[i].TargetVersion)
                     _needUpdate = false;
             }
 
             if (_needUpdate)
             {
-                //Debug.Log($"ÎÄ¼þ:{mJsonFileData[i]} ²»´æÔÚ»ò°æ±¾¹ýµÍ£¬¸üÐÂÖÐ...");
+                //Debug.Log($"ï¿½Ä¼ï¿½:{mJsonFileData[i]} ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½æ±¾ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...");
 #if UNITY_ANDROID && !UNITY_EDITOR
            var streamingAssetsFilePath = Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName);
            using (UnityWebRequest request = UnityWebRequest.Get(streamingAssetsFilePath))
@@ -274,11 +253,11 @@ public class JsonFileUtility : IUtility
                }
                else
                {
-                   //Debug.LogError("¿½±´Ê§°Ü: " + request.error);
+                   //Debug.LogError("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½: " + request.error);
                }
            }
 #else
-                // ·Ç°²×¿
+                // ï¿½Ç°ï¿½×¿
                 await Task.Run(() =>
                 {
                     File.Copy(Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName), _perFilePath, overwrite: true);
@@ -290,7 +269,7 @@ public class JsonFileUtility : IUtility
     }
 
     /// <summary>
-    /// »ñÈ¡Json°æ±¾ºÅ
+    /// ï¿½ï¿½È¡Jsonï¿½æ±¾ï¿½ï¿½
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>

@@ -15,59 +15,71 @@ MonoBehaviour:
   bottles:
   - waterSet: 03000000
     isHide: 00
+    hideTypes: 00000000
     waterItem: 00000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    hidePriority: 0
-    isFlyBomb: 0
   - waterSet: 010000000700000002000000
     isHide: 000000
+    hideTypes: 000000000000000000000000
     waterItem: 000000000600000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    hidePriority: 0
-    isFlyBomb: 0
   - waterSet: 05000000020000000200000001000000
     isHide: 00000000
+    hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    hidePriority: 0
-    isFlyBomb: 0
   - waterSet: 07000000010000000c000000
     isHide: 000000
+    hideTypes: 000000000000000000000000
     waterItem: 060000000000000000000000
     bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    hidePriority: 0
-    isFlyBomb: 0
   gameType: 0
   clearList: 01000000
   hideList: 
+  hideTypes: 
+  globalMechanism: 0
+  GlobalMechanismBeginSetp: 0
+  GlobalMechanismContinueSetps: 0
   countDownNum: 0
   timeCountDown: 0
   topNum: 4

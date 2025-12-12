@@ -12,16 +12,21 @@ namespace GameAttributes
         ECreateSpine = 3,
         EChangeSpine = 4,
 
-        //²ÊÉ«Ë®¿é
+        // å½©è™¹æ°´
         ERainBowWater = 5,
         EFlashWater = 6,
-        //Õ¨µ¯ºÚË®
-        EBombBlackWater = 7,
-        // ·ÉÌìÕ¨µ¯
-        EFlyBomb = 8,
-        //ÆäÓàÌØÊâË®¿é...
 
-        Max = 9
+        // ç‚¸å¼¹æ°´
+        EBombBlackWater = 7,
+
+        // é£å¤©ç‚¸å¼¹
+        EFlyBomb = 8,
+
+        // è‰åœ°æ°´
+        EGrassWaterBomb = 9,
+        // æ›´å¤šæœºåˆ¶
+
+        Max = 10
     }
     
     [AttributeUsage(AttributeTargets.Field)]
@@ -33,9 +38,8 @@ namespace GameAttributes
         public readonly bool MagnetItemActive;
         public readonly bool RainBowWaterActive;
         public readonly bool BombBlackWaterAvtive;
-        public readonly bool FlyBombActive;
         public readonly bool FlashWaterActive;
-
+        public readonly bool GrassWaterBombActive;
         public readonly string SpineAnim;
         public readonly EColorStateSpineType SpineType;
 
@@ -52,8 +56,8 @@ namespace GameAttributes
             RainBowWaterActive = spineType == EColorStateSpineType.ERainBowWater;
             FlashWaterActive = spineType == EColorStateSpineType.EFlashWater;
             BombBlackWaterAvtive = spineType == EColorStateSpineType.EBombBlackWater;
-            FlyBombActive = SpineType == EColorStateSpineType.EFlyBomb;
-            //¾ÖÄÚ»úÖÆµÀ¾ß²¹³ä...
+            GrassWaterBombActive = spineType == EColorStateSpineType.EGrassWaterBomb;
+            // å…¶ä»–æ–°çš„æ°´æœºåˆ¶
         }
     }
 
@@ -84,6 +88,8 @@ namespace GameAttributes
            
         }
     }
+
+   
 
 
 }

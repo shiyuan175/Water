@@ -35,8 +35,8 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
         mBPModel.LoadBattlePassActivity();
         this.RegisterEvent<ReturnToMainEvent>((_event) =>
         {
-            // »î¶¯Æô¶¯²Å¼ÆÊý
-            // »î¶¯Æô¶¯²Å¼ÆÊý
+            // ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½ï¿½Å¼ï¿½ï¿½ï¿½
+            // ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½ï¿½Å¼ï¿½ï¿½ï¿½
             if (ActivityStatus == GameActivityStatus.Active && _event.PassLevel)
                 mBPModel.AddGameWinCount();
         });
@@ -60,15 +60,14 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
     public override void RestartActivity()
     {
         CountDownTimerManager.Instance.ResetTimer(ActivitySign, ActivityDurationMinutes);
-        mBPModel.LoadBattlePassActivity();
-        // Î´ÁìÈ¡µÄ½±Àø·¢·Å?
+        // Î´ï¿½ï¿½È¡ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
         mBPModel.ReloadBattlePassActivity();
         mBPModel.LoadBattlePassActivity();
     }
     /// <summary>
-    /// ·¢·Å½±Àø
+    /// ï¿½ï¿½ï¿½Å½ï¿½ï¿½ï¿½
     /// </summary>
-    /// <param name="pack">Àñ°ü</param>
+    /// <param name="pack">ï¿½ï¿½ï¿½</param>
     /// <param name="isVIPPack"></param>
     public void DistributeReward(RewardItem[] pack, bool isVipPack = false, int level = 0)
     {

@@ -30,6 +30,11 @@ public class LevelCreateCtrl : ScriptableObject
     public List<int> hideList;
 
     /// <summary>
+    ///     隐藏的水类型列表 (与hideList对应，0为普通水，1为草丛水)
+    /// </summary>
+    public List<HideWaterType> hideTypes;
+
+    /// <summary>
     ///     全局机制配置
     /// </summary>
     public GlobalMechanism globalMechanism;
@@ -86,9 +91,9 @@ public class LevelCreateCtrl : ScriptableObject
         public List<int> waterSet = new();
 
         /// <summary>
-        ///     每层水是否被隐藏的标记
+        ///     每层水的隐藏类型 (0为普通水，1为草丛水)
         /// </summary>
-        public List<bool> isHide = new();
+        public List<HideWaterType> hideTypes = new();
 
         /// <summary>
         ///     每层水的详细状态 (炸弹、冰冻等)

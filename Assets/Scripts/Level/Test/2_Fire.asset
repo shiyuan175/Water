@@ -15,46 +15,59 @@ MonoBehaviour:
   bottles:
   - waterSet: 0100000001000000
     isHide: 0000
+    hideTypes: 0000000000000000
     waterItem: 0200000002000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
-    hidePriority: 0
   - waterSet: 0100000001000000
     isHide: 0000
+    hideTypes: 0000000000000000
     waterItem: 0000000000000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
-    hidePriority: 0
   - waterSet: 02000000020000000200000002000000
     isHide: 000000
+    hideTypes: 000000000000000000000000
     waterItem: 00000000000000000100000001000000
+    bombCounts: 
     numCake: 0
     limitColor: 0
-    lockType: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-    bombCounts: 
-    hidePriority: 0
   gameType: 0
   clearList: 0100000002000000
   hideList: 
-  bombNum: 0
+  hideTypes: 
+  globalMechanism: 0
+  GlobalMechanismBeginSetp: 0
+  GlobalMechanismContinueSetps: 0
   countDownNum: 0
   timeCountDown: 0
   topNum: 3
   bottomNum: 0
+  bubbleCount: 
   changeList: []

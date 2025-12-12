@@ -292,7 +292,6 @@ namespace QFramework.Example
                 0,
                 -viewportLocalPosition.y - childLocalPosition.y - (child.rect.height / 2)
             );
-
             return result;
         }
     }

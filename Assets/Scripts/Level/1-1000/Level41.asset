@@ -15,90 +15,164 @@ MonoBehaviour:
   bottles:
   - waterSet: 02000000060000000400000001000000
     isHide: 00000000
+    hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
-    lockType: 0
+    limitColor: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
+    isFinish: 0
   - waterSet: 010000000100000001000000
     isHide: 000000
+    hideTypes: 000000000000000000000000
     waterItem: 000000000000000000000000
+    bombCounts: 
     numCake: 0
-    lockType: 0
+    limitColor: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
+    isFinish: 0
   - waterSet: 040000000400000004000000
     isHide: 000000
+    hideTypes: 000000000000000000000000
     waterItem: 000000000000000000000000
+    bombCounts: 
     numCake: 0
-    lockType: 0
+    limitColor: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 1
     isFreeze: 0
+    isFinish: 0
   - waterSet: 060000000600000006000000
     isHide: 000000
+    hideTypes: 000000000000000000000000
     waterItem: 000000000000000000000000
+    bombCounts: 
     numCake: 0
-    lockType: 0
+    limitColor: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 1
     isFreeze: 0
+    isFinish: 0
   - waterSet: 0a000000020000000200000002000000
     isHide: 00000000
+    hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
-    lockType: 0
+    limitColor: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 1
     isFreeze: 0
+    isFinish: 0
   - waterSet: 07000000070000000300000003000000
     isHide: 00000000
+    hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
-    lockType: 0
+    limitColor: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
+    isFinish: 0
   - waterSet: 0300000003000000
     isHide: 0000
+    hideTypes: 0000000000000000
     waterItem: 0000000000000000
+    bombCounts: 
     numCake: 0
-    lockType: 0
+    limitColor: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 1
     isFreeze: 0
+    isFinish: 0
   - waterSet: 0a0000000a0000000a000000
     isHide: 000000
+    hideTypes: 000000000000000000000000
     waterItem: 000000000000000000000000
+    bombCounts: 
     numCake: 0
-    lockType: 0
+    limitColor: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
+    isFinish: 0
   - waterSet: 0800000008000000
     isHide: 0000
+    hideTypes: 0000000000000000
     waterItem: 0000000000000000
+    bombCounts: 
     numCake: 0
-    lockType: 0
+    limitColor: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 1
     isFreeze: 0
+    isFinish: 0
   - waterSet: 07000000070000000800000008000000
     isHide: 00000000
+    hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
+    bombCounts: 
     numCake: 0
-    lockType: 0
+    limitColor: 0
     isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
+    isBlackBottle: 0
+    CurtainHight: 0
     isNearHide: 0
     isFreeze: 0
+    isFinish: 0
   gameType: 0
   clearList: 010000000200000003000000040000000600000007000000080000000a000000
   hideList: 
-  bombNum: 0
+  hideTypes: 
+  globalMechanism: 0
+  GlobalMechanismBeginSetp: 0
+  GlobalMechanismContinueSetps: 0
   countDownNum: 0
   timeCountDown: 0
   topNum: 5
   bottomNum: 5
+  bubbleCount: 
   changeList: []

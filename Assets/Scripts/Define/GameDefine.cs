@@ -232,7 +232,8 @@ namespace GameDefine
         // 弃用，在水块中的飞天炸弹
         FlyBomb = 4,
         Bubble = 5,
-        Bubble_Origin = 6
+        Bubble_Origin = 6,
+        GrassBomb = 7
     }
 
     public enum BottleType
@@ -245,7 +246,8 @@ namespace GameDefine
     /// <summary>
     /// 不带底部水的机制(或特殊水块)
     /// </summary>
-    public enum ItemType
+    public enum
+        ItemType
     {
         [WaterColorState("", EColorStateSpineType.None)]
         UseColor = 1,
@@ -298,8 +300,7 @@ namespace GameDefine
         [ClearItemState(1, "idle_cl")]
         ClearGreen = 3007,
 
-        [RainBowWaterState("")]
-        RainBowWater = 4001,
+        [RainBowWaterState("")] RainBowWater = 4001,
 
         [RainBowWaterState("", EColorStateSpineType.EFlashWater)]
         FlashWater = 4002,
@@ -308,8 +309,8 @@ namespace GameDefine
         BombBlackWater = 5001,
 
         [WaterColorState("idle", EColorStateSpineType.EFlyBomb)]
-        FlyBomb = 5002
-
+        FlyBomb = 5002,
+        
     }
 
     public enum LanguageType
@@ -570,6 +571,13 @@ namespace GameDefine
         F_Awards = 40,
     }
 
+    public enum HideWaterType
+    {
+        None = 0,
+        HideWater = 1,
+        GrassWater = 2,
+        Max = 3
+    }
     public class GameEnum
     {
         public static string GetDescription<T>(T value)
@@ -579,7 +587,7 @@ namespace GameDefine
             return attributes.Length > 0 ? attributes[0].Description : value.ToString();
         }
     }
-
+    
     public static partial class GameUtils
     {
         /// <summary>

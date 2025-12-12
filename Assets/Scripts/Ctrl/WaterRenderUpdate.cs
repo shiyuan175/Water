@@ -13,10 +13,12 @@ public class WaterRenderUpdate : MonoBehaviour
     public bool bBottom = false;
     public Transform bottleTransform;
     public Image blackWater;// 黑水的效果。
+    public Image water_grass; // 草水  
     public Image iceEffect;// 冰效果的图片。
-    public Image water_cs;  
-    public Image water_fw;  
-    private Mesh _mesh;
+    public Image water_cs; // 彩虹水  
+    public Image water_fw; // 闪亮水  
+
+    public Mesh _mesh;
     private MeshRenderer _meshRenderer = null;
     private MeshFilter _meshFilter = null;
     private Material _material = null;
@@ -24,10 +26,15 @@ public class WaterRenderUpdate : MonoBehaviour
     private float _fillAmount;
     
     // 黑水相关辅助参数
-    private Material _blackWaterMaterial = null;
-    private MeshRenderer _blackWaterRenderer = null;
-    private MeshFilter _blackWaterFilter = null;
-    
+    public Material _blackWaterMaterial = null;
+    public MeshRenderer _blackWaterRenderer = null;
+    public MeshFilter _blackWaterFilter = null;
+
+    // 草水相关辅助参数
+    public MeshRenderer _grassEffectRenderer = null;
+    public MeshFilter _grassEffectFilter = null;
+    public Material _grassEffectMaterial = null;
+
     // 冰效果辅助参数
     private MeshRenderer _iceEffectRenderer = null;
     private MeshFilter _iceEffectFilter = null;
@@ -39,9 +46,9 @@ public class WaterRenderUpdate : MonoBehaviour
     private Material _csEffectMaterial = null;
 
     // 闪亮水效果辅助参数
-    private MeshRenderer _fwEffectRenderer = null;
-    private MeshFilter _fwEffectFilter = null;
-    private Material _fwEffectMaterial = null;
+    public MeshRenderer _fwEffectRenderer = null;
+    public MeshFilter _fwEffectFilter = null;
+    public Material _fwEffectMaterial = null;
 
     private readonly Vector3[] _verts = new Vector3[4];
 
@@ -63,6 +70,17 @@ public class WaterRenderUpdate : MonoBehaviour
                 _blackWaterRenderer = blackWater.GetComponent<MeshRenderer>();
             }
             _blackWaterMaterial = _blackWaterRenderer.material;
+        }
+
+        // 草水相关辅助参数
+        if (!_grassEffectMaterial)
+        {
+            if (!_grassEffectRenderer)
+            {
+                _grassEffectRenderer = water_grass.GetComponent<MeshRenderer>();
+            }
+
+            _grassEffectMaterial = _grassEffectRenderer.material;
         }
         
         if (!_iceEffectMaterial)
@@ -148,6 +166,7 @@ public class WaterRenderUpdate : MonoBehaviour
             ValidMaterial();
             _material.SetFloat("_StencilRef", value);
             _blackWaterMaterial.SetFloat("_StencilRef", value);
+            _grassEffectMaterial.SetFloat("_StencilRef", value);
             _iceEffectMaterial.SetFloat("_StencilRef", value);
             _csEffectMaterial.SetFloat("_StencilRef", value);
             _fwEffectMaterial.SetFloat("_StencilRef", value);
@@ -174,6 +193,7 @@ public class WaterRenderUpdate : MonoBehaviour
         {
             _meshRenderer.sortingOrder = value;
             _blackWaterRenderer.sortingOrder = value;
+            _grassEffectRenderer.sortingOrder = value;
             _iceEffectRenderer.sortingOrder = value;
             _csEffectRenderer.sortingOrder = value;
             _fwEffectRenderer.sortingOrder = value;
@@ -219,6 +239,10 @@ public class WaterRenderUpdate : MonoBehaviour
         
         _blackWaterRenderer = blackWater.GetComponent<MeshRenderer>();
         _blackWaterFilter = blackWater.GetComponent<MeshFilter>();
+
+        // 草水相关辅助参数
+        _grassEffectRenderer = water_grass.GetComponent<MeshRenderer>();
+        _grassEffectFilter = water_grass.GetComponent<MeshFilter>();
         
         _iceEffectRenderer = iceEffect.GetComponent<MeshRenderer>();
         _iceEffectFilter = iceEffect.GetComponent<MeshFilter>();
@@ -230,9 +254,13 @@ public class WaterRenderUpdate : MonoBehaviour
         _fwEffectFilter = water_fw.GetComponent<MeshFilter>();
 
         ValidMaterial();
-        _blackWaterMaterial.color = Color.black;
+        /*_blackWaterMaterial.color = Color.black;*/
         _blackWaterMaterial.renderQueue = 2902;
         _blackWaterMaterial.SetFloat("_FillHeight", 1000);
+        _blackWaterMaterial.color = Color.black;
+
+        _grassEffectMaterial.renderQueue = 2902;
+        _grassEffectMaterial.SetFloat("_FillHeight", 1000);
         
         _iceEffectMaterial.renderQueue = 2902;
         _iceEffectMaterial.SetFloat("_FillHeight", 1000);
@@ -247,6 +275,7 @@ public class WaterRenderUpdate : MonoBehaviour
         _meshFilter.mesh = _mesh;
         _iceEffectFilter.mesh = _mesh;
         _blackWaterFilter.mesh = _mesh;
+        _grassEffectFilter.mesh = _mesh;
         _csEffectFilter.mesh = _mesh;
         _fwEffectFilter.mesh = _mesh;
     }

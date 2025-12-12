@@ -30,7 +30,7 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterModel(new RocketActivityModel());
         RegisterModel(new HighTowerActivityModel());
         RegisterModel(new MagicStreakActivityModel());
-        RegisterModel(new TurnTableADActivityModel());
+        /*RegisterModel(new TurnTableADActivityModel());*/
         RegisterModel(new SceneUnlockModel());
         RegisterModel(new DailyRewardADActivityModel());
         RegisterModel(new BattlePassModel());
@@ -50,14 +50,14 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterUtility(new TwoBitUtility());
     }
 
-    //JsonÊý¾Ý¸üÐÂ
+    //Jsonï¿½ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½
     private void CheckUpdateJsonFile()
     {
         JsonFileUtility jsonUtility = this.GetUtility<JsonFileUtility>();
         _ = jsonUtility.UpdateJsonFiles();
     }
 
-    //µ¥Àý¹¹½¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private void CreateInstance()
     {
         //ResourceManager.Instance.LoadABPackage("uieveladdheart_prefab");
@@ -73,10 +73,10 @@ public class GameMainArc : Architecture<GameMainArc>
         CountDownTimerManager.Instance.StartEasternMidnightTimer(GameDefine.GameConst.FIRST_LAUNCH_SIGN);
     }
 
-    //»î¶¯¿ªÆô
+    //ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½
     private void ActivityStart()
     {
-        //Ê×¸öºá·ù»î¶¯
+        //ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½î¶¯
         var saveData = this.GetUtility<SaveDataUtility>();
         if (saveData.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             CountDownTimerManager.Instance.StartTimer(GameConst.RANKA_ACTIVITY_SIGN, 1440f);
