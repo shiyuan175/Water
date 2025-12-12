@@ -13,10 +13,9 @@ namespace QFramework.Example
     }
     public partial class UIVictory : UIPanel, ICanSendEvent, ICanGetUtility, ICanGetModel
     {
-        private BannerActivity mBannerActivity;
-
         private int mLastRankingScore;
         private bool mRankingEnd;
+        private bool mIsEnQueue;
 
         public IArchitecture GetArchitecture()
         {
@@ -35,7 +34,7 @@ namespace QFramework.Example
                 $"当前关卡进度:{this.GetUtility<SaveDataUtility>().GetCurrentLevel()}";
             AnalyticsManager.Instance.SendLevelEvent(_del);
 
-            mBannerActivity = GameActivityManager.Instance.GetActivity<BannerActivity>();
+            mIsEnQueue = false;
         }
 
         protected override void OnShow()
@@ -54,7 +53,8 @@ namespace QFramework.Example
 
             BtnSkip.onClick.AddListener(() =>
             {
-                EnqueueAllPanels();
+                if (!mIsEnQueue)
+                    EnqueueAllPanels();
                 CloseSelf();
             });
 
@@ -91,13 +91,16 @@ namespace QFramework.Example
         {
             ActionKit.Delay(3f, () =>
             {
-                EnqueueAllPanels();
+                if (!mIsEnQueue)
+                    EnqueueAllPanels();
                 CloseSelf();
             }).Start(this);
         }
 
         private void EnqueueAllPanels()
         {
+            mIsEnQueue = true;
+
             //排行榜
             PanelQueueManager.Instance.Enqueue(() =>
             {
@@ -115,8 +118,12 @@ namespace QFramework.Example
             //火山活动
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                if (GameActivityManager.Instance.GetActivity<VolcanicActivity>() is VolcanicActivity volcanicActivity
-                    && volcanicActivity.ActivityStatus == GameActivityStatus.Active)
+                VolcanicActivity volcanicActivity = GameActivityManager.Instance.GetActivity<VolcanicActivity>();
+
+                if (volcanicActivity is null)
+                    return false;
+
+                if (volcanicActivity.ActivityStatus == GameActivityStatus.Active)
                 {
                     UIKit.OpenPanel<UIVolcanicActivity>(new UIVolcanicActivityData()
                     {
@@ -125,14 +132,26 @@ namespace QFramework.Example
                     });
                     return true;
                 }
+
+                else if (volcanicActivity.ActivityStatus == GameActivityStatus.Inactive)
+                {
+                    UIKit.OpenPanel<UIVolcanicActivityEntrance>(new UIVolcanicActivityEntranceData
+                    {
+                        IsManagedOpen = true
+                    });
+                    return true;
+                }
+
                 return false;
             });
-
             //火箭活动
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                if (GameActivityManager.Instance.GetActivity<RocketActivity>() is RocketActivity rocketActivity &&
-                rocketActivity.ActivityStatus == GameActivityStatus.Active)
+                RocketActivity rocketActivity = GameActivityManager.Instance.GetActivity<RocketActivity>();
+                if (rocketActivity is null)
+                    return false;
+
+                if (rocketActivity.ActivityStatus == GameActivityStatus.Active)
                 {
                     UIKit.OpenPanel<UIRocketActivity>(new UIRocketActivityData()
                     {
@@ -141,28 +160,25 @@ namespace QFramework.Example
                     });
                     return true;
                 }
+                else if (rocketActivity.ActivityStatus == GameActivityStatus.Inactive)
+                {
+                    UIKit.OpenPanel<UIRocketActivityEntrance>(new UIRocketActivityEntranceData
+                    {
+                        IsManagedOpen = true
+                    });
+                    return true;
+                }
 
                 return false;
             });
-          /* 暂时关闭  
-             //轮盘活动
-            PanelQueueManager.Instance.Enqueue(() =>
-            {
-                // 没有计时的时候显示 并进行时间的初始化
-                if (GameActivityManager.Instance.GetActivity<TurnTableADActivity>() is TurnTableADActivity turnTableADActivity
-                    && turnTableADActivity.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TURNTABLE_AD_ACTIVITY_SIGN))
-                {
-                    GameActivityManager.Instance.GetActivity<TurnTableADActivity>().StartActivity();
-                    UIKit.OpenPanel<UIMallTurntable>(new UIMallTurntableData { IsManagedOpen = true });
-                    return true;
-                }
-                return false;
-            });*/
             //高塔活动
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                if (GameActivityManager.Instance.GetActivity<HighTowerActivity>() is HighTowerActivity highTowerActivity
-                    && highTowerActivity.ActivityStatus == GameActivityStatus.Active)
+                HighTowerActivity highTowerActivity = GameActivityManager.Instance.GetActivity<HighTowerActivity>();
+                if (highTowerActivity is null)
+                    return false;
+
+                if (highTowerActivity.ActivityStatus == GameActivityStatus.Active)
                 {
                     UIKit.OpenPanel<UIHighTowerActivity>(new UIHighTowerActivityData()
                     {
@@ -171,14 +187,26 @@ namespace QFramework.Example
                     });
                     return true;
                 }
+                else if (highTowerActivity.ActivityStatus == GameActivityStatus.Inactive)
+                {
+                    UIKit.OpenPanel<UIHighTowerActivityEntrance>(new UIHighTowerActivityEntranceData
+                    {
+                        IsManagedOpen = true
+                    });
+                    return true;
+                }
+
                 return false;
             });
+            //魔法连胜活动
+            HandleMSA();
 
             // 特惠礼包
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 if ((this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.SO_AD_BEGIN_LEVEL
-                || (this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL > 0&&(this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL)%7==0))
+                || (this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL > 0 
+                && (this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL) % 7 == 0))
                 && GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>() is SepecialOfferADActivity soActivity
                     && soActivity.ActivityStatus != GameActivityStatus.CoolingDown)
                 {
@@ -219,7 +247,6 @@ namespace QFramework.Example
                 }
                 return false;
             });
-
             // 免广告礼包
             PanelQueueManager.Instance.Enqueue(() =>
             {
@@ -233,14 +260,24 @@ namespace QFramework.Example
                 }
                 return false;
             });
-
-            //魔法连胜活动
-            HandleMSA();
+            /* 暂时关闭  
+            //轮盘活动
+           PanelQueueManager.Instance.Enqueue(() =>
+           {
+               // 没有计时的时候显示 并进行时间的初始化
+               if (GameActivityManager.Instance.GetActivity<TurnTableADActivity>() is TurnTableADActivity turnTableADActivity
+                   && turnTableADActivity.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TURNTABLE_AD_ACTIVITY_SIGN))
+               {
+                   GameActivityManager.Instance.GetActivity<TurnTableADActivity>().StartActivity();
+                   UIKit.OpenPanel<UIMallTurntable>(new UIMallTurntableData { IsManagedOpen = true });
+                   return true;
+               }
+               return false;
+           });*/
 
             //最后结算界面
             PanelQueueManager.Instance.Enqueue(() =>
             {
-
                 UIKit.OpenPanel<UIGetCoin>();
                 return true;
             });
@@ -298,6 +335,20 @@ namespace QFramework.Example
                     UIKit.OpenPanel<UIMagicStreakActivity>(_uiData);
                     return true;
                 });
+            }
+
+            if (_activit.ActivityStatus == SettlementActivityStatus.Inactive ||
+               _activit.ActivityStatus == SettlementActivityStatus.WaitStart)
+            {
+                PanelQueueManager.Instance.Enqueue(() =>
+                {
+                    UIKit.OpenPanel<UIMagicStreakActivityEntrance>(new UIMagicStreakActivityEntranceData
+                    {
+                        IsManagedOpen = true
+                    });
+                    return true;
+                });
+                
             }
         }
     }

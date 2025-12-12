@@ -25,7 +25,8 @@ public class PanelQueueManager : MonoSingleton<PanelQueueManager>
     /// <param name="openPanelFunc"></param>
     public void Enqueue(Func<bool> openPanelFunc)
     {
-        mPanelQueue.Enqueue(openPanelFunc);
+        if (!mPanelQueue.Contains(openPanelFunc))
+            mPanelQueue.Enqueue(openPanelFunc);
     }
 
     /// <summary>

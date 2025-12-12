@@ -34,6 +34,16 @@ namespace QAssetBundle
         public const string SourceHanSansCNBold_SDF_Red = "SourceHanSansCN-Bold SDF Red";
         public const string SourceHanSansCNBold = "SourceHanSansCN-Bold";
     }
+    public class Plotunlockguide_prefab
+    {
+        public const string BundleName = "plotunlockguide_prefab";
+        public const string PlotUnlockGuide = "PlotUnlockGuide";
+    }
+    public class Popdialogbox_prefab
+    {
+        public const string BundleName = "popdialogbox_prefab";
+        public const string PopDialogBox = "PopDialogBox";
+    }
     public class Ranklevelatlas_spriteatlasv2
     {
         public const string BundleName = "ranklevelatlas_spriteatlasv2";
@@ -49,10 +59,14 @@ namespace QAssetBundle
         public const string BundleName = "sceneunlock2_prefab";
         public const string SceneUnlock2 = "SceneUnlock2";
     }
+    public class Sceneunlock3_prefab
+    {
+        public const string BundleName = "sceneunlock3_prefab";
+        public const string SceneUnlock3 = "SceneUnlock3";
+    }
     public class Sceneunlockguide_prefab
     {
         public const string BundleName = "sceneunlockguide_prefab";
-        public const string PlotUnlockGuide = "PlotUnlockGuide";
         public const string SceneUnlockGuide = "SceneUnlockGuide";
     }
     public class Uibattlepassadactivity_prefab

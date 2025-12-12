@@ -19,35 +19,26 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
-    - TypeName: UnityEngine.UI.ScrollRect
-      PathToRoot: Mesh/ButtomPanel/ScrollView
-      MemberName: ScrollView
-    - TypeName: UnityEngine.GameObject
-      PathToRoot: Mesh/ButtomPanel/ScrollView/Viewport/BattlePassContent
-      MemberName: BattlePassContent
-    - TypeName: UnityEngine.UI.Button
-      PathToRoot: Mesh/TopPanel/BtnClose
-      MemberName: BtnClose
-    - TypeName: UnityEngine.UI.Button
-      PathToRoot: Mesh/TopPanel/BtnInfo
-      MemberName: BtnInfo
     - TypeName: UnityEngine.UI.Image
-      PathToRoot: Mesh/TopPanel/BattlePassTitle/TaskProgressBar/ImgBar
-      MemberName: ImgBar
+      PathToRoot: ImgProgressBar
+      MemberName: ImgProgressBar
     - TypeName: TMPro.TextMeshProUGUI
-      PathToRoot: Mesh/TopPanel/BattlePassTitle/TaskProgressBar/TextTaskProgressBar
-      MemberName: TextTaskProgressBar
-    - TypeName: UnityEngine.UI.Image
-      PathToRoot: Mesh/TopPanel/BattlePassTitle/TaskProgressBar/ImgLevel
-      MemberName: ImgLevel
-    - TypeName: UnityEngine.UI.Button
-      PathToRoot: Mesh/TopPanel/BattlePassTitle/TaskProgressBar/BtnActivate
-      MemberName: BtnActivate
+      PathToRoot: TextProgress
+      MemberName: TextProgress
+    - TypeName: UnityEngine.RectTransform
+      PathToRoot: LevelNode/Selected
+      MemberName: Selected
     - TypeName: TMPro.TextMeshProUGUI
-      PathToRoot: Mesh/TopPanel/BattlePassTitle/TxtCountDownBk/TxtCountDown
-      MemberName: TxtCountDown
-    ScriptsFolder: Assets\Scripts\Controllers\UIBegin_BattlePassPanel
-    ClassName: BattlePassPanel
+      PathToRoot: Icon2/TxtCurLevel
+      MemberName: TxtCurLevel
+    - TypeName: RectTransform
+      PathToRoot: ImgRewardIcon
+      MemberName: ImgRewardIcon
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: ImgTimerBg/TextTimer
+      MemberName: TextTimer
+    ScriptsFolder: Assets\Scripts\_Script\BannerActivityNode\PotionActivityNode
+    ClassName: PotionActivityNode
     Namespace: QFramework.Example
     MainCode: 
     DesignerCode: 

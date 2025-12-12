@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 using GameAttributes;
 using GameDefine;
@@ -8,6 +5,10 @@ using QFramework;
 using QFramework.Example;
 using Spine;
 using Spine.Unity;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using static LevelCreateCtrl;
@@ -33,7 +34,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     public int maxNum = 4,
         limitColor, // 限制可倒入的颜色(0表示无限制)
         unlockClear; // 解锁魔法布的颜色编号
-
+    
     // 是否是浮空炸弹
     /*    private bool isFlyBomb = false;*/
     //瓶子中的水块标识
@@ -215,14 +216,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
                 }
             }
         }
-
-
-        if (topIdx < 0) spineGo.gameObject.SetActive(false);
-
-        SetBottleColor(true, true);
-        var spinePosIdx = topIdx + 1;
-        SetNowSpinePos(spinePosIdx);
-        //PlaySpineWaitAnim();//重复调用
+        SetBottleColor(true);
 
         foreach (var item in waterItems)
             if (item == WaterItem.Ice)
@@ -272,7 +266,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
             blackwater.SetActive(false);
         }
     }
-
     /// <summary>
     ///     设置瓶子最大装水数
     /// </summary>
@@ -870,10 +863,12 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         var sameNum = 1;
 
         for (var i = topIdx - 1; i >= 0; i--)
+        {
             if (waters[i] == GetMoveOutTop() && waterItems[i] != WaterItem.Ice && i > curtainHight - 1)
                 sameNum++;
             else
                 break;
+        }
 
         if (moveNum > sameNum)
             moveNum = sameNum;
@@ -913,7 +908,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         #region 倒水后触发、玩家走一步触发、倒水后全局机制
 
         // 瓶子检查
-        other.CheckFinish();
+        other.CheckFinish();        
         // 炸弹更新
         if (!LevelManager.Instance.bombList.Contains(other)) LevelManager.Instance.bombList.Add(other);
 
@@ -939,7 +934,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     }
 
     /// <summary>
-    ///     瓶子倒水动画
+    /// 瓶子倒水动画
     /// </summary>
     /// <param name="other"></param>
     /// <param name="topIndex"></param>
@@ -947,7 +942,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     /// <param name="useColor"></param>
     public void MoveToOtherAnim(BottleCtrl other, int topIndex, int numWater, int useColor)
     {
-        var bottleClickMask = bottle.GetComponent<Image>();
+        UnityEngine.UI.Image bottleClickMask = bottle.GetComponent<Image>();
 
         //获取移动终点
         var (_targetPos, _dir) = GetMoveToPos(transform, other.transform, other.leftMovePlace);
@@ -957,7 +952,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         //水柱相关
         bottleRenderUpdate.SetMoveBottleRenderState(true, other);
 
-        var _type = (ItemType)useColor;
+        ItemType _type = (ItemType)useColor;
         WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
 
         //普通水/特殊水块
@@ -966,7 +961,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
             topIndex += 1;
             //瓶身倾斜动画(BottleIn开始的Z轴大小要以BottleOut的结束为起点)
             //移动时长0.3f = 18帧.在19帧开始二次倾斜瓶子(19帧会播放水柱的动画)
-            var bottleAnimName = $"BottleOut{topIndex}_{topIndex - numWater}{_dir}";
+            string bottleAnimName = $"BottleOut{topIndex}_{topIndex - numWater}{_dir}";
             bottleAnim.Play(bottleAnimName);
             //Debug.Log(bottleAnimName);
         }
@@ -991,7 +986,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
                 // 方案二:保持原55帧长度、将Exit Time调整为0.74618(以0.384f结束计算得到、缺点是二次倾斜没完全做完)    
                 ActionKit.Delay(0.384f, () =>
                 {
-                    SetNowSpinePos(topIndex - numWater);
+                    //标记--------瓶子移动不需要更新水面(初始化或接水的时候水面都会更新,所以倒水前不需要再次更新)
+                    //SetNowSpinePos(topIndex - numWater);
                     //回归原点(瓶子摆正动画需同步0.46f 约等于27帧)
                     modelGo.transform.DOLocalMove(Vector3.zero, 0.46f).SetEase(Ease.Linear).OnComplete(() =>
                     {
@@ -1020,11 +1016,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
                     });
                 }).Start(this);
             }
+
         });
+
     }
 
     /// <summary>
-    ///     获取移动方向和位置
+    /// 获取移动方向和位置
     /// </summary>
     /// <param name="thisBottle"></param>
     /// <param name="targetBottle"></param>
@@ -1033,13 +1031,13 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     private (Vector3 pos, string dir) GetMoveToPos(Transform thisBottle, Transform targetBottle, Transform moveToTram)
     {
         // 要用本地坐标取镜像在转为世界坐标
-        var _targetPos = moveToTram.localPosition;
+        Vector3 _targetPos = moveToTram.localPosition;
         string _dir;
 
         var thisParent = thisBottle.parent;
         var targetParent = targetBottle.parent;
-        var isSameRow = thisParent == targetParent;
-        var targetRowActiveCount = GetActiveSiblingCount(targetParent);
+        bool isSameRow = thisParent == targetParent;
+        int targetRowActiveCount = GetActiveSiblingCount(targetParent);
 
         // 同一排直接比较 postion.x
         if (isSameRow)
@@ -1059,9 +1057,9 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         // 不同排,采用左右各一半区分向左向右
         else
         {
-            var activeCount = targetRowActiveCount;
-            var targetIndex = targetBottle.GetSiblingIndex();
-            var mid = activeCount / 2;
+            int activeCount = targetRowActiveCount;
+            int targetIndex = targetBottle.GetSiblingIndex();
+            int mid = activeCount / 2;
 
             if (targetIndex < mid)
             {
@@ -1081,16 +1079,17 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
 
     private int GetActiveSiblingCount(Transform parent)
     {
-        var count = 0;
-        for (var i = 0; i < parent.childCount; i++)
+        int count = 0;
+        for (int i = 0; i < parent.childCount; i++)
+        {
             if (parent.GetChild(i).gameObject.activeSelf)
                 count++;
-
+        }
         return count;
     }
 
     /// <summary>
-    ///     设置水柱颜色
+    /// 设置水柱颜色
     /// </summary>
     /// <param name="useColor"></param>
     public void SetDownWaterSp(int useColor)
@@ -1104,7 +1103,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     }
 
     /// <summary>
-    ///     水位上升/下降效果
+    /// 水位上升/下降效果
     /// </summary>
     /// <param name="num"></param>
     public void PlayOutAnim(int num, int useIdx, int useColor)
@@ -1113,34 +1112,34 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     }
 
     /// <summary>
-    ///     倒水瓶水位变化动画
+    /// 倒水瓶水位变化动画
     /// </summary>
     /// <param name="num"></param>
     /// <param name="useIdx"></param>
     /// <param name="useColor"></param>
     /// <returns></returns>
-    private IEnumerator CoroutinePlayOutAnim(int num, int useIdx, int useColor)
+    IEnumerator CoroutinePlayOutAnim(int num, int useIdx, int useColor)
     {
-        var fillAlltime = 0.35f;
+        float fillAlltime = 0.35f;
         yield return new WaitForSeconds(fillAlltime);
         //float fillAlltime = 1.33f;
 
         spineGo.gameObject.SetActive(true);
-        var startIdx = useIdx;
-        SetNowSpinePos(startIdx + 1);
+        int startIdx = useIdx;
+        //标记-----SetBottleColor会调用水面位置更新
+        //SetNowSpinePos(startIdx + 1);
 
         var _type = (ItemType)useColor;
-        WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
-        var _isRainBowWater = _attr is RainBowWaterState;
+        WaterAttrCache.Dict.TryGetValue(_type, out WaterColorState _attr);
+        bool _isRainBowWater = _attr is RainBowWaterState;
 
         if (useColor <= 1000 || _isRainBowWater)
         {
-            spineGoPosition.DOLocalMove(spineNode[useIdx + 1 - num].localPosition, fillAlltime).SetEase(Ease.Linear)
-                .OnComplete(() =>
-                {
-                    if (topIdx < 0)
-                        spineGo.gameObject.SetActive(false);
-                });
+            spineGoPosition.DOLocalMove(spineNode[useIdx + 1 - num].localPosition, fillAlltime).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                if (topIdx < 0)
+                    spineGo.gameObject.SetActive(false);
+            });
         }
         else
         {
@@ -1152,24 +1151,28 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         //标记——无需主动调用,SetBottleColor里会触发
         //PlaySpineWaitAnim(useColor);
 
-        var fillTime = fillAlltime / num;
+        float fillTime = fillAlltime / num;
         if (useColor > 1000 && !_isRainBowWater) fillTime = 0f;
 
-        for (var i = 0; i < num; i++) waterImg[startIdx - i].waterImg.fillAmount = 1;
+        for (int i = 0; i < num; i++)
+        {
+            waterImg[startIdx - i].waterImg.fillAmount = 1;
+        }
 
-        for (var i = 0; i < num; i++)
+        for (int i = 0; i < num; i++)
         {
             waterImg[startIdx - i].PlayOutAnim(fillTime);
             yield return new WaitForSeconds(fillTime);
         }
 
+        SetBottleColor();
+
         //倒水过程结束
         GameCtrl.Instance.ReducePouringCount();
-        SetBottleColor();
     }
 
     /// <summary>
-    ///     接收水
+    /// 接收水
     /// </summary>
     /// <param name="water"></param>
     /// <param name="item"></param>
@@ -1186,7 +1189,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     }
 
     /// <summary>
-    ///     接水动画
+    /// 接水动画
     /// </summary>
     /// <param name="num"></param>
     public void PlayFillAnim(int num, int color)
@@ -1195,7 +1198,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     }
 
     /// <summary>
-    ///     接水动画协程
+    /// 接水动画协程
     /// </summary>
     /// <param name="num"></param>
     /// <param name="color"></param>
@@ -1205,29 +1208,30 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         var _hasItemEffect = BottleHasItem();
         if (_hasItemEffect) UIKit.OpenPanel<UIMask>(UILevel.PopUI);
 
-
         ++ReceiveCount;
-
-        var fillAlltime = 0.46f;
+        //等待的时长为瓶子移动的第一段时长。
+        float fillAlltime = 0.3f;//0.46f;
         yield return new WaitForSeconds(fillAlltime);
-        SetBottleColor();
-        //float fillAlltime = 1.33f;
+        //不更新水面位置,下方做水面上升动画
+        SetBottleColor(NeedUpdateWaterPos:false);
 
         var startIdx = topIdx + 1 - num;
         var _type = (ItemType)color;
-        WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
-        var _isRainBowWater = _attr is RainBowWaterState;
-
+        WaterAttrCache.Dict.TryGetValue(_type, out WaterColorState _attr);
+        bool _isRainBowWater = _attr is RainBowWaterState;
+        
         if (color < 1000 || _isRainBowWater)
         {
+            //原先是 SetBottleColor 把水面更新到顶部了，然后又要模拟水面上升的效果
+            //所以再把水面设置到接水前的高度，然后通过动画进行水面上升效果
+            //现引入参数，SetBottleColor 时不更新水面位置
             spineGo.gameObject.SetActive(true);
-            SetNowSpinePos(startIdx);
+            //SetNowSpinePos(startIdx);
             spineGoPosition.DOMove(spineNode[topIdx + 1].position, fillAlltime).SetEase(Ease.Linear);
         }
-        else if (startIdx >= 0)
-        {
-            SetNowSpinePos(startIdx);
-        }
+        //道具没有水面(道具水面不由Spine控制)
+        //else
+        //    if (startIdx >= 0) SetNowSpinePos(startIdx);
 
         PlaySpineAnim();
 
@@ -1248,8 +1252,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         //有机制道具生效才执行会出现水花动画变长
         if (_hasItemEffect)
             CheckItem();
-        /*     SetBottleColor();*/
-        /*CheckItem();*/
+        //SetBottleColor();
+        //CheckItem();
         //CheckFill();
     }
 
@@ -1541,12 +1545,14 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     private BottleWaterCtrl FindIceWater()
     {
         //从上往下找
-        for (var i = waterItems.Count - 1; i >= 0; i--)
+        for (int i = waterItems.Count - 1; i >= 0; i--)
+        {
             if (waterItems[i] == WaterItem.Ice)
             {
                 waterItems[i] = WaterItem.None;
                 return waterImg[i];
             }
+        }
 
         return null;
     }
@@ -1838,6 +1844,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     public void CheckUnlockHide(int color)
     {
         if (isClearHide && !hasUnlockHidePlayed)
+        {
             if (unlockClear == color)
             {
                 hasUnlockHidePlayed = true;
@@ -1848,6 +1855,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
                 LevelManager.Instance.cantChangeColorList.Remove(color);
                 StartCoroutine(HideClearHide());
             }
+        }
     }
 
     /// <summary>
@@ -1957,9 +1965,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         var _tempWaterItem = new List<WaterItem>();
         var _tempBomb = new List<int>();
         var _tempHideWater = new List<HideWaterType>();
-        Debug.Log(gameObject.name);
-        Debug.Log(bombCounts.Count);
-        Debug.Log(waters.Count);
+
         for (var i = 0; i < waters.Count; i++)
             if (waters[i] != 0)
             {
@@ -2082,7 +2088,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
 
         StartCoroutine(CoroutinePlayNearHide(true));
 
-        SetBottleColor(false, true);
+        SetBottleColor(false);
         CheckFinish();
     }
 
@@ -2199,11 +2205,16 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         bubbleSpine.gameObject.SetActive(true);
         var trackEntry1 = bubbleSpine.AnimationState.GetCurrent(0); // 获取轨道0上的当前动画条目
         if (trackEntry1 != null)
+        {
             //trackEntry.TimeScale = 1f;
             bubbleSpine.Initialize(true);
+        }
         else
+        {
             // 如果当前没有动画，直接设置动画
             bubbleSpine.AnimationState.SetAnimation(0, "maopao", false);
+        }
+
     }
 
     /// <summary>
@@ -2214,6 +2225,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     {
         yield return new WaitForSeconds(1f);
         AudioKit.PlaySound("resources://Audio/BottleCap");
+
     }
 
     #endregion

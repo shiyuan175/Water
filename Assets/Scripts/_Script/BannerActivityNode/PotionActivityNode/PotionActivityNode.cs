@@ -17,6 +17,7 @@ namespace QFramework.Example
         private RewardGrantUtility rewardGrantUtility;
 
         private Sequence mProgressSequence;
+        private Image rewardImg;
 
         //五档连胜积分
         private readonly int[] TARGER_GOALS = new int[] { 140, 500, 500, 500, 1000, 2000, 2000, 2000 };
@@ -132,6 +133,16 @@ namespace QFramework.Example
             }
         }
 
+        private void OnDestroy()
+        {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+            if (!UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode) return;
+#endif
+            if (rewardImg != null)
+                RewardUIManager.Instance.Recycle(rewardImg);
+        }
+
         /// <summary>
         /// 更新文本、进度条
         /// </summary>
@@ -213,15 +224,40 @@ namespace QFramework.Example
                     potionActivityPackSO[mCacheProgress]);
             }
         }
-
+        
         //更新奖励图标
+        //礼包只有一个奖励(特殊类型奖励/金币)
+        //或是三个进关选择道具无限-时长相同
         private void UpdateGiftSprite()
         {
-            //礼包只有一个奖励(特殊类型奖励/金币)
+            if (rewardImg == null)
+                rewardImg = RewardUIManager.Instance.Allocate();
+
+            rewardImg.transform.SetParent(ImgRewardIcon.transform);
+            rewardImg.transform.localScale = Vector3.one * 0.5f;
+            rewardImg.TryGetComponent(out PropRewardPoolNode _node);
+
             if (potionActivityPackSO[mCacheProgress].SpecialRewards.Count != 0)
-                ImgRewardIcon.sprite = RewardUIManager.Instance.GetRewardSprite(potionActivityPackSO[mCacheProgress].SpecialRewards[0].SpecialRewardType);
+            {
+                var duration = potionActivityPackSO[mCacheProgress].SpecialRewards[0].Duration;
+
+                if (potionActivityPackSO[mCacheProgress].SpecialRewards.Count > 1)
+                {
+                    var rewardSprite = RewardUIManager.Instance.GetRewardSprite(SpecialRewardsType.Unlimited_S_ALL);
+                    _node.Init(rewardSprite,Vector2.zero, duration, true);
+                }
+                else
+                {
+                    var rewardSprite = RewardUIManager.Instance.GetRewardSprite(potionActivityPackSO[mCacheProgress].SpecialRewards[0].SpecialRewardType);
+                    _node.Init(rewardSprite, Vector2.zero, duration, true);
+                }
+            }
             else
-                ImgRewardIcon.sprite = mCoinSprite;
+            {
+                var duration = potionActivityPackSO[mCacheProgress].Coins;
+                var rewardSprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.AddCoins);
+                _node.Init(rewardSprite, Vector2.zero, duration, false);
+            }
         }
     }
 }

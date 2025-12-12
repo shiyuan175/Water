@@ -44,7 +44,7 @@ public class GameUtilityManager : MonoSingleton<GameUtilityManager>
     }
 
     /// <summary>
-    ///  将源 UI 对象的位置映射到目标 UI 对象所在 Canvas 的局部坐标
+    ///  将源 UI 对象的位置映射到目标 UI 对象所在 Canvas 的局部坐标(将目标 UI 对象设置到 源 UI 对象点位)
     /// </summary>
     ///<param name="sourceObj">源目标对象</param>
     /// <param name="targetObj">要应用的对象</param>

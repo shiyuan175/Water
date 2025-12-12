@@ -272,7 +272,7 @@ public class BottleWaterCtrl : MonoBehaviour
 
         go.transform.DOMove(waterCtrl.transform.position, 0.45f).SetEase(Ease.Linear).OnComplete(() =>
         {
-            waterCtrl.HideIce(() => waterCtrl.bottle.isPlayAnim = false);
+            waterCtrl.HideIce(null);//() => waterCtrl.bottle.isPlayAnim = false
             isPlayItemAnim = false;
             fireRuneGo.SetActive(false);
             go.DestroySelf();
@@ -287,12 +287,21 @@ public class BottleWaterCtrl : MonoBehaviour
         TrackEntry trackEntry =
         fireRuneSpine.AnimationState.SetAnimation(0, "attack", false);
 
-        trackEntry.Complete += (entry) =>
+        //trackEntry.Complete += (entry) =>
+        //{
+        //    bottle.UnlockIceWater();
+        //    fireRuneGo.SetActive(false);
+        //    action?.Invoke();
+        //};
+
+        //实机上会存在回调无法进入的情况(还不确定是否方法没进入)
+        ActionKit.Delay(1.6f, () =>
         {
             bottle.UnlockIceWater();
             fireRuneGo.SetActive(false);
-            action?.Invoke();
-        };
+            bottle.isPlayAnim = false;
+            //action?.Invoke();
+        }).Start(this);
     }
 
     #endregion

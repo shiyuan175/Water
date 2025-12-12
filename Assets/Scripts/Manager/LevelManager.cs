@@ -1,4 +1,4 @@
-using QFramework;
+﻿using QFramework;
 using System.Collections.Generic;
 using UnityEngine;
 using GameDefine;
@@ -117,7 +117,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         if (levelId <= GameConst.NEWBIE_LEVEL_COUNT)
         {
             StartGame(levelId);
-            UIKit.OpenPanel<UIGameNode>();
+            if (!UIKit.GetPanel<UIGameNode>())
+                UIKit.OpenPanel<UIGameNode>();
         }
     }
 

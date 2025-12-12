@@ -6,8 +6,9 @@ namespace QFramework.Example
 {
 	public class UIHighTowerActivityEntranceData : UIPanelData
 	{
-	}
-	public partial class UIHighTowerActivityEntrance : UIPanel
+        public bool? IsManagedOpen;
+    }
+    public partial class UIHighTowerActivityEntrance : UIPanel
 	{
 		protected override void OnInit(IUIData uiData = null)
 		{
@@ -31,7 +32,11 @@ namespace QFramework.Example
 				var _hta = GameActivityManager.Instance.GetActivity<HighTowerActivity>();
 				_hta.StartActivity();
 
-                UIKit.OpenPanel<UIHighTowerActivity>();
+                mData.IsManagedOpen = false;
+                UIKit.OpenPanel<UIHighTowerActivity>(new UIHighTowerActivityData()
+                {
+                    IsManagedOpen = true,
+                });
                 CloseSelf();
             });
 		}
@@ -44,6 +49,9 @@ namespace QFramework.Example
 		{
 			BtnStart.onClick.RemoveAllListeners();
 			BtnClose.onClick.RemoveAllListeners();
+
+            if (mData.IsManagedOpen ?? false)
+                StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);
         }
     }
 }

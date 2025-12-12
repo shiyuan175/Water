@@ -16,7 +16,7 @@ namespace QFramework.Example
         private const int PANEL_ID = 1;
 
         private readonly List<Spine.AnimationState.TrackEntryDelegate> mOnCompleteHandlers = new();
-        //²¿¼þÏûºÄºÍ°´Å¥Î»ÖÃ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÄºÍ°ï¿½Å¥Î»ï¿½ï¿½
         private readonly (int, Vector2)[] mUnitMes = new (int, Vector2)[]
         {
               (1, new Vector2(200, 500)),
@@ -36,8 +36,8 @@ namespace QFramework.Example
               (7, new Vector2(350, 500))
 
         };
-        //SpineÍê³Éºó·ÉÏò±¦ÏäÌØÐ§³õÊ¼Î»ÖÃ
-        private readonly Vector2[] mEffectToBoxStartPos = new Vector2[]
+        //Spineï¿½ï¿½Éºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½Ê¼Î»ï¿½ï¿½
+        /*private readonly Vector2[] mEffectToBoxStartPos = new Vector2[]
         {
             new(0, 550),
             new(-300, 350),
@@ -55,10 +55,8 @@ namespace QFramework.Example
             new(0, -250),
             new(0, 0),
 
-        };
-        //ÌØÐ§Ä¿±êÎ»ÖÃ(±¦Ïä)
-        private readonly Vector2 mEffectBoxTargetPos = new (-220, 900);
-        //´ý»ú¶¯»­µÄË÷Òý
+        };*/
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         private readonly int[] mStandbySpineIdx = new int[] { 0, 12, 13 };
 
         [SerializeField] private SkeletonGraphic[] mAllUnitSpines;
@@ -75,14 +73,14 @@ namespace QFramework.Example
         private Spine.AnimationState.TrackEntryDelegate mHeartRiseCallBack;
         private SceneUnlockModel mSceneUnlockModel;
         private RewardGrantUtility mRewardGrantUtility;
-        //ÓÃÓÚÎ¬»¤SpineµÄ»Øµ÷¼àÌýºÍ×¢Ïú
+        //ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½Spineï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½
         private SkeletonGraphic[] mUnActiveUnitSpines;
         private int mStartUnitIndex;
-        private bool mRewardSign = false;
+        private bool mRewardSign;
 
         protected override void OnInit(IUIData uiData = null)
 		{
-			mData = uiData as SceneUnlock1Data ?? new SceneUnlock1Data();
+			mData = uiData as SceneUnlock2Data ?? new SceneUnlock2Data();
 			// please add init code here
 		}
 		
@@ -170,19 +168,19 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ³õÊ¼»¯
+        /// ï¿½ï¿½Ê¼ï¿½ï¿½
         /// </summary>
         private void InitPanel()
         {
-            //±¦Ïä×´Ì¬ÅÐ¶¨
+            //ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Ð¶ï¿½
             if (mSceneUnlockModel.SceneUnlockUnitIndex >= mUnitMes.Length)
                 BtnBox.image.sprite = mBoxOpenSprite;
 
-            //Òþ²ØÌØÐ§
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
             FlightEffectsToBox.Hide();
             FlightEffectsToBtn.Hide();
 
-            //²¿¼þ
+            //ï¿½ï¿½ï¿½ï¿½
             for (int i = 0; i < mStartUnitIndex; i++)
             {
                 mUnitImgs[i].sprite = mUnitSprites[i];
@@ -190,16 +188,16 @@ namespace QFramework.Example
                     mUnitImgs[i].SetNativeSize();
             }
 
-            //½ø¶È
+            //ï¿½ï¿½ï¿½ï¿½
             for (int i = 0; i < mStartUnitIndex; i++)
             {
                 mProgressNodes[i].Find("Over").Show();
             }
 
-            //ÐÇÐÇÊý
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             TxtRemainStar.text = mSceneUnlockModel.RemainingStars.ToString();
 
-            //°´Å¥
+            //ï¿½ï¿½Å¥
             if (mStartUnitIndex >= mUnitMes.Length)
                 BtnUnitUnlock.Hide();
             else
@@ -210,12 +208,12 @@ namespace QFramework.Example
                 TxtNeedStar.text = mUnitMes[mStartUnitIndex].Item1.ToString();
             }
 
-            //Î´¼¤»îSpine
+            //Î´ï¿½ï¿½ï¿½ï¿½Spine
             int remaining = mAllUnitSpines.Length - mStartUnitIndex;
             mUnActiveUnitSpines = new SkeletonGraphic[remaining];
             System.Array.Copy(mAllUnitSpines, mStartUnitIndex, mUnActiveUnitSpines, 0, remaining);
 
-            //´ý»úSpine
+            //ï¿½ï¿½ï¿½ï¿½Spine
             for (int i = 0; i < mStandbySpineIdx.Length; i++)
             {
                 if ((mSceneUnlockModel.SceneUnlockUnitIndex <= mStandbySpineIdx[i]))
@@ -228,7 +226,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ×¢²áSpine»Øµ÷
+        /// ×¢ï¿½ï¿½Spineï¿½Øµï¿½
         /// </summary>
         private void InitSpineOnComplete()
         {
@@ -253,7 +251,7 @@ namespace QFramework.Example
                 mOnCompleteHandlers.Add(handler);
             }
 
-            mHeartRiseCallBack = (TrackEntry trackEntry) =>
+            mHeartRiseCallBack = _ =>
             {
                 SpineHeartRise.GetComponent<CanvasGroup>().alpha = 0f;
                 SpineHeartRise.AnimationState.SetEmptyAnimation(0, 0);
@@ -263,7 +261,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ½âËø°´Å¥Î»ÖÃ¸üÐÂ
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥Î»ï¿½Ã¸ï¿½ï¿½ï¿½
         /// </summary>
         private void UpdateUnlockBtn()
         {
@@ -289,13 +287,14 @@ namespace QFramework.Example
         private void FlightEffectsTo_Box(int realIndex)
         {
             FlightEffectsToBox.Show();
-            FlightEffectsToBox.localPosition = mEffectToBoxStartPos[realIndex];
-            FlightEffectsToBox.DOLocalMove(mEffectBoxTargetPos, 0.5f).OnComplete(() =>
+            FlightEffectsToBox.position = mAllUnitSpines[realIndex].transform.position;
+            //FlightEffectsToBox.localPosition = mEffectToBoxStartPos[realIndex];
+            FlightEffectsToBox.DOMove(BtnBox.transform.position, 0.5f).OnComplete(() =>
             {
                 FlightEffectsToBox.Hide();
                 mProgressNodes[realIndex].Find("Over").Show();
 
-                //¿ªÏä±íÏÖ
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (mRewardSign)
                 {
                     mRewardSign = false;
@@ -313,7 +312,7 @@ namespace QFramework.Example
                 mRewardSign = true;
                 //mSceneUnlockModel.AddSceneIndex();
                 UIKit.OpenPanel<UIMask>(UILevel.PopUI);
-                //½±Àø·¢·Å
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 mRewardGrantUtility.GrantReward(mRewardPackSO);
             }
 

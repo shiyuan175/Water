@@ -24,6 +24,9 @@ public enum NormalRewardsType
     S_AddOneHalfBottle = 6,
     S_RemoveOneBottleHideWater = 7,
     S_RemoveOneDebuffBottle = 8,
+
+    //金币，只用于做表现
+    AddCoins = 20,
 }
 
 public enum SpecialRewardsType
@@ -39,6 +42,10 @@ public enum SpecialRewardsType
     Unlimited_S_RemoveOneBottleHideWater = 7,
     [Description("UnLimitRemoveOneDebuffBottle")]
     Unlimited_S_RemoveOneDebuffBottle = 8,
+
+    //表示三个进关选择道具(三个时长需相同)
+    //目前只用于做表现(不用于发放奖励)
+    Unlimited_S_ALL = 20,
 }
 
 [System.Serializable]

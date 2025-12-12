@@ -200,7 +200,7 @@ namespace QFramework.Example
             });
 
             //...其他活动等
-          /* 暂时关闭 // 转盘活动
+            /* 暂时关闭 // 转盘活动
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 // 没有计时的时候显示 并进行时间的初始化

@@ -1,4 +1,4 @@
-using GameDefine;
+﻿using GameDefine;
 using QFramework;
 using QFramework.Example;
 using System;
@@ -13,8 +13,9 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
     public BottleCtrl FirstBottle, SecondBottle;
 
     public bool control = false;
-    //倒水量计数器，初始为0，用于控制倒水动画
-    private int pouringCount = 0;
+
+    //倒水计数，处于0表示当前不处于倒水过程
+    [SerializeField] private int pouringCount = 0;
     public bool IsPouring => pouringCount == 0;
 
     public IArchitecture GetArchitecture()
@@ -33,7 +34,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
     }
 
     /// <summary>
-    /// 选中瓶子的处理逻辑
+    /// 选中瓶子
     /// </summary>
     /// <param name="bottle"></param>
     public void OnSelect(BottleCtrl bottle)
@@ -46,7 +47,6 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                 {
                     AudioKit.PlaySound("resources://Audio/SelectBottle");
                     FirstBottle = bottle;
-                    
                 }
 
             }
@@ -62,30 +62,32 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                     FirstBottle = null;
                 }
             }
-            // 检查两个瓶子是否都已选中
+            // 倒水
             if (FirstBottle != null && SecondBottle != null)
             {
                 control = true;
                 if (FirstBottle.CheckMoveOut() && SecondBottle.CheckMoveIn(FirstBottle.GetMoveOutTop())
                     && !FirstBottle.isPlayAnim && !SecondBottle.isPlayAnim)
                 {
-                    //Debug.Log("??? " + FirstCake.gameObject.name + "->" + SecondCake.gameObject.name);
+                    //Debug.Log("移动 " + FirstCake.gameObject.name + "->" + SecondCake.gameObject.name);
 
                     ++pouringCount;
-                    // 记录步数
+                    // 炸弹的判断优先于水瓶的内容，固将计数移动到前面
 
-                    LevelManager.Instance.AddMoveNum();              
-                    
-                    #region 炸弹检测和相关UI显示
-                    #region 炸弹检测--是否触发爆炸
-                    // 检查是否触发炸弹爆炸
+                    LevelManager.Instance.AddMoveNum();
+
+                    #region 倒水前触发、玩家走一步触发、倒水前全局游戏机制，
+
+                    #region 会中止逻辑，需要重新刷新UI
+                    #region 炸弹机制--失败检查
+                    // 炸弹更新并进行失败检测
                     bool flag = LevelManager.Instance.CheckBomb();
-                    // 如果触发炸弹爆炸则取消本次操作
+                    // 炸弹爆炸要中断去执行瓶子的相关事件和动画
                     if (flag == true)
                     {
                         control = false;
                         FirstBottle.OnCancelSelect();
-                        //???flag?????????UI???
+                        //是否将flag作为需要刷新UI标记
                         InitPouringCount();
                         FirstBottle = null;
                         SecondBottle = null;
@@ -93,8 +95,9 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                         return;
                     }
                     #endregion
-                    #endregion
 
+                    #endregion
+                    #endregion
                     LevelManager.Instance.RecordLast();
                     FirstBottle.MoveTo(SecondBottle);
                     FirstBottle = null;
@@ -113,7 +116,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
     }
 
     /// <summary>
-    /// 初始化游戏控制器
+    /// 重置状态
     /// </summary>
     public void InitGameCtrl()
     {
@@ -123,7 +126,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
     }
 
     /// <summary>
-    /// 减少倒水量计数器
+    /// 倒水状态完成
     /// </summary>
     public void ReducePouringCount()
     {
@@ -133,7 +136,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
     }
 
     /// <summary>
-    /// 重置倒水量计数器
+    /// 重置倒水状态
     /// </summary>
     public void InitPouringCount()
     {

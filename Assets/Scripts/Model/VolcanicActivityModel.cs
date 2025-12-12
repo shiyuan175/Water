@@ -98,6 +98,8 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
     public void AddVAStreakWin()
     {
         ++mVAStreakWinNum.Value;
+        if (mVAStreakWinNum.Value >= 7)
+            mVAStreakWinNum.Value = 7;
         RandomReducePlayerNum();
     }
 

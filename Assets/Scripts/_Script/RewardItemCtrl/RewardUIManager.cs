@@ -17,7 +17,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
     [SerializeField] private RectTransform mRectTransformPar;
     [SerializeField] private ParticleTargetMoveCtrl CoinParticle;
 
-    public SimpleObjectPool<Image> RewardPool;
+    private SimpleObjectPool<Image> RewardPool;
     private List<Image> mActiveRewards;
     private RectTransform mMask;
     private TextMeshProUGUI txtCoinAdd;
@@ -244,6 +244,12 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         _img.Show();
         mActiveRewards.Add( _img );
         return _img;
+    }
+
+    public void Recycle(Image img)
+    {
+        RewardPool.Recycle(img);
+        mActiveRewards.Remove(img);
     }
 
     public void RecyleAll()
