@@ -27,6 +27,7 @@ namespace QFramework.Example
         private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
 
         [Header("关卡难度UI")]
+
         #region 关卡难度UI
 
         [SerializeField] private Sprite[] imgBtnItemBgSprites;
@@ -43,6 +44,7 @@ namespace QFramework.Example
         #endregion
 
         [Header("前五关故事引导UI")]
+
         #region 前五关故事引导UI
         [SerializeField] private GameObject g_Star_MagicBook_Guide;
         [SerializeField] private Image mImgProgressBar;
@@ -64,6 +66,7 @@ namespace QFramework.Example
         protected override void OnInit(IUIData uiData = null)
         {
             mData = uiData as UIGameNodeData ?? new UIGameNodeData();
+
             #region 全局机制--魔法猫咪
             if (mData.GlobalMechanism == GlobalMechanism.WhiteMagicCar || mData.GlobalMechanism == GlobalMechanism.BlackMagicCar)
             {
@@ -220,6 +223,7 @@ namespace QFramework.Example
                             }).Start(this);
                             return;
                         }
+
                         //奖励已经领取
                         OpenUIVictory();
                     };
@@ -279,7 +283,7 @@ namespace QFramework.Example
                     _index = 2;
                     break;
 
-                    // t初始化为0，所以没有用Defailt取0
+                // t初始化为0，所以没有用Defailt取0
             }
             if (_index != 0)
                 SetTextTip();
@@ -399,7 +403,7 @@ namespace QFramework.Example
 
             if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
                 UnLockItem(NormalRewardsType.AddOneBottle);
-           
+
             if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
                 UnLockItem(NormalRewardsType.StepBack);
 
@@ -502,6 +506,7 @@ namespace QFramework.Example
                     UIKit.OpenPanel<UIBuyItem>(data);
                     return;
                 }
+
                 //判断是否有黑水瓶
                 if (LevelManager.Instance.hideBottleList.Count != 0)
                 {
@@ -568,9 +573,9 @@ namespace QFramework.Example
                                 record.isNearHide = false;
                                 record.limitColor = 0;
 
-                                for (int i = 0; i < record.hideWaters.Count; i++)
+                                for (int i = 0; i < record.HideWaterTypes.Count; i++)
                                 {
-                                    record.hideWaters[i] = false;
+                                    record.HideWaterTypes[i] = HideWaterType.None;
                                 }
                                 for (int i = 0; i < record.waterItems.Count; i++)
                                 {
@@ -591,6 +596,7 @@ namespace QFramework.Example
         #endregion
 
         #region 时序动作
+
         // 异步队列
         private readonly Queue<Action<Action>> mActionQueue = new();
         private bool mIsRunning = false;

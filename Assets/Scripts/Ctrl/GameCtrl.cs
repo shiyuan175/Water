@@ -62,6 +62,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                     FirstBottle = null;
                 }
             }
+
             // 倒水
             if (FirstBottle != null && SecondBottle != null)
             {
@@ -79,7 +80,9 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                     #region 倒水前触发、玩家走一步触发、倒水前全局游戏机制，
 
                     #region 会中止逻辑，需要重新刷新UI
+
                     #region 炸弹机制--失败检查
+
                     // 炸弹更新并进行失败检测
                     bool flag = LevelManager.Instance.CheckBomb();
                     // 炸弹爆炸要中断去执行瓶子的相关事件和动画
@@ -97,6 +100,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
                     #endregion
 
                     #endregion
+
                     #endregion
                     LevelManager.Instance.RecordLast();
                     FirstBottle.MoveTo(SecondBottle);
