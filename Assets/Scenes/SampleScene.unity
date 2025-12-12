@@ -25672,16 +25672,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 22e7cc7c90df3844197faf57cafcd838, type: 2}
   - {fileID: 11400000, guid: 1e5b321d91fb33344bfbdd32b5d40bef, type: 2}
   - {fileID: 11400000, guid: 70058640b03911a4d98c0172516fd18f, type: 2}
-  - {fileID: 11400000, guid: bc822b081132e7546ae39ae135513c71, type: 2}
-  - {fileID: 11400000, guid: 0e530691611a13648819abf6e88316c5, type: 2}
-  - {fileID: 11400000, guid: eb918aed264085e4d9e7eea4c38d03e1, type: 2}
-  - {fileID: 11400000, guid: 36b87708c123379488bb9961ade7af6d, type: 2}
-  - {fileID: 11400000, guid: 9d2dbc01a13618c41a45fd0d07eba61c, type: 2}
-  - {fileID: 11400000, guid: 1e35091354e5ce448891643c585fac5f, type: 2}
-  - {fileID: 11400000, guid: b02eb7ed0d8eaa546866c9a30ed29296, type: 2}
-  - {fileID: 11400000, guid: 22e7cc7c90df3844197faf57cafcd838, type: 2}
-  - {fileID: 11400000, guid: 1e5b321d91fb33344bfbdd32b5d40bef, type: 2}
-  - {fileID: 11400000, guid: 70058640b03911a4d98c0172516fd18f, type: 2}
   - {fileID: 11400000, guid: 453830c7768dc1a44a8109895a8a0830, type: 2}
   - {fileID: 11400000, guid: f5d103792b0a8d34299ed4b29eb31511, type: 2}
   - {fileID: 11400000, guid: b55413fcfac2cf44f8a90e2f5b28d8e8, type: 2}
@@ -26388,6 +26378,7 @@ MonoBehaviour:
   FirstBottle: {fileID: 0}
   SecondBottle: {fileID: 0}
   control: 0
+  pouringCount: 0
 --- !u!114 &1954153137
 MonoBehaviour:
   m_ObjectHideFlags: 0

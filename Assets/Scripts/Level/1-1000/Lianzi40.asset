@@ -191,6 +191,6 @@ MonoBehaviour:
   countDownNum: 0
   timeCountDown: 0
   topNum: 6
-  bottomNum: 5
+  bottomNum: 6
   bubbleCount: 
   changeList: []

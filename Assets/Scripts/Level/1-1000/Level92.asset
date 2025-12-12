@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottles:
   - waterSet: 06000000030000000100000006000000
-    isHide: 00000000
     hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
@@ -29,7 +28,6 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 0c000000030000000700000003000000
-    isHide: 00000000
     hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
@@ -44,7 +42,6 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 0400000008000000010000000c000000
-    isHide: 00000000
     hideTypes: 00000000000000000000000000000000
     waterItem: 06000000000000000000000000000000
     bombCounts: 
@@ -59,7 +56,6 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 08000000040000000400000004000000
-    isHide: 00000000
     hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
@@ -74,7 +70,6 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 060000000c0000000700000001000000
-    isHide: 00000000
     hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
@@ -89,7 +84,6 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 080000000c0000000800000007000000
-    isHide: 00000000
     hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
@@ -104,7 +98,6 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 01000000070000000300000006000000
-    isHide: 00000000
     hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 
@@ -119,7 +112,6 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 
-    isHide: 
     hideTypes: 
     waterItem: 
     bombCounts: 
@@ -134,7 +126,6 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 
-    isHide: 
     hideTypes: 
     waterItem: 
     bombCounts: 
@@ -149,7 +140,6 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 
-    isHide: 
     hideTypes: 
     waterItem: 
     bombCounts: 
@@ -174,5 +164,5 @@ MonoBehaviour:
   timeCountDown: 0
   topNum: 5
   bottomNum: 5
-  bubbleCount: 0c000000
+  bubbleCount: 06000000
   changeList: []

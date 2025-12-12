@@ -920,7 +920,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     public bool CheckBomb()
     {
-        Debug.Log(bombList.Count);
         foreach (var item in bombList.ToList())
         {
             if (item.CheckBoomFailure())
