@@ -6,24 +6,24 @@ public class HighTowerActivityModel : AbstractModel ,ICanGetModel
 {
     private const string HTA_STREAK_WIN_NUM_SIGN = "C_HTAStreakWinNum";
     /// <summary>
-    /// Á¬Ê¤Ä¿±ê(µ½´ï»ñÈ¡½±Àø,0Õ¼Î»)
+    /// ï¿½ï¿½Ê¤Ä¿ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½,0Õ¼Î»)
     /// </summary>
     private readonly int[] REWARD_STAGES = { 0, 2, 5, 8, 11, 17, 22, 28, 33, 42, 60 };
 
     public IReadOnlyList<int> RewardStages => REWARD_STAGES;
     public int HTAStreakWinNum => mHTAStreakWin.Value;
     /// <summary>
-    ///ÏÂÒ»½×¶Î½±ÀøË÷Òý(´Ó1¿ªÊ¼)
+    ///ï¿½ï¿½Ò»ï¿½×¶Î½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½1ï¿½ï¿½Ê¼)
     /// </summary>
     public int NextRewardStageIndex => mNextRewardStageIndex;
 
     /* obsolete parameter
      /// <summary>
-     /// ¾àÀëÏÂÒ»½×¶Î½±Àø»¹ÓÐ¼¸´ÎÁ¬Ê¤
+     /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½×¶Î½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤
      /// </summary>
      public int WinRemainingToNextReward => RewardStages[mNextRewardStageIndex] - mHTAStreakWin.Value;
      /// <summary>
-     /// µ±Ç°½×¶ÎºÍÏÂÒ»½×¶ÎµÄ¼ä¸ôÖµ
+     /// ï¿½ï¿½Ç°ï¿½×¶Îºï¿½ï¿½ï¿½Ò»ï¿½×¶ÎµÄ¼ï¿½ï¿½Öµ
      /// </summary>
      public int CurrentRewardStageGap =>
       mNextRewardStageIndex > 0 && mNextRewardStageIndex < RewardStages.Count
@@ -33,12 +33,12 @@ public class HighTowerActivityModel : AbstractModel ,ICanGetModel
 
     private BindableProperty<int> mHTAStreakWin;
     private int mNextRewardStageIndex;
-    private StageModel mStagemodel;
+    private GameGlobalModel mStagemodel;
     private SaveDataUtility storage;
 
     protected override void OnInit()
     {
-        mStagemodel = this.GetModel<StageModel>();
+        mStagemodel = this.GetModel<GameGlobalModel>();
         storage = this.GetUtility<SaveDataUtility>();
 
         mHTAStreakWin = new BindableProperty<int>();
@@ -65,7 +65,7 @@ public class HighTowerActivityModel : AbstractModel ,ICanGetModel
 
     public void HTAStreakLose()
     {
-        //µôÂäÒ»¸öµµÎ»
+        //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Î»
         mHTAStreakWin.Value = mNextRewardStageIndex > 0 ?
             REWARD_STAGES[mNextRewardStageIndex - 1] : REWARD_STAGES[0];
     }

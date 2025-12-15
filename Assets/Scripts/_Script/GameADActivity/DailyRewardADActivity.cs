@@ -7,7 +7,7 @@ using UnityEngine;
 public class DailyRewardADActivity : BaseGameADActivity
 {
     
-    public override string ActivitySign => GameDefine.GameConst.DAILYREWARD_AD_ACTIVITY_SIGN;
+    public override string ActivitySign => GameDefine.GameConst.DAILY_REWARD_AD_ACTIVITY_SIGN;
 
     public override string ActivityID => GetType().Name;
 

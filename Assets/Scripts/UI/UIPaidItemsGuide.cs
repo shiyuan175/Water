@@ -27,9 +27,9 @@ namespace QFramework.Example
             { NormalRewardsType.RemoveAll, "Remove all negative effects" },
         };
 
-        private StageModel mStageModel;
+        private GameGlobalModel mGameGlobalModel;
 
-        // »ØÍËµÀ¾ßµÄÒýµ¼
+        // ï¿½ï¿½ï¿½Ëµï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½
         private bool StepBackGuideStep1 = false;
         private bool StepBackGuideStep2 = false;
         private Button BtnStepBackGuide1;
@@ -43,7 +43,7 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-            mStageModel = this.GetModel<StageModel>();
+            mGameGlobalModel = this.GetModel<GameGlobalModel>();
 
             InitFont();
             InitUI();
@@ -84,7 +84,7 @@ namespace QFramework.Example
                     BtnStepBackGuide2.onClick?.Invoke();
                     SpineHandle.Hide();
 
-                    //µÈ´ýµ¹Ë®½áÊø
+                    //ï¿½È´ï¿½ï¿½ï¿½Ë®ï¿½ï¿½ï¿½ï¿½
                     ActionKit.Delay(1.5f, () =>
                     {
                         GetItemGuideNode.Show();
@@ -106,7 +106,7 @@ namespace QFramework.Example
 
         private void InitUI()
         {
-            //½ÚµãÉèÖÃ
+            //ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½
             if (mData.PropType == NormalRewardsType.StepBack)
             {
                 GetItemGuideNode.Hide();
@@ -123,7 +123,7 @@ namespace QFramework.Example
             else
                 GetItemGuideNode.Show();
 
-            //ÎÄ±¾³õÖµ
+            //ï¿½Ä±ï¿½ï¿½ï¿½Öµ
             TxtItemDetails_Red.text = PropRules[mData.PropType];
             ImgItem.sprite = RewardUIManager.Instance.GetRewardSprite(mData.PropType);
         }
@@ -133,14 +133,14 @@ namespace QFramework.Example
             BtnGet.onClick.AddListener(() =>
             {
                 GetItemGuideNode.Hide();
-                mStageModel.AddItem((int)mData.PropType, DelItemCount);
+                mGameGlobalModel.AddItem((int)mData.PropType, DelItemCount);
 
                 BtnUseGuide.Show();
                 BtnUseGuide.transform.position = GetGuideBtnComp().transform.position;
 
                 SpineHandle.Show();
                 var current = SpineHandle.AnimationState.GetCurrent(0);
-                //±ÜÃâ±»ÖØÖÃ
+                //ï¿½ï¿½ï¿½â±»ï¿½ï¿½ï¿½ï¿½
                 if (current == null || current.Animation.Name != "animation")
                     SpineHandle.AnimationState.SetAnimation(0, "animation", true);
 
@@ -149,7 +149,7 @@ namespace QFramework.Example
 
             BtnUseGuide.onClick.AddListener(() =>
             {
-                mStageModel.ReduceItem((int)mData.PropType, 1);
+                mGameGlobalModel.ReduceItem((int)mData.PropType, 1);
                 UseItem();
                 CloseSelf();
 

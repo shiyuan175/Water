@@ -31,7 +31,7 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         GameActivity = new Dictionary<string, IGameActivity>();
         StartTickLoop();
 
-        //¸ù¾Ý¹Ø¿¨½ø¶È×¢²á»î¶¯
+        //ï¿½ï¿½ï¿½Ý¹Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½î¶¯
         int _curLevel = mSaveUtility.GetCurrentLevel();
         if (_curLevel >= GameDefine.GameConst.VA_BEGIN_LEVEL)
         {
@@ -45,7 +45,7 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<HighTowerActivity>();
         }
-        /* ÔÝÊ±¹Ø±Õ
+        /* ï¿½ï¿½Ê±ï¿½Ø±ï¿½
         if (_curLevel >= GameDefine.GameConst.TT_AD_BEGIN_LEVEL)
         {
             RegisterActivity<TurnTableADActivity>();
@@ -53,7 +53,7 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         if (_curLevel >= GameDefine.GameConst.DR_AD_BEGIN_LEVEL)
         {
             RegisterActivity<DailyRewardADActivity>();
-            if (!GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.DAILYREWARD_AD_ACTIVITY_SIGN))
+            if (!GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.DAILY_REWARD_AD_ACTIVITY_SIGN))
             {
                 GetActivity<DailyRewardADActivity>().StartActivity();
 
@@ -62,7 +62,7 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         if (_curLevel >= GameDefine.GameConst.BP_AD_BEGIN_LEVEL)
         {
             RegisterActivity<BattlePassADActivity>();
-            if (!GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.DAILYREWARD_AD_ACTIVITY_SIGN))
+            if (!GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.DAILY_REWARD_AD_ACTIVITY_SIGN))
             {
                 GetActivity<BattlePassADActivity>().StartActivity();
             }
@@ -91,7 +91,7 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         //Other Activities can be registered here based on level or other conditions
     }
 
-    //»î¶¯×¢²á
+    //ï¿½î¶¯×¢ï¿½ï¿½
     public void RegisterActivity<T>() where T : IGameActivity, new()
     {
         var _id = typeof(T).Name;

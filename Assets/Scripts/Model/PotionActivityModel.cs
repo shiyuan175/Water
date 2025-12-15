@@ -5,32 +5,32 @@ using UnityEngine;
 
 public class PotionActivityModel : AbstractModel, ICanGetModel
 {
-    //Îåµµ½±Àø
+    //ï¿½åµµï¿½ï¿½ï¿½ï¿½
     private const int MAX_PROGRESS = 8;
     private const string POTION_ACTIVITY_GOAL_SIGN = "PotionActivityGoal";
     private const string POTION_ACTIVITY_PROGRESS_SIGN = "PotionActivityProgress";
     private const string POTION_ACTIVITY_TOTAL_GOAL_SIGN = "PotionActivityTotalGoal";
 
-    private StageModel stageModel;
+    private GameGlobalModel gameGlobalModel;
     private SaveDataUtility saveDataUtility;
 
-    //Á¬Ê¤»ý·Ö
+    //ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½
     public int PotionActivityGoal => mPotionActivityGoal.Value;
     private BindableProperty<int> mPotionActivityGoal;
 
-    //»ñµÃµÄ×Ü»ý·Ö(ÓÃÓÚÅÅÐÐ°ñ¡¢ÅÅÃûÒÀÀµÓÚ¸Ã»ý·Ö)
+    //ï¿½ï¿½Ãµï¿½ï¿½Ü»ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸Ã»ï¿½ï¿½ï¿½)
     private BindableProperty<int> mPotionActivityTotalGoal;
     public int PotionActivityTotalGoal => mPotionActivityTotalGoal.Value;
 
-    //»î¶¯½ø¶È(µÚ¼¸¸ö±¦Ïä)
+    //ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½(ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
     public int PotionActivityProgress => mPotionActivityProgress.Value;
     private BindableProperty<int> mPotionActivityProgress;
 
-    //»î¶¯½ø¶ÈÊÇ·ñ½áÊø(Îåµµ½±ÀøÁìÈ¡Íê³É)
+    //ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½(ï¿½åµµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½)
     public bool PotionActivityProgressEnd => mPotionActivityProgress.Value >= MAX_PROGRESS;
 
-    //ÎåµµÁ¬Ê¤Ëù¼Ó»ý·Ö
-    public int WinStreakPoints => stageModel.CountinueWinNum switch
+    //ï¿½åµµï¿½ï¿½Ê¤ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½
+    public int WinStreakPoints => gameGlobalModel.CountinueWinNum switch
     {
         >= 5 => 100,
         4 => 25,
@@ -40,8 +40,8 @@ public class PotionActivityModel : AbstractModel, ICanGetModel
         _ => 0
     };
 
-    //»î¶¯Á¬Ê¤µµÎ»Ó³Éä(ÓÃÓÚË÷Òý)
-    public int WinStreakLevel => stageModel.CountinueWinNum switch
+    //ï¿½î¶¯ï¿½ï¿½Ê¤ï¿½ï¿½Î»Ó³ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+    public int WinStreakLevel => gameGlobalModel.CountinueWinNum switch
     {
         >= 5 => 4,
         4 => 3,
@@ -53,7 +53,7 @@ public class PotionActivityModel : AbstractModel, ICanGetModel
 
     protected override void OnInit()
     {
-        stageModel = this.GetModel<StageModel>();
+        gameGlobalModel = this.GetModel<GameGlobalModel>();
         saveDataUtility = this.GetUtility<SaveDataUtility>();
         mPotionActivityGoal = new BindableProperty<int>();
         mPotionActivityTotalGoal = new BindableProperty<int>();
@@ -80,8 +80,8 @@ public class PotionActivityModel : AbstractModel, ICanGetModel
 
     public void AddPotionActivityGoal()
     {
-        mPotionActivityGoal.Value += WinStreakPoints * stageModel.SettlementMultiple;
-        mPotionActivityTotalGoal.Value += WinStreakPoints * stageModel.SettlementMultiple;
+        mPotionActivityGoal.Value += WinStreakPoints * gameGlobalModel.SettlementMultiple;
+        mPotionActivityTotalGoal.Value += WinStreakPoints * gameGlobalModel.SettlementMultiple;
     }
 
     public void ReducePotionActivityGoal(int goal)

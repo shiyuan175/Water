@@ -6,8 +6,8 @@ using QFramework;
 
 public class DuobleGiftAdActivity : BaseGameActivity, ICanGetModel
 {
-    public override string ActivitySign => GameConst.DOUBLEGIFT_AD_ACTIVITY_SIGN;
-    public override string ActivityCooldownSign => GameConst.DOUBLEGIFT_COOL_AD_ACTIVITY_SIGN;
+    public override string ActivitySign => GameConst.DOUBLE_GIFT_AD_ACTIVITY_SIGN;
+    public override string ActivityCooldownSign => GameConst.DOUBLE_GIFT_COOL_AD_ACTIVITY_SIGN;
     public override string ActivityID => GetType().Name;
 
     public override int ActivityBeginLevel => GameConst.DG_AD_BEGIN_LEVEL;

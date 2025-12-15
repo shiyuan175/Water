@@ -7,7 +7,7 @@ public abstract class BaseGameADActivity : IGameActivity, ICanGetModel, ICanGetU
 {
     public abstract string ActivitySign { get; }
     public abstract string ActivityID { get; }
-    // »î¶¯´¥·¢µÄÊ±»ú£¨¹Ø¿¨£©
+    // ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½
     public abstract int ActivityBeginLevel { get; }
 
     public abstract GameActivityStatus ActivityStatus { get; }
@@ -17,20 +17,20 @@ public abstract class BaseGameADActivity : IGameActivity, ICanGetModel, ICanGetU
     public virtual float ActivityDurationMinutes { get; }
 
     public SaveDataUtility mSaveUtility;
-    public StageModel mStageModel;
+    public GameGlobalModel MGameGlobalModel;
     public RewardGrantUtility mRewardGrantUtility;
 
-    // »ùÀàÓÃÓÚÎ¬»¤»î¶¯×´Ì¬
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½î¶¯×´Ì¬
     private GameActivityStatus mLastActivityStatus;
     /// <summary>
-    /// »ñÈ¡»î¶¯Ê£ÓàÊ±¼ä
+    /// ï¿½ï¿½È¡ï¿½î¶¯Ê£ï¿½ï¿½Ê±ï¿½ï¿½
     /// </summary>
     /// <returns></returns>
 
     public BaseGameADActivity()
     {
         mSaveUtility = this.GetUtility<SaveDataUtility>();
-        mStageModel = this.GetModel<StageModel>();
+        MGameGlobalModel = this.GetModel<GameGlobalModel>();
         mRewardGrantUtility = this.GetUtility<RewardGrantUtility>();
     }
     public abstract void StartActivity();
@@ -44,11 +44,11 @@ public abstract class BaseGameADActivity : IGameActivity, ICanGetModel, ICanGetU
         return GameMainArc.Interface;
     }
 
-    //»î¶¯×¢²áºó»á×Ô¶¯µ÷ÓÃ
+    //ï¿½î¶¯×¢ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½
     public virtual void Tick()
     {
-        //ÆôÓÃÊ±Ä¬ÈÏ·¢ËÍÒ»´Î×´Ì¬ÊÂ¼þ(Î´¿ªÆô³ýÍâ)
-        //ÓÉCoolDown ½øÈë WaitStart ×´Ì¬Ê±µÄÊÂ¼þ¿ÉÒÔ²»·¢ËÍ(ÎÞÊµÖÊ×÷ÓÃ)
+        //ï¿½ï¿½ï¿½ï¿½Ê±Ä¬ï¿½Ï·ï¿½ï¿½ï¿½Ò»ï¿½ï¿½×´Ì¬ï¿½Â¼ï¿½(Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+        //ï¿½ï¿½CoolDown ï¿½ï¿½ï¿½ï¿½ WaitStart ×´Ì¬Ê±ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
         if (ActivityStatus != mLastActivityStatus)
         {
             this.SendEvent(new OnActivityStatusChanged()

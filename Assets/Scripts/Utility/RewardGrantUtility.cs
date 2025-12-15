@@ -8,23 +8,34 @@ using UnityEngine;
 
 public class RewardGrantUtility : IUtility, ICanGetModel
 {
-    StageModel _StageModel;
+    private GameGlobalModel mGameGlobalModel;
+
     public void GrantReward(IPackSoInterface rewardPackSO)
     {
-        _StageModel = this.GetModel<StageModel>();
+        mGameGlobalModel ??= this.GetModel<GameGlobalModel>();
         CoinManager.Instance.AddCoin(rewardPackSO.Coins);
-        //ÓÀ¾ÃÈ¥¹ã¸æÂß¼­´ı²¹³ä rewardPackSO.RemoveAdsForever
+        //æ°¸ä¹…å»å¹¿å‘Šé€»è¾‘å¾…è¡¥å…… rewardPackSO.RemoveAdsForever
 
         foreach (var item in rewardPackSO.ItemReward)
         {
-            _StageModel.AddItem((int)item.NormalRewardsType, item.Quantity);
+            switch (item.NormalRewardsType)
+            {
+                case NormalRewardsType.StaminaCap:
+                    mGameGlobalModel.AddMaxHp(item.Quantity);
+                    break;
+
+                default:
+                    mGameGlobalModel.AddItem((int)item.NormalRewardsType, item.Quantity);
+                    break;
+            }
         }
+
         foreach (var item in rewardPackSO.SpecialRewards)
         {
             switch (item.SpecialRewardType)
             {
                 case SpecialRewardsType.RemoveAds:
-                    Debug.Log("È¥³ı¹ã¸æÂß¼­Ôİ¿Õ");
+                    Debug.Log("å»é™¤å¹¿å‘Šé€»è¾‘æš‚ç©º");
                     break;
                 case SpecialRewardsType.DoubleCoin:
                     CountDownTimerManager.Instance.AddTimer(GameDefine.GameConst.DOUBLE_COIN_SIGN, item.Duration);
@@ -32,17 +43,21 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                 case SpecialRewardsType.UnlimitedHp:
                     HealthManager.Instance.SetUnLimitHp(item.Duration);
                     break;
+                case SpecialRewardsType.ReduceLiveRecoverTime:
+                    mGameGlobalModel.ReduceHpRecoverTimer(item.Duration);
+                    break;
 
-                //ÓĞÅäÖÃ Description ÌØĞÔ×ßÄ¬ÈÏ´¦ÀíÂß¼­
+                //æœ‰é…ç½® Description ç‰¹æ€§èµ°é»˜è®¤å¤„ç†é€»è¾‘
                 default:
                     CountDownTimerManager.Instance.AddTimer(GameEnum.GetDescription(item.SpecialRewardType), item.Duration);
                     break;
             }
         }
     }
+
     public void GrantReward(RewardItem[] rewardItems)
     {
-        _StageModel = this.GetModel<StageModel>();
+        mGameGlobalModel ??= this.GetModel<GameGlobalModel>();
         foreach (var item in rewardItems)
         {
             string rewardString = item.itemType;
@@ -52,7 +67,7 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                 switch (_rewardEnum1)
                 {
                     case SpecialRewardsType.RemoveAds:
-                        Debug.Log("È¥³ı¹ã¸æÂß¼­Ôİ¿Õ");
+                        Debug.Log("å»é™¤å¹¿å‘Šé€»è¾‘æš‚ç©º");
                         break;
                     case SpecialRewardsType.DoubleCoin:
                         CountDownTimerManager.Instance.AddTimer(GameDefine.GameConst.DOUBLE_COIN_SIGN, item.itemQuantity);
@@ -61,7 +76,7 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                         HealthManager.Instance.SetUnLimitHp(item.itemQuantity);
                         break;
 
-                    //ÓĞÅäÖÃ Description ÌØĞÔ×ßÄ¬ÈÏ´¦ÀíÂß¼­
+                    //æœ‰é…ç½® Description ç‰¹æ€§èµ°é»˜è®¤å¤„ç†é€»è¾‘
                     default:
                         CountDownTimerManager.Instance.AddTimer(GameEnum.GetDescription(_rewardEnum1), item.itemQuantity);
                         break;
@@ -71,13 +86,11 @@ public class RewardGrantUtility : IUtility, ICanGetModel
             NormalRewardsType _rewardEnum2;
             if (Enum.TryParse<NormalRewardsType>(rewardString, out _rewardEnum2))
             {
-                _StageModel.AddItem((int)_rewardEnum2, item.itemQuantity);
+                mGameGlobalModel.AddItem((int)_rewardEnum2, item.itemQuantity);
             }
         }
     }
-    
 
-    
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;

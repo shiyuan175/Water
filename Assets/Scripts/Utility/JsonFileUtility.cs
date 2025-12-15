@@ -1,13 +1,12 @@
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using JsonFileData;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using QFramework;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace JsonFileData
 {
@@ -22,15 +21,48 @@ namespace JsonFileData
     /// <summary>
     /// ���������ļ���Ϣ�Ͱ汾
     /// </summary>
-    public class JsonFileInfo
+    //public class JsonFileInfo
+    //{
+    //    public string FileName;
+    //    public int TargetVersion;
+    //}
+
+    #region 通用配置Json
+
+    /// <summary>
+    /// 每日奖励领取记录
+    /// 后续可拓展每日增益效果
+    /// </summary>
+    public class DailyReward
     {
-        public string FileName;
-        public int TargetVersion;
+        public int Version;
+        public long NextResetTicks;
+        //剧情解锁-每日宝箱
+        public bool IsClaim_PlotReward;
+        //第二套剧情奖励
+        public bool IsClaim_UnlockScene2Reward;
     }
+
+    public class GameGlobalData
+    {
+        public int Version;
+        
+        //场景解锁1、3的增益领取记录(只领一次)
+        public bool IsClaim_UnlockScene1Reward;
+        public bool IsClaim_UnlockScene3Reward;
+        
+        //体力上限
+        public int MaxHp;
+        public int HpRecoverTimer;
+
+    }
+
+    #endregion
 
     #region Magic Streak Activity Data
     public class MSActivityData
     {
+        public int Version;
         public MSAPlayer Player;
         public List<MSARobotsData> MSARobots;
     }
@@ -54,16 +86,41 @@ namespace JsonFileData
     }
 
     #endregion
-    
+
+    #region DailyTask AD Activity Data
+
+    public class DTRewardItem
+    { }
+    public class TaskItem
+    {
+        public string TypeName;
+        public List<DTRewardItem> Rewards;
+    }
+
+    public class TaskGroup
+    {
+        public int TaskId;
+        public List<TaskItem> TaskItems;
+    }
+
+    public class DailyTaskActivityData
+    {
+        List<TaskGroup> DailyTaskData;
+    }
+
     public class RewardItem
     {
         public string itemType;
         public int itemQuantity;
     }
+
+    #endregion
+
     #region Tier Rank Activity Data
 
     public class TRActivityData
     {
+        public int Version;
         public TRAPlayer Player;
         public List<TRARobotsData> TRARobots;
     }
@@ -85,7 +142,6 @@ namespace JsonFileData
     }
     #endregion
 
-
     #region BattlePass Data
 
     public class BattlePassData
@@ -101,8 +157,6 @@ namespace JsonFileData
         public bool FreeIsBox;
         public bool VipIsBox;
     }
-
-
 
     #endregion
 
@@ -120,24 +174,16 @@ namespace JsonFileData
     }
 
     #endregion
-
-
-
 }
 
 public class JsonFileUtility : IUtility
 {
-    // Ĭ�ϵ�json������ͬ���汾��current
-    private readonly JsonFileInfo[] mJsonFileData = new JsonFileInfo[]
-    {
-        GameDefine.GameConst.MSADefaultJson,
-        GameDefine.GameConst.TRADefaultJson,
-        GameDefine.GameConst.BPDefaultJson,
-        GameDefine.GameConst.PGDefaultJson
-    };
+    /// 注意事项：
+    /// 每个Json文件应有 Version 字段
+    /// StreamingAssets 下的 Json 应为最新默认版本
 
     /// <summary>
-    /// �� JSON �ļ���ȡ����
+    /// 从 JSON 文件读取对象
     /// </summary>
     /// <param name="filePath"></param>
     /// <param name="action"></param>
@@ -145,7 +191,7 @@ public class JsonFileUtility : IUtility
     {
         if (!File.Exists(filePath))
         {
-            /*   Debug.Log($"�ļ�������: {filePath}");*/
+            /*   Debug.Log($"文件不存在: {filePath}");*/
             return;
         }
 
@@ -154,122 +200,22 @@ public class JsonFileUtility : IUtility
     }
 
     /// <summary>
-    /// �������Ϊ JSON �ļ�
+    /// 保存对象为 JSON 文件
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="filePath"></param>
     /// <param name="data"></param>
     public void SaveToJson<T>(string filePath, T data)
     {
-        //ȷ��·������
+        //确保路径存在
         Directory.CreateDirectory(Path.GetDirectoryName(filePath));
         string _json = JsonConvert.SerializeObject(data, Formatting.Indented);
         File.WriteAllText(filePath, _json);
-        //Debug.Log($"�����ѱ���: {filePath}");
-    }
-
-    #region �����ļ����־û�·��
-    /// ע�����
-    /// ÿ��Json�ļ�Ӧ�� Version �ֶ� ,�ļ���Ϣ������Ŀ��汾
-    /// StreamingAssets �µ� Json ӦΪ���°汾
-
-    /*public IEnumerator UpdateJsonFiles()
-    {
-        bool _needUpdate;
-
-        for (int i = 0; i < mJsonFileData.Length; i++)
-        {
-            _needUpdate = true;
-
-            var _perFilePath = Path.Combine(Application.persistentDataPath, mJsonFileData[i].FileName);
-            if (File.Exists(_perFilePath))
-            {
-                Debug.Log($"�ļ�:{mJsonFileData[i].FileName} �Ѵ���");
-                int _localVersion = GetFileVersion(_perFilePath);
-                Debug.Log("��ǰJson�汾��" + _localVersion);
-
-                if (_localVersion >= mJsonFileData[i].TargetVersion)
-                    _needUpdate = false;
-
-                yield return null;
-            }
-
-            if (_needUpdate)
-            {
-                Debug.Log($"�ļ�:{mJsonFileData[i]} �����ڻ�汾���ͣ�������...");
-#if UNITY_ANDROID && !UNITY_EDITOR
-                var streamingAssetsFilePath = Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName);
-                UnityWebRequest request = UnityWebRequest.Get(streamingAssetsFilePath);
-                yield return request.SendWebRequest();
-                if (request.result == UnityWebRequest.Result.Success)
-                {
-                    File.WriteAllBytes(_perFilePath, request.downloadHandler.data);
-                }
-                else
-                {
-                    Debug.LogError("����ʧ��: " + request.error);
-                }
-#else
-                //�ǰ�׿
-                File.Copy(Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName), _perFilePath, true);
-                yield return null;
-#endif
-            }
-        }
-    }*/
-
-    public async Task UpdateJsonFiles()
-    {
-        bool _needUpdate;
-        for (int i = 0; i < mJsonFileData.Length; i++)
-        {
-            _needUpdate = true;
-
-            var _perFilePath = Path.Combine(Application.persistentDataPath, mJsonFileData[i].FileName);
-            if (File.Exists(_perFilePath))
-            {
-                //Debug.Log($"�ļ�:{mJsonFileData[i].FileName} �Ѵ���");
-                int _localVersion = GetFileVersion(_perFilePath);
-                //Debug.Log($"{mJsonFileData[i].FileName} ��ǰ�汾��" + _localVersion);
-                // ��ȡĬ�ϵ�json�ȶ�json��version��targeversion
-                if (_localVersion >= mJsonFileData[i].TargetVersion)
-                    _needUpdate = false;
-            }
-
-            if (_needUpdate)
-            {
-                //Debug.Log($"�ļ�:{mJsonFileData[i]} �����ڻ�汾���ͣ�������...");
-#if UNITY_ANDROID && !UNITY_EDITOR
-           var streamingAssetsFilePath = Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName);
-           using (UnityWebRequest request = UnityWebRequest.Get(streamingAssetsFilePath))
-           {
-               var operation = request.SendWebRequest();
-               while (!operation.isDone)
-                   await Task.Yield();
-
-               if (request.result == UnityWebRequest.Result.Success)
-               {
-                   File.WriteAllBytes(_perFilePath, request.downloadHandler.data);
-               }
-               else
-               {
-                   //Debug.LogError("����ʧ��: " + request.error);
-               }
-           }
-#else
-                // �ǰ�׿
-                await Task.Run(() =>
-                {
-                    File.Copy(Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName), _perFilePath, overwrite: true);
-
-                });
-#endif
-            }
-        }
+        //Debug.Log($"数据已保存: {filePath}");
     }
 
     /// <summary>
-    /// ��ȡJson�汾��
+    /// 获取Json版本号
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
@@ -287,5 +233,153 @@ public class JsonFileUtility : IUtility
         }
     }
 
+    /// <summary>
+    /// 当版本不一致时，使用该方法插入新字段到当前Json中(不覆盖已有字段)
+    /// </summary>
+    /// <param name="curPath"></param>
+    /// <param name="delPath"></param>
+    /// 如果默认值是类时间这种(非固定值的),那就需要在代码中匹配-1之类的初始值,然后为字段更新值
+    public void AutoFixFields(string curPath, string delPath)
+    {
+        JObject cur = JObject.Parse(File.ReadAllText(curPath));
+        JObject def = JObject.Parse(File.ReadAllText(delPath));
+
+        MergeMissingFields(cur, def);
+        // 补完字段后同步更新版本号
+        if (def.TryGetValue("Version", out var newVersion))
+            cur["Version"] = newVersion;
+
+        File.WriteAllText(curPath, cur.ToString());
+    }
+    
+    #region 拷贝文件到持久化路径——弃用,默认文件使用StreamingAssets下的即可
+
+    // 默认的json是用来同步版本，current
+    //private readonly JsonFileInfo[] mJsonFileData =
+    //{
+    //    //GameDefine.GameConst.MSADefaultJson,
+    //    //GameDefine.GameConst.TRADefaultJson,
+    //    //GameDefine.GameConst.BPDefaultJson,
+    //    //GameDefine.GameConst.PGDefaultJson
+    //};
+
+    /*public IEnumerator UpdateJsonFiles()
+    {
+        bool _needUpdate;
+
+        for (int i = 0; i < mJsonFileData.Length; i++)
+        {
+            _needUpdate = true;
+
+            var _perFilePath = Path.Combine(Application.persistentDataPath, mJsonFileData[i].FileName);
+            if (File.Exists(_perFilePath))
+            {
+                Debug.Log($"文件:{mJsonFileData[i].FileName} 已存在");
+                int _localVersion = GetFileVersion(_perFilePath);
+                Debug.Log("当前Json版本：" + _localVersion);
+
+                if (_localVersion >= mJsonFileData[i].TargetVersion)
+                    _needUpdate = false;
+
+                yield return null;
+            }
+
+            if (_needUpdate)
+            {
+                Debug.Log($"文件:{mJsonFileData[i]} 不存在或版本过低，更新中...");
+#if UNITY_ANDROID && !UNITY_EDITOR
+                var streamingAssetsFilePath = Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName);
+                UnityWebRequest request = UnityWebRequest.Get(streamingAssetsFilePath);
+                yield return request.SendWebRequest();
+                if (request.result == UnityWebRequest.Result.Success)
+                {
+                    File.WriteAllBytes(_perFilePath, request.downloadHandler.data);
+                }
+                else
+                {
+                    Debug.LogError("拷贝失败: " + request.error);
+                }
+#else
+                //非安卓
+                File.Copy(Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName), _perFilePath, true);
+                yield return null;
+#endif
+            }
+        }
+    }*/
+
+    /*public async Task UpdateJsonFiles()
+    {
+        bool _needUpdate;
+        for (int i = 0; i < mJsonFileData.Length; i++)
+        {
+            _needUpdate = true;
+
+            var _perFilePath = Path.Combine(Application.persistentDataPath, mJsonFileData[i].FileName);
+            if (File.Exists(_perFilePath))
+            {
+                //Debug.Log($"文件:{mJsonFileData[i].FileName} 已存在");
+                int _localVersion = GetFileVersion(_perFilePath);
+                //Debug.Log($"{mJsonFileData[i].FileName} 当前版本：" + _localVersion);
+                // 读取默认的json比对json的version和targeversion
+                if (_localVersion >= mJsonFileData[i].TargetVersion)
+                    _needUpdate = false;
+            }
+
+            if (_needUpdate)
+            {
+                //Debug.Log($"文件:{mJsonFileData[i]} 不存在或版本过低，更新中...");
+#if UNITY_ANDROID && !UNITY_EDITOR
+           var streamingAssetsFilePath = Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName);
+           using (UnityWebRequest request = UnityWebRequest.Get(streamingAssetsFilePath))
+           {
+               var operation = request.SendWebRequest();
+               while (!operation.isDone)
+                   await Task.Yield();
+
+               if (request.result == UnityWebRequest.Result.Success)
+               {
+                   File.WriteAllBytes(_perFilePath, request.downloadHandler.data);
+               }
+               else
+               {
+                   //Debug.LogError("拷贝失败: " + request.error);
+               }
+           }
+#else
+                // 非安卓
+                await Task.Run(() =>
+                {
+                    File.Copy(Path.Combine(Application.streamingAssetsPath, mJsonFileData[i].FileName), _perFilePath, overwrite: true);
+
+                });
+#endif
+            }
+        }
+    }*/
+
     #endregion
+    
+    private void MergeMissingFields(JObject target, JObject template)
+    {
+        foreach (var prop in template.Properties())
+        {
+            if (!target.TryGetValue(prop.Name, out var value))
+            {
+                // 补字段
+                target[prop.Name] = prop.Value.DeepClone();
+            }
+            else
+            {
+                // 如果是对象则递归
+                if (prop.Value.Type == JTokenType.Object)
+                {
+                    MergeMissingFields(
+                        (JObject)value,
+                        (JObject)prop.Value
+                    );
+                }
+            }
+        }
+    }
 }

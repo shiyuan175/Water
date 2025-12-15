@@ -16,7 +16,7 @@ namespace QFramework.Example
 	{
         private const int REWARD_COIN = 1000;
 
-        //ÆğÊ¼¡¢ÖÕµãµãÎ»(×öÒÆ¶¯ÏßĞÔ²åÖµ)
+        //èµ·å§‹ã€ç»ˆç‚¹ç‚¹ä½(åšç§»åŠ¨çº¿æ€§æ’å€¼)
         [SerializeField] private RectTransform mStartPos;
         [SerializeField] private RectTransform mEndPos;
 
@@ -29,7 +29,7 @@ namespace QFramework.Example
 		[SerializeField] private RectTransform mRobot1Cat;
         [SerializeField] private RectTransform mRobot2Cat;
 
-        //¶¯»­ÈİÆ÷£¬Íæ¼ÒµÚÒ»¸ö²¥·Å£¬»úÆ÷ÈË¶¯»­¿ÉÒÔÍ¬Ê±²¥·Å
+        //åŠ¨ç”»å®¹å™¨ï¼Œç©å®¶ç¬¬ä¸€ä¸ªæ’­æ”¾ï¼Œæœºå™¨äººåŠ¨ç”»å¯ä»¥åŒæ—¶æ’­æ”¾
         private List<Tween> mTweenList;
         private RocketActivity mRocketActivity;
 
@@ -40,7 +40,7 @@ namespace QFramework.Example
 			mData = uiData as UIRocketActivityData ?? new UIRocketActivityData();
 			// please add init code here
 		}
-		
+
 		protected override void OnOpen(IUIData uiData = null)
 		{
 			InitAvatarImg();
@@ -48,7 +48,7 @@ namespace QFramework.Example
             mTweenList = new List<Tween>();
 
             Canvas.ForceUpdateCanvases();
-            //ÖĞĞÄµãÆ«ÒÆ
+            //ä¸­å¿ƒç‚¹åç§»
             float _pivotOffset1 = (0.5f - mEndPos.pivot.y) * mEndPos.rect.height;
             float _pivotOffset2 = (0.5f - mStartPos.pivot.y) * mStartPos.rect.height;
             mTotalDistance = (mEndPos.localPosition.y + _pivotOffset1) - (mStartPos.localPosition.y + _pivotOffset2);
@@ -97,7 +97,7 @@ namespace QFramework.Example
                 mRocketActivity.StreakWin();
                 Txt_Prompt.text = $"Beat {mRocketActivity.RAMaxStreakWinNum - mRocketActivity.PlayerStreakWin} levels on your first try before others to win!";
 
-                //·À±Õ°ü
+                //é˜²é—­åŒ…
                 bool _playerWin = mRocketActivity.PlayWin;
                 bool _robotWin = mRocketActivity.RobotWin;
 
@@ -106,9 +106,9 @@ namespace QFramework.Example
                     UIKit.OpenPanel<UIMask>();
                     CoinManager.Instance.AddCoin(REWARD_COIN);
                     Txt_Prompt.text = $"You win!";
-                    //Debug.Log("Íæ¼Ò»ñÊ¤-·¢·Å½±Àø");
+                    //Debug.Log("ç©å®¶è·èƒœ-å‘æ”¾å¥–åŠ±");
                 }
-                var _targetPos = mStartPos.anchoredPosition.y + 
+                var _targetPos = mStartPos.anchoredPosition.y +
                     (mRocketActivity.PlayerStreakWin / (float)mRocketActivity.RAMaxStreakWinNum) * mTotalDistance;
                 Tween _playerUp = mPlayerCat.DOAnchorPosY(_targetPos, 2f).SetEase(Ease.OutBack)
                     .OnComplete(() =>
@@ -117,7 +117,7 @@ namespace QFramework.Example
                         {
                             UIKit.ClosePanel<UIMask>();
                             RewardUIManager.Instance.PlayRewardAnim(REWARD_COIN, true, null);
-                            //Debug.Log("Íæ¼ÒÊ¤Àû»Øµ÷²¥·Å½±Àø¶¯»­");
+                            //Debug.Log("ç©å®¶èƒœåˆ©å›è°ƒæ’­æ”¾å¥–åŠ±åŠ¨ç”»");
                         }
                     });
                 mTweenList.Add(_playerUp);
@@ -136,7 +136,7 @@ namespace QFramework.Example
                     mTweenList.Add(_robot1Up);
                     mTweenList.Add(_robot2Up);
 
-                    //»úÆ÷ÈËÎÄ±¾¸üĞÂ
+                    //æœºå™¨äººæ–‡æœ¬æ›´æ–°
                     Tween _robot1UI = DOTween.To(() => _robot1StreakWin,
                         x => Txt_Robot1Win.text = $"{x}",
                         mRocketActivity.Robot1StreakWin, 1f);
@@ -154,7 +154,7 @@ namespace QFramework.Example
             else
             {
                 mRocketActivity.Fail();
-                Tween _playerDown = mPlayerCat.DOLocalMoveY(0, 2f).SetEase(Ease.OutBack);
+                Tween _playerDown = mPlayerCat.DOMoveY(mStartPos.transform.position.y, 2f).SetEase(Ease.OutBack);
                 mTweenList.Add(_playerDown);
 
                 Tween _platerUI = DOTween.To(() => _playerStreakWin, x => Txt_PlayerWin.text = $"{x}", 0, 1f);
@@ -162,14 +162,14 @@ namespace QFramework.Example
                 Txt_Prompt.text = $"You failed!";
             }
 
-            //UI±íÏÖ×öÍê£¬³¢ÊÔÖØÖÃ»î¶¯(±ØĞë·ÅÔÚ OnShow×îºóµ÷ÓÃ)
+            //UIè¡¨ç°åšå®Œï¼Œå°è¯•é‡ç½®æ´»åŠ¨(å¿…é¡»æ”¾åœ¨ OnShowæœ€åè°ƒç”¨)
             mRocketActivity.TryRestarActivity();
         }
 
         protected override void OnHide()
 		{
 		}
-		
+
 		protected override void OnClose()
 		{
 			BtnClose.onClick.RemoveAllListeners();
@@ -192,10 +192,10 @@ namespace QFramework.Example
 
         private void InitAvatarImg()
 		{
-            //Íæ¼ÒÍ·Ïñ³õÊ¼»¯
+            //ç©å®¶å¤´åƒåˆå§‹åŒ–
             mPlayerFrame.sprite = AvatarManager.Instance.GetAvatarSprite(false);
             mPlayerAvatar.sprite = AvatarManager.Instance.GetAvatarSprite(true);
-            //»úÆ÷ÈËÍ·Ïñ³õÊ¼»¯
+            //æœºå™¨äººå¤´åƒåˆå§‹åŒ–
             for (int i = 0; i < mRobotsFrame.Length; i++) 
 				mRobotsFrame[i].sprite = AvatarManager.Instance.GetAvatarSprite(false, i);
 

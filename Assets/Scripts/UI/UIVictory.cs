@@ -30,8 +30,8 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-            string _del = $"ÓÃ»§Í¨¹ı¹Ø¿¨:{this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1}," +
-                $"µ±Ç°¹Ø¿¨½ø¶È:{this.GetUtility<SaveDataUtility>().GetCurrentLevel()}";
+            string _del = $"ç”¨æˆ·é€šè¿‡å…³å¡:{this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1}," +
+                $"å½“å‰å…³å¡è¿›åº¦:{this.GetUtility<SaveDataUtility>().GetCurrentLevel()}";
             AnalyticsManager.Instance.SendLevelEvent(_del);
 
             mIsEnQueue = false;
@@ -39,10 +39,10 @@ namespace QFramework.Example
 
         protected override void OnShow()
         {
-            //±ÜÃâ½çÃæÍ£ÁôÊ±¹ıÆÚ
+            //é¿å…ç•Œé¢åœç•™æ—¶è¿‡æœŸ
             mRankingEnd = CountDownTimerManager.Instance.IsTimerFinished(GameConst.RANKA_ACTIVITY_SIGN);
 
-            //Á¬Ê¤»î¶¯¿ªÆô/ÅÅĞĞ°ñ¿ªÆô×´Ì¬
+            //è¿èƒœæ´»åŠ¨å¼€å¯/æ’è¡Œæ¦œå¼€å¯çŠ¶æ€
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.POTION_ACTIVITY_SIGN)
                 || !mRankingEnd)
             {
@@ -74,7 +74,7 @@ namespace QFramework.Example
 
         private void ShowAnim()
         {
-            //Ä¿Ç°²»²¥·Å
+            //ç›®å‰ä¸æ’­æ”¾
             //AnimGo.Play("victoryAnim");
             HornGo1.Play("hornRotation");
             HornGo2.Play("hornRotation");
@@ -101,7 +101,7 @@ namespace QFramework.Example
         {
             mIsEnQueue = true;
 
-            //ÅÅĞĞ°ñ
+            //æ’è¡Œæ¦œ
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 if (!mRankingEnd)
@@ -115,7 +115,7 @@ namespace QFramework.Example
                 }
                 return false;
             });
-            //»ğÉ½»î¶¯
+            //ç«å±±æ´»åŠ¨
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 VolcanicActivity volcanicActivity = GameActivityManager.Instance.GetActivity<VolcanicActivity>();
@@ -144,7 +144,7 @@ namespace QFramework.Example
 
                 return false;
             });
-            //»ğ¼ı»î¶¯
+            //ç«ç®­æ´»åŠ¨
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 RocketActivity rocketActivity = GameActivityManager.Instance.GetActivity<RocketActivity>();
@@ -171,7 +171,7 @@ namespace QFramework.Example
 
                 return false;
             });
-            //¸ßËş»î¶¯
+            //é«˜å¡”æ´»åŠ¨
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 HighTowerActivity highTowerActivity = GameActivityManager.Instance.GetActivity<HighTowerActivity>();
@@ -198,14 +198,14 @@ namespace QFramework.Example
 
                 return false;
             });
-            //Ä§·¨Á¬Ê¤»î¶¯
+            //é­”æ³•è¿èƒœæ´»åŠ¨
             HandleMSA();
 
-            // ÌØ»İÀñ°ü
+            // ç‰¹æƒ ç¤¼åŒ…
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 if ((this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.SO_AD_BEGIN_LEVEL
-                || (this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL > 0 
+                || (this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL > 0
                 && (this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL) % 7 == 0))
                 && GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>() is SepecialOfferADActivity soActivity
                     && soActivity.ActivityStatus != GameActivityStatus.CoolingDown)
@@ -219,7 +219,7 @@ namespace QFramework.Example
                 }
                 return false;
             });
-            // ½×ÌİÀñ°ü
+            // é˜¶æ¢¯ç¤¼åŒ…
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.PG_AD_BEGIN_LEVEL)
@@ -233,7 +233,7 @@ namespace QFramework.Example
                 }
                 return false;
             });
-            // 1+1Àñ°ü
+            // 1+1ç¤¼åŒ…
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.DG_AD_BEGIN_LEVEL)
@@ -247,7 +247,7 @@ namespace QFramework.Example
                 }
                 return false;
             });
-            // Ãâ¹ã¸æÀñ°ü
+            // å…å¹¿å‘Šç¤¼åŒ…
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.REMOVE_AD_BEGIN_LEVEL)
@@ -260,11 +260,11 @@ namespace QFramework.Example
                 }
                 return false;
             });
-            /* ÔİÊ±¹Ø±Õ  
-            //ÂÖÅÌ»î¶¯
+            /* æš‚æ—¶å…³é—­
+            //è½®ç›˜æ´»åŠ¨
            PanelQueueManager.Instance.Enqueue(() =>
            {
-               // Ã»ÓĞ¼ÆÊ±µÄÊ±ºòÏÔÊ¾ ²¢½øĞĞÊ±¼äµÄ³õÊ¼»¯
+               // æ²¡æœ‰è®¡æ—¶çš„æ—¶å€™æ˜¾ç¤º å¹¶è¿›è¡Œæ—¶é—´çš„åˆå§‹åŒ–
                if (GameActivityManager.Instance.GetActivity<TurnTableADActivity>() is TurnTableADActivity turnTableADActivity
                    && turnTableADActivity.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TURNTABLE_AD_ACTIVITY_SIGN))
                {
@@ -275,7 +275,7 @@ namespace QFramework.Example
                return false;
            });*/
 
-            //×îºó½áËã½çÃæ
+            //æœ€åç»“ç®—ç•Œé¢
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 UIKit.OpenPanel<UIGetCoin>();
@@ -289,9 +289,9 @@ namespace QFramework.Example
             var _activit = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
             if (_activit is null)
                 return;
-            //½×¶Î½±ÀøÈ«²¿ÁìÈ¡Íê²»µ¯³ö»î¶¯
-            //(¸Ã»î¶¯µÄ½×¶Î½±ÀøÎª20¸ö)
-            else if (_activit.CurStageReward >= 20)
+            //é˜¶æ®µå¥–åŠ±å…¨éƒ¨é¢†å–å®Œä¸å¼¹å‡ºæ´»åŠ¨
+            //(è¯¥æ´»åŠ¨çš„é˜¶æ®µå¥–åŠ±ä¸º20ä¸ª)
+            else if (_activit.CurStageReward >= 20 && _activit.ActivityStatus == SettlementActivityStatus.Active)
             {
                 _activit.StreakWin();
                 return;
@@ -310,7 +310,8 @@ namespace QFramework.Example
                     Status = SettlementActivityStatus.Active
                 };
             }
-            //»î¶¯½áÊø ÓĞÅÅÃû½±
+
+            //æ´»åŠ¨ç»“æŸ æœ‰æ’åå¥–
             else if (_activit.ActivityStatus == SettlementActivityStatus.Finished)
             {
                 _openPanel = true;
@@ -321,11 +322,11 @@ namespace QFramework.Example
                     Status = SettlementActivityStatus.None
                 };
             }
-            /*//ÏÖ½»ÓÉTick¹ÜÀíÖØÆô»î¶¯
-            //»î¶¯½áÊø ÎŞÅÅÃû½±/ÒÑ½áËã
+            /*//ç°äº¤ç”±Tickç®¡ç†é‡å¯æ´»åŠ¨
+            //æ´»åŠ¨ç»“æŸ æ— æ’åå¥–/å·²ç»“ç®—
             //else if (_activit.ActivityStatus == SettlementActivityStatus.WaitStart)
             //{
-            //    //ÖØÆô»î¶¯
+            //    //é‡å¯æ´»åŠ¨
             //    _activit.RestartActivity();
             //}*/
             if (_openPanel)

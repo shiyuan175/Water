@@ -1,4 +1,4 @@
-using GameDefine;
+﻿using GameDefine;
 using JsonFileData;
 using QFramework;
 using System.Collections;
@@ -7,13 +7,9 @@ using UnityEngine;
 
 public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
 {
-    public override string ActivitySign => GameConst.BATTLEPASS_AD_ACTIVITY_SIGN;
-
+    public override string ActivitySign => GameConst.BATTLE_PASS_AD_ACTIVITY_SIGN;
     public override string ActivityID => GetType().Name;
-
     public override int ActivityBeginLevel => GameConst.BP_AD_BEGIN_LEVEL;
-
-    private BattlePassModel mBPModel;
     public override float ActivityDurationMinutes => 30 * 24 * 60;
     public override GameActivityStatus ActivityStatus
     {
@@ -27,20 +23,22 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
                 return GameActivityStatus.Active;
         }
     }
-    private GameActivityStatus mCurrentStatus;
+
+    private BattlePassModel mBPModel;
+
     public BattlePassADActivity()
     {
         mBPModel = this.GetModel<BattlePassModel>();
-        /*        if (GameUtils.DoesCountDownKeyExist(GameConst.BATTLEPASS_AD_ACTIVITY_SIGN))*/
+        //if (GameUtils.DoesCountDownKeyExist(GameConst.BATTLEPASS_AD_ACTIVITY_SIGN))
         mBPModel.LoadBattlePassActivity();
         this.RegisterEvent<ReturnToMainEvent>((_event) =>
         {
-            // ������ż���
-            // ������ż���
+            // 活动启动才计数
             if (ActivityStatus == GameActivityStatus.Active && _event.PassLevel)
                 mBPModel.AddGameWinCount();
         });
     }
+
     public override void Tick()
     {
         if (!GameUtils.DoesCountDownKeyExist(ActivitySign) &&
@@ -60,14 +58,16 @@ public class BattlePassADActivity : BaseGameADActivity, ICanRegisterEvent
     public override void RestartActivity()
     {
         CountDownTimerManager.Instance.ResetTimer(ActivitySign, ActivityDurationMinutes);
-        // δ��ȡ�Ľ�������?
+        mBPModel.LoadBattlePassActivity();
+        // 未领取的奖励发放?
         mBPModel.ReloadBattlePassActivity();
         mBPModel.LoadBattlePassActivity();
     }
+
     /// <summary>
-    /// ���Ž���
+    /// 发放奖励
     /// </summary>
-    /// <param name="pack">���</param>
+    /// <param name="pack">礼包</param>
     /// <param name="isVIPPack"></param>
     public void DistributeReward(RewardItem[] pack, bool isVipPack = false, int level = 0)
     {

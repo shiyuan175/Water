@@ -13,7 +13,7 @@ namespace QFramework.Example
 	public partial class UIContinue : UIPanel,ICanSendEvent, IController
     {
         private SaveDataUtility mSaveData;
-        private StageModel mStageModel;
+        private GameGlobalModel mGameGlobalModel;
         private ResLoader mResLoader;
         private SpriteAtlas mRankLevelSpriteAtlas;
 
@@ -32,7 +32,7 @@ namespace QFramework.Example
 		{
             TxtCoinCost.font = LevelManager.Instance.greenFont;
             mSaveData = this.GetUtility<SaveDataUtility>();
-            mStageModel = this.GetModel<StageModel>();
+            mGameGlobalModel = this.GetModel<GameGlobalModel>();
 
             LoadRes();
             RegisterBtnEvent();
@@ -58,7 +58,7 @@ namespace QFramework.Example
             BtnQuit.onClick.RemoveAllListeners();
             BtnAddCoin.onClick.RemoveAllListeners();
             mSaveData = null;
-            mStageModel = null;
+            mGameGlobalModel = null;
 
             if (mResLoader != null)
             {
@@ -74,7 +74,7 @@ namespace QFramework.Example
             mRankLevelSpriteAtlas = mResLoader.LoadSync<SpriteAtlas>
                 (ABResourceDefine.RANK_LEVEL_ATLAS_BUNDLENAME, ABResourceDefine.RANK_LEVEL_ATLAS_ASSETNAME);
 
-            var _rankStreakWin = mStageModel.InGameRankStreakWinNum;
+            var _rankStreakWin = mGameGlobalModel.InGameRankStreakWinNum;
             var _curRankIndex = Mathf.Min(8, Mathf.Max(0, (_rankStreakWin - 1) / 5));
             ImgRankIcon.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(_curRankIndex));
         }
@@ -85,7 +85,7 @@ namespace QFramework.Example
             {
                 if (CoinManager.Instance.Coin >= GameDefine.GameConst.ADD_BOTTLE_COST)
                 {
-                    //Ôö¼Ó¹Ü×Ó
+                    //ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½
                     LevelManager.Instance.AddBottle(false, () =>
                     {
                         CoinManager.Instance.CostCoin(GameDefine.GameConst.ADD_BOTTLE_COST);
@@ -94,7 +94,7 @@ namespace QFramework.Example
                 }
                 else
                 {
-                    //»½ÆðÉÌµê
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½
                     UIKit.OpenPanel<UIShop>();
                 }
 
@@ -102,12 +102,12 @@ namespace QFramework.Example
             BtnQuit.onClick.AddListener(() =>
             {
                 
-                string _del = $"ÓÃ»§ÍË³ö¹Ø¿¨:{mSaveData.GetCurrentLevel()}," +
-                 $"µ±Ç°¹Ø¿¨½ø¶È:{mSaveData.GetCurrentLevel()}";
+                string _del = $"ï¿½Ã»ï¿½ï¿½Ë³ï¿½ï¿½Ø¿ï¿½:{mSaveData.GetCurrentLevel()}," +
+                 $"ï¿½ï¿½Ç°ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½:{mSaveData.GetCurrentLevel()}";
                 AnalyticsManager.Instance.SendLevelEvent(_del);
 
                 HealthManager.Instance.UseHp();
-                //±ÜÃâÒýµ¼¹ØÍË³öµÄUI²ÐÁô
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½
                 UIKit.ClosePanel<UIGuideAnimPop>();
                 UIKit.ClosePanel<UIGameNode>();
                 
@@ -133,7 +133,7 @@ namespace QFramework.Example
 
         private void EnqueueAllPanels()
         {
-            //»ðÉ½»î¶¯
+            //ï¿½ï¿½É½ï¿½î¶¯
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 if (GameActivityManager.Instance.GetActivity<VolcanicActivity>() is VolcanicActivity volcanicActivity &&
@@ -149,7 +149,7 @@ namespace QFramework.Example
                 return false;
             });
 
-            //»ð¼ý»î¶¯
+            //ï¿½ï¿½ï¿½ï¿½î¶¯
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 if (GameActivityManager.Instance.GetActivity<RocketActivity>() is RocketActivity rocketActivity &&
@@ -166,7 +166,7 @@ namespace QFramework.Example
                 return false;
             });
 
-            //¸ßËþ»î¶¯
+            //ï¿½ï¿½ï¿½ï¿½ï¿½î¶¯
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 if (GameActivityManager.Instance.GetActivity<HighTowerActivity>() is HighTowerActivity highTowerActivity &&
@@ -182,7 +182,7 @@ namespace QFramework.Example
                 return false;
             });
 
-            //Ä§·¨Á¬Ê¤
+            //Ä§ï¿½ï¿½ï¿½ï¿½Ê¤
             PanelQueueManager.Instance.Enqueue(() =>
             {
                 if (GameActivityManager.Instance.GetActivity<MagicStreakActivity>() is MagicStreakActivity MSA &&
@@ -199,11 +199,11 @@ namespace QFramework.Example
                 return false;
             });
 
-            //...ÆäËû»î¶¯µÈ
-            /* ÔÝÊ±¹Ø±Õ // ×ªÅÌ»î¶¯
+            //...ï¿½ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ï¿½
+            /* ï¿½ï¿½Ê±ï¿½Ø±ï¿½ // ×ªï¿½Ì»î¶¯
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                // Ã»ÓÐ¼ÆÊ±µÄÊ±ºòÏÔÊ¾ ²¢½øÐÐÊ±¼äµÄ³õÊ¼»¯
+                // Ã»ï¿½Ð¼ï¿½Ê±ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¾ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä³ï¿½Ê¼ï¿½ï¿½
                 if (GameActivityManager.Instance.GetActivity<TurnTableADActivity>() is TurnTableADActivity turnTableADActivity
                     && turnTableADActivity.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TURNTABLE_AD_ACTIVITY_SIGN))
                 {
@@ -214,7 +214,7 @@ namespace QFramework.Example
                 return false;
             });*/
 
-            //¿ªÆô
+            //ï¿½ï¿½ï¿½ï¿½
             PanelQueueManager.Instance.PopFirstPanel();
         }
     }
