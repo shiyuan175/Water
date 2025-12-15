@@ -152,6 +152,7 @@ public class LevelDataProcessor : EditorWindow
 
         Clearlist.Clear();
         // 保存所有修改
+        EditorUtility.SetDirty(level);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }

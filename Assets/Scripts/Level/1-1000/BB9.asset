@@ -30,7 +30,7 @@ MonoBehaviour:
   - waterSet: 030000000500000001000000
     hideTypes: 000000000000000000000000
     waterItem: 000000000000000000000000
-    bombCounts: 
+    bombCounts: 000000000000000000000000
     numCake: 4
     limitColor: 0
     isClearHide: 0
