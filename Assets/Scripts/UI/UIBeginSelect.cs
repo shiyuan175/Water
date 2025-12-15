@@ -231,14 +231,14 @@ namespace QFramework.Example
         void UpdateWinNum()
         {
             //1.5倍金币连胜相关
-            int _curCoinWinNum = stageModel.GoldCoinsMultipleStreakWinNum;
+            int _curCoinWinNum = gameGlobalModel.GoldCoinsMultipleStreakWinNum;
             int _winNum_Coin = math.min(_curCoinWinNum, GameDefine.GameConst.TEN_CONTINUE_WIN_NUM);
             TxtCoinWinProgress.text = $"{_winNum_Coin}/{GameDefine.GameConst.TEN_CONTINUE_WIN_NUM}";
             //0.081f * 连胜次数 + 0.095f映射值(1-10连胜映射公式)
             ImgCoinWinProcess.fillAmount = 0.081f * _winNum_Coin + 0.095f;
 
             //连胜去黑水相关
-            int _curRemoveHideWinNum = stageModel.RemoveHideStreakWinNum;
+            int _curRemoveHideWinNum = gameGlobalModel.RemoveHideStreakWinNum;
             int _winNum_RemoveHide = math.min(_curRemoveHideWinNum, GameDefine.GameConst.TEN_CONTINUE_WIN_NUM);
             TxtProgress.text = $"{_winNum_RemoveHide} / {GameDefine.GameConst.TEN_CONTINUE_WIN_NUM}";
             ImgProgress.fillAmount = _winNum_RemoveHide * 1f / GameDefine.GameConst.TEN_CONTINUE_WIN_NUM;
@@ -257,9 +257,9 @@ namespace QFramework.Example
                 AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_RemoveOneDebuffBottle);
 
             //更新道具数量
-            UpdateItemDisplay(stageModel.ItemDic[6], addItemBtns[0]);
-            UpdateItemDisplay(stageModel.ItemDic[7], addItemBtns[1]);
-            UpdateItemDisplay(stageModel.ItemDic[8], addItemBtns[2]);
+            UpdateItemDisplay(gameGlobalModel.ItemDic[6], addItemBtns[0]);
+            UpdateItemDisplay(gameGlobalModel.ItemDic[7], addItemBtns[1]);
+            UpdateItemDisplay(gameGlobalModel.ItemDic[8], addItemBtns[2]);
         }
 
         /// <summary>

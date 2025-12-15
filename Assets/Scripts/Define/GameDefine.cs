@@ -251,7 +251,7 @@ namespace GameDefine
         Ice = 1,
         BreakIce = 2,
         Bomb = 3,
-
+        FlyBomb = 4,
         Bubble = 5,
         Bubble_Origin = 6,
         GrassBomb = 7
