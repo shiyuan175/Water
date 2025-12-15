@@ -116,7 +116,7 @@ public class BombCtrl : MonoBehaviour
 
     public void BombFling()
     {
-        Transform parentParent = transform.parent?.parent;
+        Transform parentParent = transform.parent?.parent.parent;
         timeText.text = ""; 
         // 复制当前的Spine对象
         GameObject bombCopy = Instantiate(bombSpine, parentParent);
@@ -145,6 +145,7 @@ public class BombCtrl : MonoBehaviour
     
     public void SetBomb(bool isBomb = false, string time = "", string aniType = "combine",bool isFly = false)
     {
+
         bombSpine.SetActive(true);
         timeText.text = time;
         if (aniType == "bomp_remove")

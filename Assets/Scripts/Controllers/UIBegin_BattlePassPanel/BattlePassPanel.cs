@@ -26,7 +26,7 @@ namespace QFramework.Example
         private Sequence topImageFillSequence;
         private Sequence buttomImageFillSequence;
         private int oldLevel = 0;
-
+        private int BPIndex = 1;
         private const string BPViP_GIFT_ID = "battlepass_vip";
         public IArchitecture GetArchitecture()
         {
@@ -62,7 +62,7 @@ namespace QFramework.Example
 
             BtnClose.onClick.AddListener(() =>
             {
-                UIKit.OpenPanel<UIBegin>();
+                UIKit.GetPanel<UIBegin>().MenuBtnEvent(BPIndex);
             });
         }
 

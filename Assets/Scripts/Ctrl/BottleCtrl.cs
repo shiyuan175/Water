@@ -398,7 +398,8 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
             // 特殊道具水块
             else
                 // 根据道具类型设置对应的显示和动画
-                waterImg[i].SetColorState((ItemType)waters[i], LevelManager.Instance.ItemColor, topIdx == i, i);
+                waterImg[i].SetColorState((ItemType)waters[i], LevelManager.Instance.ItemColor, topIdx == i,
+                    hideTypes[i] != HideWaterType.None, i);
 
             //将隐藏水块显示
             if (hideTypes.Count > 0) SetHideShow(true, i);
@@ -1267,6 +1268,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     /// <returns></returns>
     public bool BottleHasItem()
     {
+        
         // 是否检测到相邻可合成的道具
         var _hasPair = false;
 
@@ -1282,7 +1284,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
             WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
 
             // 普通水/特殊水/非可合成类道具
-            if (_waterColor <= 1000 || _attr is RainBowWaterState)
+            if (_waterColor <= 1000 || _attr is RainBowWaterState || _attr.SpineType is EColorStateSpineType.EFlyBomb) 
             {
                 _itemId = 0;
                 continue;
@@ -1770,7 +1772,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         for (var i = waters.Count - 1; i >= 0; i--)
             if (waters[i] == 5002)
             {
-                waterImg[i].bombCtrl.SetBomb(aniType: "flap");
+                /*waterImg[i].bombCtrl.SetBomb(aniType: "flap");*/
                 waterItems[i] = WaterItem.None;
                 bombCounts[i] = FLYBOMBING_SIGN;
                 waters[i] = 0;
@@ -2020,7 +2022,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         ClearGrassBomb();
         //黑水移除
         for (var i = 0; i < hideTypes.Count; i++) hideTypes[i] = HideWaterType.None;
-
+        
         //移除WaterItem
         var _needDisWater = false;
         for (var i = 0; i < waterItems.Count; i++)

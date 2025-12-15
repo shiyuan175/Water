@@ -458,6 +458,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             //黑水炸弹
             case ItemType.BombBlackWater:
                 RandomHalfBlackWater();
+                UIKit.ClosePanel<UIMask>();
                 break;
         }
     }

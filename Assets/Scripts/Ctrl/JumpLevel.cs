@@ -39,27 +39,34 @@ public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
     // Update is called once per frame
     void Update()
     {
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.A))
         {
             for (int i = 0; i < 2; i++)
                 this.SendEvent(new ReturnToMainEvent { PassLevel = true });
         }
+
         if (Input.GetKeyDown(KeyCode.S))
         {
             for (int i = 0; i < 10; i++)
                 this.SendEvent(new ReturnToMainEvent { PassLevel = true });
         }
+
         if (Input.GetKey(KeyCode.L))
         {
             LevelManager.Instance.AddMoveNum();
         }
+
         if (Input.GetKeyDown(KeyCode.H))
         {
             debugPanel.SetActive(true);
         }
+
         if (Input.GetKeyDown(KeyCode.O))
         {
             LevelManager.Instance.CurtainUpdate();
         }
+#endif
+       
     }
 }

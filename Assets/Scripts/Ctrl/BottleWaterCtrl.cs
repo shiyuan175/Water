@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.UI;
 using GameDefine;
+using UnityEngine.Serialization;
 
 public class BottleWaterCtrl : MonoBehaviour
 {
@@ -48,7 +49,7 @@ public class BottleWaterCtrl : MonoBehaviour
     public TextMeshProUGUI textItem;
     public GameObject fireRuneGo;
     public BottleCtrl bottle;
-
+    public GameObject MachineParent;  
     #region NewMechineCtrl
     public BombCtrl bombCtrl;
     public BubbleCtrl bubbleCtrl;
@@ -161,6 +162,7 @@ public class BottleWaterCtrl : MonoBehaviour
 
     public void SetHide(HideWaterType hideWaterType, bool noWait)
     {
+        Debug.Log($"SetHide {hideWaterType} {noWait} {gameObject.activeSelf}");
         if (hideWaterType != HideWaterType.None || noWait || !gameObject.activeSelf)
         {
             // é»‘æ°´å‡ºç°åŠ¨ç”»
@@ -173,6 +175,7 @@ public class BottleWaterCtrl : MonoBehaviour
             hideWaterCtrl.SetHideShow(hideWaterType);
             // é»‘æ°´éšè—åŠ¨ç”»
             HideGo.SetActive(hideWaterType != HideWaterType.None);
+            MachineParent.SetActive(hideWaterType == HideWaterType.None);
         }
         else
         {
@@ -294,7 +297,7 @@ public class BottleWaterCtrl : MonoBehaviour
         //    action?.Invoke();
         //};
 
-        //Êµ»úÉÏ»á´æÔÚ»Øµ÷ÎŞ·¨½øÈëµÄÇé¿ö(»¹²»È·¶¨ÊÇ·ñ·½·¨Ã»½øÈë)
+        //Êµï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½Ú»Øµï¿½ï¿½Ş·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½Ç·ñ·½·ï¿½Ã»ï¿½ï¿½ï¿½ï¿½)
         ActionKit.Delay(1.6f, () =>
         {
             bottle.UnlockIceWater();
@@ -306,7 +309,8 @@ public class BottleWaterCtrl : MonoBehaviour
 
     #endregion
 
-    public void SetColorState(GameDefine.ItemType itemType, Color inColor, bool isTopWater, int index = 0)
+    public void SetColorState(GameDefine.ItemType itemType, Color inColor, bool isTopWater, bool isBlackWater = false,
+        int index = 0)
     {
         this.color = inColor;
 
@@ -503,5 +507,4 @@ public class BottleWaterCtrl : MonoBehaviour
             // ç£é“é“å…·çš„ç‰¹å®šé€»è¾‘
         });
     }
-
 }

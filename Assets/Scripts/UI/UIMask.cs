@@ -17,7 +17,6 @@ namespace QFramework.Example
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{
-			
         }
 
         protected override void OnShow()

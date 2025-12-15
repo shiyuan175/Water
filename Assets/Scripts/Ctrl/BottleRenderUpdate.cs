@@ -258,7 +258,7 @@ public class BottleRenderUpdate : MonoBehaviour
     // 渲染层级
     // 移动的瓶子：7，水块8，机制spine 9
     // 静止的瓶子：3，水块4，机制Spine 5 ，
-    // 陶瓷/魔法布/水面Spine 6
+    // 陶瓷/魔法布/水面Spine 10
     public void SetMoveBottleRenderState(bool isMove, BottleCtrl otherBottle = null)
     {
         _otherBottle = otherBottle;
