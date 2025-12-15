@@ -3,5 +3,5 @@
   "IsClaim_UnlockScene1Reward" : false,
   "IsClaim_UnlockScene3Reward" : false,
   "MaxHp" : 5,
-  "HpRecoverTimer" : 1800
+  "HpRecoverTimer" : 20
 }

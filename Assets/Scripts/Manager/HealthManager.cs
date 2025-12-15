@@ -94,7 +94,7 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent ,ICanGe
         mGameGlobalModel = this.GetModel<GameGlobalModel>();
         mGameGlobalModel.LoadGlobalJson();
         maxHp = mGameGlobalModel.GameGlobalJsonData.MaxHp > MINHP ? mGameGlobalModel.GameGlobalJsonData.MaxHp : MINHP;
-        recovertimer = mGameGlobalModel.GameGlobalJsonData.HpRecoverTimer;
+        recovertimer = mGameGlobalModel.GameGlobalJsonData.HpRecoverTimer * SECOND;
         
         nowHp = GetNowHp();
         recoverTimeStr = "00:00";
@@ -237,11 +237,6 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent ,ICanGe
                 // 更新UI状态(取消无限体力状态)
                 this.SendEvent<VitalityChangeEvent>(new VitalityChangeEvent());
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            mGameGlobalModel.ReduceHpRecoverTimer(1200);
         }
     }
     
@@ -411,8 +406,11 @@ public class HealthManager : MonoSingleton<HealthManager> ,ICanSendEvent ,ICanGe
     public void RecalculateRecoverEndTime()
     {
         maxHp = mGameGlobalModel.GameGlobalJsonData.MaxHp > MINHP ? mGameGlobalModel.GameGlobalJsonData.MaxHp : MINHP;
-        recovertimer = mGameGlobalModel.GameGlobalJsonData.HpRecoverTimer;
-        
+        recovertimer = mGameGlobalModel.GameGlobalJsonData.HpRecoverTimer * SECOND;
+
+        //还需要考虑当前体力的剩余恢复时间还要多长，
+        //否则会出现，还差1分钟恢复满体力，原先是30分钟，获取了减10分钟后，然后又变成20分钟恢复当前体力
+
         if (nowHp >= maxHp) return;
         recoverEndTime = DateTime.Now.AddSeconds(UsedHp * recovertimer);
         SaveRecoverEndTime(recoverEndTime.ToString());

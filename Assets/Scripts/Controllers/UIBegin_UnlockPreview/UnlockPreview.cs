@@ -8,18 +8,28 @@ namespace SceneUnlock
     public partial class UnlockPreview : ViewController
     {
         [SerializeField] private UnlockPreviewNode[] mUnlockPreviewNode;
+        [SerializeField] private Button mPlot2Guide;
         [SerializeField] private Button mCloseBtn;
+        [SerializeField] private Button mDailyBoxBtn;
+        [SerializeField] private GiftPackSO mDailyPackSo;
 
         private SceneUnlockModel mSceneUnlockModel;
-      
+        private GameGlobalModel mGameGlobalModel;
+        private JsonFileUtility mJsonFileUtility;
+        private RewardGrantUtility mRewardGrantUtility;
+
         private void Awake()
         {
             mSceneUnlockModel = this.GetModel<SceneUnlockModel>();
+            mGameGlobalModel = this.GetModel<GameGlobalModel>();
+            mJsonFileUtility = this.GetUtility<JsonFileUtility>();
+            mRewardGrantUtility = this.GetUtility<RewardGrantUtility>();
+
             ScrollView.verticalNormalizedPosition = 1f;
 
-            for (int i = 0; i < mUnlockPreviewNode.Length; i++)
+            foreach (var plotNode in mUnlockPreviewNode)
             {
-                mUnlockPreviewNode[i].Init(mSceneUnlockModel);
+                plotNode.Init(mSceneUnlockModel, mGameGlobalModel);
             }
         }
 
@@ -30,14 +40,34 @@ namespace SceneUnlock
             {
                 item.CheckUnlockFinish();
             }
+
+            mDailyBoxBtn.gameObject.SetActive(!mGameGlobalModel.DailyRewardJsonData.IsClaim_PlotReward);
         }
 
         private void Start()
         {
-            mCloseBtn.onClick.AddListener(() =>
-            {
+            mCloseBtn.onClick.AddListener(() => {
                 UIKit.GetPanel<UIBegin>().MenuBtnEvent(2);
             });
+
+            mDailyBoxBtn.onClick.AddListener(() =>
+            {
+                mRewardGrantUtility.GrantReward(mDailyPackSo);
+                mDailyBoxBtn.Hide();
+                RewardUIManager.Instance.PlayRewardAnim(mDailyPackSo.Coins,true, null, mDailyPackSo);
+                //mGameGlobalModel.DailyRewardJsonData.IsClaim_PlotReward = true;
+                //mGameGlobalModel.SaveDailyRewardJson();
+            });
+
+            //仅在首套场景注册该事件
+            if (mSceneUnlockModel.SceneIndex <= 0)
+                StringEventSystem.Global.Register(GameDefine.GameConst.SCENE_UNLOCK_GUIDE_STEP2, PlotGuideEvent);
+        }
+
+        private void PlotGuideEvent()
+        {
+            mPlot2Guide.onClick?.Invoke();
+            StringEventSystem.Global.UnRegister(GameDefine.GameConst.SCENE_UNLOCK_GUIDE_STEP2, PlotGuideEvent);
         }
     }
 }

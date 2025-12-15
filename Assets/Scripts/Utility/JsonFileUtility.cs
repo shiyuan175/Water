@@ -36,8 +36,10 @@ namespace JsonFileData
     public class DailyReward
     {
         public int Version;
+        public long NextResetTicks;
         //剧情解锁-每日宝箱
         public bool IsClaim_PlotReward;
+        //第二套剧情奖励
         public bool IsClaim_UnlockScene2Reward;
     }
 
@@ -236,12 +238,16 @@ public class JsonFileUtility : IUtility
     /// </summary>
     /// <param name="curPath"></param>
     /// <param name="delPath"></param>
+    /// 如果默认值是类时间这种(非固定值的),那就需要在代码中匹配-1之类的初始值,然后为字段更新值
     public void AutoFixFields(string curPath, string delPath)
     {
         JObject cur = JObject.Parse(File.ReadAllText(curPath));
         JObject def = JObject.Parse(File.ReadAllText(delPath));
 
         MergeMissingFields(cur, def);
+        // 补完字段后同步更新版本号
+        if (def.TryGetValue("Version", out var newVersion))
+            cur["Version"] = newVersion;
 
         File.WriteAllText(curPath, cur.ToString());
     }

@@ -9,10 +9,20 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
 {
     public static readonly string COUNTDOWN_TIMER_SIGN = "CountDownTimer_";
 
-    #region UTC¼ÆÊ±Æ÷
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log(GetEasternMidnightUtcAfterDays(1));
+            Debug.Log(GetEasternMidnightUtcAfterDays(1).ToString("O"));
+
+        }
+    }
+
+    #region UTCè®¡æ—¶å™¨
     public override void OnSingletonInit()
     {
-       
+
     }
 
     public void StartTimer(string id, double minutes)
@@ -36,19 +46,19 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
     {
         string key = COUNTDOWN_TIMER_SIGN + id;
         TimeSpan duration = TimeSpan.FromMinutes(minutes);
-        //ÎŞ¼ÇÂ¼´´½¨
+        //æ— è®°å½•åˆ›å»º
         if (!PlayerPrefs.HasKey(key))
             CreateFromPrefs(id, duration);
         else
         {
             if (DateTime.TryParse(PlayerPrefs.GetString(key), CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var endTime))
             {
-                //¹ıÆÚÖØĞÂ¼ÆÊ±
+                //è¿‡æœŸé‡æ–°è®¡æ—¶
                 if ((endTime - DateTime.UtcNow) <= TimeSpan.Zero)
                 {
                     ResetTimer(id, minutes);
                 }
-                //Î´¹ıÆÚÔö¼ÓÊ±³¤
+                //æœªè¿‡æœŸå¢åŠ æ—¶é•¿
                 else
                 {
                     var remaining = endTime - DateTime.UtcNow;
@@ -80,11 +90,11 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
                 return (endTime - DateTime.UtcNow) <= TimeSpan.Zero;
             }
         }
-        
+
         return true;
     }
 
-    //»ñÈ¡Ê£ÓàÊ±¼äÎÄ±¾
+    //è·å–å‰©ä½™æ—¶é—´æ–‡æœ¬
     public string GetRemainingTimeText(string id, bool needday = false)
     {
         string key = COUNTDOWN_TIMER_SIGN + id;
@@ -100,7 +110,7 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
 
                 if (needday)
                 {
-                    //  Ìì:Ğ¡Ê±:·ÖÖÓ (xd:xh:xm)
+                    //  å¤©:å°æ—¶:åˆ†é’Ÿ (xd:xh:xm)
                     return string.Format("{0}d:{1:D2}h:{2:D2}m:",
                         remaining.Days,
                         remaining.Hours,
@@ -109,7 +119,7 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
                 }
                 else
                 {
-                    // Ğ¡Ê±:·ÖÖÓ:Ãë
+                    // å°æ—¶:åˆ†é’Ÿ:ç§’
                     return string.Format("{0:D2}:{1:D2}:{2:D2}",
                         (int)remaining.TotalHours,
                         remaining.Minutes,
@@ -130,7 +140,7 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
         if (PlayerPrefs.HasKey(key))
         {
             var str = PlayerPrefs.GetString(key);
-            //½âÎöÏÖÓĞµÄ½áÊøÊ±¼ä
+            //è§£æç°æœ‰çš„ç»“æŸæ—¶é—´
             if (!DateTime.TryParse(str, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out endTime))
             {
                 endTime = DateTime.UtcNow + duration;
@@ -152,10 +162,10 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
 
     #endregion
 
-    #region ÃÀ¶«0µã
+    #region ç¾ä¸œ0ç‚¹
 
     /// <summary>
-    /// ¿ªÆô¼ÆÊ±Æ÷(²»³¬¹ıÃÀ¶«0µã)
+    /// å¼€å¯è®¡æ—¶å™¨(ä¸è¶…è¿‡ç¾ä¸œ0ç‚¹)
     /// </summary>
     public void StartCountdownTimer(string id, float hour)
     {
@@ -169,7 +179,7 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
     }
 
     /// <summary>
-    /// ÖØÆô¼ÆÊ±Æ÷(²»³¬¹ıÃÀ¶«0µã)
+    /// é‡å¯è®¡æ—¶å™¨(ä¸è¶…è¿‡ç¾ä¸œ0ç‚¹)
     /// </summary>
     /// <param name="id"></param>
     /// <param name="hour"></param>
@@ -183,7 +193,7 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
     }
 
     /// <summary>
-    /// ¿ªÆôXÌìºóÃÀ¶« 0 µã¼ÆÊ±Æ÷
+    /// å¼€å¯Xå¤©åç¾ä¸œ 0 ç‚¹è®¡æ—¶å™¨
     /// </summary>
     public void StartEasternMidnightTimer(string id, int value = 1)
     {
@@ -197,7 +207,7 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
     }
 
     /// <summary>
-    /// ÖØÖÃ¼ÆÊ±Æ÷ÎªXÌìºóÃÀ¶« 0 µã
+    /// é‡ç½®è®¡æ—¶å™¨ä¸ºXå¤©åç¾ä¸œ 0 ç‚¹
     /// </summary>
     public void ResetEasternMidnightTimer(string id ,int value = 1)
     {
@@ -208,61 +218,61 @@ public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
     }
 
     /// <summary>
-    /// »ñÈ¡½ñÈÕÃÀ¶« 0 µã(¶ÔÓ¦µÄ UTC Ê±¼ä)
+    /// è·å–Xå¤©åçš„ç¾ä¸œ 0 ç‚¹(å¯¹åº”çš„ UTC æ—¶é—´)
     /// </summary>
-    private DateTime GetTodayEasternMidnightUtc()
-    {
-        // µ±Ç° UTC Ê±¼ä
-        Instant now = SystemClock.Instance.GetCurrentInstant();
-        // ÃÀ¶«Ê±Çø
-        DateTimeZone easternZone = DateTimeZoneProviders.Tzdb["America/New_York"];
-        // µ±Ç°ÃÀ¶«ÈÕÆÚ
-        LocalDate easternDate = now.InZone(easternZone).Date;
-        // µ±ÈÕÃÀ¶«ÎçÒ¹
-        LocalDateTime midnight = easternDate.AtMidnight();
-        // ×ª»»Îª ZonedDateTime
-        ZonedDateTime easternMidnight = midnight.InZoneStrictly(easternZone);
-        // ×ª»Ø UTC DateTime
-        return easternMidnight.ToDateTimeUtc();
-    }
-
-    /// <summary>
-    /// »ñÈ¡XÌìºóµÄÃÀ¶« 0 µã(¶ÔÓ¦µÄ UTC Ê±¼ä)
-    /// </summary>
-    private DateTime GetEasternMidnightUtcAfterDays(int value)
+    public DateTime GetEasternMidnightUtcAfterDays(int value)
     {
         return GetTodayEasternMidnightUtc().AddDays(value);
     }
 
     /// <summary>
-    /// ¼ÆËã»î¶¯½áÊøÊ±¼ä£¬³ÖĞøÖ¸¶¨Ğ¡Ê±µ«²»³¬¹ıÃÀ¶«Ã÷Ìì0µã
+    /// è·å–ä»Šæ—¥ç¾ä¸œ 0 ç‚¹(å¯¹åº”çš„ UTC æ—¶é—´)
+    /// </summary>
+    private DateTime GetTodayEasternMidnightUtc()
+    {
+        // å½“å‰ UTC æ—¶é—´
+        Instant now = SystemClock.Instance.GetCurrentInstant();
+        // ç¾ä¸œæ—¶åŒº
+        DateTimeZone easternZone = DateTimeZoneProviders.Tzdb["America/New_York"];
+        // å½“å‰ç¾ä¸œæ—¥æœŸ
+        LocalDate easternDate = now.InZone(easternZone).Date;
+        // å½“æ—¥ç¾ä¸œåˆå¤œ
+        LocalDateTime midnight = easternDate.AtMidnight();
+        // è½¬æ¢ä¸º ZonedDateTime
+        ZonedDateTime easternMidnight = midnight.InZoneStrictly(easternZone);
+        // è½¬å› UTC DateTime
+        return easternMidnight.ToDateTimeUtc();
+    }
+
+    /// <summary>
+    /// è®¡ç®—æ´»åŠ¨ç»“æŸæ—¶é—´ï¼ŒæŒç»­æŒ‡å®šå°æ—¶ä½†ä¸è¶…è¿‡ç¾ä¸œæ˜å¤©0ç‚¹
     /// </summary>
     /// <param name="hour"></param>
     /// <returns></returns>
     private DateTime CalculateActivityEndTimeUtc(float hour)
     {
-        // µ±Ç° UTC Ê±¼ä
+        // å½“å‰ UTC æ—¶é—´
         Instant now = SystemClock.Instance.GetCurrentInstant();
 
-        // ÃÀ¶«Ê±Çø
+        // ç¾ä¸œæ—¶åŒº
         DateTimeZone easternZone = DateTimeZoneProviders.Tzdb["America/New_York"];
 
-        // µ±Ç°ÃÀ¶«Ê±¼ä
+        // å½“å‰ç¾ä¸œæ—¶é—´
         ZonedDateTime easternNow = now.InZone(easternZone);
 
-        // »î¶¯³ÖĞøÊ±¼äºóµÄÊ±¼äµã
+        // æ´»åŠ¨æŒç»­æ—¶é—´åçš„æ—¶é—´ç‚¹
         Duration duration = Duration.FromHours(hour);
         ZonedDateTime laterEastern = easternNow + duration;
 
-        // ÃÀ¶«Ã÷Ìì 0 µã
+        // ç¾ä¸œæ˜å¤© 0 ç‚¹
         LocalDate easternTomorrow = easternNow.Date.PlusDays(1);
         LocalDateTime tomorrowMidnightLocal = easternTomorrow.AtMidnight();
         ZonedDateTime easternMidnight = tomorrowMidnightLocal.InZoneStrictly(easternZone);
 
-        // È¡½ÏÔçÊ±¼äµã
+        // å–è¾ƒæ—©æ—¶é—´ç‚¹
         ZonedDateTime endEastern = laterEastern.ToInstant() < easternMidnight.ToInstant() ? laterEastern : easternMidnight;
 
-        // ×ª»Ø UTC
+        // è½¬å› UTC
         return endEastern.ToDateTimeUtc();
     }
     #endregion

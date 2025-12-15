@@ -146,10 +146,10 @@ namespace GameDefine
         public static readonly string PGCurrentJson = "PG_Data.json";
 
         public static readonly string GAME_GLOBAL_DEFAULT_JSON = "GameGlobalDefaultData.json";
-        public static readonly string GAME_GLOBAL_CURRENT_JSON = "GameGlobalCurrentData.json";
+        public static readonly string GAME_GLOBAL_CURRENT_JSON = "GameGlobalData.json";
 
         public static readonly string DAILY_REWARD_DEFAULT_JSON = "DailyRewardDefaultData.json";
-        public static readonly string DAILY_REWARD_CURRENT_JSON = "DailyRewardCurrentData.json";
+        public static readonly string DAILY_REWARD_CURRENT_JSON = "DailyRewardData.json";
 
         #endregion
 
