@@ -162,7 +162,6 @@ public class BottleWaterCtrl : MonoBehaviour
 
     public void SetHide(HideWaterType hideWaterType, bool noWait)
     {
-        Debug.Log($"SetHide {hideWaterType} {noWait} {gameObject.activeSelf}");
         if (hideWaterType != HideWaterType.None || noWait || !gameObject.activeSelf)
         {
             // 黑水出现动画

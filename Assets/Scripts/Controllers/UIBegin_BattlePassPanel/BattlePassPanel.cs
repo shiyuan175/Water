@@ -19,6 +19,7 @@ namespace QFramework.Example
     {
         private BattlePassModel battlePassModel;
         private GooglePayManager googlePay;
+
         //private Dictionary<string, Action> giftPackBuySuccessActions;
         private RewardGrantUtility rewardGrantUtility;
         private BattlePassADActivity mBattlePassADActivity;
@@ -59,7 +60,7 @@ namespace QFramework.Example
             mCountDownTween = null;
             topImageFillSequence?.Kill();
             buttomImageFillSequence?.Kill();
-            topImageFillSequence  = null;
+            topImageFillSequence = null;
             buttomImageFillSequence = null;
             
             // 刷新Top面板的结果
@@ -85,7 +86,7 @@ namespace QFramework.Example
                 // 刷新宝箱状态
                 BattlePassContent.transform.GetChild(i).GetComponent<BattlePassContentPanel>().UpdateUI(i);
             }
-            
+
             GC.Collect();
         }
 
@@ -129,6 +130,7 @@ namespace QFramework.Example
         #endregion
         
         #region 每次进入面板时调用
+
         private void UpdateUI()
         {
             oldLevel = int.Parse(ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text);
@@ -140,7 +142,7 @@ namespace QFramework.Example
             UpTopPanelUI();
             UpButtomPanelUI();
         }
-        
+
         private void UpTopPanelUI()
         {
             float oldFillAmout = ImgBar.fillAmount;
@@ -234,9 +236,10 @@ namespace QFramework.Example
 
         private void BintEvent()
         {
-            StringEventSystem.Global.Register(BPViP_GIFT_ID, OnPaySuccess).UnRegisterWhenGameObjectDestroyed(gameObject);
+            StringEventSystem.Global.Register(BPViP_GIFT_ID, OnPaySuccess)
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
         }
-        
+
         private void SetBtnClick()
         {
             /// 内购开启战令
@@ -250,11 +253,8 @@ namespace QFramework.Example
                     BattlePassContent.transform.GetChild(_level).GetComponent<BattlePassContentPanel>().UpdateUI(_level);
                 }
             });
-            
-            BtnClose.onClick.AddListener(() =>
-            {
-                UIKit.GetPanel<UIBegin>().MenuBtnEvent(2);
-            });
+
+            BtnClose.onClick.AddListener(() => { UIKit.GetPanel<UIBegin>().MenuBtnEvent(2); });
         }
         
         /// <summary>
@@ -266,7 +266,7 @@ namespace QFramework.Example
             battlePassModel.HightBattlePassActivation();
             UIKit.OpenPanel<UIBuyPackSuccess>();
         }
-        
+
         private void SmoothScrollController(int index)
         {
             // 
