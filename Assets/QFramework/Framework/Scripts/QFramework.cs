@@ -83,12 +83,12 @@ namespace QFramework
         }
 
 
-        public static void InitArchitecture()
-        {
-            if (mArchitecture == null)
-            {
-                mArchitecture = new T();
-                mArchitecture.Init();
+                public static void InitArchitecture()
+                {
+                    if (mArchitecture == null)
+                    {
+                        mArchitecture = new T();
+                        mArchitecture.Init();
 
                 OnRegisterPatch?.Invoke(mArchitecture);
 

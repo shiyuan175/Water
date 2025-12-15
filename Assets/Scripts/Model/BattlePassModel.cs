@@ -1,4 +1,4 @@
-using JsonFileData;
+﻿using JsonFileData;
 using Newtonsoft.Json;
 using QFramework;
 using System.Collections;
@@ -15,7 +15,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     public int FreeRewardGotLevel => mFreeRewardGotLevel.Value;
     public int VipRewardGorLevel => mVipRewardGotLevel.Value;
     /// <summary>
-    /// ��ǵ�ǰ���������ĵȼ���1 ��ʼ�����ݵĽ����Ǵ�0��ʼ
+    /// 标记当前奖励所到的等级从1 开始，数据的奖励是从0开始
     /// </summary>
     public int RewardLevel => mRewardLevel.Value;
     public bool IsVip => mIsVip.Value;
@@ -39,6 +39,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     private BindableProperty<int> mFreeRewardGotLevel;
     private BindableProperty<int> mVipRewardGotLevel;
     private BindableProperty<bool> mIsVip;
+
     protected override void OnInit()
     {
         mStorage = this.GetUtility<SaveDataUtility>();
@@ -50,8 +51,8 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         mVipRewardGotLevel = new BindableProperty<int>();
         mIsVip = new BindableProperty<bool>();
 
-        mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.BPDefaultJson.FileName);
-        mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.BPCurrentJson.FileName);
+        mDelFilePath = Path.Combine(Application.streamingAssetsPath, GameDefine.GameConst.BP_DEFAULT_JSON);
+        mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.BP_CURRENT_JSON);
 
         mGameWinNum.SetValueWithoutEvent(mStorage.LoadIntValue(BP_GAMEWIN_NUM, 0));
         mGameWinNum.Register(value =>
@@ -90,13 +91,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         if (!File.Exists(mCurFilePath))
             ReloadBattlePassActivity();
 
-        //�汾�Աȴ���д����...
-        // �°汾ֱ�Ӵ���ɰ汾����Ϸ���ݵĸ��·ŵ�������¿���
-
-
-        /*        // ���ԣ�������ɾ��
-                ReloadBattlePassActivity();*/
-        //���ݳ���
+        //数据持有
         mJsonFileUtility.LoadFromJson(mCurFilePath, jsonData =>
         {
             mBPDate = JsonConvert.DeserializeObject<BattlePassData>(jsonData);
@@ -106,16 +101,14 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
             mCurrentGetConditions = BPDate.Rewards[RewardLevel].GetConditions;
         else
             mCurrentGetConditions = GameDefine.GameConst.MAX_INT;
-
-
     }
 
     /// <summary>
-    ///  ս����µ�ʱ��ֱ����Ĭ��json���浱ǰjson,ͬʱ��չ�������¼
+    ///  战令更新的时候，直接用默认json代替当前json,同时清空过关数记录
     /// </summary>
     public void ReloadBattlePassActivity()
     {
-        // ���ս��߼�����ͽ���(������ȡ��ս���)
+        // 清除战令高级激活和进度(奖励领取，战令级别)
         mGameWinNum.Value = 0;
         mRewardLevel.Value = 1;
         mVipRewardGotLevel.Value = 0;
@@ -124,14 +117,12 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         mJsonFileUtility.LoadFromJson(mDelFilePath, jsonData =>
         {
             BattlePassData tempData = JsonConvert.DeserializeObject<BattlePassData>(jsonData);
-            if (!File.Exists(mCurFilePath))
-                using (File.Create(mCurFilePath)) { }
             mJsonFileUtility.SaveToJson(mCurFilePath, tempData);
             mBPDate = tempData;
         });
     }
     /// <summary>
-    /// ���Ӽ�������������ﵽ��һ��������ʱ�������Ӽ���,�޸������������ռ���
+    /// 增加计数，如果计数达到下一级的条件时，就增加级别,修改完成条件，清空计数
     /// </summary>
     public void AddGameWinCount()
     {
@@ -147,16 +138,16 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         }
     }
     /// <summary>
-    /// ��ֵ����
+    /// 充值开启
     /// </summary>
     public void HightBattlePassActivation()
     {
         mIsVip.Value = true;
     }
     /// <summary>
-    /// ���ӽ�������ȡ����
+    /// 增加奖励的领取进度
     /// </summary>
-    /// <param name="isVipPack">��ȡ�Ľ������� ��ΪHightLevel����Ϊ</param>
+    /// <param name="isVipPack">领取的奖励类型 真为HightLevel，假为</param>
     public void AddRewardGotLevel(bool isVipPack, int level)
     {
         if (isVipPack)

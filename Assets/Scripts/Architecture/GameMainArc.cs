@@ -1,8 +1,5 @@
-using GameDefine;
+﻿using GameDefine;
 using QFramework;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameMainArc : Architecture<GameMainArc>
@@ -11,17 +8,19 @@ public class GameMainArc : Architecture<GameMainArc>
     {
         ResKit.Init();
         RegisterUtilitys();
-        CheckUpdateJsonFile();
+        //CheckUpdateJsonFile();
 
         RegisterModels();
         
         CreateInstance();
         ActivityStart();
     }
+    
+    
 
     private void RegisterModels()
     {
-        RegisterModel(new StageModel());
+        RegisterModel(new GameGlobalModel());
         RegisterModel(new PotionActivityModel());
         RegisterModel(new BannerActivityModel());
         RegisterModel(new RankDataModel());
@@ -30,7 +29,7 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterModel(new RocketActivityModel());
         RegisterModel(new HighTowerActivityModel());
         RegisterModel(new MagicStreakActivityModel());
-        /*RegisterModel(new TurnTableADActivityModel());*/
+        //RegisterModel(new TurnTableADActivityModel());
         RegisterModel(new SceneUnlockModel());
         RegisterModel(new DailyRewardADActivityModel());
         RegisterModel(new BattlePassModel());
@@ -50,14 +49,15 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterUtility(new TwoBitUtility());
     }
 
-    //Json���ݸ���
-    private void CheckUpdateJsonFile()
-    {
-        JsonFileUtility jsonUtility = this.GetUtility<JsonFileUtility>();
-        _ = jsonUtility.UpdateJsonFiles();
-    }
+    //Json数据更新
+    //private void CheckUpdateJsonFile()
+    //{
+    //    JsonFileUtility jsonUtility = this.GetUtility<JsonFileUtility>();
+    //    _ = jsonUtility.UpdateJsonFiles();
+    //}
 
-    //��������
+    //单例构建
+
     private void CreateInstance()
     {
         //ResourceManager.Instance.LoadABPackage("uieveladdheart_prefab");
@@ -73,10 +73,10 @@ public class GameMainArc : Architecture<GameMainArc>
         CountDownTimerManager.Instance.StartEasternMidnightTimer(GameDefine.GameConst.FIRST_LAUNCH_SIGN);
     }
 
-    //�����
+    //活动开启
     private void ActivityStart()
     {
-        //�׸�����
+        //首个横幅活动
         var saveData = this.GetUtility<SaveDataUtility>();
         if (saveData.GetCurrentLevel() >= GameConst.WIN_STREAK_BEGIN_LEVEL)
             CountDownTimerManager.Instance.StartTimer(GameConst.RANKA_ACTIVITY_SIGN, 1440f);

@@ -7,17 +7,17 @@ public class FailedLevelCommand : AbstractCommand ,ICanGetModel
 {
     private TierRankActivity mTierRankActivity;
     private BannerActivity mBannerActivity;
-    private StageModel mStageModel;
+    private GameGlobalModel mGameGlobalModel;
 
     protected override void OnExecute()
     {
-        //¸÷Ä£¿éÁ¬Ê¤ÖØÖÃÂß¼­...
+        //ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½...
         mTierRankActivity ??= GameActivityManager.Instance.GetActivity<TierRankActivity>();
         if (mTierRankActivity?.ActivityStatus is SettlementActivityStatus.Active)
             mTierRankActivity?.Fail();
 
-        mStageModel ??= this.GetModel<StageModel>();
-        mStageModel?.ResetCountinueWinNum();
+        mGameGlobalModel ??= this.GetModel<GameGlobalModel>();
+        mGameGlobalModel?.ResetCountinueWinNum();
 
         mBannerActivity ??= GameActivityManager.Instance.GetActivity<BannerActivity>();
         if (mBannerActivity?.ActivityStatus == GameActivityStatus.Active)

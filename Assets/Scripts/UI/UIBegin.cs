@@ -1,12 +1,9 @@
 ﻿using DG.Tweening;
 using GameDefine;
-using QFramework;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 
 namespace QFramework.Example
@@ -51,7 +48,7 @@ namespace QFramework.Example
         #endregion
         [SerializeField] private GameObject[] mSceneUnlockPanels;
 
-        private StageModel stageModel;
+        private GameGlobalModel gameGlobalModel;
         private SaveDataUtility saveData;
         private SceneUnlockModel mSceneUnlockModel;
         private VolcanicActivity mVolcanicActivity;
@@ -83,7 +80,7 @@ namespace QFramework.Example
         {
             //���ģʽ�£�AssetBundle ������Դ����Ҫ��������
             //TxtImgprogress.font.material.shader = Shader.Find(TxtImgprogress.font.material.shader.name);
-            stageModel = this.GetModel<StageModel>();
+            gameGlobalModel = this.GetModel<GameGlobalModel>();
             saveData = this.GetUtility<SaveDataUtility>();
             mSceneUnlockModel = this.GetModel<SceneUnlockModel>();
             mVolcanicActivity = GameActivityManager.Instance.GetActivity<VolcanicActivity>();
@@ -527,12 +524,12 @@ namespace QFramework.Example
 
         private void SetStar()
         {
-            TxtStar.text = stageModel.RemainingStars.ToString();
+            TxtStar.text = gameGlobalModel.RemainingStars.ToString();
         }
 
         private void SetVitality()
         {
-            TxtHeart.text = HealthManager.Instance.UnLimitHp ? "��" : HealthManager.Instance.NowHp.ToString();
+            TxtHeart.text = HealthManager.Instance.UnLimitHp ? "∞" : HealthManager.Instance.NowHp.ToString();
 
             if (!HealthManager.Instance.UnLimitHp && HealthManager.Instance.IsMaxHp)
                 TxtTime.text = "FULL";
@@ -563,7 +560,7 @@ namespace QFramework.Example
             }
             TxtStartLevel.text = $"Level {currentLevel}" + $"<br><size=45>{appendString}</size>";
 
-            TxtStraightWin_Red.text = $"{stageModel.InGameRankStreakWinNum} Streak";
+            TxtStraightWin_Red.text = $"{gameGlobalModel.InGameRankStreakWinNum} Streak";
         }
 
         /// <summary>
@@ -572,8 +569,8 @@ namespace QFramework.Example
         /// <returns></returns>
         private IEnumerator ShowFx()
         {
-            CoinManager.Instance.AddCoin((int)(GameConst.WIN_COINS * stageModel.GoldCoinsMultiple));
-            RewardUIManager.Instance.PopupCoinText(GameConst.WIN_COINS * stageModel.GoldCoinsMultiple);
+            CoinManager.Instance.AddCoin((int)(GameConst.WIN_COINS * gameGlobalModel.GoldCoinsMultiple));
+            RewardUIManager.Instance.PopupCoinText(GameConst.WIN_COINS * gameGlobalModel.GoldCoinsMultiple);
             coinFx.Play(10);
             yield return new WaitForSeconds(0.5f);
             starFx.Play(10);
@@ -629,7 +626,7 @@ namespace QFramework.Example
             var sceneIndex = mSceneUnlockModel.SceneIndex;
             if (sceneIndex > 0 || unitUnlockProgress >= mConsume.Length) return;
 
-            var _remainingStar = stageModel.RemainingStars;
+            var _remainingStar = gameGlobalModel.RemainingStars;
             if (_remainingStar <= 0 || _remainingStar < mConsume[unitUnlockProgress])
             {
                 mRedPoint.Hide();

@@ -61,14 +61,14 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         });
     }
 
-    #region ·¢·Å½±Àø±íÏÖ
+    #region å‘æ”¾å¥–åŠ±è¡¨ç°
 
     /// <summary>
-    /// ·¢·Å½±Àø±íÏÖ
+    /// å‘æ”¾å¥–åŠ±è¡¨ç°
     /// </summary>
     /// <param name="addCoin"></param>
     /// <param name="call"></param>
-    /// <param name="openBox">¿ªÏä/Ö±½Ó·¢·Å</param>
+    /// <param name="openBox">å¼€ç®±/ç›´æ¥å‘æ”¾</param>
     /// <param name="packSOs"></param>
     public void PlayRewardAnim(int? addCoin, bool openBox, System.Action call, params IPackSoInterface[] packSOs)
     {
@@ -97,7 +97,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
             _waitValue = 1f;
         }
 
-        // µÈ´ıºĞ×Ó´ò¿ª¶¯»­Íê³É(1Ãë)
+        // ç­‰å¾…ç›’å­æ‰“å¼€åŠ¨ç”»å®Œæˆ(1ç§’)
         ActionKit.Delay(_waitValue, () =>
         {
             if (_slotCount != 0)
@@ -115,7 +115,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
                     image.TryGetComponent(out PropRewardPoolNode _node);
                     if (_node == null)
                         _node = image.gameObject.AddComponent<PropRewardPoolNode>();
-                    _node.Init(mRewardSpriteMappingSO.GetRewardSprite(item.NormalRewardsType), 
+                    _node.Init(mRewardSpriteMappingSO.GetRewardSprite(item.NormalRewardsType),
                         SetRandomScreenPosition(image, _slotCount), item.Quantity, false);
                     actionList.Add(() => _node.MoveOffScreen());
                 }
@@ -127,7 +127,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
                     if (_node == null)
                         _node = image.gameObject.AddComponent<PropRewardPoolNode>();
 
-                    _node.Init(mRewardSpriteMappingSO.GetRewardSprite(item.SpecialRewardType), 
+                    _node.Init(mRewardSpriteMappingSO.GetRewardSprite(item.SpecialRewardType),
                         SetRandomScreenPosition(image, _slotCount), item.Duration, true);
                     actionList.Add(() => _node.MoveOffScreen());
                 }
@@ -146,7 +146,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
             }
         }).Start(this);
     }
-    
+
     public void PlayRewardAnim(System.Action call = null, bool openBox = true, params RewardItem[] rewardItems)
     {
        /* var _packSO = new List<IPackSoInterface>();*/
@@ -173,7 +173,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
             _waitValue = 1f;
         }
 
-        // µÈ´ıºĞ×Ó´ò¿ª¶¯»­Íê³É(1Ãë)
+        // ç­‰å¾…ç›’å­æ‰“å¼€åŠ¨ç”»å®Œæˆ(1ç§’)
         ActionKit.Delay(_waitValue, () =>
         {
             if (_slotCount != 0)
@@ -185,7 +185,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
 
             foreach (var reward in itemDict)
             {
-                // Ìø¹ı½ğ±Ò
+                // è·³è¿‡é‡‘å¸
                 if (reward.Key == "Coins")
                     continue;
 
@@ -204,9 +204,9 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
                        SetRandomScreenPosition(image, _slotCount), reward.Value, false);
 
                 actionList.Add(() => _node.MoveOffScreen());
-                
+
             }
-            // ½ğ±Ò²¥·Å
+            // é‡‘å¸æ’­æ”¾
             int coins;
             if ((itemDict.TryGetValue("Coins",out coins)))
             {
@@ -233,10 +233,10 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
     {
         return mRewardSpriteMappingSO.GetRewardSprite<T>(rewardType);
     }
-    
+
     #endregion
 
-    #region Íâ²¿·ÃÎÊ¶ÔÏó³Ø·½·¨
+    #region å¤–éƒ¨è®¿é—®å¯¹è±¡æ± æ–¹æ³•
 
     public Image Allocate()
     {
@@ -288,31 +288,31 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
     {
         if (availableSlots.Count == 0)
         {
-            Debug.LogWarning("²ÛÎ»ÓÃ¾¡£¬ÇëÏÈµ÷ÓÃ PrepareSlotLayout£¡");
+            Debug.LogWarning("æ§½ä½ç”¨å°½ï¼Œè¯·å…ˆè°ƒç”¨ PrepareSlotLayoutï¼");
             return Vector2.zero;
         }
 
-        // ³éÒ»¸ö²ÛÎ»Ë÷Òı
+        // æŠ½ä¸€ä¸ªæ§½ä½ç´¢å¼•
         int slotIndex = availableSlots[UnityEngine.Random.Range(0, availableSlots.Count)];
         availableSlots.Remove(slotIndex);
 
-        // Ã¿ĞĞ×î´ó¸öÊı
+        // æ¯è¡Œæœ€å¤§ä¸ªæ•°
         int maxPerRow = 4;
-        // µÀ¾ß¼ä¸ô£¬ÕûÌå¾ÓÖĞ
+        // é“å…·é—´éš”ï¼Œæ•´ä½“å±…ä¸­
         float spacing = 270f;
-        // ĞĞ¼ä¸ô
+        // è¡Œé—´éš”
         float rowSpacing = 250f;
 
         int row = slotIndex / maxPerRow;
         int indexInRow = slotIndex % maxPerRow;
-        // µ±Ç°ĞĞÒª°Ú¶àÉÙ¸ö
+        // å½“å‰è¡Œè¦æ‘†å¤šå°‘ä¸ª
         int totalRows = Mathf.CeilToInt((float)slotCount / maxPerRow);
         int itemsInThisRow = maxPerRow;
         if (row == totalRows - 1 && slotCount % maxPerRow != 0)
         {
             itemsInThisRow = slotCount % maxPerRow;
         }
-        // ¸ÃÅÅ X ÖáÖĞĞÄ¾ÓÖĞ
+        // è¯¥æ’ X è½´ä¸­å¿ƒå±…ä¸­
         float x = indexInRow * spacing - (itemsInThisRow - 1) * spacing * 0.5f;
         float y = YAXIS - row * rowSpacing;
 

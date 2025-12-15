@@ -25,7 +25,10 @@ public enum NormalRewardsType
     S_RemoveOneBottleHideWater = 7,
     S_RemoveOneDebuffBottle = 8,
 
-    //½ð±Ò£¬Ö»ÓÃÓÚ×ö±íÏÖ
+    // å¢žåŠ ä½“åŠ›ä¸Šé™
+    StaminaCap = 9,
+
+    //é‡‘å¸ï¼Œåªç”¨äºŽåšè¡¨çŽ°
     AddCoins = 20,
 }
 
@@ -43,8 +46,11 @@ public enum SpecialRewardsType
     [Description("UnLimitRemoveOneDebuffBottle")]
     Unlimited_S_RemoveOneDebuffBottle = 8,
 
-    //±íÊ¾Èý¸ö½ø¹ØÑ¡ÔñµÀ¾ß(Èý¸öÊ±³¤ÐèÏàÍ¬)
-    //Ä¿Ç°Ö»ÓÃÓÚ×ö±íÏÖ(²»ÓÃÓÚ·¢·Å½±Àø)
+    // å‡å°‘ä½“åŠ›æ¢å¤æ—¶é•¿(åˆ†é’Ÿ)
+    ReduceLiveRecoverTime = 9,
+
+    //è¡¨ç¤ºä¸‰ä¸ªè¿›å…³é€‰æ‹©é“å…·(ä¸‰ä¸ªæ—¶é•¿éœ€ç›¸åŒ)
+    //ç›®å‰åªç”¨äºŽåšè¡¨çŽ°(ä¸ç”¨äºŽå‘æ”¾å¥–åŠ±)
     Unlimited_S_ALL = 20,
 }
 
@@ -52,7 +58,7 @@ public enum SpecialRewardsType
 public class SpecialReward
 {
     [SerializeField] private SpecialRewardsType specialRewardType;
-    [Tooltip("·ÖÖÓ")]
+    [Tooltip("åˆ†é’Ÿ")]
     [SerializeField] private int duration;
 
     public SpecialRewardsType SpecialRewardType => specialRewardType;
@@ -64,7 +70,7 @@ public class ItemReward
 {
     [SerializeField] private NormalRewardsType normalRewardsType;
 
-    [Tooltip("µÀ¾ßÊýÁ¿")]
+    [Tooltip("é“å…·æ•°é‡")]
     [SerializeField] private int quantity;
 
     public NormalRewardsType NormalRewardsType => normalRewardsType;

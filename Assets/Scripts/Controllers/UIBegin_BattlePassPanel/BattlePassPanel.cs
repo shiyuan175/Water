@@ -19,7 +19,7 @@ namespace QFramework.Example
     {
         private BattlePassModel battlePassModel;
         private GooglePayManager googlePay;
-        private Dictionary<string, Action> giftPackBuySuccessActions;
+        //private Dictionary<string, Action> giftPackBuySuccessActions;
         private RewardGrantUtility rewardGrantUtility;
         private BattlePassADActivity mBattlePassADActivity;
         private Tween mCountDownTween;
@@ -39,13 +39,11 @@ namespace QFramework.Example
             mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();
             battlePassModel = this.GetModel<BattlePassModel>();
             // 初始化购买成功回调
-            giftPackBuySuccessActions = new Dictionary<string, Action>();
-            giftPackBuySuccessActions[BPViP_GIFT_ID] = () => OnPaySuccess();
+            // giftPackBuySuccessActions = new Dictionary<string, Action>();
+            // giftPackBuySuccessActions[BPViP_GIFT_ID] = () => OnPaySuccess();
             // 发布需打开
             InitUI();
-            SetBtnClick();
         }
-
 
         private void OnEnable()
         {
@@ -53,24 +51,17 @@ namespace QFramework.Example
             buttomImageFillSequence = DOTween.Sequence();
 
             UpdateUI();
-
-            // 注册购买成功事件
-            foreach (var kvp in giftPackBuySuccessActions)
-            {
-                StringEventSystem.Global.Register(kvp.Key, kvp.Value).UnRegisterWhenGameObjectDestroyed(gameObject);
-            }
-
-            BtnClose.onClick.AddListener(() =>
-            {
-                UIKit.OpenPanel<UIBegin>();
-            });
         }
 
         private void OnDisable()
         {
+            mCountDownTween?.Kill();
+            mCountDownTween = null;
             topImageFillSequence?.Kill();
             buttomImageFillSequence?.Kill();
-
+            topImageFillSequence  = null;
+            buttomImageFillSequence = null;
+            
             // 刷新Top面板的结果
             ImgBar.fillAmount = (float)battlePassModel.GameWinNum / battlePassModel.CurrentGetConditions;
             ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = battlePassModel.RewardLevel.ToString();
@@ -94,11 +85,14 @@ namespace QFramework.Example
                 // 刷新宝箱状态
                 BattlePassContent.transform.GetChild(i).GetComponent<BattlePassContentPanel>().UpdateUI(i);
             }
+            
+            GC.Collect();
         }
 
         private void Start()
         {
-
+            BintEvent();
+            SetBtnClick();
         }
 
         #region 初始化的时候调用
@@ -107,7 +101,6 @@ namespace QFramework.Example
             InitButtomPanelUI();
             InitTopPanelUI();
         }
-
 
         public void InitTopPanelUI()
         {
@@ -134,8 +127,9 @@ namespace QFramework.Example
             }
         }
         #endregion
+        
         #region 每次进入面板时调用
-        public void UpdateUI()
+        private void UpdateUI()
         {
             oldLevel = int.Parse(ImgLevel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text);
             if (oldLevel == battlePassModel.BPDate.Rewards.Length - 1)
@@ -146,7 +140,8 @@ namespace QFramework.Example
             UpTopPanelUI();
             UpButtomPanelUI();
         }
-        public void UpTopPanelUI()
+        
+        private void UpTopPanelUI()
         {
             float oldFillAmout = ImgBar.fillAmount;
 
@@ -208,7 +203,7 @@ namespace QFramework.Example
             #endregion
         }
 
-        public void UpButtomPanelUI()
+        private void UpButtomPanelUI()
         {
             // 设置旧的奖励条
             BattlePassContent.transform.GetChild(oldLevel).GetComponent<BattlePassContentPanel>().SetDividingLine(0);
@@ -233,13 +228,16 @@ namespace QFramework.Example
                     BattlePassContent.transform.GetChild(_level).GetComponent<BattlePassContentPanel>().UpdateUI(_level);
                 }
             });
-
-
-
         }
 
-        #endregion 
-        public void SetBtnClick()
+        #endregion
+
+        private void BintEvent()
+        {
+            StringEventSystem.Global.Register(BPViP_GIFT_ID, OnPaySuccess).UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+        
+        private void SetBtnClick()
         {
             /// 内购开启战令
             BtnActivate.onClick.AddListener(() =>
@@ -252,20 +250,24 @@ namespace QFramework.Example
                     BattlePassContent.transform.GetChild(_level).GetComponent<BattlePassContentPanel>().UpdateUI(_level);
                 }
             });
+            
+            BtnClose.onClick.AddListener(() =>
+            {
+                UIKit.GetPanel<UIBegin>().MenuBtnEvent(2);
+            });
         }
+        
         /// <summary>
         /// 礼包购买回调
         /// </summary>
         private void OnPaySuccess()
         {
+            BtnActivate.interactable = !battlePassModel.IsVip;
             battlePassModel.HightBattlePassActivation();
             UIKit.OpenPanel<UIBuyPackSuccess>();
-            ActionKit.Delay(1, () =>
-            {
-                //延迟1s等待协程结束关闭
-            }).Start(this);
         }
-        public void SmoothScrollController(int index)
+        
+        private void SmoothScrollController(int index)
         {
             // 
             if (index >= battlePassModel.BPDate.Rewards.Length)
@@ -281,6 +283,7 @@ namespace QFramework.Example
                 1f
             ).SetEase(Ease.OutCubic);
         }
+        
         private Vector2 GetSnapToPositionToBringChildIntoView(RectTransform child)
         {
             Canvas.ForceUpdateCanvases();

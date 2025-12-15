@@ -19,7 +19,7 @@ namespace QFramework.Example
         [SerializeField] private Sprite[] unlockSprites;
         [SerializeField] private Sprite[] imgTipBgSprites;
         [SerializeField] private Image imgTipBg;
-        private StageModel stageModel;
+        private GameGlobalModel gameGlobalModel;
         private RewardGrantUtility rewardGrantUtility;
         private SaveDataUtility saveDataUtility;
         private Sequence mSequence;
@@ -54,7 +54,7 @@ namespace QFramework.Example
             TxtProcess.font = LevelManager.Instance.blueFont;
             TxtUnlockProcess.font = LevelManager.Instance.blueFont;
 
-            stageModel = this.GetModel<StageModel>();
+            gameGlobalModel = this.GetModel<GameGlobalModel>();
             rewardGrantUtility = this.GetUtility<RewardGrantUtility>();
             saveDataUtility = this.GetUtility<SaveDataUtility>();
 
@@ -68,8 +68,8 @@ namespace QFramework.Example
 
         protected override void OnShow()
         {
-            // ½ð±ÒµÄ±¶Êý²»ÊÇÕý³£µÄ±¶ÊýÊ±²¥·Å½ð±ÒÔö³¤µÄ¶¯»­
-            if (stageModel.GoldCoinsMultiple != 1.0f && !isHaveBox)
+            // ï¿½ï¿½ÒµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Å½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½
+            if (gameGlobalModel.GoldCoinsMultiple != 1.0f && !isHaveBox)
             {
                 PLayGoldCoinUPAnimation();
             }
@@ -111,7 +111,7 @@ namespace QFramework.Example
             mProgeressTween1 = null;
             mProgeressTween2 = null;
             mSequence = null;
-            stageModel = null;
+            gameGlobalModel = null;
             saveDataUtility = null;
             rewardGrantUtility = null;
             BtnClose.onClick.RemoveAllListeners();
@@ -165,19 +165,19 @@ namespace QFramework.Example
 
         private void UpdateBoxProcessNode()
         {
-            //¹ý¹Øºó»á¼ÇÂ¼µ±Ç°¹Ø¿¨ÎªÏÂÒ»¹Ø(¼õÒ»±íÊ¾Í¨¹ýµÄ¹Ø¿¨)
+            //ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ç°ï¿½Ø¿ï¿½Îªï¿½ï¿½Ò»ï¿½ï¿½(ï¿½ï¿½Ò»ï¿½ï¿½Ê¾Í¨ï¿½ï¿½ï¿½Ä¹Ø¿ï¿½)
             int curLevel = saveDataUtility.GetCurrentLevel() - 1;
 
             TxtCoin.text = GameDefine.GameConst.WIN_COINS.ToString();
             TxtLevel.text = "Level " + curLevel.ToString();
-            //6-97¹ØÏÔÊ¾(Í¨¹ý97¹ØÖ®ºó²»ÏÔÊ¾)
+            //6-97ï¿½ï¿½ï¿½ï¿½Ê¾(Í¨ï¿½ï¿½97ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Ê¾)
             if (curLevel >= STAR_LEVEL && curLevel < END_LEVEL)
             {
                 ImgBoxProcessNode.Show();
                 int _progress = (curLevel - STAR_LEVEL + 1) % REWARD_INTERVAL;
                 int _displayedProgress = _progress == 0 ? REWARD_INTERVAL : _progress;
                 TxtProcess.text = $"{_displayedProgress} / {REWARD_INTERVAL}";
-                // ³õÊ¼»¯½ø¶ÈÌõ
+                // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 int _startValue = _displayedProgress - 1;
                 ImgProcess.fillAmount = (float)_startValue / REWARD_INTERVAL;
 
@@ -189,14 +189,14 @@ namespace QFramework.Example
 
                 if (_progress == 0)
                 {
-                    getReward = ((curLevel - STAR_LEVEL + 1) / REWARD_INTERVAL) - 1;//¼õÒ»¼ÆËãË÷Òý
+                    getReward = ((curLevel - STAR_LEVEL + 1) / REWARD_INTERVAL) - 1;//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     if (getReward >= 0 && getReward < rewardPackSO.Length)
                     {
                         var _packSO = rewardPackSO[getReward];
                         rewardGrantUtility.GrantReward(_packSO);
                         isHaveBox = true;
-                        // ½ð±ÒµÄ±¶Êý²»ÊÇÕý³£µÄ±¶ÊýÊ±²¥·Å½ð±ÒÔö³¤µÄ¶¯»­
-                        if (stageModel.GoldCoinsMultiple != 1.0f)
+                        // ï¿½ï¿½ÒµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Å½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½
+                        if (gameGlobalModel.GoldCoinsMultiple != 1.0f)
                             RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins,false,PLayGoldCoinUPAnimation, packSOs: _packSO);
                         else
                             RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins,false,null, packSOs: _packSO);
@@ -211,7 +211,7 @@ namespace QFramework.Example
         {
             int curLevel = saveDataUtility.GetCurrentLevel();
 
-            // ÕÒµ½ÏÂÒ»¸ö½âËøÄ¿±ê
+            // ï¿½Òµï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
             for (int i = 0; i < UNLOCKLEVEL.Length; i++)
             {
                 if (curLevel <= UNLOCKLEVEL[i])
@@ -220,9 +220,9 @@ namespace QFramework.Example
                     ImgUnlock.sprite = unlockSprites[i];
                     ImgUnlock.SetNativeSize();
 
-                    int prevUnlock = (i == 0) ? 0 : UNLOCKLEVEL[i - 1]; // ÉÏÒ»¸ö½âËøµã
-                    int totalNeeded = UNLOCKLEVEL[i] - prevUnlock;      // ÐèÒªÍê³ÉµÄ¹Ø¿¨Êý
-                    int currentProgress = curLevel - prevUnlock;        // µ±Ç°½ø¶È
+                    int prevUnlock = (i == 0) ? 0 : UNLOCKLEVEL[i - 1]; // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                    int totalNeeded = UNLOCKLEVEL[i] - prevUnlock;      // ï¿½ï¿½Òªï¿½ï¿½ÉµÄ¹Ø¿ï¿½ï¿½ï¿½
+                    int currentProgress = curLevel - prevUnlock;        // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
 
                     if (currentProgress > totalNeeded)
                         currentProgress = totalNeeded;
@@ -241,24 +241,24 @@ namespace QFramework.Example
                     return;
                 }
             }
-            // ËùÓÐ»úÖÆÒÑ½âËø£¬Òþ²Ø½âËøUI
+            // ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½Ñ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½UI
             ImgUnlockProcessNode.Hide();
         }
 
         private void PLayGoldCoinUPAnimation()
         {
             TextTimes.Show();
-            TextTimes.text = "X" + (stageModel.GoldCoinsMultiple).ToString("0.0");
+            TextTimes.text = "X" + (gameGlobalModel.GoldCoinsMultiple).ToString("0.0");
             mSequence = DOTween.Sequence();
             float duration = 0.6f;
             int currentValue = (int)GameDefine.GameConst.WIN_COINS;
 
             mSequence.Append(DOTween.To(() => 1f, alpha => {
-                TextTimes.alpha = alpha; // ÊÖ¶¯¿ØÖÆÍ¸Ã÷¶È
+                TextTimes.alpha = alpha; // ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
             }, 0.2f, duration));
 
             mSequence.Join(DOTween.To(() => Vector3.one, scale => {
-                TextTimes.transform.localScale = scale; // ÊÖ¶¯¿ØÖÆËõ·Å
+                TextTimes.transform.localScale = scale; // ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             }, new Vector3(0.2f, 0.2f, 0.2f), duration));
             mSequence.OnComplete(() => {
                 DOTween.To(() => currentValue, x =>
@@ -266,7 +266,7 @@ namespace QFramework.Example
                     TextTimes.Hide();
                     currentValue = x;
                     TxtCoin.text = currentValue.ToString();
-                }, (int)(currentValue * stageModel.GoldCoinsMultiple), duration * 1.2f);
+                }, (int)(currentValue * gameGlobalModel.GoldCoinsMultiple), duration * 1.2f);
             });
             mSequence.Play();
 

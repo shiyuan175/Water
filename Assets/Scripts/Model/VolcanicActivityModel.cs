@@ -13,19 +13,19 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
 
     private SaveDataUtility storage;
 
-    //»ğÉ½»î¶¯Á¬Ê¤´ÎÊı
+    //ç«å±±æ´»åŠ¨è¿èƒœæ¬¡æ•°
     private BindableProperty<int> mVAStreakWinNum;
     public int VAStreakWinNum => mVAStreakWinNum.Value;
 
-    //»ğÉ½»î¶¯ÈËÊı
+    //ç«å±±æ´»åŠ¨äººæ•°
     private BindableProperty<int> mVACountPlayerNum;
     public int VACurrentPlayerNum => mVACountPlayerNum.Value;
 
-    //Ã¿ÈÕË¢ĞÂ´ÎÊı
+    //æ¯æ—¥åˆ·æ–°æ¬¡æ•°
     private BindableProperty<int> mVADailyUsedRefreshCount;
     public int VADailyUsedRefreshCount => mVADailyUsedRefreshCount.Value;
 
-    //»î¶¯ÊÇ·ñ¼¤»î
+    //æ´»åŠ¨æ˜¯å¦æ¿€æ´»
     private BindableProperty<bool> mVAActivateState;
     public bool VAActivateState => mVAActivateState.Value;
 
@@ -33,7 +33,7 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
 
     protected override void OnInit()
     {
-        //Debug.Log("Êı¾İ³õÊ¼»¯");
+        //Debug.Log("æ•°æ®åˆå§‹åŒ–");
         storage = this.GetUtility<SaveDataUtility>();
         mVAStreakWinNum = new BindableProperty<int>();
         mVACountPlayerNum = new BindableProperty<int>();
@@ -71,7 +71,7 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
     }
 
     /// <summary>
-    /// Ã¿ÈÕÖØÖÃ
+    /// æ¯æ—¥é‡ç½®
     /// </summary>
     public void RefreshVolcanicActivity()
     {
@@ -82,7 +82,7 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
     }
 
     /// <summary>
-    /// »î¶¯ÖØÖÃ(Ã¿ÈÕÈı´Î)
+    /// æ´»åŠ¨é‡ç½®(æ¯æ—¥ä¸‰æ¬¡)
     /// </summary>
     public void ReloadVolcanicActivity()
     {
@@ -111,16 +111,16 @@ public class VolcanicActivityModel : AbstractModel, ICanGetModel
 
     private void RandomReducePlayerNum()
     {
-        //²ß»®ÎÄµµ
-        //7	  6µ½12ÈË
-        //6   14µ½23ÈË
-        //5   27µ½35ÈË
-        //4   37µ½44ÈË
-        //3   48µ½53ÈË
-        //2   56µ½64ÈË
-        //1   66µ½72ÈË
+        //ç­–åˆ’æ–‡æ¡£
+        //7	  6åˆ°12äºº
+        //6   14åˆ°23äºº
+        //5   27åˆ°35äºº
+        //4   37åˆ°44äºº
+        //3   48åˆ°53äºº
+        //2   56åˆ°64äºº
+        //1   66åˆ°72äºº
 
-        // mVAStreakWinNum ÓÉ»î¶¯Âß¼­ÏŞÖÆÔÚ [0,7] ·¶Î§ÄÚ
+        // mVAStreakWinNum ç”±æ´»åŠ¨é€»è¾‘é™åˆ¶åœ¨ [0,7] èŒƒå›´å†…
         switch (mVAStreakWinNum.Value)
         {
             case 1:

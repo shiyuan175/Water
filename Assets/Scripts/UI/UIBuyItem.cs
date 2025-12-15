@@ -24,7 +24,7 @@ namespace QFramework.Example
 
 	public partial class UIBuyItem : UIPanel, ICanGetUtility, ICanSendEvent, ICanGetModel
     {
-        private StageModel stageModel;
+        private GameGlobalModel gameGlobalModel;
 
         [SerializeField] private List<BuyItemInfo> buyItemInfos;
 
@@ -48,7 +48,7 @@ namespace QFramework.Example
 		
 		protected override void OnShow()
 		{
-            stageModel = this.GetModel<StageModel>();
+            gameGlobalModel = this.GetModel<GameGlobalModel>();
             var item = buyItemInfos[mData.item - 1];
 
             var needCoin = item.ItemCost;
@@ -68,7 +68,7 @@ namespace QFramework.Example
             {
                 if (CoinManager.Instance.Coin < needCoin)
                 {
-                    //Çø·ÖÊÇ1-5µÄµÀ¾ß/6-8µÄµÀ¾ß(¹ºÂòÈë¿Ú²»Ò»ÖÂ)
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1-5ï¿½Äµï¿½ï¿½ï¿½/6-8ï¿½Äµï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½Ò»ï¿½ï¿½)
                     if (mData.item > 5)
                     {
                         UIKit.ClosePanel<UIBeginSelect>();
@@ -85,7 +85,7 @@ namespace QFramework.Example
                 }
                 CoinManager.Instance.CostCoin(needCoin, () =>
 				{
-                    stageModel.AddItem(mData.item, item.ItemNum);
+                    gameGlobalModel.AddItem(mData.item, item.ItemNum);
                 });
                 CloseSelf();
             });

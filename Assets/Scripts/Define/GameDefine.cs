@@ -1,5 +1,4 @@
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,38 +14,47 @@ namespace GameDefine
     {
         //连胜去黑(最高三档)
         public const int MAX_GIFT_STREAK_WIN = 3;
+
         //新手关(前五关)
         public const int NEWBIE_LEVEL_COUNT = 5;
+
         public const int ITEM_COUNT = 8;
+
         //第八关开启连胜相关功能(主页第一个横幅活动...)
         public const int WIN_STREAK_BEGIN_LEVEL = 8;
+
         //十连胜标志(用于1.5倍金币buff、连胜去黑)
         public const int TEN_CONTINUE_WIN_NUM = 10;
+
         //切换关卡机制开启的关卡
         public const int LEVEL_TYPE_BEGIN_LEVEL = 10;
+
         //用于关卡UI切换取余计算
         public const int LEVEL_TYPE_LAST_DIGIT = 10;
+
         //过关基础金币
         public const int WIN_COINS = 20;
+
         public const int ADD_BOTTLE_COST = 900;
+
         // 战令边界数据
         public const int MAX_INT = 9999999;
 
         //活动开启目标关卡
-        public const int IN_GAME_RANK_BEGIN_LEVEL = 6;  //游戏内段位       
-        public const int DR_AD_BEGIN_LEVEL = 8;     //日常广告活动 待定
-        public const int DT_BEGIN_LEVEL = 8;        //日常任务活动 待定
-        public const int VA_BEGIN_LEVEL = 15;       //火山活动
+        public const int IN_GAME_RANK_BEGIN_LEVEL = 6; //游戏内段位       
+        public const int DR_AD_BEGIN_LEVEL = 8; //日常广告活动 待定
+        public const int DT_BEGIN_LEVEL = 8; //日常任务活动 待定
+        public const int VA_BEGIN_LEVEL = 15; //火山活动
         public const int REMOVE_AD_BEGIN_LEVEL = 17;
-        public const int TRA_BEGIN_LEVEL = 31;      //连胜排行活动(原段位排行活动)
-        public const int SO_AD_BEGIN_LEVEL = 31;    //特惠礼包
-        public const int BP_AD_BEGIN_LEVEL = 30;    //战令活动   
-        public const int TT_AD_BEGIN_LEVEL = 31;    //轮盘活动
-        public const int DG_AD_BEGIN_LEVEL = 90;    //1+1活动
-        public const int PG_AD_BEGIN_LEVEL = 70;    //阶梯活动
-        public const int RA_BEGIN_LEVEL = 25;       //火箭活动
-        public const int MS_BEGIN_LEVEL = 45;       //魔法连胜活动
-        public const int HTA_BEGIN_LEVEL = 65;      //高塔活动
+        public const int TRA_BEGIN_LEVEL = 31; //连胜排行活动(原段位排行活动)
+        public const int SO_AD_BEGIN_LEVEL = 31; //特惠礼包
+        public const int BP_AD_BEGIN_LEVEL = 30; //战令活动   
+        public const int TT_AD_BEGIN_LEVEL = 31; //轮盘活动
+        public const int DG_AD_BEGIN_LEVEL = 90; //1+1活动
+        public const int PG_AD_BEGIN_LEVEL = 70; //阶梯活动
+        public const int RA_BEGIN_LEVEL = 25; //火箭活动
+        public const int MS_BEGIN_LEVEL = 45; //魔法连胜活动
+        public const int HTA_BEGIN_LEVEL = 65; //高塔活动
 
 
         //活动存档标记
@@ -54,21 +62,21 @@ namespace GameDefine
         public const string ROCKET_ACTIVITY_SIGN = "RocketActivity";
         public const string HIGH_TOWER_ACTIVITY_SIGN = "HighTowerActivity";
         public const string TURNTABLE_AD_ACTIVITY_SIGN = "TurnTableADActivity";
-        public const string DAILYREWARD_AD_ACTIVITY_SIGN = "DailyRewardADActivity";
+        public const string DAILY_REWARD_AD_ACTIVITY_SIGN = "DailyRewardADActivity";
         public const string BANNER_ACTIVITY_SIGN = "BannerActivity";
-        public const string BATTLEPASS_AD_ACTIVITY_SIGN = "BattlePassADActivity";
-        public const string PROGRASSGIFT_AD_ACTIVITY_SIGN = "PrograssGiftADActivity";
-        public const string SEPECIALOFFER_AD_ACTIVITY_SIGN = "SepecialOfferADActivity";
-        public const string DOUBLEGIFT_AD_ACTIVITY_SIGN = "DoubleGiftADActivity";
-        public const string DOUBLEGIFT_COOL_AD_ACTIVITY_SIGN = "DoubleGiftCoolADActivity";
+        public const string BATTLE_PASS_AD_ACTIVITY_SIGN = "BattlePassADActivity";
+        public const string PROGRESS_GIFT_AD_ACTIVITY_SIGN = "PrograssGiftADActivity";
+        public const string SPECIAL_OFFER_AD_ACTIVITY_SIGN = "SepecialOfferADActivity";
+        public const string DOUBLE_GIFT_AD_ACTIVITY_SIGN = "DoubleGiftADActivity";
+        public const string DOUBLE_GIFT_COOL_AD_ACTIVITY_SIGN = "DoubleGiftCoolADActivity";
+        public const string TIER_RANK_ACTIVITY_SIGN = "TierRankActivity";
+        public const string TRA_HALF_ONE_HOUR_RANK = "TRAHalfOneHourRank";
+        public const string POTION_ACTIVITY_SIGN = "PotionActivity";
+        public const string RANKA_ACTIVITY_SIGN = "RankAActivity";
 
         //存档标记
         public const string FIRST_LAUNCH_SIGN = "FIRST_LAUNCH";
         public const string DOUBLE_COIN_SIGN = "DoubleCoin";
-        public const string POTION_ACTIVITY_SIGN = "PotionActivity";
-        public const string RANKA_ACTIVITY_SIGN = "RankAActivity";
-        public const string TIER_RANK_ACTIVITY_SIGN = "TierRankActivity";
-        public const string TRA_HALF_ONE_HOUR_RANK = "TRAHalfOneHourRank";
 
         //事件标记
         public const string START_POTION_ACTIVITY = "StartPotionActivity";
@@ -84,80 +92,88 @@ namespace GameDefine
 
         #region Json file info
 
-        public readonly static JsonFileInfo MSADefaultJson = new()
-        {
-            FileName = "MSADefaultData.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo MSACurrentJson = new()
-        {
-            FileName = "MSACurrent.json",
-            TargetVersion = 1
-        };
+        //public static readonly JsonFileInfo MSADefaultJson = new()
+        //{
+        //    FileName = "MSADefaultData.json",
+        //    TargetVersion = 1
+        //};
+        //public static readonly JsonFileInfo MSACurrentJson = new()
+        //{
+        //    FileName = "MSACurrent.json",
+        //    TargetVersion = 1
+        //};
+        public static readonly string MSA_DEFAULT_JSON = "MSADefaultData.json";
+        public static readonly string MSA_CURRENT_JSON = "MSACurrent.json";
 
-        public readonly static JsonFileInfo TRADefaultJson = new()
-        {
-            FileName = "TRADefaultData.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo TRACurrentJson = new()
-        {
-            FileName = "TRA_Data.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo DTDefaultJson = new()
-        {
-            FileName = "DTDefaultData.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo DTCurrentJson = new()
-        {
-            FileName = "DT_Data.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo BPDefaultJson = new()
-        {
-            FileName = "BPDefaultData.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo BPCurrentJson = new()
-        {
-            FileName = "BP_Data.json",
-            TargetVersion = 1
-        };
-        public readonly static JsonFileInfo PGDefaultJson = new JsonFileInfo()
-        {
-            FileName = "PGDefaultData.json",
-            TargetVersion = 1
-        };
+        //public static readonly JsonFileInfo TRADefaultJson = new()
+        //{
+        //    FileName = "TRADefaultData.json",
+        //    TargetVersion = 1
+        //};
+        //public static readonly JsonFileInfo TRACurrentJson = new()
+        //{
+        //    FileName = "TRA_Data.json",
+        //    TargetVersion = 1
+        //};
+        public static readonly string TRA_DEFAULT_JSON = "TRADefaultData.json";
+        public static readonly string TRA_CURRENT_JSON = "TRA_Data.json";
 
-        public readonly static JsonFileInfo PGCurrentJson = new JsonFileInfo()
-        {
-            FileName = "PG_Data.json",
-            TargetVersion = 1
-        };
+        //public static readonly JsonFileInfo BPDefaultJson = new()
+        //{
+        //    FileName = "BPDefaultData.json",
+        //    TargetVersion = 1
+        //};
+        //public static readonly JsonFileInfo BPCurrentJson = new()
+
+        //{
+        //    FileName = "BP_Data.json",
+        //    TargetVersion = 1
+        //};
+        public static readonly string BP_DEFAULT_JSON = "BPDefaultData.json";
+        public static readonly string BP_CURRENT_JSON = "BP_Data.json";
+
+        //public static readonly JsonFileInfo PGDefaultJson = new()
+        //{
+        //    FileName = "PGDefaultData.json",
+        //    TargetVersion = 1
+        //};
+        //public static readonly JsonFileInfo PGCurrentJson = new()
+        //{
+        //    FileName = "PG_Data.json",
+        //    TargetVersion = 1
+        //};
+        public static readonly string PGDefaultJson = "PGDefaultData.json";
+        public static readonly string PGCurrentJson = "PG_Data.json";
+
+        public static readonly string GAME_GLOBAL_DEFAULT_JSON = "GameGlobalDefaultData.json";
+        public static readonly string GAME_GLOBAL_CURRENT_JSON = "GameGlobalData.json";
+
+        public static readonly string DAILY_REWARD_DEFAULT_JSON = "DailyRewardDefaultData.json";
+        public static readonly string DAILY_REWARD_CURRENT_JSON = "DailyRewardData.json";
+
         #endregion
 
         //关卡引导(bottleIndex_1必须大于0，索引为瓶子在levelmanager的bottles所在索引)
-        public static readonly Dictionary<int, (int bottleIndex_1, int bottleIndex_2, string guideInfo)> GameplayTutorialInfo = new()
-        {
-            {3,(0,-1 ,"Sort the gemstone color to lift the cloth")},
-            {11,(0,-1 ,"The bomb will explode when the countdown ends. Please synthesize water with bombs as soon as possible.")},
-            {21,(0,-1 ,"Water with Fire Emblem can thaw ice after being crafted")},
-            {31,(0,-1 ,"The water bottle entangled by the vines cannot be moved")},
-            {41,(2,-1 ,"The vine water bottle can break the entangled vines after the adjacent water bottles are combined")},
-            {51,(0,1 ,"Combining two brooms can remove water of the same color")},
-            {61,(2,-1 ,"Bottles with gemstone emblems can only be filled with water of the same color as the gemstone")},
-            {71,(1,3 ,"Combining two potion bottles can change 4 water of the same color")},
-            {81,(0,1 ,"Synthesizing a magic book can remove all negative effects")},
-        };
+        public static readonly Dictionary<int, (int bottleIndex_1, int bottleIndex_2, string guideInfo)>
+            GameplayTutorialInfo = new()
+            {
+                { 3, (0, -1, "Sort the gemstone color to lift the cloth") },
+                {11, (0, -1, "The bomb will explode when the countdown ends. Please synthesize water with bombs as soon as possible.") },
+                {21, (0, -1, "Water with Fire Emblem can thaw ice after being crafted") },
+                {31, (0, -1, "The water bottle entangled by the vines cannot be moved") },
+                {41, (2, -1, "The vine water bottle can break the entangled vines after the adjacent water bottles are combined")},
+                {51, (0, 1, "Combining two brooms can remove water of the same color") },
+                {61, (2, -1, "Bottles with gemstone emblems can only be filled with water of the same color as the gemstone")},
+                {71, (1, 3, "Combining two potion bottles can change 4 water of the same color") },
+                {81, (0, 1, "Synthesizing a magic book can remove all negative effects") },
+            };
 
         //场景解锁界面(索引对应AB包名)
         public static readonly Dictionary<int, string> SceneUnlock = new Dictionary<int, string>
         {
-            {0, "SceneUnlock1"},
-            {1, "SceneUnlock2"},
-            {2, "SceneUnlock3"},
+            { 0, "SceneUnlock1" },
+            { 1, "SceneUnlock2" },
+            { 2, "SceneUnlock3" },
         };
     }
 
@@ -192,14 +208,19 @@ namespace GameDefine
     {
         // 进关道具解锁
         EnterLevelSelectProps = 17,
+
         // 增加瓶子(变彩虹水)解锁关 原本是17
         S_AddOneHalfBottle = 18,
+
         // 去一瓶黑水解锁关
         S_RemoveOneBottleHideWater = 22,
+
         // 去一瓶Debuff解锁关
         S_RemoveOneDebuffBottle = 27,
+
         // 1.5金币解锁
         TimesGoldCoin = 45,
+
         // 连胜去黑水
         RemoveHideWinStreakLevel = 60
     }
@@ -230,8 +251,7 @@ namespace GameDefine
         Ice = 1,
         BreakIce = 2,
         Bomb = 3,
-        // 弃用，在水块中的飞天炸弹
-        FlyBomb = 4,
+
         Bubble = 5,
         Bubble_Origin = 6,
         GrassBomb = 7
@@ -247,8 +267,7 @@ namespace GameDefine
     /// <summary>
     /// 不带底部水的机制(或特殊水块)
     /// </summary>
-    public enum
-        ItemType
+    public enum ItemType
     {
         [WaterColorState("", EColorStateSpineType.None)]
         UseColor = 1,
@@ -301,7 +320,8 @@ namespace GameDefine
         [ClearItemState(1, "idle_cl")]
         ClearGreen = 3007,
 
-        [RainBowWaterState("")] RainBowWater = 4001,
+        [RainBowWaterState("")]
+        RainBowWater = 4001,
 
         [RainBowWaterState("", EColorStateSpineType.EFlashWater)]
         FlashWater = 4002,
@@ -579,6 +599,7 @@ namespace GameDefine
         GrassWater = 2,
         Max = 3
     }
+
     public class GameEnum
     {
         public static string GetDescription<T>(T value)
@@ -616,6 +637,7 @@ namespace GameDefine
             {
                 return int.Parse(match.Groups[1].Value);
             }
+
             return 0;
         }
     }

@@ -5,7 +5,7 @@ namespace QFramework.Example
 {
 	public partial class SettingPanelCtrl : ViewController
 	{
-        private StageModel stageModel;
+        private GameGlobalModel gameGlobalModel;
         private bool volumeSetting;
 
         void Awake()
@@ -14,8 +14,8 @@ namespace QFramework.Example
 
         void Start()
 		{
-            stageModel = this.GetModel<StageModel>();
-            volumeSetting = stageModel.VolumeSetting;
+            gameGlobalModel = this.GetModel<GameGlobalModel>();
+            volumeSetting = gameGlobalModel.VolumeSetting;
 
             ImgSelected.gameObject.SetActive(volumeSetting);
             SetAudio();
@@ -26,7 +26,7 @@ namespace QFramework.Example
                 ImgSelected.gameObject.SetActive(volumeSetting);
                 SetAudio();
 
-                stageModel.VolumeSetting = volumeSetting;
+                gameGlobalModel.VolumeSetting = volumeSetting;
             });
 		}
 

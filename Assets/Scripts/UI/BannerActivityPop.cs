@@ -15,7 +15,7 @@ namespace QFramework.Example
 	public partial class BannerActivityPop : UIPanel ,ICanGetModel
 	{
 		private Sequence mSequence;
-        private StageModel mStageModel;
+        private GameGlobalModel mGameGlobalModel;
 
         protected override void OnInit(IUIData uiData = null)
 		{
@@ -25,7 +25,7 @@ namespace QFramework.Example
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{
-			mStageModel = this.GetModel<StageModel>();
+			mGameGlobalModel = this.GetModel<GameGlobalModel>();
 
             mSequence = DOTween.Sequence();
 			TxtNum.font = LevelManager.Instance.redFont;
@@ -33,7 +33,7 @@ namespace QFramework.Example
 			mSequence.Append(ImgCup.transform.DOScale(1.8f, 0.5f));
             mSequence.Append(ImgCup.transform.DOScale(1.5f, 0.3f));
 
-            //Ë«±¶»ñÈ¡ÉúÐ§
+            //Ë«ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ð§
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.UnlimitedDoubleBuff)))
             {
                 mSequence.AppendCallback(() =>
@@ -47,7 +47,7 @@ namespace QFramework.Example
 				{
 					TxtNum.text = $"X{value}";
 
-                }, mData.Goals * mStageModel.SettlementMultiple, 0.5f));
+                }, mData.Goals * mGameGlobalModel.SettlementMultiple, 0.5f));
             }
 
             mSequence.Append(ImgCup.transform.DOMove(mData.TargetPos, 0.7f));

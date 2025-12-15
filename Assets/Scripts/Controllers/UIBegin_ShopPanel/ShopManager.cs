@@ -16,7 +16,7 @@ namespace QFramework.Example
 
         private GooglePayManager googlePay;
         private Dictionary<string ,Action> giftPackBuySuccessActions;
-        private StageModel stageModel;
+        private GameGlobalModel gameGlobalModel;
         private RewardGrantUtility rewardGrantUtility;
 
         private void Awake()
@@ -37,7 +37,7 @@ namespace QFramework.Example
             }
 
             googlePay = GooglePayManager.Instance;
-            stageModel = this.GetModel<StageModel>();
+            gameGlobalModel = this.GetModel<GameGlobalModel>();
             rewardGrantUtility = this.GetUtility<RewardGrantUtility>();
 
             // 初始化购买成功回调

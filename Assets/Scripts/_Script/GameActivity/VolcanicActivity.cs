@@ -21,7 +21,7 @@ public class VolcanicActivity : BaseGameActivity
 
             if (!VAActivateState)
                 return GameActivityStatus.Inactive;
-            //¿ÉÒÔ¼ÓÉÏActivitySignÊÇ·ñ¹ıÆÚµÄÌõ¼ş
+            //å¯ä»¥åŠ ä¸ŠActivitySignæ˜¯å¦è¿‡æœŸçš„æ¡ä»¶
             if (!CountDownTimerManager.Instance.IsTimerFinished(ActivitySign)
                 && CountDownTimerManager.Instance.IsTimerFinished(ActivityCooldownSign)
                 && !IsExceededDailyRefreshLimit)
@@ -40,7 +40,7 @@ public class VolcanicActivity : BaseGameActivity
     public int VAStreakWinNum => mVolcanicActivityModel.VAStreakWinNum;
     public int VACurrentPlayerNum => mVolcanicActivityModel.VACurrentPlayerNum;
     public int VADailyUsedRefreshCount => mVolcanicActivityModel.VADailyUsedRefreshCount;
-   //´³¹ØÊ¤Àû½áÊø 
+    //é—¯å…³èƒœåˆ©ç»“æŸ 
     public bool EndWin => VAStreakWinNum >= VA_MAX_STREAK_WIN_NUM;
     public bool VAActivateState => mVolcanicActivityModel.VAActivateState;
 
@@ -48,7 +48,7 @@ public class VolcanicActivity : BaseGameActivity
 
     private const int VA_MAX_REFRESH_PER_DAY = 3;
     private const int VA_MAX_STREAK_WIN_NUM = 7;
-    private VolcanicActivityModel mVolcanicActivityModel;
+    private readonly VolcanicActivityModel mVolcanicActivityModel;
     private GameActivityStatus mCurrentStatus;
 
     public VolcanicActivity()
@@ -77,7 +77,7 @@ public class VolcanicActivity : BaseGameActivity
     }
 
     /// <summary>
-    /// Ã¿ÈÕÖØÖÃ
+    /// æ¯æ—¥é‡ç½®
     /// </summary>
     public void RefreshActivity()
     {
@@ -86,7 +86,7 @@ public class VolcanicActivity : BaseGameActivity
     }
 
     /// <summary>
-    /// »î¶¯ÖØÖÃ(Ã¿ÈÕÈı´Î)
+    /// æ´»åŠ¨é‡ç½®(æ¯æ—¥ä¸‰æ¬¡)
     /// </summary>
     public override void RestartActivity()
     {
@@ -107,11 +107,13 @@ public class VolcanicActivity : BaseGameActivity
 
     public override void Tick()
     {
-        //»î¶¯½áËãºóÃ»ÓĞÕıÈ·½øÈëÀäÈ´(Á¬Ê¤7Ê¤Àû»¹µ¯³öÃæ°åµÄÔ½½çÎÊÌâ),¿ÉÒÔ¼ÓÉÏ¸ÃÅĞ¶ÏĞŞÕı
-        //if (ActivityStatus is GameActivityStatus.Active && EndWin)
-        //{
-        //    CoolDownActivity();
-        //}
+        //æ´»åŠ¨ç»“ç®—åæ²¡æœ‰æ­£ç¡®è¿›å…¥å†·å´(è¿èƒœ7èƒœåˆ©è¿˜å¼¹å‡ºé¢æ¿çš„è¶Šç•Œé—®é¢˜),å¯ä»¥åŠ ä¸Šè¯¥åˆ¤æ–­ä¿®æ­£
+        if (ActivityStatus is GameActivityStatus.Active && EndWin)
+        {
+            CoolDownActivity();
+            mCurrentStatus = GameActivityStatus.CoolingDown;
+        }
+        
         switch (mCurrentStatus)
         {
             case GameActivityStatus.Inactive:
@@ -149,7 +151,7 @@ public class VolcanicActivity : BaseGameActivity
     }
 
     /// <summary>
-    /// »ñÈ¡ÀäÈ´µ¹¼ÆÊ±
+    /// è·å–å†·å´å€’è®¡æ—¶
     /// </summary>
     /// <returns></returns>
     public string GetCooldownReamingTime()

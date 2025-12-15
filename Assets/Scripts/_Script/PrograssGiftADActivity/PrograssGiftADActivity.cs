@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class PrograssGiftADActivity : BaseGameADActivity,ICanGetModel
 {
-    public override string ActivitySign => GameDefine.GameConst.PROGRASSGIFT_AD_ACTIVITY_SIGN;
+    public override string ActivitySign => GameDefine.GameConst.PROGRESS_GIFT_AD_ACTIVITY_SIGN;
 
     public override string ActivityID => GetType().Name;
 
@@ -54,14 +54,14 @@ public class PrograssGiftADActivity : BaseGameADActivity,ICanGetModel
     {
         CountDownTimerManager.Instance.ResetTimer(ActivitySign, ActivityDurationMinutes);
 
-        // Î´ÁìÈ¡µÄ½±Àø·¢·Å?
+        // Î´ï¿½ï¿½È¡ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
         mPGModel.ReloadPGActivity();
         mPGModel.LoadPGActivity();
     }
     /// <summary>
-    /// ·¢·Å½±Àø
+    /// ï¿½ï¿½ï¿½Å½ï¿½ï¿½ï¿½
     /// </summary>
-    /// <param name="pack">Àñ°ü</param>
+    /// <param name="pack">ï¿½ï¿½ï¿½</param>
     /// <param name=""></param>
     public void DistributeReward(System.Action PlayAnim ,RewardItem[] pack)
     {
