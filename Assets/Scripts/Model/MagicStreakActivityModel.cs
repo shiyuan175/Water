@@ -42,7 +42,7 @@ public class MagicStreakActivityModel : AbstractModel ,ICanGetUtility ,ICanGetMo
         mJsonFileUtility = this.GetUtility<JsonFileUtility>();
         mStorage = this.GetUtility<SaveDataUtility>();
         mGameGlobalModel = this.GetModel<GameGlobalModel>();
-        mDelFilePath = Path.Combine(Application.streamingAssetsPath, GameDefine.GameConst.MSA_DEFAULT_JSON);
+        mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.MSADefaultJson.FileName);
         mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.MSA_CURRENT_JSON);
 
         mStreakWinNum = new BindableProperty<int>();

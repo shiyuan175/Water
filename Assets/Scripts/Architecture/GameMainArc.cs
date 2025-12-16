@@ -8,7 +8,7 @@ public class GameMainArc : Architecture<GameMainArc>
     {
         ResKit.Init();
         RegisterUtilitys();
-        //CheckUpdateJsonFile();
+        CheckUpdateJsonFile();
 
         RegisterModels();
         
@@ -50,11 +50,11 @@ public class GameMainArc : Architecture<GameMainArc>
     }
 
     //Json数据更新
-    //private void CheckUpdateJsonFile()
-    //{
-    //    JsonFileUtility jsonUtility = this.GetUtility<JsonFileUtility>();
-    //    _ = jsonUtility.UpdateJsonFiles();
-    //}
+    private void CheckUpdateJsonFile()
+    {
+        JsonFileUtility jsonUtility = this.GetUtility<JsonFileUtility>();
+        jsonUtility.UpdateJsonFiles();
+    }
 
     //单例构建
 
