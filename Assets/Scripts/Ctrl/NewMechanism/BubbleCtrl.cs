@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using QFramework.Example;
 using QFramework;
 using Spine.Unity;
@@ -19,6 +19,11 @@ public class BubbleCtrl : MonoBehaviour
     private const string NORMAL_DISABLE = "animation_blue2";
     private const string ORIGINAL_APPEND = "animation_purple1";
     private const string ORIGINAL_DISABLE = "animation_purple2";
+
+    private void Start()
+    {
+        
+    }
 
     private void OnDisable()
     {

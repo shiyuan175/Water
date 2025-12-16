@@ -109,11 +109,6 @@ namespace QAssetBundle
         public const string BundleName = "uidailyrewardadactivity_prefab";
         public const string UIDailyRewardADActivity = "UIDailyRewardADActivity";
     }
-    public class Uidailytaskadactivities_prefab
-    {
-        public const string BundleName = "uidailytaskadactivities_prefab";
-        public const string UIDailyTaskADActivities = "UIDailyTaskADActivities";
-    }
     public class Uidoublegiftadactivity_prefab
     {
         public const string BundleName = "uidoublegiftadactivity_prefab";

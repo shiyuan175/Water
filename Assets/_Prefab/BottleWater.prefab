@@ -988,7 +988,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 459483171641082162}
-  - component: {fileID: 5190863885889670293}
+  - component: {fileID: 5858138281663005974}
   m_Layer: 24
   m_Name: Bublle
   m_TagString: Untagged
@@ -1012,7 +1012,7 @@ Transform:
   - {fileID: 747776595017667830}
   m_Father: {fileID: 7278143787643135267}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5190863885889670293
+--- !u!114 &5858138281663005974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1824,7 +1824,7 @@ MonoBehaviour:
   bottle: {fileID: 0}
   MachineParent: {fileID: 5008750493067005770}
   bombCtrl: {fileID: 7351034377525687539}
-  bubbleCtrl: {fileID: 5190863885889670293}
+  bubbleCtrl: {fileID: 5858138281663005974}
   hideWaterCtrl: {fileID: 5715295715699244535}
   grassWaterCtrl: {fileID: 6448164908143739188}
 --- !u!114 &4385134855748731431
