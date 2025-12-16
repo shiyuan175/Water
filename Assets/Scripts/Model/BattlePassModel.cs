@@ -51,7 +51,7 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
         mVipRewardGotLevel = new BindableProperty<int>();
         mIsVip = new BindableProperty<bool>();
 
-        mDelFilePath = Path.Combine(Application.streamingAssetsPath, GameDefine.GameConst.BP_DEFAULT_JSON);
+        mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.BPDefaultJson.FileName);
         mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.BP_CURRENT_JSON);
 
         mGameWinNum.SetValueWithoutEvent(mStorage.LoadIntValue(BP_GAMEWIN_NUM, 0));

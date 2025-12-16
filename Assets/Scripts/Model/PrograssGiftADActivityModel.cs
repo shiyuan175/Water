@@ -29,7 +29,7 @@ public class PrograssGiftADActivityModel : AbstractModel
         mRewardLevel = new BindableProperty<int>();
         mGiftLevel = new BindableProperty<int>();
 
-        mDelFilePath = Path.Combine(Application.streamingAssetsPath, GameDefine.GameConst.PGDefaultJson);
+        mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.PGDefaultJson.FileName);
         mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.PGCurrentJson);
 
         mRewardLevel.SetValueWithoutEvent(mStorage.LoadIntValue(PG_REWARD_LEVEl,0));
