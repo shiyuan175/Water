@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +12,11 @@ public class HTANodeCtrl : MonoBehaviour
     [SerializeField] private RectTransform mPlayer;
     [SerializeField] private Image mProgressBar;
 
-    [Header("µ×²¿½Úµã¿¿Ç°£¬µ±Ç°Éè¼Æ×î¶à3¸ö½Úµã")]
+    [Header("åº•éƒ¨èŠ‚ç‚¹é å‰ï¼Œå½“å‰è®¾è®¡æœ€å¤š3ä¸ªèŠ‚ç‚¹")]
     [SerializeField] private Text[] mStageTexts;
-    [Header("Ä¿±ê½×¶Î±¦Ïä(¿ªÆô½±ÀøºóÒş²Ø)")]
+    [Header("ç›®æ ‡é˜¶æ®µå®ç®±(å¼€å¯å¥–åŠ±åéšè—)")]
     [SerializeField] private Image mBoxImgs;
-    [Header("½ø¶ÈÌõ¶ÎÊı(ÓÃÓÚ¼ÆËã½ø¶ÈÈ¨ÖØ)")]
+    [Header("è¿›åº¦æ¡æ®µæ•°(ç”¨äºè®¡ç®—è¿›åº¦æƒé‡)")]
     [SerializeField] private ProgressSegmentType mProgressSegmentType;
 
     private enum ProgressSegmentType
@@ -27,35 +27,35 @@ public class HTANodeCtrl : MonoBehaviour
     private List<Tween> mTweens;
     private HighTowerActivity mHTActivity;
 
-    //Çø¼ä¸ß¶È
+    //åŒºé—´é«˜åº¦
     private float mStagePosYGap;
-    //ÏÂÒ»½×¶Î½±ÀøË÷Òı
+    //ä¸‹ä¸€é˜¶æ®µå¥–åŠ±ç´¢å¼•
     private int mCache_NextRewardStageIndex;
 
     public void Init(HighTowerActivity activity)
     {
-        //Êı¾İ»º´æ,±ÜÃâÊı¾İĞŞ¸Äºó±íÏÖ´íÎó
+        //æ•°æ®ç¼“å­˜,é¿å…æ•°æ®ä¿®æ”¹åè¡¨ç°é”™è¯¯
         mHTActivity = activity;
         mCache_NextRewardStageIndex = mHTActivity.NextRewardStageIndex;
 
         mStageTexts[0].text = mHTActivity.RewardStages[mCache_NextRewardStageIndex - 1].ToString();
         mStageTexts[1].text = mHTActivity.RewardStages[mCache_NextRewardStageIndex].ToString();
-        //Mid ÓĞÈı¸ö½Úµã(Íâ²¿¸ù¾İµ±Ç°Á¬Ê¤Ëù´¦½×¶Î½øĞĞÊµÀı)
+        //Mid æœ‰ä¸‰ä¸ªèŠ‚ç‚¹(å¤–éƒ¨æ ¹æ®å½“å‰è¿èƒœæ‰€å¤„é˜¶æ®µè¿›è¡Œå®ä¾‹)
         if (mStageTexts.Length == 3)
             mStageTexts[2].text = mHTActivity.RewardStages[mCache_NextRewardStageIndex + 1].ToString();
 
-        //Çø¼ä¸ß¶È
+        //åŒºé—´é«˜åº¦
         mStagePosYGap = mStageTexts.Last().transform.position.y - mStageTexts.First().transform.position.y;
 
-        //ÈËÎïÎ»ÖÃ¡¢½ø¶ÈÌõ³õÊ¼
+        //äººç‰©ä½ç½®ã€è¿›åº¦æ¡åˆå§‹
         var _tuple = GetProgressRatioAndYGap();
         mPlayer.position = new Vector3(mPlayer.position.x, _tuple.posYGap, mPlayer.position.z);
         mProgressBar.fillAmount = _tuple.ratio;
     }
 
-    public void PlayTween(bool playerWin, RewardPackSO rewardPackSO , Action grantReward)
+    public void PlayTween(bool playerWin, GiftPackSO rewardPackSO , Action grantReward)
     {
-        //Ôö¼ÓÁ¬Ê¤Êı¾İ
+        //å¢åŠ è¿èƒœæ•°æ®
         if (playerWin)
             mHTActivity.StreakWin();
         else
@@ -64,7 +64,7 @@ public class HTANodeCtrl : MonoBehaviour
         bool _sendReward = false;
         if (mHTActivity.HTAStreakWinNum >= mHTActivity.RewardStages[mCache_NextRewardStageIndex])
         {
-            //Debug.Log("µ½´ïÏÂÒ»Ä¿±ê-------·¢·Å½±Àø");
+            //Debug.Log("åˆ°è¾¾ä¸‹ä¸€ç›®æ ‡-------å‘æ”¾å¥–åŠ±");
             _sendReward = true;
             grantReward?.Invoke();
         }
@@ -73,13 +73,13 @@ public class HTANodeCtrl : MonoBehaviour
         {
             var _tuple = GetProgressRatioAndYGap(true);
 
-            //¶¯»­Ğ§¹û
+            //åŠ¨ç”»æ•ˆæœ
             Tween _playerUp = mPlayer.DOMoveY(_tuple.posYGap, 1.3f).SetEase(Ease.OutQuad)
                 .OnComplete(() =>
                 {
                     if (_sendReward)
                     {
-                        //Debug.Log("µ½´ïÏÂÒ»Ä¿±ê-------²¥·Å½±Àø¶¯»­");
+                        //Debug.Log("åˆ°è¾¾ä¸‹ä¸€ç›®æ ‡-------æ’­æ”¾å¥–åŠ±åŠ¨ç”»");
                         RewardUIManager.Instance.PlayRewardAnim(rewardPackSO.Coins, true, () => mBoxImgs.Hide(), rewardPackSO);
                     } 
                 });
@@ -102,29 +102,29 @@ public class HTANodeCtrl : MonoBehaviour
     }
 
     /// <summary>
-    /// »ñÈ¡µ±Ç°½ø¶È±ÈÀı¡¢ÈËÎï¸ß¶È
+    /// è·å–å½“å‰è¿›åº¦æ¯”ä¾‹ã€äººç‰©é«˜åº¦
     /// </summary>
     /// <returns></returns>
     private (float ratio ,float posYGap) GetProgressRatioAndYGap(bool sss = false)
     {
-        #region ¹«Ê½
-        //(µ±Ç°Á¬Ê¤ - µ±Ç°½×¶ÎÁ¬Ê¤»ùÊı) / µ±Ç°Çø¼äËùĞèÁ¬Ê¤(ÏÂ½×¶ÎÁ¬Ê¤»ùÊı - µ±Ç°½×¶ÎÁ¬Ê¤»ùÊı) * È¨ÖØ
-        //Èç¿ç½×¶Î,ÔòĞè½«Ë÷ÒıºóÒÆ
-        //È¨ÖØ + (µ±Ç°Á¬Ê¤ - ÏÂ½×¶ÎÁ¬Ê¤»ùÊı) / ÏÂ½×¶ÎÇø¼äËùĞèÁ¬Ê¤(ÏÂÏÂ½×¶ÎÁ¬Ê¤»ùÊı - ÏÂ½×¶ÎÁ¬Ê¤»ùÊı) * È¨ÖØ
+        #region å…¬å¼
+        //(å½“å‰è¿èƒœ - å½“å‰é˜¶æ®µè¿èƒœåŸºæ•°) / å½“å‰åŒºé—´æ‰€éœ€è¿èƒœ(ä¸‹é˜¶æ®µè¿èƒœåŸºæ•° - å½“å‰é˜¶æ®µè¿èƒœåŸºæ•°) * æƒé‡
+        //å¦‚è·¨é˜¶æ®µ,åˆ™éœ€å°†ç´¢å¼•åç§»
+        //æƒé‡ + (å½“å‰è¿èƒœ - ä¸‹é˜¶æ®µè¿èƒœåŸºæ•°) / ä¸‹é˜¶æ®µåŒºé—´æ‰€éœ€è¿èƒœ(ä¸‹ä¸‹é˜¶æ®µè¿èƒœåŸºæ•° - ä¸‹é˜¶æ®µè¿èƒœåŸºæ•°) * æƒé‡
         #endregion
 
-        //¶¥²¿ÌØÅĞ(±ÜÃâÔ½½ç)
+        //é¡¶éƒ¨ç‰¹åˆ¤(é¿å…è¶Šç•Œ)
         if (mProgressSegmentType is ProgressSegmentType.Single)
         {
             var __ratio = (mHTActivity.HTAStreakWinNum - mHTActivity.RewardStages[mCache_NextRewardStageIndex - 1])
              / (float)(mHTActivity.RewardStages[mCache_NextRewardStageIndex] - mHTActivity.RewardStages[mCache_NextRewardStageIndex - 1]);
-            //µ±Ç°¸ß¶È(ÏßĞÔ²åÖµ¼ÆËã)
+            //å½“å‰é«˜åº¦(çº¿æ€§æ’å€¼è®¡ç®—)
             var __posYGap = mStageTexts.First().transform.position.y + mStagePosYGap * __ratio;
 
             return (__ratio, __posYGap);
         }
 
-        //Æ½¾ùÈ¨ÖØ
+        //å¹³å‡æƒé‡
         float _stageWeight = 1f / (int)mProgressSegmentType;
         float _ratio;
 
@@ -137,7 +137,7 @@ public class HTANodeCtrl : MonoBehaviour
         }
         else
         {
-            //±ÜÃâ±»³ıÊıÎª 0 
+            //é¿å…è¢«é™¤æ•°ä¸º 0 
             if (mHTActivity.HTAStreakWinNum == 0)
                 _ratio = 0;
             else
@@ -148,7 +148,7 @@ public class HTANodeCtrl : MonoBehaviour
             }
         }
 
-        //µ±Ç°¸ß¶È(ÏßĞÔ²åÖµ¼ÆËã)
+        //å½“å‰é«˜åº¦(çº¿æ€§æ’å€¼è®¡ç®—)
         var _posYGap = mStageTexts.First().transform.position.y + mStagePosYGap * _ratio;
 
         return (_ratio, _posYGap);
@@ -161,7 +161,7 @@ public class HTANodeCtrl : MonoBehaviour
 
     private void OnDestroy()
     {
-        //Debug.Log("¶ÔÏó±»Ïú»ÙÁË");
+        //Debug.Log("å¯¹è±¡è¢«é”€æ¯äº†");
         foreach (var tween in mTweens)
         {
             tween.Kill();

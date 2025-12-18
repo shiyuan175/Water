@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using GameDefine;
 using QFramework;
 using UnityEngine;
@@ -12,8 +12,8 @@ namespace QFramework.Example
 
     public partial class UITierRankActivityEntrance : UIPanel, ICanGetUtility
     {
-        [SerializeField] private RewardPackSO mStartActivitySO;
-        [SerializeField] private RewardPackSO mRankSettlementSO;
+        [SerializeField] private GiftPackSO mStartActivitySO;
+        [SerializeField] private GiftPackSO mRankSettlementSO;
         [SerializeField] private Sprite mSpriteGreyBtn;
 
         private RewardGrantUtility mRewardGrantUtility;

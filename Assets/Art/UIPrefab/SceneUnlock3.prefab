@@ -11614,7 +11614,7 @@ MonoBehaviour:
   - {fileID: 728639538983048136}
   - {fileID: 5121300798810709797}
   - {fileID: 5489089754327705127}
-  mRewardPackSO: {fileID: 11400000, guid: 5c4d4eb22cc826142b18b231964dabf8, type: 2}
+  mRewardPackSO: {fileID: 11400000, guid: 82b70847093374b48a09dcc2288a30ed, type: 2}
   mBgUnitImg: {fileID: 5269085410524478611}
   SpineHeartRise: {fileID: 1941864757495481163}
   ImgReward: {fileID: 138240822414669384}

@@ -1654,60 +1654,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mStageRewardCofigs:
   - TriggerValue: 1
-    RewardPack: {fileID: 11400000, guid: a41a655754e30f3428f65787fb724da3, type: 2}
+    RewardPack: {fileID: 11400000, guid: 978e170b2c63c0849b34be28304a2c3d, type: 2}
   - TriggerValue: 6
-    RewardPack: {fileID: 11400000, guid: 15c5ac63b33b71b4b8819a495c21b244, type: 2}
+    RewardPack: {fileID: 11400000, guid: 2c8009a6c8d53694a8cb00496649adb4, type: 2}
   - TriggerValue: 16
-    RewardPack: {fileID: 11400000, guid: 54bbe26f196cc024189fb88dc66f5d4b, type: 2}
+    RewardPack: {fileID: 11400000, guid: 2c01e31a6b9845447893e22fe512748e, type: 2}
   - TriggerValue: 36
-    RewardPack: {fileID: 11400000, guid: 9436052a3cd9ce24d8b446c41250a6d4, type: 2}
+    RewardPack: {fileID: 11400000, guid: 0095d8e8099ec9c4fbacbe914b8c43f5, type: 2}
   - TriggerValue: 136
-    RewardPack: {fileID: 11400000, guid: 4f53b407b8c05494d9b66378cf1fd691, type: 2}
+    RewardPack: {fileID: 11400000, guid: f46e0d57fd17fe843b0ad6a055e777b1, type: 2}
   - TriggerValue: 336
-    RewardPack: {fileID: 11400000, guid: fff8b7d4712d8be4b84ebe9a18a5181c, type: 2}
+    RewardPack: {fileID: 11400000, guid: ee1d7325099c95c4bbde59d74c699b8b, type: 2}
   - TriggerValue: 636
-    RewardPack: {fileID: 11400000, guid: 908085f64b91ab14faeb5f3a54a503b0, type: 2}
+    RewardPack: {fileID: 11400000, guid: 8c4bbce752460e54ea258e2111a7d0c8, type: 2}
   - TriggerValue: 836
-    RewardPack: {fileID: 11400000, guid: df709ec7bd1ef234a943554d93ad8655, type: 2}
+    RewardPack: {fileID: 11400000, guid: c0190f87ee62cd5419eb23cc1d1b9cac, type: 2}
   - TriggerValue: 1336
-    RewardPack: {fileID: 11400000, guid: 3bcf450fa119aca43b3c56f9adfa68ff, type: 2}
+    RewardPack: {fileID: 11400000, guid: 866a339640c948741a35bcf6cfcf6f74, type: 2}
   - TriggerValue: 1536
-    RewardPack: {fileID: 11400000, guid: ab71bea0de474fa409849edbbd377d63, type: 2}
+    RewardPack: {fileID: 11400000, guid: f9a9c760b92c5e243b9201469940c850, type: 2}
   - TriggerValue: 1836
-    RewardPack: {fileID: 11400000, guid: 6a90e693c7112db40a7ae04ac7621bd7, type: 2}
+    RewardPack: {fileID: 11400000, guid: aea0407892c60d046a6ffcead16c30f9, type: 2}
   - TriggerValue: 2236
-    RewardPack: {fileID: 11400000, guid: bb35d57341543084c88fe23283ed7397, type: 2}
+    RewardPack: {fileID: 11400000, guid: 387cd7d838b5c3b479fa464bd0d9bdbf, type: 2}
   - TriggerValue: 2736
-    RewardPack: {fileID: 11400000, guid: 6de7b235248a48e4dab42999f82db012, type: 2}
+    RewardPack: {fileID: 11400000, guid: d32f540602f6d9545b9ec88e11436dcd, type: 2}
   - TriggerValue: 3536
-    RewardPack: {fileID: 11400000, guid: 8c5b10964a4b5e8429264e04122ad2c0, type: 2}
+    RewardPack: {fileID: 11400000, guid: 66389c928103aaf439369660fc795f72, type: 2}
   - TriggerValue: 4036
-    RewardPack: {fileID: 11400000, guid: a6902179c85ba424397f7003c1361cf7, type: 2}
+    RewardPack: {fileID: 11400000, guid: 9a5aa6f13a8902246af1b00b453585f0, type: 2}
   - TriggerValue: 4636
-    RewardPack: {fileID: 11400000, guid: 1a3a555f9e10b1344879ef3a647c75d2, type: 2}
+    RewardPack: {fileID: 11400000, guid: 4598b6462ee76a445b35c89bf1e6580a, type: 2}
   - TriggerValue: 5636
-    RewardPack: {fileID: 11400000, guid: 417c20664ce275b4f9c1ab785724be42, type: 2}
+    RewardPack: {fileID: 11400000, guid: 1e2b737161f35174baca109bccd91f25, type: 2}
   - TriggerValue: 7136
-    RewardPack: {fileID: 11400000, guid: ac5dc6007a43e7744a049e8edad9dc27, type: 2}
+    RewardPack: {fileID: 11400000, guid: b8442d3975d282141af6f84ffd438085, type: 2}
   - TriggerValue: 7636
-    RewardPack: {fileID: 11400000, guid: d647aa063af72b541a4e8b458a50960f, type: 2}
+    RewardPack: {fileID: 11400000, guid: 4a12516ccc323ae478b4d8c7cfbe12a3, type: 2}
   - TriggerValue: 9636
-    RewardPack: {fileID: 11400000, guid: 910e2436621255e4aa41d990b8f91088, type: 2}
+    RewardPack: {fileID: 11400000, guid: ceaa15b13ff4c20499f0b0d66c36029c, type: 2}
   mRankRewardCofigs:
   - TriggerValue: 1
-    RewardPack: {fileID: 11400000, guid: c2dfc7639527b824ca83a0dce5d359a3, type: 2}
+    RewardPack: {fileID: 11400000, guid: 3ac3f9e9ca5804d4ca7cfbbf2091bdbb, type: 2}
   - TriggerValue: 2
-    RewardPack: {fileID: 11400000, guid: 92f9ed74c9899654aa9f6af76b416445, type: 2}
+    RewardPack: {fileID: 11400000, guid: 7931e8e041d7adb4a8cb41fbb58be35e, type: 2}
   - TriggerValue: 3
-    RewardPack: {fileID: 11400000, guid: 7f8bb83d65879d748bfa4f0c892fbb7e, type: 2}
+    RewardPack: {fileID: 11400000, guid: 66c2bb94b1ae92248b3bae1b74ef0d4a, type: 2}
   - TriggerValue: 4
-    RewardPack: {fileID: 11400000, guid: 5b027e3c86da93d41b93b3c0b06b1408, type: 2}
+    RewardPack: {fileID: 11400000, guid: 956210aba11c74e4ab29de2a3dca5991, type: 2}
   - TriggerValue: 5
-    RewardPack: {fileID: 11400000, guid: 4da22f35750982b4d95504582eb290e4, type: 2}
+    RewardPack: {fileID: 11400000, guid: 3659c2e8bfe5ccc4a8b5bdf312b1797d, type: 2}
   - TriggerValue: 10
-    RewardPack: {fileID: 11400000, guid: a54c5ba3059232243a2fa2de7ce4bcd2, type: 2}
+    RewardPack: {fileID: 11400000, guid: c4c32b59fb9ac6f42b51a6f575493544, type: 2}
   - TriggerValue: 20
-    RewardPack: {fileID: 11400000, guid: d51e3d71264444c4fb111e68068b6bc9, type: 2}
+    RewardPack: {fileID: 11400000, guid: 82eda5ad7d1831f4887326d3c6102f7f, type: 2}
   mRankPar: {fileID: 5011257619609232341}
   mCoinSprite: {fileID: 21300000, guid: 8fa0c956bfff3fb47a65c1fe3d01e183, type: 3}
   mDoubleBuffPanel: {fileID: 6657375586653992085}

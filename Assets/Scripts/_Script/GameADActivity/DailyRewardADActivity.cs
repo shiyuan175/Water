@@ -1,4 +1,4 @@
-using GameDefine;
+﻿using GameDefine;
 using QFramework;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,6 +60,6 @@ public class DailyRewardADActivity : BaseGameADActivity
     public override void ADPlaybackCompleted<T>(T pack)
     {
         mRWModel.AddStageNum();
-        mRewardGrantUtility.GrantReward((pack as RewardPackSO));
+        mRewardGrantUtility.GrantReward((pack as GiftPackSO));
     }
 }

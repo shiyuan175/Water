@@ -1,4 +1,4 @@
-using DG.Tweening;
+Ôªøusing DG.Tweening;
 using GameDefine;
 using JsonFileData;
 using QFramework;
@@ -16,7 +16,7 @@ namespace QFramework.Example
 	public partial class UITierRankActivity : UIPanel ,ICanGetUtility
 	{
 		[SerializeField] private GameObject[] mTRANodeCtrls;
-        [SerializeField] private RewardPackSO mRankFirstPackSO;
+        [SerializeField] private GiftPackSO mRankFirstPackSO;
         
         private RewardGrantUtility mRewardGrantUtility;
         private TierRankActivity mTierRankActivity;
@@ -37,7 +37,7 @@ namespace QFramework.Example
 			mTierRankActivity = GameActivityManager.Instance.GetActivity<TierRankActivity>();
             mRewardGrantUtility = this.GetUtility<RewardGrantUtility>();
 
-            //µπº∆ ±
+            //ÂÄíËÆ°Êó∂
             mCountDownTween = DOTween.To(() => 0, x =>
             {
                 if (mTierRankActivity.ActivityStatus == SettlementActivityStatus.Active)
@@ -69,7 +69,7 @@ namespace QFramework.Example
 
 		private void InitUI()
 		{
-            //≈≈√˚
+            //ÊéíÂêç
             var _allEntities = new List<object>();
             _allEntities.AddRange(mTierRankActivity.TRAData.TRARobots);
             _allEntities.Add(mTierRankActivity.TRAData.Player);
@@ -94,7 +94,7 @@ namespace QFramework.Example
                 }
             }
           
-            //∞¥≈•≥ı º
+            //ÊåâÈíÆÂàùÂßã
             if (mTierRankActivity.ActivityStatus == SettlementActivityStatus.Finished
                 && !mTierRankActivity.TRAData.Player.IsRewardSettled)
                 BtnClaimReward.Show();

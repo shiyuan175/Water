@@ -1157,11 +1157,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dailyRewardADActivityPackSO:
-  - {fileID: 11400000, guid: 9d05bd8eccb13f944a2f495557699cbb, type: 2}
-  - {fileID: 11400000, guid: bbe0190f26f266947b3f21b63db48cdb, type: 2}
-  - {fileID: 11400000, guid: 67ca258b9f8b42846ace3542fe6be5ea, type: 2}
-  - {fileID: 11400000, guid: e8de40264fc76844f8f89ff637a17115, type: 2}
-  - {fileID: 11400000, guid: 3236606fd40bb1c4d9585f062a28d314, type: 2}
+  - {fileID: 11400000, guid: 134ccdea3c7ec2c428125287e5abff76, type: 2}
+  - {fileID: 11400000, guid: eaf8c40a14ac1d04494b41b89a754dfa, type: 2}
+  - {fileID: 11400000, guid: 88a7165c47172bb46b10a7bce9d412f1, type: 2}
+  - {fileID: 11400000, guid: 34213a4f34ab875418475c35b043902a, type: 2}
+  - {fileID: 11400000, guid: 568c30290a8be634488ff91f44d2296b, type: 2}
   adBtns:
   - {fileID: 8543604009060749593}
   - {fileID: 4319850825911446699}

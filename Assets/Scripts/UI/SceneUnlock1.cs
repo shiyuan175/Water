@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using Spine.Unity;
 using Spine;
@@ -16,7 +16,7 @@ namespace QFramework.Example
         private const int PANEL_ID = 0;
 
         private readonly List<Spine.AnimationState.TrackEntryDelegate> mOnCompleteHandlers = new();
-        //²¿¼şÏûºÄºÍ°´Å¥Î»ÖÃ
+        //éƒ¨ä»¶æ¶ˆè€—å’ŒæŒ‰é’®ä½ç½®
         private readonly (int, Vector2)[] mUnitMes = new (int, Vector2)[]
         {
               (1, new Vector2(253, 488)),
@@ -34,25 +34,6 @@ namespace QFramework.Example
               (6, new Vector2(0, -367)),
               (7, new Vector2(0, -137))
         };
-        //SpineÍê³Éºó·ÉÏò±¦ÏäÌØĞ§³õÊ¼Î»ÖÃ
-        /*private readonly Vector2[] mEffectToBoxStartPos = new Vector2[]
-        {
-            new(-50, 580),
-            new(-422, 128),
-            new(-50, 0),
-            new(-298, -171),
-            new(-494, -314),
-            new(463, -324),
-            new(292, 64),
-            new(-75, -680),
-            new(-431, -771),
-            new(227, -689),
-            new(442, -740),
-            new(-357,528),
-            new(0, 100),
-            new(130, -257),
-
-        };*/
 
         [SerializeField] private SkeletonGraphic[] mAllUnitSpines;
         [SerializeField] private CanvasGroup[] mSpineCanvasGroups;
@@ -62,13 +43,13 @@ namespace QFramework.Example
         [SerializeField] private Sprite[] mUnitIconSprites;
         [SerializeField] private Sprite mBoxOpenSprite;
         [SerializeField] private Transform[] mProgressNodes;
-        [SerializeField] private RewardPackSO mRewardPackSO;
+        [SerializeField] private GiftPackSO mRewardPackSO;
         [SerializeField] private Image mBgUnitImg;
 
         private Spine.AnimationState.TrackEntryDelegate mHeartRiseCallBack;
         private SceneUnlockModel mSceneUnlockModel;
         private RewardGrantUtility mRewardGrantUtility;
-        //ÓÃÓÚÎ¬»¤SpineµÄ»Øµ÷¼àÌıºÍ×¢Ïú
+        //ç”¨äºç»´æŠ¤Spineçš„å›è°ƒç›‘å¬å’Œæ³¨é”€
         private SkeletonGraphic[] mUnActiveUnitSpines;
         private int mStartUnitIndex;
         private bool mRewardSign;
@@ -163,19 +144,19 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ³õÊ¼»¯
+        /// åˆå§‹åŒ–
         /// </summary>
         private void InitPanel()
         {
-            //±¦Ïä×´Ì¬ÅĞ¶¨
+            //å®ç®±çŠ¶æ€åˆ¤å®š
             if (mSceneUnlockModel.SceneUnlockUnitIndex >= mUnitMes.Length)
                 BtnBox.image.sprite = mBoxOpenSprite;
 
-            //Òş²ØÌØĞ§
+            //éšè—ç‰¹æ•ˆ
             FlightEffectsToBox.Hide();
             FlightEffectsToBtn.Hide();
 
-            //²¿¼ş
+            //éƒ¨ä»¶
             for (int i = 0; i < mStartUnitIndex; i++)
             {
                 mUnitImgs[i].sprite = mUnitSprites[i];
@@ -183,16 +164,16 @@ namespace QFramework.Example
                     mUnitImgs[i].SetNativeSize();
             }
 
-            //½ø¶È
+            //è¿›åº¦
             for (int i = 0; i < mStartUnitIndex; i++)
             {
                 mProgressNodes[i].Find("Over").Show();
             }
 
-            //ĞÇĞÇÊı
+            //æ˜Ÿæ˜Ÿæ•°
             TxtRemainStar.text = mSceneUnlockModel.RemainingStars.ToString();
 
-            //°´Å¥
+            //æŒ‰é’®
             if (mStartUnitIndex >= mUnitMes.Length)
                 BtnUnitUnlock.Hide();
             else
@@ -203,14 +184,14 @@ namespace QFramework.Example
                 TxtNeedStar.text = mUnitMes[mStartUnitIndex].Item1.ToString();
             }
 
-            //Î´¼¤»îSpine
+            //æœªæ¿€æ´»Spine
             int remaining = mAllUnitSpines.Length - mStartUnitIndex;
             mUnActiveUnitSpines = new SkeletonGraphic[remaining];
             System.Array.Copy(mAllUnitSpines, mStartUnitIndex, mUnActiveUnitSpines, 0, remaining);
         }
 
         /// <summary>
-        /// ×¢²áSpine»Øµ÷
+        /// æ³¨å†ŒSpineå›è°ƒ
         /// </summary>
         private void InitSpineOnComplete()
         {
@@ -244,7 +225,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ½âËø°´Å¥Î»ÖÃ¸üĞÂ
+        /// è§£é”æŒ‰é’®ä½ç½®æ›´æ–°
         /// </summary>
         private void UpdateUnlockBtn()
         {
@@ -277,7 +258,7 @@ namespace QFramework.Example
                 FlightEffectsToBox.Hide();
                 mProgressNodes[realIndex].Find("Over").Show();
 
-                //¿ªÏä±íÏÖ
+                //å¼€ç®±è¡¨ç°
                 if (mRewardSign)
                 {
                     mRewardSign = false;
@@ -295,7 +276,7 @@ namespace QFramework.Example
                 mRewardSign = true;
                 //mSceneUnlockModel.AddSceneIndex();
                 UIKit.OpenPanel<UIMask>(UILevel.PopUI);
-                //½±Àø·¢·Å
+                //å¥–åŠ±å‘æ”¾
                 mRewardGrantUtility.GrantReward(mRewardPackSO);
             }
 

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 
@@ -9,7 +9,7 @@ namespace QFramework.Example
     }
     public partial class UIDailyRewardADActivity : UIPanel
     {
-        [SerializeField] private RewardPackSO[] dailyRewardADActivityPackSO;
+        [SerializeField] private GiftPackSO[] dailyRewardADActivityPackSO;
         [SerializeField] private Button[] adBtns;
 
         private DailyRewardADActivity mDailyRewardADActivity;
@@ -50,7 +50,7 @@ namespace QFramework.Example
                         RefershUI();
                     }, () => { });
 #if UNITY_EDITOR
-                    Debug.Log("Ä£Äâ¹ã¸æ");
+                    Debug.Log("æ¨¡æ‹Ÿå¹¿å‘Š");
                     mDailyRewardADActivity.ADPlaybackCompleted(dailyRewardADActivityPackSO[_index]);
                     RefershUI();
 #endif

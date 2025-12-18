@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using System;
@@ -25,23 +25,23 @@ namespace QFramework.Example
         private class MSARewardCofig
         {
             public int TriggerValue;
-            public RewardPackSO RewardPack;
+            public GiftPackSO RewardPack;
         }
 
-        [Header("½±ÀøÅäÖÃ")]
+        [Header("å¥–åŠ±é…ç½®")]
         [SerializeField] private List<MSARewardCofig> mStageRewardCofigs;
         [SerializeField] private List<MSARewardCofig> mRankRewardCofigs;
         [SerializeField] private RectTransform mRankPar;
         [SerializeField] private Sprite mCoinSprite;
 
-        [Header("Ë«±¶Ğ§¹û±íÏÖUI")]
+        [Header("åŒå€æ•ˆæœè¡¨ç°UI")]
         [SerializeField] private GameObject mDoubleBuffPanel;
         [SerializeField] private GameObject mDoubleBuff;
         [SerializeField] private TextMeshProUGUI[] mPointsTier;
-        //Îåµµ»ù´¡»ı·Ö
+        //äº”æ¡£åŸºç¡€ç§¯åˆ†
         private readonly int[] POINTS_TIER = new int[] { 1, 5, 10, 25, 100 };
         
-        //»¬¶¯¿éÎåµµ×ø±ê
+        //æ»‘åŠ¨å—äº”æ¡£åæ ‡
         private readonly int[] TARGER_POSX = new int[] { -294, -147, 0, 143, 286 };
 
         private List<GameObject> mRankNodePool;
@@ -65,17 +65,17 @@ namespace QFramework.Example
             mRankNodePool = new List<GameObject>();
             mTweenList = new List<Tween>();
 
-            //×ÖÌå¸³Öµ
+            //å­—ä½“èµ‹å€¼
             TxtProgress_Red.font = LevelManager.Instance.redFont;
             TxtTitle_Blue.font = LevelManager.Instance.blueFont;
 
             mMagicStreakActivity = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
             mRewardGrantUtility = this.GetUtility<RewardGrantUtility>();
 
-            //Êı¾İ»º´æ
+            //æ•°æ®ç¼“å­˜
             CacheTempData();
 
-            //¼ÆÊ±Æ÷
+            //è®¡æ—¶å™¨
             Tween _countDownTween = DOTween.To(() => 0, x =>
             {
                 if (mMagicStreakActivity.ActivityStatus == SettlementActivityStatus.Active)
@@ -97,7 +97,7 @@ namespace QFramework.Example
                 CloseSelf();
             });
 
-            //»î¶¯½áÊø½áËã
+            //æ´»åŠ¨ç»“æŸç»“ç®—
             if (mData.HasRankRewardToSettle ?? false)
             {
                 UIKit.OpenPanel<UIMask>();
@@ -109,14 +109,14 @@ namespace QFramework.Example
 
                 ActionKit.Delay(0.5f, () =>
                 {
-                    //ÑÓ³Ù¶¯»­
+                    //å»¶è¿ŸåŠ¨ç”»
                     UIKit.ClosePanel<UIMask>();
                     RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, true, null, _packSO);
                 }).Start(this);
                 return;
             }
 
-            //ÓÉÖ÷Ò³Èë¿Ú½øÈë
+            //ç”±ä¸»é¡µå…¥å£è¿›å…¥
             if (mData.ISWin == null)
             {
                 RankNodeInit();
@@ -128,7 +128,7 @@ namespace QFramework.Example
             {
                 mMagicStreakActivity.StreakWin();
 
-                //ÅĞ¶¨ÊÇ·ñ´¥·¢½×¶Î½±Àø
+                //åˆ¤å®šæ˜¯å¦è§¦å‘é˜¶æ®µå¥–åŠ±
                 _stageRewardSign = cacheStageRewardIndex < mStageRewardCofigs.Count
                      && mMagicStreakActivity.MSAData.Player.Score >= mStageRewardCofigs[cacheStageRewardIndex].TriggerValue;
                 if (_stageRewardSign)
@@ -136,7 +136,7 @@ namespace QFramework.Example
                     UIKit.OpenPanel<UIMask>();
                     mMagicStreakActivity.MarkNextStageRewardIdnex();
 
-                    //½±Àø·¢·Å
+                    //å¥–åŠ±å‘æ”¾
                     var _packSO = mStageRewardCofigs[cacheStageRewardIndex].RewardPack;
                     mRewardGrantUtility.GrantReward(_packSO);
                 }
@@ -153,7 +153,7 @@ namespace QFramework.Example
             if (!(bool)mData.ISWin)
                 return;
 
-            //²åÈëË«±¶¶¯»­
+            //æ’å…¥åŒå€åŠ¨ç”»
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.UnlimitedDoubleBuff)))
             {
                 mSequence = DOTween.Sequence();
@@ -262,13 +262,13 @@ namespace QFramework.Example
             UpdateRewardUI(targetStageScore == -1);
         }
 
-        //Ãæ°åµ¯³öÂß¼­()
+        //é¢æ¿å¼¹å‡ºé€»è¾‘()
         private void ExecuteAfterDoubleBuff(bool stageRewardSign)
         {
-            //µ±Ç°Íæ¼Ò×Ü·Ö
+            //å½“å‰ç©å®¶æ€»åˆ†
             var _curPlayerTotalScore = mMagicStreakActivity.MSAData.Player.Score;
 
-            //½×¶Î½±ÀøÎ´ÁìÈ¡Íê
+            //é˜¶æ®µå¥–åŠ±æœªé¢†å–å®Œ
             if (targetStageScore != -1)
             {
                 var _lastPlayerStageScore = cachePlayerTotalScore - lastStageTotalScore;
@@ -288,7 +288,7 @@ namespace QFramework.Example
                             var _packSO = mStageRewardCofigs[cacheStageRewardIndex].RewardPack;
                             RewardUIManager.Instance.PlayRewardAnim(_packSO.Coins, true, () =>
                             {
-                                //ÖØĞÂ±ê¼Ç»º´æÊı¾İ
+                                //é‡æ–°æ ‡è®°ç¼“å­˜æ•°æ®
                                 CacheTempData();
                                 if (targetStageScore == -1)
                                 {
@@ -318,7 +318,7 @@ namespace QFramework.Example
 
             var _packSO = mStageRewardCofigs[cacheStageRewardIndex].RewardPack;
 
-            //½×¶Î½±ÀøÀñ°üÄÚÈİÖ»ÓĞÒ»¸ö(Ò»¸öÌØÊâµÀ¾ß/ÆÕÍ¨µÀ¾ß/½ğ±Ò)
+            //é˜¶æ®µå¥–åŠ±ç¤¼åŒ…å†…å®¹åªæœ‰ä¸€ä¸ª(ä¸€ä¸ªç‰¹æ®Šé“å…·/æ™®é€šé“å…·/é‡‘å¸)
             if (_packSO.ItemReward.Count != 0)
             {
                 ImgRewardUI.sprite = RewardUIManager.Instance.GetRewardSprite(_packSO.ItemReward[0].NormalRewardsType);
@@ -338,11 +338,11 @@ namespace QFramework.Example
 
         private void RankNodeInit()
         {
-            //³õÊ¼»¯ÅÅÃû½ÚµãĞÅÏ¢£¬¶¨¸ñÔÚÍæ¼ÒÅÅÃûÊÓÒ°
+            //åˆå§‹åŒ–æ’åèŠ‚ç‚¹ä¿¡æ¯ï¼Œå®šæ ¼åœ¨ç©å®¶æ’åè§†é‡
             var _count = mMagicStreakActivity.MSAData.MSARobots.Count;
             var _playerRank = mMagicStreakActivity.PlayerRank;
 
-            //Íæ¼ÒÇ°µÄ½Úµã
+            //ç©å®¶å‰çš„èŠ‚ç‚¹
             for (int i = 1; i < _playerRank; i++)
             {
                 var robot = mMagicStreakActivity.MSAData.MSARobots[i - 1];
@@ -352,13 +352,13 @@ namespace QFramework.Example
                 mRankNodePool.Add(node);
             }
 
-            //Íæ¼Ò½Úµã
+            //ç©å®¶èŠ‚ç‚¹
             var playerNode = MSARankNodePool.Instance.Allocate();
             playerNode.transform.SetParent(mRankPar, false);
             playerNode.GetComponent<MSANodeCtrl>().InitPlayer(_playerRank, mMagicStreakActivity.MSAData.Player , GetRankPackSO(_playerRank));
             mRankNodePool.Add(playerNode);
 
-            //Íæ¼ÒºóµÄ½Úµã
+            //ç©å®¶åçš„èŠ‚ç‚¹
             for (int i = _playerRank; i <= _count; i++)
             {
                 var robot = mMagicStreakActivity.MSAData.MSARobots[i - 1];
@@ -372,7 +372,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ¾Û½¹Íæ¼ÒÅÅÃû
+        /// èšç„¦ç©å®¶æ’å
         /// </summary>
         private void FocusPlayerNode()
         {
@@ -384,7 +384,7 @@ namespace QFramework.Example
             RectTransform viewport = RankScrollRect.viewport != null ? RankScrollRect.viewport : (RankScrollRect.transform as RectTransform);
             RectTransform playerRect = mRankNodePool[playerIndex].GetComponent<RectTransform>();
 
-            // °ÑÍæ¼Ò½ÚµãµÄÊÀ½ç×ø±ê×ª»»Îª Content µÄ¾Ö²¿×ø±ê
+            // æŠŠç©å®¶èŠ‚ç‚¹çš„ä¸–ç•Œåæ ‡è½¬æ¢ä¸º Content çš„å±€éƒ¨åæ ‡
             Vector3 playerLocalPosInContent = mRankPar.InverseTransformPoint(playerRect.position);
 
             float contentHeight = mRankPar.rect.height;
@@ -392,22 +392,22 @@ namespace QFramework.Example
             if (contentHeight <= viewportHeight)
                 return;
 
-            //¼ÆËãcontent¶¥µãY×ø±ê ¡¢Íæ¼Ò½ÚµãÓëcontent¶¥²¿¾àÀë
+            //è®¡ç®—contenté¡¶ç‚¹Yåæ ‡ ã€ç©å®¶èŠ‚ç‚¹ä¸contenté¡¶éƒ¨è·ç¦»
             float contentTopLocalY = mRankPar.rect.height * (1f - mRankPar.pivot.y);
             float playerYFromTop = contentTopLocalY - playerLocalPosInContent.y;
 
-            //¼ÆËãÍæ¼ÒÔÚ viewport ÖĞ¼äµÄ¹ö¶¯¾àÀë(¼õÈ¥viewport¸ß¶ÈÒ»°ëÈÃÍæ¼Ò´¦ÓÚÖĞĞÄ)¡£
+            //è®¡ç®—ç©å®¶åœ¨ viewport ä¸­é—´çš„æ»šåŠ¨è·ç¦»(å‡å»viewporté«˜åº¦ä¸€åŠè®©ç©å®¶å¤„äºä¸­å¿ƒ)ã€‚
             float desiredTopOffset = playerYFromTop - (viewportHeight * 0.5f);
 
             float maxTopOffset = contentHeight - viewportHeight;
             float clampedTopOffset = Mathf.Clamp(desiredTopOffset, 0f, maxTopOffset);
-            //1±íÊ¾¶¥¶Ë,¼õÈ¥±ÈÀıµÃµ½Ó³ÉäÖµ
+            //1è¡¨ç¤ºé¡¶ç«¯,å‡å»æ¯”ä¾‹å¾—åˆ°æ˜ å°„å€¼
             float normalized = 1f - (clampedTopOffset / maxTopOffset);
 
             RankScrollRect.verticalNormalizedPosition = normalized;
         }
 
-        //»ñÈ¡»¬¶¯¿é×ø±êË÷Òı(°´Á¬Ê¤»®·Ö)
+        //è·å–æ»‘åŠ¨å—åæ ‡ç´¢å¼•(æŒ‰è¿èƒœåˆ’åˆ†)
         private int GetStreakTierIndex(int winCount)
         {
             if (winCount <= 1) return 0;
@@ -417,7 +417,7 @@ namespace QFramework.Example
             return 4;
         }
 
-        private RewardPackSO GetRankPackSO(int ranking)
+        private GiftPackSO GetRankPackSO(int ranking)
         {
             foreach (var item in mRankRewardCofigs)
             {

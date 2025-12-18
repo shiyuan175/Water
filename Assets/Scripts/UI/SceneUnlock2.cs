@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Spine.Unity;
 using Spine;
@@ -36,27 +36,6 @@ namespace QFramework.Example
               (7, new Vector2(350, 500))
 
         };
-        //Spine��ɺ��������Ч��ʼλ��
-        /*private readonly Vector2[] mEffectToBoxStartPos = new Vector2[]
-        {
-            new(0, 550),
-            new(-300, 350),
-            new(0, -550),
-            new(-100, -650),
-            new(-430, -400),
-            new(-250, -50),
-            new(-400, -150),
-            new(150, 50),
-            new(350, 430),
-            new(350, -500),
-            new(420, -600),
-            new(300,-780),
-            new(350, -400),
-            new(0, -250),
-            new(0, 0),
-
-        };*/
-        //��������������
         private readonly int[] mStandbySpineIdx = new int[] { 0, 12, 13 };
 
         [SerializeField] private SkeletonGraphic[] mAllUnitSpines;
@@ -67,7 +46,7 @@ namespace QFramework.Example
         [SerializeField] private Sprite[] mUnitIconSprites;
         [SerializeField] private Sprite mBoxOpenSprite;
         [SerializeField] private Transform[] mProgressNodes;
-        [SerializeField] private RewardPackSO mRewardPackSO;
+        [SerializeField] private GiftPackSO mRewardPackSO;
         [SerializeField] private Image mBgUnitImg;
 
         private Spine.AnimationState.TrackEntryDelegate mHeartRiseCallBack;

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using DG.Tweening;
@@ -17,8 +17,8 @@ namespace QFramework.Example
         [SerializeField] private GameObject mMidNode;
         [SerializeField] private GameObject mEndNode;
         [SerializeField] private Transform mParNode;
-		//¸÷½×¶Î¶ÔÓ¦Àñ°ü
-		[SerializeField] private RewardPackSO[] mRewardPackSOs;
+		//å„é˜¶æ®µå¯¹åº”ç¤¼åŒ…
+		[SerializeField] private GiftPackSO[] mRewardPackSOs;
 
 		private HighTowerActivity mHighTowerActivity;
         private Tween mCountDownTween;
@@ -47,7 +47,7 @@ namespace QFramework.Example
 
         protected override void OnShow()
 		{
-            //¾­²âÊÔ:AB°ü¹Ø±ÕÊ±£¬Ô¤ÖÆÌå»á±»×Ô¶¯Ïú»Ù
+            //ç»æµ‹è¯•:ABåŒ…å…³é—­æ—¶ï¼Œé¢„åˆ¶ä½“ä¼šè¢«è‡ªåŠ¨é”€æ¯
             HTANodeCtrl _node;
             if (mHighTowerActivity.IsAtBaseNode)
                 _node = Instantiate(mStartNode, mParNode).GetComponent<HTANodeCtrl>();
@@ -61,8 +61,8 @@ namespace QFramework.Example
             if (mData.isSuceed == null)
                 return;
 
-            //NextRewardStageIndex - 1(ÒòÎªË÷Òı0ÊÇÕ¼Î»È¡²»µ½)
-            //NextRewardStageIndex»áÔÚÊı¾İ±ä¸üÖ®Ç°Ê¹ÓÃ
+            //NextRewardStageIndex - 1(å› ä¸ºç´¢å¼•0æ˜¯å ä½å–ä¸åˆ°)
+            //NextRewardStageIndexä¼šåœ¨æ•°æ®å˜æ›´ä¹‹å‰ä½¿ç”¨
             _node.PlayTween((bool)mData.isSuceed, mRewardPackSOs[mHighTowerActivity.NextRewardStageIndex - 1],
                 ()=>this.GetUtility<RewardGrantUtility>().GrantReward(mRewardPackSOs[mHighTowerActivity.NextRewardStageIndex - 1]));
         }
