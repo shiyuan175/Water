@@ -171,14 +171,12 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
         int _i = 0;
 
-
         nowBottles.Clear();
         bubbleDict.Clear();
         curtainDict.Clear();
         bombList.Clear();
         grassList.Clear();
         nowHalf = null;
-
         TopBottleLayoutGroup.Show();
         BottomBottleLayoutGroup.Show();
         InitLevels(levelInfo);
@@ -233,7 +231,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         //重置魔法布统计
         playingHideAnimCount = 0;
         isFinish = false;
-
         //Debug.Log("关卡重置初始化/首次进入关卡初始化");
         ShowBottleGo();
         InitBottle(levelInfo);
@@ -344,11 +341,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// <param name="levelInfo"></param>
     public void InitBottle(LevelCreateCtrl levelInfo)
     {
-
         for (int i = 0; i < levelInfo.bottles.Count; i++)
         {
             var bottle = nowBottles[i];
-
             bottle.Init(levelInfo.bottles[i], i);
         }
     }
