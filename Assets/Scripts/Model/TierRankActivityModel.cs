@@ -19,7 +19,7 @@ public class TierRankActivityModel : AbstractModel
     protected override void OnInit()
     {
         mJsonFileUtility = this.GetUtility<JsonFileUtility>();
-        mDelFilePath = Path.Combine(Application.streamingAssetsPath, GameDefine.GameConst.TRA_DEFAULT_JSON);
+        mDelFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.TRADefaultJson.FileName);
         mCurFilePath = Path.Combine(Application.persistentDataPath, GameDefine.GameConst.TRA_CURRENT_JSON);
     }
 

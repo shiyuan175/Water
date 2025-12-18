@@ -99,7 +99,7 @@ RectTransform:
   m_GameObject: {fileID: 363817452637156924}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5794317055683872247}
@@ -832,7 +832,7 @@ RectTransform:
   m_GameObject: {fileID: 1819891118746285143}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 0.5, y: 0.45000002, z: 0.5}
+  m_LocalScale: {x: 0.65, y: 0.585, z: 0.65}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5437231885389654876}
@@ -840,7 +840,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.1, y: -10}
+  m_AnchoredPosition: {x: 10, y: -10}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &664368966411693426
@@ -988,7 +988,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 459483171641082162}
-  - component: {fileID: 5190863885889670293}
+  - component: {fileID: 5858138281663005974}
   m_Layer: 24
   m_Name: Bublle
   m_TagString: Untagged
@@ -1012,7 +1012,7 @@ Transform:
   - {fileID: 747776595017667830}
   m_Father: {fileID: 7278143787643135267}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5190863885889670293
+--- !u!114 &5858138281663005974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1824,7 +1824,7 @@ MonoBehaviour:
   bottle: {fileID: 0}
   MachineParent: {fileID: 5008750493067005770}
   bombCtrl: {fileID: 7351034377525687539}
-  bubbleCtrl: {fileID: 5190863885889670293}
+  bubbleCtrl: {fileID: 5858138281663005974}
   hideWaterCtrl: {fileID: 5715295715699244535}
   grassWaterCtrl: {fileID: 6448164908143739188}
 --- !u!114 &4385134855748731431

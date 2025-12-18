@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -22,13 +22,13 @@ public class GameGlobalModel : AbstractModel
     private const string HISTORY_BEST_RANK = "E_HistoryBestRank";
 
     private readonly string mGameGlobalDelJson =
-        Path.Combine(Application.streamingAssetsPath, GameConst.GAME_GLOBAL_DEFAULT_JSON);
+        Path.Combine(Application.persistentDataPath, GameConst.GAME_GLOBAL_DEFAULT_JSON.FileName);
 
     private readonly string mGameGlobalCurJson =
         Path.Combine(Application.persistentDataPath, GameConst.GAME_GLOBAL_CURRENT_JSON);
 
     private readonly string mDailyRewardDelJson =
-        Path.Combine(Application.streamingAssetsPath, GameConst.DAILY_REWARD_DEFAULT_JSON);
+        Path.Combine(Application.persistentDataPath, GameConst.DAILY_REWARD_DEFAULT_JSON.FileName);
 
     private readonly string mDailyRewardCurJson =
         Path.Combine(Application.persistentDataPath, GameConst.DAILY_REWARD_CURRENT_JSON);
