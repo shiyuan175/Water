@@ -130,7 +130,7 @@ MonoBehaviour:
     waterItem: 
     bombCounts: 
     numCake: 4
-    limitColor: 0
+    limitColor: 1
     isClearHide: 0
     lockType: 0
     BlackBottleList: 

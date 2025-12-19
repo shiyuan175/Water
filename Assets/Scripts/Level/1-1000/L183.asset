@@ -111,7 +111,7 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 0600000005000000d60700000b000000
+  - waterSet: 0600000005000000d20700000b000000
     hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
@@ -163,8 +163,8 @@ MonoBehaviour:
   countDownNum: 0
   timeCountDown: 0
   topNum: 7
-  bottomNum: 7
+  bottomNum: 5
   bubbleCount: 
   changeList:
   - item: 2002
-    NeedChangeColor: 7
+    NeedChangeColor: 6

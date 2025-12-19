@@ -470,7 +470,7 @@ public class BottleWaterCtrl : MonoBehaviour
             ItemType.MakeColorItem => (createItemGo, createSpine, "combine", true),
             ItemType.MagnetItem => (magnetItemGo, magnetSpine, "combine", true),
             ItemType.ChangeGreen or ItemType.ChangeOrange or ItemType.ChangePink
-            or ItemType.ChangeYellow or ItemType.ChangePurple or ItemType.ChangeDarkBlue
+                or ItemType.ChangeYellow or ItemType.ChangePurple or ItemType.ChangeDarkGreen or ItemType.ChangeBlue
                 => (changeItemGo, changeSpine, "combine", true),
             _ => (null, null, "", false)
         };

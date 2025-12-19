@@ -187,7 +187,7 @@ MonoBehaviour:
   hideTypes: 
   globalMechanism: 3
   GlobalMechanismBeginSetp: 5
-  GlobalMechanismContinueSetps: 13
+  GlobalMechanismContinueSetps: 8
   countDownNum: 0
   timeCountDown: 0
   topNum: 6

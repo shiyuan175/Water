@@ -83,7 +83,7 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 0a00000007000000d60700000b000000
+  - waterSet: 0a00000007000000d70700000b000000
     hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
@@ -97,7 +97,7 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 0200000003000000d607000006000000
+  - waterSet: 0200000003000000d707000006000000
     hideTypes: 00000000000000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
@@ -191,10 +191,10 @@ MonoBehaviour:
   countDownNum: 0
   timeCountDown: 0
   topNum: 7
-  bottomNum: 7
+  bottomNum: 5
   bubbleCount: 
   changeList:
   - item: 2003
-    NeedChangeColor: 3
-  - item: 2006
-    NeedChangeColor: 4
+    NeedChangeColor: 6
+  - item: 2007
+    NeedChangeColor: 6

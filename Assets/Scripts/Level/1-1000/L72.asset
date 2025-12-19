@@ -137,4 +137,8 @@ MonoBehaviour:
   topNum: 5
   bottomNum: 3
   bubbleCount: 
-  changeList: []
+  changeList:
+  - item: 2003
+    NeedChangeColor: 3
+  - item: 2006
+    NeedChangeColor: 4

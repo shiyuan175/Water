@@ -841,7 +841,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         if (globalMechanism == GlobalMechanism.BlackMagicCar)
         {
-            if (moveNum >= GlobalMechanismBeginSetp && moveNum <= GlobalMechanismBeginSetp + GlobalMechanismContinueSetps)
+            if (moveNum >= GlobalMechanismBeginSetp &&
+                moveNum < GlobalMechanismBeginSetp + GlobalMechanismContinueSetps)
             {
                 BottleCtrl _bottleCtrl = levelManagerUtility.RandomBarkWaterBottle(nowBottles, HideWaterType.HideWater);
                 if (_bottleCtrl != null)
@@ -850,7 +851,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                     StringEventSystem.Global.Send("MagicCatEven");
                 }
             }
-
         }
         else if (globalMechanism == GlobalMechanism.WhiteMagicCar)
         {

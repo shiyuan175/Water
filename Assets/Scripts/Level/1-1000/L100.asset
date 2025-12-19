@@ -116,14 +116,14 @@ MonoBehaviour:
     waterItem: 
     bombCounts: 
     numCake: 4
-    limitColor: 0
+    limitColor: 7
     isClearHide: 0
     lockType: 0
     BlackBottleList: 
     isBlackBottle: 0
     CurtainHight: 0
     isNearHide: 0
-    isFreeze: 1
+    isFreeze: 0
     isFinish: 0
   - waterSet: 
     hideTypes: 
@@ -137,21 +137,21 @@ MonoBehaviour:
     isBlackBottle: 0
     CurtainHight: 0
     isNearHide: 0
-    isFreeze: 1
+    isFreeze: 0
     isFinish: 0
   - waterSet: 
     hideTypes: 
     waterItem: 
     bombCounts: 
     numCake: 4
-    limitColor: 0
+    limitColor: 1
     isClearHide: 0
     lockType: 0
     BlackBottleList: 
     isBlackBottle: 0
     CurtainHight: 0
     isNearHide: 0
-    isFreeze: 1
+    isFreeze: 0
     isFinish: 0
   - waterSet: 07000000070000000600000001000000
     hideTypes: 00000000000000000000000000000000

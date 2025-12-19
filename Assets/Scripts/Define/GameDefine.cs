@@ -279,9 +279,10 @@ namespace GameDefine
         [ChangeColorItemState(6, "idle_hs")]
         ChangeYellow = 2005,
 
-        [ChangeColorItemState(4, "idle_sl")]
-        ChangeDarkBlue = 2006,
+        [ChangeColorItemState(9, "idle_sl")] ChangeDarkGreen = 2006,
 
+        [ChangeColorItemState(4, "idle_gl")] ChangeBlue = 2007,
+        
         [ClearItemState(3, "idle_fh")]
         ClearPink = 3001,
 

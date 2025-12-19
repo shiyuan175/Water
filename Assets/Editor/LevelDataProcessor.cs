@@ -188,7 +188,7 @@ public class LevelDataProcessor : EditorWindow
             var bottle = level.bottles[bottleIndex];
             for (int waterLayerIndex = 0; waterLayerIndex < bottle.waterSet.Count; waterLayerIndex++)
             {
-                if (bottle.bombCounts[waterLayerIndex] != 0)
+                if (bottle.bombCounts[waterLayerIndex] != 0 || bottle.waterItem[waterLayerIndex] == WaterItem.Bomb)
                 {
                     bottle.bombCounts[waterLayerIndex] = 0;
                     bottle.waterItem[waterLayerIndex] = WaterItem.None;
