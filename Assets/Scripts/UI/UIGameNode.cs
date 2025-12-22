@@ -369,7 +369,7 @@ namespace QFramework.Example
             };
             var unlimitItems = new[]
             {
-               SpecialRewardsType.Unlimited_S_AddOneHalfBottle,
+               SpecialRewardsType.Unlimited_S_AddOneBottle,
                SpecialRewardsType.Unlimited_S_RemoveOneBottleHideWater,
                SpecialRewardsType.Unlimited_S_RemoveOneDebuffBottle
             };

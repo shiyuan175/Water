@@ -116,14 +116,14 @@ namespace GameDefine
         public static readonly JsonFileInfo PGDefaultJson = new()
         {
             FileName = "PGDefaultData.json",
-            TargetVersion = 1
+            TargetVersion = 4
         };
         public static readonly string PGCurrentJson = "PG_Data.json";
 
         public static readonly JsonFileInfo GAME_GLOBAL_DEFAULT_JSON = new()
         {
             FileName = "GameGlobalDefaultData.json",
-            TargetVersion = 1
+            TargetVersion = 2
         };
         public static readonly string GAME_GLOBAL_CURRENT_JSON = "GameGlobalData.json";
 

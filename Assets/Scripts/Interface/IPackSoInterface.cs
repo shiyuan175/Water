@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +11,6 @@ public interface IPackSoInterface
     public IReadOnlyList<SpecialReward> SpecialRewards { get; }
 
     public int Coins { get; }
-    public bool RemoveAdsForever { get; }
 }
 
 public enum NormalRewardsType
@@ -28,19 +27,21 @@ public enum NormalRewardsType
     // 增加体力上限
     StaminaCap = 9,
 
-    //金币，只用于做表现
+    //仅做表现
+    //金币
     AddCoins = 20,
 }
 
 public enum SpecialRewardsType
 {
+    //非永久去广告
     RemoveAds = 0,
     DoubleCoin = 1,
     UnlimitedHp = 2,
     [Description("DoubleSettlement")]
     UnlimitedDoubleBuff = 3,
-    [Description("UnLimitAddOneHalfBottle")]
-    Unlimited_S_AddOneHalfBottle = 6,
+    [Description("UnLimitAddOneBottle")]
+    Unlimited_S_AddOneBottle = 6,
     [Description("UnLimitRemoveOneBottleHideWater")]
     Unlimited_S_RemoveOneBottleHideWater = 7,
     [Description("UnLimitRemoveOneDebuffBottle")]
@@ -49,8 +50,8 @@ public enum SpecialRewardsType
     // 减少体力恢复时长(分钟)
     ReduceLiveRecoverTime = 9,
 
-    //表示三个进关选择道具(三个时长需相同)
-    //目前只用于做表现(不用于发放奖励)
+    //仅做表现(不用于发放奖励)
+    //三个进关选择道具(三个时长需相同)
     Unlimited_S_ALL = 20,
 }
 

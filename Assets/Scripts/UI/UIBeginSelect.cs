@@ -249,8 +249,8 @@ namespace QFramework.Example
         /// </summary>
         void UpdateItem()
         {
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneHalfBottle)))
-                AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_AddOneHalfBottle);
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneBottle)))
+                AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_AddOneBottle);
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveOneBottleHideWater)))
                 AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_RemoveOneBottleHideWater);
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveOneDebuffBottle)))

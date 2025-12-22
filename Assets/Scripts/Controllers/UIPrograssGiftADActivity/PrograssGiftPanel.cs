@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using QFramework;
 using System;
 using JsonFileData;
@@ -14,18 +14,13 @@ namespace QFramework.Example
 
     public partial class PrograssGiftPanel : ViewController,ICanGetModel
     {
-        [SerializeField] private RewardSpriteMappingSO rewardSprite;
         [SerializeField] public Sprite CoinsImg;
         Sequence flashSequence;
-        private void OnEnable()
-        {
-            rewardSprite.Initialize();
-        }
+
         private void OnDisable()
         {
             flashSequence?.Kill();
         }
-
 
         public void Initialize(Func<bool> Buy, PGReward rewards, bool isGot, bool isLock)
         {
@@ -48,9 +43,9 @@ namespace QFramework.Example
                 }
                 else
                 {
-
-                    if (rewardSprite.GetRewardSprite(rewards[i].itemType) != null)
-                        img.sprite = rewardSprite.GetRewardSprite(rewards[i].itemType);
+                    var sprite = RewardUIManager.Instance.GetRewardSprite(rewards[i].itemType);
+                    if (sprite != null)
+                        img.sprite = sprite;
                     else
                         img.sprite = CoinsImg;
                     SpecialRewardsType _rewardEnum1;

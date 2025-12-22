@@ -7,10 +7,27 @@ using QFramework;
 using GameDefine;
 using JsonFileData;
 using Newtonsoft.Json;
+using System.Reflection;
+using GameGlobalJson;
+
+namespace GameGlobalJson
+{
+    public enum JsonType
+    {
+        None,
+        DailyRewardJson,
+        GameGlobalJson,
+    }
+}
 
 public class GameGlobalModel : AbstractModel
 {
     #region 内部字段、常量
+    private struct JsonDataInfo
+    {
+        public object mJsonData;
+        public string mJsonPath;
+    }
 
     private const string REMAINING_STARS = "A_RemainingStars";
     private const string ITEM_SIGN = "A_GameItem";
@@ -52,6 +69,9 @@ public class GameGlobalModel : AbstractModel
 
     //历史最高段位
     private BindableProperty<int> mHistoryBestRank;
+
+    //Json映射表
+    private Dictionary<JsonType, JsonDataInfo> mJsonDataInfos = new();
 
     // 1.5倍结算金币
     private float mGoldCoinsMultiple => mGoldCoinsMultipleStreakWin.Value > GameConst.TEN_CONTINUE_WIN_NUM ? 1.5f : 1;
@@ -218,7 +238,15 @@ public class GameGlobalModel : AbstractModel
             mJsonFileUtility.LoadFromJson(mGameGlobalCurJson,
                 jsonData => { mGameGlobalData = JsonConvert.DeserializeObject<GameGlobalData>(jsonData); });
         }
+
+        mJsonDataInfos.Add(JsonType.GameGlobalJson ,new JsonDataInfo
+        {
+            mJsonData = mGameGlobalData,
+            mJsonPath = mGameGlobalCurJson
+        });
     }
+
+    #region json
 
     //增加体力上限
     public void AddMaxHp(int value)
@@ -227,7 +255,7 @@ public class GameGlobalModel : AbstractModel
         HealthManager.Instance.RecalculateRecoverEndTime();
         mJsonFileUtility.SaveToJson(mGameGlobalCurJson, GameGlobalJsonData);
     }
-
+        
     //减少体力恢复时长
     public void ReduceHpRecoverTimer(int minutes)
     {
@@ -239,32 +267,72 @@ public class GameGlobalModel : AbstractModel
         mJsonFileUtility.SaveToJson(mGameGlobalCurJson, GameGlobalJsonData);
     }
 
-    //反射写入字段值
-    //示例：SetFieldAndSave<bool>(nameof(GameGlobalJsonData.IsClaim_UnlockScene1Reward), false);
-    public void SetFieldAndSave<T>(string fieldName, T value)
+    /// <summary>
+    /// 写入Json字段值
+    /// </summary>
+    /// <param name="jsontype">Json类型</param>
+    /// <param name="sourceData">字段所在的对象实例(所处数据结构)</param>
+    /// <param name="fieldName">字段名</param>
+    /// <param name="value">值</param>
+    /// 示例：gameGlobalModel.SetFieldAndSave(JsonType.GameGlobalJson, gameGlobalModel.GameGlobalJsonData.GiftPackPurchases,_packSo.ID, true);
+    public void SetFieldAndSave(JsonType jsontype, object sourceData, string fieldName, object value)
     {
-        var type = GameGlobalJsonData.GetType();
+        //获取Json配置信息(跟对象+路径)
+        if (!mJsonDataInfos.TryGetValue(jsontype, out var jsonInfo)) return;
+        if (jsonInfo.mJsonData is null) return;
+
+        var type = sourceData.GetType();
         var field = type.GetField(fieldName);
         var property = type.GetProperty(fieldName);
 
         if (field != null)
-            field.SetValue(GameGlobalJsonData, value);
+            field.SetValue(sourceData, value);
         else if (property != null && property.CanWrite)
-            property.SetValue(GameGlobalJsonData, value);
+            property.SetValue(sourceData, value);
         else return;
 
-        mJsonFileUtility.SaveToJson(mGameGlobalCurJson, GameGlobalJsonData);
+        mJsonFileUtility.SaveToJson(jsonInfo.mJsonPath, jsonInfo.mJsonData);
     }
 
+    /// <summary>
+    /// 获取字段值
+    /// </summary>
+    /// <param name="sourceData">字段所在的对象实例(所处数据结构)</param>
+    /// <param name="fieldName">字段名</param>
+    /// <returns></returns>
+    public object GetFieldValue(object sourceData, string fieldName)
+    {
+        if (sourceData == null) return null;
+
+        var type = sourceData.GetType();
+        var field = type.GetField(fieldName);
+        if (field != null)
+            return field.GetValue(sourceData);
+
+        var property = type.GetProperty(fieldName);
+        if (property != null && property.CanRead)
+            return property.GetValue(sourceData);
+
+        return null;
+    }
+
+    /// <summary>
+    /// 保存全局Json
+    /// </summary>
     public void SaveGameGlobalJson()
     {
         mJsonFileUtility.SaveToJson(mGameGlobalCurJson, GameGlobalJsonData);
     }
 
+    /// <summary>
+    /// 保存每日奖励Json
+    /// </summary>
     public void SaveDailyRewardJson()
     {
         mJsonFileUtility.SaveToJson(mDailyRewardCurJson, mDailyReward);
     }
+
+    #endregion
 
     private void BindableProperty()
     {
@@ -328,7 +396,8 @@ public class GameGlobalModel : AbstractModel
             if (localV < dev)
                 mJsonFileUtility.AutoFixFields(mDailyRewardCurJson, mDailyRewardDelJson);
 
-            mJsonFileUtility.LoadFromJson(mDailyRewardCurJson, jsonData =>{
+            mJsonFileUtility.LoadFromJson(mDailyRewardCurJson, jsonData =>
+            {
                 mDailyReward = JsonConvert.DeserializeObject<DailyReward>(jsonData);
             });
 
@@ -338,6 +407,12 @@ public class GameGlobalModel : AbstractModel
             if (DateTime.UtcNow.Ticks >= mDailyReward.NextResetTicks)
                 ReloadDailyRewardJson();
         }
+
+        mJsonDataInfos.Add(JsonType.DailyRewardJson, new JsonDataInfo
+        {
+            mJsonData = mDailyRewardCurJson,
+            mJsonPath = mDailyRewardCurJson
+        });
     }
 
     private void ReloadDailyRewardJson()

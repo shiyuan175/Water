@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using GameDefine;
 using QFramework;
 using UnityEditor;
@@ -244,19 +244,19 @@ namespace QFramework.Example
                 if (potionActivityPackSO[mCacheProgress].SpecialRewards.Count > 1)
                 {
                     var rewardSprite = RewardUIManager.Instance.GetRewardSprite(SpecialRewardsType.Unlimited_S_ALL);
-                    _node.Init(rewardSprite,Vector2.zero, duration, true);
+                    _node.Init(rewardSprite,Vector2.zero, duration, PropRewardPoolNode.RewardType.SpecialReward);
                 }
                 else
                 {
                     var rewardSprite = RewardUIManager.Instance.GetRewardSprite(potionActivityPackSO[mCacheProgress].SpecialRewards[0].SpecialRewardType);
-                    _node.Init(rewardSprite, Vector2.zero, duration, true);
+                    _node.Init(rewardSprite, Vector2.zero, duration, PropRewardPoolNode.RewardType.SpecialReward);
                 }
             }
             else
             {
                 var duration = potionActivityPackSO[mCacheProgress].Coins;
                 var rewardSprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.AddCoins);
-                _node.Init(rewardSprite, Vector2.zero, duration, false);
+                _node.Init(rewardSprite, Vector2.zero, duration, PropRewardPoolNode.RewardType.NormalReward);
             }
         }
     }

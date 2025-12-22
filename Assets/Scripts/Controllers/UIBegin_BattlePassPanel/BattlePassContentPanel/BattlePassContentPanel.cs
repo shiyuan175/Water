@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using QFramework;
 using UnityEngine.Rendering;
 using TMPro;
@@ -6,7 +6,6 @@ using JsonFileData;
 using UnityEngine.UI;
 using System;
 using DG.Tweening;
-using System.Security.Cryptography;
 
 // 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间
 // 2.命名空间更改后，生成代码之后，需要把逻辑代码文件（非 Designer）的命名空间手动更改
@@ -17,7 +16,6 @@ namespace QFramework.Example
         [SerializeField] public Sprite[] boxImgs;
         [SerializeField] public Sprite[] levelImgs; // 0表示还不能，1表示能
         [SerializeField] public Sprite CoinsImg;
-        [SerializeField] private RewardSpriteMappingSO rewardSprite;
 
         private BattlePassADActivity mBattlePassADActivity;
         private BattlePassModel bPModel;
@@ -27,7 +25,6 @@ namespace QFramework.Example
         {
             // 获取逻辑层，将奖励发放等功能转交给逻辑层处理
             mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();
-            rewardSprite.Initialize();
             bPModel = this.GetModel<BattlePassModel>();
             m2BitTool = this.GetUtility<TwoBitUtility>();
         }
@@ -121,8 +118,9 @@ namespace QFramework.Example
                     }
                     else
                     {
-                        if (rewardSprite.GetRewardSprite(freeData[i].itemType) != null)
-                            itemImg.sprite = rewardSprite.GetRewardSprite(freeData[i].itemType);
+                        var sprite = RewardUIManager.Instance.GetRewardSprite(freeData[i].itemType);
+                        if (sprite != null)
+                            itemImg.sprite = sprite;
                         else
                             itemImg.sprite = CoinsImg;
                         itemNumber.Show();
@@ -205,8 +203,9 @@ namespace QFramework.Example
                     }
                     else
                     {
-                        if (rewardSprite.GetRewardSprite(vipData[i].itemType) != null)
-                            itemImg.sprite = rewardSprite.GetRewardSprite(vipData[i].itemType);
+                        var spirte = RewardUIManager.Instance.GetRewardSprite(vipData[i].itemType);
+                        if (spirte != null)
+                            itemImg.sprite = spirte;
                         else
                             itemImg.sprite = CoinsImg;
                         itemNumber.Show();

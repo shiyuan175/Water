@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -28,7 +28,6 @@ public class RewardSpriteMappingSO : ScriptableObject
 
     public void Initialize()
     {
-
         specialLookup = new();
         foreach (var entry in specialRewardSprites)
             specialLookup[entry.rewardType] = entry.sprite;
@@ -40,7 +39,6 @@ public class RewardSpriteMappingSO : ScriptableObject
   
     public Sprite GetRewardSprite<T>(T rewardType) where T : Enum
     {
-    
         if (typeof(T) == typeof(SpecialRewardsType))
         {
             return specialLookup.TryGetValue((SpecialRewardsType)(object)rewardType, out var sprite) ? sprite : null;
@@ -50,25 +48,6 @@ public class RewardSpriteMappingSO : ScriptableObject
             return normalLookup.TryGetValue((NormalRewardsType)(object)rewardType, out Sprite sprite) ? sprite : null;
         }
 
-        return null;
-    }
-    public Sprite GetRewardSprite(string rewardString)
-    { 
-        ///´ý²¹³ä
-        if (rewardString == "Coins")
-            return null;
-        SpecialRewardsType _rewardEnum1;
-        if (Enum.TryParse(rewardString,out _rewardEnum1))
-        {
-            return GetRewardSprite(_rewardEnum1);
-        }
-
-        NormalRewardsType _rewardEnum2;
-        if (Enum.TryParse(rewardString, out _rewardEnum2))
-        {
-            return GetRewardSprite(_rewardEnum2);
-        }
-        Debug.Log(rewardString);
         return null;
     }
 }

@@ -1,4 +1,4 @@
-using GameDefine;
+﻿using GameDefine;
 using JsonFileData;
 using QFramework;
 using System;
@@ -116,7 +116,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
                     if (_node == null)
                         _node = image.gameObject.AddComponent<PropRewardPoolNode>();
                     _node.Init(mRewardSpriteMappingSO.GetRewardSprite(item.NormalRewardsType),
-                        SetRandomScreenPosition(image, _slotCount), item.Quantity, false);
+                        SetRandomScreenPosition(image, _slotCount), item.Quantity, PropRewardPoolNode.RewardType.NormalReward);
                     actionList.Add(() => _node.MoveOffScreen());
                 }
 
@@ -128,7 +128,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
                         _node = image.gameObject.AddComponent<PropRewardPoolNode>();
 
                     _node.Init(mRewardSpriteMappingSO.GetRewardSprite(item.SpecialRewardType),
-                        SetRandomScreenPosition(image, _slotCount), item.Duration, true);
+                        SetRandomScreenPosition(image, _slotCount), item.Duration, PropRewardPoolNode.RewardType.SpecialReward);
                     actionList.Add(() => _node.MoveOffScreen());
                 }
             }
@@ -197,18 +197,17 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
 
                 SpecialRewardsType _rewardEnum1;
                 if (Enum.TryParse<SpecialRewardsType>(reward.Key, out _rewardEnum1))
-                    _node.Init(mRewardSpriteMappingSO.GetRewardSprite(reward.Key),
-                       SetRandomScreenPosition(image, _slotCount), reward.Value, true);
+                    _node.Init(GetRewardSprite(reward.Key),
+                       SetRandomScreenPosition(image, _slotCount), reward.Value, PropRewardPoolNode.RewardType.SpecialReward);
                 else
-                    _node.Init(mRewardSpriteMappingSO.GetRewardSprite(reward.Key),
-                       SetRandomScreenPosition(image, _slotCount), reward.Value, false);
+                    _node.Init(GetRewardSprite(reward.Key),
+                       SetRandomScreenPosition(image, _slotCount), reward.Value, PropRewardPoolNode.RewardType.NormalReward);
 
                 actionList.Add(() => _node.MoveOffScreen());
 
             }
             // 金币播放
-            int coins;
-            if ((itemDict.TryGetValue("Coins",out coins)))
+            if ((itemDict.TryGetValue("Coins", out int coins)))
             {
                 CoinParticle.Play(100);
                 PopupCoinText((int)coins);
@@ -234,6 +233,20 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         return mRewardSpriteMappingSO.GetRewardSprite<T>(rewardType);
     }
 
+    public Sprite GetRewardSprite(string rewardString)
+    {
+        if (Enum.TryParse(rewardString, out SpecialRewardsType _rewardEnum1))
+        {
+            return GetRewardSprite(_rewardEnum1);
+        }
+
+        if (Enum.TryParse(rewardString, out NormalRewardsType _rewardEnum2))
+        {
+            return GetRewardSprite(_rewardEnum2);
+        }
+
+        return null;
+    }
     #endregion
 
     #region 外部访问对象池方法

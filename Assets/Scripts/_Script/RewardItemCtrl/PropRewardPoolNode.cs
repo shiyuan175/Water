@@ -1,4 +1,4 @@
-using System.Collections;
+锘縰sing System.Collections;
 using QFramework;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +7,14 @@ using TMPro;
 
 public class PropRewardPoolNode : MonoBehaviour
 {
+    public enum RewardType
+    {
+        None,
+        NormalReward,
+        SpecialReward,
+        Ability
+    }
+
     [SerializeField] private Image mRibbonImg;
     private Image propImage;
     private TextMeshProUGUI propNumText;
@@ -24,17 +32,30 @@ public class PropRewardPoolNode : MonoBehaviour
     /// <param name="sprite"></param>
     /// <param name="pos"></param>
     /// <param name="itemNum"></param>
-    public void Init(Sprite sprite, Vector2 pos, int itemNum, bool specialRewards)
+    public void Init(Sprite sprite, Vector2 pos, int itemNum, RewardType rewardType)
     {
-        //先启用调用Awake
+        //鍏堝惎鐢ㄨ皟鐢ˋwake
         this.Show();
         propImage.sprite = sprite;
-        if (specialRewards)
-            mRibbonImg.Show();
-        else
-            mRibbonImg.Hide();
 
-        propNumText.text = specialRewards ? itemNum + "min" : "X" + itemNum;
+        switch (rewardType)
+        {
+            case RewardType.NormalReward:
+                mRibbonImg.Hide();
+                propNumText.text = "X" + itemNum;
+                break;
+
+            case RewardType.SpecialReward:
+                mRibbonImg.Show();
+                propNumText.text = itemNum + "min";
+                break;
+
+            case RewardType.Ability:
+                mRibbonImg.Show();
+                propNumText.text = "Forever";
+                break;
+        }
+
         propImage.rectTransform.anchoredPosition = pos;
     }
 

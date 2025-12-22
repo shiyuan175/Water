@@ -1,5 +1,5 @@
-{
-    "BattlePassVersion": 3,
+﻿{
+    "BattlePassVersion": 4,
     "Rewards": [
         {
             "GetConditions": 0,
@@ -108,7 +108,7 @@
                     "itemQuantity": 1
                 },
                 {
-                    "itemType": "Unlimited_S_AddOneHalfBottle",
+                    "itemType": "Unlimited_S_AddOneBottle",
                     "itemQuantity": 15
                 }
             ],
@@ -153,7 +153,7 @@
             "GetConditions": 8,
             "Free": [
                 {
-                    "itemType": "Unlimited_S_AddOneHalfBottle",
+                    "itemType": "Unlimited_S_AddOneBottle",
                     "itemQuantity": 15
                 },
                 {
@@ -242,7 +242,7 @@
                     "itemQuantity": 15
                 },
                 {
-                    "itemType": "Unlimited_S_AddOneHalfBottle",
+                    "itemType": "Unlimited_S_AddOneBottle",
                     "itemQuantity": 15
                 },
                 {
@@ -368,7 +368,7 @@
                     "itemQuantity": 30
                 },
                 {
-                    "itemType": "Unlimited_S_AddOneHalfBottle",
+                    "itemType": "Unlimited_S_AddOneBottle",
                     "itemQuantity": 30
                 },
                 {
@@ -494,7 +494,7 @@
                     "itemQuantity": 30
                 },
                 {
-                    "itemType": "Unlimited_S_AddOneHalfBottle",
+                    "itemType": "Unlimited_S_AddOneBottle",
                     "itemQuantity": 30
                 },
                 {
@@ -548,7 +548,7 @@
                     "itemQuantity": 30
                 },
                 {
-                    "itemType": "Unlimited_S_AddOneHalfBottle",
+                    "itemType": "Unlimited_S_AddOneBottle",
                     "itemQuantity": 30
                 },
                 {
@@ -653,7 +653,7 @@
                     "itemQuantity": 60
                 },
                 {
-                    "itemType": "Unlimited_S_AddOneHalfBottle",
+                    "itemType": "Unlimited_S_AddOneBottle",
                     "itemQuantity": 60
                 },
                 {

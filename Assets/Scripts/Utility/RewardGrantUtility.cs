@@ -1,4 +1,4 @@
-using GameDefine;
+﻿using GameDefine;
 using JsonFileData;
 using QFramework;
 using System;
@@ -14,7 +14,9 @@ public class RewardGrantUtility : IUtility, ICanGetModel
     {
         mGameGlobalModel ??= this.GetModel<GameGlobalModel>();
         CoinManager.Instance.AddCoin(rewardPackSO.Coins);
-        //永久去广告逻辑待补充 rewardPackSO.RemoveAdsForever
+
+        if (rewardPackSO is AbilityGiftPackSO shopPack)
+            shopPack.GrantPrivilegeAbility(mGameGlobalModel);
 
         foreach (var item in rewardPackSO.ItemReward)
         {
@@ -35,7 +37,7 @@ public class RewardGrantUtility : IUtility, ICanGetModel
             switch (item.SpecialRewardType)
             {
                 case SpecialRewardsType.RemoveAds:
-                    Debug.Log("去除广告逻辑暂空");
+                    //Debug.Log("去除广告逻辑暂空");
                     break;
                 case SpecialRewardsType.DoubleCoin:
                     CountDownTimerManager.Instance.AddTimer(GameDefine.GameConst.DOUBLE_COIN_SIGN, item.Duration);
@@ -67,7 +69,7 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                 switch (_rewardEnum1)
                 {
                     case SpecialRewardsType.RemoveAds:
-                        Debug.Log("去除广告逻辑暂空");
+                        //Debug.Log("去除广告逻辑暂空");
                         break;
                     case SpecialRewardsType.DoubleCoin:
                         CountDownTimerManager.Instance.AddTimer(GameDefine.GameConst.DOUBLE_COIN_SIGN, item.itemQuantity);

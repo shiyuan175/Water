@@ -1,4 +1,4 @@
-using System.Collections;
+锘縰sing System.Collections;
 using System.Collections.Generic;
 using JsonFileData;
 using QFramework;
@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class MSANodeCtrl : MonoBehaviour
 {
-    //1-5名道具奖励，6-20金币奖励
+    //1-5鍚嶉亾鍏峰鍔憋紝6-20閲戝竵濂栧姳
     private const int REWARD_RANKING = 5;
     private const int COIN_REWARD_RANKING = 20;
 
@@ -153,7 +153,7 @@ public class MSANodeCtrl : MonoBehaviour
                 _node = _img.gameObject.AddComponent<PropRewardPoolNode>();
 
             Sprite _rewardSprite = RewardUIManager.Instance.GetRewardSprite(rankingPackSO.SpecialRewards[_idx].SpecialRewardType);
-            _node.Init(_rewardSprite, Vector2.zero, rankingPackSO.SpecialRewards[_idx].Duration, true);
+            _node.Init(_rewardSprite, Vector2.zero, rankingPackSO.SpecialRewards[_idx].Duration, PropRewardPoolNode.RewardType.SpecialReward);
         }
 
         for (int i = 0; i < rankingPackSO.ItemReward.Count; i++)
@@ -168,7 +168,7 @@ public class MSANodeCtrl : MonoBehaviour
                 _node = _img.gameObject.AddComponent<PropRewardPoolNode>();
 
             Sprite _rewardSprite = RewardUIManager.Instance.GetRewardSprite(rankingPackSO.ItemReward[_idx].NormalRewardsType);
-            _node.Init(_rewardSprite, Vector2.zero, rankingPackSO.ItemReward[_idx].Quantity, false);
+            _node.Init(_rewardSprite, Vector2.zero, rankingPackSO.ItemReward[_idx].Quantity, PropRewardPoolNode.RewardType.NormalReward);
         }
     }
 }

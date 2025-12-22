@@ -1,7 +1,23 @@
-{
-  "Version": 1,
-  "IsClaim_UnlockScene1Reward" : false,
-  "IsClaim_UnlockScene3Reward" : false,
-  "MaxHp" : 5,
-  "HpRecoverTimer" : 20
+﻿{
+    "Version": 2,
+    "IsClaim_UnlockScene1Reward": false,
+    "IsClaim_UnlockScene3Reward": false,
+    "ForeverRemoveAds": false,
+    "ForeverDoubleBuff": false,
+    "ForeverDailyReward_ByGiftPack3": false,
+    "ForeverAddHalfBottle": false,
+    "ForeverRemoveHide": false,
+    "ForeverDoubleCoinBuff": false,
+
+    "MaxHp": 5,
+    "HpRecoverTimer": 20,
+
+    "GiftPackPurchases": {
+        "gift_1": false,
+        "gift_2": false,
+        "gift_3": false,
+        "gift_4": false,
+        "gift_5": false,
+        "gift_6": false
+    }
 }

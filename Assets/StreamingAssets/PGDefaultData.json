@@ -1,4 +1,4 @@
-{
+﻿{
     "BPVersion": 3,
     "Rewards": [
         {
@@ -375,7 +375,7 @@
                     "itemQuantity": 60
                 },
                 {
-                    "itemType": "Unlimited_S_AddOneHalfBottle",
+                    "itemType": "Unlimited_S_AddOneBottle",
                     "itemQuantity": 60
                 },
                 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using JsonFileData;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -37,10 +36,10 @@ namespace JsonFileData
     {
         public int Version;
         public long NextResetTicks;
-        //剧情解锁-每日宝箱
-        public bool IsClaim_PlotReward;
         //第二套剧情奖励
         public bool IsClaim_UnlockScene2Reward;
+        //特权礼包3每日奖励
+        public bool DailyReward_ByGiftPack3;
     }
 
     public class GameGlobalData
@@ -50,11 +49,31 @@ namespace JsonFileData
         //场景解锁1、3的增益领取记录(只领一次)
         public bool IsClaim_UnlockScene1Reward;
         public bool IsClaim_UnlockScene3Reward;
+        //永久去广/双倍奖励/双倍金币/永久进关去黑/永久进关加一格瓶/永久双倍金币
+        public bool ForeverRemoveAds;
+        public bool ForeverDoubleBuff;
+        public bool ForeverRemoveHide;
+        public bool ForeverAddHalfBottle;
+        public bool ForeverDoubleCoinBuff;
+        //永久每日可领礼包(购买礼包3)
+        public bool ForeverDailyReward_ByGiftPack3;
 
         //体力上限
         public int MaxHp;
         public int HpRecoverTimer;
 
+        public PurchasedGiftPacks GiftPackPurchases;
+    }
+
+    //特权礼包购买情况记录
+    public class PurchasedGiftPacks
+    {
+        public bool gift_1;
+        public bool gift_2;
+        public bool gift_3;
+        public bool gift_4;
+        public bool gift_5;
+        public bool gift_6;
     }
 
     #endregion
@@ -83,35 +102,6 @@ namespace JsonFileData
         public int MaxInitScore;
         public int LimitScore;
         public int Score;
-    }
-
-    #endregion
-
-    #region DailyTask AD Activity Data
-
-    public class DTRewardItem
-    { }
-    public class TaskItem
-    {
-        public string TypeName;
-        public List<DTRewardItem> Rewards;
-    }
-
-    public class TaskGroup
-    {
-        public int TaskId;
-        public List<TaskItem> TaskItems;
-    }
-
-    public class DailyTaskActivityData
-    {
-        List<TaskGroup> DailyTaskData;
-    }
-
-    public class RewardItem
-    {
-        public string itemType;
-        public int itemQuantity;
     }
 
     #endregion
@@ -149,6 +139,7 @@ namespace JsonFileData
         public int BattlePassVersion;
         public BPReward[] Rewards;
     }
+
     public class BPReward
     {
         public int GetConditions;
@@ -158,6 +149,11 @@ namespace JsonFileData
         public bool VipIsBox;
     }
 
+    public class RewardItem
+    {
+        public string itemType;
+        public int itemQuantity;
+    }
     #endregion
 
     #region PrograssGiftADActivityModel
@@ -225,8 +221,8 @@ public class JsonFileUtility : IUtility
         {
             string json = File.ReadAllText(filePath);
             var versionData = JsonConvert.DeserializeObject<VersionWrapper>(json);
-                return versionData.Version;
-            }
+            return versionData.Version;
+        }
         catch
         {
             return -1;

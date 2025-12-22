@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using QFramework;
 using UnityEngine.UI;
 using QFramework.Example;
@@ -10,7 +10,6 @@ namespace SceneUnlock
         [SerializeField] private UnlockPreviewNode[] mUnlockPreviewNode;
         [SerializeField] private Button mPlot2Guide;
         [SerializeField] private Button mCloseBtn;
-        [SerializeField] private Button mDailyBoxBtn;
         [SerializeField] private GiftPackSO mDailyPackSo;
 
         private SceneUnlockModel mSceneUnlockModel;
@@ -40,23 +39,12 @@ namespace SceneUnlock
             {
                 item.CheckUnlockFinish();
             }
-
-            mDailyBoxBtn.gameObject.SetActive(!mGameGlobalModel.DailyRewardJsonData.IsClaim_PlotReward);
         }
 
         private void Start()
         {
             mCloseBtn.onClick.AddListener(() => {
                 UIKit.GetPanel<UIBegin>().MenuBtnEvent(2);
-            });
-
-            mDailyBoxBtn.onClick.AddListener(() =>
-            {
-                mRewardGrantUtility.GrantReward(mDailyPackSo);
-                mDailyBoxBtn.Hide();
-                RewardUIManager.Instance.PlayRewardAnim(mDailyPackSo.Coins,true, null, mDailyPackSo);
-                //mGameGlobalModel.DailyRewardJsonData.IsClaim_PlotReward = true;
-                //mGameGlobalModel.SaveDailyRewardJson();
             });
 
             //仅在首套场景注册该事件
