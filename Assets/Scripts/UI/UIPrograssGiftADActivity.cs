@@ -40,10 +40,10 @@ namespace QFramework.Example
         protected override void OnOpen(IUIData uiData = null)
         {
             if (giftPanels.Count == 0)
-                Debug.LogError("Ã»ÓĞÉèÖÃ6¸öÎïÌåµÄtransfrme");
+                Debug.LogError("æ²¡æœ‰æ‰¾åˆ°6ä¸ªç¤¼åŒ…çš„transfrme");
             mPGADActivity = GameActivityManager.Instance.GetActivity<PrograssGiftADActivity>();
             googlePay = GooglePayManager.Instance;
-            // ³õÊ¼»¯¹ºÂò³É¹¦»Øµ÷
+            // åˆå§‹åŒ–è´­ä¹°æˆåŠŸå›è°ƒ
             giftPackBuySuccessActions = new Dictionary<string, Action>();
             foreach (var i in GiftIDs)
                 giftPackBuySuccessActions[i] = () => OnPaySuccess();
@@ -55,7 +55,7 @@ namespace QFramework.Example
         {
 
             InitUI();
-            // ×¢²á¹ºÂò³É¹¦ÊÂ¼ş
+            // æ³¨å†Œè´­ä¹°æˆåŠŸäº‹ä»¶
             foreach (var kvp in giftPackBuySuccessActions)
             {
                 StringEventSystem.Global.Register(kvp.Key, kvp.Value).UnRegisterWhenGameObjectDestroyed(gameObject);
@@ -75,12 +75,13 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ³õÊ¼»¯Ãæ°åÄÚÈİ
+        /// åˆå§‹åŒ–ç•Œé¢UI
         /// </summary>
         protected void InitUI()
         {
-            #region ¶¥²¿UI
-            // ¼ÆÊ±Æ÷
+            #region é¡¶éƒ¨UI
+
+            // å€’è®¡æ—¶
             mCountDownTween = DOTween.To(() => 0, x =>
             {
                 if (mPGADActivity.ActivityStatus == GameActivityStatus.Active)
@@ -92,7 +93,7 @@ namespace QFramework.Example
           .SetUpdate(true);
             #endregion
 
-            #region µ×²¿UI	
+            #region åº•éƒ¨UI	
 
             for (int i = 0; i < giftPanels.Count; i++)
             {
@@ -131,19 +132,17 @@ namespace QFramework.Example
             });
         }
         /// <summary>
-        /// ¶¯»­¸üĞÂÄÚÈİ
+        /// æ’­æ”¾ç•Œé¢åŠ¨ç”»
         /// </summary>
         private void UIPlayAnimation()
         {
-
-            // ½±ÀøÒÑ¾­±»ÁìÈ¡
+            // ä¸Šä¸€ä¸ªå·²ç»é¢†å–
             buttomImageFillSequence = DOTween.Sequence();
             int lodLevel = mPGModel.TempLevel - 1;
-            // ÅĞ¶ÏÊÇ·ñĞèÒª¶¯»­ Ö´ĞĞ¶¯»­Ç°ÒªÏÈ´æ·ÅÎ»ÖÃ
-            if (mPGModel.mPGData.Rewards.Length - lodLevel >= giftPanels.Count)
+            // åˆ¤æ–­æ˜¯å¦éœ€è¦åŠ¨ç”» æ‰§è¡ŒåŠ¨ç”»å‰è¦å…ˆåˆ¤æ–­ä½ç½®
+            if (mPGModel.mPGData.Rewards.Length - mPGModel.RewardLevel >= giftPanels.Count)
             {
-                // ´æ·ÅµÚÒ»¸öÎ»ÖÃ
-
+                // ç§»åŠ¨åˆ°ç¬¬ä¸€ä¸ªä½ç½®
                 buttomImageFillSequence.Append(DisappearGiftPanel(giftPanels[(lodLevel) % 6]));
                 for (int i = 1; i <= 5 && mPGModel.mPGData.Rewards.Length - lodLevel - i >= giftPanels.Count; i++)
                 {
@@ -156,21 +155,23 @@ namespace QFramework.Example
                     else
                         buttomImageFillSequence.Append(ChangeGiftPanelPostion(changerTransform, panelPosions[i - 1]));
                 }
-
                 buttomImageFillSequence.Append(AppearGiftPanel(giftPanels[(lodLevel) % 6], panelPosions[panelPosions.Count - 1]));
             }
             else
             {
-
+                Debug.Log(mPGModel.RewardLevel % 6);
+                Transform needChangerTransform = giftPanels[(mPGModel.RewardLevel) % 6];
+                buttomImageFillSequence.Append(needChangerTransform.GetComponent<PrograssGiftPanel>().UnLock());
             }
             buttomImageFillSequence.Play();
-            /* // ½øÈëÏÂÒ»¸ö½±Àø
+            /* // å¢åŠ ä¸‹ä¸€ä¸ªç­‰çº§
              mPGModel.AddRewardLevel();*/
         }
-        #region ¶¯»­
+
+        #region åŠ¨ç”»
         private Tween DisappearGiftPanel(Transform disapperPanel)
         {
-            // ¶¯»­Ê±³¤
+            // åŠ¨ç”»æ—¶é—´
             float durationTime = 0.5f;
 
             return disapperPanel.DOScale(Vector3.zero, durationTime)
@@ -178,17 +179,17 @@ namespace QFramework.Example
                 {
                     RectTransform rectTransform = disapperPanel.GetComponent<RectTransform>();
 
-                    // ±£´æµ±Ç°Î»ÖÃºÍ³ß´ç
+                    // ä¿å­˜å½“å‰ä½ç½®å’Œå°ºå¯¸
                     Vector3 savedWorldPosition = rectTransform.position;
                     Vector2 savedSize = rectTransform.rect.size;
                     Vector2 originalPivot = rectTransform.pivot;
 
-                    // ĞŞ¸ÄÃªµãºÍÖáĞÄµã
+                    // ä¿®æ”¹é”šç‚¹åˆ°ä¸­å¿ƒ
                     rectTransform.anchorMin = new Vector2(0, 0.5f);
                     rectTransform.anchorMax = new Vector2(0, 0.5f);
                     rectTransform.pivot = new Vector2(0, 0.5f);
 
-                    // ¼ÆËãÖáĞÄµã±ä»¯µ¼ÖÂµÄÆ«ÒÆ²¢²¹³¥
+                    // è®¡ç®—è½´å¿ƒç‚¹å˜åŒ–å¯¼è‡´çš„åç§»è¡¥å¿
                     Vector2 pivotDelta = new Vector2(0, 0.5f) - originalPivot;
                     Vector2 positionCompensation = new Vector2(pivotDelta.x * savedSize.x, pivotDelta.y * savedSize.y);
 
@@ -201,7 +202,7 @@ namespace QFramework.Example
 
         private Tween AppearGiftPanel(Transform AppearPanel, Transform targerPanel)
         {
-            // ¶¯»­Ê±³¤
+            // åŠ¨ç”»æ—¶é—´
             float durationTime = 0.35f;
 
             AppearPanel.gameObject.SetActive(true);
@@ -209,22 +210,24 @@ namespace QFramework.Example
                 .SetDelay(0.1f)
                 .OnStart(() =>
                 {
-                    #region ÉèÖÃÎ»ÖÃ
-                    AppearPanel.GetComponent<PrograssGiftPanel>().Initialize(BuyItem, mPGModel.mPGData.Rewards[mPGModel.RewardLevel + 6], false, true);
+                    #region è®¾ç½®ä½ç½®
+
+                    AppearPanel.GetComponent<PrograssGiftPanel>().Initialize(BuyItem,
+                        mPGModel.mPGData.Rewards[mPGModel.RewardLevel + 5], false, true);
                     AppearPanel.localScale = Vector3.one;
-                    // ÒÆ¶¯Î»ÖÃ
+                    // ç§»åŠ¨ä½ç½®
                     RectTransform changeRect = AppearPanel.GetComponent<RectTransform>();
                     RectTransform targerRect = targerPanel.GetComponent<RectTransform>();
                     Vector3 savedWorldPosition = changeRect.position;
                     Vector2 savedSize = changeRect.rect.size;
                     Vector2 originalPivot = changeRect.pivot;
 
-                    // ĞŞ¸ÄÖáĞÄºÍÃªµã
+                    // ä¿®æ”¹è½´å¿ƒå’Œé”šç‚¹
                     changeRect.anchorMax = targerRect.anchorMax;
                     changeRect.anchorMin = targerRect.anchorMin;
                     changeRect.pivot = targerRect.pivot;
 
-                    // ¼ÆËãÖáĞÄµã±ä»¯µ¼ÖÂµÄÆ«ÒÆ²¢²¹³¥
+                    // è®¡ç®—è½´å¿ƒç‚¹å˜åŒ–å¯¼è‡´çš„åç§»è¡¥å¿
                     Vector2 pivotDelta = targerRect.pivot - originalPivot;
                     Vector2 positionCompensation = new Vector2(pivotDelta.x * savedSize.x, pivotDelta.y * savedSize.y);
 
@@ -236,20 +239,21 @@ namespace QFramework.Example
                     AppearPanel.localScale = Vector3.one;
 
                     #endregion
-                    // ÉèÖÃÃªµã
+
+                    // è®¾ç½®é”šç‚¹
                     RectTransform rectTransform = AppearPanel.GetComponent<RectTransform>();
 
-                    // ±£´æµ±Ç°Î»ÖÃºÍ³ß´ç
+                    // ä¿å­˜å½“å‰ä½ç½®å’Œå°ºå¯¸
                     savedWorldPosition = rectTransform.position;
                     savedSize = rectTransform.rect.size;
                     originalPivot = rectTransform.pivot;
 
-                    // ĞŞ¸ÄÃªµãºÍÖáĞÄµã
+                    // ä¿®æ”¹é”šç‚¹åˆ°å³ä¾§ä¸­å¿ƒ
                     rectTransform.anchorMin = new Vector2(1, 0.5f);
                     rectTransform.anchorMax = new Vector2(1, 0.5f);
                     rectTransform.pivot = new Vector2(1, 0.5f);
 
-                    // ¼ÆËãÖáĞÄµã±ä»¯µ¼ÖÂµÄÆ«ÒÆ²¢²¹³¥
+                    // è®¡ç®—è½´å¿ƒç‚¹å˜åŒ–å¯¼è‡´çš„åç§»è¡¥å¿
                     pivotDelta = new Vector2(1, 0.5f) - originalPivot;
                     positionCompensation = new Vector2(pivotDelta.x * savedSize.x, pivotDelta.y * savedSize.y);
 
@@ -262,20 +266,20 @@ namespace QFramework.Example
         }
         private Tween ChangeGiftPanelPostion(Transform changePanel, Transform targerPanel)
         {
-            float durationTime = 0.4f;
-            // ±£´æµ±Ç°Î»ÖÃºÍ³ß´ç
+            float durationTime = 0.6f;
+            // ä¿å­˜å½“å‰ä½ç½®å’Œå°ºå¯¸
             RectTransform changeRect = changePanel.GetComponent<RectTransform>();
             RectTransform targerRect = targerPanel.GetComponent<RectTransform>();
             Vector3 savedWorldPosition = changeRect.position;
             Vector2 savedSize = changeRect.rect.size;
             Vector2 originalPivot = changeRect.pivot;
 
-            // ĞŞ¸ÄÖáĞÄºÍÃªµã
+            // ä¿®æ”¹è½´å¿ƒå’Œé”šç‚¹
             changeRect.anchorMax = targerRect.anchorMax;
             changeRect.anchorMin = targerRect.anchorMin;
             changeRect.pivot = targerRect.pivot;
 
-            // ¼ÆËãÖáĞÄµã±ä»¯µ¼ÖÂµÄÆ«ÒÆ²¢²¹³¥
+            // è®¡ç®—è½´å¿ƒç‚¹å˜åŒ–å¯¼è‡´çš„åç§»è¡¥å¿
             Vector2 pivotDelta = targerRect.pivot - originalPivot;
             Vector2 positionCompensation = new Vector2(pivotDelta.x * savedSize.x, pivotDelta.y * savedSize.y);
 
@@ -288,20 +292,15 @@ namespace QFramework.Example
         #endregion
         private void ReFreshUI()
         {
-            // ²¥·Å¶¯»­
-
+            // æ’­æ”¾åŠ¨ç”»
             UIPlayAnimation();
-
         }
         private void OnPaySuccess()
         {
             isBuy = true;
             mPGModel.AddGiftLevel();
             UIKit.OpenPanel<UIBuyPackSuccess>();
-            ActionKit.Delay(1, () =>
-            {
-                UIKit.ClosePanel<UIShop>();//ÑÓ³Ù1sµÈ´ıĞ­³Ì½áÊø¹Ø±Õ
-            }).Start(this);
+
         }
         public IArchitecture GetArchitecture()
         {
@@ -309,15 +308,14 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        ///  ´«Èë×Óº¢×Ó×÷Îª°´Å¥Ê±¼äÒ»²¿·Ö
+        ///  è´­ä¹°é¡¹åŒæ—¶ä½œä¸ºæŒ‰é’®ç‚¹å‡»çš„ç»Ÿä¸€å…¥å£
         /// </summary>
         /// <returns></returns>
         public bool BuyItem()
         {
-
             if (CheckBuy() == true)
             {
-                // ½øÈëÏÂÒ»¸ö½±Àø
+                // å¢åŠ ä¸‹ä¸€ä¸ªç­‰çº§
                 mPGModel.AddRewardLevel();
                 /*   ReFreshUI();*/
                 mPGADActivity.DistributeReward(ReFreshUI, mPGModel.mPGData.Rewards[mPGModel.RewardLevel - 1].RewardItem);
@@ -329,8 +327,7 @@ namespace QFramework.Example
         }
         public bool CheckBuy()
         {
-            ;
-            // Ãâ·Ñ»ñÈ¡
+            // å…è´¹è·å–
             if (mPGModel.mPGData.Rewards[mPGModel.RewardLevel].Price == 0)
             {
                 return true;
@@ -338,23 +335,12 @@ namespace QFramework.Example
             else
             {
 #if UNITY_EDITOR
-                Debug.Log("¹ºÂò³É¹¦»Øµ÷");
-
+                Debug.Log("è°ƒç”¨è´­ä¹°æˆåŠŸå›è°ƒ");
+                Debug.Log(mPGModel.GiftLevel);
 #endif
-
                 googlePay.BuyProduct(GiftIDs[mPGModel.GiftLevel]);
                 return isBuy;
             }
-
-
-        }
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.L))
-                isBuy = true;
         }
     }
-
-
-
 }

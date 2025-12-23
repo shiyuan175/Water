@@ -818,7 +818,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     /// <returns></returns>
     public bool CheckMoveIn(int color)
     {
-        if (topIdx < 0 && limitColor == 0 && !isClearHide && curtainHight == 0)
+        if (topIdx < 0 && limitColor == 0 && !isClearHide && curtainHight == 0 && !isNearHide)
             return true;
 
         var top = GetMoveOutTop();

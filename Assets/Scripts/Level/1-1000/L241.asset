@@ -143,7 +143,7 @@ MonoBehaviour:
     hideTypes: 
     waterItem: 
     bombCounts: 
-    numCake: 1
+    numCake: 4
     limitColor: 0
     isClearHide: 0
     lockType: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
     isBlackBottle: 0
     CurtainHight: 0
     isNearHide: 0
-    isFreeze: 0
+    isFreeze: 1
     isFinish: 0
   gameType: 0
   clearList: 0400000007000000060000000800000001000000030000000c000000

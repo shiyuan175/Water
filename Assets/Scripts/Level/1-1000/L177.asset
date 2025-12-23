@@ -171,9 +171,9 @@ MonoBehaviour:
   clearList: 08000000a20f00000b0000000a0000000100000006000000030000000400000007000000
   hideList: 
   hideTypes: 
-  globalMechanism: 3
-  GlobalMechanismBeginSetp: 5
-  GlobalMechanismContinueSetps: 10
+  globalMechanism: 1
+  GlobalMechanismBeginSetp: 0
+  GlobalMechanismContinueSetps: 0
   countDownNum: 0
   timeCountDown: 0
   topNum: 6
