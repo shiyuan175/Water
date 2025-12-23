@@ -79,6 +79,11 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
             if (pack == null) continue;
             _packSO.Add(pack);
             _slotCount += pack.ItemReward.Count + pack.SpecialRewards.Count;
+
+            if (pack is AbilityGiftPackSO abilitySO)
+            {
+                _slotCount += abilitySO.Ability.Length;
+            }
         }
 
         openBoxCallBack = call;
@@ -109,6 +114,24 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
 
             foreach (var pack in _packSO)
             {
+                if(pack is AbilityGiftPackSO abilitySO)
+                {
+                    foreach (var ability in abilitySO.Ability)
+                    {
+                        var sprite = GetRewardSprite(ability);
+                        if (sprite == null) continue;
+
+                        var image = RewardPool.Allocate();
+                        image.TryGetComponent(out PropRewardPoolNode _node);
+                        if (_node == null)
+                            _node = image.gameObject.AddComponent<PropRewardPoolNode>();
+
+                        _node.Init(sprite, SetRandomScreenPosition(image, _slotCount),
+                            -1, PropRewardPoolNode.RewardType.Ability);
+                        actionList.Add(() => _node.MoveOffScreen());
+                    }
+                }
+
                 foreach (var item in pack.ItemReward)
                 {
                     var image = RewardPool.Allocate();
@@ -233,6 +256,13 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
         return mRewardSpriteMappingSO.GetRewardSprite<T>(rewardType);
     }
 
+    public Sprite GetRewardSprite(AbilityGiftPackSO.PrivilegeAbility privilegeAbility)
+    {
+        var rewardString = GameEnum.GetDescription(privilegeAbility);
+
+        return GetRewardSprite(rewardString);
+    }
+
     public Sprite GetRewardSprite(string rewardString)
     {
         if (Enum.TryParse(rewardString, out SpecialRewardsType _rewardEnum1))
@@ -247,6 +277,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
 
         return null;
     }
+
     #endregion
 
     #region 外部访问对象池方法

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using UnityEngine.Purchasing;
@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System;
 using DG.Tweening;
 using TMPro;
+using GameDefine;
 
 namespace QFramework.Example
 {
@@ -16,12 +17,14 @@ namespace QFramework.Example
 	public partial class UIDoubleGiftADActivity : UIPanel,ICanGetUtility,ICanGetModel
 	{
         [SerializeField] TextMeshProUGUI[] redText;
+        [SerializeField] GiftPackSO mDGPackSO;
+        [SerializeField] GiftPackSO mDGPackSO_Free;
+
         private GooglePayManager googlePay;
-        private Tween mCountDownTween;
-        private Dictionary<string, Action> giftPackBuySuccessActions;
         private RewardGrantUtility rewardGrantUtility;
         private DuobleGiftAdActivity mDoubleGiftADActivity;
         private DoubleGiftADActivityModel mDPModel;
+
         protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UIDoubleGiftADActivityData ?? new UIDoubleGiftADActivityData();
@@ -34,42 +37,25 @@ namespace QFramework.Example
             {
                 txt.font = LevelManager.Instance.redFont;
             }
+
             mDPModel = this.GetModel<DoubleGiftADActivityModel>();
             rewardGrantUtility = this.GetUtility<RewardGrantUtility>();
             googlePay = GooglePayManager.Instance;
-            // ³õÊ¼»¯¹ºÂò³É¹¦»Øµ÷
-            giftPackBuySuccessActions = new Dictionary<string, Action>();
-            var _packSo = BtnBuy.GetComponent<GiftPack>().giftPack;
-            giftPackBuySuccessActions[_packSo.ID] = () => OnPaySuccess(_packSo);
-
             mDoubleGiftADActivity = GameActivityManager.Instance.GetActivity<DuobleGiftAdActivity>();
-            
+
+            // åˆå§‹åŒ–è´­ä¹°æˆåŠŸå›žè°ƒ
+            StringEventSystem.Global.Register(mDGPackSO.ID, OnPaySuccess).UnRegisterWhenGameObjectDestroyed(this);
+           
             SetBtnClick();
-
-         /*   mCountDownTween = DOTween.To(() => 0, x =>
-            {
-                if (mDoubleGiftADActivity.ActivityStatus == GameActivityStatus.Active)
-                    Time_Red.text = mDoubleGiftADActivity.GetActivityReamingTime();
-                else
-                    Time_Red.text = "Finished";
-            }, 1, 1f)
-          .SetLoops(-1, LoopType.Restart)
-          .SetUpdate(isIndependentUpdate: true);*/
-
         }
 		
 		protected override void OnShow()
 		{		
-            // ×¢²á¹ºÂò³É¹¦ÊÂ¼þ
-            foreach (var kvp in giftPackBuySuccessActions)
-            {
-                StringEventSystem.Global.Register(kvp.Key, kvp.Value).UnRegisterWhenGameObjectDestroyed(gameObject);
-            }
-
             if (mDPModel.IsBuy)
                 BtnBuy.interactable = false;
             else
                 BtnBuy.interactable = true;
+
             if(!mDPModel.GiftIsGot&&mDPModel.IsBuy)
                 BtnFree.interactable = true;
             else
@@ -78,53 +64,49 @@ namespace QFramework.Example
 		
 		protected override void OnHide()
 		{
-            // Ð¶ÔØ¹ºÂò³É¹¦ÊÂ¼þ(±ÜÃâ´ÓUIKit´ò¿ªÉÌµê¹ºÂòµ¼ÖÂÖØ¸´·¢·Å½±Àø)
-            foreach (var kvp in giftPackBuySuccessActions)
-            {
-                StringEventSystem.Global.UnRegister(kvp.Key, kvp.Value);
-            }
         }
-		
-		protected override void OnClose()
-		{
-            if (mData.IsManagedOpen ?? false)
-                StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);
-        }
-		private void SetBtnClick()
+
+        protected override void OnClose()
 		{
             BtnClose.onClick.RemoveAllListeners();
+            BtnBuy.onClick.RemoveAllListeners();
+            BtnFree.onClick.RemoveAllListeners();
+
+            if (mData.IsManagedOpen ?? false)
+                StringEventSystem.Global.Send(GameDefine.GameConst.MANAGER_OPEN_NEXT_PANEL);
+        
+            StringEventSystem.Global.Send(GameConst.GIFT_PACK_ENTRY_STATE_CHANGED);
+        }
+
+        private void SetBtnClick()
+		{
             BtnClose.onClick.AddListener(() =>
             {
                 CloseSelf();
             });
-            BtnBuy.onClick.RemoveAllListeners();
+
             BtnBuy.onClick.AddListener(() =>
             {
-                var _packSo = BtnBuy.GetComponent<GiftPack>().giftPack;
-                googlePay.BuyProduct(_packSo.ID);
+                googlePay.BuyProduct(mDGPackSO.ID);
             });
-            BtnFree.onClick.RemoveAllListeners();
+
             BtnFree.onClick.AddListener(() =>
             {
                 mDoubleGiftADActivity.GotFreeGift();
-                var _packSo = BtnBuy.GetComponent<GiftPack>().giftPack;
-                rewardGrantUtility.GrantReward(_packSo);
-                RewardUIManager.Instance.PlayRewardAnim(_packSo.Coins, true, null, _packSo);
+                rewardGrantUtility.GrantReward(mDGPackSO_Free);
+                RewardUIManager.Instance.PlayRewardAnim(mDGPackSO_Free.Coins, true, null, mDGPackSO_Free);
                 BtnFree.interactable = false;
             });
         }
-        private void OnPaySuccess(GiftPackSO _packSo)
+
+        private void OnPaySuccess()
         {
-            rewardGrantUtility.GrantReward(_packSo);
+            rewardGrantUtility.GrantReward(mDGPackSO);
             BtnFree.interactable = true;
             BtnBuy.interactable = false;
-            RewardUIManager.Instance.PlayRewardAnim(_packSo.Coins, true, null, _packSo);
+            RewardUIManager.Instance.PlayRewardAnim(mDGPackSO.Coins, true, null, mDGPackSO);
             mDoubleGiftADActivity.BuyGift();
             UIKit.OpenPanel<UIBuyPackSuccess>();
-            ActionKit.Delay(1, () =>
-            {
-                UIKit.ClosePanel<UIShop>();//ÑÓ³Ù1sµÈ´ýÐ­³Ì½áÊø¹Ø±Õ
-            }).Start(this);
         }
 
         public IArchitecture GetArchitecture()

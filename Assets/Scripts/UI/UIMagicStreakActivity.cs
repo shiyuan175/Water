@@ -154,7 +154,7 @@ namespace QFramework.Example
                 return;
 
             //插入双倍动画
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.UnlimitedDoubleBuff)))
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleBuff)))
             {
                 mSequence = DOTween.Sequence();
                 mDoubleBuffPanel.Show();

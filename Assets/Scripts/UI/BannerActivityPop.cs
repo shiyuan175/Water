@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using GameDefine;
 using QFramework;
 using UnityEngine;
@@ -34,7 +34,7 @@ namespace QFramework.Example
             mSequence.Append(ImgCup.transform.DOScale(1.5f, 0.3f));
 
             //˫����ȡ��Ч
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.UnlimitedDoubleBuff)))
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleBuff)))
             {
                 mSequence.AppendCallback(() =>
                 {

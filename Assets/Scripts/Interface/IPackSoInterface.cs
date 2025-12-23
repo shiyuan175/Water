@@ -20,7 +20,7 @@ public enum NormalRewardsType
     AddOneBottle = 3,
     AddHalfBottle = 4,
     RemoveAll = 5,
-    S_AddOneHalfBottle = 6,
+    S_AddOneBottle = 6,
     S_RemoveOneBottleHideWater = 7,
     S_RemoveOneDebuffBottle = 8,
 
@@ -32,14 +32,21 @@ public enum NormalRewardsType
     AddCoins = 20,
 }
 
+/// <summary>
+/// 特殊奖励是用于做与时长相关的奖励
+/// 特性是用于反射获取,读写该状态的计时器
+/// 
+/// 后面需要把无限体力和双倍金币也用特性
+/// </summary>
 public enum SpecialRewardsType
 {
     //非永久去广告
     RemoveAds = 0,
+    [Description("DoubleCoin")]
     DoubleCoin = 1,
     UnlimitedHp = 2,
     [Description("DoubleSettlement")]
-    UnlimitedDoubleBuff = 3,
+    DoubleBuff = 3,
     [Description("UnLimitAddOneBottle")]
     Unlimited_S_AddOneBottle = 6,
     [Description("UnLimitRemoveOneBottleHideWater")]
@@ -53,6 +60,7 @@ public enum SpecialRewardsType
     //仅做表现(不用于发放奖励)
     //三个进关选择道具(三个时长需相同)
     Unlimited_S_ALL = 20,
+    ForeverDailyReward_ByGiftPack3 = 21,
 }
 
 [System.Serializable]

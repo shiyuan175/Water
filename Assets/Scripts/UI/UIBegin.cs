@@ -56,14 +56,9 @@ namespace QFramework.Example
         private HighTowerActivity mHighTowerActivity;
         private MagicStreakActivity mMagicStreakActivity;
         private TierRankActivity mTierRankActivity;
-        private TurnTableADActivity mTurnTableADActivity;
-        private SepecialOfferADActivity mSepecialOfferADActivity;
         private PrograssGiftADActivity mPrograssGiftADActivity;
-        private DuobleGiftAdActivity mDoubleGiftADAcitvity;
         private BannerActivity mBannerActivity;
         private GameObject mCurBannerActivity;
-
-
 
         public IArchitecture GetArchitecture()
         {
@@ -88,10 +83,7 @@ namespace QFramework.Example
             mHighTowerActivity = GameActivityManager.Instance.GetActivity<HighTowerActivity>();
             mMagicStreakActivity = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
             mTierRankActivity = GameActivityManager.Instance.GetActivity<TierRankActivity>();
-            /*  mTurnTableADActivity = GameActivityManager.Instance.GetActivity<TurnTableADActivity>();*/
-            mSepecialOfferADActivity = GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>();
             mPrograssGiftADActivity = GameActivityManager.Instance.GetActivity<PrograssGiftADActivity>();
-            mDoubleGiftADAcitvity = GameActivityManager.Instance.GetActivity<DuobleGiftAdActivity>();
 
             LevelManager.Instance.InitBottle();
 
@@ -376,6 +368,8 @@ namespace QFramework.Example
                 mMenuBtn.Last().onClick.Invoke();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            StringEventSystem.Global.Register(GameConst.GIFT_PACK_ENTRY_STATE_CHANGED, UpdateGiftPackEntryState).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
         private void TryStartGame()
@@ -674,7 +668,7 @@ namespace QFramework.Example
                         HealthManager.Instance.RecoverTimerStr;
                 }
 
-                if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.UnlimitedDoubleBuff)))
+                if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleBuff)))
                 {
                     AnimStartFlash.Hide();
                     ImgDoubleBuff.Hide();
@@ -685,7 +679,7 @@ namespace QFramework.Example
                     AnimStartFlash.Show();
                     ImgDoubleBuff.Show();
                     ImgDoubleBuffCountDown.Show();
-                    TxtDoubleBuffCountDown_Red.text = CountDownTimerManager.Instance.GetRemainingTimeText(GameEnum.GetDescription(SpecialRewardsType.UnlimitedDoubleBuff));
+                    TxtDoubleBuffCountDown_Red.text = CountDownTimerManager.Instance.GetRemainingTimeText(GameEnum.GetDescription(SpecialRewardsType.DoubleBuff));
                 }
 
                 if (mVolcanicActivity is not null)
@@ -725,34 +719,18 @@ namespace QFramework.Example
                     if (mRocketActivity.ActivityStatus is GameActivityStatus.Active)
                         TxtRocketActivity.text = mRocketActivity.GetActivityReamingTime();
                 }
-
-                /* if (mPrograssGiftADActivity is not null)
-                 {
-                      if (mPrograssGiftADActivity.ActivityStatus is GameActivityStatus.Active)
-                          TxtPGActivity.text = mPrograssGiftADActivity.GetActivityReamingTime();
-                 }
-
-                 if(mSepecialOfferADActivity is not null)
-                 {
-                      if (mSepecialOfferADActivity.ActivityStatus is GameActivityStatus.Active)
-                          TxtSOActivity.text = mSepecialOfferADActivity.GetActivityReamingTime();
-                 }
-                 if(mDoubleGiftADAcitvity is not null)
-                 {
-                      if (mDoubleGiftADAcitvity.ActivityStatus is GameActivityStatus.Active)
-                          TxtDGActivity.text = mDoubleGiftADAcitvity.GetActivityReamingTime();
-                 }    */
             }
         }
 
         #endregion
 
-        #region �ģ��
+        #region 活动模块
+       
         private void ShowActivityState()
         {
             var _curLevel = saveData.GetCurrentLevel();
-            //�������ҳ��ʾ������(����ڼ�������ҳ��ʾ�����ֻ����ʱ����������)
-            //�δע��ʱ������ʾ��ע����ɻ�������
+            //各活动在主页显示的条件(到达第几关在主页显示，部分活动结束时需隐藏自身)
+            //活动未注册时管理显示，注册后由活动自身管理
             if (_curLevel >= 7 && mVolcanicActivity is null)
                 BtnVANode.Show();
 
@@ -761,9 +739,6 @@ namespace QFramework.Example
 
             if (_curLevel >= GameConst.TRA_BEGIN_LEVEL)
                 BtnTRANode.Show();
-            /* ���̻��ʱ�ر�
-            if (_curLevel >= GameConst.TT_AD_BEGIN_LEVEL)
-                BtnTTNode.Show();*/
 
             if (_curLevel >= 26)
                 BtnMSANode.Show();
@@ -781,16 +756,14 @@ namespace QFramework.Example
                 ImgLock.Hide();
             }
 
-
             if (_curLevel >= GameConst.DG_AD_BEGIN_LEVEL && (!this.GetModel<DoubleGiftADActivityModel>().IsBuy || !this.GetModel<DoubleGiftADActivityModel>().GiftIsGot))
                 BtnDGNode.Show();
 
             if (_curLevel >= GameConst.PG_AD_BEGIN_LEVEL)
                 BtnPGNode.Show();
 
-            if (_curLevel >= GameConst.REMOVE_AD_BEGIN_LEVEL && !this.GetModel<RemoveADACtivityModel>().IsBuy)
+            if (_curLevel >= GameConst.REMOVE_AD_BEGIN_LEVEL && !gameGlobalModel.GameGlobalJsonData.ForeverRemoveAds)
                 BtnRemoveADNode.Show();
-
         }
 
         private void InitActivityState()
@@ -806,6 +779,21 @@ namespace QFramework.Example
             {
                 RegisterBannerActivity();
             }
+        }
+
+        /// <summary>
+        /// 礼包购买后,需关闭礼包入口都应发送事件
+        /// </summary>
+        private void UpdateGiftPackEntryState()
+        {
+            if (gameGlobalModel.GameGlobalJsonData.ForeverRemoveAds)
+                BtnRemoveADNode.Hide();
+
+            if (this.GetModel<SepecialOfferADActivityModel>().IsBuy)
+                BtnSONode.Hide();
+
+            if (this.GetModel<DoubleGiftADActivityModel>().IsBuy && this.GetModel<DoubleGiftADActivityModel>().GiftIsGot)
+                BtnDGNode.Hide();
         }
 
         /// <summary>
@@ -838,28 +826,11 @@ namespace QFramework.Example
                 mMagicStreakActivity ??= _activity as MagicStreakActivity;
                 UpdateMSAState();
             }
-            /* ��ʱ�ر����̻
-            else if(_activity is TurnTableADActivity)
-            {
-                mTurnTableADActivity ??= _activity as TurnTableADActivity;
-                UpdateTTState();
-            }*/
             else if (_activity is PrograssGiftADActivity)
             {
                 mPrograssGiftADActivity ??= _activity as PrograssGiftADActivity;
                 UpdatePGState();
             }
-            else if (_activity is SepecialOfferADActivity)
-            {
-                mSepecialOfferADActivity ??= _activity as SepecialOfferADActivity;
-                UpdateSOState();
-            }
-            else if (_activity is DuobleGiftAdActivity)
-            {
-                mDoubleGiftADAcitvity ??= _activity as DuobleGiftAdActivity;
-                UpdateDGState();
-            }
-
             else if (_activity is TierRankActivity)
             {
                 mTierRankActivity ??= _activity as TierRankActivity;
@@ -1018,15 +989,7 @@ namespace QFramework.Example
                 };
             }
         }
-        /* ��ʱ�ر����̻
-        private void UpdateTTState()
-        {  
-            TxtTTActivity.text = mTurnTableADActivity.ActivityStatus switch
-            {
-                GameActivityStatus.Active => "Active",
-                _ => "Finished"
-            };
-        }*/
+
         private void UpdatePGState()
         {
             TxtPGActivity.text = mPrograssGiftADActivity.ActivityStatus switch
@@ -1035,23 +998,6 @@ namespace QFramework.Example
                 _ => "Finished"
             };
         }
-        private void UpdateSOState()
-        {
-            TxtSOActivity.text = mSepecialOfferADActivity.ActivityStatus switch
-            {
-                GameActivityStatus.Active => "Active",
-                _ => "Finished"
-            };
-        }
-        private void UpdateDGState()
-        {
-            TxtDGActivity.text = mDoubleGiftADAcitvity.ActivityStatus switch
-            {
-                GameActivityStatus.Active => "Active",
-                _ => "Finished"
-            };
-        }
-
 
         private void ChangeActivityIcon(GameObject activity)
         {
@@ -1094,5 +1040,4 @@ namespace QFramework.Example
 
         #endregion
     }
-
 }

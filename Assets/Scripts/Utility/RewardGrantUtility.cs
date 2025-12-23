@@ -2,9 +2,6 @@
 using JsonFileData;
 using QFramework;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class RewardGrantUtility : IUtility, ICanGetModel
 {
@@ -15,8 +12,8 @@ public class RewardGrantUtility : IUtility, ICanGetModel
         mGameGlobalModel ??= this.GetModel<GameGlobalModel>();
         CoinManager.Instance.AddCoin(rewardPackSO.Coins);
 
-        if (rewardPackSO is AbilityGiftPackSO shopPack)
-            shopPack.GrantPrivilegeAbility(mGameGlobalModel);
+        if (rewardPackSO is AbilityGiftPackSO abilitySO)
+            abilitySO.GrantPrivilegeAbility(mGameGlobalModel);
 
         foreach (var item in rewardPackSO.ItemReward)
         {
@@ -38,9 +35,6 @@ public class RewardGrantUtility : IUtility, ICanGetModel
             {
                 case SpecialRewardsType.RemoveAds:
                     //Debug.Log("去除广告逻辑暂空");
-                    break;
-                case SpecialRewardsType.DoubleCoin:
-                    CountDownTimerManager.Instance.AddTimer(GameDefine.GameConst.DOUBLE_COIN_SIGN, item.Duration);
                     break;
                 case SpecialRewardsType.UnlimitedHp:
                     HealthManager.Instance.SetUnLimitHp(item.Duration);
@@ -70,9 +64,6 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                 {
                     case SpecialRewardsType.RemoveAds:
                         //Debug.Log("去除广告逻辑暂空");
-                        break;
-                    case SpecialRewardsType.DoubleCoin:
-                        CountDownTimerManager.Instance.AddTimer(GameDefine.GameConst.DOUBLE_COIN_SIGN, item.itemQuantity);
                         break;
                     case SpecialRewardsType.UnlimitedHp:
                         HealthManager.Instance.SetUnLimitHp(item.itemQuantity);

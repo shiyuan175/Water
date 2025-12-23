@@ -5,7 +5,7 @@
             "GetConditions": 0,
             "Free": [
                 {
-                    "itemType": "S_AddOneHalfBottle",
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 1
                 }
             ],
@@ -90,7 +90,7 @@
             "GetConditions": 5,
             "Free": [
                 {
-                    "itemType": "S_AddOneHalfBottle",
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 1
                 },
                 {
@@ -136,7 +136,7 @@
             "GetConditions": 7,
             "Free": [
                 {
-                    "itemType": "S_AddOneHalfBottle",
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 1
                 }
             ],
@@ -213,7 +213,7 @@
                     "itemQuantity": 2
                 },
                 {
-                    "itemType": "S_AddOneHalfBottle",
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 2
                 },
                 {
@@ -308,7 +308,7 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_AddOneHalfBottle",
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 1
                 },
                 {
@@ -341,7 +341,7 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_AddOneHalfBottle",
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 1
                 }
             ],
@@ -417,7 +417,7 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_AddOneHalfBottle",
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 1
                 },
                 {
@@ -431,7 +431,7 @@
                     "itemQuantity": 400
                 },
                 {
-                    "itemType": "S_AddOneHalfBottle",
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 2
                 },
                 {
@@ -473,7 +473,7 @@
             ],
             "Vip": [
                 {
-                    "itemType": "S_AddOneHalfBottle",
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 2
                 }
             ],
@@ -597,7 +597,7 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_AddOneHalfBottle",
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 2
                 }
             ],
@@ -631,7 +631,7 @@
             "GetConditions": 10,
             "Free": [
                 {
-                    "itemType": "S_AddOneHalfBottle",
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 1
                 },
                 {

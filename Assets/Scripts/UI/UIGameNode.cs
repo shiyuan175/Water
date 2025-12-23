@@ -363,7 +363,7 @@ namespace QFramework.Example
             var takeItems = LevelManager.Instance.takeItem;
             var itemIds = new[]
             {
-                NormalRewardsType.S_AddOneHalfBottle,
+                NormalRewardsType.S_AddOneBottle,
                 NormalRewardsType.S_RemoveOneBottleHideWater,
                 NormalRewardsType.S_RemoveOneDebuffBottle
             };
@@ -664,7 +664,7 @@ namespace QFramework.Example
                 });
             }
 
-            if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_AddOneHalfBottle)
+            if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_AddOneBottle)
                 && level >= (int)UnLockMechanism.EnterLevelSelectProps)
             {
                 EnqueueAction(_nextItem =>
@@ -758,7 +758,7 @@ namespace QFramework.Example
         /// <param name="onComplete"></param>
         private void AddOneHalfBottle(Action onComplete)
         {
-            var _sprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.S_AddOneHalfBottle);
+            var _sprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.S_AddOneBottle);
             void _changeRainBowWater(Action callback)
             {
                 var _tempWater = new List<int>(LevelManager.Instance.clearList);

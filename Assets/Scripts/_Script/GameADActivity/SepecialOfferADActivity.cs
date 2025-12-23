@@ -1,9 +1,5 @@
-using GameDefine;
+﻿using GameDefine;
 using QFramework;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
 
 public class SepecialOfferADActivity : BaseGameADActivity
 {
@@ -32,33 +28,33 @@ public class SepecialOfferADActivity : BaseGameADActivity
                 
         }
     }
+
     private SepecialOfferADActivityModel mSOModel;
+
     public SepecialOfferADActivity()
     {
         mSOModel = this.GetModel<SepecialOfferADActivityModel>();
     }
+
     public override void RestartActivity()
     {
-        /*CountDownTimerManager.Instance.ResetCountdownTimer(ActivitySign, 7 * 24);*/
         mSOModel.ReStartActivity();
     }
 
     public override void StartActivity() 
     {
-        /*CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign, 7 * 24);*/
     }
+
     public override void CoolDownActivity()
     {
-        CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign, 7 * 24);
+        CountDownTimerManager.Instance.StartEasternMidnightTimer(ActivitySign, 7);
     }
+
     public override void Tick()
     {
-        if (GameUtils.DoesCountDownKeyExist(ActivitySign) &&
-           CountDownTimerManager.Instance.IsTimerFinished(ActivitySign))
+        if (CountDownTimerManager.Instance.IsTimerFinished(ActivitySign))
         {
             RestartActivity();
         }
-
-        base.Tick();
     }
 }

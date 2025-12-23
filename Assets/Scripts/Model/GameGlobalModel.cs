@@ -99,7 +99,7 @@ public class GameGlobalModel : AbstractModel
     {
         get
         {
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.DOUBLE_COIN_SIGN))
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleCoin)))
                 return DOUBLE * mGoldCoinsMultiple;
 
             else return mGoldCoinsMultiple;
@@ -108,7 +108,7 @@ public class GameGlobalModel : AbstractModel
 
     //双倍结算Buff(部分活动积分/星星获取)
     public int SettlementMultiple =>
-        CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.UnlimitedDoubleBuff))
+        CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleBuff))
             ? 1
             : DOUBLE;
 

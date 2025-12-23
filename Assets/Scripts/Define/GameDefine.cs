@@ -76,7 +76,6 @@ namespace GameDefine
 
         //存档标记
         public const string FIRST_LAUNCH_SIGN = "FIRST_LAUNCH";
-        public const string DOUBLE_COIN_SIGN = "DoubleCoin";
 
         //事件标记
         public const string START_POTION_ACTIVITY = "StartPotionActivity";
@@ -89,6 +88,7 @@ namespace GameDefine
         public const string SCENE_UNLOCK_GUIDE_STEP2 = "SceneUnlockGuideStep2";
         public const string STREAK_WIN_REMOVE_HIDE = "StreakWinRemoveHide";
         public const string START_TIER_RANK_ACTIVITY = "StartTierRankActivity";
+        public const string GIFT_PACK_ENTRY_STATE_CHANGED = "OnGiftPackEntryStateChanged";
 
         #region Json file info
 
@@ -193,7 +193,7 @@ namespace GameDefine
         EnterLevelSelectProps = 17,
 
         // 增加瓶子(变彩虹水)解锁关 原本是17
-        S_AddOneHalfBottle = 18,
+        S_AddOneBottle = 18,
 
         // 去一瓶黑水解锁关
         S_RemoveOneBottleHideWater = 22,
@@ -583,13 +583,24 @@ namespace GameDefine
         Max = 3
     }
 
-    public class GameEnum
+    public static class GameEnum
     {
-        public static string GetDescription<T>(T value)
+        private static readonly Dictionary<(Type, int), string> mDescriptionCache = new();
+        
+        public static string GetDescription<T>(T value) where T : Enum
         {
-            var field = value.GetType().GetField(value.ToString());
-            var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), false);
-            return attributes.Length > 0 ? attributes[0].Description : value.ToString();
+            var enumType = typeof(T);
+            var intValue = Convert.ToInt32(value);
+            var key = (enumType, intValue);
+            if (mDescriptionCache.TryGetValue(key, out var desc))
+                return desc;
+
+            var field = enumType.GetField(value.ToString());
+            var attr = field?.GetCustomAttribute<DescriptionAttribute>(false);
+
+            desc = attr != null ? attr.Description : value.ToString();
+            mDescriptionCache[key] = desc;
+            return desc;
         }
     }
     

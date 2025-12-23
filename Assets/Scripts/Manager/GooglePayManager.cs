@@ -26,8 +26,6 @@ public class GooglePayManager : MonoSingleton<GooglePayManager>, IDetailedStoreL
         //初始化产品列表，这里要Google后台的产品列表一致
         builder.AddProduct("battlepass_vip", ProductType.Consumable);
 
-        builder.AddProduct("dgpack_vip", ProductType.Consumable);
-
         builder.AddProduct("gift_1", ProductType.Consumable);
         builder.AddProduct("gift_2", ProductType.Consumable);
         builder.AddProduct("gift_3", ProductType.Consumable);
@@ -52,9 +50,16 @@ public class GooglePayManager : MonoSingleton<GooglePayManager>, IDetailedStoreL
         builder.AddProduct("pg_gift8", ProductType.Consumable);
         builder.AddProduct("pg_gift9", ProductType.Consumable);
 
+        builder.AddProduct("privilegepack_1", ProductType.Consumable);
+        builder.AddProduct("privilegepack_2", ProductType.Consumable);
+        builder.AddProduct("privilegepack_3", ProductType.Consumable);
+        builder.AddProduct("privilegepack_4", ProductType.Consumable);
+        builder.AddProduct("privilegepack_5", ProductType.Consumable);
+        builder.AddProduct("privilegepack_6", ProductType.Consumable);
+        
         builder.AddProduct("removeadpack_1", ProductType.Consumable);
         builder.AddProduct("sepecialoffer_1", ProductType.Consumable);
-
+        builder.AddProduct("dgpack_vip", ProductType.Consumable);
 
         UnityPurchasing.Initialize(this, builder);
     }
@@ -115,8 +120,9 @@ public class GooglePayManager : MonoSingleton<GooglePayManager>, IDetailedStoreL
         //Retrieve the purchased product
         var product = args.purchasedProduct;
         //Add the purchased product to the players inventory
-        //付款成功，此处需要自行添加逻辑，
+        //付款成功
         StringEventSystem.Global.Send(product.definition.id);
+        StringEventSystem.Global.Send(GameDefine.GameConst.GIFT_PACK_ENTRY_STATE_CHANGED);
 
         //We return Complete, informing IAP that the processing on our side is done and the transaction can be closed.
         return PurchaseProcessingResult.Complete;

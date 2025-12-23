@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using System.Collections;
@@ -238,7 +238,6 @@ namespace QFramework.Example
             {
                 if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.DG_AD_BEGIN_LEVEL)
                 {
-                    GameActivityManager.Instance.GetActivity<DuobleGiftAdActivity>().StartActivity();
                     UIKit.OpenPanel<UIDoubleGiftADActivity>(new UIDoubleGiftADActivityData()
                     {
                         IsManagedOpen = true,
@@ -260,20 +259,6 @@ namespace QFramework.Example
                 }
                 return false;
             });
-            /* 暂时关闭
-            //轮盘活动
-           PanelQueueManager.Instance.Enqueue(() =>
-           {
-               // 没有计时的时候显示 并进行时间的初始化
-               if (GameActivityManager.Instance.GetActivity<TurnTableADActivity>() is TurnTableADActivity turnTableADActivity
-                   && turnTableADActivity.ActivityStatus == GameActivityStatus.Active && !GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.TURNTABLE_AD_ACTIVITY_SIGN))
-               {
-                   GameActivityManager.Instance.GetActivity<TurnTableADActivity>().StartActivity();
-                   UIKit.OpenPanel<UIMallTurntable>(new UIMallTurntableData { IsManagedOpen = true });
-                   return true;
-               }
-               return false;
-           });*/
 
             //最后结算界面
             PanelQueueManager.Instance.Enqueue(() =>

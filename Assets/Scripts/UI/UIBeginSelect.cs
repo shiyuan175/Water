@@ -85,7 +85,7 @@ namespace QFramework.Example
         private void Update()
         {
             if (BuffTag.IsActive())
-                TxtCoinBuffTimer.text = CountDownTimerManager.Instance.GetRemainingTimeText(GameConst.DOUBLE_COIN_SIGN);
+                TxtCoinBuffTimer.text = CountDownTimerManager.Instance.GetRemainingTimeText(GameEnum.GetDescription(SpecialRewardsType.DoubleCoin));
 
         }
 
@@ -293,7 +293,7 @@ namespace QFramework.Example
         private void SetBuffUI()
         {
             //后续如果是其他buff时长也要处理显示,每个buff的条件单独处理
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.DOUBLE_COIN_SIGN))
+            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleCoin)))
                 BuffTag.Show();
             else
                 BuffTag.Hide();
@@ -321,7 +321,7 @@ namespace QFramework.Example
                 SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem1.GetComponent<RectTransform>().position;
                 GuideBtnItem1.onClick.AddListener(() =>
                 {
-                    SetEnterPropsUnLockUI(UnLockMechanism.S_AddOneHalfBottle);
+                    SetEnterPropsUnLockUI(UnLockMechanism.S_AddOneBottle);
 
                     _tempIndex = 0;
                     SetEnterPropsUnlimitTime(startID, _tempIndex);
@@ -358,12 +358,12 @@ namespace QFramework.Example
 
             switch (type)
             {
-                case UnLockMechanism.S_AddOneHalfBottle:
+                case UnLockMechanism.S_AddOneBottle:
                     GuideBtnItem1.Show();
                     SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem1.GetComponent<RectTransform>().position;
                     GuideBtnItem1.onClick.AddListener(() =>
                     {
-                        SetEnterPropsUnLockUI(UnLockMechanism.S_AddOneHalfBottle);
+                        SetEnterPropsUnLockUI(UnLockMechanism.S_AddOneBottle);
                         ItemGuidePanel.Hide();
                         _tempIndex = 1;
                     });
@@ -435,7 +435,7 @@ namespace QFramework.Example
             Button _tempBtn;
             switch (type)
             {
-                case UnLockMechanism.S_AddOneHalfBottle:
+                case UnLockMechanism.S_AddOneBottle:
                     _tempBtn = selectBtns[0];
                     UnLimitItemNode1.Show();
                     break;
@@ -483,7 +483,7 @@ namespace QFramework.Example
             }
             switch (type)
             {
-                case UnLockMechanism.S_AddOneHalfBottle:
+                case UnLockMechanism.S_AddOneBottle:
                     selectBtns[0].interactable = false;
                     addItemBtns[0].Hide();
                     UnLimitItemNode1.Hide();
@@ -528,7 +528,7 @@ namespace QFramework.Example
             {
                 SetEnterPropsGuideUI(UnLockMechanism.EnterLevelSelectProps);
             }
-            if (_level > (int)GameDefine.UnLockMechanism.S_AddOneHalfBottle)
+            if (_level > (int)GameDefine.UnLockMechanism.S_AddOneBottle)
             {
                 SetEnterPropsUnLockUI(UnLockMechanism.EnterLevelSelectProps);
             }

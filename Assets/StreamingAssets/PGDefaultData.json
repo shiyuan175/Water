@@ -58,7 +58,7 @@
             "Price": 0,
             "RewardItem": [
                 {
-                    "itemType": "UnlimitedDoubleBuff",
+                    "itemType": "DoubleBuff",
                     "itemQuantity": 60
                 }
             ]
@@ -115,7 +115,7 @@
                     "itemQuantity": 2
                 },
                 {
-                    "itemType": "S_AddOneHalfBottle",
+                    "itemType": "S_AddOneBottle",
                     "itemQuantity": 2
                 },
                 {
@@ -436,7 +436,7 @@
             "Price": 0,
             "RewardItem": [
                 {
-                    "itemType": "UnlimitedDoubleBuff",
+                    "itemType": "DoubleBuff",
                     "itemQuantity": 120
                 }
             ]
@@ -545,7 +545,7 @@
                     "itemQuantity": 1440
                 },
                 {
-                    "itemType": "UnlimitedDoubleBuff",
+                    "itemType": "DoubleBuff",
                     "itemQuantity": 720
                 }
             ]
@@ -572,7 +572,7 @@
             "Price": 0,
             "RewardItem": [
                 {
-                    "itemType": "UnlimitedDoubleBuff",
+                    "itemType": "DoubleBuff",
                     "itemQuantity": 1440
                 }
             ]

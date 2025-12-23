@@ -243,7 +243,6 @@ GameObject:
   - component: {fileID: 1202271696618820077}
   - component: {fileID: 1407301027585540197}
   - component: {fileID: 9066475983601725684}
-  - component: {fileID: 2277469959110017756}
   m_Layer: 5
   m_Name: BtnBuy
   m_TagString: Untagged
@@ -381,19 +380,6 @@ MonoBehaviour:
   CustomComponentName: BtnStart
   CustomComment: 
   mComponentName: UnityEngine.UI.Button
---- !u!114 &2277469959110017756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2284472195355128883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f3803431805974da2a902fda947718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  giftPack: {fileID: 11400000, guid: 3ff69855776d7954ab0cfb2ffe9beed8, type: 2}
 --- !u!1 &2482152683101821958
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +435,8 @@ MonoBehaviour:
   - {fileID: 2625881996114227094}
   - {fileID: 728780092221206904}
   - {fileID: 5875730030078859800}
+  mDGPackSO: {fileID: 11400000, guid: 3ff69855776d7954ab0cfb2ffe9beed8, type: 2}
+  mDGPackSO_Free: {fileID: 11400000, guid: 03c361bfc0ecc5749a050d08b145316d, type: 2}
   BtnClose: {fileID: 7588007873311159287}
   BtnBuy: {fileID: 1407301027585540197}
   BtnFree: {fileID: 3014044610478663946}
@@ -813,7 +801,6 @@ GameObject:
   - component: {fileID: 8809489689290255594}
   - component: {fileID: 3014044610478663946}
   - component: {fileID: 6824207051144853736}
-  - component: {fileID: 1231467959911209878}
   m_Layer: 5
   m_Name: BtnFree
   m_TagString: Untagged
@@ -951,19 +938,6 @@ MonoBehaviour:
   CustomComponentName: BtnStart
   CustomComment: 
   mComponentName: UnityEngine.UI.Button
---- !u!114 &1231467959911209878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4548794799745253235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f3803431805974da2a902fda947718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  giftPack: {fileID: 11400000, guid: 03c361bfc0ecc5749a050d08b145316d, type: 2}
 --- !u!1 &4592193326995191838
 GameObject:
   m_ObjectHideFlags: 0

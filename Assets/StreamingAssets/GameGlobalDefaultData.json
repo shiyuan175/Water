@@ -13,11 +13,11 @@
     "HpRecoverTimer": 20,
 
     "GiftPackPurchases": {
-        "gift_1": false,
-        "gift_2": false,
-        "gift_3": false,
-        "gift_4": false,
-        "gift_5": false,
-        "gift_6": false
+        "privilegepack_1": false,
+        "privilegepack_2": false,
+        "privilegepack_3": false,
+        "privilegepack_4": false,
+        "privilegepack_5": false,
+        "privilegepack_6": false
     }
 }

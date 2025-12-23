@@ -867,7 +867,6 @@ GameObject:
   - component: {fileID: 1111187467700301573}
   - component: {fileID: 8142836763923482513}
   - component: {fileID: 4307546719612790481}
-  - component: {fileID: 992395249074291768}
   - component: {fileID: 8491075386848185529}
   m_Layer: 0
   m_Name: BtnBuy
@@ -978,19 +977,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &992395249074291768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782341857672842915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f3803431805974da2a902fda947718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  giftPack: {fileID: 11400000, guid: fe5718f2a206e6841b8243792362a2a2, type: 2}
 --- !u!114 &8491075386848185529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3350,6 +3336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f075c2b93a169c43aa36dd696ea709f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mRemoveAdPack: {fileID: 11400000, guid: ee97c5af4060c3c47a6e8aa2142ad50c, type: 2}
   redText:
   - {fileID: 1327785782542099793}
   - {fileID: 637600609898029731}
