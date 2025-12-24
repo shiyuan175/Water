@@ -29,12 +29,13 @@ namespace QFramework.Example
 
         private int getReward;
         private bool isHaveBox = false;
-
+       
         private const int STAR_LEVEL = 6;
         private const int END_LEVEL = 97;
         private const int REWARD_INTERVAL = 7;
 
-        private readonly int[] UNLOCKLEVEL = new int[] {11, 21, 31, 41, 51, 61, 71, 81 };
+        private readonly int[] UNLOCKLEVEL = new int[]
+            { 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 121, 141, 164, 181, 201, 221, 301, 401 };
 
         public IArchitecture GetArchitecture()
         {

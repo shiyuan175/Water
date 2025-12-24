@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
@@ -23,14 +24,6 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Image Mask;
 		[SerializeField]
-		public RectTransform UnLimitNode;
-		[SerializeField]
-		public RectTransform UnLimitItemNode1;
-		[SerializeField]
-		public RectTransform UnLimitItemNode2;
-		[SerializeField]
-		public RectTransform UnLimitItemNode3;
-		[SerializeField]
 		public UnityEngine.UI.Button BtnStart;
 		[SerializeField]
 		public UnityEngine.UI.Image ContinueWinGoalNode;
@@ -44,12 +37,6 @@ namespace QFramework.Example
 		public TMPro.TextMeshProUGUI TxtCoinBuffTimer;
 		[SerializeField]
 		public RectTransform ItemGuidePanel;
-		[SerializeField]
-		public UnityEngine.UI.Button GuideBtnItem1;
-		[SerializeField]
-		public UnityEngine.UI.Button GuideBtnItem2;
-		[SerializeField]
-		public UnityEngine.UI.Button GuideBtnItem3;
 		[SerializeField]
 		public Spine.Unity.SkeletonGraphic SpineHandleItem;
 		[SerializeField]
@@ -67,10 +54,6 @@ namespace QFramework.Example
 			ImgProgress = null;
 			TxtProgress = null;
 			Mask = null;
-			UnLimitNode = null;
-			UnLimitItemNode1 = null;
-			UnLimitItemNode2 = null;
-			UnLimitItemNode3 = null;
 			BtnStart = null;
 			ContinueWinGoalNode = null;
 			Goal = null;
@@ -78,9 +61,7 @@ namespace QFramework.Example
 			BuffTag = null;
 			TxtCoinBuffTimer = null;
 			ItemGuidePanel = null;
-			GuideBtnItem1 = null;
-			GuideBtnItem2 = null;
-			GuideBtnItem3 = null;
+		
 			SpineHandleItem = null;
 			GoldCoinGuidePanel = null;
 			BtnGoldGuide = null;

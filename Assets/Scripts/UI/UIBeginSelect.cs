@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using QFramework;
-using System;
 using TMPro;
 using GameDefine;
 using Unity.Mathematics;
-using UnityEngine.Purchasing;
 
 namespace QFramework.Example
 {
@@ -20,14 +17,17 @@ namespace QFramework.Example
         [SerializeField] private Button[] selectBtns;
         [SerializeField] private Button[] ItemGuideBtns;
         [SerializeField] private GameObject[] selectImgs;
-
+        [SerializeField] private RectTransform[] UnLimitItemNodes;
         [Header("consecutive_coin")]
         [SerializeField] private Image ImgCoinWinProcess;
         [SerializeField] private TextMeshProUGUI TxtCoinWinProgress;
         [SerializeField] private Image ImgBg;
         [SerializeField] TextMeshProUGUI[] redTXT;
         private GameGlobalModel gameGlobalModel;
-
+        private readonly int AddOntHalfBottleItemType = 0;
+        private readonly int RemoveOneBotteHideWater = 1;
+        private readonly int RemoveOneDebuffBottle = 2;
+        private readonly int EnterPropStartID = 6;
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;
@@ -249,6 +249,7 @@ namespace QFramework.Example
         /// </summary>
         void UpdateItem()
         {
+            // 有无限长自动携带道具
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneHalfBottle)))
                 AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_AddOneHalfBottle);
             if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveOneBottleHideWater)))
@@ -284,7 +285,6 @@ namespace QFramework.Example
                 btnAdd.interactable = true;
                 btnAdd.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
             }
-
         }
 
         /// <summary>
@@ -300,207 +300,83 @@ namespace QFramework.Example
         }
 
         #region 引导动画相关
+
+        /// <summary>
+        ///     进关道具
+        /// </summary>
+        /// <returns></returns>
+        private void EnterPropsGuide(Button guideBtn, int itemType)
+        {
+            guideBtn.Show();
+            SpineHandleItem.GetComponent<RectTransform>().position =
+                guideBtn.GetComponent<RectTransform>().position;
+
+            SetEnterPropsUnLockUI(itemType, true);
+        }
+
         /// <summary>
         /// 设置进关道具引导动画
         /// </summary>
         private void SetEnterPropsGuideUI(UnLockMechanism type)
         {
-
-            foreach (var i in addItemBtns)
-            {
-                i.Hide();
-            }
+            // 清除右下角按钮
+            foreach (var addBtn in addItemBtns)
+                addBtn.Hide();
+            // 初始化引导面板准备
             ItemGuidePanel.gameObject.Show();
-            int startID = 6;
-            int _tempIndex = 0;
             SpineHandleItem.AnimationState.SetAnimation(0, "animation", true);
-            //是否可以递归调用
-            if (type == UnLockMechanism.EnterLevelSelectProps)
+
+            EnterPropsGuide(ItemGuideBtns[0], 0);
+
+            for (int itemType = 1; itemType < ItemGuideBtns.Length; itemType++)
             {
-                GuideBtnItem1.Show();
-                SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem1.GetComponent<RectTransform>().position;
-                GuideBtnItem1.onClick.AddListener(() =>
+                int currentType = itemType;
+                int prevType = itemType - 1;
+
+                ItemGuideBtns[prevType].onClick.AddListener(() =>
                 {
-                    SetEnterPropsUnLockUI(UnLockMechanism.S_AddOneHalfBottle);
-
-                    _tempIndex = 0;
-                    SetEnterPropsUnlimitTime(startID, _tempIndex);
-                    GuideBtnItem1.Hide();
-                    selectBtns[_tempIndex].onClick?.Invoke();
-                    // 引导2
-                    GuideBtnItem2.Show();
-                    SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem2.GetComponent<RectTransform>().position;
-                    GuideBtnItem2.onClick.AddListener(() =>
-                    {
-                        SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneBottleHideWater);
-
-                        _tempIndex = 1;
-                        SetEnterPropsUnlimitTime(startID, _tempIndex);
-                        GuideBtnItem2.Hide();
-                        selectBtns[_tempIndex].onClick?.Invoke();
-                        // 引导3
-                        GuideBtnItem3.Show();
-                        SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem3.GetComponent<RectTransform>().position;
-                        GuideBtnItem3.onClick.AddListener(() =>
-                        {
-                            SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
-
-                            _tempIndex = 2;
-
-                            SetEnterPropsUnlimitTime(startID, _tempIndex);
-                            ItemGuidePanel.Hide();
-                            selectBtns[_tempIndex].onClick?.Invoke();
-                        });
-                    });
+                    selectBtns[prevType]?.onClick?.Invoke();
+                    SetEnterPropsUnLockUI(prevType);
+                    EnterPropsGuide(ItemGuideBtns[currentType], currentType);
+                    ItemGuideBtns[prevType].Hide();
                 });
-                return;
             }
 
-            switch (type)
+            int _tempType = ItemGuideBtns.Length - 1;
+            ItemGuideBtns[_tempType].onClick.AddListener(() =>
             {
-                case UnLockMechanism.S_AddOneHalfBottle:
-                    GuideBtnItem1.Show();
-                    SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem1.GetComponent<RectTransform>().position;
-                    GuideBtnItem1.onClick.AddListener(() =>
-                    {
-                        SetEnterPropsUnLockUI(UnLockMechanism.S_AddOneHalfBottle);
-                        ItemGuidePanel.Hide();
-                        _tempIndex = 1;
-                    });
-                    break;
-                case UnLockMechanism.S_RemoveOneBottleHideWater:
-                    GuideBtnItem2.Show();
-                    SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem2.GetComponent<RectTransform>().position;
-                    GuideBtnItem2.onClick.AddListener(() =>
-                    {
-                        SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneBottleHideWater);
-                        ItemGuidePanel.Hide();
-                        _tempIndex = 2;
-                    });
-                    break;
-
-                case UnLockMechanism.S_RemoveOneDebuffBottle:
-                    GuideBtnItem3.Show();
-                    SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem3.GetComponent<RectTransform>().position;
-                    GuideBtnItem3.onClick.AddListener(() =>
-                    {
-                        SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
-                        ItemGuidePanel.Hide();
-                        _tempIndex = 3;
-                    });
-                    break;
-            }
-            int _itemId = startID + _tempIndex;
-            var _rewardType = (SpecialRewardsType)_itemId;
-            string _sign = GameEnum.GetDescription(_rewardType);
-            if (gameGlobalModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
-            {
-                bool show = addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite != itemSubIcon[1];
-                if (show)
-                {
-                    addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite = itemSubIcon[1];
-                    addItemBtns[_tempIndex].interactable = false;
-                    addItemBtns[_tempIndex].transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
-                    UpdateItemDisplay(gameGlobalModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
-                    AddItemIfNotExists(_itemId);
-                }
-                else
-                {
-                    UpdateItemDisplay(gameGlobalModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
-                    RemoveItemIfExists(_itemId);
-                }
-
-            }
+                selectBtns[_tempType].onClick?.Invoke();
+                SetEnterPropsUnLockUI(_tempType);
+                ItemGuidePanel.gameObject.Hide();
+            });
         }
+
 
         /// <summary>
         /// 解锁进关道具状态
         /// </summary>
-        private void SetEnterPropsUnLockUI(UnLockMechanism type)
+        private void SetEnterPropsUnLockUI(int itemType, bool isGuide = false)
         {
-            if (type == UnLockMechanism.EnterLevelSelectProps)
-            {
-                foreach (var btn in selectBtns)
-                {
-                    btn.transform.Find("ImgLock").Hide();
-                    btn.interactable = true;
-                }
-                UnLimitItemNode1.Show();
-                UnLimitItemNode2.Show();
-                UnLimitItemNode3.Show();
-                UpdateItem();
+            var btn = selectBtns[itemType];
+            btn.transform.Find("ImgLock").Hide();
+            btn.interactable = true;
+            if (isGuide)
                 return;
-            }
-
-            Button _tempBtn;
-            switch (type)
-            {
-                case UnLockMechanism.S_AddOneHalfBottle:
-                    _tempBtn = selectBtns[0];
-                    UnLimitItemNode1.Show();
-                    break;
-
-                case UnLockMechanism.S_RemoveOneBottleHideWater:
-                    _tempBtn = selectBtns[1];
-                    UnLimitItemNode2.Show();
-                    break;
-
-                case UnLockMechanism.S_RemoveOneDebuffBottle:
-                    _tempBtn = selectBtns[2];
-                    UnLimitItemNode3.Show();
-                    break;
-                default:
-                    Debug.Log("按钮设置出错");
-                    _tempBtn = null;
-                    break;
-            }
-
-            _tempBtn.transform.Find("ImgLock").Hide();
-            _tempBtn.interactable = true;
-
-            /*            UpdateItem();*/
+            UnLimitItemNodes[itemType].Show();
+            addItemBtns[itemType].Show();
         }
 
         /// <summary>
         /// 上锁进关道具状态
         /// </summary>
-        private void SetEnterPropsLockUI(UnLockMechanism type)
+        private void SetEnterPropsLockUI(int itemType)
         {
-            if (type == UnLockMechanism.EnterLevelSelectProps)
-            {
-                foreach (var btn in selectBtns)
-                {
-                    btn.transform.Find("ImgLock").Hide();
-                    btn.interactable = false;
-                }
-                addItemBtns[0].Hide();
-                addItemBtns[1].Hide();
-                addItemBtns[2].Hide();
-                UnLimitItemNode1.Hide();
-                UnLimitItemNode2.Hide();
-                UnLimitItemNode3.Hide();
-                return;
-            }
-            switch (type)
-            {
-                case UnLockMechanism.S_AddOneHalfBottle:
-                    selectBtns[0].interactable = false;
-                    addItemBtns[0].Hide();
-                    UnLimitItemNode1.Hide();
-                    break;
-
-                case UnLockMechanism.S_RemoveOneBottleHideWater:
-                    selectBtns[1].interactable = false;
-                    addItemBtns[1].Hide();
-                    UnLimitItemNode2.Hide();
-                    break;
-
-                case UnLockMechanism.S_RemoveOneDebuffBottle:
-                    selectBtns[2].interactable = false;
-                    addItemBtns[2].Hide();
-                    UnLimitItemNode3.Hide();
-                    break;
-            }
+            Debug.Log(itemType);
+            var btn = selectBtns[itemType];
+            btn.transform.Find("ImgLock").Show();
+            btn.interactable = false;
+            UnLimitItemNodes[itemType].Hide();
+            addItemBtns[itemType].Hide();
         }
 
         private void SetGoldCoinGuideUI()
@@ -528,60 +404,19 @@ namespace QFramework.Example
             {
                 SetEnterPropsGuideUI(UnLockMechanism.EnterLevelSelectProps);
             }
-            if (_level > (int)GameDefine.UnLockMechanism.S_AddOneHalfBottle)
+            else if (_level > (int)GameDefine.UnLockMechanism.EnterLevelSelectProps)
             {
-                SetEnterPropsUnLockUI(UnLockMechanism.EnterLevelSelectProps);
+                for (int itemType = 0; itemType < selectBtns.Length; itemType++)
+                    SetEnterPropsUnLockUI(itemType);
+                UpdateItem();
             }
             else
             {
-                SetEnterPropsLockUI(UnLockMechanism.EnterLevelSelectProps);
+                for (int itemType = 0; itemType < selectBtns.Length; itemType++)
+                    SetEnterPropsLockUI(itemType);
+                //UpdateItem();
             }
-
-            /*// 彩色水
-            if (_level == (int)GameDefine.UnLockMechanism.S_AddOneHalfBottle)
-            {
-                SetEnterPropsGuideUI(UnLockMechanism.S_AddOneHalfBottle);
-            }
-
-            if (_level > (int)GameDefine.UnLockMechanism.S_AddOneHalfBottle)
-            {
-                SetEnterPropsUnLockUI(UnLockMechanism.S_AddOneHalfBottle);
-            }
-            else
-            {
-                SetEnterPropsLockUI(UnLockMechanism.S_AddOneHalfBottle);
-            }
-
-            // 去黑
-            if (_level == (int)GameDefine.UnLockMechanism.S_RemoveOneBottleHideWater)
-            {
-                SetEnterPropsGuideUI(UnLockMechanism.S_RemoveOneBottleHideWater);
-            }
-
-            if (_level > (int)GameDefine.UnLockMechanism.S_RemoveOneBottleHideWater)
-            {
-                SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneBottleHideWater);
-            }
-            else
-            {
-                SetEnterPropsLockUI(UnLockMechanism.S_RemoveOneBottleHideWater);
-            }
-
-            // 移除一个瓶子负面
-            if (_level == (int)GameDefine.UnLockMechanism.S_RemoveOneDebuffBottle)
-            {
-                SetEnterPropsGuideUI(UnLockMechanism.S_RemoveOneDebuffBottle);
-            }
-
-            if (_level > (int)GameDefine.UnLockMechanism.S_RemoveOneDebuffBottle)
-            {
-                SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
-            }
-            else
-            {
-                SetEnterPropsLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
-            }
-*/
+            
             //双倍金币
             if (_level == (int)GameDefine.UnLockMechanism.TimesGoldCoin)
             {
@@ -599,31 +434,6 @@ namespace QFramework.Example
             {
                 Mask.Show();
                 Mask.GetComponentInChildren<TextMeshProUGUI>().font = LevelManager.Instance.redFont;
-            }
-        }
-
-        private void SetEnterPropsUnlimitTime(int startID, int _tempIndex)
-        {
-            int _itemId = startID + _tempIndex;
-            var _rewardType = (SpecialRewardsType)(_itemId);
-            string _sign = GameEnum.GetDescription(_rewardType);
-            if (gameGlobalModel.ItemDic[_itemId] >= 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
-            {
-                bool show = addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite != itemSubIcon[1];
-                if (show)
-                {
-                    addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite = itemSubIcon[1];
-                    addItemBtns[_tempIndex].interactable = false;
-                    addItemBtns[_tempIndex].transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
-                    UpdateItemDisplay(gameGlobalModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
-                    AddItemIfNotExists(_itemId);
-                }
-                else
-                {
-                    UpdateItemDisplay(gameGlobalModel.ItemDic[6 + _tempIndex], addItemBtns[_tempIndex]);
-                    RemoveItemIfExists(_itemId);
-                }
-
             }
         }
         #endregion
