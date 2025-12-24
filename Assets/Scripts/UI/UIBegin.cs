@@ -668,7 +668,8 @@ namespace QFramework.Example
                         HealthManager.Instance.RecoverTimerStr;
                 }
 
-                if (CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleBuff)))
+                if (gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                    nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.DoubleBuff)))
                 {
                     AnimStartFlash.Hide();
                     ImgDoubleBuff.Hide();
@@ -679,7 +680,9 @@ namespace QFramework.Example
                     AnimStartFlash.Show();
                     ImgDoubleBuff.Show();
                     ImgDoubleBuffCountDown.Show();
-                    TxtDoubleBuffCountDown_Red.text = CountDownTimerManager.Instance.GetRemainingTimeText(GameEnum.GetDescription(SpecialRewardsType.DoubleBuff));
+                    TxtDoubleBuffCountDown_Red.text = gameGlobalModel.GetRemainingTimeText(
+                        gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                        nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.DoubleBuff));
                 }
 
                 if (mVolcanicActivity is not null)

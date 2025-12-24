@@ -375,15 +375,13 @@ namespace QFramework.Example
             };
             for (int i = 0; i < itemIds.Length; i++)
             {
-                string _sign = GameEnum.GetDescription(itemIds[i]);
-
                 bool _isTakeItem = (takeItems.Contains((int)itemIds[i]) && (gameGlobalModel.ItemDic[(int)itemIds[i]] > 0));
-                _sign = GameEnum.GetDescription(unlimitItems[i]);
-                if (_isTakeItem && CountDownTimerManager.Instance.IsTimerFinished(_sign))
+                if (_isTakeItem && gameGlobalModel.IsTimerFinished(
+                    gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                    unlimitItems[i].ToString()))
                 {
                     gameGlobalModel.ReduceItem((int)itemIds[i], 1);
                 }
-
             }
         }
 

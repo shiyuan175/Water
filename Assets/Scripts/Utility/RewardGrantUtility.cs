@@ -33,9 +33,6 @@ public class RewardGrantUtility : IUtility, ICanGetModel
         {
             switch (item.SpecialRewardType)
             {
-                case SpecialRewardsType.RemoveAds:
-                    //Debug.Log("去除广告逻辑暂空");
-                    break;
                 case SpecialRewardsType.UnlimitedHp:
                     HealthManager.Instance.SetUnLimitHp(item.Duration);
                     break;
@@ -45,7 +42,9 @@ public class RewardGrantUtility : IUtility, ICanGetModel
 
                 //有配置 Description 特性走默认处理逻辑
                 default:
-                    CountDownTimerManager.Instance.AddTimer(GameEnum.GetDescription(item.SpecialRewardType), item.Duration);
+                    mGameGlobalModel.AddTimerToJson(mGameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                        item.SpecialRewardType.ToString(), item.Duration);
+                    //CountDownTimerManager.Instance.AddTimer(GameEnum.GetDescription(item.SpecialRewardType), item.Duration);
                     break;
             }
         }
@@ -62,16 +61,14 @@ public class RewardGrantUtility : IUtility, ICanGetModel
             {
                 switch (_rewardEnum1)
                 {
-                    case SpecialRewardsType.RemoveAds:
-                        //Debug.Log("去除广告逻辑暂空");
-                        break;
                     case SpecialRewardsType.UnlimitedHp:
                         HealthManager.Instance.SetUnLimitHp(item.itemQuantity);
                         break;
 
-                    //有配置 Description 特性走默认处理逻辑
                     default:
-                        CountDownTimerManager.Instance.AddTimer(GameEnum.GetDescription(_rewardEnum1), item.itemQuantity);
+                        mGameGlobalModel.AddTimerToJson(mGameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                            _rewardEnum1.ToString(), item.itemQuantity);
+                        //CountDownTimerManager.Instance.AddTimer(GameEnum.GetDescription(_rewardEnum1), item.itemQuantity);
                         break;
                 }
             }

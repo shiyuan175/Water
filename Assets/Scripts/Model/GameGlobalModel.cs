@@ -99,7 +99,7 @@ public class GameGlobalModel : AbstractModel
     {
         get
         {
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleCoin)))
+            if (!IsTimerFinished(mGameGlobalData.TimedBuffData, nameof(mGameGlobalData.TimedBuffData.DoubleCoin)))
                 return DOUBLE * mGoldCoinsMultiple;
 
             else return mGoldCoinsMultiple;
@@ -108,8 +108,8 @@ public class GameGlobalModel : AbstractModel
 
     //双倍结算Buff(部分活动积分/星星获取)
     public int SettlementMultiple =>
-        CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleBuff))
-            ? 1
+        IsTimerFinished(mGameGlobalData.TimedBuffData, nameof(mGameGlobalData.TimedBuffData.DoubleBuff))
+            ? 1     
             : DOUBLE;
 
     //静音
@@ -268,6 +268,37 @@ public class GameGlobalModel : AbstractModel
     }
 
     /// <summary>
+    /// 写入 Json 计时字段
+    /// 等价 CountDownTimerManager.Instance.AddTimer，支持时长叠加
+    /// </summary>
+    /// <param name="sourceData">字段所在的对象实例(所处数据结构)</param>
+    /// <param name="fieldName">字段名</param>
+    /// <param name="minutes">时长</param>
+    public void AddTimerToJson(object sourceData, string fieldName, double minutes)
+    {
+        long nowTicks = DateTime.UtcNow.Ticks;
+        long addTicks = TimeSpan.FromMinutes(minutes).Ticks;
+
+        //取原值重新计算截止时间
+        var value = GetFieldValue(sourceData, fieldName);
+        long oldEndTicks = value != null ? (long)value : 0;
+        long newEndTicks;
+        
+        if (oldEndTicks <= nowTicks)
+            newEndTicks = nowTicks + addTicks;
+        else
+            newEndTicks = oldEndTicks + addTicks;
+
+        //写入
+        SetFieldAndSave(
+            JsonType.GameGlobalJson,
+            sourceData,
+            fieldName,
+            newEndTicks
+        );
+    }
+
+    /// <summary>
     /// 写入Json字段值
     /// </summary>
     /// <param name="jsontype">Json类型</param>
@@ -284,7 +315,7 @@ public class GameGlobalModel : AbstractModel
         var type = sourceData.GetType();
         var field = type.GetField(fieldName);
         var property = type.GetProperty(fieldName);
-
+        
         if (field != null)
             field.SetValue(sourceData, value);
         else if (property != null && property.CanWrite)
@@ -292,6 +323,43 @@ public class GameGlobalModel : AbstractModel
         else return;
 
         mJsonFileUtility.SaveToJson(jsonInfo.mJsonPath, jsonInfo.mJsonData);
+    }
+
+    /// <summary>
+    /// 判断计时器是否结束
+    /// </summary>
+    /// <param name="sourceData">字段所在的对象实例(所处数据结构)</param>
+    /// <param name="fieldName">字段名</param>
+    /// <returns>True is Ended</returns>
+    public bool IsTimerFinished(object sourceData, string fieldName)
+    {
+        var value = GetFieldValue(sourceData, fieldName);
+        if (value == null) return true;
+
+        long endTicks = (long)value;
+        return (new DateTime(endTicks, DateTimeKind.Utc) - DateTime.UtcNow) <= TimeSpan.Zero;
+    }
+
+    /// <summary>
+    /// 获取计时器剩余时间文本
+    /// </summary>
+    /// <param name="sourceData">字段所在的对象实例(所处数据结构)</param>
+    /// <param name="fieldName">字段名</param>
+    /// <param name="needday">是否显示天</param>
+    /// <returns></returns>
+    public string GetRemainingTimeText(object sourceData, string fieldName, bool needday = false)
+    {
+        var value = GetFieldValue(sourceData, fieldName);
+        if (value == null) return "00:00:00";
+
+        DateTime endTime = new DateTime((long)value, DateTimeKind.Utc);
+        TimeSpan remaining = endTime - DateTime.UtcNow;
+        if (remaining < TimeSpan.Zero) remaining = TimeSpan.Zero;
+
+        if (needday)
+            return string.Format("{0}d:{1:D2}h:{2:D2}m", remaining.Days, remaining.Hours, remaining.Minutes);
+        else
+            return string.Format("{0:D2}:{1:D2}:{2:D2}", (int)remaining.TotalHours, remaining.Minutes, remaining.Seconds);
     }
 
     /// <summary>

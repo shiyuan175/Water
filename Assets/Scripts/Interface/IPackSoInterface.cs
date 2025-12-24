@@ -32,26 +32,15 @@ public enum NormalRewardsType
     AddCoins = 20,
 }
 
-/// <summary>
-/// 特殊奖励是用于做与时长相关的奖励
-/// 特性是用于反射获取,读写该状态的计时器
-/// 
-/// 后面需要把无限体力和双倍金币也用特性
-/// </summary>
+//时效Buff
 public enum SpecialRewardsType
 {
-    //非永久去广告
     RemoveAds = 0,
-    [Description("DoubleCoin")]
     DoubleCoin = 1,
     UnlimitedHp = 2,
-    [Description("DoubleSettlement")]
     DoubleBuff = 3,
-    [Description("UnLimitAddOneBottle")]
     Unlimited_S_AddOneBottle = 6,
-    [Description("UnLimitRemoveOneBottleHideWater")]
     Unlimited_S_RemoveOneBottleHideWater = 7,
-    [Description("UnLimitRemoveOneDebuffBottle")]
     Unlimited_S_RemoveOneDebuffBottle = 8,
 
     // 减少体力恢复时长(分钟)

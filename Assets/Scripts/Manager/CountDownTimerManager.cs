@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
 using QFramework;
@@ -8,16 +8,6 @@ using NodaTime;
 public class CountDownTimerManager : MonoSingleton<CountDownTimerManager>
 {
     public static readonly string COUNTDOWN_TIMER_SIGN = "CountDownTimer_";
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log(GetEasternMidnightUtcAfterDays(1));
-            Debug.Log(GetEasternMidnightUtcAfterDays(1).ToString("O"));
-
-        }
-    }
 
     #region UTC计时器
     public override void OnSingletonInit()

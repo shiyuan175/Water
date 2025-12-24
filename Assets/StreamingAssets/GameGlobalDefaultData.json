@@ -12,6 +12,16 @@
     "MaxHp": 5,
     "HpRecoverTimer": 20,
 
+    "TimedBuffData": {
+        "RemoveAds": 0,
+        "DoubleCoin": 0,
+        "DoubleBuff": 0,
+        //"UnlimitedHp": 0,
+        "Unlimited_S_AddOneBottle": 0,
+        "Unlimited_S_RemoveOneBottleHideWater": 0,
+        "Unlimited_S_RemoveOneDebuffBottle": 0
+    },
+
     "GiftPackPurchases": {
         "privilegepack_1": false,
         "privilegepack_2": false,

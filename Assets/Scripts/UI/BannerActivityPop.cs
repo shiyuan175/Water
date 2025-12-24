@@ -34,7 +34,9 @@ namespace QFramework.Example
             mSequence.Append(ImgCup.transform.DOScale(1.5f, 0.3f));
 
             //˫����ȡ��Ч
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleBuff)))
+            if (!mGameGlobalModel.IsTimerFinished(
+                mGameGlobalModel.GameGlobalJsonData.TimedBuffData,
+				nameof(mGameGlobalModel.GameGlobalJsonData.TimedBuffData.DoubleBuff)))
             {
                 mSequence.AppendCallback(() =>
                 {

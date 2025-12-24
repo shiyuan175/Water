@@ -117,7 +117,8 @@ namespace QFramework.Example
 
             //奖励发放表现
             RewardUIManager.Instance.PlayRewardAnim(giftPack.giftPack.Coins, true, null, giftPack.giftPack);
-            giftPack.DisableProduct();
+            //禁用礼包对象
+            //giftPack.DisableProduct();
             UIKit.OpenPanel<UIBuyPackSuccess>();
 
             //这是用于AB包唤起的商店

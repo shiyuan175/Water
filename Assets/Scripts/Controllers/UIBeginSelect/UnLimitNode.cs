@@ -1,29 +1,35 @@
-using GameDefine;
+﻿using GameDefine;
 using QFramework;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UnLimitNode : MonoBehaviour
+public class UnLimitNode : MonoBehaviour,ICanGetModel
 {
     [SerializeField] private SpecialRewardsType mType;
     [SerializeField] private TextMeshProUGUI mCountDownTxts;
-    private string mSign;
 
+    private GameGlobalModel mGlobalModel;
+    //private string mSign;
+
+    public IArchitecture GetArchitecture()
+    {
+        return GameMainArc.Interface;
+    }
 
     private void Awake()
     {
-        mSign = GameEnum.GetDescription(mType);
-        if (mSign == null || CountDownTimerManager.Instance.IsTimerFinished(mSign))
+        mGlobalModel = this.GetModel<GameGlobalModel>();
+        if (mGlobalModel.IsTimerFinished(mGlobalModel.GameGlobalJsonData.TimedBuffData, mType.ToString()))
             gameObject.Hide();
     }
 
     private void Update()
     {
-        if (mSign != null && !CountDownTimerManager.Instance.IsTimerFinished(mSign))
+        if (!mGlobalModel.IsTimerFinished(mGlobalModel.GameGlobalJsonData.TimedBuffData, mType.ToString()))
         {
-            mCountDownTxts.text = CountDownTimerManager.Instance.GetRemainingTimeText(mSign);
+            mCountDownTxts.text = mGlobalModel.GetRemainingTimeText(
+                mGlobalModel.GameGlobalJsonData.TimedBuffData, mType.ToString());
         }
         else
             gameObject.Hide();

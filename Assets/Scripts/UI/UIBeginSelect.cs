@@ -6,6 +6,7 @@ using TMPro;
 using GameDefine;
 using Unity.Mathematics;
 using UnityEngine.Purchasing;
+using JsonFileData;
 
 namespace QFramework.Example
 {
@@ -85,8 +86,9 @@ namespace QFramework.Example
         private void Update()
         {
             if (BuffTag.IsActive())
-                TxtCoinBuffTimer.text = CountDownTimerManager.Instance.GetRemainingTimeText(GameEnum.GetDescription(SpecialRewardsType.DoubleCoin));
-
+                TxtCoinBuffTimer.text = gameGlobalModel.GetRemainingTimeText(
+                    gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                     nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.DoubleCoin));
         }
 
         private void InitUI()
@@ -157,10 +159,10 @@ namespace QFramework.Example
                 //闭包
                 int _itemId = i + startID;
                 var _rewardType = (SpecialRewardsType)_itemId;
-                string _sign = GameEnum.GetDescription(_rewardType);
                 addItemBtns[i].onClick.AddListener(() =>
                 {
-                    if (CountDownTimerManager.Instance.IsTimerFinished(_sign))
+                if (gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                    _rewardType.ToString()))
                         UIKit.OpenPanel<UIBuyItem>(UILevel.Common, new UIBuyItemData() { item = _itemId });
                 });
             }
@@ -169,11 +171,12 @@ namespace QFramework.Example
             {
                 int _itemId = i + startID;
                 var _rewardType = (SpecialRewardsType)_itemId;
-                string _sign = GameEnum.GetDescription(_rewardType);
                 var _tempIndex = i;
                 selectBtns[i].onClick.AddListener(() =>
                 {
-                    if (gameGlobalModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
+                    if (gameGlobalModel.ItemDic[_itemId] > 0 
+                    && gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                    _rewardType.ToString()))
                     {
                         bool show = addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite != itemSubIcon[1];
                         if (show)
@@ -249,11 +252,19 @@ namespace QFramework.Example
         /// </summary>
         void UpdateItem()
         {
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_AddOneBottle)))
+            if (!gameGlobalModel.IsTimerFinished(
+                gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.Unlimited_S_AddOneBottle)))
                 AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_AddOneBottle);
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveOneBottleHideWater)))
+
+            if (!gameGlobalModel.IsTimerFinished(
+                gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.Unlimited_S_RemoveOneBottleHideWater)))
                 AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_RemoveOneBottleHideWater);
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.Unlimited_S_RemoveOneDebuffBottle)))
+
+            if (!gameGlobalModel.IsTimerFinished(
+                gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.Unlimited_S_RemoveOneDebuffBottle)))
                 AddItemIfNotExists((int)SpecialRewardsType.Unlimited_S_RemoveOneDebuffBottle);
 
             //更新道具数量
@@ -293,7 +304,8 @@ namespace QFramework.Example
         private void SetBuffUI()
         {
             //后续如果是其他buff时长也要处理显示,每个buff的条件单独处理
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleCoin)))
+            if (!gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData, 
+                nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.DoubleCoin)))
                 BuffTag.Show();
             else
                 BuffTag.Hide();
@@ -305,7 +317,6 @@ namespace QFramework.Example
         /// </summary>
         private void SetEnterPropsGuideUI(UnLockMechanism type)
         {
-
             foreach (var i in addItemBtns)
             {
                 i.Hide();
@@ -327,6 +338,7 @@ namespace QFramework.Example
                     SetEnterPropsUnlimitTime(startID, _tempIndex);
                     GuideBtnItem1.Hide();
                     selectBtns[_tempIndex].onClick?.Invoke();
+
                     // 引导2
                     GuideBtnItem2.Show();
                     SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem2.GetComponent<RectTransform>().position;
@@ -338,6 +350,7 @@ namespace QFramework.Example
                         SetEnterPropsUnlimitTime(startID, _tempIndex);
                         GuideBtnItem2.Hide();
                         selectBtns[_tempIndex].onClick?.Invoke();
+
                         // 引导3
                         GuideBtnItem3.Show();
                         SpineHandleItem.GetComponent<RectTransform>().position = GuideBtnItem3.GetComponent<RectTransform>().position;
@@ -392,8 +405,9 @@ namespace QFramework.Example
             }
             int _itemId = startID + _tempIndex;
             var _rewardType = (SpecialRewardsType)_itemId;
-            string _sign = GameEnum.GetDescription(_rewardType);
-            if (gameGlobalModel.ItemDic[_itemId] > 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
+            if (gameGlobalModel.ItemDic[_itemId] > 0
+                && gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                _rewardType.ToString()))
             {
                 bool show = addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite != itemSubIcon[1];
                 if (show)
@@ -457,8 +471,6 @@ namespace QFramework.Example
 
             _tempBtn.transform.Find("ImgLock").Hide();
             _tempBtn.interactable = true;
-
-            /*            UpdateItem();*/
         }
 
         /// <summary>
@@ -537,51 +549,6 @@ namespace QFramework.Example
                 SetEnterPropsLockUI(UnLockMechanism.EnterLevelSelectProps);
             }
 
-            /*// 彩色水
-            if (_level == (int)GameDefine.UnLockMechanism.S_AddOneHalfBottle)
-            {
-                SetEnterPropsGuideUI(UnLockMechanism.S_AddOneHalfBottle);
-            }
-
-            if (_level > (int)GameDefine.UnLockMechanism.S_AddOneHalfBottle)
-            {
-                SetEnterPropsUnLockUI(UnLockMechanism.S_AddOneHalfBottle);
-            }
-            else
-            {
-                SetEnterPropsLockUI(UnLockMechanism.S_AddOneHalfBottle);
-            }
-
-            // 去黑
-            if (_level == (int)GameDefine.UnLockMechanism.S_RemoveOneBottleHideWater)
-            {
-                SetEnterPropsGuideUI(UnLockMechanism.S_RemoveOneBottleHideWater);
-            }
-
-            if (_level > (int)GameDefine.UnLockMechanism.S_RemoveOneBottleHideWater)
-            {
-                SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneBottleHideWater);
-            }
-            else
-            {
-                SetEnterPropsLockUI(UnLockMechanism.S_RemoveOneBottleHideWater);
-            }
-
-            // 移除一个瓶子负面
-            if (_level == (int)GameDefine.UnLockMechanism.S_RemoveOneDebuffBottle)
-            {
-                SetEnterPropsGuideUI(UnLockMechanism.S_RemoveOneDebuffBottle);
-            }
-
-            if (_level > (int)GameDefine.UnLockMechanism.S_RemoveOneDebuffBottle)
-            {
-                SetEnterPropsUnLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
-            }
-            else
-            {
-                SetEnterPropsLockUI(UnLockMechanism.S_RemoveOneDebuffBottle);
-            }
-*/
             //双倍金币
             if (_level == (int)GameDefine.UnLockMechanism.TimesGoldCoin)
             {
@@ -606,8 +573,9 @@ namespace QFramework.Example
         {
             int _itemId = startID + _tempIndex;
             var _rewardType = (SpecialRewardsType)(_itemId);
-            string _sign = GameEnum.GetDescription(_rewardType);
-            if (gameGlobalModel.ItemDic[_itemId] >= 0 && CountDownTimerManager.Instance.IsTimerFinished(_sign))
+            if (gameGlobalModel.ItemDic[_itemId] >= 0 
+                && gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                _rewardType.ToString()))
             {
                 bool show = addItemBtns[_tempIndex].transform.GetComponent<Image>().sprite != itemSubIcon[1];
                 if (show)

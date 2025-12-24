@@ -19,7 +19,7 @@ namespace QFramework.Example
         public SettlementActivityStatus? Status;
     }
 
-    public partial class UIMagicStreakActivity : UIPanel, ICanGetUtility
+    public partial class UIMagicStreakActivity : UIPanel, ICanGetUtility ,ICanGetModel
     {
         [Serializable]
         private class MSARewardCofig
@@ -46,6 +46,7 @@ namespace QFramework.Example
 
         private List<GameObject> mRankNodePool;
         private List<Tween> mTweenList;
+        private GameGlobalModel mGameGlobalModel;
         private MagicStreakActivity mMagicStreakActivity;
         private RewardGrantUtility mRewardGrantUtility;
         private int cacheStageRewardIndex;
@@ -71,6 +72,7 @@ namespace QFramework.Example
 
             mMagicStreakActivity = GameActivityManager.Instance.GetActivity<MagicStreakActivity>();
             mRewardGrantUtility = this.GetUtility<RewardGrantUtility>();
+            mGameGlobalModel = this.GetModel<GameGlobalModel>();
 
             //数据缓存
             CacheTempData();
@@ -154,7 +156,9 @@ namespace QFramework.Example
                 return;
 
             //插入双倍动画
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.DoubleBuff)))
+            if (!mGameGlobalModel.IsTimerFinished(
+                mGameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                nameof(mGameGlobalModel.GameGlobalJsonData.TimedBuffData.DoubleBuff)))
             {
                 mSequence = DOTween.Sequence();
                 mDoubleBuffPanel.Show();

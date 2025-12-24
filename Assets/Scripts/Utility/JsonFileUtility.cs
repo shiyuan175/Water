@@ -62,7 +62,23 @@ namespace JsonFileData
         public int MaxHp;
         public int HpRecoverTimer;
 
+        public TimedBuffData TimedBuffData;
         public PurchasedGiftPacks GiftPackPurchases;
+    }
+
+    /// <summary>
+    /// 严格与特殊奖励类型字段相等
+    /// 用于反射写入计时器到Json
+    /// </summary>
+    public class TimedBuffData
+    {
+        public long RemoveAds;
+        public long DoubleCoin;
+        //public long UnlimitedHp;
+        public long DoubleBuff;
+        public long Unlimited_S_AddOneBottle;
+        public long Unlimited_S_RemoveOneBottleHideWater;
+        public long Unlimited_S_RemoveOneDebuffBottle;
     }
 
     //特权礼包购买情况记录
