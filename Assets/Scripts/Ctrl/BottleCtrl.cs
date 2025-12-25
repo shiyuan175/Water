@@ -2002,7 +2002,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         LevelManager.Instance.hideBottleList.Remove(this);
 
         SetBottleColor();
-        CheckFinish();
+        // CheckFinish();
     }
 
     /// <summary>

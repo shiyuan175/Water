@@ -26,6 +26,7 @@ namespace QFramework.Example
         private const string ITEM_ENTRANCE_EFFECT_PATH = "Prefab/ItemEntranceEffect";
         private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
 
+        public RectTransform CatPosition;
         [Header("关卡难度UI")]
 
         #region 关卡难度UI
@@ -70,6 +71,7 @@ namespace QFramework.Example
             #region 全局机制--魔法猫咪
             if (mData.GlobalMechanism == GlobalMechanism.WhiteMagicCar || mData.GlobalMechanism == GlobalMechanism.BlackMagicCar)
             {
+                Debug.Log($"mData.GlobalMechanism = {mData.GlobalMechanism}");
                 magicCtrl.Init(mData.GlobalMechanism);
             }
             #endregion
