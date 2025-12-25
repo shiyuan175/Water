@@ -169,7 +169,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         GlobalMechanismBeginSetp = levelInfo.GlobalMechanismBeginSetp;
         GlobalMechanismContinueSetps = levelInfo.GlobalMechanismContinueSetps;
 
-        int _i = 0;
+      
 
         nowBottles.Clear();
         bubbleDict.Clear();
@@ -180,35 +180,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         TopBottleLayoutGroup.Show();
         BottomBottleLayoutGroup.Show();
         InitLevels(levelInfo);
-
-
-        //新机制初始化
-
-        foreach (var i in nowBottles)
-        {
-            for (int j = 0; j < i.waterItems.Count; j++)
-            {
-                // 泡沐
-                if (i.waterItems[j] == WaterItem.Bubble_Origin)
-                {
-                    bubbleDict.Add(i, levelInfo.bubbleCount[_i++]);
-                }
-                // 炸弹
-                if (i.waterItems[j] == WaterItem.Bomb || i.waterItems[j] == WaterItem.FlyBomb)
-                {
-                    bombList.Add(i);
-                }
-
-                // 草炸弹
-                if (i.waterItems[j] == WaterItem.GrassBomb)
-                {
-                    grassList.Add(i);
-                }
-            }
-
-            if (i.curtainHight != 0)
-                curtainDict.Add(i, i.curtainHight);
-        }
+      
     }
 
     /// <summary>
@@ -232,8 +204,43 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         playingHideAnimCount = 0;
         isFinish = false;
         //Debug.Log("关卡重置初始化/首次进入关卡初始化");
+
+        #region 新机制初始化
+
+        int _i = 0;
+        foreach (var i in nowBottles)
+        {
+            for (int j = 0; j < i.waterItems.Count; j++)
+            {
+                // 泡沐
+                if (i.waterItems[j] == WaterItem.Bubble_Origin)
+                {
+                    bubbleDict.Add(i, levelInfo.bubbleCount[_i++]);
+                }
+
+                // 炸弹
+                if (i.waterItems[j] == WaterItem.Bomb || i.waterItems[j] == WaterItem.FlyBomb)
+                {
+                    bombList.Add(i);
+                }
+
+                // 草炸弹
+                if (i.waterItems[j] == WaterItem.GrassBomb)
+                {
+                    grassList.Add(i);
+                }
+            }
+
+            if (i.curtainHight != 0)
+                curtainDict.Add(i, i.curtainHight);
+        }
+
+        #endregion
+        
         ShowBottleGo();
         InitBottle(levelInfo);
+        if (!UIKit.GetPanel<UIGameNode>())
+            UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { GlobalMechanism = LevelManager.Instance.globalMechanism });
         BottleLayoutRefresh();
         UpdapeTopLayoutSpcing();
         UpdateButtomLayoutSpcing();
@@ -295,8 +302,26 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         if (GameDefine.GameConst.GameplayTutorialInfo.TryGetValue(levelId,
         out var info))
         {
-            RectTransform GetNode(int idx) =>
-                idx >= 0 ? bottles[idx].mGuideNode : null;
+            // RectTransform GetNode(int idx) =>
+            //    idx >= 0 ? bottles[idx].mGuideNode : null;
+            RectTransform GetNode(int idx)
+            {
+                if (idx >= -1)
+                {
+                    return idx >= 0 ? bottles[idx].mGuideNode : null;
+                }
+                else
+                {
+                    switch (idx)
+                    {
+                        // 魔法猫机制
+                        case -10:
+                            return UIKit.GetPanel<UIGameNode>().CatPosition;
+                        default:
+                            return null;
+                    }
+                }
+            }
 
             UIKit.OpenPanel<UIGuideAnimPop>(UILevel.PopUI, new UIGuideAnimPopData
             {

@@ -116,9 +116,6 @@ namespace QFramework.Example
             for (int i = 0; i < selectBtns.Length; i++)
             {
                 Transform _transform = selectBtns[i].transform;
-
-                _transform.Find("ImgLock").Find("TextOpenTip").GetComponent<TextMeshProUGUI>().font = LevelManager.Instance.redFont;
-                _transform.Find("ImgLock").Show();
                 addItemBtns[i].Hide();
             }
 
@@ -142,6 +139,7 @@ namespace QFramework.Example
                     return;
                 }
                 this.SendEvent<GameStartEvent>();
+                LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
                 GameCtrl.Instance.InitGameCtrl();
                 CloseSelf();
             });
@@ -358,7 +356,6 @@ namespace QFramework.Example
         private void SetEnterPropsUnLockUI(int itemType, bool isGuide = false)
         {
             var btn = selectBtns[itemType];
-            btn.transform.Find("ImgLock").Hide();
             btn.interactable = true;
             if (isGuide)
                 return;
@@ -371,9 +368,7 @@ namespace QFramework.Example
         /// </summary>
         private void SetEnterPropsLockUI(int itemType)
         {
-            Debug.Log(itemType);
             var btn = selectBtns[itemType];
-            btn.transform.Find("ImgLock").Show();
             btn.interactable = false;
             UnLimitItemNodes[itemType].Hide();
             addItemBtns[itemType].Hide();

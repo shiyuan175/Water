@@ -328,17 +328,13 @@ namespace QFramework.Example
 
             this.RegisterEvent<GameStartEvent>(e =>
             {
-                LevelManager.Instance.StartGame(saveData.GetCurrentLevel());
-                if (!UIKit.GetPanel<UIGameNode>())
-                    UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { GlobalMechanism = LevelManager.Instance.globalMechanism });
-
                 BottomMenuNode.Hide();
                 HomeNode.Hide();
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             this.RegisterEvent<AvatarEvent>(e =>
-            {
+            {   
                 BtnHead.GetComponent<Image>().sprite = AvatarManager.Instance.GetAvatarSprite(true, e.AvatarId);
                 ImgHeadFrame.sprite = AvatarManager.Instance.GetAvatarSprite(false, e.AvatarFrameId);
             }).UnRegisterWhenGameObjectDestroyed(this);

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottles: []
   gameType: 0
-  clearList: 050000000600000007000000090000000c0000000b000000020000000a000000030000000100000004000000
+  clearList: 
   hideList: 
   hideTypes: 
   globalMechanism: 0

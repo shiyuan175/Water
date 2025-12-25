@@ -162,8 +162,8 @@ MonoBehaviour:
   GlobalMechanismContinueSetps: 0
   countDownNum: 0
   timeCountDown: 0
-  topNum: 7
-  bottomNum: 5
+  topNum: 6
+  bottomNum: 4
   bubbleCount: 
   changeList:
   - item: 2002
