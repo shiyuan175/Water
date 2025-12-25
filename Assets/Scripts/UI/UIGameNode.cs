@@ -632,23 +632,43 @@ namespace QFramework.Example
 
             var level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
-            if (level >= (int)GameDefine.UnLockMechanism.RemoveHideWinStreakLevel
-                && gameGlobalModel.RemoveHideStreakWinNum >= GameConst.TEN_CONTINUE_WIN_NUM)
+            //永久去黑特权(永久去黑生效时,其他去黑不生效)
+            if (gameGlobalModel.GameGlobalJsonData.ForeverRemoveHide)
             {
                 EnqueueAction(_nextItem =>
                 {
-                    //Debug.Log("连胜去黑生效");
-                    StreaWinClearBWater(_nextItem);
+                    RemoveAllBottleBlackWater(_nextItem);
                 });
             }
+            else
+            {
+                if (level >= (int)GameDefine.UnLockMechanism.RemoveHideWinStreakLevel
+                && gameGlobalModel.RemoveHideStreakWinNum >= GameConst.TEN_CONTINUE_WIN_NUM)
+                {
+                    EnqueueAction(_nextItem =>
+                    {
+                        //Debug.Log("连胜去黑生效");
+                        StreaWinClearBWater(_nextItem);
+                    });
+                }
 
-            if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_RemoveOneBottleHideWater)
+                if (LevelManager.Instance.takeItem.Contains((int)NormalRewardsType.S_RemoveOneBottleHideWater)
                 && level >= (int)UnLockMechanism.EnterLevelSelectProps)
+                {
+                    EnqueueAction(_nextItem =>
+                    {
+                        //Debug.Log("去黑道具生效");
+                        RemoveOneBottleHideWater(_nextItem);
+                    });
+                }
+            }
+
+            //永久加一格瓶特权
+            if (gameGlobalModel.GameGlobalJsonData.ForeverAddHalfBottle)
             {
                 EnqueueAction(_nextItem =>
                 {
-                    //Debug.Log("去黑道具生效");
-                    RemoveOneBottleHideWater(_nextItem);
+                    AddOneHalfBottle(_nextItem);
                 });
             }
 
@@ -668,7 +688,7 @@ namespace QFramework.Example
                 EnqueueAction(_nextItem =>
                 {
                     //Debug.Log("增加瓶子生效");
-                    AddOneHalfBottle(_nextItem);
+                    AddOneBottle(_nextItem);
                 });
             }
         }
@@ -676,13 +696,21 @@ namespace QFramework.Example
         #endregion
 
         #region 携带道具相关
+        private enum RemoveHideType
+        {
+            None = 0,
+            //连胜去黑,道具去黑,特权Buff去黑
+            StreaWinRemoveBWater = 1,
+            ItemRemoveBWater = 2,
+            ForeverBuffRemoveBWater = 3
+        }
 
         /// <summary>
         /// 祛除瓶中所有黑水
         /// </summary>
         /// <param name="useItem">是否由道具生效</param>
         /// <param name="action"></param>
-        private void ClearBottleBlackWater(bool useItem, Action action = null)
+        private void ClearBottleBlackWater(RemoveHideType removeHideType, Action action = null)
         {
             if (LevelManager.Instance.hideBottleList.Count > 0)
             {
@@ -695,10 +723,14 @@ namespace QFramework.Example
                     action?.Invoke();
                     return;
                 }
-
-                int _removeCount = useItem ? 1 : _tempList.Count / 2;
-                //特判处理(只有一个黑水瓶)
-                _removeCount = Math.Min(_removeCount, _tempList.Count);
+                int _removeCount = 0;
+                _removeCount = removeHideType switch
+                {
+                    RemoveHideType.ItemRemoveBWater => 1,
+                    RemoveHideType.StreaWinRemoveBWater => Mathf.Clamp(_tempList.Count / 2, 1, _tempList.Count),
+                    RemoveHideType.ForeverBuffRemoveBWater => _tempList.Count,
+                    _ => 0
+                };
 
                 while (_tempList.Count > _removeCount)
                 {
@@ -718,6 +750,22 @@ namespace QFramework.Example
         }
 
         /// <summary>
+        /// 去黑特权
+        /// </summary>
+        /// <param name="action"></param>
+        private void RemoveAllBottleBlackWater(Action action)
+        {
+            var _sprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.RemoveHide);
+            PlayParticleEffect(() =>
+            {
+                ClearBottleBlackWater(RemoveHideType.ForeverBuffRemoveBWater, () =>
+                {
+                    action?.Invoke();
+                });
+            }, _sprite);
+        }
+
+        /// <summary>
         /// 连胜去黑
         /// </summary>
         /// <param name="tempList"></param>
@@ -726,7 +774,7 @@ namespace QFramework.Example
         {
             PlayParticleEffect(() =>
             {
-                ClearBottleBlackWater(false, () =>
+                ClearBottleBlackWater(RemoveHideType.StreaWinRemoveBWater, () =>
                 {
                     action?.Invoke();
                 });
@@ -742,9 +790,21 @@ namespace QFramework.Example
             var _sprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.S_RemoveOneBottleHideWater);
             PlayParticleEffect(() =>
             {
-                ClearBottleBlackWater(true, () =>
+                ClearBottleBlackWater(RemoveHideType.ItemRemoveBWater, () =>
                 {
                     // 队列通知动作完成
+                    onComplete?.Invoke();
+                });
+            }, _sprite);
+        }
+
+        private void AddOneHalfBottle(Action onComplete)
+        {
+            var _sprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.AddHalfBottle);
+            PlayParticleEffect(() =>
+            {
+                LevelManager.Instance.AddBottle(true, () =>
+                {
                     onComplete?.Invoke();
                 });
             }, _sprite);
@@ -754,7 +814,7 @@ namespace QFramework.Example
         /// 增加一格瓶子
         /// </summary>
         /// <param name="onComplete"></param>
-        private void AddOneHalfBottle(Action onComplete)
+        private void AddOneBottle(Action onComplete)
         {
             var _sprite = RewardUIManager.Instance.GetRewardSprite(NormalRewardsType.S_AddOneBottle);
             void _changeRainBowWater(Action callback)

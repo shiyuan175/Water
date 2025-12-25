@@ -141,7 +141,7 @@ namespace QFramework.Example
                     : mSceneUnlockModel.SceneIndex;
 
                 _sceneName = GameConst.SceneUnlock[key];
-                
+
                 /*if (mSceneUnlockModel.SceneIndex >= GameConst.SceneUnlock.Count)
                 {
                     int maxKey = GameConst.SceneUnlock.Keys.Max();
@@ -509,6 +509,7 @@ namespace QFramework.Example
             SetStar();
             SetScene();
             SetStartLevel();
+            SetDoubleBuffUI();
         }
 
         private void SetCoin()
@@ -657,6 +658,17 @@ namespace QFramework.Example
             }
         }
 
+        private void SetDoubleBuffUI()
+        {
+            if (gameGlobalModel.GameGlobalJsonData.ForeverDoubleBuff)
+            {
+                AnimStartFlash.Show();
+                ImgDoubleBuff.Show();
+                ImgDoubleBuffCountDown.Show();
+                TxtDoubleBuffCountDown_Red.text = "Forever";
+            }
+        }
+
         private void UpdateUI()
         {
             if (HomeNode.activeSelf)
@@ -668,21 +680,24 @@ namespace QFramework.Example
                         HealthManager.Instance.RecoverTimerStr;
                 }
 
-                if (gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData,
-                    nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.DoubleBuff)))
+                if (!gameGlobalModel.GameGlobalJsonData.ForeverDoubleBuff)
                 {
-                    AnimStartFlash.Hide();
-                    ImgDoubleBuff.Hide();
-                    ImgDoubleBuffCountDown.Hide();
-                }
-                else
-                {
-                    AnimStartFlash.Show();
-                    ImgDoubleBuff.Show();
-                    ImgDoubleBuffCountDown.Show();
-                    TxtDoubleBuffCountDown_Red.text = gameGlobalModel.GetRemainingTimeText(
-                        gameGlobalModel.GameGlobalJsonData.TimedBuffData,
-                        nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.DoubleBuff));
+                    if (gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                        nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.DoubleBuff)))
+                    {
+                        AnimStartFlash.Hide();
+                        ImgDoubleBuff.Hide();
+                        ImgDoubleBuffCountDown.Hide();
+                    }
+                    else
+                    {
+                        AnimStartFlash.Show();
+                        ImgDoubleBuff.Show();
+                        ImgDoubleBuffCountDown.Show();
+                        TxtDoubleBuffCountDown_Red.text = gameGlobalModel.GetRemainingTimeText(
+                            gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                            nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.DoubleBuff));
+                    }
                 }
 
                 if (mVolcanicActivity is not null)
@@ -728,7 +743,7 @@ namespace QFramework.Example
         #endregion
 
         #region 活动模块
-       
+
         private void ShowActivityState()
         {
             var _curLevel = saveData.GetCurrentLevel();
@@ -785,6 +800,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
+        /// 礼包购买后,需触发UI刷新的对象
         /// 礼包购买后,需关闭礼包入口都应发送事件
         /// </summary>
         private void UpdateGiftPackEntryState()
@@ -797,6 +813,14 @@ namespace QFramework.Example
 
             if (this.GetModel<DoubleGiftADActivityModel>().IsBuy && this.GetModel<DoubleGiftADActivityModel>().GiftIsGot)
                 BtnDGNode.Hide();
+
+            if (gameGlobalModel.GameGlobalJsonData.ForeverDoubleBuff)
+            {
+                AnimStartFlash.Show();
+                ImgDoubleBuff.Show();
+                ImgDoubleBuffCountDown.Show();
+                TxtDoubleBuffCountDown_Red.text = "Forever";
+            }
         }
 
         /// <summary>

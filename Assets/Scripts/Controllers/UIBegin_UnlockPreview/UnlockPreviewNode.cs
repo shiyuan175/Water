@@ -1,4 +1,5 @@
-using DG.Tweening;
+﻿using DG.Tweening;
+using GameGlobalJson;
 using QFramework;
 using QFramework.Example;
 using TMPro;
@@ -15,7 +16,7 @@ public class UnlockPreviewNode : MonoBehaviour ,ICanGetUtility
 
     public enum RewardField
     {
-        //对应奖励字段
+        //对应奖励的Json字段
         IsClaim_UnlockScene1Reward,
         IsClaim_UnlockScene2Reward,
         IsClaim_UnlockScene3Reward,
@@ -83,7 +84,7 @@ public class UnlockPreviewNode : MonoBehaviour ,ICanGetUtility
         //解锁完成每日奖励领取(每日奖励是否领取)
         if (mRewardFieldConfig.RewardSource is RewardSource.DailyReward)
         {
-            if (IsRewardClaimed())
+            if (IsRewardClaimed(mRewardFieldConfig.RewardSource, mRewardFieldConfig.RewardField))
             {
                 mUnlockOverReward.Hide();
                 return;
@@ -149,24 +150,17 @@ public class UnlockPreviewNode : MonoBehaviour ,ICanGetUtility
     /// 获取字段值
     /// </summary>
     /// <returns></returns>
-    private bool IsRewardClaimed()
+    private bool IsRewardClaimed(RewardSource source, RewardField field)
     {
-        switch (mRewardFieldConfig.RewardSource)
+        switch (source)
         {
             case RewardSource.DailyReward:
-                return GetFieldValue(mGameGlobalModel.DailyRewardJsonData, mRewardFieldConfig.RewardField);
+                return (mGameGlobalModel.GetFieldValue(mGameGlobalModel.DailyRewardJsonData, field.ToString()) as bool?) ?? true;
             case RewardSource.GameGlobalData:
-                return GetFieldValue(mGameGlobalModel.GameGlobalJsonData, mRewardFieldConfig.RewardField);
+                return (mGameGlobalModel.GetFieldValue(mGameGlobalModel.GameGlobalJsonData, field.ToString()) as bool?) ?? true;
             default:
                 return true;
         }
-    }
-
-    private bool GetFieldValue(object obj, RewardField field)
-    {
-        var fieldInfo = obj.GetType().GetField(field.ToString());
-        if (fieldInfo == null) return true;
-        return (bool)fieldInfo.GetValue(obj);
     }
 
     /// <summary>
@@ -175,25 +169,22 @@ public class UnlockPreviewNode : MonoBehaviour ,ICanGetUtility
     private void SetRewardClaimed()
     {
         object targetJsonData = null;
+        JsonType jsonType = JsonType.None;
         switch (mRewardFieldConfig.RewardSource)
         {
             case RewardSource.DailyReward:
                 targetJsonData = mGameGlobalModel.DailyRewardJsonData;
+                jsonType = JsonType.DailyRewardJson;
                 break;
             case RewardSource.GameGlobalData:
                 targetJsonData = mGameGlobalModel.GameGlobalJsonData;
+                jsonType = JsonType.GameGlobalJson;
                 break;
         }
         if (targetJsonData == null) return;
 
-        var fieldInfo = targetJsonData.GetType().GetField(mRewardFieldConfig.RewardField.ToString());
-        if (fieldInfo == null) return;
-        fieldInfo.SetValue(targetJsonData, true);
-
-        if (mRewardFieldConfig.RewardSource == RewardSource.DailyReward)
-            mGameGlobalModel.SaveDailyRewardJson();
-        else if (mRewardFieldConfig.RewardSource == RewardSource.GameGlobalData)
-            mGameGlobalModel.SaveGameGlobalJson();
+        mGameGlobalModel.SetFieldAndSave(jsonType, targetJsonData,
+            mRewardFieldConfig.RewardField.ToString(), true);
     }
 
     public IArchitecture GetArchitecture()

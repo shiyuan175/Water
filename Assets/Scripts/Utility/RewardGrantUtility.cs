@@ -68,7 +68,6 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                     default:
                         mGameGlobalModel.AddTimerToJson(mGameGlobalModel.GameGlobalJsonData.TimedBuffData,
                             _rewardEnum1.ToString(), item.itemQuantity);
-                        //CountDownTimerManager.Instance.AddTimer(GameEnum.GetDescription(_rewardEnum1), item.itemQuantity);
                         break;
                 }
             }

@@ -10,19 +10,14 @@ namespace SceneUnlock
         [SerializeField] private UnlockPreviewNode[] mUnlockPreviewNode;
         [SerializeField] private Button mPlot2Guide;
         [SerializeField] private Button mCloseBtn;
-        [SerializeField] private GiftPackSO mDailyPackSo;
 
         private SceneUnlockModel mSceneUnlockModel;
         private GameGlobalModel mGameGlobalModel;
-        private JsonFileUtility mJsonFileUtility;
-        private RewardGrantUtility mRewardGrantUtility;
 
         private void Awake()
         {
             mSceneUnlockModel = this.GetModel<SceneUnlockModel>();
             mGameGlobalModel = this.GetModel<GameGlobalModel>();
-            mJsonFileUtility = this.GetUtility<JsonFileUtility>();
-            mRewardGrantUtility = this.GetUtility<RewardGrantUtility>();
 
             ScrollView.verticalNormalizedPosition = 1f;
 

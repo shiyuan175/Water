@@ -85,10 +85,12 @@ namespace QFramework.Example
 
         private void Update()
         {
-            if (BuffTag.IsActive())
+            if (!gameGlobalModel.GameGlobalJsonData.ForeverDoubleCoinBuff && BuffTag.IsActive())
+            {
                 TxtCoinBuffTimer.text = gameGlobalModel.GetRemainingTimeText(
                     gameGlobalModel.GameGlobalJsonData.TimedBuffData,
                      nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.DoubleCoin));
+            }
         }
 
         private void InitUI()
@@ -161,8 +163,8 @@ namespace QFramework.Example
                 var _rewardType = (SpecialRewardsType)_itemId;
                 addItemBtns[i].onClick.AddListener(() =>
                 {
-                if (gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData,
-                    _rewardType.ToString()))
+                    if (gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                        _rewardType.ToString()))
                         UIKit.OpenPanel<UIBuyItem>(UILevel.Common, new UIBuyItemData() { item = _itemId });
                 });
             }
@@ -174,7 +176,7 @@ namespace QFramework.Example
                 var _tempIndex = i;
                 selectBtns[i].onClick.AddListener(() =>
                 {
-                    if (gameGlobalModel.ItemDic[_itemId] > 0 
+                    if (gameGlobalModel.ItemDic[_itemId] > 0
                     && gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData,
                     _rewardType.ToString()))
                     {
@@ -304,11 +306,20 @@ namespace QFramework.Example
         private void SetBuffUI()
         {
             //后续如果是其他buff时长也要处理显示,每个buff的条件单独处理
-            if (!gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData, 
+            if (!gameGlobalModel.GameGlobalJsonData.ForeverDoubleCoinBuff)
+            {
+                if (!gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData,
                 nameof(gameGlobalModel.GameGlobalJsonData.TimedBuffData.DoubleCoin)))
-                BuffTag.Show();
+                    BuffTag.Show();
+                else
+                    BuffTag.Hide();
+            }
             else
-                BuffTag.Hide();
+            {
+                BuffTag.Show();
+                TxtCoinBuffTimer.text = "Forever";
+            }
+
         }
 
         #region 引导动画相关
@@ -573,7 +584,7 @@ namespace QFramework.Example
         {
             int _itemId = startID + _tempIndex;
             var _rewardType = (SpecialRewardsType)(_itemId);
-            if (gameGlobalModel.ItemDic[_itemId] >= 0 
+            if (gameGlobalModel.ItemDic[_itemId] >= 0
                 && gameGlobalModel.IsTimerFinished(gameGlobalModel.GameGlobalJsonData.TimedBuffData,
                 _rewardType.ToString()))
             {

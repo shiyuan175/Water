@@ -37,6 +37,10 @@ public class GameGlobalModel : AbstractModel
     private const string REMOVE_HIDE_STREAK_WIN_SIGN = "A_RemoveHideStreakWinNum";
     private const string VOLUME_SETTING_SIGN = "A_WaterVolumeSetting";
     private const string HISTORY_BEST_RANK = "E_HistoryBestRank";
+    private const int DOUBLE = 2;
+
+    private readonly Dictionary<(Type, string), MemberInfo> mMemberCache
+        = new ();
 
     private readonly string mGameGlobalDelJson =
         Path.Combine(Application.persistentDataPath, GameConst.GAME_GLOBAL_DEFAULT_JSON.FileName);
@@ -49,8 +53,6 @@ public class GameGlobalModel : AbstractModel
 
     private readonly string mDailyRewardCurJson =
         Path.Combine(Application.persistentDataPath, GameConst.DAILY_REWARD_CURRENT_JSON);
-
-    private const int DOUBLE = 2;
 
     //当前星星数
     private BindableProperty<int> mRemainingStars;
@@ -313,14 +315,29 @@ public class GameGlobalModel : AbstractModel
         if (jsonInfo.mJsonData is null) return;
 
         var type = sourceData.GetType();
-        var field = type.GetField(fieldName);
-        var property = type.GetProperty(fieldName);
-        
-        if (field != null)
-            field.SetValue(sourceData, value);
-        else if (property != null && property.CanWrite)
-            property.SetValue(sourceData, value);
-        else return;
+        var key = (type, fieldName);
+
+        if (!mMemberCache.TryGetValue(key, out var member))
+        {
+            member = (MemberInfo)type.GetField(fieldName)
+                     ?? type.GetProperty(fieldName);
+            if (member != null)
+                mMemberCache[key] = member;
+            else
+                return;
+        }
+
+        switch (member)
+        {
+            case FieldInfo fieldInfo:
+                fieldInfo.SetValue(sourceData, value);
+                break;
+            case PropertyInfo propertyInfo when propertyInfo.CanWrite:
+                propertyInfo.SetValue(sourceData, value);
+                break;
+            default:
+                return;
+        }
 
         mJsonFileUtility.SaveToJson(jsonInfo.mJsonPath, jsonInfo.mJsonData);
     }
@@ -373,15 +390,24 @@ public class GameGlobalModel : AbstractModel
         if (sourceData == null) return null;
 
         var type = sourceData.GetType();
-        var field = type.GetField(fieldName);
-        if (field != null)
-            return field.GetValue(sourceData);
+        var key = (type, fieldName);
 
-        var property = type.GetProperty(fieldName);
-        if (property != null && property.CanRead)
-            return property.GetValue(sourceData);
+        if (!mMemberCache.TryGetValue(key, out var member))
+        {
+            member = (MemberInfo)type.GetField(fieldName) 
+                ?? type.GetProperty(fieldName);
+            if (member != null)
+                mMemberCache[key] = member;
+            else
+                return null;
+        }
 
-        return null;
+        return member switch
+        {
+            FieldInfo fieldInfo => fieldInfo.GetValue(sourceData),
+            PropertyInfo propertyInfo when propertyInfo.CanRead => propertyInfo.GetValue(sourceData),
+            _ => null
+        };
     }
 
     /// <summary>
@@ -478,7 +504,7 @@ public class GameGlobalModel : AbstractModel
 
         mJsonDataInfos.Add(JsonType.DailyRewardJson, new JsonDataInfo
         {
-            mJsonData = mDailyRewardCurJson,
+            mJsonData = mDailyReward,
             mJsonPath = mDailyRewardCurJson
         });
     }
