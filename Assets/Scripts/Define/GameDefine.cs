@@ -145,7 +145,7 @@ namespace GameDefine
                 { 21, (-10, -1, "White Cat helps you eliminate one black obstruction per step.") },
                 { 31, (0, -1, "The water bottle entangled by the vines cannot be moved") },
                 { 41, (2, -1, "The vine water bottle can break the entangled vines after the adjacent water bottles are combined") },
-                { 51, (2, -1, "Combining two potion bottles can change 4 water of the same color") }, //2撒大苏打
+                { 51, (2, -1, "Bottles with gemstone emblems can only be filled with water of the same color as the gemstone") }, 
                 { 61, (2, -1, "Get the bomb to the surface before it explodes.") },
                 { 71, (0, 1, "Combining two brooms can remove water of the same color") },
                 { 81, (0, -1, "Each time you synthesize a water, all curtains drop one grid.") },
@@ -153,7 +153,8 @@ namespace GameDefine
                 { 101, (0, -1, "The bomb will explode when the countdown ends. Please synthesize water with bombs as soon as possible.") },
                 { 121, (0, -1, "Water with Fire Emblem can thaw ice after being crafted") },
                 { 141, (-10, -1, "Black Cat spawns one black obstruction per subsequent step after 5 moves, until enough are created.") },
-                { 161, (0, 6, "A bottle is generated after synthesizing sparkling water.") },
+                { 161, (1, -1, "A bottle is generated after synthesizing sparkling water.") },
+                { 181, (1, 3, "Combining two potion bottles can change 4 water of the same color") },
                 { 201, (9, 11, "Two question mark balls synthesized spawn some black obstructions.") },
                 { 301, (0, 1, "Synthesizing a magic book can remove all negative effects") },
                 { 401, (2, -1, "The black obstruction on the bottle never disappears; when the bottle is lifted, it reveals the color of the water tiles.") }, //17
