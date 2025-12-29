@@ -130,7 +130,7 @@ namespace GameDefine
         public static readonly JsonFileInfo DAILY_REWARD_DEFAULT_JSON = new()
         {
             FileName = "DailyRewardDefaultData.json",
-            TargetVersion = 1
+            TargetVersion = 2
         };
         public static readonly string DAILY_REWARD_CURRENT_JSON = "DailyRewardData.json";
 
@@ -157,6 +157,7 @@ namespace GameDefine
             { 0, "SceneUnlock1" },
             { 1, "SceneUnlock2" },
             { 2, "SceneUnlock3" },
+            { 3, "SceneUnlock4" },
         };
     }
 

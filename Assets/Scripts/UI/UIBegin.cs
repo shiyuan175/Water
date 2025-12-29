@@ -43,7 +43,7 @@ namespace QFramework.Example
         //��һ��������������
         private readonly int[] mConsume = new int[]
         {
-            1,2,2,3,3,3,4,4,4,5,5,5,6,7,
+            1,1,1,1,1,2,2,2
         };
         #endregion
         [SerializeField] private GameObject[] mSceneUnlockPanels;

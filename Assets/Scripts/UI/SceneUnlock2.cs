@@ -16,7 +16,7 @@ namespace QFramework.Example
         private const int PANEL_ID = 1;
 
         private readonly List<Spine.AnimationState.TrackEntryDelegate> mOnCompleteHandlers = new();
-        //�������ĺͰ�ťλ��
+        //部件消耗和按钮位置
         private readonly (int, Vector2)[] mUnitMes = new (int, Vector2)[]
         {
               (1, new Vector2(200, 500)),
@@ -36,7 +36,7 @@ namespace QFramework.Example
               (7, new Vector2(350, 500))
 
         };
-        private readonly int[] mStandbySpineIdx = new int[] { 0, 12, 13 };
+        private readonly int[] mStandbyBeforeCompleteSpineIdx = new int[] { 0, 12, 13 };
 
         [SerializeField] private SkeletonGraphic[] mAllUnitSpines;
         [SerializeField] private CanvasGroup[] mSpineCanvasGroups;
@@ -52,7 +52,7 @@ namespace QFramework.Example
         private Spine.AnimationState.TrackEntryDelegate mHeartRiseCallBack;
         private SceneUnlockModel mSceneUnlockModel;
         private RewardGrantUtility mRewardGrantUtility;
-        //����ά��Spine�Ļص�������ע��
+        //用于维护Spine的回调监听和注销
         private SkeletonGraphic[] mUnActiveUnitSpines;
         private int mStartUnitIndex;
         private bool mRewardSign;
@@ -151,15 +151,15 @@ namespace QFramework.Example
         /// </summary>
         private void InitPanel()
         {
-            //����״̬�ж�
+            //宝箱状态判定
             if (mSceneUnlockModel.SceneUnlockUnitIndex >= mUnitMes.Length)
                 BtnBox.image.sprite = mBoxOpenSprite;
 
-            //������Ч
+            //隐藏特效
             FlightEffectsToBox.Hide();
             FlightEffectsToBtn.Hide();
 
-            //����
+            //部件
             for (int i = 0; i < mStartUnitIndex; i++)
             {
                 mUnitImgs[i].sprite = mUnitSprites[i];
@@ -167,16 +167,16 @@ namespace QFramework.Example
                     mUnitImgs[i].SetNativeSize();
             }
 
-            //����
+            //进度
             for (int i = 0; i < mStartUnitIndex; i++)
             {
                 mProgressNodes[i].Find("Over").Show();
             }
 
-            //������
+            //星星数
             TxtRemainStar.text = mSceneUnlockModel.RemainingStars.ToString();
 
-            //��ť
+            //按钮
             if (mStartUnitIndex >= mUnitMes.Length)
                 BtnUnitUnlock.Hide();
             else
@@ -187,25 +187,25 @@ namespace QFramework.Example
                 TxtNeedStar.text = mUnitMes[mStartUnitIndex].Item1.ToString();
             }
 
-            //δ����Spine
+            //未激活Spine
             int remaining = mAllUnitSpines.Length - mStartUnitIndex;
             mUnActiveUnitSpines = new SkeletonGraphic[remaining];
             System.Array.Copy(mAllUnitSpines, mStartUnitIndex, mUnActiveUnitSpines, 0, remaining);
 
-            //����Spine
-            for (int i = 0; i < mStandbySpineIdx.Length; i++)
+            //待机Spine
+            for (int i = 0; i < mStandbyBeforeCompleteSpineIdx.Length; i++)
             {
-                if ((mSceneUnlockModel.SceneUnlockUnitIndex <= mStandbySpineIdx[i]))
+                if ((mSceneUnlockModel.SceneUnlockUnitIndex <= mStandbyBeforeCompleteSpineIdx[i]))
                 {
-                    mSpineCanvasGroups[mStandbySpineIdx[i]].alpha = 1;
-                    mAllUnitSpines[mStandbySpineIdx[i]].AnimationState.SetAnimation(0, "daiji", true);
-                    mUnitImgs[mStandbySpineIdx[i]].Hide();
+                    mSpineCanvasGroups[mStandbyBeforeCompleteSpineIdx[i]].alpha = 1;
+                    mAllUnitSpines[mStandbyBeforeCompleteSpineIdx[i]].AnimationState.SetAnimation(0, "daiji", true);
+                    mUnitImgs[mStandbyBeforeCompleteSpineIdx[i]].Hide();
                 }
             }
         }
 
         /// <summary>
-        /// ע��Spine�ص�
+        /// 注册Spine回调
         /// </summary>
         private void InitSpineOnComplete()
         {
@@ -240,7 +240,7 @@ namespace QFramework.Example
         }
 
         /// <summary>
-        /// ������ťλ�ø���
+        /// 解锁按钮位置更新
         /// </summary>
         private void UpdateUnlockBtn()
         {

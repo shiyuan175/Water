@@ -1,6 +1,7 @@
 ﻿{
-    "Version": 1,
+    "Version": 2,
     "NextResetTicks": -1,
     "IsClaim_UnlockScene2Reward": false,
+    "IsClaim_UnlockScene4Reward": false,
     "DailyReward_ByGiftPack3": false
 }

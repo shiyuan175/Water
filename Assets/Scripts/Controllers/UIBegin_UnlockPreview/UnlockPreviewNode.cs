@@ -20,6 +20,7 @@ public class UnlockPreviewNode : MonoBehaviour ,ICanGetUtility
         IsClaim_UnlockScene1Reward,
         IsClaim_UnlockScene2Reward,
         IsClaim_UnlockScene3Reward,
+        IsClaim_UnlockScene4Reward,
     }
 
     [System.Serializable]

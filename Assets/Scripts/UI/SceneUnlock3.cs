@@ -36,7 +36,7 @@ namespace QFramework.Example
               (9, new Vector2(-160, 0))
 
         };
-        private readonly int[] mStandbySpineIdx = new int[] { 9, 14 };
+        private readonly int[] mStandbyBeforeCompleteSpineIdx = new int[] { 9, 14 };
 
         [SerializeField] private SkeletonGraphic[] mAllUnitSpines;
         [SerializeField] private CanvasGroup[] mSpineCanvasGroups;
@@ -193,13 +193,13 @@ namespace QFramework.Example
             System.Array.Copy(mAllUnitSpines, mStartUnitIndex, mUnActiveUnitSpines, 0, remaining);
 
             //待机Spine
-            for (int i = 0; i < mStandbySpineIdx.Length; i++)
+            for (int i = 0; i < mStandbyBeforeCompleteSpineIdx.Length; i++)
             {
-                if ((mSceneUnlockModel.SceneUnlockUnitIndex <= mStandbySpineIdx[i]))
+                if ((mSceneUnlockModel.SceneUnlockUnitIndex <= mStandbyBeforeCompleteSpineIdx[i]))
                 {
-                    mSpineCanvasGroups[mStandbySpineIdx[i]].alpha = 1;
-                    mAllUnitSpines[mStandbySpineIdx[i]].AnimationState.SetAnimation(0, "daiji", true);
-                    mUnitImgs[mStandbySpineIdx[i]].Hide();
+                    mSpineCanvasGroups[mStandbyBeforeCompleteSpineIdx[i]].alpha = 1;
+                    mAllUnitSpines[mStandbyBeforeCompleteSpineIdx[i]].AnimationState.SetAnimation(0, "daiji", true);
+                    mUnitImgs[mStandbyBeforeCompleteSpineIdx[i]].Hide();
                 }
             }
         }

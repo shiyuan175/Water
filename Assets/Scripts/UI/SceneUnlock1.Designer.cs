@@ -1,3 +1,4 @@
+﻿
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,7 +6,6 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:8f983d72-5ffa-433a-8681-b236e1ed6d96
 	public partial class SceneUnlock1
 	{
 		public const string Name = "SceneUnlock1";

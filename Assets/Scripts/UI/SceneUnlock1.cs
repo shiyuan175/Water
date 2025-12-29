@@ -4,6 +4,7 @@ using Spine.Unity;
 using Spine;
 using System.Collections.Generic;
 using DG.Tweening;
+using System.Linq;
 
 namespace QFramework.Example
 {
@@ -19,21 +20,18 @@ namespace QFramework.Example
         //部件消耗和按钮位置
         private readonly (int, Vector2)[] mUnitMes = new (int, Vector2)[]
         {
-              (1, new Vector2(253, 488)),
-              (2, new Vector2(-164, 227)),
-              (2, new Vector2(218, 244)),
-              (3, new Vector2(-77, -242)),
-              (3, new Vector2(-312, -337)),
-              (3, new Vector2(300, -135)),
-              (4, new Vector2(170, 19)),
-              (4, new Vector2(-224, -569)),
-              (4, new Vector2(0, -541)),
-              (5, new Vector2(123, -441)),
-              (5, new Vector2(308, -469)),
-              (5, new Vector2(-205, -687)),
-              (6, new Vector2(0, -367)),
-              (7, new Vector2(0, -137))
+              (1, new Vector2(100, 450)),
+              (1, new Vector2(-200, 150)),
+              (1, new Vector2(50, 200)),
+              (1, new Vector2(300, 200)),
+              (1, new Vector2(-400, -500)),
+              (2, new Vector2(200, -500)),
+              (2, new Vector2(250, 300)),
+              (2, new Vector2(-100, 50)),
         };
+        //完成前、后待机
+        private readonly int[] mStandbyBeforeCompleteSpineIdx = new int[] { 1, 2, 7 };
+        private readonly int[] mStandbyAfterCompleteSpineIdx = new int[] { 3};
 
         [SerializeField] private SkeletonGraphic[] mAllUnitSpines;
         [SerializeField] private CanvasGroup[] mSpineCanvasGroups;
@@ -59,9 +57,9 @@ namespace QFramework.Example
 			mData = uiData as SceneUnlock1Data ?? new SceneUnlock1Data();
 			// please add init code here
 		}
-
-        protected override void OnOpen(IUIData uiData = null)
-        {
+		
+		protected override void OnOpen(IUIData uiData = null)
+		{
             mSceneUnlockModel = this.GetModel<SceneUnlockModel>();
             mRewardGrantUtility = this.GetUtility<RewardGrantUtility>();
             GameDefine.GameUtils.SotrArray(mAllUnitSpines);
@@ -188,6 +186,27 @@ namespace QFramework.Example
             int remaining = mAllUnitSpines.Length - mStartUnitIndex;
             mUnActiveUnitSpines = new SkeletonGraphic[remaining];
             System.Array.Copy(mAllUnitSpines, mStartUnitIndex, mUnActiveUnitSpines, 0, remaining);
+
+            //待机Spine(完成前)
+            for (int i = 0; i < mStandbyBeforeCompleteSpineIdx.Length; i++)
+            {
+                if ((mSceneUnlockModel.SceneUnlockUnitIndex <= mStandbyBeforeCompleteSpineIdx[i]))
+                {
+                    mSpineCanvasGroups[mStandbyBeforeCompleteSpineIdx[i]].alpha = 1;
+                    mAllUnitSpines[mStandbyBeforeCompleteSpineIdx[i]].AnimationState.SetAnimation(0, "daiji", true);
+                    mUnitImgs[mStandbyBeforeCompleteSpineIdx[i]].Hide();
+                }
+            }
+            //待机Spine(完成后)
+            for (int i = 0; i < mStandbyAfterCompleteSpineIdx.Length; i++)
+            {
+                if ((mSceneUnlockModel.SceneUnlockUnitIndex > mStandbyAfterCompleteSpineIdx[i]))
+                {
+                    mSpineCanvasGroups[mStandbyAfterCompleteSpineIdx[i]].alpha = 1;
+                    mAllUnitSpines[mStandbyAfterCompleteSpineIdx[i]].AnimationState.SetAnimation(0, "daiji", true);
+                    mUnitImgs[mStandbyAfterCompleteSpineIdx[i]].Hide();
+                }
+            }
         }
 
         /// <summary>
@@ -201,6 +220,7 @@ namespace QFramework.Example
                 int _tempIndex = i;
                 void handler(TrackEntry trackEntry)
                 {
+                    if (trackEntry.Animation.Name == "daiji") return;
                     FlightEffectsTo_Box(_realIndex);
 
                     mUnActiveUnitSpines[_tempIndex].Hide();
@@ -210,6 +230,13 @@ namespace QFramework.Example
                         mUnitImgs[_realIndex].SetNativeSize();
 
                     UpdateUnlockBtn();
+
+                    if (mStandbyAfterCompleteSpineIdx.Contains(_realIndex))
+                    {
+                        mAllUnitSpines[_realIndex].Show();
+                        mAllUnitSpines[_realIndex].AnimationState.SetAnimation(0, "daiji", true);
+                        mUnitImgs[_realIndex].Hide();
+                    }
                 }
                 mUnActiveUnitSpines[i].AnimationState.Complete += handler;
                 mOnCompleteHandlers.Add(handler);
@@ -258,7 +285,7 @@ namespace QFramework.Example
                 FlightEffectsToBox.Hide();
                 mProgressNodes[realIndex].Find("Over").Show();
 
-                //开箱表现
+                //�������
                 if (mRewardSign)
                 {
                     mRewardSign = false;
@@ -276,7 +303,7 @@ namespace QFramework.Example
                 mRewardSign = true;
                 //mSceneUnlockModel.AddSceneIndex();
                 UIKit.OpenPanel<UIMask>(UILevel.PopUI);
-                //奖励发放
+                //��������
                 mRewardGrantUtility.GrantReward(mRewardPackSO);
             }
 

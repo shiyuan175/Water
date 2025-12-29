@@ -38,6 +38,7 @@ namespace JsonFileData
         public long NextResetTicks;
         //第二套剧情奖励
         public bool IsClaim_UnlockScene2Reward;
+        public bool IsClaim_UnlockScene4Reward;
         //特权礼包3每日奖励
         public bool DailyReward_ByGiftPack3;
     }
