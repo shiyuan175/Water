@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using GameAttributes;
 using GameDefine;
 using QFramework;
@@ -7,7 +7,6 @@ using Spine;
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,26 +34,16 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         limitColor, // 限制可倒入的颜色(0表示无限制)
         unlockClear; // 解锁魔法布的颜色编号
     
-    // 是否是浮空炸弹
-    /*    private bool isFlyBomb = false;*/
     //瓶子中的水块标识
     public List<int> waters = new();
-
     //瓶中黑水类
-    /*public List<bool> hideWaters = new();*/
     public List<HideWaterType> hideTypes = new();
-
     //瓶中的水的状态(冰块/火焰)
     public List<WaterItem> waterItems = new();
-
     //水块脚本持有
     public List<BottleWaterCtrl> waterImg = new();
-
-    //原始泡沐数量 - 已移至LevelManager.cs管理，此处不再使用
-    // public Dictionary<BottleCtrl, int> bubbleDict = new();
     // 瓶中泡沐是否是原始泡沐
     public bool[] IsOriginalBubble = new bool[4];
-
     // 炸弹步数
     public List<int> bombCounts = new();
 
@@ -68,7 +57,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     // 操作记录(用于撤销功能)
     public List<BottleRecord> moveRecords = new();
 
-    // 水面动画位置节点(水面位置)、加水位置节点
+    // 水面动画位置节点(水面位置)、waterNode增加水位置节点,已无用
     public List<Transform> spineNode = new();
     public List<Transform> waterNode = new();
 
@@ -119,7 +108,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
 
     // 当前顶部水块的索引
     /// <summary>
-    ///     索引从0-3
+    /// 索引从0-3
     /// </summary>
     public int topIdx =>
         // 通过列表长度动态计算
@@ -413,13 +402,11 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
 
         // 检查水块的道具状态 / 初始化道具spine
         CheckWaterItem();
-        // 更新炸弹
-        /*      UpdateBomb();*/
         // 更新魔法布遮挡状态
         SetClearHide();
         // 更新水面位置
         if (NeedUpdateWaterPos)
-            SetNowSpinePos(topIdx + 1);
+            spineGoPosition.localPosition = spineNode[waters.Count].localPosition;
         PlaySpineWaitAnim();
     }
 
@@ -507,99 +494,24 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
             spineGo.Hide();
             return;
         }
-
-        var spineAnimName = "";
-
-        //两种方式
-        //1、找到道具下的普通水作为水面
-        //2、顶部水为道具直接隐藏水面(不适用、因为水面只有一个。当最上层是普通水，道具底下的水面无法显示。仅当道具作为最上层水块时才有效果)
-
-        //方案1
+        spineGo.Show();
         var color = waters[topIdx];
         WaterAttrCache.Dict.TryGetValue((ItemType)color, out var _attr);
         if (color < 1000 || _attr is RainBowWaterState)
         {
-            spineAnimName = GameEnum.GetDescription((ERuChangAnim)color);
+            var spineAnimName = GameEnum.GetDescription((ERuChangAnim)color);
             //黑色水面特判
             if (topIdx >= 0 && topIdx < hideTypes.Count && hideTypes[topIdx] != HideWaterType.None)
                 spine.AnimationState.SetAnimation(0, "ruchanghuangdong_mask", false);
 
-            spineGo.Show();
             if (!string.IsNullOrEmpty(spineAnimName))
                 spine.AnimationState.SetAnimation(0, spineAnimName, false);
         }
         else
-        {
-            spineGo.Hide();
-            //spine.AnimationState.SetAnimation(0, "ruchanghuangdong_mask", false);
-        }
+            spine.AnimationState.SetAnimation(0, "ruchanghuangdong_mask2", false);
 
         //Debug.Log($"水面动画名:{spineAnimName},瓶子：{this.gameObject.name}");
-
         CheckHide();
-
-
-        /*
-        //方案2
-        //获取可作为水面的颜色
-        int spinePosIdx = -1;
-
-        for (int i = topIdx; i >= 0; i--)
-        {
-            WaterAttrCache.Dict.TryGetValue((ItemType)waters[i], out WaterColorState _attr);
-            if (waters[i] < 1000 || _attr?.SpineType is EColorStateSpineType.ERainBowWater)
-            {
-                spinePosIdx = i;
-                break;
-            }
-        }
-
-        //瓶内只有道具(无可作为水面水块)
-        if (spinePosIdx == -1)
-        {
-            spineGo.Hide();
-            return;
-        }
-        var color = waters[spinePosIdx];
-
-        spineAnimName = GameEnum.GetDescription<ERuChangAnim>((ERuChangAnim)color);
-        spineGo.Show();
-        spine.AnimationState.SetAnimation(0, spineAnimName, false);
-
-
-        Debug.Log($"水面动画名:{spineAnimName},瓶子：{this.gameObject.name}");
-        CheckHide();
-        //黑色水面特判
-        if (topIdx >= 0 && spinePosIdx < hideWaters.Count && hideWaters[spinePosIdx])
-        {
-            spine.AnimationState.SetAnimation(0, "ruchanghuangdong_mask", false);
-        }*/
-    }
-
-    /// <summary>
-    ///     设置水面位置
-    /// </summary>
-    public void SetNowSpinePos(int node)
-    {
-        var useNode = node;
-        //Debug.Log("当前节点 " + node);
-        if (useNode - 1 < waters.Count)
-        {
-            for (int i = node - 1; i >= 0; i--)
-            {
-                ItemType _type = (ItemType)waters[i];
-                WaterAttrCache.Dict.TryGetValue(_type, out var _attr);
-
-                if (waters[i] < 1000 || _attr is RainBowWaterState)
-                {
-                    useNode = i + 1;
-                    break;
-                }
-            }
-        }
-
-        spineGoPosition.localPosition = spineNode[useNode].localPosition;
-        //spineGoPosition.localPosition = spineNode[waters.Count].localPosition;
     }
 
     /// <summary>
@@ -1128,7 +1040,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         yield return new WaitForSeconds(fillAlltime);
         //float fillAlltime = 1.33f;
 
-        spineGo.gameObject.SetActive(true);
         int startIdx = useIdx;
         //标记-----SetBottleColor会调用水面位置更新
         //SetNowSpinePos(startIdx + 1);
@@ -1143,14 +1054,14 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
                 .OnComplete(() =>
                 {
                     if (topIdx < 0)
-                        spineGo.gameObject.SetActive(false);
+                        spineGo.Hide();
                 });
         }
         else
         {
             spineGoPosition.transform.localPosition = spineNode[useIdx + 1 - num].localPosition;
             if (topIdx < 0)
-                spineGo.gameObject.SetActive(false);
+                spineGo.Hide();
         }
 
         //标记——无需主动调用,SetBottleColor里会触发
@@ -1224,20 +1135,14 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         var _type = (ItemType)color;
         WaterAttrCache.Dict.TryGetValue(_type, out WaterColorState _attr);
         bool _isRainBowWater = _attr is RainBowWaterState;
-        
-        if (color < 1000 || _isRainBowWater)
-        {
-            //原先是 SetBottleColor 把水面更新到顶部了，然后又要模拟水面上升的效果
-            //所以再把水面设置到接水前的高度，然后通过动画进行水面上升效果
-            //现引入参数，SetBottleColor 时不更新水面位置
-            spineGo.gameObject.SetActive(true);
-            //SetNowSpinePos(startIdx);
-            spineGoPosition.DOMove(spineNode[topIdx + 1].position, fillAlltime).SetEase(Ease.Linear);
-        }
-        //道具没有水面(道具水面不由Spine控制)
-        //else
-        //    if (startIdx >= 0) SetNowSpinePos(startIdx);
 
+        //统一由Spine控制水面(不区分正常水/道具才拥有水面Spine)
+        //原先是 SetBottleColor 把水面更新到顶部了，然后又要模拟水面上升的效果
+        //所以再把水面设置到接水前的高度，然后通过动画进行水面上升效果
+        //现引入参数，SetBottleColor 时不更新水面位置
+        spineGo.Show();
+        spineGoPosition.DOMove(spineNode[topIdx + 1].position, fillAlltime).SetEase(Ease.Linear);
+        //播放水花
         PlaySpineAnim();
 
         var fillTime = fillAlltime / num;
@@ -1727,7 +1632,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         }
         //CheckFinish();//移除颜色不会触发完成
 
-        if (topIdx < 0) spineGo.gameObject.SetActive(false);
+        if (topIdx < 0) spineGo.Hide();
 
         isPlayAnim = false;
     }

@@ -16,51 +16,50 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 {
     public static LevelManager Instance;
     public List<LevelCreateCtrl> levels = new List<LevelCreateCtrl>();
-    public List<int> clearList = new List<int>();
 
     //带有阻碍的颜色(魔法布，藤曼，冰冻)
     public List<int> cantChangeColorList = new List<int>();
     public List<BottleCtrl> nowBottles = new List<BottleCtrl>();
     public List<BottleCtrl> iceBottles = new List<BottleCtrl>();
-
     public List<BottleCtrl> topBottle = new List<BottleCtrl>();
     public List<BottleCtrl> bottomBottle = new List<BottleCtrl>();
     public List<BottleCtrl> hideBottleList = new List<BottleCtrl>();
-
+    public List<int> clearList = new List<int>();
     public List<int> hideColor = new List<int>();
     public List<Color> waterColor = new List<Color>();
     public List<WaterSpriteInfo> waterSpriteInfos;
-
-    public LevelCreateCtrl.BottleProperty emptyBottle = new();
-    public Transform gameCanvas;
     public List<GameObject> createFx = new List<GameObject>();
+    //携带的道具
+    public List<int> takeItem = new List<int>();
+    public List<LevelManagerRecord> LevelManagerRecords = new List<LevelManagerRecord>();
+    public LevelCreateCtrl.BottleProperty emptyBottle = new();
     public LevelCreateCtrl nowLevel;
-    public Color ItemColor;
-
-    public int levelId = 1, playingHideAnimCount;
-    public bool ISPlayingHideAnim => playingHideAnimCount == 0;
-
-    public int moveNum = 0;
-
+    public BottleCtrl nowHalf;
+    
+    public Transform gameCanvas;
     //机制道具Spine合成生成的实例父节点(用于将渲染置顶)
     public Transform mSpineIniPar;
     public GameObject broomBullet;
     public SkeletonGraphic mahoujinSpine;
-    bool isFinish = false;
+    public Color ItemColor;
+
+    public int levelId = 1, playingHideAnimCount;
+    public int moveNum = 0;
+    
+    public bool ISPlayingHideAnim => playingHideAnimCount == 0;
     public bool isPlayAnim, isPlayFxAnim;
     // 表示关卡彩色水瓶子是否添加
     public bool isFlashWaterBottleAdded = true;
-
-    public BottleCtrl nowHalf;
-
-    //携带的道具
-    public List<int> takeItem = new List<int>();
-    public List<LevelManagerRecord> LevelManagerRecords = new List<LevelManagerRecord>();
+   
 
     [SerializeField] private HorizontalLayoutGroup BottomBottleLayoutGroup;
     [SerializeField] private HorizontalLayoutGroup TopBottleLayoutGroup;
     [SerializeField] private List<BottleCtrl> bottles = new List<BottleCtrl>();
 
+    private int mLastLevel;
+    private int mEnterCount;
+    private bool isFinish = false;
+    
     private LevelManagerUtility levelManagerUtility;
     private ResLoader mResLoader = ResLoader.Allocate();
     [HideInInspector]
@@ -111,7 +110,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
         emptyBottle.numCake = 4;
         levelId = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-
+        mLastLevel = levelId;
+        mEnterCount = 0;
+        
         UIKit.OpenPanel<UIBegin>();
 
         if (levelId <= GameConst.NEWBIE_LEVEL_COUNT)
@@ -159,6 +160,14 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
         iceBottles.Clear();
         levelId = id;
+        if (mLastLevel != levelId)
+        {
+            mEnterCount = 1;
+            mLastLevel = levelId;
+        }
+        else
+            ++mEnterCount;
+        
         LevelCreateCtrl levelInfo = levels[levelId - 1];
 
         nowLevel = levelInfo;
@@ -240,6 +249,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         BottleLayoutRefresh();
         UpdapeTopLayoutSpcing();
         UpdateButtomLayoutSpcing();
+        //失败次数大于4次,进关给一个瓶子
+        if (mEnterCount > 4)
+            AddBottle(false, null);
         CheckGuideLevel();
     }
 
@@ -313,7 +325,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// <summary>
     /// 判断显示那些瓶子（现用于初始化关卡的瓶子）
     /// </summary>
-    /// <param name="userItemSign"></param>
     /// public void ShowBottleGo(int num)
     public void ShowBottleGo()
     {
@@ -344,7 +355,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// <param name="levelInfo"></param>
     public void InitBottle(LevelCreateCtrl levelInfo)
     {
-
         for (int i = 0; i < levelInfo.bottles.Count; i++)
         {
             var bottle = nowBottles[i];

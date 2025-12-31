@@ -323,15 +323,10 @@ public class BottleWaterCtrl : MonoBehaviour
             return;
 
         broomItemGo.SetActive(attribute.BroomItemActive);
-        broomItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
         createItemGo.SetActive(attribute.CreateItemActive);
-        createItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
         changeItemGo.SetActive(attribute.ChangeItemActive);
-        changeItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
         magnetItemGo.SetActive(attribute.MagnetItemActive);
-        magnetItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
         BombBlackWaterItemGo.SetActive(attribute.BombBlackWaterAvtive);
-        BombBlackWaterItemGo.transform.Find("Top").gameObject.SetActive(isTopWater);
 
         // 特殊水等不需要两两合成
         RainBowWater.SetActive(attribute.RainBowWaterActive);
