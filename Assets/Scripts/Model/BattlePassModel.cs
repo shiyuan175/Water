@@ -87,10 +87,17 @@ public class BattlePassModel : AbstractModel, ICanGetUtility
     public void LoadBattlePassActivity()
     {
         mBPDate = null;
-
+        // 版本比对
         if (!File.Exists(mCurFilePath))
             ReloadBattlePassActivity();
-
+        else
+        {
+            // 版本比对
+            var localV = mJsonFileUtility.GetFileVersion(mCurFilePath);
+            var dev = mJsonFileUtility.GetFileVersion(mDelFilePath);
+            if (localV < dev)
+                mJsonFileUtility.AutoFixFields(mCurFilePath, mDelFilePath);
+        }
         //数据持有
         mJsonFileUtility.LoadFromJson(mCurFilePath, jsonData =>
         {

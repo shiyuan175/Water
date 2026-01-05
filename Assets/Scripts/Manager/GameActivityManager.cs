@@ -50,15 +50,6 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<TurnTableADActivity>();
         }*/
-        if (_curLevel >= GameDefine.GameConst.DR_AD_BEGIN_LEVEL)
-        {
-            RegisterActivity<DailyRewardADActivity>();
-            if (!GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.DAILY_REWARD_AD_ACTIVITY_SIGN))
-            {
-                GetActivity<DailyRewardADActivity>().StartActivity();
-
-            }       
-        }
         if (_curLevel >= GameDefine.GameConst.BP_AD_BEGIN_LEVEL)
         {
             RegisterActivity<BattlePassADActivity>();

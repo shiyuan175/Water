@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/ScriptObject/AbilityGiftPackSO.cs.meta
 guid: a33e86cc3fc2ec7438252ff36af5789a
+========
+guid: f4a5074fb8b462f49813fc4f6d5a3186
+>>>>>>>> 12.31:Assets/Scripts/UI/SceneUnlock4.Designer.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

@@ -259,13 +259,18 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     public void DisInit()
     {
         foreach (var i in waterImg)
+        {
             i.textItem.text = "";
-
+            i.HideGo.SetActive(false);
+        }
+          
+        
         BlackWaterGoPar.SetActive(false);
         foreach (var blackwater in blackWaterGos)
         {
             blackwater.SetActive(false);
         }
+        
     }
     /// <summary>
     ///     设置瓶子最大装水数
@@ -813,7 +818,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     /// <returns></returns>
     public bool CheckMoveIn(int color)
     {
-        if (topIdx < 0 && limitColor == 0 && !isClearHide && curtainHight == 0)
+        if (topIdx < 0 && limitColor == 0 && !isClearHide && curtainHight == 0 && !isNearHide)
             return true;
 
         var top = GetMoveOutTop();
@@ -1997,7 +2002,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         LevelManager.Instance.hideBottleList.Remove(this);
 
         SetBottleColor();
-        CheckFinish();
+        // CheckFinish();
     }
 
     /// <summary>
