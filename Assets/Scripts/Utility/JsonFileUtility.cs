@@ -85,12 +85,12 @@ namespace JsonFileData
     //特权礼包购买情况记录
     public class PurchasedGiftPacks
     {
-        public bool privilegepack_1;
-        public bool privilegepack_2;
-        public bool privilegepack_3;
-        public bool privilegepack_4;
-        public bool privilegepack_5;
-        public bool privilegepack_6;
+        public bool gift_1;
+        public bool gift_2;
+        public bool gift_3;
+        public bool gift_4;
+        public bool gift_5;
+        public bool gift_6;
     }
 
     #endregion

@@ -56,26 +56,37 @@ public class RewardGrantUtility : IUtility, ICanGetModel
         foreach (var item in rewardItems)
         {
             string rewardString = item.itemType;
-            SpecialRewardsType _rewardEnum1;
-            if (Enum.TryParse<SpecialRewardsType>(rewardString, out _rewardEnum1))
+
+            if (Enum.TryParse<NormalRewardsType>(rewardString, out NormalRewardsType normalReward))
             {
-                switch (_rewardEnum1)
+                switch (normalReward)
                 {
-                    case SpecialRewardsType.UnlimitedHp:
-                        HealthManager.Instance.SetUnLimitHp(item.itemQuantity);
+                    case NormalRewardsType.StaminaCap:
+                        mGameGlobalModel.AddMaxHp(item.itemQuantity);
                         break;
 
                     default:
-                        mGameGlobalModel.AddTimerToJson(mGameGlobalModel.GameGlobalJsonData.TimedBuffData,
-                            _rewardEnum1.ToString(), item.itemQuantity);
+                        mGameGlobalModel.AddItem((int)normalReward, item.itemQuantity);
                         break;
                 }
             }
 
-            NormalRewardsType _rewardEnum2;
-            if (Enum.TryParse<NormalRewardsType>(rewardString, out _rewardEnum2))
+            if (Enum.TryParse<SpecialRewardsType>(rewardString, out SpecialRewardsType specialReward))
             {
-                mGameGlobalModel.AddItem((int)_rewardEnum2, item.itemQuantity);
+                switch (specialReward)
+                {
+                    case SpecialRewardsType.UnlimitedHp:
+                        HealthManager.Instance.SetUnLimitHp(item.itemQuantity);
+                        break;
+                    case SpecialRewardsType.ReduceLiveRecoverTime:
+                        mGameGlobalModel.ReduceHpRecoverTimer(item.itemQuantity);
+                        break;
+
+                    default:
+                        mGameGlobalModel.AddTimerToJson(mGameGlobalModel.GameGlobalJsonData.TimedBuffData,
+                            specialReward.ToString(), item.itemQuantity);
+                        break;
+                }
             }
         }
     }

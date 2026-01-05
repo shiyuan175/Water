@@ -7,15 +7,15 @@ using GameGlobalJson;
 
 namespace QFramework.Example
 {
-	public partial class ShopManager : ViewController, IController
-	{
+    public partial class ShopManager : ViewController, IController
+    {
         [SerializeField] private List<Button> buyGiftPackBtns;
         [SerializeField] private List<TMPro.TextMeshProUGUI> mRedTMP;
         [SerializeField] private List<TMPro.TextMeshProUGUI> mBlueTMP;
         [SerializeField] private List<TMPro.TextMeshProUGUI> mGreenTMP;
 
-        private List<GiftPack> giftPacksCache;
-        private Dictionary<string ,Action> giftPackBuySuccessActions;
+        private List<GiftPackCtrl> giftPacksCache;
+        private Dictionary<string, Action> giftPackBuySuccessActions;
         private GooglePayManager googlePay;
         private GameGlobalModel gameGlobalModel;
         private RewardGrantUtility rewardGrantUtility;
@@ -41,15 +41,15 @@ namespace QFramework.Example
             gameGlobalModel = this.GetModel<GameGlobalModel>();
             rewardGrantUtility = this.GetUtility<RewardGrantUtility>();
 
-            giftPacksCache = new List<GiftPack>();
+            giftPacksCache = new List<GiftPackCtrl>();
             // 初始化购买成功回调
             giftPackBuySuccessActions = new Dictionary<string, Action>();
             foreach (var btn in buyGiftPackBtns)
             {
-                if (!btn.TryGetComponent<GiftPack>(out GiftPack _giftPack))
+                if (!btn.TryGetComponent<GiftPackCtrl>(out GiftPackCtrl _giftPack))
                     continue;
                 giftPacksCache.Add(_giftPack);
-                var _packSo = _giftPack.giftPack;
+                var _packSo = _giftPack.GiftPackSO;
                 giftPackBuySuccessActions[_packSo.ID] = () => OnPaySuccess(_giftPack);
             }
         }
@@ -67,7 +67,7 @@ namespace QFramework.Example
             // 获取特权礼包的购买记录
             foreach (var pack in giftPacksCache)
             {
-                bool? isPurchased = (bool?)gameGlobalModel.GetFieldValue(gameGlobalModel.GameGlobalJsonData.GiftPackPurchases, pack.giftPack.ID);
+                bool? isPurchased = (bool?)gameGlobalModel.GetFieldValue(gameGlobalModel.GameGlobalJsonData.GiftPackPurchases, pack.GiftPackSO.ID);
                 if (isPurchased is true)
                     pack.DisableProduct();
             }
@@ -83,13 +83,13 @@ namespace QFramework.Example
         }
 
         private void Start()
-		{
+        {
             //注册按钮
             foreach (var btn in buyGiftPackBtns)
             {
-                if (!btn.TryGetComponent<GiftPack>(out GiftPack _giftPack))
+                if (!btn.TryGetComponent<GiftPackCtrl>(out GiftPackCtrl _giftPack))
                     continue;
-                var _packSo = _giftPack.giftPack;
+                var _packSo = _giftPack.GiftPackSO;
 
                 btn.onClick.AddListener(() => BuyGiftPackEvent(_packSo));
             }
@@ -108,17 +108,27 @@ namespace QFramework.Example
         /// <summary>
         /// 礼包购买成功回调
         /// </summary>
-        private void OnPaySuccess(GiftPack giftPack)
+        private void OnPaySuccess(GiftPackCtrl giftPack)
         {
-            //发放奖励、记录特权礼包购买
-            rewardGrantUtility.GrantReward(giftPack.giftPack);
-            gameGlobalModel.SetFieldAndSave(JsonType.GameGlobalJson, gameGlobalModel.GameGlobalJsonData.GiftPackPurchases,
-                giftPack.giftPack.ID, true);
+            //获取购买记录(每个礼包首次购买附带特权),
+            //购买礼包时会根据礼包ID进行校验,而像金币礼包这种不需要验证(不带特权),用空值接收
+            var purchased = (bool?)gameGlobalModel.GetFieldValue(gameGlobalModel.GameGlobalJsonData.GiftPackPurchases,
+                giftPack.GiftPackSO.ID);
+            var ability = purchased.HasValue && purchased.Value == false 
+                ? giftPack.AbilityPackSO : null;
 
-            //奖励发放表现
-            RewardUIManager.Instance.PlayRewardAnim(giftPack.giftPack.Coins, true, null, giftPack.giftPack);
-            //禁用礼包对象
-            //giftPack.DisableProduct();
+            //发放奖励与表现
+            rewardGrantUtility.GrantReward(giftPack.GiftPackSO);
+            if (purchased.HasValue && !purchased.Value)
+            {
+                rewardGrantUtility.GrantReward(ability);
+                gameGlobalModel.SetFieldAndSave(JsonType.GameGlobalJson, gameGlobalModel.GameGlobalJsonData.GiftPackPurchases,
+                    giftPack.GiftPackSO.ID, true);
+            }
+            RewardUIManager.Instance.PlayRewardAnim(giftPack.GiftPackSO.Coins, true, null, giftPack.GiftPackSO, ability);
+
+            //禁用特权礼包UI
+            giftPack.DisableProduct();
             UIKit.OpenPanel<UIBuyPackSuccess>();
 
             //这是用于AB包唤起的商店

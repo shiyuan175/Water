@@ -1,9 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using QFramework.Example;
 using QFramework;
 using UnityEngine;
-using Spine.Unity;
 
 public class SkipMagicSpine : MonoBehaviour
 {

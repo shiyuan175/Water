@@ -10,14 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a33e86cc3fc2ec7438252ff36af5789a, type: 3}
-  m_Name: GiftPack_1
+  m_Name: AbilityPack_5
   m_EditorClassIdentifier: 
-  PackID: privilegepack_1
+  PackID: privilegepack_5
   coins: 0
-  items:
-  - normalRewardsType: 9
-    quantity: 5
-  specialsItem:
-  - specialRewardType: 9
-    duration: 5
-  mAbility: 
+  items: []
+  specialsItem: []
+  mAbility: 05000000
