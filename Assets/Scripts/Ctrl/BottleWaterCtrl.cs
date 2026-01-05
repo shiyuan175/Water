@@ -164,7 +164,8 @@ public class BottleWaterCtrl : MonoBehaviour
     {
         if (hideWaterType != HideWaterType.None || noWait || !gameObject.activeSelf)
         {
-            // 黑水出现动画
+            //Debug.Log(HideGo.activeSelf);
+            // 黑水消失动画
             if (hideWaterType == HideWaterType.None && HideGo.activeSelf)
             {
                 wenhaoFxGo.SetActive(false);
@@ -172,7 +173,7 @@ public class BottleWaterCtrl : MonoBehaviour
             }
 
             hideWaterCtrl.SetHideShow(hideWaterType);
-            // 黑水隐藏动画
+            // 黑水隐藏
             HideGo.SetActive(hideWaterType != HideWaterType.None);
             MachineParent.SetActive(hideWaterType == HideWaterType.None);
         }
@@ -464,7 +465,7 @@ public class BottleWaterCtrl : MonoBehaviour
             ItemType.MakeColorItem => (createItemGo, createSpine, "combine", true),
             ItemType.MagnetItem => (magnetItemGo, magnetSpine, "combine", true),
             ItemType.ChangeGreen or ItemType.ChangeOrange or ItemType.ChangePink
-            or ItemType.ChangeYellow or ItemType.ChangePurple or ItemType.ChangeDarkBlue
+                or ItemType.ChangeYellow or ItemType.ChangePurple or ItemType.ChangeDarkGreen or ItemType.ChangeBlue
                 => (changeItemGo, changeSpine, "combine", true),
             _ => (null, null, "", false)
         };

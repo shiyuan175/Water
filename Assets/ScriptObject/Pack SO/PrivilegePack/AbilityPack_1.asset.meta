@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/ScriptObject/Pack SO/PrivilegePack/GiftPack_1.asset.meta
 guid: 14dbd6d0f06529e44bdb405122e7957e
+========
+guid: cbb33df08f071bf429e1ae4f704361ef
+>>>>>>>> 12.31:Assets/ScriptObject/Pack SO/PrivilegePack/GiftPack_2.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

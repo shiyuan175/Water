@@ -12,6 +12,7 @@ public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
     public Button button;
     public Button Btnfinish;
     public GameObject debugPanel;
+    int i = 0;
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;
@@ -20,6 +21,7 @@ public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
     // Start is called before the first frame update
     void Start()
     {
+        
         button.onClick.AddListener(() =>
         {
             LevelManager.Instance.StartGame(int.Parse(inputField.text));
@@ -60,6 +62,12 @@ public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
         if (Input.GetKeyDown(KeyCode.H))
         {
             debugPanel.SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            i++;
+            LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel() + i);
         }
 
         if (Input.GetKeyDown(KeyCode.O))

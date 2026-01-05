@@ -37,8 +37,8 @@ public class PrograssGiftADActivityModel : AbstractModel
         { 
             mStorage.SaveInt(PG_REWARD_LEVEl, value);
         });
-        mRewardLevel.SetValueWithoutEvent(mStorage.LoadIntValue(PG_GIFT_LEVEl, 0));
-        mRewardLevel.Register(value =>
+        mGiftLevel.SetValueWithoutEvent(mStorage.LoadIntValue(PG_GIFT_LEVEl, 0));
+        mGiftLevel.Register(value =>
         {
             mStorage.SaveInt(PG_GIFT_LEVEl, value);
         });

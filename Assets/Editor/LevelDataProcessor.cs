@@ -6,12 +6,25 @@ using UnityEngine;
 using GameDefine;
 using System.IO;
 using System.Linq;
+using Codice.Client.BaseCommands;
 
+public enum LevelOperationType
+{
+    None = 0,
+    RemoveOneLevelHide = 1 << 0,
+    RemoveOneLevelBomb = 1 << 1,
+}
 public class LevelDataProcessor : EditorWindow
 {
     private static Dictionary<int, List<int>> Clearlist = new();
     private LevelCreateCtrl currentLevel;
-
+    private LevelCreateCtrl originLevel;
+    private LevelCreateCtrl copyLevel;
+    private LevelOperationType selectedOperations = LevelOperationType.None;
+    private bool showDropdown = false;
+    private Rect dropdownRect;
+    private bool removeHideSelected;
+    private bool removeBombSelected;
     [MenuItem("Tools/关卡数据处理工具")]
     public static void ShowWindow()
     {
@@ -42,11 +55,150 @@ public class LevelDataProcessor : EditorWindow
             ProcessOneLevels(currentLevel);
         }
 
+        /*if (GUILayout.Button("开始删除单一关卡的黑水", GUILayout.Height(40)))
+        {
+            RemoveOneLevelHide(currentLevel);
+        }
+
+        if (GUILayout.Button("开始删除单一关卡的普通炸弹", GUILayout.Height(40)))
+        {
+            RemoveOneLevelBomb(currentLevel);
+        }*/
+        if (GUILayout.Button("选择功能 ▼", GUILayout.Height(40)))
+        {
+            showDropdown = !showDropdown;
+        }
+
+        // 如果展开，显示复选框选择框
+        if (showDropdown)
+        {
+            // 创建一个浮动窗口样式的选择框
+            GUILayout.BeginVertical("window", GUILayout.Width(200));
+
+            // 复选框选项
+            removeHideSelected = (selectedOperations & LevelOperationType.RemoveOneLevelHide) != 0;
+            removeBombSelected = (selectedOperations & LevelOperationType.RemoveOneLevelBomb) != 0;
+            // 更新选择状态
+            removeHideSelected = GUILayout.Toggle(removeHideSelected, "删除黑水");
+            removeBombSelected = GUILayout.Toggle(removeBombSelected, "删除普通炸弹");
+            // 更新位掩码
+            selectedOperations = LevelOperationType.None;
+            if (removeHideSelected) selectedOperations |= LevelOperationType.RemoveOneLevelHide;
+            if (removeBombSelected) selectedOperations |= LevelOperationType.RemoveOneLevelBomb;
+
+            // 确认按钮
+            if (GUILayout.Button("确认选择"))
+            {
+                showDropdown = false;
+            }
+
+            GUILayout.EndVertical();
+        }
+
+        if (GUILayout.Button("执行选中功能", GUILayout.Height(40)))
+        {
+            ExecuteOperations(currentLevel);
+        }
+        /*// 创建复选框组
+        removeHideSelected = (selectedOperations & LevelOperationType.RemoveOneLevelHide) != 0;
+        removeBombSelected = (selectedOperations & LevelOperationType.RemoveOneLevelBomb) != 0;*/
+
+
+        originLevel = (LevelCreateCtrl)EditorGUILayout.ObjectField(
+            "被覆盖的的关卡",
+            originLevel,
+            typeof(LevelCreateCtrl),
+            true);
+
+        copyLevel = (LevelCreateCtrl)EditorGUILayout.ObjectField(
+            "被复制的关卡:",
+            copyLevel,
+            typeof(LevelCreateCtrl),
+            true);
+        if (GUILayout.Button("复制整个关卡数据", GUILayout.Height(40)))
+        {
+            CopyOneLevelData(copyLevel, originLevel);
+        }
         GUILayout.Space(20);
         GUILayout.Label("注意事项：", EditorStyles.boldLabel);
         GUILayout.Label("• 操作前请确保已保存场景");
         GUILayout.Label("• 处理完成后请手动保存资源");
         GUILayout.Label("• 建议先备份重要数据");
+    }
+
+    private static void CopyOneLevelData(LevelCreateCtrl source, LevelCreateCtrl target)
+    {
+        // 使用所有默认选项复制
+        target.gameType = source.gameType;
+        target.countDownNum = source.countDownNum;
+        target.timeCountDown = source.timeCountDown;
+        target.topNum = source.topNum;
+        target.bottomNum = source.bottomNum;
+        target.GlobalMechanismBeginSetp = source.GlobalMechanismBeginSetp;
+        target.GlobalMechanismContinueSetps = source.GlobalMechanismContinueSetps;
+        target.bottles = new(source.bottles);
+        target.clearList = new(source.clearList);
+        target.hideList = new(source.hideList);
+        target.hideTypes = new(source.hideTypes);
+        target.bubbleCount = new(source.bubbleCount);
+        target.changeList = new(source.changeList);
+        target.globalMechanism = source.globalMechanism;
+
+        EditorUtility.SetDirty(target);
+    }
+
+    private static void RemoveOneLevelHide(LevelCreateCtrl level)
+    {
+        for (int bottleIndex = 0; bottleIndex < level.bottles.Count; bottleIndex++)
+        {
+            var bottle = level.bottles[bottleIndex];
+            for (int waterLayerIndex = 0; waterLayerIndex < bottle.waterSet.Count; waterLayerIndex++)
+            {
+                bottle.hideTypes[waterLayerIndex] = HideWaterType.None;
+            }
+        }
+
+        EditorUtility.SetDirty(level);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+
+    private void ExecuteOperations(LevelCreateCtrl level)
+    {
+        if ((selectedOperations & LevelOperationType.RemoveOneLevelHide) != 0)
+        {
+            RemoveOneLevelHide(level);
+        }
+
+        if ((selectedOperations & LevelOperationType.RemoveOneLevelBomb) != 0)
+        {
+            RemoveOneLevelBomb(level);
+        }
+
+        if (selectedOperations == LevelOperationType.None)
+        {
+            Debug.LogWarning("请至少选择一个功能！");
+        }
+    }
+
+    private static void RemoveOneLevelBomb(LevelCreateCtrl level)
+    {
+        for (int bottleIndex = 0; bottleIndex < level.bottles.Count; bottleIndex++)
+        {
+            var bottle = level.bottles[bottleIndex];
+            for (int waterLayerIndex = 0; waterLayerIndex < bottle.waterSet.Count; waterLayerIndex++)
+            {
+                if (bottle.bombCounts[waterLayerIndex] != 0 || bottle.waterItem[waterLayerIndex] == WaterItem.Bomb)
+                {
+                    bottle.bombCounts[waterLayerIndex] = 0;
+                    bottle.waterItem[waterLayerIndex] = WaterItem.None;
+                }
+            }
+        }
+
+        EditorUtility.SetDirty(level);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
 
     private static void ProcessOneLevels(LevelCreateCtrl level)

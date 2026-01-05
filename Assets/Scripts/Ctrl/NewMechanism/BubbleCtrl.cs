@@ -40,17 +40,18 @@ public class BubbleCtrl : MonoBehaviour
         if (!spine.enabled)
             return;
         TrackEntry track;
-        if (isOriginal)
+        /*if (isOriginal)
         {
-            track = spine.AnimationState.SetAnimation(0, ORIGINAL_DISABLE, false);
+             track = spine.AnimationState.SetAnimation(0, ORIGINAL_DISABLE, false);
         }
         else
         {
             track = spine.AnimationState.SetAnimation(0, NORMAL_DISABLE, false);
-        }
+        }*/
 
-        track.TimeScale = 1.7f;
-        track.Complete += track => { spine.enabled = false; };
+        spine.enabled = false;
+        // track.TimeScale = 1.7f;
+        //track.Complete += track => { spine.enabled = false; };
     }
 
     /// <summary>

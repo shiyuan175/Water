@@ -127,25 +127,48 @@ namespace QFramework.Example
             Image img = BtnBuy.transform.Find("ImgLock").GetComponent<Image>();
             Color oldColor = img.color;
             // 单个 Tween 完成所有动画
-            float duration = 0.4f;
+            float duration = 0.6f;
             float elapsed = 0f;
 
-            Tween unlockTween = DOTween.To(() => elapsed, x => elapsed = x, duration, duration)                
+            Tween unlockTween = DOTween.To(() => 0f, x => elapsed = x, 1f, duration)                
                 .OnUpdate(() =>
                 {
-                    float progress = elapsed / duration;
-                    // 控制透明度：先保持全亮，后段淡出
-                    float alpha = progress < 0.5f ? 1f : Mathf.Lerp(1f, 0f, (progress - 0.5f) * 2f);
+                    float progress = elapsed; // 现在elapsed是0到1的进度值
 
-                    // 控制缩放：先放大后缩小
-                    float scale = progress < 0.3f ?
-                        Mathf.Lerp(1f, 1.3f, progress / 0.3f) :
-                        Mathf.Lerp(1.2f, 0.8f, (progress - 0.3f) / 0.7f);
+                    // 控制透明度：前50%保持全亮，后50%淡出
+                    float alpha;
+                    if (progress < 0.5f)
+                    {
+                        alpha = 1f;
+                    }
+                    else
+                    {
+                        // 从0.5到1.0，进度映射到0到1
+                        float fadeProgress = (progress - 0.5f) / 0.5f;
+                        alpha = Mathf.Lerp(1f, 0f, fadeProgress);
+                    }
+
+                    img.color = new Color(oldColor.r, oldColor.g, oldColor.b, alpha);
+
+                    // 控制缩放：前30%放大，后70%缩小
+                    float scale;
+                    if (progress < 0.3f)
+                    {
+                        // 从0到0.3，进度映射到0到1
+                        float scaleUpProgress = progress / 0.3f;
+                        scale = Mathf.Lerp(1f, 1.3f, scaleUpProgress);
+                    }
+                    else
+                    {
+                        // 从0.3到1.0，进度映射到0到1
+                        float scaleDownProgress = (progress - 0.3f) / 0.7f;
+                        scale = Mathf.Lerp(1.2f, 0.8f, scaleDownProgress);
+                    }
                     img.transform.localScale = Vector3.one * scale;
                 })
                 .OnComplete(() =>
                 {
-                    DOVirtual.DelayedCall(2f, () =>
+                    DOVirtual.DelayedCall(2.3f, () =>
                     {
                         BtnBuy.interactable = true;
                         img.gameObject.SetActive(false);

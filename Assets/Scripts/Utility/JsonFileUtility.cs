@@ -273,8 +273,7 @@ public class JsonFileUtility : IUtility
         GameDefine.GameConst.TRADefaultJson,
         GameDefine.GameConst.BPDefaultJson,
         GameDefine.GameConst.PGDefaultJson,
-        GameDefine.GameConst.GAME_GLOBAL_DEFAULT_JSON,
-        GameDefine.GameConst.DAILY_REWARD_DEFAULT_JSON
+        GameDefine.GameConst.GAME_GLOBAL_DEFAULT_JSON
     };
 
     /*public IEnumerator UpdateJsonFiles()
