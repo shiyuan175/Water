@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using GameGlobalJson;
 
 namespace QFramework.Example
 {
@@ -12,6 +13,7 @@ namespace QFramework.Example
     {
         private GooglePayManager googlePay;
         private RewardGrantUtility rewardGrantUtility;
+        private GameGlobalModel mGameGlobalModel;
         [SerializeField] private AbilityGiftPackSO mRemoveAdPack;
         [SerializeField] private TextMeshProUGUI[] redText;
 
@@ -24,13 +26,13 @@ namespace QFramework.Example
         protected override void OnOpen(IUIData uiData = null)
         {
             googlePay = GooglePayManager.Instance;
+            mGameGlobalModel = this.GetModel<GameGlobalModel>();
             rewardGrantUtility = this.GetUtility<RewardGrantUtility>();
 
             foreach (var i in redText)
                 i.font = LevelManager.Instance.redFont;
 
-            StringEventSystem.Global.Register(mRemoveAdPack.ID,
-                ()=>OnPaySuccess()).UnRegisterWhenGameObjectDestroyed(this);
+            StringEventSystem.Global.Register(mRemoveAdPack.ID, OnPaySuccess).UnRegisterWhenGameObjectDestroyed(this);
            
             SetBtnClick();
         }
@@ -45,6 +47,8 @@ namespace QFramework.Example
 
         protected override void OnClose()
         {
+            StringEventSystem.Global.UnRegister(mRemoveAdPack.ID, OnPaySuccess);
+
             BtnClose.onClick.RemoveAllListeners();
             BtnBuy.onClick.RemoveAllListeners();
 
@@ -68,6 +72,9 @@ namespace QFramework.Example
         private void OnPaySuccess()
         {
             rewardGrantUtility.GrantReward(mRemoveAdPack);
+            //免广礼包视为礼包2的特权
+            mGameGlobalModel.SetFieldAndSave(JsonType.GameGlobalJson,
+                mGameGlobalModel.GameGlobalJsonData.GiftPackPurchases, "gift_2", true);
             RewardUIManager.Instance.PlayRewardAnim(mRemoveAdPack.Coins, true, null, mRemoveAdPack);
             UIKit.OpenPanel<UIBuyPackSuccess>();
             UIKit.ClosePanel(this);
