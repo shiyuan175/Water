@@ -10,7 +10,7 @@ using Spine;
 /// <summary>
 /// 炸弹标记 0 表示没有，100表示正常消失 ，200 表示飞天消失
 /// </summary>
-public class BombCtrl : MonoBehaviour
+public class BombCtrl : MonoBehaviour, ICanSendEvent, ICanGetUtility
 {
     [SerializeField]
     TextMeshProUGUI timeText;
@@ -62,9 +62,11 @@ public class BombCtrl : MonoBehaviour
         TrackEntry track = spineCopy.AnimationState.SetAnimation(0, "combine", false);
         track.Complete += track =>
         {
-            if (!UIKit.GetPanel<UIRetry>())
-                UIKit.OpenPanel<UIRetry>();
-
+            /*if (!UIKit.GetPanel<UIRetry>())
+                UIKit.OpenPanel<UIRetry>();*/
+            this.SendEvent<GameStartEvent>();
+            LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
+            GameCtrl.Instance.InitGameCtrl();
             UIKit.ClosePanel<UIMask>();
             spine.enabled = false;
             spine.AnimationState?.ClearTracks();
@@ -182,4 +184,8 @@ public class BombCtrl : MonoBehaviour
         spine.AnimationState.SetAnimation(0,"idle",true);
     }
 
+    public IArchitecture GetArchitecture()
+    {
+        return GameMainArc.Interface;
+    }
 }

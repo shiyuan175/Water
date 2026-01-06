@@ -25,6 +25,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
 
     private void Awake()
     {
+        Debug.Log("GameCtrl");
         Instance = this;
     }
 

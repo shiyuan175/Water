@@ -1,4 +1,5 @@
-﻿using QFramework;
+﻿/*
+using QFramework;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -146,4 +147,5 @@ public class GooglePayManager : MonoSingleton<GooglePayManager>, IDetailedStoreL
             $" Purchase failure details: {failureDescription.message}");
     }
 }
+*/
 

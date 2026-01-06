@@ -22,20 +22,9 @@ public class GameMainArc : Architecture<GameMainArc>
     {
         RegisterModel(new GameGlobalModel());
         RegisterModel(new PotionActivityModel());
-        RegisterModel(new BannerActivityModel());
         RegisterModel(new RankDataModel());
         RegisterModel(new TierRankActivityModel());
-        RegisterModel(new VolcanicActivityModel());
-        RegisterModel(new RocketActivityModel());
-        RegisterModel(new HighTowerActivityModel());
-        RegisterModel(new MagicStreakActivityModel());
         //RegisterModel(new TurnTableADActivityModel());
-        RegisterModel(new SceneUnlockModel());
-        RegisterModel(new BattlePassModel());
-        RegisterModel(new SepecialOfferADActivityModel());
-        RegisterModel(new RemoveADACtivityModel());
-        RegisterModel(new DoubleGiftADActivityModel());      
-        RegisterModel(new PrograssGiftADActivityModel());
     }
 
     private void RegisterUtilitys()

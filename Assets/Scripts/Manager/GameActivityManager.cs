@@ -31,55 +31,6 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         GameActivity = new Dictionary<string, IGameActivity>();
         StartTickLoop();
 
-        //���ݹؿ�����ע��
-        int _curLevel = mSaveUtility.GetCurrentLevel();
-        if (_curLevel >= GameDefine.GameConst.VA_BEGIN_LEVEL)
-        {
-            RegisterActivity<VolcanicActivity>();
-        }
-        if (_curLevel >= GameDefine.GameConst.RA_BEGIN_LEVEL)
-        {
-            RegisterActivity<RocketActivity>();
-        }
-        if (_curLevel >= GameDefine.GameConst.HTA_BEGIN_LEVEL)
-        {
-            RegisterActivity<HighTowerActivity>();
-        }
-        /* ��ʱ�ر�
-        if (_curLevel >= GameDefine.GameConst.TT_AD_BEGIN_LEVEL)
-        {
-            RegisterActivity<TurnTableADActivity>();
-        }*/
-        if (_curLevel >= GameDefine.GameConst.BP_AD_BEGIN_LEVEL)
-        {
-            RegisterActivity<BattlePassADActivity>();
-            if (!GameUtils.DoesCountDownKeyExist(GameDefine.GameConst.DAILY_REWARD_AD_ACTIVITY_SIGN))
-            {
-                GetActivity<BattlePassADActivity>().StartActivity();
-            }
-        }
-        if (_curLevel >= GameDefine.GameConst.MS_BEGIN_LEVEL)
-        {
-            RegisterActivity<MagicStreakActivity>();
-        }
-        if (_curLevel >= GameDefine.GameConst.TRA_BEGIN_LEVEL)
-        {
-            RegisterActivity<TierRankActivity>();
-        }
-        if(_curLevel >= GameDefine.GameConst.SO_AD_BEGIN_LEVEL)
-        {
-            RegisterActivity<SepecialOfferADActivity>();
-        }
-        if(_curLevel >= GameDefine.GameConst.PG_AD_BEGIN_LEVEL)
-        {
-            RegisterActivity<PrograssGiftADActivity>();
-        }
-        if(_curLevel >= GameDefine.GameConst.DG_AD_BEGIN_LEVEL)
-        {
-            RegisterActivity<DuobleGiftAdActivity>();
-        }
-
-        //Other Activities can be registered here based on level or other conditions
     }
 
     //�ע��

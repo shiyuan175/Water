@@ -25188,8 +25188,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1954153133}
-  - component: {fileID: 1954153132}
   - component: {fileID: 1954153136}
+  - component: {fileID: 1954153132}
   - component: {fileID: 1954153137}
   m_Layer: 0
   m_Name: LevelManager
@@ -25791,7 +25791,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d30432095e2e8a445a346c8f9ec30578, type: 2}
   - {fileID: 11400000, guid: 792710861e59f1748a341a5983b58bc3, type: 2}
   - {fileID: 11400000, guid: f09d9e785d81ddf4daa12cf7c6c3ea12, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: f5958d1451b86b243bf825ddb6296e7e, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

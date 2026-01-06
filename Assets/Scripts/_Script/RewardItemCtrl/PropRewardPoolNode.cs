@@ -15,7 +15,6 @@ public class PropRewardPoolNode : MonoBehaviour
     {
         propImage = GetComponent<Image>();
         propNumText = GetComponentInChildren<TextMeshProUGUI>();
-        propNumText.font = LevelManager.Instance.blueFont;
     }
 
     /// <summary>
@@ -26,7 +25,7 @@ public class PropRewardPoolNode : MonoBehaviour
     /// <param name="itemNum"></param>
     public void Init(Sprite sprite, Vector2 pos, int itemNum, bool specialRewards)
     {
-        //ÏÈÆôÓÃµ÷ÓÃAwake
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½Awake
         this.Show();
         propImage.sprite = sprite;
         if (specialRewards)

@@ -144,6 +144,19 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     /// <param name="idx"></param>
     public void Init(BottleProperty property, int idx)
     {
+        foreach (var i in waterImg)
+        {
+            i.textItem.text = "";
+            i.HideGo.SetActive(false);
+        }
+
+        BlackWaterGoPar.SetActive(false);
+        foreach (var blackwater in blackWaterGos)
+        {
+            blackwater.SetActive(false);
+        }
+        
+        
         originProperty = property;
 
         ReceiveCount = 0;
@@ -256,22 +269,6 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
     /// <summary>
     ///     结束游戏的时候清空瓶子的状态，类似于真正的初始化瓶子
     /// </summary>
-    public void DisInit()
-    {
-        foreach (var i in waterImg)
-        {
-            i.textItem.text = "";
-            i.HideGo.SetActive(false);
-        }
-          
-        
-        BlackWaterGoPar.SetActive(false);
-        foreach (var blackwater in blackWaterGos)
-        {
-            blackwater.SetActive(false);
-        }
-        
-    }
     /// <summary>
     ///     设置瓶子最大装水数
     /// </summary>
@@ -931,11 +928,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
         if (LevelManager.Instance.globalMechanism != GlobalMechanism.None)
             LevelManager.Instance.CheckMagicCat();
 
-
-        //死局判定
-        if (LevelManager.Instance.CheckDeadAfterPour())
-            UIKit.OpenPanel<UIRetry>();
-
+        
         #endregion
 
         //OnCancelSelect();

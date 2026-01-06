@@ -15,8 +15,6 @@ namespace QFramework.Example
 
     public partial class UIPaidItemsGuide : UIPanel, ICanGetModel, ICanSendEvent
     {
-        [SerializeField] private TextMeshProUGUI[] mTxtRed;
-
         private const int DelItemCount = 1;
         private readonly Dictionary<NormalRewardsType, string> PropRules = new Dictionary<NormalRewardsType, string>
         {
@@ -44,8 +42,6 @@ namespace QFramework.Example
         protected override void OnOpen(IUIData uiData = null)
         {
             mGameGlobalModel = this.GetModel<GameGlobalModel>();
-
-            InitFont();
             InitUI();
             BindBtn();
         }
@@ -92,18 +88,6 @@ namespace QFramework.Example
                 }
             }
         }
-
-        private void InitFont()
-        {
-            TxtTitle_Red.font = LevelManager.Instance.redFont;
-            TxtItemDetails_Red.font = LevelManager.Instance.redFont;
-
-            foreach (var item in mTxtRed)
-            {
-                item.font = LevelManager.Instance.redFont;
-            }
-        }
-
         private void InitUI()
         {
             //�ڵ�����
