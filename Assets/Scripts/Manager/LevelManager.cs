@@ -6,10 +6,10 @@ using System;
 using QFramework.Example;
 using System.Collections;
 using Spine.Unity;
-using System.Linq;
 using UnityEngine.UI;
 using TMPro;
 using System.Reflection;
+using System.Linq;
 
 [MonoSingletonPath("[Level]/LevelManager")]
 public class LevelManager : MonoBehaviour, IController, ICanSendEvent
@@ -41,13 +41,15 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public bool ISPlayingHideAnim => playingHideAnimCount == 0;
 
     public int moveNum = 0;
-
+    
     //机制道具Spine合成生成的实例父节点(用于将渲染置顶)
     public Transform mSpineIniPar;
     public GameObject broomBullet;
     public SkeletonGraphic mahoujinSpine;
     bool isFinish = false;
+
     public bool isPlayAnim, isPlayFxAnim;
+
     // 表示关卡彩色水瓶子是否添加
     public bool isFlashWaterBottleAdded = true;
 
@@ -63,15 +65,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     private LevelManagerUtility levelManagerUtility;
     private ResLoader mResLoader = ResLoader.Allocate();
-    [HideInInspector]
-    public TMP_FontAsset redFont;
-    [HideInInspector]
-    public TMP_FontAsset blueFont;
-    [HideInInspector]
-    public TMP_FontAsset greenFont;
-
-
+    private SaveDataUtility saveDataUtility;
     #region 新机制记录存储结构
+
     public Dictionary<BottleCtrl, int> bubbleDict = new();
     public HashSet<BottleCtrl> bombList = new();
     public Dictionary<BottleCtrl, int> curtainDict = new();
@@ -79,6 +75,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public GlobalMechanism globalMechanism;
     public int GlobalMechanismContinueSetps;
     public int GlobalMechanismBeginSetp;
+
     #endregion
 
 
@@ -93,33 +90,29 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         Instance = this;
 
         levelManagerUtility = this.GetUtility<LevelManagerUtility>();
-        redFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Red");
-        blueFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Blue");
-        greenFont = mResLoader.LoadSync<TMP_FontAsset>("font", "SourceHanSansCN-Bold SDF Green");
-
-        InitBottle();
+        saveDataUtility = this.GetUtility<SaveDataUtility>();
     }
 
     private void Start()
     {
-        //清空携带道具
-        StringEventSystem.Global.Register("ClearTakeItem", () =>
-        {
-            takeItem.Clear();
-
-        }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
         emptyBottle.numCake = 4;
         levelId = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
-        UIKit.OpenPanel<UIBegin>();
 
         if (levelId <= GameConst.NEWBIE_LEVEL_COUNT)
         {
             StartGame(levelId);
             if (!UIKit.GetPanel<UIGameNode>())
                 UIKit.OpenPanel<UIGameNode>();
+            UIKit.GetPanel<UIGameNode>().Show();
+           
         }
+
+        GameCtrl.Instance.InitGameCtrl();
+        Debug.Log("beginGame");
+        //this.SendEvent<GameStartEvent>();
+        LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
+         UIKit.GetPanel<UIGameNode>().Show();
     }
 
 
@@ -130,57 +123,47 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     }
 
     #region 关卡重置初始化/进入关卡初始化
-
-    /// <summary>
-    /// 将瓶子数据初始化
-    /// 初始化时调用/游戏结束时调用/退出关卡调用
-    /// </summary>
-    public void InitBottle()
-    {
-        TopBottleLayoutGroup.Hide();
-        BottomBottleLayoutGroup.Hide();
-        foreach (var i in nowBottles)
-            i.DisInit();
-        //foreach (var item in bottles)
-        //{
-        //    item.Init(emptyBottle, 0);
-        //}
-    }
-
+    
     /// <summary>
     /// 开始游戏&初始化
     /// </summary>
     /// <param name="id"></param>
     public void StartGame(int id)
     {
+        TopBottleLayoutGroup.Hide();
+        BottomBottleLayoutGroup.Hide();
+        
         //cantClearColorList.Clear();
         cantChangeColorList.Clear();
         hideBottleList.Clear();
-
         iceBottles.Clear();
-        levelId = id;
-        LevelCreateCtrl levelInfo = levels[levelId - 1];
-
-        nowLevel = levelInfo;
-        moveNum = 0;
-        clearList = new List<int>(levelInfo.clearList);
-        hideColor = new List<int>(levelInfo.hideList);
-        globalMechanism = levelInfo.globalMechanism;
-        GlobalMechanismBeginSetp = levelInfo.GlobalMechanismBeginSetp;
-        GlobalMechanismContinueSetps = levelInfo.GlobalMechanismContinueSetps;
-
-      
-
         nowBottles.Clear();
         bubbleDict.Clear();
         curtainDict.Clear();
         bombList.Clear();
         grassList.Clear();
         nowHalf = null;
+        moveNum = 0;
+
+        /*levelId = id;
+        LevelCreateCtrl levelInfo = levels[levelId - 1];*/
+        LevelCreateCtrl levelInfo = levels[id - 1];
+        nowLevel = levelInfo;
+
+        clearList = new List<int>(levelInfo.clearList);
+        hideColor = new List<int>(levelInfo.hideList);
+        globalMechanism = levelInfo.globalMechanism;
+        GlobalMechanismBeginSetp = levelInfo.GlobalMechanismBeginSetp;
+        GlobalMechanismContinueSetps = levelInfo.GlobalMechanismContinueSetps;
+
         TopBottleLayoutGroup.Show();
         BottomBottleLayoutGroup.Show();
+
+        // 重置操作状态
+        this.SendEvent<GameStartEvent>();
+        GameCtrl.Instance.InitGameCtrl();
+        
         InitLevels(levelInfo);
-      
     }
 
     /// <summary>
@@ -205,6 +188,13 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         isFinish = false;
         //Debug.Log("关卡重置初始化/首次进入关卡初始化");
 
+        ShowBottleGo();
+        InitBottle(levelInfo);
+        if (!UIKit.GetPanel<UIGameNode>())
+            UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { GlobalMechanism = LevelManager.Instance.globalMechanism });
+        UIKit.GetPanel<UIGameNode>().Show();
+
+        
         #region 新机制初始化
 
         int _i = 0;
@@ -236,11 +226,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         }
 
         #endregion
-        
-        ShowBottleGo();
-        InitBottle(levelInfo);
-        if (!UIKit.GetPanel<UIGameNode>())
-            UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { GlobalMechanism = LevelManager.Instance.globalMechanism });
         BottleLayoutRefresh();
         UpdapeTopLayoutSpcing();
         UpdateButtomLayoutSpcing();
@@ -260,35 +245,12 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                 UIKit.OpenPanel<UIGuideLevel1And2>(UILevel.PopUI, new UIGuideLevel1And2Data { level = 2 });
                 //UIKit.OpenPanel<UIGuideLevel2>(UILevel.PopUI);
                 break;
-
-            // 道具使用引导(只保留去黑和魔法棒)
-            //case (int)GameDefine.UIGuideLevel.UIGuideLevelStepBack:
-            //    UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
-            //    {
-            //        PropType = NormalRewardsType.StepBack,
-            //    });
-            //    break;
-
             case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide:
                 UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
                 {
                     PropType = NormalRewardsType.RemoveHide,
                 });
                 break;
-
-            //case (int)GameDefine.UIGuideLevel.UIGuideLevelAddBottle:
-            //    UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
-            //    {
-            //        PropType = NormalRewardsType.AddOneBottle,
-            //    });
-            //    break;
-
-            //case (int)GameDefine.UIGuideLevel.UIGuideLevelHalfBottle:
-            //    UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
-            //    {
-            //        PropType = NormalRewardsType.AddHalfBottle,
-            //    });
-            //    break;
 
             case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll:
                 UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
@@ -302,8 +264,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         if (GameDefine.GameConst.GameplayTutorialInfo.TryGetValue(levelId,
         out var info))
         {
-            // RectTransform GetNode(int idx) =>
-            //    idx >= 0 ? bottles[idx].mGuideNode : null;
             RectTransform GetNode(int idx)
             {
                 if (idx >= -1)
@@ -372,28 +332,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             bottle.Init(levelInfo.bottles[i], i);
         }
     }
-
-    /*/// <summary>
-    /// 重置关卡(暂时保留重置关卡功能代码)
-    /// </summary>
-    public void RefreshLevel()
-    {
-        //Debug.Log("重置关卡");
-        clearList = new List<int>(nowLevel.clearList);
-        hideColor = new List<int>(nowLevel.hideList);
-        changeList = new List<ChangePair>(nowLevel.changeList);
-        hideBottleList.Clear();
-        //cantClearColorList.Clear();
-
-        nowHalf = null;
-        InitLevels(nowLevel);
-
-        //会触发两次重置(事件调用了StartGame，里面调用了InitLevels)，
-        //如果后续有问题，直接在这调用StartGame做那些数据处理
-        //this.SendEvent<GameStartEvent>();
-
-        GameCtrl.Instance.InitGameCtrl();
-    }*/
 
     /// <summary>
     /// 刷新瓶子布局(根节点)
@@ -712,7 +650,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         isFinish = true;
         UIKit.OpenPanel<UIMask>(UILevel.PopUI);
         yield return new WaitForSeconds(1);
-        this.GetUtility<SaveDataUtility>().SaveLevel(levelId + 1);
+        levelId = saveDataUtility.GetCurrentLevel();
+        saveDataUtility.SaveLevel(levelId + 1);
 
         //前五关
         if (levelId < 5)
@@ -741,7 +680,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             UIKit.OpenPanel<UIMask>(UILevel.PopUI);
             float waitTime = levelId < 5 ? 3f : 2f;
             yield return new WaitForSeconds(waitTime);
-            this.GetUtility<SaveDataUtility>().SaveLevel(levelId + 1);
+            levelId = saveDataUtility.GetCurrentLevel();
+            saveDataUtility.SaveLevel(levelId + 1);
 
             if (levelId < 5)
             {
@@ -756,82 +696,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         }
         else
             yield return null;
-    }
-
-    /// <summary>
-    /// 检测倒水后是否死局
-    /// </summary>
-    /// <returns>Ture is dead</returns>
-    public bool CheckDeadAfterPour()
-    {
-        // 使用哈希表优化查找性能
-        Dictionary<int, List<BottleCtrl>> colorToInBottles = new();
-        List<(BottleCtrl outBottle, int outColor)> outBottles = new();
-
-        foreach (var bottle in nowBottles)
-        {
-            if (bottle.isFinish || bottle.isClearHide || bottle.isNearHide)
-                continue;
-
-            //限制瓶特判
-            if (bottle.limitColor > 0)
-            {
-                //限制瓶满了是isFinish状态,所以不管限制瓶有没有水，就当做是接水瓶处理
-                AddToColorDict(colorToInBottles, bottle.limitColor, bottle);
-
-                //限制瓶非空瓶,且水块不是冰块状态，说明能倒水(倒出的水一定是限制颜色)
-                if (bottle.topIdx >= 0 && bottle.waterItems[bottle.topIdx] != WaterItem.Ice)
-                    outBottles.Add((bottle, bottle.limitColor));
-                continue;
-            }
-            
-            int color;
-            // 帘子瓶子特判
-            if (bottle.curtainHight > 0)
-            {
-                color = bottle.GetMoveOutTop();
-                // 当瓶子的水高于帘子的高度时，是可以倒出水的
-                if (bottle.topIdx >= bottle.curtainHight)
-                    outBottles.Add((bottle, color));
-                //能接水需要满足，水没有满，帘子有下降
-                if (bottle.waters.Count != bottle.maxNum && bottle.curtainHight != bottle.maxNum)
-                    AddToColorDict(colorToInBottles, color, bottle);
-                continue;
-            }
-
-            //空瓶 - 只要有空瓶就不是死局
-            if (bottle.topIdx < 0)
-                return false;
-
-            //非空瓶
-            color = bottle.GetMoveOutTop();
-            //能倒水记录
-            if (!bottle.isFreeze && bottle.waterItems[bottle.topIdx] != WaterItem.Ice)
-                outBottles.Add((bottle, color));
-            //能接水记录
-            if (bottle.waters.Count != bottle.maxNum)
-                AddToColorDict(colorToInBottles, color, bottle);
-        }
-
-        // 死局检测 
-        foreach ((BottleCtrl outBottle, int outColor) in outBottles)
-        {
-            if (colorToInBottles.TryGetValue(outColor, out var inBottlesForColor))
-            {
-                if (inBottlesForColor.Any(inB => inB != outBottle))
-                    return false;
-                // debug测试用
-                /*var inB = inBottlesForColor.FirstOrDefault(inB => inB != outBottle);
-                if (inB != null)
-                {
-                    Debug.Log($"能倒水颜色:{outColor}");
-                    Debug.Log($"倒水瓶:{outBottle}");
-                    Debug.Log($"接水瓶:{inB}");
-                    return false;
-                }*/
-            }
-        }
-        return true;
     }
     
     /// <summary>

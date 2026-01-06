@@ -26,8 +26,9 @@ public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
         {
             LevelManager.Instance.StartGame(int.Parse(inputField.text));
             this.GetUtility<SaveDataUtility>().SaveLevel(int.Parse(inputField.text));
-            UIKit.ClosePanel<UIGameNode>();
-            UIKit.OpenPanel<UIGameNode>();
+            if(!UIKit.GetPanel<UIGameNode>())
+                UIKit.OpenPanel<UIGameNode>();
+            UIKit.GetPanel<UIGameNode>().Show();
             //this.SendEvent<GameStartEvent>();
             //GameCtrl.Instance.InitGameCtrl();
         });
@@ -62,12 +63,6 @@ public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
         if (Input.GetKeyDown(KeyCode.H))
         {
             debugPanel.SetActive(true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            i++;
-            LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel() + i);
         }
 
         if (Input.GetKeyDown(KeyCode.O))

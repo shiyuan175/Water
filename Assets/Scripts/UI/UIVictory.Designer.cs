@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:a949f4c3-2ee6-4d30-b27f-7329580c5efa
+	// Generate Id:9cfafb7e-3a73-40d0-bfbb-c75090728e26
 	public partial class UIVictory
 	{
 		public const string Name = "UIVictory";
@@ -30,6 +30,14 @@ namespace QFramework.Example
 		public Spine.Unity.SkeletonGraphic HornSpine4;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnSkip;
+		[SerializeField]
+		public UnityEngine.UI.Image NewItemNode;
+		[SerializeField]
+		public UnityEngine.UI.Image ImgNewItem;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtNewItem_Red;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnNewItemClose;
 		
 		private UIVictoryData mPrivateData = null;
 		
@@ -45,6 +53,10 @@ namespace QFramework.Example
 			HornGo2 = null;
 			HornSpine4 = null;
 			BtnSkip = null;
+			NewItemNode = null;
+			ImgNewItem = null;
+			TxtNewItem_Red = null;
+			BtnNewItemClose = null;
 			
 			mData = null;
 		}

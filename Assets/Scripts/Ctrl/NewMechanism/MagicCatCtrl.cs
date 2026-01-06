@@ -21,6 +21,7 @@ public class MagicCtrl : MonoBehaviour,ICanRegisterEvent
     bool isWiterCar;
     public void Init(GlobalMechanism mechanism)
     {
+      
         spine = GetComponent<SkeletonGraphic>();
  
         switch (mechanism)
@@ -42,6 +43,7 @@ public class MagicCtrl : MonoBehaviour,ICanRegisterEvent
 
         StringEventSystem.Global.Register("MagicCatEven", ShowMoveAnimation);
     }
+    
     public void OnDisable()
     {
         StringEventSystem.Global.UnRegister("MagicCatEven", ShowMoveAnimation);

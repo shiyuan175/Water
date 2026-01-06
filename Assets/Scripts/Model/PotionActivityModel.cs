@@ -77,20 +77,4 @@ public class PotionActivityModel : AbstractModel, ICanGetModel
             saveDataUtility.SaveInt(POTION_ACTIVITY_PROGRESS_SIGN, value);
         });
     }
-
-    public void AddPotionActivityGoal()
-    {
-        mPotionActivityGoal.Value += WinStreakPoints * gameGlobalModel.SettlementMultiple;
-        mPotionActivityTotalGoal.Value += WinStreakPoints * gameGlobalModel.SettlementMultiple;
-    }
-
-    public void ReducePotionActivityGoal(int goal)
-    {
-        mPotionActivityGoal.Value -= goal;
-    }
-
-    public void AddPotionActivityProgress()
-    {
-        mPotionActivityProgress.Value += 1;
-    }
 }

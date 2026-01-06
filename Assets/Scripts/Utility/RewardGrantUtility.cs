@@ -10,7 +10,7 @@ public class RewardGrantUtility : IUtility, ICanGetModel
 {
     private GameGlobalModel mGameGlobalModel;
 
-    public void GrantReward(IPackSoInterface rewardPackSO)
+    /*public void GrantReward(IPackSoInterface rewardPackSO)
     {
         mGameGlobalModel ??= this.GetModel<GameGlobalModel>();
         CoinManager.Instance.AddCoin(rewardPackSO.Coins);
@@ -53,7 +53,7 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                     break;
             }
         }
-    }
+    }*/
 
     public void GrantReward(RewardItem[] rewardItems)
     {

@@ -389,7 +389,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -22}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &93529467
@@ -25188,8 +25188,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1954153133}
-  - component: {fileID: 1954153132}
   - component: {fileID: 1954153136}
+  - component: {fileID: 1954153132}
   - component: {fileID: 1954153137}
   m_Layer: 0
   m_Name: LevelManager
@@ -25791,7 +25791,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d30432095e2e8a445a346c8f9ec30578, type: 2}
   - {fileID: 11400000, guid: 792710861e59f1748a341a5983b58bc3, type: 2}
   - {fileID: 11400000, guid: f09d9e785d81ddf4daa12cf7c6c3ea12, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: f5958d1451b86b243bf825ddb6296e7e, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -26341,9 +26341,6 @@ MonoBehaviour:
   - {fileID: 802043528}
   - {fileID: 307236249}
   - {fileID: 2136198753}
-  redFont: {fileID: 0}
-  blueFont: {fileID: 0}
-  greenFont: {fileID: 0}
   globalMechanism: 1
   GlobalMechanismContinueSetps: 0
   GlobalMechanismBeginSetp: 0

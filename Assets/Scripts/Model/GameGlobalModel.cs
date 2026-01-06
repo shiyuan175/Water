@@ -53,9 +53,7 @@ public class GameGlobalModel : AbstractModel
     //历史最高段位
     private BindableProperty<int> mHistoryBestRank;
 
-    // 1.5倍结算金币
-    private float mGoldCoinsMultiple => mGoldCoinsMultipleStreakWin.Value > GameConst.TEN_CONTINUE_WIN_NUM ? 1.5f : 1;
-
+ 
     private SaveDataUtility storage;
     private JsonFileUtility mJsonFileUtility;
     private GameGlobalData mGameGlobalData;
@@ -70,27 +68,6 @@ public class GameGlobalModel : AbstractModel
 
     //全局Json字段
     public GameGlobalData GameGlobalJsonData => mGameGlobalData;
-
-    //每日奖励领取情况
-    public DailyReward DailyRewardJsonData => mDailyReward;
-
-    //金币倍率
-    public float GoldCoinsMultiple
-    {
-        get
-        {
-            if (!CountDownTimerManager.Instance.IsTimerFinished(GameConst.DOUBLE_COIN_SIGN))
-                return DOUBLE * mGoldCoinsMultiple;
-
-            else return mGoldCoinsMultiple;
-        }
-    }
-
-    //双倍结算Buff(部分活动积分/星星获取)
-    public int SettlementMultiple =>
-        CountDownTimerManager.Instance.IsTimerFinished(GameEnum.GetDescription(SpecialRewardsType.UnlimitedDoubleBuff))
-            ? 1
-            : DOUBLE;
 
     //静音
     public bool VolumeSetting
@@ -159,20 +136,10 @@ public class GameGlobalModel : AbstractModel
     /// </summary>
     public void PassLevel()
     {
-        mRemainingStars.Value += SettlementMultiple;
         var _curLevel = storage.GetCurrentLevel();
-
-        if (_curLevel >= GameConst.WIN_STREAK_BEGIN_LEVEL)
-            ++mCountinueWinNum.Value;
-
+        Debug.Log($"gameglobal:{_curLevel}");
         if (_curLevel >= GameConst.IN_GAME_RANK_BEGIN_LEVEL)
             ++mInGameRankStreakWin.Value;
-
-        if (_curLevel > (int)UnLockMechanism.TimesGoldCoin)
-            ++mGoldCoinsMultipleStreakWin.Value;
-
-        if (_curLevel > (int)UnLockMechanism.RemoveHideWinStreakLevel)
-            ++mRemoveHideStreakWin.Value;
     }
 
     public void ResetCountinueWinNum()
@@ -182,17 +149,7 @@ public class GameGlobalModel : AbstractModel
         mGoldCoinsMultipleStreakWin.Value = 0;
         mRemoveHideStreakWin.Value = 0;
     }
-
-    public bool CompareWithHistoryBestRank(int playRankIdx)
-    {
-        if (playRankIdx > mHistoryBestRank.Value)
-        {
-            ++mHistoryBestRank.Value;
-            return true;
-        }
-
-        return false;
-    }
+    
 
     public void LoadGlobalJson()
     {
@@ -220,51 +177,8 @@ public class GameGlobalModel : AbstractModel
         }
     }
 
-    //增加体力上限
-    public void AddMaxHp(int value)
-    {
-        GameGlobalJsonData.MaxHp += value;
-        HealthManager.Instance.RecalculateRecoverEndTime();
-        mJsonFileUtility.SaveToJson(mGameGlobalCurJson, GameGlobalJsonData);
-    }
-
-    //减少体力恢复时长
-    public void ReduceHpRecoverTimer(int minutes)
-    {
-        //每体力恢复时长最少为1分钟
-        if (GameGlobalJsonData.HpRecoverTimer <= 1) return;
-
-        GameGlobalJsonData.HpRecoverTimer = Mathf.Max(GameGlobalJsonData.HpRecoverTimer - minutes, 1);
-        HealthManager.Instance.RecalculateRecoverEndTime();
-        mJsonFileUtility.SaveToJson(mGameGlobalCurJson, GameGlobalJsonData);
-    }
-
     //反射写入字段值
     //示例：SetFieldAndSave<bool>(nameof(GameGlobalJsonData.IsClaim_UnlockScene1Reward), false);
-    public void SetFieldAndSave<T>(string fieldName, T value)
-    {
-        var type = GameGlobalJsonData.GetType();
-        var field = type.GetField(fieldName);
-        var property = type.GetProperty(fieldName);
-
-        if (field != null)
-            field.SetValue(GameGlobalJsonData, value);
-        else if (property != null && property.CanWrite)
-            property.SetValue(GameGlobalJsonData, value);
-        else return;
-
-        mJsonFileUtility.SaveToJson(mGameGlobalCurJson, GameGlobalJsonData);
-    }
-
-    public void SaveGameGlobalJson()
-    {
-        mJsonFileUtility.SaveToJson(mGameGlobalCurJson, GameGlobalJsonData);
-    }
-
-    public void SaveDailyRewardJson()
-    {
-        mJsonFileUtility.SaveToJson(mDailyRewardCurJson, mDailyReward);
-    }
 
     private void BindableProperty()
     {
