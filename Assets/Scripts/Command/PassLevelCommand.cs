@@ -3,74 +3,12 @@ using QFramework;
 
 public class PassLevelCommand : AbstractCommand ,ICanGetModel
 {
-    private TierRankActivity mTierRankActivity;
-    private BannerActivity mBannerActivity;
     private GameGlobalModel mGameGlobalModel;
 
     protected override void OnExecute()
     {
         int currentLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-        if (currentLevel == GameConst.VA_BEGIN_LEVEL)
-        {
-            GameActivityManager.Instance.RegisterActivity<VolcanicActivity>();
-        }
-        if (currentLevel == GameConst.RA_BEGIN_LEVEL)
-        {
-            GameActivityManager.Instance.RegisterActivity<RocketActivity>();
-        }
-        if (currentLevel == GameConst.HTA_BEGIN_LEVEL)
-        {
-            GameActivityManager.Instance.RegisterActivity<HighTowerActivity>();
-        }
-        if (currentLevel == GameConst.MS_BEGIN_LEVEL)
-        {
-            GameActivityManager.Instance.RegisterActivity<MagicStreakActivity>();
-        }
-        if (currentLevel == GameConst.TRA_BEGIN_LEVEL)
-        {
-            GameActivityManager.Instance.RegisterActivity<TierRankActivity>();
-        }
-
-        if (currentLevel == GameConst.SO_AD_BEGIN_LEVEL)
-        {
-            GameActivityManager.Instance.RegisterActivity<SepecialOfferADActivity>();
-        }
-        if(currentLevel == GameConst.DG_AD_BEGIN_LEVEL)
-        {
-            GameActivityManager.Instance.RegisterActivity<DuobleGiftAdActivity>();
-        }
-        if(currentLevel == GameConst.PG_AD_BEGIN_LEVEL)
-        {
-            GameActivityManager.Instance.RegisterActivity<PrograssGiftADActivity>();
-        }
-        if(currentLevel == GameConst.BP_AD_BEGIN_LEVEL)
-        {
-            GameActivityManager.Instance.RegisterActivity<BattlePassADActivity>();
-        }
-       /* ��ʱ�ر�
-        if (currentLevel == GameConst.TT_AD_BEGIN_LEVEL)
-        {
-            GameActivityManager.Instance.RegisterActivity<TurnTableADActivity>();
-        }*/
-
-        //ͨ�����߹ؿ����׸�����
-        if (currentLevel == GameConst.WIN_STREAK_BEGIN_LEVEL)
-        {
-            StringEventSystem.Global.Send(GameConst.START_POTION_ACTIVITY);
-            //�������а�
-            CountDownTimerManager.Instance.StartTimer(GameConst.RANKA_ACTIVITY_SIGN, 1440f);
-        }
-
-        //��ģ��������ʤ�߼�...
-        mTierRankActivity ??= GameActivityManager.Instance.GetActivity<TierRankActivity>();
-        if (mTierRankActivity?.ActivityStatus == SettlementActivityStatus.Active)
-            mTierRankActivity?.StreakWin();
-
         mGameGlobalModel ??= this.GetModel<GameGlobalModel>();
         mGameGlobalModel?.PassLevel();
-
-        mBannerActivity ??= GameActivityManager.Instance.GetActivity<BannerActivity>();
-        if (mBannerActivity?.ActivityStatus == GameActivityStatus.Active)
-            mBannerActivity.StreakWin();
     }
 }

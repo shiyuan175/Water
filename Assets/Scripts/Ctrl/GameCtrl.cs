@@ -25,6 +25,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
 
     private void Awake()
     {
+        Debug.Log("GameCtrl");
         Instance = this;
     }
 
@@ -124,6 +125,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
     /// </summary>
     public void InitGameCtrl()
     {
+       
         FirstBottle = null;
         SecondBottle = null;
         control = false;
