@@ -141,7 +141,7 @@ namespace GameDefine
             GameplayTutorialInfo = new()
             {
                 { 3, (0, -1, "Sort the gemstone color to lift the cloth") },
-                { 11, (0, -1, "Add one bubble per step until enough are created.") },
+                { 11, (0, -1, "Add one cloud per step until enough are created.") },
                 { 21, (-10, -1, "White Cat helps you eliminate one black obstruction per step.") },
                 { 31, (0, -1, "The water bottle entangled by the vines cannot be moved") },
                 { 41, (2, -1, "The vine water bottle can break the entangled vines after the adjacent water bottles are combined") },
