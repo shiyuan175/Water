@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using GameAttributes;
-using JsonFileData;
 using UnityEngine;
 
 namespace GameDefine
@@ -89,52 +88,6 @@ namespace GameDefine
         public const string SCENE_UNLOCK_GUIDE_STEP2 = "SceneUnlockGuideStep2";
         public const string STREAK_WIN_REMOVE_HIDE = "StreakWinRemoveHide";
         public const string START_TIER_RANK_ACTIVITY = "StartTierRankActivity";
-
-        #region Json file info
-
-        public static readonly JsonFileInfo MSADefaultJson = new()
-        {
-            FileName = "MSADefaultData.json",
-            TargetVersion = 1
-        };
-        public static readonly string MSA_CURRENT_JSON = "MSACurrent.json";
-
-        public static readonly JsonFileInfo TRADefaultJson = new()
-        {
-            FileName = "TRADefaultData.json",
-            TargetVersion = 1
-        };
-        public static readonly string TRA_CURRENT_JSON = "TRA_Data.json";
-
-        public static readonly JsonFileInfo BPDefaultJson = new()
-        {
-            FileName = "BPDefaultData.json",
-            TargetVersion = 1
-        };
-        public static readonly string BP_CURRENT_JSON = "BP_Data.json";
-
-        public static readonly JsonFileInfo PGDefaultJson = new()
-        {
-            FileName = "PGDefaultData.json",
-            TargetVersion = 1
-        };
-        public static readonly string PGCurrentJson = "PG_Data.json";
-
-        public static readonly JsonFileInfo GAME_GLOBAL_DEFAULT_JSON = new()
-        {
-            FileName = "GameGlobalDefaultData.json",
-            TargetVersion = 1
-        };
-        public static readonly string GAME_GLOBAL_CURRENT_JSON = "GameGlobalData.json";
-
-        public static readonly JsonFileInfo DAILY_REWARD_DEFAULT_JSON = new()
-        {
-            FileName = "DailyRewardDefaultData.json",
-            TargetVersion = 1
-        };
-        public static readonly string DAILY_REWARD_CURRENT_JSON = "DailyRewardData.json";
-
-        #endregion
 
         //关卡引导(bottleIndex_1必须大于0，索引为瓶子在levelmanager的bottles所在索引)
         public static readonly Dictionary<int, (int bottleIndex_1, int bottleIndex_2, string guideInfo)>
@@ -596,14 +549,6 @@ namespace GameDefine
     
     public static partial class GameUtils
     {
-        /// <summary>
-        /// false is does not exist
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public static bool DoesCountDownKeyExist(string id) =>
-            PlayerPrefs.HasKey(CountDownTimerManager.COUNTDOWN_TIMER_SIGN + id);
-
         public static void SotrArray<T>(T[] array) where T : UnityEngine.Object
         {
             System.Array.Sort(array, (a, b) =>

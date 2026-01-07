@@ -1699,7 +1699,6 @@ GameObject:
   - component: {fileID: 5849488790866285172}
   - component: {fileID: 5803998616557358016}
   - component: {fileID: 7349553204528659328}
-  - component: {fileID: 4385134855748731431}
   - component: {fileID: 1195537178361367092}
   - component: {fileID: 570213613628556939}
   - component: {fileID: 3310801544493598531}
@@ -1827,26 +1826,6 @@ MonoBehaviour:
   bubbleCtrl: {fileID: 5858138281663005974}
   hideWaterCtrl: {fileID: 5715295715699244535}
   grassWaterCtrl: {fileID: 6448164908143739188}
---- !u!114 &4385134855748731431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4712498587624630819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95f2edeb3637e1242b947d22b130af32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FxGo: {fileID: 4712498587624630819}
-  pos: {x: 0, y: 0, z: 0}
-  xMin: 0
-  xMax: 0
-  yMin: 0
-  yMax: 0
-  localPos: {x: 0, y: 0, z: 0}
-  CheckTime: 0
 --- !u!114 &1195537178361367092
 MonoBehaviour:
   m_ObjectHideFlags: 0

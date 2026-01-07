@@ -5,7 +5,6 @@ using System.IO;
 using UnityEngine;
 using QFramework;
 using GameDefine;
-using JsonFileData;
 using Newtonsoft.Json;
 
 public class GameGlobalModel : AbstractModel
@@ -20,19 +19,6 @@ public class GameGlobalModel : AbstractModel
     private const string REMOVE_HIDE_STREAK_WIN_SIGN = "A_RemoveHideStreakWinNum";
     private const string VOLUME_SETTING_SIGN = "A_WaterVolumeSetting";
     private const string HISTORY_BEST_RANK = "E_HistoryBestRank";
-
-    private readonly string mGameGlobalDelJson =
-        Path.Combine(Application.persistentDataPath, GameConst.GAME_GLOBAL_DEFAULT_JSON.FileName);
-
-    private readonly string mGameGlobalCurJson =
-        Path.Combine(Application.persistentDataPath, GameConst.GAME_GLOBAL_CURRENT_JSON);
-
-    private readonly string mDailyRewardDelJson =
-        Path.Combine(Application.persistentDataPath, GameConst.DAILY_REWARD_DEFAULT_JSON.FileName);
-
-    private readonly string mDailyRewardCurJson =
-        Path.Combine(Application.persistentDataPath, GameConst.DAILY_REWARD_CURRENT_JSON);
-
     private const int DOUBLE = 2;
 
     //当前星星数
@@ -55,9 +41,6 @@ public class GameGlobalModel : AbstractModel
 
  
     private SaveDataUtility storage;
-    private JsonFileUtility mJsonFileUtility;
-    private GameGlobalData mGameGlobalData;
-    private DailyReward mDailyReward;
 
     #endregion
 
@@ -65,9 +48,6 @@ public class GameGlobalModel : AbstractModel
 
     //道具字典
     public BindableDictionary<int, int> ItemDic;
-
-    //全局Json字段
-    public GameGlobalData GameGlobalJsonData => mGameGlobalData;
 
     //静音
     public bool VolumeSetting
@@ -88,10 +68,6 @@ public class GameGlobalModel : AbstractModel
     {
         storage = this.GetUtility<SaveDataUtility>();
         BindableProperty();
-
-        //加载全局Json文件
-        LoadGlobalJson();
-        LoadDailyRewardJson();
     }
 
     public void UsedStar(int value)
@@ -149,36 +125,6 @@ public class GameGlobalModel : AbstractModel
         mGoldCoinsMultipleStreakWin.Value = 0;
         mRemoveHideStreakWin.Value = 0;
     }
-    
-
-    public void LoadGlobalJson()
-    {
-        if (mGameGlobalData != null) return;
-        mJsonFileUtility ??= this.GetUtility<JsonFileUtility>();
-
-        if (!File.Exists(mGameGlobalCurJson))
-        {
-            mJsonFileUtility.LoadFromJson(mGameGlobalDelJson, jsonData =>
-            {
-                mGameGlobalData = JsonConvert.DeserializeObject<GameGlobalData>(jsonData);
-                mJsonFileUtility.SaveToJson(mGameGlobalCurJson, mGameGlobalData);
-            });
-        }
-        else
-        {
-            //版本对比
-            var localV = mJsonFileUtility.GetFileVersion(mGameGlobalCurJson);
-            var dev = mJsonFileUtility.GetFileVersion(mGameGlobalDelJson);
-            if (localV < dev)
-                mJsonFileUtility.AutoFixFields(mGameGlobalCurJson, mGameGlobalDelJson);
-
-            mJsonFileUtility.LoadFromJson(mGameGlobalCurJson,
-                jsonData => { mGameGlobalData = JsonConvert.DeserializeObject<GameGlobalData>(jsonData); });
-        }
-    }
-
-    //反射写入字段值
-    //示例：SetFieldAndSave<bool>(nameof(GameGlobalJsonData.IsClaim_UnlockScene1Reward), false);
 
     private void BindableProperty()
     {
@@ -225,42 +171,5 @@ public class GameGlobalModel : AbstractModel
 
         mRemoveHideStreakWin.SetValueWithoutEvent(storage.LoadIntValue(REMOVE_HIDE_STREAK_WIN_SIGN));
         mRemoveHideStreakWin.Register(value => { storage.SaveInt(REMOVE_HIDE_STREAK_WIN_SIGN, value); });
-    }
-
-    private void LoadDailyRewardJson()
-    {
-        if (mDailyReward != null) return;
-        mJsonFileUtility ??= this.GetUtility<JsonFileUtility>();
-
-        if (!File.Exists(mDailyRewardCurJson))
-            ReloadDailyRewardJson();
-        else
-        {
-            //版本对比
-            var localV = mJsonFileUtility.GetFileVersion(mDailyRewardCurJson);
-            var dev = mJsonFileUtility.GetFileVersion(mDailyRewardDelJson);
-            if (localV < dev)
-                mJsonFileUtility.AutoFixFields(mDailyRewardCurJson, mDailyRewardDelJson);
-
-            mJsonFileUtility.LoadFromJson(mDailyRewardCurJson, jsonData =>{
-                mDailyReward = JsonConvert.DeserializeObject<DailyReward>(jsonData);
-            });
-
-            // Tick 转为 DateTime
-            // DateTime resetTime = new DateTime(mDailyReward.NextResetTicks, DateTimeKind.Utc);
-            // Debug.Log(resetTime);
-            if (DateTime.UtcNow.Ticks >= mDailyReward.NextResetTicks)
-                ReloadDailyRewardJson();
-        }
-    }
-
-    private void ReloadDailyRewardJson()
-    {
-        mJsonFileUtility.LoadFromJson(mDailyRewardDelJson, jsonData =>
-        {
-            mDailyReward = JsonConvert.DeserializeObject<DailyReward>(jsonData);
-            mDailyReward.NextResetTicks = CountDownTimerManager.Instance.GetEasternMidnightUtcAfterDays(1).Ticks;
-            mJsonFileUtility.SaveToJson(mDailyRewardCurJson, mDailyReward);
-        });
     }
 }
