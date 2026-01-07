@@ -145,7 +145,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         nowHalf = null;
         moveNum = 0;
 
-        /*levelId = id;
+/*        levelId = id;
         LevelCreateCtrl levelInfo = levels[levelId - 1];*/
         LevelCreateCtrl levelInfo = levels[id - 1];
         nowLevel = levelInfo;
@@ -164,6 +164,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         GameCtrl.Instance.InitGameCtrl();
         
         InitLevels(levelInfo);
+        CheckGuideLevel(id);
     }
 
     /// <summary>
@@ -229,11 +230,12 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         BottleLayoutRefresh();
         UpdapeTopLayoutSpcing();
         UpdateButtomLayoutSpcing();
-        CheckGuideLevel();
+       
     }
 
-    public void CheckGuideLevel()
+    public void CheckGuideLevel(int levelId)
     {
+        
         // 关卡引导
         switch (levelId)
         {

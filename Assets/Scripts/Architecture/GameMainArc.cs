@@ -23,7 +23,6 @@ public class GameMainArc : Architecture<GameMainArc>
         RegisterModel(new GameGlobalModel());
         RegisterModel(new PotionActivityModel());
         RegisterModel(new RankDataModel());
-        RegisterModel(new TierRankActivityModel());
         //RegisterModel(new TurnTableADActivityModel());
     }
 

@@ -61,7 +61,6 @@ namespace QFramework.Example
         protected override void OnOpen(IUIData uiData = null)
         {
             gameGlobalModel = this.GetModel<GameGlobalModel>();
-            mIsOpenUIVictory = false;
                 
             LoadRes();
             BindBtn();
@@ -85,6 +84,7 @@ namespace QFramework.Example
             InitLevelUI();
             InitItemUI();
             SetItem();
+            mIsOpenUIVictory = false;
             var globalMechanism = LevelManager.Instance.globalMechanism;
             if (globalMechanism == GlobalMechanism.WhiteMagicCar || globalMechanism == GlobalMechanism.BlackMagicCar)
             {
@@ -567,9 +567,8 @@ namespace QFramework.Example
         }
 
         private void OpenUIVictory()
-        {
-            Debug.Log(mIsOpenUIVictory);
-            mIsOpenUIVictory = false;
+        { 
+          
             if (!mIsOpenUIVictory)
             {
                 ActionKit.Delay(0.5f, () =>
