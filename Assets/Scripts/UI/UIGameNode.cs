@@ -560,8 +560,9 @@ namespace QFramework.Example
         }
 
         private void OpenUIVictory()
-        { 
-          
+        {
+            Debug.Log(mIsOpenUIVictory);
+            mIsOpenUIVictory = false;
             if (!mIsOpenUIVictory)
             {
                 ActionKit.Delay(0.5f, () =>
