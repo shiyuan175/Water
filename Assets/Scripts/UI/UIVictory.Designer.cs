@@ -5,13 +5,15 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:1e8fa7d4-c602-4870-a39e-64432f276ded
+	// Generate Id:52d59a23-db53-4908-b257-ce0acb5281e0
 	public partial class UIVictory
 	{
 		public const string Name = "UIVictory";
 		
 		[SerializeField]
 		public Animator AnimGo;
+		[SerializeField]
+		public RectTransform Horn;
 		[SerializeField]
 		public Animator HornGo3;
 		[SerializeField]
@@ -44,6 +46,7 @@ namespace QFramework.Example
 		protected override void ClearUIComponents()
 		{
 			AnimGo = null;
+			Horn = null;
 			HornGo3 = null;
 			HornSpine1 = null;
 			HornGo4 = null;

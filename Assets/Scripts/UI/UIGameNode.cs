@@ -100,12 +100,12 @@ namespace QFramework.Example
         protected override void OnClose()
         {
             gameGlobalModel = null;
-            BtnStepBack.onClick.RemoveAllListeners();
+            /*BtnStepBack.onClick.RemoveAllListeners();
             BtnRemoveHide.onClick.RemoveAllListeners();
             BtnAddBottle.onClick.RemoveAllListeners();
             BtnHalfBottle.onClick.RemoveAllListeners();
             BtnRemoveAll.onClick.RemoveAllListeners();
-            BtnReturn.onClick.RemoveAllListeners();
+            BtnReturn.onClick.RemoveAllListeners();*/
 
             if (mResLoader != null)
             {
@@ -139,6 +139,7 @@ namespace QFramework.Example
             BtnStepBack.onClick.AddListener(BtnSetpBackOnClick);
           
             BtnReturn.onClick.AddListener(BtnReturnOnClick);
+            BtnSetting.onClick.AddListener(() => { UIKit.OpenPanel<UISetting>(); });
         }
 
         private void RegisterEvent()
@@ -160,7 +161,7 @@ namespace QFramework.Example
 
             StringEventSystem.Global.Register(GameConst.VICTORY_EVENT, () =>
             {
-                Debug.Log("victoryEvent");
+              
                 int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
                 //原是第八关才显示段位(5~7关直接返回)
                 //现在是第六关显示，第五关通过时会触发返回
@@ -235,7 +236,8 @@ namespace QFramework.Example
 
             if (level <= 5)
                 BtnReturn.Hide();
-
+            else
+                BtnReturn.Show();
             if (level < GET_THE_LAST_NUMBER_OF_LEVEL)
                 return;
             int _index = 0;
@@ -549,20 +551,19 @@ namespace QFramework.Example
 
         private void BtnReturnOnClick()
         {
+            this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
                 this.SendEvent<GameStartEvent>();
                 LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
                 GameCtrl.Instance.InitGameCtrl();
-
                 UIKit.ClosePanel<UIMask>();
             }
         }
 
         private void OpenUIVictory()
         {
-            Debug.Log(mIsOpenUIVictory);
-            mIsOpenUIVictory = false;
+            /*mIsOpenUIVictory = false;*/
             if (!mIsOpenUIVictory)
             {
                 ActionKit.Delay(0.5f, () =>

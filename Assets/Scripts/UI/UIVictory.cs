@@ -36,8 +36,10 @@ namespace QFramework.Example
 
         protected override void OnShow()
         {
+            ShowAnim();
             BtnSkip.onClick.AddListener(() =>
             {
+              
                 UnlockNewItem();
             });
             WaitClose();
@@ -60,8 +62,25 @@ namespace QFramework.Example
             }).Start(this);
         }
 
+        private void ShowAnim()
+        {
+            //目前不播放
+            //AnimGo.Play("victoryAnim");
+            Horn.Show();
+            HornGo1.Play("hornRotation");
+            HornGo2.Play("hornRotation");
+            HornGo3.Play("hornRotation");
+            HornGo4.Play("hornRotation");
+
+            HornSpine1.AnimationState.SetAnimation(0, "animation", false);
+
+            HornSpine2.AnimationState.SetAnimation(0, "animation", false);
+            HornSpine3.AnimationState.SetAnimation(0, "animation", false);
+            var track = HornSpine4.AnimationState.SetAnimation(0, "animation", false);
+        }
         private void UnlockNewItem()
         {
+            Horn.Hide();
             int curLevel = saveDataUtility.GetCurrentLevel();
             if (UNLOCKLEVEL.Contains(curLevel))
             {
