@@ -231,6 +231,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9e9b68ac8796e4c4da277efdceda5ad0, type: 3}
   - {fileID: 21300000, guid: ef2dc272c58aa34499f8d172750f85db, type: 3}
   - {fileID: 21300000, guid: 1132e03e72f1a6c409f1b934fe4eff07, type: 3}
+  TMPFont_red: {fileID: 2100000, guid: 61b08b0dce6018a4b836fdf05cae95f3, type: 2}
   AnimGo: {fileID: 2353747528542593223}
   HornGo3: {fileID: 414321075377579966}
   HornSpine1: {fileID: 1850471939370300027}
@@ -243,7 +244,7 @@ MonoBehaviour:
   BtnSkip: {fileID: 4227955990637101802}
   NewItemNode: {fileID: 3732282023486521110}
   ImgNewItem: {fileID: 7680561482759514240}
-  TxtNewItem_Red: {fileID: 6661708012570100192}
+  TxtNewItem: {fileID: 6661708012570100192}
   BtnNewItemClose: {fileID: 5920476424601476793}
 --- !u!1 &648069765406097727
 GameObject:
@@ -1829,7 +1830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 29, y: -0.00015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &553290396583360380

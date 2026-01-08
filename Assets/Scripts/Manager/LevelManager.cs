@@ -109,7 +109,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         }
 
         GameCtrl.Instance.InitGameCtrl();
-        Debug.Log("beginGame");
         //this.SendEvent<GameStartEvent>();
         LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
          UIKit.GetPanel<UIGameNode>().Show();

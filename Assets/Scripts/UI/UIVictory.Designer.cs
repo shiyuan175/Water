@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:9cfafb7e-3a73-40d0-bfbb-c75090728e26
+	// Generate Id:1e8fa7d4-c602-4870-a39e-64432f276ded
 	public partial class UIVictory
 	{
 		public const string Name = "UIVictory";
@@ -35,7 +35,7 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Image ImgNewItem;
 		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtNewItem_Red;
+		public TMPro.TextMeshProUGUI TxtNewItem;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnNewItemClose;
 		
@@ -55,7 +55,7 @@ namespace QFramework.Example
 			BtnSkip = null;
 			NewItemNode = null;
 			ImgNewItem = null;
-			TxtNewItem_Red = null;
+			TxtNewItem = null;
 			BtnNewItemClose = null;
 			
 			mData = null;

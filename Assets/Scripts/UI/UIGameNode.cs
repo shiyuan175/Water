@@ -1,14 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using QFramework;
-using System;
+﻿using DG.Tweening;
 using GameDefine;
-using System.Collections.Generic;
-using System.Linq;
-using DG.Tweening;
+using UnityEngine;
 using UnityEngine.U2D;
-using TMPro;
-
+using UnityEngine.UI;
 
 namespace QFramework.Example
 {
@@ -89,7 +83,7 @@ namespace QFramework.Example
             if (globalMechanism == GlobalMechanism.WhiteMagicCar || globalMechanism == GlobalMechanism.BlackMagicCar)
             {
                 magicCtrl.Show();
-            
+          
                 magicCtrl.Init(globalMechanism);
             }
             else
@@ -292,7 +286,7 @@ namespace QFramework.Example
                 });
 
             // 设置文本 5-20的偏转值
-            TextLevelTip.text = UnityEngine.Random.Range(50, 70).ToString() + "% of players were defeated at this level";
+            TextLevelTip.text = Random.Range(50, 70).ToString() + "% of players were defeated at this level";
         }
 
         /// <summary>
@@ -320,7 +314,6 @@ namespace QFramework.Example
                 TxtRankLevel.text = _tempWin.ToString();
                 //5次连胜晋升一个段位,总段位数9(起始0)
                 mCacheRankSpriteIndex = Mathf.Min(8, Mathf.Max(0, (_tempWin - 1) / 5));
-                Debug.Log(mRankLevelSpriteAtlas);
                 /*if (mRankLevelSpriteAtlas == null)
                     mRankLevelSpriteAtlas*/
                 ImgRankLevel.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mCacheRankSpriteIndex));
@@ -340,25 +333,25 @@ namespace QFramework.Example
         {
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
-            if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+            if (level > (int)GameConst.NEWBIE_LEVEL_COUNT)
                 UnLockItem(NormalRewardsType.AddHalfBottle);
 
-            if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+            if (level > (int)GameConst.NEWBIE_LEVEL_COUNT)
                 UnLockItem(NormalRewardsType.AddOneBottle);
 
-            if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+            if (level > (int)GameConst.NEWBIE_LEVEL_COUNT)
                 UnLockItem(NormalRewardsType.StepBack);
 
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
+            if (level > (int)UIGuideLevel.UIGuideLevelRemoveHide)
                 UnLockItem(NormalRewardsType.RemoveHide);
-            else if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+            else if (level > (int)GameConst.NEWBIE_LEVEL_COUNT)
             {
                 BtnRemoveHide.transform.Find("ImgLock").Show();
             }
 
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
+            if (level > (int)UIGuideLevel.UIGuideLevelRemoveAll)
                 UnLockItem(NormalRewardsType.RemoveAll);
-            else if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+            else if (level > (int)GameConst.NEWBIE_LEVEL_COUNT)
             {
                 BtnRemoveAll.transform.Find("ImgLock").Show();
             }

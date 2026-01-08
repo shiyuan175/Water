@@ -15,12 +15,10 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
     [SerializeField] private Animator AddCoinTxtUp;
     [SerializeField] private Button BtnContinue;
     [SerializeField] private RectTransform mRectTransformPar;
-    [SerializeField] private ParticleTargetMoveCtrl CoinParticle;
 
     private SimpleObjectPool<Image> RewardPool;
     private List<Image> mActiveRewards;
     private RectTransform mMask;
-    private TextMeshProUGUI txtCoinAdd;
     private List<int> availableSlots;
     private List<System.Action> actionList;
     private System.Action openBoxCallBack;
@@ -30,7 +28,6 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
     public override void OnSingletonInit()
     {
         mMask = BoxAnimator.transform.parent.GetComponent<RectTransform>();
-        txtCoinAdd = AddCoinTxtUp.GetComponent<TextMeshProUGUI>();
         actionList = new List<System.Action>();
         availableSlots = new List<int>();
         mActiveRewards = new List<Image>();
@@ -134,7 +131,6 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
 
             if ((addCoin ?? 0) > 0)
             {
-                CoinParticle.Play(100);
                 PopupCoinText((int)addCoin);
 
                 if (actionList.Count == 0)
@@ -209,7 +205,7 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
             int coins;
             if ((itemDict.TryGetValue("Coins",out coins)))
             {
-                CoinParticle.Play(100);
+            
                 PopupCoinText((int)coins);
 
                 if (actionList.Count == 0)
@@ -223,7 +219,6 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
 
     public void PopupCoinText(float value)
     {
-        txtCoinAdd.text = $"+{value}";
         AddCoinTxtUp.Play("TxtUp");
         AudioKit.PlaySound("resources://Audio/AddCoin");
     }

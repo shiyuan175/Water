@@ -137,7 +137,6 @@ public class GameGlobalModel : AbstractModel
     public void PassLevel()
     {
         var _curLevel = storage.GetCurrentLevel();
-        Debug.Log($"gameglobal:{_curLevel}");
         if (_curLevel >= GameConst.IN_GAME_RANK_BEGIN_LEVEL)
             ++mInGameRankStreakWin.Value;
     }

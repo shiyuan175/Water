@@ -1,12 +1,7 @@
 ﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
-using QFramework;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using GameDefine;
-using TMPro;
+using UnityEngine;
 
 namespace QFramework.Example
 {
@@ -19,9 +14,10 @@ namespace QFramework.Example
         private int mLastRankingScore;
         private SaveDataUtility saveDataUtility;
         [SerializeField] private Sprite[] unlockSprites;
-
         private readonly int[] UNLOCKLEVEL = new int[]
             { 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 121, 141, 161, 181, 201, 301, 401 };
+
+        public Material TMPFont_red;
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;
@@ -71,8 +67,10 @@ namespace QFramework.Example
             {
                 int _idx = Array.IndexOf(UNLOCKLEVEL, curLevel);
                 NewItemNode.Show();
-
-                TxtNewItem_Red.text = GameDefine.GameConst.GameplayTutorialInfo[curLevel].guideInfo;
+                TxtNewItem.fontSharedMaterial = TMPFont_red;
+                TxtNewItem.Hide();
+                TxtNewItem.Show();
+                TxtNewItem.text = GameConst.GameplayTutorialInfo[curLevel].guideInfo;
                 ImgNewItem.sprite = unlockSprites[_idx];
                 ImgNewItem.SetNativeSize();
 
