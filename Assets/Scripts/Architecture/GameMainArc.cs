@@ -32,7 +32,6 @@ public class GameMainArc : Architecture<GameMainArc>
         //RegisterModel(new TurnTableADActivityModel());
         RegisterModel(new SceneUnlockModel());
         RegisterModel(new BattlePassModel());
-        RegisterModel(new SepecialOfferADActivityModel());
         RegisterModel(new DoubleGiftADActivityModel());      
         RegisterModel(new PrograssGiftADActivityModel());
     }

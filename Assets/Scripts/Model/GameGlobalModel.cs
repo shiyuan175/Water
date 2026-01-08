@@ -216,6 +216,23 @@ public class GameGlobalModel : AbstractModel
         return false;
     }
 
+    //所有特权是否都购买
+    public bool IsAllPurchased()
+    {
+        var type = typeof(PurchasedGiftPacks);
+
+        foreach (var field in type.GetFields())
+        {
+            var value = GetFieldValue(mGameGlobalData.GiftPackPurchases, field.Name);
+
+            // null，按未购买处理
+            if (value is not bool b || !b)
+                return false;
+        }
+
+        return true;
+    }
+
     public void LoadGlobalJson()
     {
         if (mGameGlobalData != null) return;

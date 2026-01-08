@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -45,11 +45,6 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         {
             RegisterActivity<HighTowerActivity>();
         }
-        /* ��ʱ�ر�
-        if (_curLevel >= GameDefine.GameConst.TT_AD_BEGIN_LEVEL)
-        {
-            RegisterActivity<TurnTableADActivity>();
-        }*/
         if (_curLevel >= GameDefine.GameConst.BP_AD_BEGIN_LEVEL)
         {
             RegisterActivity<BattlePassADActivity>();
@@ -65,10 +60,6 @@ public class GameActivityManager : MonoSingleton<GameActivityManager>, ICanGetMo
         if (_curLevel >= GameDefine.GameConst.TRA_BEGIN_LEVEL)
         {
             RegisterActivity<TierRankActivity>();
-        }
-        if(_curLevel >= GameDefine.GameConst.SO_AD_BEGIN_LEVEL)
-        {
-            RegisterActivity<SepecialOfferADActivity>();
         }
         if(_curLevel >= GameDefine.GameConst.PG_AD_BEGIN_LEVEL)
         {

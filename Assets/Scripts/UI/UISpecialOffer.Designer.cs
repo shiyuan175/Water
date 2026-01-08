@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
@@ -6,7 +6,7 @@ using QFramework;
 namespace QFramework.Example
 {
 	// Generate Id:f2ad3299-3724-4480-a095-a5a32da7e726
-	public partial class UISepecialOfferGift
+	public partial class UISpecialOffer
 	{
 		public const string Name = "UISepecialOfferGift";
 		
@@ -15,7 +15,7 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Button BtnClose;
 		
-		private UISepecialOfferGiftData mPrivateData = null;
+		private UISpecialOfferData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
@@ -25,7 +25,7 @@ namespace QFramework.Example
 			mData = null;
 		}
 		
-		public UISepecialOfferGiftData Data
+		public UISpecialOfferData Data
 		{
 			get
 			{
@@ -33,11 +33,11 @@ namespace QFramework.Example
 			}
 		}
 		
-		UISepecialOfferGiftData mData
+		UISpecialOfferData mData
 		{
 			get
 			{
-				return mPrivateData ?? (mPrivateData = new UISepecialOfferGiftData());
+				return mPrivateData ?? (mPrivateData = new UISpecialOfferData());
 			}
 			set
 			{

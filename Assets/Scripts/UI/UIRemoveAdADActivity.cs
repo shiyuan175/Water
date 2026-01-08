@@ -14,7 +14,7 @@ namespace QFramework.Example
         private GooglePayManager googlePay;
         private RewardGrantUtility rewardGrantUtility;
         private GameGlobalModel mGameGlobalModel;
-        [SerializeField] private AbilityGiftPackSO mRemoveAdPack;
+        [SerializeField] private AbilityGiftPackSO PrivilegePack;
         [SerializeField] private TextMeshProUGUI[] redText;
 
         protected override void OnInit(IUIData uiData = null)
@@ -32,7 +32,7 @@ namespace QFramework.Example
             foreach (var i in redText)
                 i.font = LevelManager.Instance.redFont;
 
-            StringEventSystem.Global.Register(mRemoveAdPack.ID, OnPaySuccess).UnRegisterWhenGameObjectDestroyed(this);
+            StringEventSystem.Global.Register(PrivilegePack.ID, OnPaySuccess).UnRegisterWhenGameObjectDestroyed(this);
            
             SetBtnClick();
         }
@@ -47,7 +47,7 @@ namespace QFramework.Example
 
         protected override void OnClose()
         {
-            StringEventSystem.Global.UnRegister(mRemoveAdPack.ID, OnPaySuccess);
+            StringEventSystem.Global.UnRegister(PrivilegePack.ID, OnPaySuccess);
 
             BtnClose.onClick.RemoveAllListeners();
             BtnBuy.onClick.RemoveAllListeners();
@@ -65,17 +65,16 @@ namespace QFramework.Example
 
             BtnBuy.onClick.AddListener(() =>
             {
-                googlePay.BuyProduct(mRemoveAdPack.ID);
+                googlePay.BuyProduct(PrivilegePack.ID);
             });
         }
 
         private void OnPaySuccess()
         {
-            rewardGrantUtility.GrantReward(mRemoveAdPack);
-            //免广礼包视为礼包2的特权
+            rewardGrantUtility.GrantReward(PrivilegePack);
             mGameGlobalModel.SetFieldAndSave(JsonType.GameGlobalJson,
-                mGameGlobalModel.GameGlobalJsonData.GiftPackPurchases, "gift_2", true);
-            RewardUIManager.Instance.PlayRewardAnim(mRemoveAdPack.Coins, true, null, mRemoveAdPack);
+                mGameGlobalModel.GameGlobalJsonData.GiftPackPurchases, PrivilegePack.ID, true);
+            RewardUIManager.Instance.PlayRewardAnim(PrivilegePack.Coins, true, null, PrivilegePack);
             UIKit.OpenPanel<UIBuyPackSuccess>();
             UIKit.ClosePanel(this);
         }
