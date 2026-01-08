@@ -17,6 +17,8 @@ namespace QFramework.Example
         private bool mRankingEnd;
         private bool mIsEnQueue;
 
+        private SaveDataUtility mSaveDataUtility;
+
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;
@@ -30,8 +32,9 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-            string _del = $"用户通过关卡:{this.GetUtility<SaveDataUtility>().GetCurrentLevel() - 1}," +
-                $"当前关卡进度:{this.GetUtility<SaveDataUtility>().GetCurrentLevel()}";
+            mSaveDataUtility = this.GetUtility<SaveDataUtility>();
+            string _del = $"用户通过关卡:{mSaveDataUtility.GetCurrentLevel() - 1}," +
+                $"当前关卡进度:{mSaveDataUtility.GetCurrentLevel()}";
             AnalyticsManager.Instance.SendLevelEvent(_del);
 
             mIsEnQueue = false;
@@ -204,60 +207,53 @@ namespace QFramework.Example
             // 特惠礼包
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                if ((this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.SO_AD_BEGIN_LEVEL
-                || (this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL > 0
-                && (this.GetUtility<SaveDataUtility>().GetCurrentLevel() - GameConst.SO_AD_BEGIN_LEVEL) % 7 == 0))
-                && GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>() is SepecialOfferADActivity soActivity
-                    && soActivity.ActivityStatus != GameActivityStatus.CoolingDown)
+                var curLevel = mSaveDataUtility.GetCurrentLevel();
+                int delta = curLevel - GameConst.SO_AD_BEGIN_LEVEL;
+
+                //特权未全部购买 && 起始关 && 每七关弹出一次
+                if (this.GetModel<GameGlobalModel>().IsAllPurchased() &&
+                    curLevel != GameDefine.GameConst.SO_AD_BEGIN_LEVEL &&
+                    (delta < 0 || delta % 7 != 0))
+                    return false;
+                UIKit.OpenPanel<UISpecialOffer>(new UISpecialOfferData
                 {
-                    GameActivityManager.Instance.GetActivity<SepecialOfferADActivity>().StartActivity();
-                    UIKit.OpenPanel<UISepecialOfferGift>(new UISepecialOfferGiftData
-                    {
-                        IsManagedOpen = true,
-                    });
-                    return true;
-                }
-                return false;
+                    IsManagedOpen = true,
+                });
+                return true;
             });
             // 阶梯礼包
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.PG_AD_BEGIN_LEVEL)
+                var curLevel = mSaveDataUtility.GetCurrentLevel();
+                if (curLevel != GameDefine.GameConst.PG_AD_BEGIN_LEVEL) return false;
+                GameActivityManager.Instance.GetActivity<PrograssGiftADActivity>().StartActivity();
+                UIKit.OpenPanel<UIPrograssGiftADActivity>(new UIPrograssGiftADActivityData()
                 {
-                    GameActivityManager.Instance.GetActivity<PrograssGiftADActivity>().StartActivity();
-                    UIKit.OpenPanel<UIPrograssGiftADActivity>(new UIPrograssGiftADActivityData()
-                    {
-                        IsManagedOpen = true,
-                    });
-                    return true;
-                }
-                return false;
+                    IsManagedOpen = true,
+                });
+                return true;
             });
             // 1+1礼包
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.DG_AD_BEGIN_LEVEL)
+                var curLevel = mSaveDataUtility.GetCurrentLevel();
+                if (curLevel != GameDefine.GameConst.DG_AD_BEGIN_LEVEL) return false;
+                UIKit.OpenPanel<UIDoubleGiftADActivity>(new UIDoubleGiftADActivityData()
                 {
-                    UIKit.OpenPanel<UIDoubleGiftADActivity>(new UIDoubleGiftADActivityData()
-                    {
-                        IsManagedOpen = true,
-                    });
-                    return true;
-                }
-                return false;
+                    IsManagedOpen = true,
+                });
+                return true;
             });
             // 免广告礼包
             PanelQueueManager.Instance.Enqueue(() =>
             {
-                if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() == GameDefine.GameConst.REMOVE_AD_BEGIN_LEVEL)
+                var curLevel = mSaveDataUtility.GetCurrentLevel();
+                if (curLevel != GameDefine.GameConst.REMOVE_AD_BEGIN_LEVEL) return false;
+                UIKit.OpenPanel<UIRemoveAdADActivity>(new UIRemoveAdADActivityData()
                 {
-                    UIKit.OpenPanel<UIRemoveAdADActivity>(new UIRemoveAdADActivityData()
-                    {
-                        IsManagedOpen = true,
-                    });
-                    return true;
-                }
-                return false;
+                    IsManagedOpen = true,
+                });
+                return true;
             });
 
             //最后结算界面

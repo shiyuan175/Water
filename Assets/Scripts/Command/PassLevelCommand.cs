@@ -1,4 +1,4 @@
-using GameDefine;
+﻿using GameDefine;
 using QFramework;
 
 public class PassLevelCommand : AbstractCommand ,ICanGetModel
@@ -29,11 +29,6 @@ public class PassLevelCommand : AbstractCommand ,ICanGetModel
         if (currentLevel == GameConst.TRA_BEGIN_LEVEL)
         {
             GameActivityManager.Instance.RegisterActivity<TierRankActivity>();
-        }
-
-        if (currentLevel == GameConst.SO_AD_BEGIN_LEVEL)
-        {
-            GameActivityManager.Instance.RegisterActivity<SepecialOfferADActivity>();
         }
         if(currentLevel == GameConst.DG_AD_BEGIN_LEVEL)
         {

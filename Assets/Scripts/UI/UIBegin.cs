@@ -223,7 +223,7 @@ namespace QFramework.Example
             BtnSONode.onClick.RemoveAllListeners();
             BtnSONode.onClick.AddListener(() =>
             {
-                UIKit.OpenPanel<UISepecialOfferGift>();
+                UIKit.OpenPanel<UISpecialOffer>();
             });
 
             BtnDGNode.onClick.RemoveAllListeners();
@@ -760,7 +760,7 @@ namespace QFramework.Example
             if (_curLevel >= 46 && mHighTowerActivity is null)
                 BtnHTANode.Show();
 
-            if (_curLevel >= GameConst.SO_AD_BEGIN_LEVEL && !this.GetModel<SepecialOfferADActivityModel>().IsBuy)
+            if (_curLevel >= GameConst.SO_AD_BEGIN_LEVEL && !gameGlobalModel.IsAllPurchased())
                 BtnSONode.Show();
 
             if (_curLevel >= GameConst.BP_AD_BEGIN_LEVEL)
@@ -804,7 +804,7 @@ namespace QFramework.Example
             if (gameGlobalModel.GameGlobalJsonData.ForeverRemoveAds)
                 BtnRemoveADNode.Hide();
 
-            if (this.GetModel<SepecialOfferADActivityModel>().IsBuy)
+            if (gameGlobalModel.IsAllPurchased())
                 BtnSONode.Hide();
 
             if (this.GetModel<DoubleGiftADActivityModel>().IsBuy && this.GetModel<DoubleGiftADActivityModel>().GiftIsGot)
