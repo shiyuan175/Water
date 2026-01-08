@@ -48,7 +48,6 @@ namespace QFramework.Example
             });
             BtnClose.onClick.AddListener(() =>
             {
-                Debug.Log("asdasd");
                 CloseSelf();
             });
         }

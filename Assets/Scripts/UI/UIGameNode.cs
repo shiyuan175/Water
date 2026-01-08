@@ -551,13 +551,26 @@ namespace QFramework.Example
 
         private void BtnReturnOnClick()
         {
-            this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
+                TopOnADManager.Instance.ShowIntersAd(() =>
+                {
+                    this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
+                    this.SendEvent<GameStartEvent>();
+                    LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
+                    GameCtrl.Instance.InitGameCtrl();
+                    UIKit.ClosePanel<UIMask>();
+                }, null);
+#if UNITY_EDITOR
+                Debug.Log("模拟广告");
+                this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
                 this.SendEvent<GameStartEvent>();
+                LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
                 LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
                 GameCtrl.Instance.InitGameCtrl();
                 UIKit.ClosePanel<UIMask>();
+#endif
+               
             }
         }
 

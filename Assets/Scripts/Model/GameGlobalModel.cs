@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
-using QFramework;
 using GameDefine;
 using JsonFileData;
 using Newtonsoft.Json;
+using QFramework;
+using UnityEngine;
 
 public class GameGlobalModel : AbstractModel
 {
@@ -143,10 +141,7 @@ public class GameGlobalModel : AbstractModel
 
     public void ResetCountinueWinNum()
     {
-        mCountinueWinNum.Value = 0;
         mInGameRankStreakWin.Value = 0;
-        mGoldCoinsMultipleStreakWin.Value = 0;
-        mRemoveHideStreakWin.Value = 0;
     }
     
 
@@ -194,9 +189,9 @@ public class GameGlobalModel : AbstractModel
         mRemainingStars.Register(value => { storage.SaveInt(REMAINING_STARS, value); });
 
         //NormalRewardsType 为道具ID
-        for (int i = 1; i <= GameDefine.GameConst.ITEM_COUNT; i++)
+        for (int i = 1; i <= GameConst.ITEM_COUNT; i++)
         {
-            int del = 3;
+            var del = 1;
             var key = $"{ITEM_SIGN}{i}";
             if (i > 5)
                 del = 4;
