@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Collections;
+using DG.Tweening;
 using GameDefine;
 using UnityEngine;
 using UnityEngine.U2D;
@@ -553,27 +554,32 @@ namespace QFramework.Example
         {
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
-                TopOnADManager.Instance.ShowIntersAd(() =>
+                TopOnADManager.Instance.ShowIntersAd(null, () =>
                 {
-                    this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
-                    this.SendEvent<GameStartEvent>();
-                    LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
-                    GameCtrl.Instance.InitGameCtrl();
-                    UIKit.ClosePanel<UIMask>();
-                }, null);
+                    StartCoroutine(AdRewardCoroutine());
+                });
 #if UNITY_EDITOR
                 Debug.Log("模拟广告");
                 this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
                 this.SendEvent<GameStartEvent>();
                 LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
-                LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
                 GameCtrl.Instance.InitGameCtrl();
-                UIKit.ClosePanel<UIMask>();
+                if (UIKit.GetPanel<UIMask>())
+                    UIKit.ClosePanel<UIMask>();
 #endif
-               
             }
         }
 
+        private IEnumerator AdRewardCoroutine()
+        {
+            yield return new WaitForSeconds(0.5f);
+            this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
+            this.SendEvent<GameStartEvent>();
+            LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
+            GameCtrl.Instance.InitGameCtrl();
+            if (UIKit.GetPanel<UIMask>())
+                UIKit.ClosePanel<UIMask>();
+        }
         private void OpenUIVictory()
         {
             /*mIsOpenUIVictory = false;*/
@@ -581,7 +587,8 @@ namespace QFramework.Example
             {
                 ActionKit.Delay(0.5f, () =>
                 {
-                    UIKit.ClosePanel<UIMask>();
+                    if (UIKit.GetPanel<UIMask>())
+                        UIKit.ClosePanel<UIMask>();
                     var sound = AudioKit.PlaySound("resources://Audio/Victory",volume: 0.7f);
                     UIKit.OpenPanel<UIVictory>();
                 }).Start(this);
