@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PackID: Scene1Unlock_PackSO
   coins: 200
-  removeAdsForever: 0
   items:
   - normalRewardsType: 1
     quantity: 1
@@ -32,8 +31,8 @@ MonoBehaviour:
     quantity: 1
   - normalRewardsType: 8
     quantity: 1
-  - normalRewardsType: 9
-    quantity: 3
+  - normalRewardsType: 10
+    quantity: 1
   specialsItem:
-  - specialRewardType: 9
+  - specialRewardType: 10
     duration: 9

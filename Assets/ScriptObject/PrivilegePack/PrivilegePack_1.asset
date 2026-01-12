@@ -23,8 +23,8 @@ MonoBehaviour:
     quantity: 1
   - normalRewardsType: 4
     quantity: 1
-  - normalRewardsType: 9
-    quantity: 5
+  - normalRewardsType: 11
+    quantity: 1
   specialsItem:
   - specialRewardType: 2
     duration: 60

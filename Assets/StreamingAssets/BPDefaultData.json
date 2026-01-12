@@ -11,8 +11,12 @@
             ],
             "Vip": [
                 {
-                    "itemType": "Coins",
-                    "itemQuantity": 2000
+                    "itemType": "StaminaCap_2",
+                    "itemQuantity": 1
+                },
+                {
+                    "itemType": "ReduceLiveRecoverTime_5",
+                    "itemQuantity": 5
                 }
             ],
             "FreeIsBox": false,

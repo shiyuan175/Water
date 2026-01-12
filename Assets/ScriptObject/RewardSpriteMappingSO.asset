@@ -32,7 +32,11 @@ MonoBehaviour:
   - rewardType: 20
     sprite: {fileID: 21300000, guid: 20673386c3400b5428d585db98e3fbf4, type: 3}
   - rewardType: 9
-    sprite: {fileID: 21300000, guid: d16eace27ace3034b9240d985001fe4a, type: 3}
+    sprite: {fileID: 21300000, guid: 4750a0c18b3c29443933457f27e4bdad, type: 3}
+  - rewardType: 10
+    sprite: {fileID: 21300000, guid: ddc76d562a8583e4c83df2e04364800d, type: 3}
+  - rewardType: 11
+    sprite: {fileID: 21300000, guid: ba4b29e2baae7a842b59f779297fc16a, type: 3}
   specialRewardSprites:
   - rewardType: 0
     sprite: {fileID: 21300000, guid: 5c6b40a0a97fd40409fe00cf8e1e460f, type: 3}
@@ -49,7 +53,9 @@ MonoBehaviour:
   - rewardType: 8
     sprite: {fileID: 21300000, guid: 77396093c30903f4a856860590e4158b, type: 3}
   - rewardType: 9
-    sprite: {fileID: 21300000, guid: d16eace27ace3034b9240d985001fe4a, type: 3}
+    sprite: {fileID: 21300000, guid: 51d1e1992c2c78843b787f550cbe3acc, type: 3}
+  - rewardType: 10
+    sprite: {fileID: 21300000, guid: 17e9dd89cfc6bfe469e4116a320a21c1, type: 3}
   - rewardType: 20
     sprite: {fileID: 21300000, guid: d4c7c9ca34a2515409b7b3eeee937328, type: 3}
   - rewardType: 21

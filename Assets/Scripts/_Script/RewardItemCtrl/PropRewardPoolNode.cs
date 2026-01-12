@@ -37,7 +37,7 @@ public class PropRewardPoolNode : MonoBehaviour
         //先启用调用Awake
         this.Show();
         propImage.sprite = sprite;
-
+        propImage.SetNativeSize();
         switch (rewardType)
         {
             case RewardType.NormalReward:

@@ -34,11 +34,6 @@ namespace QAssetBundle
         public const string SourceHanSansCNBold_SDF_Red = "SourceHanSansCN-Bold SDF Red";
         public const string SourceHanSansCNBold = "SourceHanSansCN-Bold";
     }
-    public class Plotunlockguide_prefab
-    {
-        public const string BundleName = "plotunlockguide_prefab";
-        public const string PlotUnlockGuide = "PlotUnlockGuide";
-    }
     public class Popdialogbox_prefab
     {
         public const string BundleName = "popdialogbox_prefab";
@@ -72,12 +67,13 @@ namespace QAssetBundle
     public class Sceneunlockguide_prefab
     {
         public const string BundleName = "sceneunlockguide_prefab";
+        public const string PlotUnlockGuide = "PlotUnlockGuide";
         public const string SceneUnlockGuide = "SceneUnlockGuide";
     }
-    public class Uibattlepassadactivity_prefab
+    public class Uibattlepasspay_prefab
     {
-        public const string BundleName = "uibattlepassadactivity_prefab";
-        public const string UIBattlePassADActivity = "UIBattlePassADActivity";
+        public const string BundleName = "uibattlepasspay_prefab";
+        public const string UIBattlePassPay = "UIBattlePassPay";
     }
     public class Uibegin_prefab
     {
@@ -108,11 +104,6 @@ namespace QAssetBundle
     {
         public const string BundleName = "uicontinue_prefab";
         public const string UIContinue = "UIContinue";
-    }
-    public class Uidailyrewardadactivity_prefab
-    {
-        public const string BundleName = "uidailyrewardadactivity_prefab";
-        public const string UIDailyRewardADActivity = "UIDailyRewardADActivity";
     }
     public class Uidoublegiftadactivity_prefab
     {
@@ -227,7 +218,7 @@ namespace QAssetBundle
     public class Uisepecialoffergift_prefab
     {
         public const string BundleName = "uisepecialoffergift_prefab";
-        public const string UISepecialOfferGift = "UISepecialOfferGift";
+        public const string UISpecialOffer = "UISpecialOffer";
     }
     public class Uishop_prefab
     {
