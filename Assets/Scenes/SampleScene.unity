@@ -18069,7 +18069,7 @@ MonoBehaviour:
   AddCoinTxtUp: {fileID: 17329876}
   BtnContinue: {fileID: 295934832}
   mRectTransformPar: {fileID: 857588583}
-  CoinParticle: {fileID: 1435668891}
+  CoinParticle: {fileID: 0}
 --- !u!114 &1307849554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18884,17 +18884,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8472148209220726862, guid: 544b08d11a2763d48aac8bd3d0502aca, type: 3}
   m_PrefabInstance: {fileID: 1435668889}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1435668891 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1355872291493161149, guid: 544b08d11a2763d48aac8bd3d0502aca, type: 3}
-  m_PrefabInstance: {fileID: 1435668889}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23b3b3021db960d499ee0aaab9643d7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1591021880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26199,7 +26188,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  clearList: 
   cantChangeColorList: 
   nowBottles: []
   iceBottles: []
@@ -26222,6 +26210,7 @@ MonoBehaviour:
   - {fileID: 307236249}
   - {fileID: 2136198753}
   hideBottleList: []
+  clearList: 
   hideColor: 
   waterColor:
   - {r: 0.54509807, g: 0.7176471, b: 0.16078432, a: 1}
@@ -26279,6 +26268,21 @@ MonoBehaviour:
   - color: 4002
     waterTopSp: {fileID: 21300000, guid: e18414de9c752594f93537c6c09aa82d, type: 3}
     waterSp: {fileID: 21300000, guid: 0b1e5bff4b1223d4f87dd5fb61626994, type: 3}
+  createFx:
+  - {fileID: 4010074694300780744, guid: a16faf96fe35f2943a7cb58d0318af6a, type: 3}
+  - {fileID: 1017272283892693178, guid: 132a558e00d047449a796c3b050c3174, type: 3}
+  - {fileID: 7416798837986673613, guid: 54c3fa7e2d7d996488617ec40dd7d6b7, type: 3}
+  - {fileID: 8296382710138585318, guid: 149d467ea88b583429874f37d6ac8fb4, type: 3}
+  - {fileID: 1922755038276877691, guid: ab1a987d674f4ea4dafeb426198455c6, type: 3}
+  - {fileID: 1915418767084068082, guid: 729c2dea760600842a28901df7a25524, type: 3}
+  - {fileID: 4926023486743690875, guid: 4706614886439a14a8285a68021a6b0c, type: 3}
+  - {fileID: 7631745774035904040, guid: f1414719ecdab5445a1d396981c6fe08, type: 3}
+  - {fileID: 1252379836429217738, guid: 28c6758edeb160a45b35d3eed87ae3a3, type: 3}
+  - {fileID: 3596431535712202648, guid: 4e6204f3176787b49a026b5c9d78d38f, type: 3}
+  - {fileID: 1904978669943694940, guid: ef95bd65534abcd40b200333dec3a253, type: 3}
+  - {fileID: 5117927470948550250, guid: 11ef9f1b292a4dd45b7701692b8fbfdd, type: 3}
+  takeItem: 
+  LevelManagerRecords: []
   emptyBottle:
     waterSet: 
     hideTypes: 
@@ -26294,34 +26298,19 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  gameCanvas: {fileID: 1628571911}
-  createFx:
-  - {fileID: 4010074694300780744, guid: a16faf96fe35f2943a7cb58d0318af6a, type: 3}
-  - {fileID: 1017272283892693178, guid: 132a558e00d047449a796c3b050c3174, type: 3}
-  - {fileID: 7416798837986673613, guid: 54c3fa7e2d7d996488617ec40dd7d6b7, type: 3}
-  - {fileID: 8296382710138585318, guid: 149d467ea88b583429874f37d6ac8fb4, type: 3}
-  - {fileID: 1922755038276877691, guid: ab1a987d674f4ea4dafeb426198455c6, type: 3}
-  - {fileID: 1915418767084068082, guid: 729c2dea760600842a28901df7a25524, type: 3}
-  - {fileID: 4926023486743690875, guid: 4706614886439a14a8285a68021a6b0c, type: 3}
-  - {fileID: 7631745774035904040, guid: f1414719ecdab5445a1d396981c6fe08, type: 3}
-  - {fileID: 1252379836429217738, guid: 28c6758edeb160a45b35d3eed87ae3a3, type: 3}
-  - {fileID: 3596431535712202648, guid: 4e6204f3176787b49a026b5c9d78d38f, type: 3}
-  - {fileID: 1904978669943694940, guid: ef95bd65534abcd40b200333dec3a253, type: 3}
-  - {fileID: 5117927470948550250, guid: 11ef9f1b292a4dd45b7701692b8fbfdd, type: 3}
   nowLevel: {fileID: 0}
+  nowHalf: {fileID: 0}
+  gameCanvas: {fileID: 1628571911}
+  mSpineIniPar: {fileID: 93529466}
+  broomBullet: {fileID: 2768198876783416694, guid: adff4f81b2aa6ed49a500a58bc625fd2, type: 3}
+  mahoujinSpine: {fileID: 1377963003}
   ItemColor: {r: 0.02745098, g: 0.07058824, b: 0.24313726, a: 1}
   levelId: 12
   playingHideAnimCount: 0
   moveNum: 0
-  mSpineIniPar: {fileID: 93529466}
-  broomBullet: {fileID: 2768198876783416694, guid: adff4f81b2aa6ed49a500a58bc625fd2, type: 3}
-  mahoujinSpine: {fileID: 1377963003}
   isPlayAnim: 0
   isPlayFxAnim: 0
   isFlashWaterBottleAdded: 1
-  nowHalf: {fileID: 0}
-  takeItem: 
-  LevelManagerRecords: []
   BottomBottleLayoutGroup: {fileID: 1191291129}
   TopBottleLayoutGroup: {fileID: 1608939698}
   bottles:

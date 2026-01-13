@@ -19,8 +19,8 @@
                     "itemQuantity": 5
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": 4
         },
         {
             "GetConditions": 1,
@@ -36,8 +36,8 @@
                     "itemQuantity": 15
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 2,
@@ -53,8 +53,8 @@
                     "itemQuantity": 1
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 3,
@@ -70,8 +70,8 @@
                     "itemQuantity": 1
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 4,
@@ -87,8 +87,8 @@
                     "itemQuantity": 1
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 5,
@@ -116,8 +116,8 @@
                     "itemQuantity": 15
                 }
             ],
-            "FreeIsBox": true,
-            "VipIsBox": true
+            "FreeIsBox": 0,
+            "VipIsBox": 2
         },
         {
             "GetConditions": 6,
@@ -133,8 +133,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 7,
@@ -150,8 +150,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 8,
@@ -175,8 +175,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 9,
@@ -192,8 +192,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -229,8 +229,8 @@
                     "itemQuantity": 1
                 }
             ],
-            "FreeIsBox": true,
-            "VipIsBox": true
+            "FreeIsBox": 1,
+            "VipIsBox": 3
         },
         {
             "GetConditions": 10,
@@ -254,8 +254,8 @@
                     "itemQuantity": 15
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -271,8 +271,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -288,8 +288,8 @@
                     "itemQuantity": 500
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -305,8 +305,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -338,8 +338,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": true,
-            "VipIsBox": true
+            "FreeIsBox": 0,
+            "VipIsBox": 2
         },
         {
             "GetConditions": 10,
@@ -355,8 +355,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -380,8 +380,8 @@
                     "itemQuantity": 30
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -397,8 +397,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -414,8 +414,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -447,8 +447,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": true,
-            "VipIsBox": true
+            "FreeIsBox": 1,
+            "VipIsBox": 3
         },
         {
             "GetConditions": 10,
@@ -464,8 +464,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -481,8 +481,8 @@
                     "itemQuantity": 2
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -506,8 +506,8 @@
                     "itemQuantity": 30
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -523,8 +523,8 @@
                     "itemQuantity": 3
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -560,8 +560,8 @@
                     "itemQuantity": 30
                 }
             ],
-            "FreeIsBox": true,
-            "VipIsBox": true
+            "FreeIsBox": 0,
+            "VipIsBox": 2
         },
         {
             "GetConditions": 10,
@@ -577,8 +577,8 @@
                     "itemQuantity": 3
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -594,8 +594,8 @@
                     "itemQuantity": 60
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -611,8 +611,8 @@
                     "itemQuantity": 3
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -628,8 +628,8 @@
                     "itemQuantity": 3
                 }
             ],
-            "FreeIsBox": false,
-            "VipIsBox": false
+            "FreeIsBox": -1,
+            "VipIsBox": -1
         },
         {
             "GetConditions": 10,
@@ -665,8 +665,8 @@
                     "itemQuantity": 60
                 }
             ],
-            "FreeIsBox": true,
-            "VipIsBox": true
+            "FreeIsBox": 1,
+            "VipIsBox": 3
         }
     ]
 }

@@ -26,7 +26,7 @@ namespace QFramework.Example
         {
             return GameMainArc.Interface;
         }
-
+ 
         private void Awake()
         {
             mBattlePassADActivity = GameActivityManager.Instance.GetActivity<BattlePassADActivity>();

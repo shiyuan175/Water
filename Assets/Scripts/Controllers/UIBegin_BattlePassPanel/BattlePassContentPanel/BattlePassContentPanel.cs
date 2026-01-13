@@ -59,12 +59,6 @@ namespace QFramework.Example
                 ImgLevel.sprite = levelImgs[0];
                 TextLevel.text = level.ToString();
             }
-         /*   // 设置领取条
-            if (level == bPModel.RewardLevel - 1)
-            {
-                SetDividingLine(1);
-
-            }*/
             #region 设置freeGift
             if (bPModel.FreeRewardGotLevel > level)
             {
@@ -88,7 +82,7 @@ namespace QFramework.Example
             }
 
             // 创建预制体
-            if (!bPModel.BPDate.Rewards[level].FreeIsBox)
+            if (bPModel.BPDate.Rewards[level].FreeIsBox < 0)
             {
                 GameObject _prefab = freeGiftPanel.ItemPanel.GetChild(0).gameObject;
                 for (int i = 1; i < freeData.Length; i++)
@@ -104,13 +98,15 @@ namespace QFramework.Example
                 var itemImg = freeGiftPanel.ItemPanel.GetChild(i).GetComponent<Image>();
                 var itemNumber = freeGiftPanel.ItemPanel.GetChild(i).Find("Text").GetComponent<TextMeshProUGUI>();
                 // 是宝箱
-                if (bPModel.BPDate.Rewards[level].FreeIsBox)
+                if (bPModel.BPDate.Rewards[level].FreeIsBox >= 0)
                 {
-                    itemImg.sprite = boxImgs[level % boxImgs.Length % 2];
+                    itemNumber.Hide();
+                    itemImg.sprite = boxImgs[bPModel.BPDate.Rewards[level].FreeIsBox];
                     break;
                 }
                 else
                 {
+                    itemNumber.Show();
                     // 头像特殊处理
                     if (freeData[i].itemType == "AvatarId")
                     {
@@ -173,7 +169,7 @@ namespace QFramework.Example
 
 
             // 创建预制体
-            if (!bPModel.BPDate.Rewards[level].VipIsBox)
+            if (bPModel.BPDate.Rewards[level].VipIsBox < 0)
             {
                 for (int i = 1; i < vipData.Length; i++)
                 {
@@ -189,13 +185,16 @@ namespace QFramework.Example
                 var itemImg = vipGiftPanel.ItemPanel.GetChild(i).GetComponent<Image>();
                 var itemNumber = vipGiftPanel.ItemPanel.GetChild(i).Find("Text").GetComponent<TextMeshProUGUI>();
                 // 是宝箱
-                if (bPModel.BPDate.Rewards[level].VipIsBox)
+                if (bPModel.BPDate.Rewards[level].VipIsBox >= 0)
                 {
-                    itemImg.sprite = boxImgs[level % boxImgs.Length % 2 + 2];
+                    itemNumber.Hide();
+                    itemImg.sprite = boxImgs[bPModel.BPDate.Rewards[level].VipIsBox];
                     break;
                 }
                 else
                 {
+                    itemNumber.Show();
+                    
                     // 头像特殊处理
                     if (vipData[i].itemType == "AvatarId")
                     {
@@ -227,7 +226,7 @@ namespace QFramework.Example
         {
             layout.cellSize = count switch
             {
-                1 => new Vector2(100, 100),
+                1 => new Vector2(120, 120),
                 2 => new Vector2(80, 80),
                 3 => new Vector2(73, 73),
                 4 => new Vector2(65, 65),

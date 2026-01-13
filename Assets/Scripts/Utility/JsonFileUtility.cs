@@ -162,8 +162,8 @@ namespace JsonFileData
         public int GetConditions;
         public RewardItem[] Free;
         public RewardItem[] Vip;
-        public bool FreeIsBox;
-        public bool VipIsBox;
+        public int FreeIsBox; // -1 表示false 0-4表示箱子，5表示特俗图
+        public int VipIsBox;
     }
 
     public class RewardItem
