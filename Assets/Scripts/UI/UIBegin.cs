@@ -204,11 +204,6 @@ namespace QFramework.Example
                     UIKit.OpenPanel<UIMagicStreakActivity>();
             });
 
-            BtnTTNode.onClick.RemoveAllListeners();
-            BtnTTNode.onClick.AddListener(() =>
-            {
-                UIKit.OpenPanel<UIMallTurntable>();
-            });
             BtnBPNode.onClick.RemoveAllListeners();
             BtnBPNode.onClick.AddListener(() =>
             {
