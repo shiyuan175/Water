@@ -211,7 +211,7 @@ namespace QFramework.Example
                 int delta = curLevel - GameConst.SO_AD_BEGIN_LEVEL;
 
                 //特权未全部购买 && 起始关 && 每七关弹出一次
-                if (this.GetModel<GameGlobalModel>().IsAllPurchased() &&
+                if (!this.GetModel<GameGlobalModel>().IsAllPurchased() &&
                     curLevel != GameDefine.GameConst.SO_AD_BEGIN_LEVEL &&
                     (delta < 0 || delta % 7 != 0))
                     return false;

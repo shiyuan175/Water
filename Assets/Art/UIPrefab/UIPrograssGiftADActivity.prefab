@@ -434,7 +434,6 @@ MonoBehaviour:
   PrefabFolder: Assets/Art/Prefab
   ArchitectureFullTypeName: 
   ViewControllerFullTypeName: 
-  rewardSprite: {fileID: 11400000, guid: ccddaf171c808d343876466fb21b27c7, type: 2}
   CoinsImg: {fileID: 21300000, guid: 00d4906066b0a9048972618263b41688, type: 3}
   control: {fileID: 5364333485782331820}
   BtnBuy: {fileID: 2298395502661438535}
@@ -1663,7 +1662,6 @@ MonoBehaviour:
   PrefabFolder: Assets/Art/Prefab
   ArchitectureFullTypeName: 
   ViewControllerFullTypeName: 
-  rewardSprite: {fileID: 11400000, guid: ccddaf171c808d343876466fb21b27c7, type: 2}
   CoinsImg: {fileID: 21300000, guid: 00d4906066b0a9048972618263b41688, type: 3}
   control: {fileID: 3851813163021825283}
   BtnBuy: {fileID: 3665584668655542352}
@@ -2176,7 +2174,6 @@ MonoBehaviour:
   PrefabFolder: Assets/Art/Prefab
   ArchitectureFullTypeName: 
   ViewControllerFullTypeName: 
-  rewardSprite: {fileID: 11400000, guid: ccddaf171c808d343876466fb21b27c7, type: 2}
   CoinsImg: {fileID: 21300000, guid: 00d4906066b0a9048972618263b41688, type: 3}
   control: {fileID: 4469798677584951223}
   BtnBuy: {fileID: 4404985894881081297}
@@ -2512,7 +2509,6 @@ MonoBehaviour:
   PrefabFolder: Assets/Art/Prefab
   ArchitectureFullTypeName: 
   ViewControllerFullTypeName: 
-  rewardSprite: {fileID: 11400000, guid: ccddaf171c808d343876466fb21b27c7, type: 2}
   CoinsImg: {fileID: 21300000, guid: 00d4906066b0a9048972618263b41688, type: 3}
   control: {fileID: 7985262131092566560}
   BtnBuy: {fileID: 6916059491986988918}
@@ -3397,141 +3393,6 @@ MonoBehaviour:
   layoutType: 1
   constraintCounts: 3
   targetRectTransform: []
---- !u!1 &3146647105749401489
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8226252449922521285}
-  - component: {fileID: 3755701937283798694}
-  - component: {fileID: 5779173604422750901}
-  m_Layer: 5
-  m_Name: Text_Blue
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &8226252449922521285
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3146647105749401489}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5398492694446550575}
-  m_Father: {fileID: 4837120706615728731}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 70}
-  m_Pivot: {x: 0.5, y: 0}
---- !u!222 &3755701937283798694
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3146647105749401489}
-  m_CullTransparentMesh: 1
---- !u!114 &5779173604422750901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3146647105749401489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Claim each offer to unlock free rewards
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 2695514029084683534, guid: b10145d581913b348a8a8ebe55de2929, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 0.9294118, b: 0.5882353, a: 1}
-    bottomRight: {r: 1, g: 0.9294118, b: 0.5882353, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 41.8
-  m_fontSizeBase: 36
-  m_fontWeight: 400
-  m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3215900737487071062
 GameObject:
   m_ObjectHideFlags: 0
@@ -3565,10 +3426,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7067510384128467481}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 249.8486, y: 0}
+  m_AnchoredPosition: {x: 80, y: 0}
+  m_SizeDelta: {x: 122.496506, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &5731832158481133450
 CanvasRenderer:
@@ -3625,15 +3486,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55.2
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -3824,7 +3685,6 @@ MonoBehaviour:
   PrefabFolder: Assets/Art/Prefab
   ArchitectureFullTypeName: 
   ViewControllerFullTypeName: 
-  rewardSprite: {fileID: 11400000, guid: ccddaf171c808d343876466fb21b27c7, type: 2}
   CoinsImg: {fileID: 21300000, guid: 00d4906066b0a9048972618263b41688, type: 3}
   control: {fileID: 6578461030353989348}
   BtnBuy: {fileID: 8528774456567272669}
@@ -4996,10 +4856,10 @@ RectTransform:
   - {fileID: 2611382502638095173}
   m_Father: {fileID: 1897375994512048081}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &5178137072109384920
 CanvasRenderer:
@@ -6225,16 +6085,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6050729383258428480}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8226252449922521285}
+  m_Father: {fileID: 4837120706615728731}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -185}
   m_SizeDelta: {x: -100, y: 120}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &6375654090600497606
@@ -7948,7 +7808,6 @@ MonoBehaviour:
   PrefabFolder: Assets/Art/Prefab
   ArchitectureFullTypeName: 
   ViewControllerFullTypeName: 
-  rewardSprite: {fileID: 11400000, guid: ccddaf171c808d343876466fb21b27c7, type: 2}
   CoinsImg: {fileID: 21300000, guid: 00d4906066b0a9048972618263b41688, type: 3}
   control: {fileID: 7564529602670537857}
   BtnBuy: {fileID: 5557733663797458945}
@@ -8781,8 +8640,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5398492694446550575}
   - {fileID: 1897375994512048081}
-  - {fileID: 8226252449922521285}
   - {fileID: 6814919730284503998}
   m_Father: {fileID: 7040033369670671427}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9230,9 +9089,9 @@ RectTransform:
   m_Father: {fileID: 4837120706615728731}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -602.53284, y: 80}
+  m_SizeDelta: {x: 317.46716, y: 80}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1206808227764721074
 CanvasRenderer:
