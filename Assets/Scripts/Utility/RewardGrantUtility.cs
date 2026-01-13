@@ -19,8 +19,16 @@ public class RewardGrantUtility : IUtility, ICanGetModel
         {
             switch (item.NormalRewardsType)
             {
-                case NormalRewardsType.StaminaCap:
-                    mGameGlobalModel.AddMaxHp(item.Quantity);
+                case NormalRewardsType.StaminaCap_2:
+                    mGameGlobalModel.AddMaxHp(2);
+                    break;
+
+                case NormalRewardsType.StaminaCap_3:
+                    mGameGlobalModel.AddMaxHp(3);
+                    break;
+
+                case NormalRewardsType.StaminaCap_5:
+                    mGameGlobalModel.AddMaxHp(5);
                     break;
 
                 default:
@@ -36,11 +44,13 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                 case SpecialRewardsType.UnlimitedHp:
                     HealthManager.Instance.SetUnLimitHp(item.Duration);
                     break;
-                case SpecialRewardsType.ReduceLiveRecoverTime:
+                case SpecialRewardsType.ReduceLiveRecoverTime_5:
+                    mGameGlobalModel.ReduceHpRecoverTimer(item.Duration);
+                    break;
+                case SpecialRewardsType.ReduceLiveRecoverTime_9:
                     mGameGlobalModel.ReduceHpRecoverTimer(item.Duration);
                     break;
 
-                //有配置 Description 特性走默认处理逻辑
                 default:
                     mGameGlobalModel.AddTimerToJson(mGameGlobalModel.GameGlobalJsonData.TimedBuffData,
                         item.SpecialRewardType.ToString(), item.Duration);
@@ -61,8 +71,16 @@ public class RewardGrantUtility : IUtility, ICanGetModel
             {
                 switch (normalReward)
                 {
-                    case NormalRewardsType.StaminaCap:
-                        mGameGlobalModel.AddMaxHp(item.itemQuantity);
+                    case NormalRewardsType.StaminaCap_2:
+                        mGameGlobalModel.AddMaxHp(2);
+                        break;
+
+                    case NormalRewardsType.StaminaCap_3:
+                        mGameGlobalModel.AddMaxHp(3);
+                        break;
+
+                    case NormalRewardsType.StaminaCap_5:
+                        mGameGlobalModel.AddMaxHp(5);
                         break;
 
                     default:
@@ -78,7 +96,10 @@ public class RewardGrantUtility : IUtility, ICanGetModel
                     case SpecialRewardsType.UnlimitedHp:
                         HealthManager.Instance.SetUnLimitHp(item.itemQuantity);
                         break;
-                    case SpecialRewardsType.ReduceLiveRecoverTime:
+                    case SpecialRewardsType.ReduceLiveRecoverTime_5:
+                        mGameGlobalModel.ReduceHpRecoverTimer(item.itemQuantity);
+                        break;
+                    case SpecialRewardsType.ReduceLiveRecoverTime_9:
                         mGameGlobalModel.ReduceHpRecoverTimer(item.itemQuantity);
                         break;
 

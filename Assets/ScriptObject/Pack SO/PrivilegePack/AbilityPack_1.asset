@@ -15,8 +15,8 @@ MonoBehaviour:
   PackID: privilegepack_1
   coins: 0
   items:
-  - normalRewardsType: 9
-    quantity: 5
+  - normalRewardsType: 11
+    quantity: 1
   specialsItem:
   - specialRewardType: 9
     duration: 5

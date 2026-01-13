@@ -25,7 +25,9 @@ public enum NormalRewardsType
     S_RemoveOneDebuffBottle = 8,
 
     // 增加体力上限
-    StaminaCap = 9,
+    StaminaCap_2 = 9,
+    StaminaCap_3 = 10,
+    StaminaCap_5 = 11,
 
     //仅做表现
     //金币
@@ -44,7 +46,8 @@ public enum SpecialRewardsType
     Unlimited_S_RemoveOneDebuffBottle = 8,
 
     // 减少体力恢复时长(分钟)
-    ReduceLiveRecoverTime = 9,
+    ReduceLiveRecoverTime_5 = 9,
+    ReduceLiveRecoverTime_9 = 10,
 
     //仅做表现(不用于发放奖励)
     //三个进关选择道具(三个时长需相同)
