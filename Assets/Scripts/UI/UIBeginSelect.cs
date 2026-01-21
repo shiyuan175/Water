@@ -26,10 +26,7 @@ namespace QFramework.Example
         [SerializeField] private Image ImgBg;
         [SerializeField] TextMeshProUGUI[] redTXT;
         private GameGlobalModel gameGlobalModel;
-        private readonly int AddOntHalfBottleItemType = 0;
-        private readonly int RemoveOneBotteHideWater = 1;
-        private readonly int RemoveOneDebuffBottle = 2;
-        private readonly int EnterPropStartID = 6;
+
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;

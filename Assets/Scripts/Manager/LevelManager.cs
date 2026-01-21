@@ -69,7 +69,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     [HideInInspector]
     public TMP_FontAsset greenFont;
 
-
     #region 新机制记录存储结构
     public Dictionary<BottleCtrl, int> bubbleDict = new();
     public HashSet<BottleCtrl> bombList = new();
@@ -79,7 +78,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public int GlobalMechanismContinueSetps;
     public int GlobalMechanismBeginSetp;
     #endregion
-
 
     public IArchitecture GetArchitecture()
     {
@@ -123,7 +121,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         }
     }
 
-
     private void OnDestroy()
     {
         mResLoader.Recycle2Cache();
@@ -154,12 +151,17 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// <param name="id"></param>
     public void StartGame(int id)
     {
-        //cantClearColorList.Clear();
         cantChangeColorList.Clear();
         hideBottleList.Clear();
-
         iceBottles.Clear();
         levelId = id;
+
+        TypeEventSystem.Global.Send(new ReportLevelEvent
+        {
+            level = levelId,
+            type = 1,
+            iswin = null
+        });
         if (mLastLevel != levelId)
         {
             mEnterCount = 1;
@@ -178,8 +180,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         GlobalMechanismBeginSetp = levelInfo.GlobalMechanismBeginSetp;
         GlobalMechanismContinueSetps = levelInfo.GlobalMechanismContinueSetps;
 
-      
-
         nowBottles.Clear();
         bubbleDict.Clear();
         curtainDict.Clear();
@@ -189,7 +189,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         TopBottleLayoutGroup.Show();
         BottomBottleLayoutGroup.Show();
         InitLevels(levelInfo);
-      
     }
 
     /// <summary>
@@ -214,10 +213,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         isFinish = false;
         //Debug.Log("关卡重置初始化/首次进入关卡初始化");
 
-      
-        
         ShowBottleGo();
         InitBottle(levelInfo);
+
         #region 新机制初始化
 
         int _i = 0;
@@ -249,6 +247,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         }
 
         #endregion
+        
         if (!UIKit.GetPanel<UIGameNode>())
             UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { GlobalMechanism = LevelManager.Instance.globalMechanism });
         BottleLayoutRefresh();
@@ -753,6 +752,13 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             UIKit.OpenPanel<UIMask>(UILevel.PopUI);
             float waitTime = levelId < 5 ? 3f : 2f;
             yield return new WaitForSeconds(waitTime);
+
+            TypeEventSystem.Global.Send(new ReportLevelEvent
+            {
+                level = levelId,
+                type = 2,
+                iswin = 1,
+            });
             this.GetUtility<SaveDataUtility>().SaveLevel(levelId + 1);
 
             if (levelId < 5)

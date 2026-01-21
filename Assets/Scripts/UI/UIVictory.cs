@@ -32,11 +32,6 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
-            mSaveDataUtility = this.GetUtility<SaveDataUtility>();
-            string _del = $"用户通过关卡:{mSaveDataUtility.GetCurrentLevel() - 1}," +
-                $"当前关卡进度:{mSaveDataUtility.GetCurrentLevel()}";
-            AnalyticsManager.Instance.SendLevelEvent(_del);
-
             mIsEnQueue = false;
         }
 

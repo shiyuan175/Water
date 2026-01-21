@@ -88,9 +88,9 @@ namespace AnyThinkAds
 
         public static IATSDKAPIClient BuildSDKAPIClient()
         {
-            Debug.Log("BuildSDKAPIClient");
+            //Debug.Log("BuildSDKAPIClient");
             #if UNITY_EDITOR
-                Debug.Log("Unity Editor");
+                //Debug.Log("Unity Editor");
                         // Testing UNITY_EDITOR first because the editor also responds to the currently
                         // selected platform.
 

@@ -173,7 +173,7 @@ namespace AnyThinkAds.Api
         }
 
         private static IATSDKAPIClient GetATSDKAPIClient(){
-            Debug.Log("GetATSDKAPIClient");
+            //Debug.Log("GetATSDKAPIClient");
             return AnyThinkAds.ATAdsClientFactory.BuildSDKAPIClient();
         }
 

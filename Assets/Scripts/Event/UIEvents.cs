@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,14 +10,17 @@ public struct RefreshUITextEvent
 {
 
 }
+
 public struct LevelStartEvent
 {
 
 }
+
 public struct UnLockItem
 {
     public NormalRewardsType PropType;
 }
+
 /// <summary>
 /// 游戏胜利事件
 /// </summary>
@@ -25,8 +28,6 @@ public struct ReturnToMainEvent
 {
     public bool PassLevel;
 }
-
-
 
 public struct VitalityChangeEvent
 {
@@ -59,5 +60,12 @@ public struct OnActivityStatusChanged
 {
     public IGameActivity Sender;
     public Enum Status;
+}
+
+public struct ReportLevelEvent
+{
+    public int level;
+    public int type;    //1.进入关卡 2.关卡结束
+    public int? iswin;  //1.过关 2.失败;
 }
 

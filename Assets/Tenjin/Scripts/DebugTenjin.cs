@@ -11,52 +11,52 @@ public class DebugTenjin : BaseTenjin
 
     public override void Connect()
     {
-        Debug.Log("Connecting " + ApiKey);
+        //Debug.Log("Connecting " + ApiKey);
     }
 
     public override void Connect(string deferredDeeplink)
     {
-        Debug.Log("Connecting with deferredDeeplink " + deferredDeeplink);
+        //Debug.Log("Connecting with deferredDeeplink " + deferredDeeplink);
     }
 
     public override void Init(string apiKey)
     {
-        Debug.Log("Initializing - v" + this.SdkVersion);
+        //Debug.Log("Initializing - v" + this.SdkVersion);
     }
 
     public override void InitWithSharedSecret(string apiKey, string sharedSecret)
     {
-        Debug.Log("Initializing with Shared Secret - v" + this.SdkVersion);
+        //Debug.Log("Initializing with Shared Secret - v" + this.SdkVersion);
     }
 
     public override void InitWithAppSubversion(string apiKey, int appSubversion)
     {
-        Debug.Log("Initializing with App Subversion: " + appSubversion + " v" + this.SdkVersion);
+        //Debug.Log("Initializing with App Subversion: " + appSubversion + " v" + this.SdkVersion);
     }
 
     public override void InitWithSharedSecretAppSubversion(string apiKey, string sharedSecret, int appSubversion)
     {
-        Debug.Log("Initializing with Shared Secret + App Subversion: " + appSubversion + " v" + this.SdkVersion);
+        //Debug.Log("Initializing with Shared Secret + App Subversion: " + appSubversion + " v" + this.SdkVersion);
     }
 
     public override void SendEvent(string eventName)
     {
-        Debug.Log("Sending Event " + eventName);
+        //Debug.Log("Sending Event " + eventName);
     }
 
     public override void SendEvent(string eventName, string eventValue)
     {
-        Debug.Log("Sending Event " + eventName + " : " + eventValue);
+        //Debug.Log("Sending Event " + eventName + " : " + eventValue);
     }
 
     public override void Transaction(string productId, string currencyCode, int quantity, double unitPrice, string transactionId, string receipt, string signature)
     {
-        Debug.Log("Transaction " + productId + ", " + currencyCode + ", " + quantity + ", " + unitPrice + ", " + transactionId + ", " + receipt + ", " + signature);
+        //Debug.Log("Transaction " + productId + ", " + currencyCode + ", " + quantity + ", " + unitPrice + ", " + transactionId + ", " + receipt + ", " + signature);
     }
 
     public override void TransactionAmazon(string productId, string currencyCode, int quantity, double unitPrice, string receiptId, string userId)
     {
-        Debug.Log("Transaction Amazon" + productId + ", " + currencyCode + ", " + quantity + ", " + unitPrice + ", " + receiptId + ", " + userId);
+        //Debug.Log("Transaction Amazon" + productId + ", " + currencyCode + ", " + quantity + ", " + unitPrice + ", " + receiptId + ", " + userId);
     }
 
     public override void GetDeeplink(Tenjin.DeferredDeeplinkDelegate deferredDeeplinkDelegate)
@@ -265,7 +265,7 @@ public class DebugTenjin : BaseTenjin
 
     public override void SetAppStoreType(AppStoreType appStoreType)
     {
-        Debug.Log("SetAppStoreType");
+        //Debug.Log("SetAppStoreType");
     }
 
     public override void SetCustomerUserId(string userId)

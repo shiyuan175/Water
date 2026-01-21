@@ -63,7 +63,6 @@ public class GameMainArc : Architecture<GameMainArc>
         //ResourceManager.Instance.LoadFont();
         TextManager textManager = TextManager.Instance;
         ShareManager shareManager = ShareManager.Instance;
-        AnalyticsManager analyticsManager = AnalyticsManager.Instance;
         TenjinManager tenjinManager = TenjinManager.Instance;
         TopOnADManager topOnADManager = TopOnADManager.Instance;
         HealthManager healthManager = HealthManager.Instance;

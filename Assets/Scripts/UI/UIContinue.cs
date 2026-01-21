@@ -1,4 +1,4 @@
-using GameDefine;
+﻿using GameDefine;
 using QFramework;
 using TMPro;
 using UnityEngine;
@@ -101,11 +101,6 @@ namespace QFramework.Example
             });
             BtnQuit.onClick.AddListener(() =>
             {
-                
-                string _del = $"�û��˳��ؿ�:{mSaveData.GetCurrentLevel()}," +
-                 $"��ǰ�ؿ�����:{mSaveData.GetCurrentLevel()}";
-                AnalyticsManager.Instance.SendLevelEvent(_del);
-
                 HealthManager.Instance.UseHp();
                 //�����������˳���UI����
                 UIKit.ClosePanel<UIGuideAnimPop>();
@@ -113,7 +108,12 @@ namespace QFramework.Example
                 
                 this.SendCommand<FailedLevelCommand>();
                 this.SendEvent(new ReturnToMainEvent { PassLevel = false });
-
+                TypeEventSystem.Global.Send(new ReportLevelEvent
+                {
+                    level = mSaveData.GetCurrentLevel(),
+                    type = 2,
+                    iswin = 2
+                });
                 EnqueueAllPanels();
                 CloseSelf();
             });
