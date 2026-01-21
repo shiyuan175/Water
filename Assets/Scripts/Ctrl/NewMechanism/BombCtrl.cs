@@ -64,9 +64,9 @@ public class BombCtrl : MonoBehaviour, ICanSendEvent, ICanGetUtility
         {
             /*if (!UIKit.GetPanel<UIRetry>())
                 UIKit.OpenPanel<UIRetry>();*/
-            this.SendEvent<GameStartEvent>();
+           
             LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
-            GameCtrl.Instance.InitGameCtrl();
+            
             UIKit.ClosePanel<UIMask>();
             spine.enabled = false;
             spine.AnimationState?.ClearTracks();

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3384455411076530873}
   - component: {fileID: 7428626522805195635}
   m_Layer: 5
-  m_Name: TxtItemDetails_Red
+  m_Name: TxtItemDetails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 730664697484400668}
   - component: {fileID: 2595375810136480690}
   m_Layer: 5
-  m_Name: TxtItemCount_Red
+  m_Name: TxtItemCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 1123537590445672937}
   - component: {fileID: 1540067382967648207}
   m_Layer: 5
-  m_Name: TxtTitle_Red
+  m_Name: TxtTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -723,7 +723,7 @@ GameObject:
   - component: {fileID: 7173206289714651731}
   - component: {fileID: 5127545350753797716}
   m_Layer: 5
-  m_Name: TxtGet_Red
+  m_Name: TxtGet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1241,7 +1241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4856316427086791133
 RectTransform:
   m_ObjectHideFlags: 0

@@ -5,13 +5,15 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:9cfafb7e-3a73-40d0-bfbb-c75090728e26
+	// Generate Id:52d59a23-db53-4908-b257-ce0acb5281e0
 	public partial class UIVictory
 	{
 		public const string Name = "UIVictory";
 		
 		[SerializeField]
 		public Animator AnimGo;
+		[SerializeField]
+		public RectTransform Horn;
 		[SerializeField]
 		public Animator HornGo3;
 		[SerializeField]
@@ -35,7 +37,7 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Image ImgNewItem;
 		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtNewItem_Red;
+		public TMPro.TextMeshProUGUI TxtNewItem;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnNewItemClose;
 		
@@ -44,6 +46,7 @@ namespace QFramework.Example
 		protected override void ClearUIComponents()
 		{
 			AnimGo = null;
+			Horn = null;
 			HornGo3 = null;
 			HornSpine1 = null;
 			HornGo4 = null;
@@ -55,7 +58,7 @@ namespace QFramework.Example
 			BtnSkip = null;
 			NewItemNode = null;
 			ImgNewItem = null;
-			TxtNewItem_Red = null;
+			TxtNewItem = null;
 			BtnNewItemClose = null;
 			
 			mData = null;

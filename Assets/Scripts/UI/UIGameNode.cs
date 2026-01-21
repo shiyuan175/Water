@@ -1,22 +1,15 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using QFramework;
-using System;
-using GameDefine;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 using DG.Tweening;
+using GameDefine;
+using UnityEngine;
 using UnityEngine.U2D;
-using TMPro;
-
+using UnityEngine.UI;
 
 namespace QFramework.Example
 {
     public class UIGameNodeData : UIPanelData
     {
         public GlobalMechanism GlobalMechanism;
-        public int BeginSetp = 0;
-        public int CanUseSetps = 0;
     }
 
     public partial class UIGameNode : UIPanel, IController, ICanSendEvent
@@ -57,26 +50,27 @@ namespace QFramework.Example
 
         protected override void OnInit(IUIData uiData = null)
         {
-            mData = uiData as UIGameNodeData ?? new UIGameNodeData();
 
-            #region 全局机制--魔法猫咪
-            if (mData.GlobalMechanism == GlobalMechanism.WhiteMagicCar || mData.GlobalMechanism == GlobalMechanism.BlackMagicCar)
-            {
-                Debug.Log($"mData.GlobalMechanism = {mData.GlobalMechanism}");
-                magicCtrl.Init(mData.GlobalMechanism);
-            }
-            #endregion
-            // please add init code here
         }
 
         protected override void OnOpen(IUIData uiData = null)
         {
             gameGlobalModel = this.GetModel<GameGlobalModel>();
-            mIsOpenUIVictory = false;
-
+                
             LoadRes();
             BindBtn();
             RegisterEvent();
+            #region 全局机制--魔法猫咪
+
+            mData = uiData as UIGameNodeData ?? new UIGameNodeData();
+
+            if (mData.GlobalMechanism == GlobalMechanism.WhiteMagicCar || mData.GlobalMechanism == GlobalMechanism.BlackMagicCar)
+            {
+                magicCtrl.Init(mData.GlobalMechanism);
+            }
+
+            #endregion
+
         }
 
         protected override void OnShow()
@@ -85,6 +79,19 @@ namespace QFramework.Example
             InitLevelUI();
             InitItemUI();
             SetItem();
+            mIsOpenUIVictory = false;
+            var globalMechanism = LevelManager.Instance.globalMechanism;
+            if (globalMechanism == GlobalMechanism.WhiteMagicCar || globalMechanism == GlobalMechanism.BlackMagicCar)
+            {
+                magicCtrl.Show();
+          
+                magicCtrl.Init(globalMechanism);
+            }
+            else
+            {
+                magicCtrl.Hide();
+            }
+
         }
 
         protected override void OnHide()
@@ -94,12 +101,12 @@ namespace QFramework.Example
         protected override void OnClose()
         {
             gameGlobalModel = null;
-            BtnStepBack.onClick.RemoveAllListeners();
+            /*BtnStepBack.onClick.RemoveAllListeners();
             BtnRemoveHide.onClick.RemoveAllListeners();
             BtnAddBottle.onClick.RemoveAllListeners();
             BtnHalfBottle.onClick.RemoveAllListeners();
             BtnRemoveAll.onClick.RemoveAllListeners();
-            BtnReturn.onClick.RemoveAllListeners();
+            BtnReturn.onClick.RemoveAllListeners();*/
 
             if (mResLoader != null)
             {
@@ -111,7 +118,6 @@ namespace QFramework.Example
 
         private void LoadRes()
         {
-            Debug.Log("LoadRes");
             /*if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() >= GameDefine.GameConst.IN_GAME_RANK_BEGIN_LEVEL)
             {*/
                 mResLoader = ResLoader.Allocate();
@@ -122,12 +128,19 @@ namespace QFramework.Example
 
         private void BindBtn()
         {
+            
             BtnRemoveAll.onClick.AddListener(BtnRemoveAllOnClick);
+            
             BtnAddBottle.onClick.AddListener(BtnAddBottleOnClick);
+            
             BtnHalfBottle.onClick.AddListener(BtnHalfBottleOnClick);
+        
             BtnRemoveHide.onClick.AddListener(BtnRemoveHideOnClick);
+            
             BtnStepBack.onClick.AddListener(BtnSetpBackOnClick);
+          
             BtnReturn.onClick.AddListener(BtnReturnOnClick);
+            BtnSetting.onClick.AddListener(() => { UIKit.OpenPanel<UISetting>(); });
         }
 
         private void RegisterEvent()
@@ -149,7 +162,7 @@ namespace QFramework.Example
 
             StringEventSystem.Global.Register(GameConst.VICTORY_EVENT, () =>
             {
-                Debug.Log("victoryEvent");
+              
                 int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
                 //原是第八关才显示段位(5~7关直接返回)
                 //现在是第六关显示，第五关通过时会触发返回
@@ -224,7 +237,8 @@ namespace QFramework.Example
 
             if (level <= 5)
                 BtnReturn.Hide();
-
+            else
+                BtnReturn.Show();
             if (level < GET_THE_LAST_NUMBER_OF_LEVEL)
                 return;
             int _index = 0;
@@ -275,7 +289,7 @@ namespace QFramework.Example
                 });
 
             // 设置文本 5-20的偏转值
-            TextLevelTip.text = UnityEngine.Random.Range(50, 70).ToString() + "% of players were defeated at this level";
+            TextLevelTip.text = Random.Range(50, 70).ToString() + "% of players were defeated at this level";
         }
 
         /// <summary>
@@ -303,7 +317,6 @@ namespace QFramework.Example
                 TxtRankLevel.text = _tempWin.ToString();
                 //5次连胜晋升一个段位,总段位数9(起始0)
                 mCacheRankSpriteIndex = Mathf.Min(8, Mathf.Max(0, (_tempWin - 1) / 5));
-                Debug.Log(mRankLevelSpriteAtlas);
                 /*if (mRankLevelSpriteAtlas == null)
                     mRankLevelSpriteAtlas*/
                 ImgRankLevel.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mCacheRankSpriteIndex));
@@ -323,25 +336,25 @@ namespace QFramework.Example
         {
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
-            if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+            if (level > (int)GameConst.NEWBIE_LEVEL_COUNT)
                 UnLockItem(NormalRewardsType.AddHalfBottle);
 
-            if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+            if (level > (int)GameConst.NEWBIE_LEVEL_COUNT)
                 UnLockItem(NormalRewardsType.AddOneBottle);
 
-            if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+            if (level > (int)GameConst.NEWBIE_LEVEL_COUNT)
                 UnLockItem(NormalRewardsType.StepBack);
 
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide)
+            if (level > (int)UIGuideLevel.UIGuideLevelRemoveHide)
                 UnLockItem(NormalRewardsType.RemoveHide);
-            else if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+            else if (level > (int)GameConst.NEWBIE_LEVEL_COUNT)
             {
                 BtnRemoveHide.transform.Find("ImgLock").Show();
             }
 
-            if (level > (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveAll)
+            if (level > (int)UIGuideLevel.UIGuideLevelRemoveAll)
                 UnLockItem(NormalRewardsType.RemoveAll);
-            else if (level > (int)GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+            else if (level > (int)GameConst.NEWBIE_LEVEL_COUNT)
             {
                 BtnRemoveAll.transform.Find("ImgLock").Show();
             }
@@ -541,26 +554,42 @@ namespace QFramework.Example
         {
             if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
             {
+                TopOnADManager.Instance.ShowIntersAd(null, () =>
+                {
+                    StartCoroutine(AdRewardCoroutine());
+                });
+#if UNITY_EDITOR
+                Debug.Log("模拟广告");
+                this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
                 this.SendEvent<GameStartEvent>();
                 LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
                 GameCtrl.Instance.InitGameCtrl();
-
-                UIKit.ClosePanel<UIMask>();
+                if (UIKit.GetPanel<UIMask>())
+                    UIKit.ClosePanel<UIMask>();
+#endif
             }
         }
 
+        private IEnumerator AdRewardCoroutine()
+        {
+            yield return new WaitForSeconds(0.5f);
+            this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
+            this.SendEvent<GameStartEvent>();
+            LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
+            GameCtrl.Instance.InitGameCtrl();
+            if (UIKit.GetPanel<UIMask>())
+                UIKit.ClosePanel<UIMask>();
+        }
         private void OpenUIVictory()
         {
-            Debug.Log(mIsOpenUIVictory);
-            mIsOpenUIVictory = false;
+            /*mIsOpenUIVictory = false;*/
             if (!mIsOpenUIVictory)
             {
                 ActionKit.Delay(0.5f, () =>
                 {
-                    UIKit.ClosePanel<UIMask>();
-                    AudioKit.Settings.VoiceVolume.Value = 0.7f;
-                    AudioKit.PlaySound("resources://Audio/Victory");
-                    AudioKit.Settings.VoiceVolume.Value = 1;
+                    if (UIKit.GetPanel<UIMask>())
+                        UIKit.ClosePanel<UIMask>();
+                    var sound = AudioKit.PlaySound("resources://Audio/Victory",volume: 0.7f);
                     UIKit.OpenPanel<UIVictory>();
                 }).Start(this);
             }

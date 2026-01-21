@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using GameAttributes;
+using JsonFileData;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace GameDefine
 {
     public static class GameConst
     {
-        //连胜去黑(最高三档)
-        public const int MAX_GIFT_STREAK_WIN = 3;
-
         //新手关(前五关)
         public const int NEWBIE_LEVEL_COUNT = 5;
 
@@ -21,56 +19,10 @@ namespace GameDefine
 
         //第八关开启连胜相关功能(主页第一个横幅活动...)
         public const int WIN_STREAK_BEGIN_LEVEL = 8;
-
-        //十连胜标志(用于1.5倍金币buff、连胜去黑)
-        public const int TEN_CONTINUE_WIN_NUM = 10;
-
-        //切换关卡机制开启的关卡
-        public const int LEVEL_TYPE_BEGIN_LEVEL = 10;
-
-        //用于关卡UI切换取余计算
-        public const int LEVEL_TYPE_LAST_DIGIT = 10;
-
-        //过关基础金币
-        public const int WIN_COINS = 20;
-
-        public const int ADD_BOTTLE_COST = 900;
-
-        // 战令边界数据
-        public const int MAX_INT = 9999999;
-
         //活动开启目标关卡
         public const int IN_GAME_RANK_BEGIN_LEVEL = 6; //游戏内段位       
-        public const int DR_AD_BEGIN_LEVEL = 8; //日常广告活动 待定
-        public const int DT_BEGIN_LEVEL = 8; //日常任务活动 待定
-        public const int VA_BEGIN_LEVEL = 15; //火山活动
-        public const int REMOVE_AD_BEGIN_LEVEL = 17;
-        public const int TRA_BEGIN_LEVEL = 31; //连胜排行活动(原段位排行活动)
-        public const int SO_AD_BEGIN_LEVEL = 31; //特惠礼包
-        public const int BP_AD_BEGIN_LEVEL = 30; //战令活动   
-        public const int TT_AD_BEGIN_LEVEL = 31; //轮盘活动
-        public const int DG_AD_BEGIN_LEVEL = 90; //1+1活动
-        public const int PG_AD_BEGIN_LEVEL = 70; //阶梯活动
-        public const int RA_BEGIN_LEVEL = 25; //火箭活动
-        public const int MS_BEGIN_LEVEL = 45; //魔法连胜活动
-        public const int HTA_BEGIN_LEVEL = 65; //高塔活动
-
 
         //活动存档标记
-        public const string MAGIC_STREAK_ACTIVITY_SIGN = "MagicStreakActivity";
-        public const string ROCKET_ACTIVITY_SIGN = "RocketActivity";
-        public const string HIGH_TOWER_ACTIVITY_SIGN = "HighTowerActivity";
-        public const string TURNTABLE_AD_ACTIVITY_SIGN = "TurnTableADActivity";
-        public const string DAILY_REWARD_AD_ACTIVITY_SIGN = "DailyRewardADActivity";
-        public const string BANNER_ACTIVITY_SIGN = "BannerActivity";
-        public const string BATTLE_PASS_AD_ACTIVITY_SIGN = "BattlePassADActivity";
-        public const string PROGRESS_GIFT_AD_ACTIVITY_SIGN = "PrograssGiftADActivity";
-        public const string SPECIAL_OFFER_AD_ACTIVITY_SIGN = "SepecialOfferADActivity";
-        public const string DOUBLE_GIFT_AD_ACTIVITY_SIGN = "DoubleGiftADActivity";
-        public const string DOUBLE_GIFT_COOL_AD_ACTIVITY_SIGN = "DoubleGiftCoolADActivity";
-        public const string TIER_RANK_ACTIVITY_SIGN = "TierRankActivity";
-        public const string TRA_HALF_ONE_HOUR_RANK = "TRAHalfOneHourRank";
-        public const string POTION_ACTIVITY_SIGN = "PotionActivity";
         public const string RANKA_ACTIVITY_SIGN = "RankAActivity";
 
         //存档标记
@@ -78,16 +30,54 @@ namespace GameDefine
         public const string DOUBLE_COIN_SIGN = "DoubleCoin";
 
         //事件标记
-        public const string START_POTION_ACTIVITY = "StartPotionActivity";
-        public const string OPEN_SHOP_PANEL_EVENT = "OpenShopPanel";
         public const string MANAGER_OPEN_NEXT_PANEL = "ManagerOpenNextPanel";
-        public const string COIN_CHANGE = "CoinChange";
         public const string VICTORY_EVENT = "VictoryEvent";
-        public const string UNLOCK_NEW_SCENES = "UnlockNewScenes";
-        public const string SCENE_UNLOCK_GUIDE_STEP1 = "SceneUnlockGuideStep1";
-        public const string SCENE_UNLOCK_GUIDE_STEP2 = "SceneUnlockGuideStep2";
-        public const string STREAK_WIN_REMOVE_HIDE = "StreakWinRemoveHide";
-        public const string START_TIER_RANK_ACTIVITY = "StartTierRankActivity";
+     
+        #region Json file info
+
+        public static readonly JsonFileInfo MSADefaultJson = new()
+        {
+            FileName = "MSADefaultData.json",
+            TargetVersion = 1
+        };
+        public static readonly string MSA_CURRENT_JSON = "MSACurrent.json";
+
+        public static readonly JsonFileInfo TRADefaultJson = new()
+        {
+            FileName = "TRADefaultData.json",
+            TargetVersion = 1
+        };
+        public static readonly string TRA_CURRENT_JSON = "TRA_Data.json";
+
+        public static readonly JsonFileInfo BPDefaultJson = new()
+        {
+            FileName = "BPDefaultData.json",
+            TargetVersion = 1
+        };
+        public static readonly string BP_CURRENT_JSON = "BP_Data.json";
+
+        public static readonly JsonFileInfo PGDefaultJson = new()
+        {
+            FileName = "PGDefaultData.json",
+            TargetVersion = 1
+        };
+        public static readonly string PGCurrentJson = "PG_Data.json";
+
+        public static readonly JsonFileInfo GAME_GLOBAL_DEFAULT_JSON = new()
+        {
+            FileName = "GameGlobalDefaultData.json",
+            TargetVersion = 1
+        };
+        public static readonly string GAME_GLOBAL_CURRENT_JSON = "GameGlobalData.json";
+
+        public static readonly JsonFileInfo DAILY_REWARD_DEFAULT_JSON = new()
+        {
+            FileName = "DailyRewardDefaultData.json",
+            TargetVersion = 1
+        };
+        public static readonly string DAILY_REWARD_CURRENT_JSON = "DailyRewardData.json";
+
+        #endregion
 
         //关卡引导(bottleIndex_1必须大于0，索引为瓶子在levelmanager的bottles所在索引)
         public static readonly Dictionary<int, (int bottleIndex_1, int bottleIndex_2, string guideInfo)>
@@ -112,14 +102,6 @@ namespace GameDefine
                 { 301, (0, 1, "Synthesizing a magic book can remove all negative effects") },
                 { 401, (2, -1, "The black obstruction on the bottle never disappears; when the bottle is lifted, it reveals the color of the water tiles.") }, //17
             };
-
-        //场景解锁界面(索引对应AB包名)
-        public static readonly Dictionary<int, string> SceneUnlock = new Dictionary<int, string>
-        {
-            { 0, "SceneUnlock1" },
-            { 1, "SceneUnlock2" },
-            { 2, "SceneUnlock3" },
-        };
     }
 
     /// <summary>
@@ -129,9 +111,6 @@ namespace GameDefine
     {
         UIGuideLevel1 = 1,
         UIGuideLevel2 = 2,
-        UIGuideLevelStepBack = 6,
-        UIGuideLevelAddBottle = 6,
-        UIGuideLevelHalfBottle = 6,
         UIGuideLevelRemoveHide = 39,
         UIGuideLevelRemoveAll = 76
     }
@@ -145,22 +124,7 @@ namespace GameDefine
         WhiteMagicCar = 2,
         BlackMagicCar = 3
     }
-
-    /// <summary>
-    /// 解锁机制标记
-    /// </summary>
-    public enum UnLockMechanism
-    {
-        // 进关道具解锁
-        EnterLevelSelectProps = 17,
-
-        // 1.5金币解锁
-        TimesGoldCoin = 45,
-
-        // 连胜去黑水
-        RemoveHideWinStreakLevel = 60
-    }
-
+    
     public enum LevelHardType
     {
         Hard = 4,
@@ -502,33 +466,6 @@ namespace GameDefine
         FlashWater = 4002,
     }
 
-    /// <summary>
-    /// 这里的值与归一化本常量相除得到真正的次数概率
-    /// </summary>
-    public enum TurnTableTimesProbability
-    {
-        None = 0,
-        FirstTime = 5,
-        SecondTime = 10,
-        ThirdTime = 15,
-        FourthTime = 20,
-        FifthTime = 25,
-        SixThTime = 30
-    }
-
-    /// <summary>
-    /// 这里的值与归一化本常量相除得到真正的奖项概率
-    /// </summary>
-    public enum AwardBaseProbability
-    {
-        A_Awards = 0,
-        B_Awards = 5,
-        C_Awards = 10,
-        D_Awards = 20,
-        E_Awards = 30,
-        F_Awards = 40,
-    }
-
     public enum HideWaterType
     {
         None = 0,
@@ -549,9 +486,17 @@ namespace GameDefine
     
     public static partial class GameUtils
     {
-        public static void SotrArray<T>(T[] array) where T : UnityEngine.Object
+        /// <summary>
+        /// false is does not exist
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static bool DoesCountDownKeyExist(string id) =>
+            PlayerPrefs.HasKey(CountDownTimerManager.COUNTDOWN_TIMER_SIGN + id);
+
+        public static void SotrArray<T>(T[] array) where T : Object
         {
-            System.Array.Sort(array, (a, b) =>
+            Array.Sort(array, (a, b) =>
             {
                 int aIndex = ExtractNumber(a.name);
                 int bIndex = ExtractNumber(b.name);
@@ -573,14 +518,14 @@ namespace GameDefine
 
     public static class WaterAttrCache
     {
-        public static readonly Dictionary<ItemType, GameAttributes.WaterColorState> Dict = new();
+        public static readonly Dictionary<ItemType, WaterColorState> Dict = new();
 
         static WaterAttrCache()
         {
             foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
             {
                 var field = typeof(ItemType).GetField(type.ToString());
-                var attr = field?.GetCustomAttribute<GameAttributes.WaterColorState>();
+                var attr = field?.GetCustomAttribute<WaterColorState>();
                 if (attr != null)
                     Dict[type] = attr;
             }

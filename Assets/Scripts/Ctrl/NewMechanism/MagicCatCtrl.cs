@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Spine;
-using Spine.Unity;
-using System.Security.Cryptography;
 using GameDefine;
 using QFramework;
-using System.IO;
+using Spine;
+using Spine.Unity;
+using UnityEngine;
 
 public class MagicCtrl : MonoBehaviour,ICanRegisterEvent
 {
@@ -21,8 +17,10 @@ public class MagicCtrl : MonoBehaviour,ICanRegisterEvent
     bool isWiterCar;
     public void Init(GlobalMechanism mechanism)
     {
+      
         spine = GetComponent<SkeletonGraphic>();
- 
+        spine.Clear();
+        spine.enabled = false;
         switch (mechanism)
         {
             case GlobalMechanism.WhiteMagicCar:
@@ -34,14 +32,14 @@ public class MagicCtrl : MonoBehaviour,ICanRegisterEvent
                 isWiterCar = false;
                 break;
         }
+        
         spine.enabled = true;
         spine.raycastTarget = false;
         spine.maskable = false;
         ShowIdleAnimation();
-        
-
         StringEventSystem.Global.Register("MagicCatEven", ShowMoveAnimation);
     }
+    
     public void OnDisable()
     {
         StringEventSystem.Global.UnRegister("MagicCatEven", ShowMoveAnimation);

@@ -5,16 +5,17 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:2213b95d-22ba-454a-a7f9-9abc98ee2672
+	// Generate Id:4a33c574-a728-4af5-8789-d577cc31b5ac
 	public partial class UIGameNode
 	{
 		public const string Name = "UIGameNode";
-
-		[Header("Bind UI")]
-        [SerializeField]
+		
+		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtLevel;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnReturn;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnSetting;
 		[SerializeField]
 		public UnityEngine.UI.Image ImgRankLevel;
 		[SerializeField]
@@ -22,29 +23,29 @@ namespace QFramework.Example
 		[SerializeField]
 		public UnityEngine.UI.Image ImgRankLevel_Label;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnStepBack;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtRefreshNum;
-		[SerializeField]
-		public UnityEngine.UI.Image BtnAddStepBack;
-		[SerializeField]
 		public UnityEngine.UI.Button BtnHalfBottle;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtAddHalfBottleNum;
 		[SerializeField]
 		public UnityEngine.UI.Image BtnAddHalfBottle;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnRemoveHide;
-		[SerializeField]
-		public TMPro.TextMeshProUGUI TxtRemoveHideNum;
-		[SerializeField]
-		public UnityEngine.UI.Image BtnAddRemove;
-		[SerializeField]
 		public UnityEngine.UI.Button BtnAddBottle;
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtAddBottleNum;
 		[SerializeField]
 		public UnityEngine.UI.Image BtnAddAddBottle;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnStepBack;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtRefreshNum;
+		[SerializeField]
+		public UnityEngine.UI.Image BtnAddStepBack;
+		[SerializeField]
+		public UnityEngine.UI.Button BtnRemoveHide;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TxtRemoveHideNum;
+		[SerializeField]
+		public UnityEngine.UI.Image BtnAddRemove;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnRemoveAll;
 		[SerializeField]
@@ -68,21 +69,22 @@ namespace QFramework.Example
 		{
 			TxtLevel = null;
 			BtnReturn = null;
+			BtnSetting = null;
 			ImgRankLevel = null;
 			TxtRankLevel = null;
 			ImgRankLevel_Label = null;
-			BtnStepBack = null;
-			TxtRefreshNum = null;
-			BtnAddStepBack = null;
 			BtnHalfBottle = null;
 			TxtAddHalfBottleNum = null;
 			BtnAddHalfBottle = null;
-			BtnRemoveHide = null;
-			TxtRemoveHideNum = null;
-			BtnAddRemove = null;
 			BtnAddBottle = null;
 			TxtAddBottleNum = null;
 			BtnAddAddBottle = null;
+			BtnStepBack = null;
+			TxtRefreshNum = null;
+			BtnAddStepBack = null;
+			BtnRemoveHide = null;
+			TxtRemoveHideNum = null;
+			BtnAddRemove = null;
 			BtnRemoveAll = null;
 			TxtRemoveAllNum = null;
 			BtnAddRemoveBottle = null;

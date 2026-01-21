@@ -1,12 +1,7 @@
 ﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
-using QFramework;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using GameDefine;
-using TMPro;
+using UnityEngine;
 
 namespace QFramework.Example
 {
@@ -19,9 +14,10 @@ namespace QFramework.Example
         private int mLastRankingScore;
         private SaveDataUtility saveDataUtility;
         [SerializeField] private Sprite[] unlockSprites;
-
         private readonly int[] UNLOCKLEVEL = new int[]
             { 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 121, 141, 161, 181, 201, 301, 401 };
+
+        public Material TMPFont_red;
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;
@@ -40,8 +36,10 @@ namespace QFramework.Example
 
         protected override void OnShow()
         {
+            ShowAnim();
             BtnSkip.onClick.AddListener(() =>
             {
+              
                 UnlockNewItem();
             });
             WaitClose();
@@ -64,28 +62,52 @@ namespace QFramework.Example
             }).Start(this);
         }
 
+        private void ShowAnim()
+        {
+            //目前不播放
+            //AnimGo.Play("victoryAnim");
+            Horn.Show();
+            HornGo1.Play("hornRotation");
+            HornGo2.Play("hornRotation");
+            HornGo3.Play("hornRotation");
+            HornGo4.Play("hornRotation");
+
+            HornSpine1.AnimationState.SetAnimation(0, "animation", false);
+
+            HornSpine2.AnimationState.SetAnimation(0, "animation", false);
+            HornSpine3.AnimationState.SetAnimation(0, "animation", false);
+            var track = HornSpine4.AnimationState.SetAnimation(0, "animation", false);
+        }
         private void UnlockNewItem()
         {
+            Horn.Hide();
             int curLevel = saveDataUtility.GetCurrentLevel();
             if (UNLOCKLEVEL.Contains(curLevel))
             {
                 int _idx = Array.IndexOf(UNLOCKLEVEL, curLevel);
                 NewItemNode.Show();
-
-                TxtNewItem_Red.font = LevelManager.Instance.redFont;
-
-                TxtNewItem_Red.text = GameDefine.GameConst.GameplayTutorialInfo[curLevel].guideInfo;
+                TxtNewItem.fontSharedMaterial = TMPFont_red;
+                TxtNewItem.Hide();
+                TxtNewItem.Show();
+                TxtNewItem.text = GameConst.GameplayTutorialInfo[curLevel].guideInfo;
                 ImgNewItem.sprite = unlockSprites[_idx];
                 ImgNewItem.SetNativeSize();
 
                 BtnNewItemClose.onClick.AddListener(() =>
                 {
                     NewItemNode.Hide();
+                    this.SendEvent<GameStartEvent>();
+                    LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
                     CloseSelf();
                 });
             }
             else
+            {
+                this.SendEvent<GameStartEvent>();
+                LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
                 CloseSelf();
+            }
+                
         }
     }
 

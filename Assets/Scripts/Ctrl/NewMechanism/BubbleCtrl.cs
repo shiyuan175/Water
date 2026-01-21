@@ -15,10 +15,10 @@ public class BubbleCtrl : MonoBehaviour
 
     // ͨ��spineui��aniʵ�֣�ani���𶯻���Ⱦ��ui������Ϸ��Ⱦ
 
-    private const string NORMAl_APPEND = "animation_blue1";
-    private const string NORMAL_DISABLE = "animation_blue2";
-    private const string ORIGINAL_APPEND = "animation_purple1";
-    private const string ORIGINAL_DISABLE = "animation_purple2";
+    private const string NORMAl_APPEND = "animation_white1";
+    private const string NORMAL_DISABLE = "animation_white2";
+    private const string ORIGINAL_APPEND = "animation_black1";
+    private const string ORIGINAL_DISABLE = "animation_black2";
 
     private void Start()
     {
@@ -65,27 +65,25 @@ public class BubbleCtrl : MonoBehaviour
             return;
         spine.enabled = true;
         TrackEntry track;
-        if (isOriginal)
+       if (isOriginal)
         {
             track = spine.AnimationState.SetAnimation(0, ORIGINAL_APPEND, false);
         }
         else
         {
             track = spine.AnimationState.SetAnimation(0, NORMAl_APPEND, false);
-
-
-            track.TimeScale = 0;
         }
 
 
-        track.TimeScale = 1.7f;
-        /*if (isOriginal)
+      
+      /*  if (isOriginal)
         {
             track = spine.AnimationState.SetAnimation(0, ORIGINAL_DISABLE, false);
         }
         else
         {
             track = spine.AnimationState.SetAnimation(0, NORMAL_DISABLE, false);
-        }*/
+        } */
+        track.TimeScale = 1.7f;
     }
 }

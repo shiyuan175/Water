@@ -26,8 +26,8 @@ public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
         {
             LevelManager.Instance.StartGame(int.Parse(inputField.text));
             this.GetUtility<SaveDataUtility>().SaveLevel(int.Parse(inputField.text));
-            UIKit.ClosePanel<UIGameNode>();
-            UIKit.OpenPanel<UIGameNode>();
+            if(!UIKit.GetPanel<UIGameNode>())
+                UIKit.OpenPanel<UIGameNode>();
             UIKit.GetPanel<UIGameNode>().Show();
             //this.SendEvent<GameStartEvent>();
             //GameCtrl.Instance.InitGameCtrl();
