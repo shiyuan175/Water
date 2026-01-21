@@ -7,6 +7,7 @@ using QFramework;
 using QFramework.Example;
 using DG.Tweening;
 using Spine;
+
 /// <summary>
 /// 炸弹标记 0 表示没有，100表示正常消失 ，200 表示飞天消失
 /// </summary>
@@ -62,17 +63,15 @@ public class BombCtrl : MonoBehaviour, ICanSendEvent, ICanGetUtility
         TrackEntry track = spineCopy.AnimationState.SetAnimation(0, "combine", false);
         track.Complete += track =>
         {
-            /*if (!UIKit.GetPanel<UIRetry>())
-                UIKit.OpenPanel<UIRetry>();*/
-           
+            TopOnADManager.Instance.ShowIntersAd(null, () =>
+            {
+                StartCoroutine(LevelManager.Instance.AdRewardCoroutine());
+            });
+#if UNITY_EDITOR
             LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
-            
-            UIKit.ClosePanel<UIMask>();
-            spine.enabled = false;
-            spine.AnimationState?.ClearTracks();
-            spine.skeletonDataAsset = null;
-            spine.Initialize(true);
-            bombSpine.SetActive(false);
+            if (UIKit.GetPanel<UIMask>())
+                UIKit.ClosePanel<UIMask>();
+#endif
         }; 
 
         bombCopy.transform.DOScale(bombCopy.transform.localScale * 5, 0.3f).SetEase(Ease.OutQuad);
@@ -95,7 +94,6 @@ public class BombCtrl : MonoBehaviour, ICanSendEvent, ICanGetUtility
               /*bombCopy.transform.localScale = Vector3.one;*/
               
           });
-           
     }
 
     public void BombIsFinish()
@@ -147,7 +145,6 @@ public class BombCtrl : MonoBehaviour, ICanSendEvent, ICanGetUtility
     
     public void SetBomb(bool isBomb = false, string time = "", string aniType = "combine",bool isFly = false)
     {
-
         bombSpine.SetActive(true);
         timeText.text = time;
         if (aniType == "bomp_remove")

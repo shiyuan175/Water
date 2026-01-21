@@ -1,5 +1,4 @@
-using GameDefine;
-using JsonFileData;
+﻿using GameDefine;
 using QFramework;
 using System;
 using System.Collections;
@@ -132,81 +131,6 @@ public class RewardUIManager : MonoSingleton<RewardUIManager>
             if ((addCoin ?? 0) > 0)
             {
                 PopupCoinText((int)addCoin);
-
-                if (actionList.Count == 0)
-                {
-                    openBoxCallBack?.Invoke();
-                    openBoxCallBack = null;
-                }
-            }
-        }).Start(this);
-    }
-
-    public void PlayRewardAnim(System.Action call = null, bool openBox = true, params RewardItem[] rewardItems)
-    {
-       /* var _packSO = new List<IPackSoInterface>();*/
-        var itemDict = new Dictionary<string, int>();
-        int _slotCount = 0;
-        foreach (var reward in rewardItems)
-        {
-            itemDict[reward.itemType] = itemDict.GetValueOrDefault(reward.itemType) + reward.itemQuantity;
-        }
-        _slotCount = itemDict.Count;
-        openBoxCallBack = call;
-        availableSlots.Clear();
-        actionList.Clear();
-        mMask.Show();
-
-        for (int i = 0; i < _slotCount; i++)
-            availableSlots.Add(i);
-
-        float _waitValue = 0f;
-        if (openBox)
-        {
-            BoxAnimator.Show();
-            BoxAnimator.Play("BoxOpen");
-            _waitValue = 1f;
-        }
-
-        // 等待盒子打开动画完成(1秒)
-        ActionKit.Delay(_waitValue, () =>
-        {
-            if (_slotCount != 0)
-                BtnContinue.Show();
-            else
-                mMask.Hide();
-
-            BoxAnimator.Hide();
-
-            foreach (var reward in itemDict)
-            {
-                // 跳过金币
-                if (reward.Key == "Coins")
-                    continue;
-
-                var image = RewardPool.Allocate();
-                image.TryGetComponent(out PropRewardPoolNode _node);
-
-                if (_node == null)
-                    _node = image.gameObject.AddComponent<PropRewardPoolNode>();
-
-                SpecialRewardsType _rewardEnum1;
-                if (Enum.TryParse<SpecialRewardsType>(reward.Key, out _rewardEnum1))
-                    _node.Init(mRewardSpriteMappingSO.GetRewardSprite(reward.Key),
-                       SetRandomScreenPosition(image, _slotCount), reward.Value, true);
-                else
-                    _node.Init(mRewardSpriteMappingSO.GetRewardSprite(reward.Key),
-                       SetRandomScreenPosition(image, _slotCount), reward.Value, false);
-
-                actionList.Add(() => _node.MoveOffScreen());
-
-            }
-            // 金币播放
-            int coins;
-            if ((itemDict.TryGetValue("Coins",out coins)))
-            {
-            
-                PopupCoinText((int)coins);
 
                 if (actionList.Count == 0)
                 {

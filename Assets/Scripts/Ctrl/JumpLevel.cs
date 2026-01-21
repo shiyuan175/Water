@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using QFramework;
 using QFramework.Example;
@@ -9,28 +9,27 @@ using UnityEngine.UI;
 public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
 {
     public TMP_InputField inputField;
-    public Button button;
+    public Button SkipBtn;
     public Button Btnfinish;
     public GameObject debugPanel;
-    int i = 0;
+
+    private const string COMMAND = "IOQ1@#123";
+    private System.Text.StringBuilder buffer = new();
+
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
-        button.onClick.AddListener(() =>
+        SkipBtn.onClick.AddListener(() =>
         {
             LevelManager.Instance.StartGame(int.Parse(inputField.text));
             this.GetUtility<SaveDataUtility>().SaveLevel(int.Parse(inputField.text));
-            if(!UIKit.GetPanel<UIGameNode>())
+            if (!UIKit.GetPanel<UIGameNode>())
                 UIKit.OpenPanel<UIGameNode>();
             UIKit.GetPanel<UIGameNode>().Show();
-            //this.SendEvent<GameStartEvent>();
-            //GameCtrl.Instance.InitGameCtrl();
         });
 
         Btnfinish.onClick.AddListener(() =>
@@ -39,37 +38,24 @@ public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
         });
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.A))
+        if (!debugPanel.activeSelf)
         {
-            for (int i = 0; i < 2; i++)
-                this.SendEvent(new ReturnToMainEvent { PassLevel = true });
+            foreach (char c in Input.inputString)
+            {
+                if (c == '\n' || c == '\r')
+                {
+                    if (buffer.ToString() == COMMAND)
+                    {
+                        debugPanel.Show();
+                        return;
+                    }
+                    buffer.Clear();
+                    continue;
+                }
+                buffer.Append(c);
+            }
         }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            for (int i = 0; i < 10; i++)
-                this.SendEvent(new ReturnToMainEvent { PassLevel = true });
-        }
-
-        if (Input.GetKey(KeyCode.L))
-        {
-            LevelManager.Instance.AddMoveNum();
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            debugPanel.SetActive(true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            LevelManager.Instance.CurtainUpdate();
-        }
-#endif
-       
     }
 }

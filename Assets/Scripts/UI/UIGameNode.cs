@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DG.Tweening;
 using GameDefine;
 using UnityEngine;
@@ -14,23 +15,25 @@ namespace QFramework.Example
 
     public partial class UIGameNode : UIPanel, IController, ICanSendEvent
     {
+        [Serializable]
+        public struct DifficultyStyle
+        {
+            public Sprite TopBgSprites;
+            public Sprite BottomSpirtes;
+            public Sprite LevelTitleSprites;
+            public Sprite ResetSprites;
+            public Sprite SettingSprites;
+        }
+
         [SerializeField]
         private MagicCtrl magicCtrl;
-        private const string ITEM_ENTRANCE_EFFECT_PATH = "Prefab/ItemEntranceEffect";
         private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
-
         public RectTransform CatPosition;
-        [Header("关卡难度UI")]
 
         #region 关卡难度UI
-
-        [SerializeField] private Sprite[] imgBtnItemBgSprites;
-        [SerializeField] private Sprite[] imgTopBgSprites;
-        [SerializeField] private Sprite[] imgBottomSpirtes;
-        [SerializeField] private Sprite[] imgLevelSprites;
-        [SerializeField] private Sprite[] imgBtnReturnSprites;
-        [SerializeField] private Image[] imgBtnItemBg;
-        [SerializeField] private Image imgBtnReturn;
+        
+        //0简单 1中等 2困难
+        [SerializeField] private DifficultyStyle[] mDifficultyStyles;
         [SerializeField] private Image imgTopBg;
         [SerializeField] private Image imgBottom;
         [SerializeField] private Image imgLevel;
@@ -128,7 +131,6 @@ namespace QFramework.Example
 
         private void BindBtn()
         {
-            
             BtnRemoveAll.onClick.AddListener(BtnRemoveAllOnClick);
             
             BtnAddBottle.onClick.AddListener(BtnAddBottleOnClick);
@@ -138,9 +140,12 @@ namespace QFramework.Example
             BtnRemoveHide.onClick.AddListener(BtnRemoveHideOnClick);
             
             BtnStepBack.onClick.AddListener(BtnSetpBackOnClick);
-          
-            BtnReturn.onClick.AddListener(BtnReturnOnClick);
-            BtnSetting.onClick.AddListener(() => { UIKit.OpenPanel<UISetting>(); });
+
+            BtnReset.onClick.AddListener(BtnResetOnClick);
+            BtnSetting.onClick.AddListener(() => 
+            { 
+                UIKit.OpenPanel<UISetting>(UILevel.PopUI);
+            });
         }
 
         private void RegisterEvent()
@@ -234,35 +239,25 @@ namespace QFramework.Example
         {
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
             TxtLevel.text = level.ToString();
+            BtnReset.gameObject.SetActive(level > 5);
 
-            if (level <= 5)
-                BtnReturn.Hide();
-            else
-                BtnReturn.Show();
-            if (level < GET_THE_LAST_NUMBER_OF_LEVEL)
-                return;
-            int _index = 0;
-            switch (level % GET_THE_LAST_NUMBER_OF_LEVEL)
+            if (level < GET_THE_LAST_NUMBER_OF_LEVEL) return;
+
+            int _index = (level % GET_THE_LAST_NUMBER_OF_LEVEL) switch
             {
-                case (int)LevelHardType.Hard:
-                    _index = 1;
-                    break;
+                (int)LevelHardType.Hard => 1,
+                (int)LevelHardType.VeryHand => 2,
+                _ => 0
+            };
 
-                case (int)LevelHardType.VeryHand:
-                    _index = 2;
-                    break;
-
-                // t初始化为0，所以没有用Defailt取0
-            }
             if (_index != 0)
                 SetTextTip();
-            // 换按钮的背景颜色
-            /*foreach (var i in imgBtnItemBg)
-                i.sprite = imgBtnItemBgSprites[_index];*/
-            imgTopBg.sprite = imgTopBgSprites[_index];
-            imgLevel.sprite = imgLevelSprites[_index];
-            imgBottom.sprite = imgBottomSpirtes[_index];
-            imgBtnReturn.sprite = imgBtnReturnSprites[_index];
+
+            imgTopBg.sprite = mDifficultyStyles[_index].TopBgSprites;
+            imgLevel.sprite = mDifficultyStyles[_index].LevelTitleSprites;
+            imgBottom.sprite = mDifficultyStyles[_index].BottomSpirtes;
+            BtnReset.image.sprite = mDifficultyStyles[_index].ResetSprites;
+            BtnSetting.image.sprite = mDifficultyStyles[_index].SettingSprites;
         }
 
         /// <summary>
@@ -289,7 +284,7 @@ namespace QFramework.Example
                 });
 
             // 设置文本 5-20的偏转值
-            TextLevelTip.text = Random.Range(50, 70).ToString() + "% of players were defeated at this level";
+            TextLevelTip.text = UnityEngine.Random.Range(50, 70).ToString() + "% of players were defeated at this level";
         }
 
         /// <summary>
@@ -550,39 +545,26 @@ namespace QFramework.Example
         }
         #endregion
 
-        private void BtnReturnOnClick()
+        private void BtnResetOnClick()
         {
-            if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+            TopOnADManager.Instance.ShowIntersAd(null, () =>
             {
-                TopOnADManager.Instance.ShowIntersAd(null, () =>
-                {
-                    StartCoroutine(AdRewardCoroutine());
-                });
+                StartCoroutine(LevelManager.Instance.AdRewardCoroutine());
+            });
 #if UNITY_EDITOR
-                Debug.Log("模拟广告");
-                this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
-                this.SendEvent<GameStartEvent>();
-                LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
-                GameCtrl.Instance.InitGameCtrl();
-                if (UIKit.GetPanel<UIMask>())
-                    UIKit.ClosePanel<UIMask>();
-#endif
-            }
-        }
-
-        private IEnumerator AdRewardCoroutine()
-        {
-            yield return new WaitForSeconds(0.5f);
+            Debug.Log("模拟广告");
             this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
-            this.SendEvent<GameStartEvent>();
             LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
-            GameCtrl.Instance.InitGameCtrl();
             if (UIKit.GetPanel<UIMask>())
                 UIKit.ClosePanel<UIMask>();
+#endif
+            //if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
+            //{
+            //}
         }
+
         private void OpenUIVictory()
         {
-            /*mIsOpenUIVictory = false;*/
             if (!mIsOpenUIVictory)
             {
                 ActionKit.Delay(0.5f, () =>

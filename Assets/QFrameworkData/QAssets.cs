@@ -11,17 +11,6 @@
 namespace QAssetBundle
 {
     
-    public class Banneractivitypop_prefab
-    {
-        public const string BundleName = "banneractivitypop_prefab";
-        public const string BannerActivityPop = "BannerActivityPop";
-    }
-    public class Coinfx_prefab
-    {
-        public const string BundleName = "coinfx_prefab";
-        public const string CoinFx = "CoinFx";
-        public const string StarFx = "StarFx";
-    }
     public class Font
     {
         public const string BundleName = "font";
@@ -29,100 +18,18 @@ namespace QAssetBundle
         public const string FontAll = "FontAll";
         public const string hanzi = "hanzi";
         public const string KoCharacter = "KoCharacter";
-        public const string SourceHanSansCNBold_SDF_Blue = "SourceHanSansCN-Bold SDF Blue";
-        public const string SourceHanSansCNBold_SDF_Green = "SourceHanSansCN-Bold SDF Green";
-        public const string SourceHanSansCNBold_SDF_Red = "SourceHanSansCN-Bold SDF Red";
+        public const string red = "red";
         public const string SourceHanSansCNBold = "SourceHanSansCN-Bold";
-    }
-    public class Plotunlockguide_prefab
-    {
-        public const string BundleName = "plotunlockguide_prefab";
-        public const string PlotUnlockGuide = "PlotUnlockGuide";
-    }
-    public class Popdialogbox_prefab
-    {
-        public const string BundleName = "popdialogbox_prefab";
-        public const string PopDialogBox = "PopDialogBox";
     }
     public class Ranklevelatlas_spriteatlasv2
     {
         public const string BundleName = "ranklevelatlas_spriteatlasv2";
         public const string RankLevelAtlas = "RankLevelAtlas";
     }
-    public class Sceneunlock1_prefab
-    {
-        public const string BundleName = "sceneunlock1_prefab";
-        public const string SceneUnlock1 = "SceneUnlock1";
-    }
-    public class Sceneunlock2_prefab
-    {
-        public const string BundleName = "sceneunlock2_prefab";
-        public const string SceneUnlock2 = "SceneUnlock2";
-    }
-    public class Sceneunlock3_prefab
-    {
-        public const string BundleName = "sceneunlock3_prefab";
-        public const string SceneUnlock3 = "SceneUnlock3";
-    }
-    public class Sceneunlockguide_prefab
-    {
-        public const string BundleName = "sceneunlockguide_prefab";
-        public const string SceneUnlockGuide = "SceneUnlockGuide";
-    }
-    public class Uibattlepassadactivity_prefab
-    {
-        public const string BundleName = "uibattlepassadactivity_prefab";
-        public const string UIBattlePassADActivity = "UIBattlePassADActivity";
-    }
-    public class Uibegin_prefab
-    {
-        public const string BundleName = "uibegin_prefab";
-        public const string UIBegin = "UIBegin";
-    }
-    public class Uibeginselect_prefab
-    {
-        public const string BundleName = "uibeginselect_prefab";
-        public const string UIBeginSelect = "UIBeginSelect";
-    }
-    public class Uibuyitem_prefab
-    {
-        public const string BundleName = "uibuyitem_prefab";
-        public const string UIBuyItem = "UIBuyItem";
-    }
-    public class Uibuypacksuccess_prefab
-    {
-        public const string BundleName = "uibuypacksuccess_prefab";
-        public const string UIBuyPackSuccess = "UIBuyPackSuccess";
-    }
-    public class Uichooseavatar_prefab
-    {
-        public const string BundleName = "uichooseavatar_prefab";
-        public const string UIChooseAvatar = "UIChooseAvatar";
-    }
-    public class Uicontinue_prefab
-    {
-        public const string BundleName = "uicontinue_prefab";
-        public const string UIContinue = "UIContinue";
-    }
-    public class Uidailyrewardadactivity_prefab
-    {
-        public const string BundleName = "uidailyrewardadactivity_prefab";
-        public const string UIDailyRewardADActivity = "UIDailyRewardADActivity";
-    }
-    public class Uidoublegiftadactivity_prefab
-    {
-        public const string BundleName = "uidoublegiftadactivity_prefab";
-        public const string UIDoubleGiftADActivity = "UIDoubleGiftADActivity";
-    }
     public class Uigamenode_prefab
     {
         public const string BundleName = "uigamenode_prefab";
         public const string UIGameNode = "UIGameNode";
-    }
-    public class Uigetcoin_prefab
-    {
-        public const string BundleName = "uigetcoin_prefab";
-        public const string UIGetCoin = "UIGetCoin";
     }
     public class Uiguideanimpop_prefab
     {
@@ -134,129 +41,29 @@ namespace QAssetBundle
         public const string BundleName = "uiguidelevel1_prefab";
         public const string UIGuideLevel1And2 = "UIGuideLevel1And2";
     }
-    public class Uihightoweractivity_prefab
-    {
-        public const string BundleName = "uihightoweractivity_prefab";
-        public const string UIHighTowerActivity = "UIHighTowerActivity";
-    }
-    public class Uihightoweractivityentrance_prefab
-    {
-        public const string BundleName = "uihightoweractivityentrance_prefab";
-        public const string UIHighTowerActivityEntrance = "UIHighTowerActivityEntrance";
-    }
-    public class Uilessstar_prefab
-    {
-        public const string BundleName = "uilessstar_prefab";
-        public const string UILessStar = "UILessStar";
-    }
-    public class Uimagicstreakactivity_prefab
-    {
-        public const string BundleName = "uimagicstreakactivity_prefab";
-        public const string UIMagicStreakActivity = "UIMagicStreakActivity";
-    }
-    public class Uimagicstreakactivityentrance_prefab
-    {
-        public const string BundleName = "uimagicstreakactivityentrance_prefab";
-        public const string UIMagicStreakActivityEntrance = "UIMagicStreakActivityEntrance";
-    }
-    public class Uimallturntable_prefab
-    {
-        public const string BundleName = "uimallturntable_prefab";
-        public const string UIMallTurntable = "UIMallTurntable";
-    }
     public class Uimask_prefab
     {
         public const string BundleName = "uimask_prefab";
         public const string UIMask = "UIMask";
-    }
-    public class Uimorelife_prefab
-    {
-        public const string BundleName = "uimorelife_prefab";
-        public const string UIMoreLife = "UIMoreLife";
     }
     public class Uipaiditemsguide_prefab
     {
         public const string BundleName = "uipaiditemsguide_prefab";
         public const string UIPaidItemsGuide = "UIPaidItemsGuide";
     }
-    public class Uipersonal_prefab
-    {
-        public const string BundleName = "uipersonal_prefab";
-        public const string UIPersonal = "UIPersonal";
-    }
-    public class Uiprograssgiftadactivity_prefab
-    {
-        public const string BundleName = "uiprograssgiftadactivity_prefab";
-        public const string UIPrograssGiftADActivity = "UIPrograssGiftADActivity";
-    }
     public class Uipropmask_prefab
     {
         public const string BundleName = "uipropmask_prefab";
         public const string UIPropMask = "UIPropMask";
     }
-    public class Uiranka_prefab
+    public class Uisetting_prefab
     {
-        public const string BundleName = "uiranka_prefab";
-        public const string UIRankA = "UIRankA";
-    }
-    public class Uiremoveadadactivity_prefab
-    {
-        public const string BundleName = "uiremoveadadactivity_prefab";
-        public const string UIRemoveAdADActivity = "UIRemoveAdADActivity";
-    }
-    public class Uiretry_prefab
-    {
-        public const string BundleName = "uiretry_prefab";
-        public const string UIRetry = "UIRetry";
-    }
-    public class Uirocketactivity_prefab
-    {
-        public const string BundleName = "uirocketactivity_prefab";
-        public const string UIRocketActivity = "UIRocketActivity";
-    }
-    public class Uirocketactivityentrance_prefab
-    {
-        public const string BundleName = "uirocketactivityentrance_prefab";
-        public const string UIRocketActivityEntrance = "UIRocketActivityEntrance";
-    }
-    public class Uisepecialoffergift_prefab
-    {
-        public const string BundleName = "uisepecialoffergift_prefab";
-        public const string UISepecialOfferGift = "UISepecialOfferGift";
-    }
-    public class Uishop_prefab
-    {
-        public const string BundleName = "uishop_prefab";
-        public const string UIShop = "UIShop";
-    }
-    public class Uistreakwinguide_prefab
-    {
-        public const string BundleName = "uistreakwinguide_prefab";
-        public const string UIWinStreakRemoveHide = "UIWinStreakRemoveHide";
-    }
-    public class Uitierrankactivity_prefab
-    {
-        public const string BundleName = "uitierrankactivity_prefab";
-        public const string UITierRankActivity = "UITierRankActivity";
-    }
-    public class Uitierrankactivityentrance_prefab
-    {
-        public const string BundleName = "uitierrankactivityentrance_prefab";
-        public const string UITierRankActivityEntrance = "UITierRankActivityEntrance";
+        public const string BundleName = "uisetting_prefab";
+        public const string UISetting = "UISetting";
     }
     public class Uivictory_prefab
     {
         public const string BundleName = "uivictory_prefab";
         public const string UIVictory = "UIVictory";
-    }
-    public class Uivolcanicactivity_prefab
-    {
-        public const string BundleName = "uivolcanicactivity_prefab";
-        public const string UIVolcanicActivity = "UIVolcanicActivity";
-    }
-    public class Uivolcanicactivityentrance_prefab
-    {
-        public const string BundleName = "uivolcanicactivityentrance_prefab";
-        public const string UIVolcanicActivityEntrance = "UIVolcanicActivityEntrance";
     }
 }

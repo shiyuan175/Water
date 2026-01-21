@@ -11,7 +11,6 @@ namespace QFramework.Example
 
     public partial class UIVictory : UIPanel, ICanSendEvent, ICanGetUtility, ICanGetModel
     {
-        private int mLastRankingScore;
         private SaveDataUtility saveDataUtility;
         [SerializeField] private Sprite[] unlockSprites;
         private readonly int[] UNLOCKLEVEL = new int[]
@@ -96,14 +95,12 @@ namespace QFramework.Example
                 BtnNewItemClose.onClick.AddListener(() =>
                 {
                     NewItemNode.Hide();
-                    this.SendEvent<GameStartEvent>();
                     LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
                     CloseSelf();
                 });
             }
             else
             {
-                this.SendEvent<GameStartEvent>();
                 LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
                 CloseSelf();
             }

@@ -4,9 +4,6 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using GameAttributes;
-using JsonFileData;
-using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace GameDefine
 {
@@ -14,70 +11,13 @@ namespace GameDefine
     {
         //新手关(前五关)
         public const int NEWBIE_LEVEL_COUNT = 5;
-
-        public const int ITEM_COUNT = 8;
-
-        //第八关开启连胜相关功能(主页第一个横幅活动...)
-        public const int WIN_STREAK_BEGIN_LEVEL = 8;
+        public const int ITEM_COUNT = 5;
         //活动开启目标关卡
         public const int IN_GAME_RANK_BEGIN_LEVEL = 6; //游戏内段位       
-
-        //活动存档标记
-        public const string RANKA_ACTIVITY_SIGN = "RankAActivity";
-
-        //存档标记
-        public const string FIRST_LAUNCH_SIGN = "FIRST_LAUNCH";
-        public const string DOUBLE_COIN_SIGN = "DoubleCoin";
 
         //事件标记
         public const string MANAGER_OPEN_NEXT_PANEL = "ManagerOpenNextPanel";
         public const string VICTORY_EVENT = "VictoryEvent";
-     
-        #region Json file info
-
-        public static readonly JsonFileInfo MSADefaultJson = new()
-        {
-            FileName = "MSADefaultData.json",
-            TargetVersion = 1
-        };
-        public static readonly string MSA_CURRENT_JSON = "MSACurrent.json";
-
-        public static readonly JsonFileInfo TRADefaultJson = new()
-        {
-            FileName = "TRADefaultData.json",
-            TargetVersion = 1
-        };
-        public static readonly string TRA_CURRENT_JSON = "TRA_Data.json";
-
-        public static readonly JsonFileInfo BPDefaultJson = new()
-        {
-            FileName = "BPDefaultData.json",
-            TargetVersion = 1
-        };
-        public static readonly string BP_CURRENT_JSON = "BP_Data.json";
-
-        public static readonly JsonFileInfo PGDefaultJson = new()
-        {
-            FileName = "PGDefaultData.json",
-            TargetVersion = 1
-        };
-        public static readonly string PGCurrentJson = "PG_Data.json";
-
-        public static readonly JsonFileInfo GAME_GLOBAL_DEFAULT_JSON = new()
-        {
-            FileName = "GameGlobalDefaultData.json",
-            TargetVersion = 1
-        };
-        public static readonly string GAME_GLOBAL_CURRENT_JSON = "GameGlobalData.json";
-
-        public static readonly JsonFileInfo DAILY_REWARD_DEFAULT_JSON = new()
-        {
-            FileName = "DailyRewardDefaultData.json",
-            TargetVersion = 1
-        };
-        public static readonly string DAILY_REWARD_CURRENT_JSON = "DailyRewardData.json";
-
-        #endregion
 
         //关卡引导(bottleIndex_1必须大于0，索引为瓶子在levelmanager的bottles所在索引)
         public static readonly Dictionary<int, (int bottleIndex_1, int bottleIndex_2, string guideInfo)>
@@ -155,13 +95,6 @@ namespace GameDefine
         Bubble = 5,
         Bubble_Origin = 6,
         GrassBomb = 7
-    }
-
-    public enum BottleType
-    {
-        None = 0,
-        ClearShow = 1,
-        NearShow = 2
     }
 
     /// <summary>
@@ -486,15 +419,7 @@ namespace GameDefine
     
     public static partial class GameUtils
     {
-        /// <summary>
-        /// false is does not exist
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public static bool DoesCountDownKeyExist(string id) =>
-            PlayerPrefs.HasKey(CountDownTimerManager.COUNTDOWN_TIMER_SIGN + id);
-
-        public static void SotrArray<T>(T[] array) where T : Object
+        public static void SotrArray<T>(T[] array) where T : UnityEngine.Object
         {
             Array.Sort(array, (a, b) =>
             {

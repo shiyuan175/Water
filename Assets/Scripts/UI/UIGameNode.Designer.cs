@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:4a33c574-a728-4af5-8789-d577cc31b5ac
+	// Generate Id:8ff1d061-f46c-42de-9dd3-6ab8e220da53
 	public partial class UIGameNode
 	{
 		public const string Name = "UIGameNode";
@@ -13,7 +13,7 @@ namespace QFramework.Example
 		[SerializeField]
 		public TMPro.TextMeshProUGUI TxtLevel;
 		[SerializeField]
-		public UnityEngine.UI.Button BtnReturn;
+		public UnityEngine.UI.Button BtnReset;
 		[SerializeField]
 		public UnityEngine.UI.Button BtnSetting;
 		[SerializeField]
@@ -68,7 +68,7 @@ namespace QFramework.Example
 		protected override void ClearUIComponents()
 		{
 			TxtLevel = null;
-			BtnReturn = null;
+			BtnReset = null;
 			BtnSetting = null;
 			ImgRankLevel = null;
 			TxtRankLevel = null;

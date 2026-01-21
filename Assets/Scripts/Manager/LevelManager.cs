@@ -7,7 +7,6 @@ using QFramework.Example;
 using System.Collections;
 using Spine.Unity;
 using UnityEngine.UI;
-using TMPro;
 using System.Reflection;
 using System.Linq;
 
@@ -78,7 +77,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     #endregion
 
-
     public IArchitecture GetArchitecture()
     {
         return GameMainArc.Interface;
@@ -114,7 +112,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
          UIKit.GetPanel<UIGameNode>().Show();
     }
 
-
     private void OnDestroy()
     {
         mResLoader.Recycle2Cache();
@@ -144,8 +141,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         nowHalf = null;
         moveNum = 0;
 
-/*        levelId = id;
-        LevelCreateCtrl levelInfo = levels[levelId - 1];*/
         LevelCreateCtrl levelInfo = levels[id - 1];
         nowLevel = levelInfo;
 
@@ -1188,6 +1183,19 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     }
 
     #endregion
+
+    /// <summary>
+    /// 插页广告重置关卡
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator AdRewardCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
+        StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
+        if (UIKit.GetPanel<UIMask>())
+            UIKit.ClosePanel<UIMask>();
+    }
 }
 
 [Serializable]

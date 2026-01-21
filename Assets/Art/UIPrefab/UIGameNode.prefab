@@ -127,38 +127,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicCtrl: {fileID: 6200362627460629021}
   CatPosition: {fileID: 1012689749270113848}
-  imgBtnItemBgSprites:
-  - {fileID: 21300000, guid: 538e743fd8009da4fa77dfd2137174e6, type: 3}
-  - {fileID: 21300000, guid: f243fb0fc1d2e154b8db5d4c9c41a4f7, type: 3}
-  - {fileID: 21300000, guid: 6bbf3d457eed7fd41a094157329b3980, type: 3}
-  imgTopBgSprites:
-  - {fileID: 21300000, guid: ab35e24df2b27654e8abe1c5ba7a91fd, type: 3}
-  - {fileID: 21300000, guid: a9b3332421d17514abeb45ea627d51e8, type: 3}
-  - {fileID: 21300000, guid: e05221cc2e1517848a026ce6820e587d, type: 3}
-  imgBottomSpirtes:
-  - {fileID: 21300000, guid: 82d0011317ccd61459d6bc9041a0def3, type: 3}
-  - {fileID: 21300000, guid: 66a9045ed52f5464b919544fff44e3ad, type: 3}
-  - {fileID: 21300000, guid: dbe4e520d3eb2ad489e1422308281883, type: 3}
-  imgLevelSprites:
-  - {fileID: 21300000, guid: c71d0c718a877cf4bb8e0fc4957e80d4, type: 3}
-  - {fileID: 21300000, guid: 6eba7fc17e3846544b4938728456c183, type: 3}
-  - {fileID: 21300000, guid: 8329c6863f3cde8458874a392a05e195, type: 3}
-  imgBtnReturnSprites:
-  - {fileID: 21300000, guid: e8cdb112283052b459358917a1bf54ed, type: 3}
-  - {fileID: 21300000, guid: 2437cbe75f3bb924fb72c9f21a912d2a, type: 3}
-  - {fileID: 21300000, guid: fc07a68ce9b5a0e47af3a0377c781050, type: 3}
-  imgBtnItemBg:
-  - {fileID: 124055929525675691}
-  - {fileID: 7701055848421403648}
-  - {fileID: 5983115474588090508}
-  - {fileID: 5008016140477722151}
-  - {fileID: 1018490362780455123}
-  imgBtnReturn: {fileID: 856510354642544845}
+  mDifficultyStyles:
+  - TopBgSprites: {fileID: 21300000, guid: ab35e24df2b27654e8abe1c5ba7a91fd, type: 3}
+    BottomSpirtes: {fileID: 21300000, guid: 82d0011317ccd61459d6bc9041a0def3, type: 3}
+    LevelTitleSprites: {fileID: 21300000, guid: c71d0c718a877cf4bb8e0fc4957e80d4, type: 3}
+    ResetSprites: {fileID: 21300000, guid: 2b2e9db6351515345becab0ced841e38, type: 3}
+    SettingSprites: {fileID: 21300000, guid: f8cb8f141faedfb4db3ff12a066d631d, type: 3}
+  - TopBgSprites: {fileID: 21300000, guid: a9b3332421d17514abeb45ea627d51e8, type: 3}
+    BottomSpirtes: {fileID: 21300000, guid: 66a9045ed52f5464b919544fff44e3ad, type: 3}
+    LevelTitleSprites: {fileID: 21300000, guid: 6eba7fc17e3846544b4938728456c183, type: 3}
+    ResetSprites: {fileID: 21300000, guid: 2437cbe75f3bb924fb72c9f21a912d2a, type: 3}
+    SettingSprites: {fileID: 21300000, guid: 334f85129e023e644a04c6f719edb77f, type: 3}
+  - TopBgSprites: {fileID: 21300000, guid: e05221cc2e1517848a026ce6820e587d, type: 3}
+    BottomSpirtes: {fileID: 21300000, guid: dbe4e520d3eb2ad489e1422308281883, type: 3}
+    LevelTitleSprites: {fileID: 21300000, guid: 8329c6863f3cde8458874a392a05e195, type: 3}
+    ResetSprites: {fileID: 21300000, guid: fc07a68ce9b5a0e47af3a0377c781050, type: 3}
+    SettingSprites: {fileID: 21300000, guid: d344825f0bb79a144b3dac9af950bef6, type: 3}
   imgTopBg: {fileID: 5537359438998647279}
   imgBottom: {fileID: 6960793198104489809}
   imgLevel: {fileID: 2116762324108535009}
   TxtLevel: {fileID: 8345352052256648100}
-  BtnReturn: {fileID: 8565688428556670435}
+  BtnReset: {fileID: 8565688428556670435}
   BtnSetting: {fileID: 4635417381222342828}
   ImgRankLevel: {fileID: 4377205414432343608}
   TxtRankLevel: {fileID: 9094622496195762438}
@@ -820,9 +809,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3431916003898372033}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 420, y: 15}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -120, y: -88}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2006493430338604941
@@ -853,7 +842,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6f0139fd847c8cf49976f062923f89fd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8cb8f141faedfb4db3ff12a066d631d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4360,7 +4349,7 @@ GameObject:
   - component: {fileID: 8565688428556670435}
   - component: {fileID: 1817978519277495788}
   m_Layer: 5
-  m_Name: BtnReturn
+  m_Name: BtnReset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4382,7 +4371,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 149, y: -83}
+  m_AnchoredPosition: {x: 120, y: -88}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8752550593544994211
@@ -4413,7 +4402,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7b0d735f6884308459d39b60167b3a42, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2b2e9db6351515345becab0ced841e38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
