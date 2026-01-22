@@ -21,7 +21,7 @@ public class TenjinManager: MonoSingleton<TenjinManager>
     public void TenjinConnect()
     {
         //Debug.Log("Tenjin StartConnect0");
-        BaseTenjin instance = Tenjin.getInstance("C3AFW296ESTHECCHFBLL1BTSS6DQKYVA");
+        BaseTenjin instance = Tenjin.getInstance("MFAFMW4JY4QGETYG3BTDD7XOAG5WIW3F");
         //Debug.Log("Tenjin StartConnect1");
 
 #if UNITY_ANDROID

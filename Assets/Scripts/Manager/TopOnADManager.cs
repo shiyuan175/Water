@@ -267,8 +267,12 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
     #endregion*/
 
     //ȫ�Զ����ز������ͼ������
-    private readonly string mPlacementId_rewardvideo_all = "b1gfnjso5u3hej";      //�������ID
-    private readonly string mPlacementId_interstitial_all = "b1gfnjso5u3p46";     //�������ID
+    private readonly string mPlacementId_rewardvideo_all = "b69718fcb63294"; //�������ID
+
+    private readonly string mPlacementId_interstitial_all = "b69718fcc0a9fb"; //�������ID
+
+    //private readonly string mPlacementId_rewardvideo_all = "b1gfnjso5u3hej";      //�������ID
+    //private readonly string mPlacementId_interstitial_all = "b1gfnjso5u3p46";     //�������ID
     //private readonly string mPlacementId_rewardvideo_all = "b1fn8aua8i1k5i";
     //private readonly string mPlacementId_interstitial_all = "b1fn8aua8i1s42";
     private Action videoRewardAction;
@@ -279,7 +283,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 
     public override void OnSingletonInit()
     {
-        ATSDKAPI.initSDK("a68229c5f42e2b", "a82844bf085483dd3018ef16e347250e5");  //AppID��AppKey
+        ATSDKAPI.initSDK("a69718fa406b36", "ae758ec796d75f4ff2fada0e795426b39"); //AppID��AppKey
         //ATSDKAPI.initSDK("a667e2369f1df6", "a5e2ae5036721db4f108aef055cbe44c3");
         ATSDKAPI.setLogDebug(false);
         //Debug.Log("��ʼ��SDK");
