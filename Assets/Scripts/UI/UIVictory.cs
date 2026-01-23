@@ -38,7 +38,6 @@ namespace QFramework.Example
             ShowAnim();
             BtnSkip.onClick.AddListener(() =>
             {
-              
                 UnlockNewItem();
             });
             WaitClose();
@@ -77,10 +76,14 @@ namespace QFramework.Example
             HornSpine3.AnimationState.SetAnimation(0, "animation", false);
             var track = HornSpine4.AnimationState.SetAnimation(0, "animation", false);
         }
+
         private void UnlockNewItem()
         {
-            Horn.Hide();
             int curLevel = saveDataUtility.GetCurrentLevel();
+            if (curLevel > GameDefine.GameConst.NEWBIE_LEVEL_COUNT)
+                TopOnADManager.Instance.ShowIntersAd(null, null);
+
+            Horn.Hide();
             if (UNLOCKLEVEL.Contains(curLevel))
             {
                 int _idx = Array.IndexOf(UNLOCKLEVEL, curLevel);
@@ -104,9 +107,6 @@ namespace QFramework.Example
                 LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
                 CloseSelf();
             }
-                
         }
     }
-
-
 }
