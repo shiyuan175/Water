@@ -20,6 +20,7 @@ public class BubbleCtrl : MonoBehaviour
     private const string ORIGINAL_APPEND = "animation_black1";
     private const string ORIGINAL_DISABLE = "animation_black2";
 
+    private bool isPlayAnimation = false;
     private void Start()
     {
         
@@ -28,6 +29,7 @@ public class BubbleCtrl : MonoBehaviour
     private void OnDisable()
     {
         spine.enabled = false;
+        isPlayAnimation = false;
     }
 
     /// <summary>
@@ -37,9 +39,10 @@ public class BubbleCtrl : MonoBehaviour
     public void BubbleDead(bool isOriginal = false)
     {
         // û�����壬��ִ����ʧ����
-        if (!spine.enabled)
+        if (!spine.enabled || isPlayAnimation)
             return;
         TrackEntry track;
+        isPlayAnimation = true;
         if (isOriginal)
         {
             track = spine.AnimationState.SetAnimation(0, ORIGINAL_DISABLE, false);
@@ -50,7 +53,11 @@ public class BubbleCtrl : MonoBehaviour
         }
 
         track.TimeScale = 1.7f;
-        track.Complete += track => { spine.enabled = false; };
+        track.Complete += track =>
+        {
+            spine.enabled = false;
+            isPlayAnimation = false;
+        };
     }
 
     /// <summary>
