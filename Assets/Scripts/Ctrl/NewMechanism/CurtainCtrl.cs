@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
 using System.Linq;
 using Spine;
-using UnityEngine.Timeline;
+
 public class CurtainCtrl : MonoBehaviour
 {
     [SerializeField]
@@ -22,7 +22,7 @@ public class CurtainCtrl : MonoBehaviour
 
     private void OnDisable()
     {
-        // »Ø¹éÄ¬ÈÏ×´Ì¬
+        // å›å½’é»˜è®¤çŠ¶æ€
         spineGo.SetActive(false);
         /*        spine.Skeleton.SetToSetupPose();*/
     }
@@ -32,7 +32,7 @@ public class CurtainCtrl : MonoBehaviour
         if (stage < 0)
             stage = 0;
         spine.AnimationState.SetAnimation(0, animationNamess[stage], false);
-        // ÊÇ·ñÒªdisable
+        // æ˜¯å¦è¦disable
     }
     public void ClearCurtain()
     {
@@ -40,19 +40,19 @@ public class CurtainCtrl : MonoBehaviour
     }
     public void InitCurtain(int stage)
     {
-        //¡¡³õÊ¼×´Ì¬
+        //ã€€åˆå§‹çŠ¶æ€
         spineGo.SetActive(true);
         TrackEntry trackEntry;
-        // ×î¶¥²ã²»ĞèÒªÓÃ¶¯»­ÇĞ»»×´Ì¬
+        // æœ€é¡¶å±‚ä¸éœ€è¦ç”¨åŠ¨ç”»åˆ‡æ¢çŠ¶æ€
         if (stage == animationNamess.Count())
         {
             trackEntry = spine.AnimationState.SetAnimation(0, animationNamess[stage - 1], false);
-            trackEntry.TimeScale = 0;  // ¹Ø¼ü£ºÊ±¼äËõ·ÅÎª0£¬ÍêÈ«ÔİÍ£
-            trackEntry.Loop = false;   // ²»Ñ­»·
+            trackEntry.TimeScale = 0;  // å…³é”®ï¼šæ—¶é—´ç¼©æ”¾ä¸º0ï¼Œå®Œå…¨æš‚åœ
+            trackEntry.Loop = false;   // ä¸å¾ªç¯
             return;
         }
 
-        // Ç¿ÖÆÉèÖÃspine²¥·ÅµÄ×´Ì¬
+        // å¼ºåˆ¶è®¾ç½®spineæ’­æ”¾çš„çŠ¶æ€
         trackEntry = spine.AnimationState.SetAnimation(0, animationNamess[stage], false);
         trackEntry.TrackTime = trackEntry.AnimationEnd;
         spine.Update(0);

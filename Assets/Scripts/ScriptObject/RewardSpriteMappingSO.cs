@@ -1,7 +1,6 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Purchasing;
 
 [CreateAssetMenu(menuName = "Game/RewardSpriteMapping")]
 public class RewardSpriteMappingSO : ScriptableObject
@@ -54,7 +53,7 @@ public class RewardSpriteMappingSO : ScriptableObject
     }
     public Sprite GetRewardSprite(string rewardString)
     { 
-        ///´ý²¹³ä
+        ///å¾…è¡¥å……
         if (rewardString == "Coins")
             return null;
         SpecialRewardsType _rewardEnum1;
