@@ -5,7 +5,7 @@ using QFramework;
 
 namespace QFramework.Example
 {
-	// Generate Id:cb55e26d-fca9-431f-b0d8-518b152a1d01
+	// Generate Id:96fd3fe5-a6e5-49e6-97b7-205c5362fe0f
 	public partial class UIGuideAnimPop
 	{
 		public const string Name = "UIGuideAnimPop";
@@ -14,6 +14,8 @@ namespace QFramework.Example
 		public UnityEngine.UI.Text TxtGuide;
 		[SerializeField]
 		public UnityEngine.RectTransform GuideArrow;
+		[SerializeField]
+		public UnityEngine.UI.Button SkipBtn;
 		
 		private UIGuideAnimPopData mPrivateData = null;
 		
@@ -21,6 +23,7 @@ namespace QFramework.Example
 		{
 			TxtGuide = null;
 			GuideArrow = null;
+			SkipBtn = null;
 			
 			mData = null;
 		}

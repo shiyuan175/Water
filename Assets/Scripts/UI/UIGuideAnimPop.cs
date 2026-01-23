@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using static ATUnityCBridge;
@@ -45,6 +45,11 @@ namespace QFramework.Example
 
         protected override void OnShow()
 		{
+            SkipBtn.onClick.AddListener(() =>
+            {
+                CloseSelf();
+            });
+
             ActionKit.Delay(5f, () =>
             {
                 CloseSelf();
