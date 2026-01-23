@@ -452,6 +452,7 @@ public class BottleCtrl : MonoBehaviour, IController, ICanSendEvent
             switch (waterItems[i])
             {
                 case WaterItem.None:
+                    waterImg[i].bubbleCtrl.BubbleDead(false);
                     break;
                 case WaterItem.Ice:
                     waterImg[i].iceGo.SetActive(true);
