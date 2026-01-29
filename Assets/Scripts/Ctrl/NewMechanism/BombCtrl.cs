@@ -65,12 +65,14 @@ public class BombCtrl : MonoBehaviour, ICanSendEvent, ICanGetUtility
         {
             TopOnADManager.Instance.ShowIntersAd(null, () =>
             {
-                StartCoroutine(LevelManager.Instance.AdRewardCoroutine());
+                LevelManager.Instance.AdRewardCoroutine().ToAction().StartGlobal();
+                /*StartCoroutine(LevelManager.Instance.AdRewardCoroutine());*/
             });
 #if UNITY_EDITOR
-            LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
+            LevelManager.Instance.AdRewardCoroutine().ToAction().StartGlobal();
+            /*LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
             if (UIKit.GetPanel<UIMask>())
-                UIKit.ClosePanel<UIMask>();
+                UIKit.ClosePanel<UIMask>();*/
 #endif
         }; 
 
