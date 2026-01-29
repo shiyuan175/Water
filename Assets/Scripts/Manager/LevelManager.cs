@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public bool ISPlayingHideAnim => playingHideAnimCount == 0;
 
     public int moveNum = 0;
-    
+
     //机制道具Spine合成生成的实例父节点(用于将渲染置顶)
     public Transform mSpineIniPar;
     public GameObject broomBullet;
@@ -103,13 +103,12 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             if (!UIKit.GetPanel<UIGameNode>())
                 UIKit.OpenPanel<UIGameNode>();
             UIKit.GetPanel<UIGameNode>().Show();
-           
+
         }
 
         GameCtrl.Instance.InitGameCtrl();
-        //this.SendEvent<GameStartEvent>();
-        LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
-         UIKit.GetPanel<UIGameNode>().Show();
+        StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
+        UIKit.GetPanel<UIGameNode>().Show();
     }
 
     private void OnDestroy()
@@ -119,7 +118,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     }
 
     #region 关卡重置初始化/进入关卡初始化
-    
+
     /// <summary>
     /// 开始游戏&初始化
     /// </summary>
@@ -128,7 +127,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         TopBottleLayoutGroup.Hide();
         BottomBottleLayoutGroup.Hide();
-        
+
         //cantClearColorList.Clear();
         cantChangeColorList.Clear();
         hideBottleList.Clear();
@@ -156,7 +155,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         // 重置操作状态
         this.SendEvent<GameStartEvent>();
         GameCtrl.Instance.InitGameCtrl();
-        
+
         InitLevels(levelInfo);
         CheckGuideLevel(id);
     }
@@ -189,7 +188,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             UIKit.OpenPanel<UIGameNode>(new UIGameNodeData { GlobalMechanism = LevelManager.Instance.globalMechanism });
         UIKit.GetPanel<UIGameNode>().Show();
 
-        
+
         #region 新机制初始化
 
         int _i = 0;
@@ -224,12 +223,12 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         BottleLayoutRefresh();
         UpdapeTopLayoutSpcing();
         UpdateButtomLayoutSpcing();
-       
+
     }
 
     public void CheckGuideLevel(int levelId)
     {
-        
+
         // 关卡引导
         switch (levelId)
         {
@@ -442,7 +441,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             if (a == null)
                 break;
         }
-        
+
     }
     /// <summary>
     /// 获取能移除的颜色
@@ -693,7 +692,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         else
             yield return null;
     }
-    
+
     /// <summary>
     /// 将瓶子添加到颜色字典中
     /// </summary>
@@ -845,15 +844,15 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         // 如果没有需要更新的帘子，直接返回
         if (curtainDict.Count == 0)
             return;
-            
+
         // 合并遍历：更新状态并收集需要移除的瓶子
         List<BottleCtrl> keysToRemove = new();
-        
+
         foreach (var key in curtainDict.Keys.ToList())
         {
             int newHeight = curtainDict[key] - 1;
             key.UpdateCurtain(curtainDict[key]);
-            
+
             if (newHeight <= 0)
             {
                 keysToRemove.Add(key);
@@ -863,7 +862,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                 curtainDict[key] = newHeight;
             }
         }
-        
+
         // 一次性移除所有需要移除的瓶子
         foreach (var key in keysToRemove)
         {
@@ -878,15 +877,15 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         // 如果没有需要更新的帘子，直接返回
         if (curtainDict.Count == 0)
             return;
-            
+
         // 合并遍历：更新状态并收集需要移除的瓶子
         List<BottleCtrl> keysToRemove = new();
-        
+
         foreach (var key in curtainDict.Keys.ToList())
         {
             int newHeight = curtainDict[key] - 1;
             key.InitCurtain(curtainDict[key]);
-            
+
             if (newHeight <= 0)
             {
                 keysToRemove.Add(key);
@@ -896,7 +895,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                 curtainDict[key] = newHeight;
             }
         }
-        
+
         // 一次性移除所有需要移除的瓶子
         foreach (var key in keysToRemove)
         {
