@@ -233,13 +233,13 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         switch (levelId)
         {
             // 新手关卡引导
-            case (int)GameDefine.UIGuideLevel.UIGuideLevel1:
-                UIKit.OpenPanel<UIGuideLevel1And2>(UILevel.PopUI, new UIGuideLevel1And2Data { level = 1 });
-                break;
-            case (int)GameDefine.UIGuideLevel.UIGuideLevel2:
-                UIKit.OpenPanel<UIGuideLevel1And2>(UILevel.PopUI, new UIGuideLevel1And2Data { level = 2 });
-                //UIKit.OpenPanel<UIGuideLevel2>(UILevel.PopUI);
-                break;
+            //case (int)GameDefine.UIGuideLevel.UIGuideLevel1:
+            //    UIKit.OpenPanel<UIGuideLevel1And2>(UILevel.PopUI, new UIGuideLevel1And2Data { level = 1 });
+            //    break;
+            //case (int)GameDefine.UIGuideLevel.UIGuideLevel2:
+            //    UIKit.OpenPanel<UIGuideLevel1And2>(UILevel.PopUI, new UIGuideLevel1And2Data { level = 2 });
+            //    //UIKit.OpenPanel<UIGuideLevel2>(UILevel.PopUI);
+            //    break;
             case (int)GameDefine.UIGuideLevel.UIGuideLevelRemoveHide:
                 UIKit.OpenPanel<UIPaidItemsGuide>(UILevel.PopUI, new UIPaidItemsGuideData()
                 {

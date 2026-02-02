@@ -137,7 +137,7 @@ public class GameGlobalModel : AbstractModel
         //NormalRewardsType 为道具ID
         for (int i = 1; i <= GameConst.ITEM_COUNT; i++)
         {
-            var del = 1;
+            var del = 0;
             var key = $"{ITEM_SIGN}{i}";
             ItemDic[i] = storage.LoadIntValue(key, del);
         }
