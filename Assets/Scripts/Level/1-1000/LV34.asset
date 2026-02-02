@@ -151,20 +151,6 @@ MonoBehaviour:
     isBlackBottle: 0
     CurtainHight: 0
     isNearHide: 0
-    isFreeze: 0
-    isFinish: 0
-  - waterSet: 
-    hideTypes: 
-    waterItem: 
-    bombCounts: 
-    numCake: 4
-    limitColor: 0
-    isClearHide: 0
-    lockType: 0
-    BlackBottleList: 
-    isBlackBottle: 0
-    CurtainHight: 0
-    isNearHide: 0
     isFreeze: 1
     isFinish: 0
   gameType: 0
@@ -177,6 +163,6 @@ MonoBehaviour:
   countDownNum: 0
   timeCountDown: 0
   topNum: 6
-  bottomNum: 5
+  bottomNum: 4
   bubbleCount: 
   changeList: []

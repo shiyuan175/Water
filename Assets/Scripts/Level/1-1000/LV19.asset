@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LV19
   m_EditorClassIdentifier: 
   bottles:
-  - waterSet: 02000000070000000200000005000000
-    hideTypes: 00000000000000000000000000000000
+  - waterSet: 02000000050000000800000001000000
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
     numCake: 4
@@ -27,22 +27,8 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 0b000000060000008a13000007000000
-    hideTypes: 00000000000000000000000000000000
-    waterItem: 00000000000000000400000000000000
-    bombCounts: 00000000000000000500000000000000
-    numCake: 4
-    limitColor: 0
-    isClearHide: 0
-    lockType: 0
-    BlackBottleList: 00000000
-    isBlackBottle: 0
-    CurtainHight: 0
-    isNearHide: 0
-    isFreeze: 0
-    isFinish: 0
-  - waterSet: 04000000050000000100000003000000
-    hideTypes: 00000000000000000000000000000000
+  - waterSet: 020000000a0000000500000004000000
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
     numCake: 4
@@ -55,22 +41,8 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 8a130000070000000300000007000000
-    hideTypes: 00000000000000000000000000000000
-    waterItem: 04000000000000000000000000000000
-    bombCounts: 0c000000000000000000000000000000
-    numCake: 4
-    limitColor: 0
-    isClearHide: 0
-    lockType: 0
-    BlackBottleList: 00000000
-    isBlackBottle: 0
-    CurtainHight: 0
-    isNearHide: 0
-    isFreeze: 0
-    isFinish: 0
-  - waterSet: 08000000030000000600000006000000
-    hideTypes: 00000000000000000000000000000000
+  - waterSet: 05000000070000000200000001000000
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
     numCake: 4
@@ -83,36 +55,8 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 080000008a1300000b00000004000000
-    hideTypes: 00000000000000000000000000000000
-    waterItem: 00000000040000000000000000000000
-    bombCounts: 00000000140000000000000000000000
-    numCake: 4
-    limitColor: 0
-    isClearHide: 0
-    lockType: 0
-    BlackBottleList: 00000000
-    isBlackBottle: 0
-    CurtainHight: 0
-    isNearHide: 0
-    isFreeze: 0
-    isFinish: 0
-  - waterSet: 0b0000008a1300000800000005000000
-    hideTypes: 00000000000000000000000000000000
-    waterItem: 00000000040000000000000000000000
-    bombCounts: 00000000140000000000000000000000
-    numCake: 4
-    limitColor: 0
-    isClearHide: 0
-    lockType: 0
-    BlackBottleList: 00000000
-    isBlackBottle: 0
-    CurtainHight: 0
-    isNearHide: 0
-    isFreeze: 0
-    isFinish: 0
-  - waterSet: 03000000080000000400000001000000
-    hideTypes: 00000000000000000000000000000000
+  - waterSet: 0a000000060000000400000005000000
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
     numCake: 4
@@ -125,8 +69,8 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 02000000020000000400000001000000
-    hideTypes: 00000000000000000000000000000000
+  - waterSet: 08000000040000000a00000003000000
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
     numCake: 4
@@ -139,14 +83,70 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 0b000000010000000500000006000000
-    hideTypes: 00000000000000000000000000000000
+  - waterSet: 01000000080000000100000002000000
+    hideTypes: 01000000010000000100000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
     numCake: 4
     limitColor: 0
     isClearHide: 0
     lockType: 0
+    BlackBottleList: 00000000
+    isBlackBottle: 0
+    CurtainHight: 0
+    isNearHide: 0
+    isFreeze: 0
+    isFinish: 0
+  - waterSet: 030000000b0000000800000007000000
+    hideTypes: 00000000000000000000000000000000
+    waterItem: 00000000000000000000000000000000
+    bombCounts: 00000000000000000000000000000000
+    numCake: 4
+    limitColor: 0
+    isClearHide: 1
+    lockType: 1
+    BlackBottleList: 00000000
+    isBlackBottle: 0
+    CurtainHight: 0
+    isNearHide: 0
+    isFreeze: 0
+    isFinish: 0
+  - waterSet: 04000000060000000a00000006000000
+    hideTypes: 00000000000000000000000000000000
+    waterItem: 00000000000000000000000000000000
+    bombCounts: 00000000000000000000000000000000
+    numCake: 4
+    limitColor: 0
+    isClearHide: 1
+    lockType: 3
+    BlackBottleList: 00000000
+    isBlackBottle: 0
+    CurtainHight: 0
+    isNearHide: 0
+    isFreeze: 0
+    isFinish: 0
+  - waterSet: 0300000007000000030000000b000000
+    hideTypes: 00000000000000000000000000000000
+    waterItem: 00000000000000000000000000000000
+    bombCounts: 00000000000000000000000000000000
+    numCake: 4
+    limitColor: 0
+    isClearHide: 1
+    lockType: 1
+    BlackBottleList: 00000000
+    isBlackBottle: 0
+    CurtainHight: 0
+    isNearHide: 0
+    isFreeze: 0
+    isFinish: 0
+  - waterSet: 060000000b000000070000000b000000
+    hideTypes: 00000000000000000000000000000000
+    waterItem: 00000000000000000000000000000000
+    bombCounts: 00000000000000000000000000000000
+    numCake: 4
+    limitColor: 0
+    isClearHide: 1
+    lockType: 3
     BlackBottleList: 00000000
     isBlackBottle: 0
     CurtainHight: 0
@@ -182,7 +182,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   gameType: 0
-  clearList: 0200000007000000050000000b0000000600000004000000010000000300000008000000
+  clearList: 020000000500000008000000010000000a000000040000000700000006000000030000000b000000
   hideList: 
   hideTypes: 
   globalMechanism: 0
@@ -192,5 +192,5 @@ MonoBehaviour:
   timeCountDown: 0
   topNum: 6
   bottomNum: 6
-  bubbleCount: 
+  bubbleCount: 06000000
   changeList: []
