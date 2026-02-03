@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     public List<BottleCtrl> topBottle = new List<BottleCtrl>();
     public List<BottleCtrl> bottomBottle = new List<BottleCtrl>();
     public List<BottleCtrl> hideBottleList = new List<BottleCtrl>();
+    public ADBottle mAdBottle;
 
     public List<int> hideColor = new List<int>();
     public List<Color> waterColor = new List<Color>();
@@ -103,7 +104,6 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             if (!UIKit.GetPanel<UIGameNode>())
                 UIKit.OpenPanel<UIGameNode>();
             UIKit.GetPanel<UIGameNode>().Show();
-
         }
 
         GameCtrl.Instance.InitGameCtrl();
@@ -140,6 +140,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         nowHalf = null;
         moveNum = 0;
 
+        levelId = id;
         LevelCreateCtrl levelInfo = levels[id - 1];
         nowLevel = levelInfo;
 
@@ -221,9 +222,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
         #endregion
         BottleLayoutRefresh();
-        UpdapeTopLayoutSpcing();
+        UpdateTopLayoutSpcing();
         UpdateButtomLayoutSpcing();
-
+        mAdBottle.UpdateADBottle();
     }
 
     public void CheckGuideLevel(int levelId)
@@ -651,7 +652,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         //前五关
         if (levelId < 5)
         {
-            StartGame(levelId + 1);
+            ++levelId;
+            StartGame(levelId);
             UIKit.ClosePanel<UIMask>();
         }
         else
@@ -680,7 +682,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
             if (levelId < 5)
             {
-                StartGame(levelId + 1);
+                ++levelId;
+                StartGame(levelId);
                 UIKit.ClosePanel<UIMask>();
             }
             else
@@ -957,6 +960,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         {
             UseItemAddBottle();
             MoveAndAddBottle(isHalf, action);
+            mAdBottle.UpdateADBottle();
         }
     }
 
@@ -981,7 +985,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         {
             topBottle[_topAc].Show();
             nowBottles.Add(topBottle[_topAc]);
-            UpdapeTopLayoutSpcing();
+            UpdateTopLayoutSpcing();
         }
 
         //修改瓶子ID
@@ -1023,7 +1027,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// <summary>
     /// 更新上方瓶子布局间距
     /// </summary>
-    private void UpdapeTopLayoutSpcing()
+    public void UpdateTopLayoutSpcing()
     {
         if (TopBottleLayoutGroup == null) return;
 
@@ -1038,7 +1042,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// <summary>
     /// 更新下方瓶子布局间距
     /// </summary>
-    private void UpdateButtomLayoutSpcing()
+    public void UpdateButtomLayoutSpcing()
     {
         if (BottomBottleLayoutGroup == null) return;
 
