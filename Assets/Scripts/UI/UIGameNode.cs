@@ -361,6 +361,7 @@ namespace QFramework.Example
         /// <param name="PropType"></param>
         private void UnLockItem(NormalRewardsType PropType)
         {
+            Debug.Log("UnLockItem");
             Transform transform = null;
             switch (PropType)
             {
@@ -398,20 +399,26 @@ namespace QFramework.Example
         /// </summary>
         private void SetItem()
         {
+            var level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
             gameGlobalModel = this.GetModel<GameGlobalModel>();
-            BtnAddStepBack.gameObject.SetActive(gameGlobalModel.ItemDic[1] <= 0);
+            BtnAddStepBack.gameObject.SetActive(gameGlobalModel.ItemDic[1] <= 0 &&
+                                                level > (int)GameConst.NEWBIE_LEVEL_COUNT);
             TxtRefreshNum.text = gameGlobalModel.ItemDic[1].ToString();
 
-            BtnAddRemove.gameObject.SetActive(gameGlobalModel.ItemDic[2] <= 0);
+            BtnAddRemove.gameObject.SetActive(gameGlobalModel.ItemDic[2] <= 0 &&
+                                              level > (int)UIGuideLevel.UIGuideLevelRemoveHide);
             TxtRemoveHideNum.text = gameGlobalModel.ItemDic[2].ToString();
 
-            BtnAddAddBottle.gameObject.SetActive(gameGlobalModel.ItemDic[3] <= 0);
+            BtnAddAddBottle.gameObject.SetActive(gameGlobalModel.ItemDic[3] <= 0 &&
+                                                 level > (int)GameConst.NEWBIE_LEVEL_COUNT);
             TxtAddBottleNum.text = gameGlobalModel.ItemDic[3].ToString();
 
-            BtnAddHalfBottle.gameObject.SetActive(gameGlobalModel.ItemDic[4] <= 0);
+            BtnAddHalfBottle.gameObject.SetActive(gameGlobalModel.ItemDic[4] <= 0 &&
+                                                  level > (int)GameConst.NEWBIE_LEVEL_COUNT);
             TxtAddHalfBottleNum.text = gameGlobalModel.ItemDic[4].ToString();
 
-            BtnAddRemoveBottle.gameObject.SetActive(gameGlobalModel.ItemDic[5] <= 0);
+            BtnAddRemoveBottle.gameObject.SetActive(gameGlobalModel.ItemDic[5] <= 0 &&
+                                                    level > (int)UIGuideLevel.UIGuideLevelRemoveAll);
             TxtRemoveAllNum.text = gameGlobalModel.ItemDic[5].ToString();
         }
 
