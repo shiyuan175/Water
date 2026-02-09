@@ -361,7 +361,6 @@ namespace QFramework.Example
         /// <param name="PropType"></param>
         private void UnLockItem(NormalRewardsType PropType)
         {
-            Debug.Log("UnLockItem");
             Transform transform = null;
             switch (PropType)
             {

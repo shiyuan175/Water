@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unlockSprites:
+  - {fileID: 21300000, guid: 36cc90c6145cb9b4ba56c681880a063c, type: 3}
   - {fileID: 21300000, guid: a76d46cc433feab469eeaea303fc2d48, type: 3}
   - {fileID: 21300000, guid: 6a996ae7c2771a14b9edde30747ae4d7, type: 3}
   - {fileID: 21300000, guid: 04e398c181aaed541809b4d181995cbe, type: 3}

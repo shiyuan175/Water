@@ -23,8 +23,8 @@ namespace GameDefine
         public static readonly Dictionary<int, (int bottleIndex_1, int bottleIndex_2, string guideInfo)>
             GameplayTutorialInfo = new()
             {
-                { 2, (0, -1, "Get the bomb to the surface before it explodes.") },
-                { 11, (3, -1, "Sort the gemstone color to lift the cloth") },
+                { 3, (3, -1, "Sort the gemstone color to lift the cloth") },
+                { 11, (1, -1, "Get the bomb to the surface before it explodes.") },
                 { 21, (0, -1, "Water with Fire Emblem can thaw ice after being crafted") },
                 { 31, (0, -1, "The water bottle entangled by the vines cannot be moved") },
                 { 41, (2, -1, "When water bottles adjacent to a ceramic bottle are combined, the ceramic bottle will break") },

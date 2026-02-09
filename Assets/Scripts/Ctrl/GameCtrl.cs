@@ -6,11 +6,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using Water;
 public class GameCtrl : MonoBehaviour, ICanSendEvent
 {
     public static GameCtrl Instance;
-    public BottleCtrl FirstBottle, SecondBottle;
+    public BottletempCtrl FirstBottle, SecondBottle;
 
     public bool control = false;
 
@@ -38,7 +38,7 @@ public class GameCtrl : MonoBehaviour, ICanSendEvent
     /// 选中瓶子
     /// </summary>
     /// <param name="bottle"></param>
-    public void OnSelect(BottleCtrl bottle)
+    public void OnSelect(BottletempCtrl bottle)
     {
         if (!control)
         {

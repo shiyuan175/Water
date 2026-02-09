@@ -9,7 +9,7 @@ using Spine.Unity;
 using UnityEngine.UI;
 using System.Reflection;
 using System.Linq;
-
+using Water;
 [MonoSingletonPath("[Level]/LevelManager")]
 public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 {
@@ -19,12 +19,12 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     //带有阻碍的颜色(魔法布，藤曼，冰冻)
     public List<int> cantChangeColorList = new List<int>();
-    public List<BottleCtrl> nowBottles = new List<BottleCtrl>();
-    public List<BottleCtrl> iceBottles = new List<BottleCtrl>();
+    public List<BottletempCtrl> nowBottles = new();
+    public List<BottletempCtrl> iceBottles = new();
 
-    public List<BottleCtrl> topBottle = new List<BottleCtrl>();
-    public List<BottleCtrl> bottomBottle = new List<BottleCtrl>();
-    public List<BottleCtrl> hideBottleList = new List<BottleCtrl>();
+    public List<BottletempCtrl> topBottle = new();
+    public List<BottletempCtrl> bottomBottle = new();
+    public List<BottletempCtrl> hideBottleList = new();
     public ADBottle mAdBottle;
 
     public List<int> hideColor = new List<int>();
@@ -53,7 +53,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     // 表示关卡彩色水瓶子是否添加
     public bool isFlashWaterBottleAdded = true;
 
-    public BottleCtrl nowHalf;
+    public BottletempCtrl nowHalf;
 
     //携带的道具
     public List<int> takeItem = new List<int>();
@@ -61,17 +61,17 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
     [SerializeField] private HorizontalLayoutGroup BottomBottleLayoutGroup;
     [SerializeField] private HorizontalLayoutGroup TopBottleLayoutGroup;
-    [SerializeField] private List<BottleCtrl> bottles = new List<BottleCtrl>();
+    [SerializeField] private List<BottletempCtrl> bottles = new();
 
     private LevelManagerUtility levelManagerUtility;
     private ResLoader mResLoader = ResLoader.Allocate();
     private SaveDataUtility saveDataUtility;
     #region 新机制记录存储结构
 
-    public Dictionary<BottleCtrl, int> bubbleDict = new();
-    public HashSet<BottleCtrl> bombList = new();
-    public Dictionary<BottleCtrl, int> curtainDict = new();
-    public HashSet<BottleCtrl> grassList = new();
+    public Dictionary<BottletempCtrl, int> bubbleDict = new();
+    public HashSet<BottletempCtrl> bombList = new();
+    public Dictionary<BottletempCtrl, int> curtainDict = new();
+    public HashSet<BottletempCtrl> grassList = new();
     public GlobalMechanism globalMechanism;
     public int GlobalMechanismContinueSetps;
     public int GlobalMechanismBeginSetp;
@@ -423,7 +423,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         for (int i = 0; i < clearList.Count * 2; i++)
         {
-            BottleCtrl a = levelManagerUtility.RandomBarkWaterBottle(nowBottles, HideWaterType.HideWater);
+            BottletempCtrl a = levelManagerUtility.RandomBarkWaterBottle(nowBottles, HideWaterType.HideWater);
             // 提早结束黑水生成，因为已经没有可以生成的位置了
             if (a == null)
                 break;
@@ -437,7 +437,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         for (int i = 0; i < clearList.Count * 2; i++)
         {
-            BottleCtrl a = levelManagerUtility.RandomBarkWaterBottle(nowBottles, HideWaterType.GrassWater);
+            BottletempCtrl a = levelManagerUtility.RandomBarkWaterBottle(nowBottles, HideWaterType.GrassWater);
             // 提早结束黑水生成，因为已经没有可以生成的位置了
             if (a == null)
                 break;
@@ -493,13 +493,13 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             clearList.Remove(color);
 
         //先获取要移除单色的分布的瓶子列表(用于判断瓶子内是否都是该颜色)
-        List<BottleCtrl> removeColorBottles = new List<BottleCtrl>();
+        var removeColorBottles = new List<BottletempCtrl>();
 
         foreach (var bottle in nowBottles)
         {
-            var bottleCtrl = bottle.CheckRemoveOneColor(color);
-            if (bottleCtrl != null && !removeColorBottles.Contains(bottleCtrl))
-                removeColorBottles.Add(bottleCtrl);
+            var BottletempCtrl = bottle.CheckRemoveOneColor(color);
+            if (BottletempCtrl != null && !removeColorBottles.Contains(BottletempCtrl))
+                removeColorBottles.Add(BottletempCtrl);
 
             //bottle.RemoveAllOneColor(color);
             bottle.CheckUnlockHide(color);
@@ -555,7 +555,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
 
         yield return new WaitForSeconds(1f);
         var bottleList = GetMakeColorBottle();
-        List<BottleCtrl> useBottles = new List<BottleCtrl>();
+        var useBottles = new List<BottletempCtrl>();
         int addIdx = 0;
         while (hideColor.Count != 0)
         {
@@ -587,9 +587,9 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// 判断能加色的瓶子
     /// </summary>
     /// <returns></returns>
-    public List<BottleCtrl> GetMakeColorBottle()
+    public List<BottletempCtrl> GetMakeColorBottle()
     {
-        List<BottleCtrl> ret = new List<BottleCtrl>();
+        var ret = new List<BottletempCtrl>();
         foreach (var bottle in nowBottles)
         {
             if (!bottle.isFreeze && bottle.waters.Count < 4 && !bottle.isClearHide && !bottle.isNearHide)
@@ -699,11 +699,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// <summary>
     /// 将瓶子添加到颜色字典中
     /// </summary>
-    private void AddToColorDict(Dictionary<int, List<BottleCtrl>> colorDict, int color, BottleCtrl bottle)
+    private void AddToColorDict(Dictionary<int, List<BottletempCtrl>> colorDict, int color, BottletempCtrl bottle)
     {
         if (!colorDict.TryGetValue(color, out var bottleList))
         {
-            bottleList = new List<BottleCtrl>();
+            bottleList = new List<BottletempCtrl>();
             colorDict[color] = bottleList;
         }
         bottleList.Add(bottle);
@@ -731,10 +731,11 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             if (moveNum >= GlobalMechanismBeginSetp &&
                 moveNum < GlobalMechanismBeginSetp + GlobalMechanismContinueSetps)
             {
-                BottleCtrl _bottleCtrl = levelManagerUtility.RandomBarkWaterBottle(nowBottles, HideWaterType.HideWater);
-                if (_bottleCtrl != null)
+                BottletempCtrl _BottletempCtrl =
+                    levelManagerUtility.RandomBarkWaterBottle(nowBottles, HideWaterType.HideWater);
+                if (_BottletempCtrl != null)
                 {
-                    _bottleCtrl.SetHideShow(true);
+                    _BottletempCtrl.SetHideShow(true);
                     StringEventSystem.Global.Send("MagicCatEven");
                 }
             }
@@ -743,10 +744,10 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         {
             if (moveNum >= GlobalMechanismBeginSetp && moveNum <= GlobalMechanismBeginSetp + GlobalMechanismContinueSetps)
             {
-                BottleCtrl _bottleCtrl = levelManagerUtility.RandomRomveBarkWaterBottle(nowBottles);
-                if (_bottleCtrl != null)
+                BottletempCtrl _BottletempCtrl = levelManagerUtility.RandomRomveBarkWaterBottle(nowBottles);
+                if (_BottletempCtrl != null)
                 {
-                    _bottleCtrl.SetHideShow(true);
+                    _BottletempCtrl.SetHideShow(true);
                     StringEventSystem.Global.Send("MagicCatEven");
                 }
 
@@ -761,10 +762,10 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     /// <summary>
     /// 清理消失泡沐
     /// </summary>
-    /// <param name="bottleCtrl"></param>
-    public void DeleteBubble(BottleCtrl bottleCtrl)
+    /// <param name="BottletempCtrl"></param>
+    public void DeleteBubble(BottletempCtrl BottletempCtrl)
     {
-        bubbleDict.Remove(bottleCtrl);
+        bubbleDict.Remove(BottletempCtrl);
     }
 
     /// <summary>
@@ -849,7 +850,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             return;
 
         // 合并遍历：更新状态并收集需要移除的瓶子
-        List<BottleCtrl> keysToRemove = new();
+        List<BottletempCtrl> keysToRemove = new();
 
         foreach (var key in curtainDict.Keys.ToList())
         {
@@ -882,7 +883,7 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             return;
 
         // 合并遍历：更新状态并收集需要移除的瓶子
-        List<BottleCtrl> keysToRemove = new();
+        List<BottletempCtrl> keysToRemove = new();
 
         foreach (var key in curtainDict.Keys.ToList())
         {
@@ -905,9 +906,10 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             curtainDict.Remove(key);
         }
     }
-    public void DeleteCurtain(BottleCtrl bottleCtrl)
+
+    public void DeleteCurtain(BottletempCtrl BottletempCtrl)
     {
-        curtainDict.Remove(bottleCtrl);
+        curtainDict.Remove(BottletempCtrl);
     }
     #endregion
 
@@ -1218,11 +1220,11 @@ public class LevelManagerRecord
 {
     public List<int> clearList;
     public List<int> hideColor;
-    public Dictionary<BottleCtrl, int> bubbleDict;
-    public HashSet<BottleCtrl> bombList;
-    public HashSet<BottleCtrl> grassList;
+    public Dictionary<BottletempCtrl, int> bubbleDict;
+    public HashSet<BottletempCtrl> bombList;
+    public HashSet<BottletempCtrl> grassList;
     public List<ChangePair> changeList;
-    public Dictionary<BottleCtrl, int> curtainDict;
+    public Dictionary<BottletempCtrl, int> curtainDict;
 }
 
 [Serializable]

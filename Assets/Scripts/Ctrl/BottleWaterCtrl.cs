@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.UI;
 using GameDefine;
+using Water;
 using UnityEngine.Serialization;
 
 public class BottleWaterCtrl : MonoBehaviour
@@ -48,7 +49,7 @@ public class BottleWaterCtrl : MonoBehaviour
     public bool isPlayItemAnim;
     public TextMeshProUGUI textItem;
     public GameObject fireRuneGo;
-    public BottleCtrl bottle;
+    public BottletempCtrl bottle;
     public GameObject MachineParent;  
     #region NewMechineCtrl
     public BombCtrl bombCtrl;
@@ -484,11 +485,11 @@ public class BottleWaterCtrl : MonoBehaviour
         });
     }
 
-    public void PlayUseCreate(BottleCtrl bottleCtrl, BottleWaterCtrl hide)
+    public void PlayUseCreate(BottletempCtrl BottletempCtrl, BottleWaterCtrl hide)
     {
         PlayUseItem(hide, ItemType.MakeColorItem, () =>
         {
-            bottleCtrl.SetBottleColor();
+            BottletempCtrl.SetBottleColor();
         });
     }
 

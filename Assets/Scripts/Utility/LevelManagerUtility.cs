@@ -2,7 +2,7 @@ using GameDefine;
 using QFramework;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Water;
 public class LevelManagerUtility : IUtility
 {
     private const int NORMALWATER_LIMITMAX = 1000;
@@ -11,20 +11,20 @@ public class LevelManagerUtility : IUtility
     /// <summary>
     /// 随机生存黑水
     /// </summary>
-    public BottleCtrl RandomBarkWaterBottle(List<BottleCtrl> bottles, HideWaterType hideType)
+    public BottletempCtrl RandomBarkWaterBottle(List<BottletempCtrl> bottles, HideWaterType hideType)
     {
         int i = UnityEngine.Random.Range(0, bottles.Count);
         int old = i;
         while (true)
         {
-            BottleCtrl newBottleCtrl = bottles[i % bottles.Count];
-            if (!BottleStateCheck(newBottleCtrl))
+            var newBottletempCtrl = bottles[i % bottles.Count];
+            if (!BottleStateCheck(newBottletempCtrl))
             {
                 i++;
                 continue;
             }
 
-            BottleCtrl result = RandomBarkWater(newBottleCtrl, hideType);
+            var result = RandomBarkWater(newBottletempCtrl, hideType);
             if (result != null)
                 return result;
             else
@@ -34,57 +34,57 @@ public class LevelManagerUtility : IUtility
         }
     }
 
-    private BottleCtrl RandomBarkWater(BottleCtrl bottleCtrl, HideWaterType hideType)
+    private BottletempCtrl RandomBarkWater(BottletempCtrl BottletempCtrl, HideWaterType hideType)
     {
-        int random = UnityEngine.Random.Range(0, bottleCtrl.hideTypes.Count - 1);
-        for (int i = random; i < bottleCtrl.hideTypes.Count - 1; i++)
+        var random = Random.Range(0, BottletempCtrl.hideTypes.Count - 1);
+        for (var i = random; i < BottletempCtrl.hideTypes.Count - 1; i++)
         {
-            if (!WaterStateCheckForHide(bottleCtrl, i))
+            if (!WaterStateCheckForHide(BottletempCtrl, i))
                 continue;
-            bottleCtrl.hideTypes[i] = hideType;
-            if (LevelManager.Instance.hideBottleList.Find(bottle => bottle == bottleCtrl) == null)
+            BottletempCtrl.hideTypes[i] = hideType;
+            if (LevelManager.Instance.hideBottleList.Find(bottle => bottle == BottletempCtrl) == null)
             {
-                LevelManager.Instance.hideBottleList.Add(bottleCtrl);
+                LevelManager.Instance.hideBottleList.Add(BottletempCtrl);
             }
-            
-            bottleCtrl.SetHideShow(true, i);
-            return bottleCtrl;
+
+            BottletempCtrl.SetHideShow(true, i);
+            return BottletempCtrl;
         }
         for (int i = 0; i < random; i++)
         {
-            if (!WaterStateCheckForHide(bottleCtrl, i))
+            if (!WaterStateCheckForHide(BottletempCtrl, i))
                 continue;
-            bottleCtrl.hideTypes[i] = hideType;
-            if (LevelManager.Instance.hideBottleList.Find(bottle => bottle == bottleCtrl) == null)
+            BottletempCtrl.hideTypes[i] = hideType;
+            if (LevelManager.Instance.hideBottleList.Find(bottle => bottle == BottletempCtrl) == null)
             {
                 // ???????
-                LevelManager.Instance.hideBottleList.Add(bottleCtrl);
+                LevelManager.Instance.hideBottleList.Add(BottletempCtrl);
             }
 
             // ????????
-            bottleCtrl.SetHideShow(true, i);
-            return bottleCtrl;
+            BottletempCtrl.SetHideShow(true, i);
+            return BottletempCtrl;
 
         }
         return null;
     }
 
-    private bool WaterStateCheckForHide(BottleCtrl bottleCtrl, int index)
+    private bool WaterStateCheckForHide(BottletempCtrl BottletempCtrl, int index)
     {
-        if (bottleCtrl.waterItems[index] != WaterItem.None)
+        if (BottletempCtrl.waterItems[index] != WaterItem.None)
             return false;
-        if (bottleCtrl.IsBlackBottles.Count > index && bottleCtrl.IsBlackBottles[index])
+        if (BottletempCtrl.IsBlackBottles.Count > index && BottletempCtrl.IsBlackBottles[index])
             return false;
-        if (bottleCtrl.hideTypes[index] != HideWaterType.None)
+        if (BottletempCtrl.hideTypes[index] != HideWaterType.None)
             return false;
-        if (bottleCtrl.waters[index] > NORMALWATER_LIMITMAX)
+        if (BottletempCtrl.waters[index] > NORMALWATER_LIMITMAX)
             return false;
-        if (bottleCtrl.waters[index] == bottleCtrl.GetMoveOutTop())
+        if (BottletempCtrl.waters[index] == BottletempCtrl.GetMoveOutTop())
         {
             bool _flag = false;
-            for (int i = index + 1; i < bottleCtrl.topIdx; i++)
+            for (var i = index + 1; i < BottletempCtrl.topIdx; i++)
             {
-                if (bottleCtrl.waters[i] != bottleCtrl.GetMoveOutTop())
+                if (BottletempCtrl.waters[i] != BottletempCtrl.GetMoveOutTop())
                     _flag = true;
             }
             return _flag;
@@ -100,21 +100,21 @@ public class LevelManagerUtility : IUtility
     /// <summary>
     /// 删除黑水 
     /// </summary>
-    public BottleCtrl RandomRomveBarkWaterBottle(List<BottleCtrl> bottles)
+    public BottletempCtrl RandomRomveBarkWaterBottle(List<BottletempCtrl> bottles)
     {
 
         int i = UnityEngine.Random.Range(0, bottles.Count);
         int old = i;
         while (true)
         {
-
-            BottleCtrl newBottleCtrl = bottles[i % bottles.Count];
-            if (!BottleStateCheck(newBottleCtrl))
+            var newBottletempCtrl = bottles[i % bottles.Count];
+            if (!BottleStateCheck(newBottletempCtrl))
             {
                 i++;
                 continue;
             }
-            BottleCtrl result = RandomRomveBarkWater(newBottleCtrl);
+
+            var result = RandomRomveBarkWater(newBottletempCtrl);
             if (result != null)
                 return result;
             else
@@ -123,19 +123,20 @@ public class LevelManagerUtility : IUtility
                 return null;
         }
     }
-    private BottleCtrl RandomRomveBarkWater(BottleCtrl bottleCtrl)
+
+    private BottletempCtrl RandomRomveBarkWater(BottletempCtrl BottletempCtrl)
     {
         // ???????
-        int random = UnityEngine.Random.Range(0, bottleCtrl.hideTypes.Count - 1);
-        for (int i = random; i < bottleCtrl.hideTypes.Count - 1; i++)
+        var random = Random.Range(0, BottletempCtrl.hideTypes.Count - 1);
+        for (var i = random; i < BottletempCtrl.hideTypes.Count - 1; i++)
         {
-            if (!WaterStateCheckForClear(bottleCtrl, i))
+            if (!WaterStateCheckForClear(BottletempCtrl, i))
                 continue;
 
-            bottleCtrl.hideTypes[i] = HideWaterType.None;
+            BottletempCtrl.hideTypes[i] = HideWaterType.None;
             // ?ж??????????????????
             bool flag = true;
-            foreach (var hide in bottleCtrl.hideTypes)
+            foreach (var hide in BottletempCtrl.hideTypes)
             {
                 if (hide == HideWaterType.HideWater)
                 {
@@ -144,17 +145,17 @@ public class LevelManagerUtility : IUtility
                 }
             }
             if (flag)
-                LevelManager.Instance.hideBottleList.Remove(bottleCtrl);
-            bottleCtrl.SetHideShow(true, i);
-            return bottleCtrl;
+                LevelManager.Instance.hideBottleList.Remove(BottletempCtrl);
+            BottletempCtrl.SetHideShow(true, i);
+            return BottletempCtrl;
         }
         for (int i = 0; i < random; i++)
         {
-            if (!WaterStateCheckForClear(bottleCtrl, i))
+            if (!WaterStateCheckForClear(BottletempCtrl, i))
                 continue;
-            bottleCtrl.hideTypes[i] = HideWaterType.None;
+            BottletempCtrl.hideTypes[i] = HideWaterType.None;
             bool flag = true;
-            foreach (var hide in bottleCtrl.hideTypes)
+            foreach (var hide in BottletempCtrl.hideTypes)
             {
                 if (hide != HideWaterType.None)
                 {
@@ -163,16 +164,17 @@ public class LevelManagerUtility : IUtility
                 }
             }
             if (flag)
-                LevelManager.Instance.hideBottleList.Remove(bottleCtrl);
-            bottleCtrl.SetHideShow(true, i);
-            return bottleCtrl;
+                LevelManager.Instance.hideBottleList.Remove(BottletempCtrl);
+            BottletempCtrl.SetHideShow(true, i);
+            return BottletempCtrl;
 
         }
         return null;
     }
-    private bool WaterStateCheckForClear(BottleCtrl bottleCtrl, int index)
+
+    private bool WaterStateCheckForClear(BottletempCtrl BottletempCtrl, int index)
     {
-        if (bottleCtrl.hideTypes[index] == HideWaterType.None)
+        if (BottletempCtrl.hideTypes[index] == HideWaterType.None)
             return false;
         return true;
     }
@@ -180,22 +182,21 @@ public class LevelManagerUtility : IUtility
 
     #region 随机生成泡沫
 
-    public bool RandomBubleWaterBottle(List<BottleCtrl> bottles)
+    public bool RandomBubleWaterBottle(List<BottletempCtrl> bottles)
     {
         int i = UnityEngine.Random.Range(0, bottles.Count);
         int old = i;
         while (true)
         {
+            var newBottletempCtrl = bottles[i % bottles.Count];
 
-            BottleCtrl newBottleCtrl = bottles[i % bottles.Count];
-
-            if (!BottleStateCheck(newBottleCtrl))
+            if (!BottleStateCheck(newBottletempCtrl))
             {
                 i++;
                 continue;
             }
 
-            if (RandomBubbleWater(newBottleCtrl))
+            if (RandomBubbleWater(newBottletempCtrl))
                 return true;
             else
                 i++;
@@ -204,43 +205,43 @@ public class LevelManagerUtility : IUtility
         }
     }
 
-    private bool RandomBubbleWater(BottleCtrl bottleCtrl)
+    private bool RandomBubbleWater(BottletempCtrl BottletempCtrl)
     {
-        int random = UnityEngine.Random.Range(0, bottleCtrl.hideTypes.Count - 1);
-        for (int i = random; i < bottleCtrl.hideTypes.Count - 1; i++)
+        var random = Random.Range(0, BottletempCtrl.hideTypes.Count - 1);
+        for (var i = random; i < BottletempCtrl.hideTypes.Count - 1; i++)
         {
             // 检查是否可以生成泡沐
-            if (!WaterStateCheckForBubble(bottleCtrl, i))
+            if (!WaterStateCheckForBubble(BottletempCtrl, i))
                 continue;
 
-            bottleCtrl.waterItems[i] = WaterItem.Bubble;
-            bottleCtrl.waterImg[i].bubbleCtrl.BubbleAppend();
+            BottletempCtrl.waterItems[i] = WaterItem.Bubble;
+            BottletempCtrl.waterImg[i].bubbleCtrl.BubbleAppend();
             return true;
         }
 
         for (int i = 0; i < random; i++)
         {
-            if (!WaterStateCheckForBubble(bottleCtrl, i))
+            if (!WaterStateCheckForBubble(BottletempCtrl, i))
                 continue;
 
-            bottleCtrl.waterItems[i] = WaterItem.Bubble;
-            bottleCtrl.waterImg[i].bubbleCtrl.BubbleAppend();
+            BottletempCtrl.waterItems[i] = WaterItem.Bubble;
+            BottletempCtrl.waterImg[i].bubbleCtrl.BubbleAppend();
             return true;
         }
 
         return false;
     }
-    
 
-    private bool WaterStateCheckForBubble(BottleCtrl bottleCtrl, int index)
+
+    private bool WaterStateCheckForBubble(BottletempCtrl BottletempCtrl, int index)
     {
-        return WaterStateCheckForHide(bottleCtrl, index);
+        return WaterStateCheckForHide(BottletempCtrl, index);
     }
 
     #endregion
 
-   
-    private bool BottleStateCheck(BottleCtrl bottleCtrl)
+
+    private bool BottleStateCheck(BottletempCtrl BottletempCtrl)
     {
         return true;
     }
