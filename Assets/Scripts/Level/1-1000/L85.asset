@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottles:
   - waterSet: 0b000000030000000500000001000000
-    hideTypes: 00000000000000000000000000000000
+    hideTypes: 01000000010000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
     numCake: 4
@@ -28,7 +28,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 0200000007000000050000000b000000
-    hideTypes: 00000000000000000000000000000000
+    hideTypes: 01000000010000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
     numCake: 4
@@ -42,7 +42,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 02000000060000000400000004000000
-    hideTypes: 00000000000000000000000000000000
+    hideTypes: 01000000010000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
     numCake: 4
@@ -55,22 +55,8 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 
-    hideTypes: 
-    waterItem: 
-    bombCounts: 
-    numCake: 4
-    limitColor: 0
-    isClearHide: 0
-    lockType: 0
-    BlackBottleList: 00000000
-    isBlackBottle: 0
-    CurtainHight: 0
-    isNearHide: 0
-    isFreeze: 0
-    isFinish: 0
   - waterSet: 08000000060000000100000005000000
-    hideTypes: 00000000000000000000000000000000
+    hideTypes: 01000000010000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
     numCake: 4
@@ -84,7 +70,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 040000000a0000000800000006000000
-    hideTypes: 00000000000000000000000000000000
+    hideTypes: 01000000010000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
     numCake: 4
@@ -98,7 +84,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 08000000020000000300000001000000
-    hideTypes: 00000000000000000000000000000000
+    hideTypes: 01000000010000000000000000000000
     waterItem: 00000000000000000000000000000000
     bombCounts: 00000000000000000000000000000000
     numCake: 4
@@ -218,7 +204,7 @@ MonoBehaviour:
   GlobalMechanismContinueSetps: 0
   countDownNum: 0
   timeCountDown: 0
-  topNum: 7
+  topNum: 6
   bottomNum: 7
   bubbleCount: 
   changeList: []

@@ -141,12 +141,12 @@ namespace GameDefine
             GameplayTutorialInfo = new()
             {
                 { 3, (0, -1, "Sort the gemstone color to lift the cloth") },
-                { 11, (0, -1, "Add one cloud per step until enough are created.") },
-                { 21, (-10, -1, "White Cat helps you eliminate one black obstruction per step.") },
+                { 11, (0, -1, "Get the bomb to the surface before it explodes.") },
+                { 21, (0, -1, "Water with Fire Emblem can thaw ice after being crafted") },
                 { 31, (0, -1, "The water bottle entangled by the vines cannot be moved") },
-                { 41, (2, -1, "The vine water bottle can break the entangled vines after the adjacent water bottles are combined") },
-                { 51, (2, -1, "Bottles with gemstone emblems can only be filled with water of the same color as the gemstone") }, 
-                { 61, (2, -1, "Get the bomb to the surface before it explodes.") },
+                { 41, (2, -1, "When water bottles adjacent to a ceramic bottle are combined, the ceramic bottle will break") },
+                { 51, (2, -1, "Bottles with gemstone emblems can only be filled with water of the same color as the gemstone") },
+                { 61, (2, -1, "Add one bubble per step until enough are created.") },
                 { 71, (0, 1, "Combining two brooms can remove water of the same color") },
                 { 81, (0, -1, "Each time you synthesize a water, all curtains drop one grid.") },
                 { 91, (0, -1, "When the grass ball is on the top water surface, it spawns grass covering the water tiles.") },

@@ -28,7 +28,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 010000000a00000001000000
-    hideTypes: 000000000000000000000000
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
     bombCounts: 000000000000000000000000
     numCake: 4
@@ -42,7 +42,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 020000000500000004000000
-    hideTypes: 000000000000000000000000
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
     bombCounts: 000000000000000000000000
     numCake: 4
@@ -56,7 +56,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 050000000100000007000000
-    hideTypes: 000000000000000000000000
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
     bombCounts: 000000000000000000000000
     numCake: 4
@@ -70,7 +70,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 050000000400000008000000
-    hideTypes: 000000000000000000000000
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
     bombCounts: 000000000000000000000000
     numCake: 4
@@ -112,7 +112,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 040000000300000004000000
-    hideTypes: 000000000000000000000000
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
     bombCounts: 000000000000000000000000
     numCake: 4
@@ -126,7 +126,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 080000000100000008000000
-    hideTypes: 000000000000000000000000
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
     bombCounts: 000000000000000000000000
     numCake: 4
@@ -140,7 +140,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 050000000700000003000000
-    hideTypes: 000000000000000000000000
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
     bombCounts: 000000000000000000000000
     numCake: 4
@@ -154,7 +154,7 @@ MonoBehaviour:
     isFreeze: 0
     isFinish: 0
   - waterSet: 060000000b00000006000000
-    hideTypes: 000000000000000000000000
+    hideTypes: 010000000100000000000000
     waterItem: 000000000000000000000000
     bombCounts: 000000000000000000000000
     numCake: 4
