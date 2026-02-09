@@ -32,6 +32,7 @@ namespace QFramework.Example
 
         protected override void OnOpen(IUIData uiData = null)
         {
+            mSaveDataUtility = this.GetUtility<SaveDataUtility>();
             mIsEnQueue = false;
         }
 
