@@ -23,24 +23,25 @@ namespace GameDefine
         public static readonly Dictionary<int, (int bottleIndex_1, int bottleIndex_2, string guideInfo)>
             GameplayTutorialInfo = new()
             {
-                { 3, (3, -1, "Sort the gemstone color to lift the cloth") },
-                { 11, (1, -1, "Get the bomb to the surface before it explodes.") },
-                { 21, (0, -1, "Water with Fire Emblem can thaw ice after being crafted") },
-                { 31, (0, -1, "The water bottle entangled by the vines cannot be moved") },
-                { 41, (2, -1, "When water bottles adjacent to a ceramic bottle are combined, the ceramic bottle will break") },
-                { 51, (2, -1, "Bottles with gemstone emblems can only be filled with water of the same color as the gemstone") },
-                { 61, (0, -1, "Add one bubble per step until enough are created.") },
-                { 71, (0, 1, "Combining two brooms can remove water of the same color") },
-                { 81, (0, -1, "Each time you synthesize a water, all curtains drop one grid.") },
-                { 91, (0, -1, "When the grass ball is on the top water surface, it spawns grass covering the water tiles.") },
-                { 101, (0, -1, "The bomb will explode when the countdown ends. Please synthesize water with bombs as soon as possible.") },
-                { 121, (-10, -1, "White Cat helps you eliminate one black obstruction per step.") },
-                { 141, (-10, -1, "Black Cat spawns one black obstruction per subsequent step after 5 moves, until enough are created.") },
-                { 161, (1, -1, "A bottle is generated after synthesizing sparkling water.") },
-                { 181, (1, 3, "Combining two potion bottles can change 4 water of the same color") },
-                { 201, (9, 11, "Two question mark balls synthesized spawn some black obstructions.") },
-                { 301, (0, 1, "Synthesizing a magic book can remove all negative effects") },
-                { 401, (2, -1, "The black obstruction on the bottle never disappears; lifting the bottle reveals the water color") },
+                /*{ 3, (3, -1, "Sort the gemstone color to lift the cloth") },
+                { 3, (3, -1, "Sort the gemstone color to lift the cloth") },*/
+                { 61, (0, -1, "Get the bomb to the surface before it explodes.") },
+                { 71, (0, -1, "Water with Fire Emblem can thaw ice after being crafted") },
+                { 81, (0, -1, "The water bottle entangled by the vines cannot be moved") },
+                { 91, (2, -1, "When water bottles adjacent to a ceramic bottle are combined, the ceramic bottle will break") },
+                { 101, (2, -1, "Bottles with gemstone emblems can only be filled with water of the same color as the gemstone") },
+                { 111, (0, -1, "Add one bubble per step until enough are created.") },
+                { 121, (0, 1, "Combining two brooms can remove water of the same color") },
+                { 131, (0, -1, "Each time you synthesize a water, all curtains drop one grid.") },
+                { 141, (0, -1, "When the grass ball is on the top water surface, it spawns grass covering the water tiles.") },
+                { 151, (0, -1, "The bomb will explode when the countdown ends. Please synthesize water with bombs as soon as possible.") },
+                { 171, (-10, -1, "White Cat helps you eliminate one black obstruction per step.") },
+                { 191, (-10, -1, "Black Cat spawns one black obstruction per subsequent step after 5 moves, until enough are created.") },
+                { 211, (1, -1, "A bottle is generated after synthesizing sparkling water.") },
+                { 231, (1, 3, "Combining two potion bottles can change 4 water of the same color") },
+                { 251, (9, 11, "Two question mark balls synthesized spawn some black obstructions.") },
+                { 351, (0, 1, "Synthesizing a magic book can remove all negative effects") },
+                { 451, (2, -1, "The black obstruction on the bottle never disappears; lifting the bottle reveals the water color") }
             };
     }
 

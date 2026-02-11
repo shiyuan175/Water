@@ -18,7 +18,7 @@ namespace QFramework.Example
         private SaveDataUtility saveDataUtility;
         [SerializeField] private Sprite[] unlockSprites;
         private readonly int[] UNLOCKLEVEL = new int[]
-            { 3, 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 121, 141, 161, 181, 201, 301, 401 };
+            { 3, 61, 71, 81, 91, 101, 111, 121, 131, 141, 151, 171, 191, 211, 231, 251, 351, 451 };
 
         public Material TMPFont_red;
         public IArchitecture GetArchitecture()
