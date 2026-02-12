@@ -8,7 +8,7 @@ using UnityEngine;
 [MonoSingletonPath("[Analytics]/TopOnADManager")]
 public class TopOnADManager: MonoSingleton<TopOnADManager>
 {
-    /*#region Ô­ÊÖ¶¯¼ÓÔØ
+    /*#region Ô­ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½
     string mPlacementId_rewardvideo_all = "b1gfnjso5u3hej";
     string mPlacementId_interstitial_all = "b1gfnjso5u3p46";
     string mPlacementId_native_all = "b66da9af8356bb";
@@ -36,7 +36,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 
     public void LoadAD()
     {
-        Debug.Log("¼ÓÔØ¹ã¸æ");
+        Debug.Log("ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½");
         LoadRewardAD();
         LoadInterstitialAd();
         LoadBannerAd();
@@ -45,7 +45,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 
     public void LoadRewardAD()
     {
-        Debug.Log("¼ÓÔØ½±Àø¹ã¸æ");
+        Debug.Log("ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 
         ATSDKAPI.setCustomDataForPlacementID(new Dictionary<string, string> { { "placement_custom_key", "placement_custom" } }, mPlacementId_rewardvideo_all);
 
@@ -68,7 +68,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
     public void LoadBannerAd()
     {
         Dictionary<string, object> jsonmap = new Dictionary<string, object>();
-        //ÅäÖÃBannerÒªÕ¹Ê¾µÄ¿í¶È£¬¸ß¶È£¬ÊÇ·ñÊ¹ÓÃpixelÎªµ¥Î»£¨Ö»Õë¶ÔiOSÓÐÐ§£¬Android Ê¹ÓÃpixelÎªµ¥Î»£©£¬×¢Òâ²»Í¬Æ½Ì¨µÄºá·ù¹ã¸æÓÐÒ»¶¨ÏÞÖÆ£¬ÀýÈçÅäÖÃµÄ´©É½¼×ºá·ù¹ã¸æ640*100£¬ÎªÁËÄÜÌî³äÍêÆÁÄ»¿í£¬¼ÆËã¸ß¶ÈH = (ÆÁÄ»¿í *100)/640£»ÄÇÃ´ÔÚloadµÄextraµÄsizeÎª£¨ÆÁÄ»¿í£ºH£©¡£
+        //ï¿½ï¿½ï¿½ï¿½BannerÒªÕ¹Ê¾ï¿½Ä¿ï¿½ï¿½È£ï¿½ï¿½ß¶È£ï¿½ï¿½Ç·ï¿½Ê¹ï¿½ï¿½pixelÎªï¿½ï¿½Î»ï¿½ï¿½Ö»ï¿½ï¿½ï¿½iOSï¿½ï¿½Ð§ï¿½ï¿½Android Ê¹ï¿½ï¿½pixelÎªï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½×¢ï¿½â²»Í¬Æ½Ì¨ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÃµÄ´ï¿½É½ï¿½×ºï¿½ï¿½ï¿½ï¿½ï¿½640*100ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½H = (ï¿½ï¿½Ä»ï¿½ï¿½ *100)/640ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½loadï¿½ï¿½extraï¿½ï¿½sizeÎªï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½Hï¿½ï¿½ï¿½ï¿½
         //ATSize bannerSize = new ATSize(1080, 900, true);
         ATSize bannerSize = new ATSize(AdBannerWidth, AdBannerHeight, true);
         jsonmap.Add(ATBannerAdLoadingExtra.kATBannerAdLoadingExtraBannerAdSizeStruct, bannerSize);
@@ -127,7 +127,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 #endif
         if(ATRewardedVideo.Instance.hasAdReady(mPlacementId_rewardvideo_all))
         {
-            Debug.Log("²¥·Å¹ã¸æ");
+            Debug.Log("ï¿½ï¿½ï¿½Å¹ï¿½ï¿½");
             Dictionary<string, string> jsonmap = new Dictionary<string, string>();
             jsonmap.Add(AnyThinkAds.Api.ATConst.SCENARIO, showingScenario);
             ATRewardedVideo.Instance.showAd(mPlacementId_rewardvideo_all, jsonmap);
@@ -142,10 +142,10 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 
     public void ShowInterstitialAd()
     {
-            Debug.Log("×¼±¸²¥·Å¹ã¸æ");
+            Debug.Log("×¼ï¿½ï¿½ï¿½ï¿½ï¿½Å¹ï¿½ï¿½");
         if(ATInterstitialAd.Instance.hasInterstitialAdReady(mPlacementId_interstitial_all))
         {
-            Debug.Log("²¥·Å¹ã¸æ");
+            Debug.Log("ï¿½ï¿½ï¿½Å¹ï¿½ï¿½");
             ATInterstitialAd.Instance.showInterstitialAd(mPlacementId_interstitial_all);
         }
         else
@@ -254,7 +254,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 
     public void OnReward(object sender, ATAdEventArgs erg)
     {
-        Debug.Log("¹ã¸æ¼¤Àø");
+        Debug.Log("ï¿½ï¿½æ¼¤ï¿½ï¿½");
         StartCoroutine(OnReward());
     }
 
@@ -269,9 +269,9 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
     }
     #endregion*/
 
-    //È«×Ô¶¯¼ÓÔØ²åÆÁ¹ã¸æºÍ¼¤Àø¹ã¸æ
-    private readonly string mPlacementId_rewardvideo_all = "b1gfnjso5u3hej";      //¼¤Àø¹ã¸æID
-    private readonly string mPlacementId_interstitial_all = "b1gfnjso5u3p46";     //²åÆÁ¹ã¸æID
+    //È«ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private readonly string mPlacementId_rewardvideo_all = "b1gfnjso5u3hej";      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
+    private readonly string mPlacementId_interstitial_all = "b1gfnjso5u3p46";     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
     //private readonly string mPlacementId_rewardvideo_all = "b1fn8aua8i1k5i";
     //private readonly string mPlacementId_interstitial_all = "b1fn8aua8i1s42";
     private Action videoRewardAction;
@@ -282,10 +282,10 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 
     public override void OnSingletonInit()
     {
-        ATSDKAPI.initSDK("a68229c5f42e2b", "a82844bf085483dd3018ef16e347250e5");  //AppIDºÍAppKey
+        ATSDKAPI.initSDK("a68229c5f42e2b", "a82844bf085483dd3018ef16e347250e5");  //AppIDï¿½ï¿½AppKey
         //ATSDKAPI.initSDK("a667e2369f1df6", "a5e2ae5036721db4f108aef055cbe44c3");
         ATSDKAPI.setLogDebug(false);
-        //Debug.Log("³õÊ¼»¯SDK");
+        //Debug.Log("ï¿½ï¿½Ê¼ï¿½ï¿½SDK");
 
         addAutoLoadAdPlacementID();
     }
@@ -300,13 +300,13 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
         ATInterstitialAutoAd.Instance.client.onAdCloseEvent += onAdIntersSClose;
         ATInterstitialAutoAd.Instance.client.onAdLoadFailureEvent += onAdIntersLoadFail;
 
-        //È«ÍÐ¹Ü¼ÓÔØ¼¤ÀøÊÓÆµ¡¢²åÆÁ¹ã¸æ
+        //È«ï¿½Ð¹Ü¼ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         ATInterstitialAutoAd.Instance.addAutoLoadAdPlacementID(new string[] { mPlacementId_interstitial_all });
         ATRewardedAutoVideo.Instance.addAutoLoadAdPlacementID(new string[] { mPlacementId_rewardvideo_all });
-        //Debug.Log("×Ô¶¯¼ÓÔØ¹ã¸æ");
+        //Debug.Log("ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½");
     }
 
-    #region ²åÆÁ¹ã¸æ
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     private void onAdIntersSClose(object sender, ATAdEventArgs e)
     {
@@ -322,12 +322,12 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 
     private void onAdIntersLoadFail(object sender, ATAdErrorEventArgs e)
     {
-        //Debug.Log("²åÆÁ¹ã¸æ111111¼ÓÔØÊ§°Ü");
+        //Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½111111ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
     }
 
     #endregion
 
-    #region ¼¤ÀøÊÓÆµ
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµ
 
     private void onAdVideoReward(object sender, ATAdEventArgs e)
     {
@@ -343,7 +343,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 
     private void onAdVideoLoadFail(object sender, ATAdErrorEventArgs e)
     {
-        //Debug.Log("¼¤ÀøÊÓÆµ2222222¼ÓÔØÊ§°Ü");
+        //Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµ2222222ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
     }
 
     #endregion
@@ -351,7 +351,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
     public bool ShowVideoAd(Action rewardAction, Action onAdClose)
     {
         var hasAd = ATRewardedAutoVideo.Instance.autoLoadRewardedVideoReadyForPlacementID(mPlacementId_rewardvideo_all);
-        // Debug.Log("ÊÇ·ñÓÐ¼¤Àø¹ã¸æ»º´æ£º" + hasAd);
+        // Debug.Log("ï¿½Ç·ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½æ»ºï¿½æ£º" + hasAd);
 #if UNITY_EDITOR 
         return true;
 #endif
@@ -369,7 +369,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
     public bool ShowIntersAd(Action rewardAction, Action onAdClose)
     {
         var hasAd = ATInterstitialAutoAd.Instance.autoLoadInterstitialAdReadyForPlacementID(mPlacementId_interstitial_all);
-        //Debug.Log("ÊÇ·ñÓÐ²åÆÁ¹ã¸æ»º´æ£º" + hasAd);
+        //Debug.Log("ï¿½Ç·ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½æ»ºï¿½æ£º" + hasAd);
         if (hasAd)
         {
             ATInterstitialAutoAd.Instance.showAutoAd(mPlacementId_interstitial_all);

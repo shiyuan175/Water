@@ -37,6 +37,9 @@ namespace QFramework.Example
         private readonly int[] UNLOCKLEVEL = new int[]
             { 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 121, 141, 161, 181, 201, 301, 401 };
 
+        //17关开始，每两关一个广告，50关之后，每关一个
+        private const int START_AD_LIMIT = 17;
+        private const int START_AD_LIMIT2 = 31;
         public IArchitecture GetArchitecture()
         {
             return GameMainArc.Interface;
@@ -162,6 +165,15 @@ namespace QFramework.Example
             }
             else
                 NewItemNode.Hide();
+
+            if (curLevel > START_AD_LIMIT)
+            {
+                if (curLevel > START_AD_LIMIT2)
+                    TopOnADManager.Instance.ShowIntersAd(null, null);
+
+                else if (curLevel % 2 == 0)
+                    TopOnADManager.Instance.ShowIntersAd(null, null);
+            }
         }
 
         private void UpdateBoxProcessNode()
