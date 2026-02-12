@@ -15,6 +15,8 @@ namespace QFramework.Example
 
     public partial class UIGameNode : UIPanel, IController, ICanSendEvent
     {
+        private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
+
         [Serializable]
         public struct DifficultyStyle
         {
@@ -27,11 +29,12 @@ namespace QFramework.Example
 
         [SerializeField]
         private MagicCtrl magicCtrl;
-        private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
         public RectTransform CatPosition;
 
+        [SerializeField] private Sprite[] mRankLevelSprites;
+
         #region 关卡难度UI
-        
+
         //0简单 1中等 2困难
         [SerializeField] private DifficultyStyle[] mDifficultyStyles;
         [SerializeField] private Image imgTopBg;
@@ -39,10 +42,8 @@ namespace QFramework.Example
         [SerializeField] private Image imgLevel;
 
         #endregion
-        private ResLoader mResLoader;
-        private GameGlobalModel gameGlobalModel;
-        private SpriteAtlas mRankLevelSpriteAtlas;
 
+        private GameGlobalModel gameGlobalModel;
         private int mCacheRankSpriteIndex;
         private bool mIsOpenUIVictory;
 
@@ -60,7 +61,6 @@ namespace QFramework.Example
         {
             gameGlobalModel = this.GetModel<GameGlobalModel>();
                 
-            LoadRes();
             BindBtn();
             RegisterEvent();
             #region 全局机制--魔法猫咪
@@ -73,7 +73,6 @@ namespace QFramework.Example
             }
 
             #endregion
-
         }
 
         protected override void OnShow()
@@ -104,20 +103,6 @@ namespace QFramework.Example
         protected override void OnClose()
         {
             gameGlobalModel = null;
-
-            if (mResLoader != null)
-            {
-                mResLoader.Recycle2Cache();
-                mResLoader = null;
-                mRankLevelSpriteAtlas = null;
-            }
-        }
-
-        private void LoadRes()
-        {
-            mResLoader = ResLoader.Allocate();
-            mRankLevelSpriteAtlas = mResLoader.LoadSync<SpriteAtlas>
-                (ABResourceDefine.RANK_LEVEL_ATLAS_BUNDLENAME, ABResourceDefine.RANK_LEVEL_ATLAS_ASSETNAME);
         }
 
         private void BindBtn()
@@ -158,7 +143,6 @@ namespace QFramework.Example
 
             StringEventSystem.Global.Register(GameConst.VICTORY_EVENT, () =>
             {
-              
                 int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
                 //原是第八关才显示段位(5~7关直接返回)
                 //现在是第六关显示，第五关通过时会触发返回
@@ -192,7 +176,7 @@ namespace QFramework.Example
                         return;
                     }
 
-                    ImgRankSprite_mid.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mCacheRankSpriteIndex));
+                    ImgRankSprite_mid.sprite = mRankLevelSprites[mCacheRankSpriteIndex];
                     ImgRankSprite_mid.SetNativeSize();
                     SpineRankPromotion.Show();
 
@@ -201,9 +185,9 @@ namespace QFramework.Example
                     ActionKit.Delay(0.5f, () =>
                     {
                         ImgRankSprite_mid.sprite =
-                        mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(curRankIndex));
+                        mRankLevelSprites[curRankIndex];
                         ImgRankLevel.sprite =
-                        mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(curRankIndex));
+                        mRankLevelSprites[curRankIndex];
 
                         ImgRankSprite_mid.SetNativeSize();
                     }).Start(this);
@@ -214,8 +198,6 @@ namespace QFramework.Example
                         
                         OpenUIVictory();
                     };
-
-                    /*OpenUIVictory();*/
                 });
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
@@ -303,9 +285,7 @@ namespace QFramework.Example
                 TxtRankLevel.text = _tempWin.ToString();
                 //5次连胜晋升一个段位,总段位数9(起始0)
                 mCacheRankSpriteIndex = Mathf.Min(8, Mathf.Max(0, (_tempWin - 1) / 5));
-                /*if (mRankLevelSpriteAtlas == null)
-                    mRankLevelSpriteAtlas*/
-                ImgRankLevel.sprite = mRankLevelSpriteAtlas.GetSprite(GameUtils.GetAtlasSpriteName(mCacheRankSpriteIndex));
+                ImgRankLevel.sprite = mRankLevelSprites[mCacheRankSpriteIndex];
             }
 
             else ImgRankLevel.Hide();
@@ -555,9 +535,6 @@ namespace QFramework.Example
             if (UIKit.GetPanel<UIMask>())
                 UIKit.ClosePanel<UIMask>();
 #endif
-            //if (!LevelManager.Instance.isPlayFxAnim && GameCtrl.Instance.IsPouring)
-            //{
-            //}
         }
 
         private void OpenUIVictory()

@@ -21,11 +21,6 @@ namespace QAssetBundle
         public const string red = "red";
         public const string SourceHanSansCNBold = "SourceHanSansCN-Bold";
     }
-    public class Ranklevelatlas_spriteatlasv2
-    {
-        public const string BundleName = "ranklevelatlas_spriteatlasv2";
-        public const string RankLevelAtlas = "RankLevelAtlas";
-    }
     public class Uigamenode_prefab
     {
         public const string BundleName = "uigamenode_prefab";

@@ -1,4 +1,4 @@
-using QFramework;
+ï»¿using QFramework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,7 +32,7 @@ public class GameUtilityManager : MonoSingleton<GameUtilityManager>
 
     protected override void OnDestroy()
     {
-        mCts.Cancel();
+        mCts?.Cancel();
         base.OnDestroy();
     }
 
@@ -40,26 +40,26 @@ public class GameUtilityManager : MonoSingleton<GameUtilityManager>
     {
         mTasks = new();
         mCts = new CancellationTokenSource();
-        _ = RunAsync(mCts.Token);
+        //_ = RunAsync(mCts.Token);
     }
 
     /// <summary>
-    ///  ½«Ô´ UI ¶ÔÏóµÄÎ»ÖÃÓ³Éäµ½Ä¿±ê UI ¶ÔÏóËùÔÚ Canvas µÄ¾Ö²¿×ø±ê(½«Ä¿±ê UI ¶ÔÏóÉèÖÃµ½ Ô´ UI ¶ÔÏóµãÎ»)
+    ///  å°†æº UI å¯¹è±¡çš„ä½ç½®æ˜ å°„åˆ°ç›®æ ‡ UI å¯¹è±¡æ‰€åœ¨ Canvas çš„å±€éƒ¨åæ ‡(å°†ç›®æ ‡ UI å¯¹è±¡è®¾ç½®åˆ° æº UI å¯¹è±¡ç‚¹ä½)
     /// </summary>
-    ///<param name="sourceObj">Ô´Ä¿±ê¶ÔÏó</param>
-    /// <param name="targetObj">ÒªÓ¦ÓÃµÄ¶ÔÏó</param>
+    ///<param name="sourceObj">æºç›®æ ‡å¯¹è±¡</param>
+    /// <param name="targetObj">è¦åº”ç”¨çš„å¯¹è±¡</param>
     public void GetLocalPositionInCanvas(RectTransform sourceObj, RectTransform targetObj, Action<Vector2> callback = null)
     {
         Canvas _sourceObjCanvas = sourceObj.GetComponentInParent<Canvas>().rootCanvas;
         Canvas _targetObjCanvas = targetObj.GetComponentInParent<Canvas>().rootCanvas;
 
-        //ÑÓ³ÙÒ»Ö¡¹¹½¨Layout Group
+        //å»¶è¿Ÿä¸€å¸§æ„å»ºLayout Group
         ActionKit.DelayFrame(1, () =>
         {
-            //Ä¿±ê¶ÔÏó×ø±ê×ªÎªÊÀ½ç×ø±ê
+            //ç›®æ ‡å¯¹è±¡åæ ‡è½¬ä¸ºä¸–ç•Œåæ ‡
             var _screenPoint = _sourceObjCanvas.worldCamera.WorldToScreenPoint(sourceObj.position);
 
-            // ×ª»¯»­²¼
+            // è½¬åŒ–ç”»å¸ƒ
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                  targetObj.parent as RectTransform,
                  _screenPoint,
@@ -71,7 +71,7 @@ public class GameUtilityManager : MonoSingleton<GameUtilityManager>
     }
 
     /// <summary>
-    /// »ñÈ¡ÊÇ·ñµã»÷µ½Ä¿±êUI
+    /// è·å–æ˜¯å¦ç‚¹å‡»åˆ°ç›®æ ‡UI
     /// </summary>
     /// <param name="screenPosition"></param>
     /// <param name="target"></param>
@@ -105,7 +105,7 @@ public class GameUtilityManager : MonoSingleton<GameUtilityManager>
     }
 
     /// <summary>
-    /// Ïòµ÷¶ÈÆ÷×¢²áÒ»¸öÃ¿ÃëÖ´ĞĞÒ»´ÎµÄÈÎÎñ
+    /// å‘è°ƒåº¦å™¨æ³¨å†Œä¸€ä¸ªæ¯ç§’æ‰§è¡Œä¸€æ¬¡çš„ä»»åŠ¡
     /// </summary>
     /// <param name="scheduled"></param>
     public void RegisterTask(object owner, Action action)
@@ -115,7 +115,7 @@ public class GameUtilityManager : MonoSingleton<GameUtilityManager>
     }
 
     /// <summary>
-    /// È¡ÏûÈÎÎñ
+    /// å–æ¶ˆä»»åŠ¡
     /// </summary>
     /// <param name="owner"></param>
     public void UnregisterTask(object owner)
@@ -139,7 +139,7 @@ public class GameUtilityManager : MonoSingleton<GameUtilityManager>
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogError($"ÈÎÎñµ÷¶ÈÆ÷Òì³£: {ex}");
+                    Debug.LogError($"ä»»åŠ¡è°ƒåº¦å™¨å¼‚å¸¸: {ex}");
                 }
             }
 
