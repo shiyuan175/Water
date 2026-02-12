@@ -132,7 +132,7 @@ MonoBehaviour:
     numCake: 4
     limitColor: 0
     isClearHide: 1
-    lockType: 4
+    lockType: 5
     BlackBottleList: 00000000
     isBlackBottle: 0
     CurtainHight: 0

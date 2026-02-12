@@ -36,7 +36,8 @@ public class ADBottle : MonoBehaviour
         //16个瓶子为上限
         if (LevelManager.Instance.nowBottles.Count >= 16
             || LevelManager.Instance.levelId <= 5 ||
-            LevelManager.Instance.levelId == 11)
+            LevelManager.Instance.levelId == 11 ||
+            LevelManager.Instance.levelId == 20)
         {
             mParTras.Hide();
             LevelManager.Instance.UpdateButtomLayoutSpcing();

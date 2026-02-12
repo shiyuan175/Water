@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L2
   m_EditorClassIdentifier: 
   bottles:
-  - waterSet: 0200000002000000
+  - waterSet: 0600000006000000
     hideTypes: 0000000000000000
     waterItem: 0000000000000000
     bombCounts: 0000000000000000
@@ -41,7 +41,7 @@ MonoBehaviour:
     isNearHide: 0
     isFreeze: 0
     isFinish: 0
-  - waterSet: 0600000006000000
+  - waterSet: 0200000002000000
     hideTypes: 0000000000000000
     waterItem: 0000000000000000
     bombCounts: 0000000000000000
