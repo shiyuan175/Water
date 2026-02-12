@@ -104,12 +104,6 @@ namespace QFramework.Example
         protected override void OnClose()
         {
             gameGlobalModel = null;
-            /*BtnStepBack.onClick.RemoveAllListeners();
-            BtnRemoveHide.onClick.RemoveAllListeners();
-            BtnAddBottle.onClick.RemoveAllListeners();
-            BtnHalfBottle.onClick.RemoveAllListeners();
-            BtnRemoveAll.onClick.RemoveAllListeners();
-            BtnReturn.onClick.RemoveAllListeners();*/
 
             if (mResLoader != null)
             {
@@ -121,12 +115,9 @@ namespace QFramework.Example
 
         private void LoadRes()
         {
-            /*if (this.GetUtility<SaveDataUtility>().GetCurrentLevel() >= GameDefine.GameConst.IN_GAME_RANK_BEGIN_LEVEL)
-            {*/
-                mResLoader = ResLoader.Allocate();
-                mRankLevelSpriteAtlas = mResLoader.LoadSync<SpriteAtlas>
-                    (ABResourceDefine.RANK_LEVEL_ATLAS_BUNDLENAME, ABResourceDefine.RANK_LEVEL_ATLAS_ASSETNAME);
-                /*}*/
+            mResLoader = ResLoader.Allocate();
+            mRankLevelSpriteAtlas = mResLoader.LoadSync<SpriteAtlas>
+                (ABResourceDefine.RANK_LEVEL_ATLAS_BUNDLENAME, ABResourceDefine.RANK_LEVEL_ATLAS_ASSETNAME);
         }
 
         private void BindBtn()
