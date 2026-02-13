@@ -1,23 +1,22 @@
-﻿using GameDefine;
+﻿using System;
+using Game.Water;
 using QFramework;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class RewardUIManager : MonoSingleton<RewardUIManager>
+namespace Game.Water
 {
-    [SerializeField] private RewardSpriteMappingSO mRewardSpriteMappingSO;
-
-    public override void OnSingletonInit()
+    public class RewardUIManager : MonoSingleton<RewardUIManager>
     {
-        mRewardSpriteMappingSO.Initialize();
-    }
+        [SerializeField] private RewardSpriteMappingSO mRewardSpriteMappingSO;
 
-    public Sprite GetRewardSprite<T>(T rewardType) where T : Enum
-    {
-        return mRewardSpriteMappingSO.GetRewardSprite<T>(rewardType);
+        public override void OnSingletonInit()
+        {
+            mRewardSpriteMappingSO.Initialize();
+        }
+
+        public Sprite GetRewardSprite<T>(T rewardType) where T : Enum
+        {
+            return mRewardSpriteMappingSO.GetRewardSprite<T>(rewardType);
+        }
     }
 }

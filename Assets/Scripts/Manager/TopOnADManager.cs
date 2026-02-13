@@ -2,10 +2,12 @@ using System;
 using AnyThinkAds.Api;
 using QFramework;
 
-[MonoSingletonPath("[Analytics]/TopOnADManager")]
-public class TopOnADManager: MonoSingleton<TopOnADManager>
+namespace Game.Water
 {
-    /*#region ԭ�ֶ�����
+    [MonoSingletonPath("[Analytics]/TopOnADManager")]
+    public class TopOnADManager: MonoSingleton<TopOnADManager>
+    {
+        /*#region ԭ�ֶ�����
     string mPlacementId_rewardvideo_all = "b1gfnjso5u3hej";
     string mPlacementId_interstitial_all = "b1gfnjso5u3p46";
     string mPlacementId_native_all = "b66da9af8356bb";
@@ -23,7 +25,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 
     public override void OnSingletonInit()
     {
-        
+
     }
 
     private void Start()
@@ -74,7 +76,7 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
 
         ATBannerAd.Instance.loadBannerAd(mPlacementId_native_all, jsonmap);
 
-        
+
     }
 
     public void LoadSplashAD()
@@ -266,118 +268,119 @@ public class TopOnADManager: MonoSingleton<TopOnADManager>
     }
     #endregion*/
 
-    //ȫ�Զ����ز������ͼ������
-    private readonly string mPlacementId_rewardvideo_all = "b69718fcb63294"; //�������ID
+        //ȫ�Զ����ز������ͼ������
+        private readonly string mPlacementId_rewardvideo_all = "b69718fcb63294"; //�������ID
 
-    private readonly string mPlacementId_interstitial_all = "b69718fcc0a9fb"; //�������ID
+        private readonly string mPlacementId_interstitial_all = "b69718fcc0a9fb"; //�������ID
 
-    //private readonly string mPlacementId_rewardvideo_all = "b1gfnjso5u3hej";      //�������ID
-    //private readonly string mPlacementId_interstitial_all = "b1gfnjso5u3p46";     //�������ID
-    //private readonly string mPlacementId_rewardvideo_all = "b1fn8aua8i1k5i";
-    //private readonly string mPlacementId_interstitial_all = "b1fn8aua8i1s42";
-    private Action videoRewardAction;
-    private Action videoCloseAction;
+        //private readonly string mPlacementId_rewardvideo_all = "b1gfnjso5u3hej";      //�������ID
+        //private readonly string mPlacementId_interstitial_all = "b1gfnjso5u3p46";     //�������ID
+        //private readonly string mPlacementId_rewardvideo_all = "b1fn8aua8i1k5i";
+        //private readonly string mPlacementId_interstitial_all = "b1fn8aua8i1s42";
+        private Action videoRewardAction;
+        private Action videoCloseAction;
 
-    private Action intersRewardAction;
-    private Action intersCloseAction;
+        private Action intersRewardAction;
+        private Action intersCloseAction;
 
-    public override void OnSingletonInit()
-    {
-        ATSDKAPI.initSDK("a69718fa406b36", "ae758ec796d75f4ff2fada0e795426b39"); //AppID��AppKey
-        //ATSDKAPI.initSDK("a667e2369f1df6", "a5e2ae5036721db4f108aef055cbe44c3");
-        ATSDKAPI.setLogDebug(false);
-        //Debug.Log("��ʼ��SDK");
+        public override void OnSingletonInit()
+        {
+            ATSDKAPI.initSDK("a69718fa406b36", "ae758ec796d75f4ff2fada0e795426b39"); //AppID��AppKey
+            //ATSDKAPI.initSDK("a667e2369f1df6", "a5e2ae5036721db4f108aef055cbe44c3");
+            ATSDKAPI.setLogDebug(false);
+            //Debug.Log("��ʼ��SDK");
 
-        addAutoLoadAdPlacementID();
-    }
+            addAutoLoadAdPlacementID();
+        }
 
-    public void addAutoLoadAdPlacementID()
-    {
-        ATRewardedAutoVideo.Instance.client.onRewardEvent += onAdVideoReward;
-        ATRewardedAutoVideo.Instance.client.onAdVideoCloseEvent += onAdVideoClosedEvent;
-        ATRewardedAutoVideo.Instance.client.onAdLoadFailureEvent += onAdVideoLoadFail;
+        public void addAutoLoadAdPlacementID()
+        {
+            ATRewardedAutoVideo.Instance.client.onRewardEvent += onAdVideoReward;
+            ATRewardedAutoVideo.Instance.client.onAdVideoCloseEvent += onAdVideoClosedEvent;
+            ATRewardedAutoVideo.Instance.client.onAdLoadFailureEvent += onAdVideoLoadFail;
 
-        ATInterstitialAutoAd.Instance.client.onAdShowEvent += onAdIntersShow;
-        ATInterstitialAutoAd.Instance.client.onAdCloseEvent += onAdIntersSClose;
-        ATInterstitialAutoAd.Instance.client.onAdLoadFailureEvent += onAdIntersLoadFail;
+            ATInterstitialAutoAd.Instance.client.onAdShowEvent += onAdIntersShow;
+            ATInterstitialAutoAd.Instance.client.onAdCloseEvent += onAdIntersSClose;
+            ATInterstitialAutoAd.Instance.client.onAdLoadFailureEvent += onAdIntersLoadFail;
 
-        //ȫ�йܼ��ؼ�����Ƶ���������
-        ATInterstitialAutoAd.Instance.addAutoLoadAdPlacementID(new string[] { mPlacementId_interstitial_all });
-        ATRewardedAutoVideo.Instance.addAutoLoadAdPlacementID(new string[] { mPlacementId_rewardvideo_all });
-        //Debug.Log("�Զ����ع��");
-    }
+            //ȫ�йܼ��ؼ�����Ƶ���������
+            ATInterstitialAutoAd.Instance.addAutoLoadAdPlacementID(new string[] { mPlacementId_interstitial_all });
+            ATRewardedAutoVideo.Instance.addAutoLoadAdPlacementID(new string[] { mPlacementId_rewardvideo_all });
+            //Debug.Log("�Զ����ع��");
+        }
 
-    #region �������
+        #region �������
 
-    private void onAdIntersSClose(object sender, ATAdEventArgs e)
-    {
-        intersCloseAction?.Invoke();
-        intersCloseAction = null;
-    }
+        private void onAdIntersSClose(object sender, ATAdEventArgs e)
+        {
+            intersCloseAction?.Invoke();
+            intersCloseAction = null;
+        }
 
-    private void onAdIntersShow(object sender, ATAdEventArgs e)
-    {
-        intersRewardAction?.Invoke();
-        intersRewardAction = null;
-    }
+        private void onAdIntersShow(object sender, ATAdEventArgs e)
+        {
+            intersRewardAction?.Invoke();
+            intersRewardAction = null;
+        }
 
-    private void onAdIntersLoadFail(object sender, ATAdErrorEventArgs e)
-    {
-        //Debug.Log("�������111111����ʧ��");
-    }
+        private void onAdIntersLoadFail(object sender, ATAdErrorEventArgs e)
+        {
+            //Debug.Log("�������111111����ʧ��");
+        }
 
-    #endregion
+        #endregion
 
-    #region ������Ƶ
+        #region ������Ƶ
 
-    private void onAdVideoReward(object sender, ATAdEventArgs e)
-    {
-        videoRewardAction?.Invoke();
-        videoCloseAction = null;
-    }
+        private void onAdVideoReward(object sender, ATAdEventArgs e)
+        {
+            videoRewardAction?.Invoke();
+            videoCloseAction = null;
+        }
 
-    private void onAdVideoClosedEvent(object sender, ATAdRewardEventArgs e)
-    {
-        videoCloseAction?.Invoke();
-        videoCloseAction = null;
-    }
+        private void onAdVideoClosedEvent(object sender, ATAdRewardEventArgs e)
+        {
+            videoCloseAction?.Invoke();
+            videoCloseAction = null;
+        }
 
-    private void onAdVideoLoadFail(object sender, ATAdErrorEventArgs e)
-    {
-        //Debug.Log("������Ƶ2222222����ʧ��");
-    }
+        private void onAdVideoLoadFail(object sender, ATAdErrorEventArgs e)
+        {
+            //Debug.Log("������Ƶ2222222����ʧ��");
+        }
 
-    #endregion
+        #endregion
 
-    public bool ShowVideoAd(Action rewardAction, Action onAdClose)
-    {
-        var hasAd = ATRewardedAutoVideo.Instance.autoLoadRewardedVideoReadyForPlacementID(mPlacementId_rewardvideo_all);
-        // Debug.Log("�Ƿ��м�����滺�棺" + hasAd);
-#if UNITY_EDITOR 
-        return true;
+        public bool ShowVideoAd(Action rewardAction, Action onAdClose)
+        {
+            var hasAd = ATRewardedAutoVideo.Instance.autoLoadRewardedVideoReadyForPlacementID(mPlacementId_rewardvideo_all);
+            // Debug.Log("�Ƿ��м�����滺�棺" + hasAd);
+#if UNITY_EDITOR
+            return true;
 #endif
-        if (hasAd)
-        {
-            ATRewardedAutoVideo.Instance.showAutoAd(mPlacementId_rewardvideo_all);
-            videoRewardAction = rewardAction;
-            videoCloseAction = onAdClose;
-            return true;
+            if (hasAd)
+            {
+                ATRewardedAutoVideo.Instance.showAutoAd(mPlacementId_rewardvideo_all);
+                videoRewardAction = rewardAction;
+                videoCloseAction = onAdClose;
+                return true;
+            }
+
+            return false;
         }
 
-        return false;
-    }
-
-    public bool ShowIntersAd(Action rewardAction, Action onAdClose)
-    {
-        var hasAd = ATInterstitialAutoAd.Instance.autoLoadInterstitialAdReadyForPlacementID(mPlacementId_interstitial_all);
-        //Debug.Log("�Ƿ��в�����滺�棺" + hasAd);
-        if (hasAd)
+        public bool ShowIntersAd(Action rewardAction, Action onAdClose)
         {
-            ATInterstitialAutoAd.Instance.showAutoAd(mPlacementId_interstitial_all);
-            intersRewardAction = rewardAction;
-            intersCloseAction = onAdClose;
-            return true;
+            var hasAd = ATInterstitialAutoAd.Instance.autoLoadInterstitialAdReadyForPlacementID(mPlacementId_interstitial_all);
+            //Debug.Log("�Ƿ��в�����滺�棺" + hasAd);
+            if (hasAd)
+            {
+                ATInterstitialAutoAd.Instance.showAutoAd(mPlacementId_interstitial_all);
+                intersRewardAction = rewardAction;
+                intersCloseAction = onAdClose;
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
-using GameDefine;
+using Game.Water;
+using QFramework;
 using UnityEngine;
 
-namespace QFramework.Example
+namespace Game.Water
 {
     public class UIVictoryData : UIPanelData
     {

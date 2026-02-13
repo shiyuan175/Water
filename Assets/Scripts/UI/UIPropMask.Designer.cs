@@ -1,9 +1,4 @@
-using System;
-using UnityEngine;
-using UnityEngine.UI;
-using QFramework;
-
-namespace QFramework.Example
+namespace Game.Water
 {
 	// Generate Id:02ab2e82-eea1-41eb-ae4f-e34b06c46a5c
 	public partial class UIPropMask

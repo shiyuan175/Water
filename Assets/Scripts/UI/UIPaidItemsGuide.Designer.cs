@@ -1,9 +1,6 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
-using QFramework;
 
-namespace QFramework.Example
+namespace Game.Water
 {
 	// Generate Id:9cfacc4d-6a58-4135-9f09-017f88e2bc1c
 	public partial class UIPaidItemsGuide

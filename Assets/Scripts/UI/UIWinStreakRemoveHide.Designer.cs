@@ -1,9 +1,6 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
-using QFramework;
 
-namespace QFramework.Example
+namespace Game.Water
 {
 	// Generate Id:664a1cc1-9956-49fe-b228-08f77de747f1
 	public partial class UIWinStreakRemoveHide

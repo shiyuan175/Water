@@ -1,24 +1,26 @@
-﻿using GameDefine;
+﻿using Game.Water;
 using QFramework;
-using UnityEngine;
 
-public class GameMainArc : Architecture<GameMainArc>
+namespace Game.Water
 {
-    protected override void Init()
+    public class GameMainArc : Architecture<GameMainArc>
     {
-        ResKit.Init();
-        RegisterUtilitys();
-        RegisterModels();
-    }
+        protected override void Init()
+        {
+            ResKit.Init();
+            RegisterUtilitys();
+            RegisterModels();
+        }
 
-    private void RegisterModels()
-    {
-        RegisterModel(new GameGlobalModel());
-    }
+        private void RegisterModels()
+        {
+            RegisterModel(new GameGlobalModel());
+        }
 
-    private void RegisterUtilitys()
-    {
-        RegisterUtility(new SaveDataUtility());
-        RegisterUtility(new LevelManagerUtility());
+        private void RegisterUtilitys()
+        {
+            RegisterUtility(new SaveDataUtility());
+            RegisterUtility(new LevelManagerUtility());
+        }
     }
 }

@@ -1,34 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
 
-public class GrassBombCtrl : MonoBehaviour
+namespace Game.Water
 {
-    [SerializeField] SkeletonGraphic spine;
-
-    private const string DISABLE_APPEND = "animation";
-
-    private void OnDisable()
+    public class GrassBombCtrl : MonoBehaviour
     {
-        spine.enabled = false;
-    }
+        [SerializeField] SkeletonGraphic spine;
 
-    public void BombApeend()
-    {
-        spine.AnimationState.ClearTracks(); // 清除所有轨道
-        spine.Skeleton.SetToSetupPose();
-        spine.enabled = true;
-    }
+        private const string DISABLE_APPEND = "animation";
 
-    public void BombDis()
-    {
-        spine.enabled = false;
-    }
-    public void Bombing()
-    {
-        var track = spine.AnimationState.SetAnimation(0, DISABLE_APPEND, false);
-        track.Complete += track => { spine.enabled = false; };
-        /*track.TimeScale = 0.7f;*/
+        private void OnDisable()
+        {
+            spine.enabled = false;
+        }
+
+        public void BombApeend()
+        {
+            spine.AnimationState.ClearTracks(); // 清除所有轨道
+            spine.Skeleton.SetToSetupPose();
+            spine.enabled = true;
+        }
+
+        public void BombDis()
+        {
+            spine.enabled = false;
+        }
+        public void Bombing()
+        {
+            var track = spine.AnimationState.SetAnimation(0, DISABLE_APPEND, false);
+            track.Complete += track => { spine.enabled = false; };
+            /*track.TimeScale = 0.7f;*/
+        }
     }
 }

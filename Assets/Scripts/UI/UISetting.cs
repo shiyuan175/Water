@@ -1,6 +1,7 @@
-using UnityEngine;
+using Game.Water;
+using QFramework;
 
-namespace QFramework.Example
+namespace Game.Water
 {
     public class UISettingData : UIPanelData
     {

@@ -1,48 +1,49 @@
 using Spine.Unity;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 
-public class ThunderCtrl : MonoBehaviour
+namespace Game.Water
 {
-    //public Vector3 fromPos;
-    public Transform target;
-    public SkeletonGraphic useSpine;
-    public float totalTime;
-    public PositionConstraint positionConstraint;
-
-    // Start is called before the first frame update
-    void OnEnable()
+    public class ThunderCtrl : MonoBehaviour
     {
-        useSpine.AnimationState.SetEmptyAnimation(0, 0f);
-        //thunderGo.transform.position = (fromPos + transform.position) / 2;
-        useSpine.AnimationState.SetAnimation(0, "bullet", false);
-    }
+        //public Vector3 fromPos;
+        public Transform target;
+        public SkeletonGraphic useSpine;
+        public float totalTime;
+        public PositionConstraint positionConstraint;
 
-    // Update is called once per frame
-    void Update()
-    {
-        //transform.localScale = new Vector3(transform.localScale.x, Vector3.Distance(fromPos, transform.position) / 4f, transform.localScale.z);
-        var fromPos = target.position;
-        transform.localScale = new Vector3(transform.localScale.x, Vector3.Distance(fromPos, transform.position) / 7f, transform.localScale.z);
-        totalTime += Time.deltaTime;
-        var angle = Vector3.Angle(fromPos - transform.position, Vector3.up);
-
-        //ÅÐ¶Ï·½Ïò
-        int sign = 1;
-        if (fromPos.x > transform.position.x)
+        // Start is called before the first frame update
+        void OnEnable()
         {
-            sign = -1;
+            useSpine.AnimationState.SetEmptyAnimation(0, 0f);
+            //thunderGo.transform.position = (fromPos + transform.position) / 2;
+            useSpine.AnimationState.SetAnimation(0, "bullet", false);
         }
-        transform.rotation = Quaternion.Euler(0, 0, angle * sign);
 
-
-        if (totalTime > 2)
+        // Update is called once per frame
+        void Update()
         {
-            gameObject.SetActive(false);
-            //ÓÃÍêÏú»Ù
-            Destroy(this.gameObject);
+            //transform.localScale = new Vector3(transform.localScale.x, Vector3.Distance(fromPos, transform.position) / 4f, transform.localScale.z);
+            var fromPos = target.position;
+            transform.localScale = new Vector3(transform.localScale.x, Vector3.Distance(fromPos, transform.position) / 7f, transform.localScale.z);
+            totalTime += Time.deltaTime;
+            var angle = Vector3.Angle(fromPos - transform.position, Vector3.up);
+
+            //ï¿½Ð¶Ï·ï¿½ï¿½ï¿½
+            int sign = 1;
+            if (fromPos.x > transform.position.x)
+            {
+                sign = -1;
+            }
+            transform.rotation = Quaternion.Euler(0, 0, angle * sign);
+
+
+            if (totalTime > 2)
+            {
+                gameObject.SetActive(false);
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                Destroy(this.gameObject);
+            }
         }
     }
 }

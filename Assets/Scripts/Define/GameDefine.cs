@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using GameAttributes;
 
-namespace GameDefine
+namespace Game.Water
 {
     public static class GameConst
     {
@@ -43,6 +42,15 @@ namespace GameDefine
                 { 351, (0, 1, "Synthesizing a magic book can remove all negative effects") },
                 { 451, (2, -1, "The black obstruction on the bottle never disappears; lifting the bottle reveals the water color") }
             };
+    }
+
+    public enum NormalRewardsType
+    {
+        StepBack = 1,
+        RemoveHide = 2,
+        AddOneBottle = 3,
+        AddHalfBottle = 4,
+        RemoveAll = 5,
     }
 
     /// <summary>

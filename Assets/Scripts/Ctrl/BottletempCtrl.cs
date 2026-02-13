@@ -1,21 +1,16 @@
-using GameAttributes;
-using UnityEngine.UI;
-using DG.Tweening;
-using GameAttributes;
-using GameDefine;
-using QFramework;
-using QFramework.Example;
-using Spine;
-using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
+using DG.Tweening;
+using Game.Water;
+using QFramework;
+using Spine;
+using Spine.Unity;
 using UnityEngine;
 using UnityEngine.UI;
-using static LevelCreateCtrl;
+using static Game.Water.LevelCreateCtrl;
 
-namespace Water
+namespace Game.Water
 {
     public class BottletempCtrl : MonoBehaviour, IController, ICanSendEvent
     {
@@ -114,7 +109,7 @@ namespace Water
         public Button bottle;
 
         // 瓶子的初始属性配置
-        private BottleProperty originProperty;
+        private LevelCreateCtrl.BottleProperty originProperty;
 
         // 用于接水次数计数
         // 修正（待确认）用于动画播放的锁问题
@@ -146,7 +141,7 @@ namespace Water
         /// </summary>
         /// <param name="property"></param>
         /// <param name="idx"></param>
-        public void Init(BottleProperty property, int idx)
+        public void Init(LevelCreateCtrl.BottleProperty property, int idx)
         {
             foreach (var i in waterImg)
             {
@@ -1363,7 +1358,7 @@ namespace Water
             if (moveRecords.Count <= 0) return false;
 
             var record = moveRecords[moveRecords.Count - 1];
-            var temp = new BottleProperty
+            var temp = new LevelCreateCtrl.BottleProperty
             {
                 isFreeze = record.isFreeze,
                 isNearHide = record.isNearHide,

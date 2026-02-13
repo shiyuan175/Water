@@ -1,14 +1,17 @@
-using GameDefine;
+using Game.Water;
 using QFramework;
 
-public class PassLevelCommand : AbstractCommand ,ICanGetModel
+namespace Game.Water
 {
-    private GameGlobalModel mGameGlobalModel;
-
-    protected override void OnExecute()
+    public class PassLevelCommand : AbstractCommand ,ICanGetModel
     {
-        int currentLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
-        mGameGlobalModel ??= this.GetModel<GameGlobalModel>();
-        mGameGlobalModel?.PassLevel();
+        private GameGlobalModel mGameGlobalModel;
+
+        protected override void OnExecute()
+        {
+            int currentLevel = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+            mGameGlobalModel ??= this.GetModel<GameGlobalModel>();
+            mGameGlobalModel?.PassLevel();
+        }
     }
 }

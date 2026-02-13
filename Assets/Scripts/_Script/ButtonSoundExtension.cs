@@ -1,20 +1,23 @@
 using QFramework;
 
-/// <summary>
-/// Í¨¹ý±à¼­Æ÷Ìí¼ÓµÄ°´Å¥À©Õ¹Àà£¬ÓÃÓÚ²¥·Å°´Å¥µã»÷ÒôÐ§
-/// </summary>
-/// Í¨¹ý·´Éä»ñÈ¡¾²Ì¬·½·¨¶©ÔÄ
-/// ²»Í¬°´Å¥¿ÉÒÔÊ¹ÓÃ²»Í¬µÄÒôÐ§
-public static class ButtonSoundExtension
+namespace Game.Water
 {
-    public static void PlayButtonClickSound()
+    /// <summary>
+    /// Í¨ï¿½ï¿½ï¿½à¼­ï¿½ï¿½ï¿½ï¿½ÓµÄ°ï¿½Å¥ï¿½ï¿½Õ¹ï¿½à£¬ï¿½ï¿½ï¿½Ú²ï¿½ï¿½Å°ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
+    /// </summary>
+    /// Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ï¿½ï¿½Í¬ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã²ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Ð§
+    public static class ButtonSoundExtension
     {
-        AudioKit.PlaySound("resources://Audio/BtnSound");
-    }
+        public static void PlayButtonClickSound()
+        {
+            AudioKit.PlaySound("resources://Audio/BtnSound");
+        }
 
-    //¿ÉÒÔÌí¼Ó¸ü¶àµÄÒôÐ§·½·¨
-    //public static void PlayButtonClickSound2()
-    //{
-    //    AudioKit.PlaySound($"resources://Audio/btnClick2");
-    //}
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½
+        //public static void PlayButtonClickSound2()
+        //{
+        //    AudioKit.PlaySound($"resources://Audio/btnClick2");
+        //}
+    }
 }

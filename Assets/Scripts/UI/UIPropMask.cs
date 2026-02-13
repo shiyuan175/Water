@@ -1,8 +1,6 @@
-using UnityEngine;
-using UnityEngine.UI;
 using QFramework;
 
-namespace QFramework.Example
+namespace Game.Water
 {
 	public class UIPropMaskData : UIPanelData
 	{

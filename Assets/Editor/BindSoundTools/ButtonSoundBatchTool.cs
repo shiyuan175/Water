@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Game.Water;
 
 public static class ButtonSoundBinder
 {
@@ -12,7 +13,7 @@ public static class ButtonSoundBinder
 
     #region Bind
 
-    // ÓÃÓÚ»ñÈ¡ ButtonSoundExtension ÀàµÄËùÓÐÎÞ²Î¾²Ì¬·½·¨
+    // ï¿½ï¿½ï¿½Ú»ï¿½È¡ ButtonSoundExtension ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ²Î¾ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½
     private static List<MethodInfo> GetStaticParameterlessMethods(Type type)
     {
         var methods = type.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
@@ -27,24 +28,24 @@ public static class ButtonSoundBinder
         return result;
     }
 
-    // ¹©Íâ²¿µ÷ÓÃ£¬µ¯´°Ñ¡Ôñ°ó¶¨·½·¨
-    [MenuItem("Assets/_°´Å¥ÒôÐ§/Ñ¡Ôñ°ó¶¨·½·¨²¢°ó¶¨°´Å¥ÒôÐ§£¨Prefab£©", false, 10)]
+    // ï¿½ï¿½ï¿½â²¿ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ó¶¨·ï¿½ï¿½ï¿½
+    [MenuItem("Assets/_ï¿½ï¿½Å¥ï¿½ï¿½Ð§/Ñ¡ï¿½ï¿½ó¶¨·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó¶¨°ï¿½Å¥ï¿½ï¿½Ð§ï¿½ï¿½Prefabï¿½ï¿½", false, 10)]
     public static void ShowBindMethodSelector()
     {
-        // »ñÈ¡ËùÓÐÎÞ²Î¾²Ì¬·½·¨
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Þ²Î¾ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½
         cachedMethods = GetStaticParameterlessMethods(typeof(ButtonSoundExtension));
         if (cachedMethods.Count == 0)
         {
-            Debug.LogWarning("Î´ÕÒµ½ÈÎºÎ·ûºÏÌõ¼þµÄ¾²Ì¬ÎÞ²Î·½·¨");
+            Debug.LogWarning("Î´ï¿½Òµï¿½ï¿½ÎºÎ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½Ì¬ï¿½Þ²Î·ï¿½ï¿½ï¿½");
             return;
         }
 
-        // µ¯³ö±à¼­Æ÷´°¿Ú£¬¹©Ñ¡Ôñ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½à¼­ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
         ButtonSoundBinderWindow.ShowWindow();
     }
 
-    // ÑéÖ¤Ñ¡ÖÐµÄÊÇPrefab
-    [MenuItem("Assets/_°´Å¥ÒôÐ§/Ñ¡Ôñ°ó¶¨·½·¨²¢°ó¶¨°´Å¥ÒôÐ§£¨Prefab£©", true)]
+    // ï¿½ï¿½Ö¤Ñ¡ï¿½Ðµï¿½ï¿½ï¿½Prefab
+    [MenuItem("Assets/_ï¿½ï¿½Å¥ï¿½ï¿½Ð§/Ñ¡ï¿½ï¿½ó¶¨·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó¶¨°ï¿½Å¥ï¿½ï¿½Ð§ï¿½ï¿½Prefabï¿½ï¿½", true)]
     public static bool ValidateShowBindMethodSelector()
     {
         return Selection.activeObject is GameObject prefab &&
@@ -54,33 +55,33 @@ public static class ButtonSoundBinder
     #endregion
 
     #region UnBind
-    [MenuItem("Assets/_°´Å¥ÒôÐ§/Ñ¡Ôñ½â°ó·½·¨²¢ÒÆ³ý°´Å¥ÒôÐ§£¨Prefab£©", false, 11)]
+    [MenuItem("Assets/_ï¿½ï¿½Å¥ï¿½ï¿½Ð§/Ñ¡ï¿½ï¿½ï¿½ó·½·ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½Å¥ï¿½ï¿½Ð§ï¿½ï¿½Prefabï¿½ï¿½", false, 11)]
     public static void ShowUnbindMethodSelector()
     {
         cachedMethods = GetStaticParameterlessMethods(typeof(ButtonSoundExtension));
         if (cachedMethods.Count == 0)
         {
-            Debug.LogWarning("Î´ÕÒµ½ÈÎºÎ·ûºÏÌõ¼þµÄ¾²Ì¬ÎÞ²Î·½·¨");
+            Debug.LogWarning("Î´ï¿½Òµï¿½ï¿½ÎºÎ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½Ì¬ï¿½Þ²Î·ï¿½ï¿½ï¿½");
             return;
         }
 
-        ButtonSoundUnbinderWindow.ShowWindow(); // µ÷ÓÃ½â°ó´°¿Ú
+        ButtonSoundUnbinderWindow.ShowWindow(); // ï¿½ï¿½ï¿½Ã½ï¿½ó´°¿ï¿½
     }
 
-    [MenuItem("Assets/_°´Å¥ÒôÐ§/Ñ¡Ôñ½â°ó·½·¨²¢ÒÆ³ý°´Å¥ÒôÐ§£¨Prefab£©", true)]
+    [MenuItem("Assets/_ï¿½ï¿½Å¥ï¿½ï¿½Ð§/Ñ¡ï¿½ï¿½ï¿½ó·½·ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½Å¥ï¿½ï¿½Ð§ï¿½ï¿½Prefabï¿½ï¿½", true)]
     public static bool ValidateShowUnbindMethodSelector()
     {
         return Selection.activeObject is GameObject prefab &&
                AssetDatabase.GetAssetPath(prefab).EndsWith(".prefab");
     }
-    /* // ½â°óÖ¸¶¨·½·¨ÊÂ¼þ
-     [MenuItem("Assets/_°´Å¥ÒôÐ§/Ñ¡Ôñ½â°ó·½·¨²¢ÒÆ³ý°´Å¥ÒôÐ§£¨Prefab£©", false, 11)]
+    /* // ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
+     [MenuItem("Assets/_ï¿½ï¿½Å¥ï¿½ï¿½Ð§/Ñ¡ï¿½ï¿½ï¿½ó·½·ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½Å¥ï¿½ï¿½Ð§ï¿½ï¿½Prefabï¿½ï¿½", false, 11)]
      public static void ShowUnbindMethodSelector()
      {
          cachedMethods = GetStaticParameterlessMethods(typeof(ButtonSoundExtension));
          if (cachedMethods.Count == 0)
          {
-             Debug.LogWarning("Î´ÕÒµ½ÈÎºÎ·ûºÏÌõ¼þµÄ¾²Ì¬ÎÞ²Î·½·¨");
+             Debug.LogWarning("Î´ï¿½Òµï¿½ï¿½ÎºÎ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½Ì¬ï¿½Þ²Î·ï¿½ï¿½ï¿½");
              return;
          }
 
@@ -88,7 +89,7 @@ public static class ButtonSoundBinder
          //ButtonSoundBinderWindow.ShowWindow(true);
      }
 
-     [MenuItem("Assets/_°´Å¥ÒôÐ§/Ñ¡Ôñ½â°ó·½·¨²¢ÒÆ³ý°´Å¥ÒôÐ§£¨Prefab£©", true)]
+     [MenuItem("Assets/_ï¿½ï¿½Å¥ï¿½ï¿½Ð§/Ñ¡ï¿½ï¿½ï¿½ó·½·ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½Å¥ï¿½ï¿½Ð§ï¿½ï¿½Prefabï¿½ï¿½", true)]
      public static bool ValidateShowUnbindMethodSelector()
      {
          return Selection.activeObject is GameObject prefab &&
@@ -96,6 +97,6 @@ public static class ButtonSoundBinder
      }*/
     #endregion
 
-    // ¹©±à¼­Æ÷´°¿Ú·ÃÎÊ·½·¨
+    // ï¿½ï¿½ï¿½à¼­ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½Ê·ï¿½ï¿½ï¿½
     public static List<MethodInfo> GetCachedMethods() => cachedMethods;
 }

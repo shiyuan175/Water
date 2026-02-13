@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections;
 using DG.Tweening;
-using GameDefine;
+using Game.Water;
+using QFramework;
 using UnityEngine;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 
-namespace QFramework.Example
+namespace Game.Water
 {
     public class UIGameNodeData : UIPanelData
     {

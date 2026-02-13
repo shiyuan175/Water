@@ -1,10 +1,9 @@
+using Game.Water;
 using QFramework;
-using Spine.Unity;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace QFramework.Example
+namespace Game.Water
 {
     public class UIGuideLevel1And2Data : UIPanelData
     {

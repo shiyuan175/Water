@@ -1,20 +1,21 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using GameDefine;
+using Game.Water;
 using UnityEngine;
 
-public class HideWaterCtrl : MonoBehaviour
+namespace Game.Water
 {
-    public List<GameObject> blackWaterGos;
-    private int _hideType = 0;
-
-    public void SetHideShow(HideWaterType hideType)
+    public class HideWaterCtrl : MonoBehaviour
     {
-        if (blackWaterGos[_hideType])
-            blackWaterGos[_hideType]?.SetActive(false);
-        _hideType = (int)hideType;
-        if (blackWaterGos[_hideType])
-            blackWaterGos[_hideType]?.SetActive(true);
+        public List<GameObject> blackWaterGos;
+        private int _hideType = 0;
+
+        public void SetHideShow(HideWaterType hideType)
+        {
+            if (blackWaterGos[_hideType])
+                blackWaterGos[_hideType]?.SetActive(false);
+            _hideType = (int)hideType;
+            if (blackWaterGos[_hideType])
+                blackWaterGos[_hideType]?.SetActive(true);
+        }
     }
 }

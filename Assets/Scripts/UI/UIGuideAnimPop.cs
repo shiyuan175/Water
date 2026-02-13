@@ -1,11 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using DG.Tweening;
 using QFramework;
-using static ATUnityCBridge;
-using System;
-using DG.Tweening;
+using UnityEngine;
 
-namespace QFramework.Example
+namespace Game.Water
 {
 	public class UIGuideAnimPopData : UIPanelData
 	{

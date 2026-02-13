@@ -1,9 +1,6 @@
-using UnityEngine;
-using UnityEngine.UI;
 using QFramework;
-using GameDefine;
 
-namespace QFramework.Example
+namespace Game.Water
 {
 	public class UIWinStreakRemoveHideData : UIPanelData
 	{

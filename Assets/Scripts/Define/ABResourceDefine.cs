@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace GameDefine
+namespace Game.Water
 {
     public class ABResourceDefine
     {

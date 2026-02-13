@@ -1,9 +1,6 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
-using QFramework;
 
-namespace QFramework.Example
+namespace Game.Water
 {
 	// Generate Id:7837cf9b-98b3-4356-abe9-eb9b17bb3f68
 	public partial class UISetting

@@ -1,344 +1,343 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WaterRenderUpdate : MonoBehaviour
+namespace Game.Water
 {
-    private static readonly int MainColor = Shader.PropertyToID("_Color");
-    private const float HALF_WATAER_WIDTH = 2.5f * 0.5f;
-    private const float CORRECT_WATER_SURFACE = 0.4f;
-    public Transform[] waterSurface;
-    public bool bBottom = false;
-    public Transform bottleTransform;
-    public Image blackWater;// 黑水的效果。
-    public Image water_grass; // 草水  
-    public Image iceEffect;// 冰效果的图片。
-    public Image water_cs; // 彩虹水  
-    public Image water_fw; // 闪亮水  
-
-    public Mesh _mesh;
-    private MeshRenderer _meshRenderer = null;
-    private MeshFilter _meshFilter = null;
-    private Material _material = null;
-    private Image _image;
-    private float _fillAmount;
-    
-    // 黑水相关辅助参数
-    public Material _blackWaterMaterial = null;
-    public MeshRenderer _blackWaterRenderer = null;
-    public MeshFilter _blackWaterFilter = null;
-
-    // 草水相关辅助参数
-    public MeshRenderer _grassEffectRenderer = null;
-    public MeshFilter _grassEffectFilter = null;
-    public Material _grassEffectMaterial = null;
-
-    // 冰效果辅助参数
-    private MeshRenderer _iceEffectRenderer = null;
-    private MeshFilter _iceEffectFilter = null;
-    private Material _iceEffectMaterial = null;
-
-    // 彩色效果辅助参数
-    private MeshRenderer _csEffectRenderer = null;
-    private MeshFilter _csEffectFilter = null;
-    private Material _csEffectMaterial = null;
-
-    // 闪亮水效果辅助参数
-    public MeshRenderer _fwEffectRenderer = null;
-    public MeshFilter _fwEffectFilter = null;
-    public Material _fwEffectMaterial = null;
-
-    private readonly Vector3[] _verts = new Vector3[4];
-
-    private void ValidMaterial()
+    public class WaterRenderUpdate : MonoBehaviour
     {
-        if (!_material)
-        {
-            if (!_meshRenderer)
-            {
-                _meshRenderer = GetComponent<MeshRenderer>();
-            }
-            _material = _meshRenderer.material;
-        }
+        private static readonly int MainColor = Shader.PropertyToID("_Color");
+        private const float HALF_WATAER_WIDTH = 2.5f * 0.5f;
+        private const float CORRECT_WATER_SURFACE = 0.4f;
+        public Transform[] waterSurface;
+        public bool bBottom = false;
+        public Transform bottleTransform;
+        public Image blackWater;// 黑水的效果。
+        public Image water_grass; // 草水  
+        public Image iceEffect;// 冰效果的图片。
+        public Image water_cs; // 彩虹水  
+        public Image water_fw; // 闪亮水  
 
-        if (!_blackWaterMaterial)
-        {
-            if (!_blackWaterRenderer)
-            {
-                _blackWaterRenderer = blackWater.GetComponent<MeshRenderer>();
-            }
-            _blackWaterMaterial = _blackWaterRenderer.material;
-        }
+        public Mesh _mesh;
+        private MeshRenderer _meshRenderer = null;
+        private MeshFilter _meshFilter = null;
+        private Material _material = null;
+        private Image _image;
+        private float _fillAmount;
+    
+        // 黑水相关辅助参数
+        public Material _blackWaterMaterial = null;
+        public MeshRenderer _blackWaterRenderer = null;
+        public MeshFilter _blackWaterFilter = null;
 
         // 草水相关辅助参数
-        if (!_grassEffectMaterial)
+        public MeshRenderer _grassEffectRenderer = null;
+        public MeshFilter _grassEffectFilter = null;
+        public Material _grassEffectMaterial = null;
+
+        // 冰效果辅助参数
+        private MeshRenderer _iceEffectRenderer = null;
+        private MeshFilter _iceEffectFilter = null;
+        private Material _iceEffectMaterial = null;
+
+        // 彩色效果辅助参数
+        private MeshRenderer _csEffectRenderer = null;
+        private MeshFilter _csEffectFilter = null;
+        private Material _csEffectMaterial = null;
+
+        // 闪亮水效果辅助参数
+        public MeshRenderer _fwEffectRenderer = null;
+        public MeshFilter _fwEffectFilter = null;
+        public Material _fwEffectMaterial = null;
+
+        private readonly Vector3[] _verts = new Vector3[4];
+
+        private void ValidMaterial()
         {
-            if (!_grassEffectRenderer)
+            if (!_material)
             {
-                _grassEffectRenderer = water_grass.GetComponent<MeshRenderer>();
+                if (!_meshRenderer)
+                {
+                    _meshRenderer = GetComponent<MeshRenderer>();
+                }
+                _material = _meshRenderer.material;
             }
 
-            _grassEffectMaterial = _grassEffectRenderer.material;
-        }
+            if (!_blackWaterMaterial)
+            {
+                if (!_blackWaterRenderer)
+                {
+                    _blackWaterRenderer = blackWater.GetComponent<MeshRenderer>();
+                }
+                _blackWaterMaterial = _blackWaterRenderer.material;
+            }
+
+            // 草水相关辅助参数
+            if (!_grassEffectMaterial)
+            {
+                if (!_grassEffectRenderer)
+                {
+                    _grassEffectRenderer = water_grass.GetComponent<MeshRenderer>();
+                }
+
+                _grassEffectMaterial = _grassEffectRenderer.material;
+            }
         
-        if (!_iceEffectMaterial)
-        {
-            if (!_iceEffectRenderer)
+            if (!_iceEffectMaterial)
             {
-                _iceEffectRenderer = iceEffect.GetComponent<MeshRenderer>();
+                if (!_iceEffectRenderer)
+                {
+                    _iceEffectRenderer = iceEffect.GetComponent<MeshRenderer>();
+                }
+                _iceEffectMaterial = _iceEffectRenderer.material;
             }
-            _iceEffectMaterial = _iceEffectRenderer.material;
-        }
 
-        if (!_csEffectMaterial)
-        {
-            if (!_csEffectRenderer)
+            if (!_csEffectMaterial)
             {
-                _csEffectRenderer = water_cs.GetComponent<MeshRenderer>();
+                if (!_csEffectRenderer)
+                {
+                    _csEffectRenderer = water_cs.GetComponent<MeshRenderer>();
+                }
+                _csEffectMaterial = _csEffectRenderer.material;
             }
-            _csEffectMaterial = _csEffectRenderer.material;
-        }
 
-        if (!_fwEffectMaterial)
-        {
-            if (!_fwEffectRenderer)
+            if (!_fwEffectMaterial)
             {
-                _fwEffectRenderer = water_fw.GetComponent<MeshRenderer>();
+                if (!_fwEffectRenderer)
+                {
+                    _fwEffectRenderer = water_fw.GetComponent<MeshRenderer>();
+                }
+                _fwEffectMaterial = _fwEffectRenderer.material;
             }
-            _fwEffectMaterial = _fwEffectRenderer.material;
         }
-    }
     
-    public Color WaterColor
-    {
-        get
+        public Color WaterColor
         {
-            ValidMaterial();
-            return _material.GetColor(MainColor);
-        }
-        set
-        {
-            ValidMaterial();
-            _material.SetColor(MainColor, value);
-        }
-    }
-
-    public float FillHeightClip
-    {
-        set
-        {
-            //Debug.Log(value + "-----------------");
-            ValidMaterial();
-            _material.SetFloat("_FillHeight", Mathf.Min(value, FillAmount));
-            //_material.SetFloat("_FillHeight", value);
-        }
-    }
-
-    protected float FillAmount
-    {
-        get => _fillAmount;
-        set
-        {
-            if (value >= 1.0f)
+            get
             {
-                _fillAmount = 1000.0f;
+                ValidMaterial();
+                return _material.GetColor(MainColor);
+            }
+            set
+            {
+                ValidMaterial();
+                _material.SetColor(MainColor, value);
+            }
+        }
+
+        public float FillHeightClip
+        {
+            set
+            {
+                //Debug.Log(value + "-----------------");
+                ValidMaterial();
+                _material.SetFloat("_FillHeight", Mathf.Min(value, FillAmount));
+                //_material.SetFloat("_FillHeight", value);
+            }
+        }
+
+        protected float FillAmount
+        {
+            get => _fillAmount;
+            set
+            {
+                if (value >= 1.0f)
+                {
+                    _fillAmount = 1000.0f;
+                }
+                else
+                {
+                    float newValue = waterSurface[1].position.y - waterSurface[0].position.y;
+                    newValue = newValue * value + waterSurface[0].position.y;
+                    _fillAmount = newValue;
+                }
+            }
+        }
+
+        public float Stencil
+        {
+            get
+            {
+                ValidMaterial();
+                return _material.GetFloat("_StencilRef");
+            }
+            set
+            {
+                ValidMaterial();
+                _material.SetFloat("_StencilRef", value);
+                _blackWaterMaterial.SetFloat("_StencilRef", value);
+                _grassEffectMaterial.SetFloat("_StencilRef", value);
+                _iceEffectMaterial.SetFloat("_StencilRef", value);
+                _csEffectMaterial.SetFloat("_StencilRef", value);
+                _fwEffectMaterial.SetFloat("_StencilRef", value);
+            }
+        }
+
+        public int RenderQueue
+        {
+            get
+            {
+                ValidMaterial();
+                return _material.renderQueue;
+            }
+            set
+            {
+                ValidMaterial();
+                _material.renderQueue = value;
+            }
+        }
+
+        public int SortingOrder
+        {
+            set
+            {
+                _meshRenderer.sortingOrder = value;
+                _blackWaterRenderer.sortingOrder = value;
+                _grassEffectRenderer.sortingOrder = value;
+                _iceEffectRenderer.sortingOrder = value;
+                _csEffectRenderer.sortingOrder = value;
+                _fwEffectRenderer.sortingOrder = value;
+            }
+        }
+
+        // public int RenderQueue
+        // {
+        //     get
+        //     {
+        //         ValidMaterial();
+        //         return _material.renderQueue;
+        //     }
+        //     set
+        //     {
+        //         ValidMaterial();
+        //         _material.renderQueue = value;
+        //         _blackWaterMaterial.renderQueue = value + 1;
+        //         _iceEffectMaterial.renderQueue = value + 1;
+        //     }
+        // }
+
+        // Start is called before the first frame update
+        void OnEnable()
+        {
+            _meshRenderer = GetComponent<MeshRenderer>();
+            _meshFilter = GetComponent<MeshFilter>();
+            _mesh = new Mesh();
+            _mesh.MarkDynamic();
+        
+            _mesh.SetVertices(_verts);
+            _mesh.triangles = new int[] {0, 1, 2, 0, 2, 3};
+            _mesh.uv = new Vector2[]
+            {
+                new Vector2(0, 0),
+                new Vector2(1, 0),
+                new Vector2(1, 1),
+                new Vector2(0, 1)
+            };
+        
+        
+            _image = GetComponent<Image>();
+        
+            _blackWaterRenderer = blackWater.GetComponent<MeshRenderer>();
+            _blackWaterFilter = blackWater.GetComponent<MeshFilter>();
+
+            // 草水相关辅助参数
+            _grassEffectRenderer = water_grass.GetComponent<MeshRenderer>();
+            _grassEffectFilter = water_grass.GetComponent<MeshFilter>();
+        
+            _iceEffectRenderer = iceEffect.GetComponent<MeshRenderer>();
+            _iceEffectFilter = iceEffect.GetComponent<MeshFilter>();
+
+            _csEffectRenderer = water_cs.GetComponent<MeshRenderer>();
+            _csEffectFilter = water_cs.GetComponent<MeshFilter>();
+
+            _fwEffectRenderer = water_fw.GetComponent<MeshRenderer>();
+            _fwEffectFilter = water_fw.GetComponent<MeshFilter>();
+
+            ValidMaterial();
+            /*_blackWaterMaterial.color = Color.black;*/
+            _blackWaterMaterial.renderQueue = 2902;
+            _blackWaterMaterial.SetFloat("_FillHeight", 1000);
+            _blackWaterMaterial.color = Color.black;
+
+            _grassEffectMaterial.renderQueue = 2902;
+            _grassEffectMaterial.SetFloat("_FillHeight", 1000);
+        
+            _iceEffectMaterial.renderQueue = 2902;
+            _iceEffectMaterial.SetFloat("_FillHeight", 1000);
+
+            _csEffectMaterial.renderQueue = 2902;
+            _csEffectMaterial.SetFloat("_FillHeight", 1000);
+
+            _fwEffectMaterial.renderQueue = 2902;
+            _fwEffectMaterial.SetFloat("_FillHeight", 1000);
+
+
+            _meshFilter.mesh = _mesh;
+            _iceEffectFilter.mesh = _mesh;
+            _blackWaterFilter.mesh = _mesh;
+            _grassEffectFilter.mesh = _mesh;
+            _csEffectFilter.mesh = _mesh;
+            _fwEffectFilter.mesh = _mesh;
+        }
+    
+        // Update is called once per frame
+        void LateUpdate()
+        {
+            if (waterSurface.Length < 2)
+            {
+                Debug.LogError("Set Water Surface!!");
+                return;
+            }
+
+            var rotation = bottleTransform.rotation;
+            // var bottleTransformRotation = bottleTransform.rotation;
+            rotation.ToAngleAxis(out float angle, out _);
+            var oneDivCos = 1.0f / Mathf.Max(Mathf.Cos(angle * Mathf.Deg2Rad), 0.001f);
+
+            // 如果欧拉角大于180，是从右侧往左到。
+            var isPourToLeft = rotation.eulerAngles.z < 180.0f;
+            var mulSigned = isPourToLeft ? -1 : 1;
+
+            Vector3 topCenter = waterSurface[1].position;
+            topCenter.y += CORRECT_WATER_SURFACE * Mathf.Abs(Mathf.Sin(angle * Mathf.Deg2Rad));
+            Vector3 bottomCenter = waterSurface[0].position;
+        
+            var halfWaterWidth = HALF_WATAER_WIDTH * oneDivCos;
+            if (bBottom)
+            {
+                Vector3 bottomRight = bottomCenter + transform.right * (HALF_WATAER_WIDTH * mulSigned);
+                bottomCenter = new Vector3(bottomCenter.x, bottomRight.y, 0);//bottomRight - new Vector3(halfWaterWidth, 0, 0);
+            }
+
+            var verts = _verts;
+            verts[0] = bottomCenter + new Vector3(-halfWaterWidth, 0, 0);
+            verts[1] = bottomCenter + new Vector3(halfWaterWidth, 0, 0);
+            verts[2] = topCenter + new Vector3(halfWaterWidth, 0, 0);
+            verts[3] = topCenter + new Vector3(-halfWaterWidth, 0, 0);
+
+            if (isPourToLeft)
+            {
+                verts[2].x = verts[1].x;
+                verts[0].x = verts[3].x;
             }
             else
             {
-                float newValue = waterSurface[1].position.y - waterSurface[0].position.y;
-                newValue = newValue * value + waterSurface[0].position.y;
-                _fillAmount = newValue;
+                verts[1].x = verts[2].x;
+                verts[3].x = verts[0].x;
+            }
+            verts[0].y = Mathf.Min(verts[0].y, verts[3].y);
+            verts[1].y = Mathf.Min(verts[1].y, verts[2].y);
+        
+            _mesh.SetVertices(verts);
+
+
+            // fillAmount
+            if (_image != null)
+            {
+                this.FillAmount = _image.fillAmount;
             }
         }
-    }
 
-    public float Stencil
-    {
-        get
-        {
-            ValidMaterial();
-            return _material.GetFloat("_StencilRef");
-        }
-        set
-        {
-            ValidMaterial();
-            _material.SetFloat("_StencilRef", value);
-            _blackWaterMaterial.SetFloat("_StencilRef", value);
-            _grassEffectMaterial.SetFloat("_StencilRef", value);
-            _iceEffectMaterial.SetFloat("_StencilRef", value);
-            _csEffectMaterial.SetFloat("_StencilRef", value);
-            _fwEffectMaterial.SetFloat("_StencilRef", value);
-        }
-    }
-
-    public int RenderQueue
-    {
-        get
-        {
-            ValidMaterial();
-            return _material.renderQueue;
-        }
-        set
-        {
-            ValidMaterial();
-            _material.renderQueue = value;
-        }
-    }
-
-    public int SortingOrder
-    {
-        set
-        {
-            _meshRenderer.sortingOrder = value;
-            _blackWaterRenderer.sortingOrder = value;
-            _grassEffectRenderer.sortingOrder = value;
-            _iceEffectRenderer.sortingOrder = value;
-            _csEffectRenderer.sortingOrder = value;
-            _fwEffectRenderer.sortingOrder = value;
-        }
-    }
-
-    // public int RenderQueue
-    // {
-    //     get
-    //     {
-    //         ValidMaterial();
-    //         return _material.renderQueue;
-    //     }
-    //     set
-    //     {
-    //         ValidMaterial();
-    //         _material.renderQueue = value;
-    //         _blackWaterMaterial.renderQueue = value + 1;
-    //         _iceEffectMaterial.renderQueue = value + 1;
-    //     }
-    // }
-
-    // Start is called before the first frame update
-    void OnEnable()
-    {
-        _meshRenderer = GetComponent<MeshRenderer>();
-        _meshFilter = GetComponent<MeshFilter>();
-        _mesh = new Mesh();
-        _mesh.MarkDynamic();
-        
-        _mesh.SetVertices(_verts);
-        _mesh.triangles = new int[] {0, 1, 2, 0, 2, 3};
-        _mesh.uv = new Vector2[]
-        {
-            new Vector2(0, 0),
-            new Vector2(1, 0),
-            new Vector2(1, 1),
-            new Vector2(0, 1)
-        };
-        
-        
-        _image = GetComponent<Image>();
-        
-        _blackWaterRenderer = blackWater.GetComponent<MeshRenderer>();
-        _blackWaterFilter = blackWater.GetComponent<MeshFilter>();
-
-        // 草水相关辅助参数
-        _grassEffectRenderer = water_grass.GetComponent<MeshRenderer>();
-        _grassEffectFilter = water_grass.GetComponent<MeshFilter>();
-        
-        _iceEffectRenderer = iceEffect.GetComponent<MeshRenderer>();
-        _iceEffectFilter = iceEffect.GetComponent<MeshFilter>();
-
-        _csEffectRenderer = water_cs.GetComponent<MeshRenderer>();
-        _csEffectFilter = water_cs.GetComponent<MeshFilter>();
-
-        _fwEffectRenderer = water_fw.GetComponent<MeshRenderer>();
-        _fwEffectFilter = water_fw.GetComponent<MeshFilter>();
-
-        ValidMaterial();
-        /*_blackWaterMaterial.color = Color.black;*/
-        _blackWaterMaterial.renderQueue = 2902;
-        _blackWaterMaterial.SetFloat("_FillHeight", 1000);
-        _blackWaterMaterial.color = Color.black;
-
-        _grassEffectMaterial.renderQueue = 2902;
-        _grassEffectMaterial.SetFloat("_FillHeight", 1000);
-        
-        _iceEffectMaterial.renderQueue = 2902;
-        _iceEffectMaterial.SetFloat("_FillHeight", 1000);
-
-        _csEffectMaterial.renderQueue = 2902;
-        _csEffectMaterial.SetFloat("_FillHeight", 1000);
-
-        _fwEffectMaterial.renderQueue = 2902;
-        _fwEffectMaterial.SetFloat("_FillHeight", 1000);
-
-
-        _meshFilter.mesh = _mesh;
-        _iceEffectFilter.mesh = _mesh;
-        _blackWaterFilter.mesh = _mesh;
-        _grassEffectFilter.mesh = _mesh;
-        _csEffectFilter.mesh = _mesh;
-        _fwEffectFilter.mesh = _mesh;
-    }
-    
-    // Update is called once per frame
-    void LateUpdate()
-    {
-        if (waterSurface.Length < 2)
-        {
-            Debug.LogError("Set Water Surface!!");
-            return;
-        }
-
-        var rotation = bottleTransform.rotation;
-        // var bottleTransformRotation = bottleTransform.rotation;
-        rotation.ToAngleAxis(out float angle, out _);
-        var oneDivCos = 1.0f / Mathf.Max(Mathf.Cos(angle * Mathf.Deg2Rad), 0.001f);
-
-        // 如果欧拉角大于180，是从右侧往左到。
-        var isPourToLeft = rotation.eulerAngles.z < 180.0f;
-        var mulSigned = isPourToLeft ? -1 : 1;
-
-        Vector3 topCenter = waterSurface[1].position;
-        topCenter.y += CORRECT_WATER_SURFACE * Mathf.Abs(Mathf.Sin(angle * Mathf.Deg2Rad));
-        Vector3 bottomCenter = waterSurface[0].position;
-        
-        var halfWaterWidth = HALF_WATAER_WIDTH * oneDivCos;
-        if (bBottom)
-        {
-            Vector3 bottomRight = bottomCenter + transform.right * (HALF_WATAER_WIDTH * mulSigned);
-            bottomCenter = new Vector3(bottomCenter.x, bottomRight.y, 0);//bottomRight - new Vector3(halfWaterWidth, 0, 0);
-        }
-
-        var verts = _verts;
-        verts[0] = bottomCenter + new Vector3(-halfWaterWidth, 0, 0);
-        verts[1] = bottomCenter + new Vector3(halfWaterWidth, 0, 0);
-        verts[2] = topCenter + new Vector3(halfWaterWidth, 0, 0);
-        verts[3] = topCenter + new Vector3(-halfWaterWidth, 0, 0);
-
-        if (isPourToLeft)
-        {
-            verts[2].x = verts[1].x;
-            verts[0].x = verts[3].x;
-        }
-        else
-        {
-            verts[1].x = verts[2].x;
-            verts[3].x = verts[0].x;
-        }
-        verts[0].y = Mathf.Min(verts[0].y, verts[3].y);
-        verts[1].y = Mathf.Min(verts[1].y, verts[2].y);
-        
-        _mesh.SetVertices(verts);
-
-
-        // fillAmount
-        if (_image != null)
-        {
-            this.FillAmount = _image.fillAmount;
-        }
-    }
-
-    /*
+        /*
     void LateUpdate()
     {
         if (waterSurface.Length < 2)
@@ -393,4 +392,5 @@ public class WaterRenderUpdate : MonoBehaviour
         }
     }
     */
+    }
 }

@@ -1,9 +1,6 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
-using QFramework;
 
-namespace QFramework.Example
+namespace Game.Water
 {
 	// Generate Id:96fd3fe5-a6e5-49e6-97b7-205c5362fe0f
 	public partial class UIGuideAnimPop

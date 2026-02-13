@@ -1,60 +1,61 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Game.Water;
 using QFramework;
-using QFramework.Example;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
+namespace Game.Water
 {
-    public TMP_InputField inputField;
-    public Button SkipBtn;
-    public Button Btnfinish;
-    public GameObject debugPanel;
-
-    private const string COMMAND = "IOQ1@#123";
-    private System.Text.StringBuilder buffer = new();
-
-    public IArchitecture GetArchitecture()
+    public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
     {
-        return GameMainArc.Interface;
-    }
+        public TMP_InputField inputField;
+        public Button SkipBtn;
+        public Button Btnfinish;
+        public GameObject debugPanel;
 
-    private void Start()
-    {
-        SkipBtn.onClick.AddListener(() =>
-        {
-            LevelManager.Instance.StartGame(int.Parse(inputField.text));
-            this.GetUtility<SaveDataUtility>().SaveLevel(int.Parse(inputField.text));
-            if (!UIKit.GetPanel<UIGameNode>())
-                UIKit.OpenPanel<UIGameNode>();
-            UIKit.GetPanel<UIGameNode>().Show();
-        });
+        private const string COMMAND = "IOQ1@#123";
+        private System.Text.StringBuilder buffer = new();
 
-        Btnfinish.onClick.AddListener(() =>
+        public IArchitecture GetArchitecture()
         {
-            StartCoroutine(LevelManager.Instance.TestFinish());
-        });
-    }
+            return GameMainArc.Interface;
+        }
 
-    private void Update()
-    {
-        if (!debugPanel.activeSelf)
+        private void Start()
         {
-            foreach (char c in Input.inputString)
+            SkipBtn.onClick.AddListener(() =>
             {
-                if (c == '\n' || c == '\r')
+                LevelManager.Instance.StartGame(int.Parse(inputField.text));
+                this.GetUtility<SaveDataUtility>().SaveLevel(int.Parse(inputField.text));
+                if (!UIKit.GetPanel<UIGameNode>())
+                    UIKit.OpenPanel<UIGameNode>();
+                UIKit.GetPanel<UIGameNode>().Show();
+            });
+
+            Btnfinish.onClick.AddListener(() =>
+            {
+                StartCoroutine(LevelManager.Instance.TestFinish());
+            });
+        }
+
+        private void Update()
+        {
+            if (!debugPanel.activeSelf)
+            {
+                foreach (char c in Input.inputString)
                 {
-                    if (buffer.ToString() == COMMAND)
+                    if (c == '\n' || c == '\r')
                     {
-                        debugPanel.Show();
-                        return;
+                        if (buffer.ToString() == COMMAND)
+                        {
+                            debugPanel.Show();
+                            return;
+                        }
+                        buffer.Clear();
+                        continue;
                     }
-                    buffer.Clear();
-                    continue;
+                    buffer.Append(c);
                 }
-                buffer.Append(c);
             }
         }
     }

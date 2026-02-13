@@ -1,45 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
-using QFramework.Example;
+using Game.Water;
 using QFramework;
 using UnityEngine;
-using Spine.Unity;
 
-public class SkipMagicSpine : MonoBehaviour
+namespace Game.Water
 {
-    private BottleWaterCtrl mCacheWater;
-
-    private void Awake()
+    public class SkipMagicSpine : MonoBehaviour
     {
-        StringEventSystem.Global.Register<BottleWaterCtrl>("CacheMagnetWater", (water) =>
-        {
-            mCacheWater = water;
+        private BottleWaterCtrl mCacheWater;
 
-        }).UnRegisterWhenGameObjectDestroyed(this);
-        this.Hide();
-    }
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        private void Awake()
         {
-            SkipSpine();
+            StringEventSystem.Global.Register<BottleWaterCtrl>("CacheMagnetWater", (water) =>
+            {
+                mCacheWater = water;
+
+            }).UnRegisterWhenGameObjectDestroyed(this);
+            this.Hide();
         }
-    }
 
-    private void OnDisable()
-    {
-        mCacheWater = null;
-    }
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                SkipSpine();
+            }
+        }
 
-    private void SkipSpine()
-    {
-        AudioKit.StopAllSound();
-        StopCoroutine(LevelManager.Instance.ShowMahoujinCoroutine());
-        if(mCacheWater != null) mCacheWater.StopPlayUseMagnet();
-        LevelManager.Instance.isPlayFxAnim = false;
-        UIKit.ClosePanel<UIMask>();
-        LevelManager.Instance.RemoveAll();
-        this.Hide();
+        private void OnDisable()
+        {
+            mCacheWater = null;
+        }
+
+        private void SkipSpine()
+        {
+            AudioKit.StopAllSound();
+            StopCoroutine(LevelManager.Instance.ShowMahoujinCoroutine());
+            if(mCacheWater != null) mCacheWater.StopPlayUseMagnet();
+            LevelManager.Instance.isPlayFxAnim = false;
+            UIKit.ClosePanel<UIMask>();
+            LevelManager.Instance.RemoveAll();
+            this.Hide();
+        }
     }
 }

@@ -1,12 +1,10 @@
-using GameDefine;
-using QFramework;
-using Spine.Unity;
 using System.Collections.Generic;
-using TMPro;
+using Game.Water;
+using QFramework;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace QFramework.Example
+namespace Game.Water
 {
     public class UIPaidItemsGuideData : UIPanelData
     {

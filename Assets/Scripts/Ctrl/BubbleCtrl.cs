@@ -1,89 +1,85 @@
-﻿using DG.Tweening;
-using QFramework.Example;
-using QFramework;
+﻿using Spine;
 using Spine.Unity;
-using Spine;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 // ע����ʾ����
-public class BubbleCtrl : MonoBehaviour
+namespace Game.Water
 {
-    [SerializeField] SkeletonGraphic spine;
-
-    // ͨ��spineui��aniʵ�֣�ani���𶯻���Ⱦ��ui������Ϸ��Ⱦ
-
-    private const string NORMAl_APPEND = "animation_white1";
-    private const string NORMAL_DISABLE = "animation_white2";
-    private const string ORIGINAL_APPEND = "animation_black1";
-    private const string ORIGINAL_DISABLE = "animation_black2";
-
-    private bool isPlayAnimation = false;
-    private void Start()
+    public class BubbleCtrl : MonoBehaviour
     {
+        [SerializeField] SkeletonGraphic spine;
+
+        // ͨ��spineui��aniʵ�֣�ani���𶯻���Ⱦ��ui������Ϸ��Ⱦ
+
+        private const string NORMAl_APPEND = "animation_white1";
+        private const string NORMAL_DISABLE = "animation_white2";
+        private const string ORIGINAL_APPEND = "animation_black1";
+        private const string ORIGINAL_DISABLE = "animation_black2";
+
+        private bool isPlayAnimation = false;
+        private void Start()
+        {
         
-    }
-
-    private void OnDisable()
-    {
-        spine.enabled = false;
-        isPlayAnimation = false;
-    }
-
-    /// <summary>
-    ///     ɾ������
-    /// </summary>
-    /// <param name="isOriginal">�Ƿ���ԭʼ����</param>
-    public void BubbleDead(bool isOriginal = false)
-    {
-        // û�����壬��ִ����ʧ����
-        if (!spine.enabled || isPlayAnimation)
-            return;
-        TrackEntry track;
-        isPlayAnimation = true;
-        if (isOriginal)
-        {
-            track = spine.AnimationState.SetAnimation(0, ORIGINAL_DISABLE, false);
-        }
-        else
-        {
-            track = spine.AnimationState.SetAnimation(0, NORMAL_DISABLE, false);
         }
 
-        track.TimeScale = 1.7f;
-        track.Complete += track =>
+        private void OnDisable()
         {
             spine.enabled = false;
             isPlayAnimation = false;
-        };
-    }
+        }
 
-    /// <summary>
-    ///     ��������
-    /// </summary>
-    /// <param name="time">����</param>
-    /// <param name="isOriginal"></param>
-    public void BubbleAppend(bool isOriginal = false, int time = 0)
-    {
-        // ����
-        if (spine.enabled)
-            return;
-        spine.enabled = true;
-        TrackEntry track;
-       if (isOriginal)
+        /// <summary>
+        ///     ɾ������
+        /// </summary>
+        /// <param name="isOriginal">�Ƿ���ԭʼ����</param>
+        public void BubbleDead(bool isOriginal = false)
         {
-            track = spine.AnimationState.SetAnimation(0, ORIGINAL_APPEND, false);
+            // û�����壬��ִ����ʧ����
+            if (!spine.enabled || isPlayAnimation)
+                return;
+            TrackEntry track;
+            isPlayAnimation = true;
+            if (isOriginal)
+            {
+                track = spine.AnimationState.SetAnimation(0, ORIGINAL_DISABLE, false);
+            }
+            else
+            {
+                track = spine.AnimationState.SetAnimation(0, NORMAL_DISABLE, false);
+            }
+
+            track.TimeScale = 1.7f;
+            track.Complete += track =>
+            {
+                spine.enabled = false;
+                isPlayAnimation = false;
+            };
         }
-        else
+
+        /// <summary>
+        ///     ��������
+        /// </summary>
+        /// <param name="time">����</param>
+        /// <param name="isOriginal"></param>
+        public void BubbleAppend(bool isOriginal = false, int time = 0)
         {
-            track = spine.AnimationState.SetAnimation(0, NORMAl_APPEND, false);
-        }
+            // ����
+            if (spine.enabled)
+                return;
+            spine.enabled = true;
+            TrackEntry track;
+            if (isOriginal)
+            {
+                track = spine.AnimationState.SetAnimation(0, ORIGINAL_APPEND, false);
+            }
+            else
+            {
+                track = spine.AnimationState.SetAnimation(0, NORMAl_APPEND, false);
+            }
 
 
       
-      /*  if (isOriginal)
+            /*  if (isOriginal)
         {
             track = spine.AnimationState.SetAnimation(0, ORIGINAL_DISABLE, false);
         }
@@ -91,6 +87,7 @@ public class BubbleCtrl : MonoBehaviour
         {
             track = spine.AnimationState.SetAnimation(0, NORMAL_DISABLE, false);
         } */
-        track.TimeScale = 1.7f;
+            track.TimeScale = 1.7f;
+        }
     }
 }
