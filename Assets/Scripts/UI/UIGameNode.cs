@@ -134,6 +134,7 @@ namespace QFramework.Example
             this.RegisterEvent<UnLockItem>(e =>
             {
                 UnLockItem(e.PropType);
+                SetItem();
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             this.RegisterEvent<LevelStartEvent>(eventId =>
@@ -371,24 +372,19 @@ namespace QFramework.Example
         {
             var level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
             gameGlobalModel = this.GetModel<GameGlobalModel>();
-            BtnAddStepBack.gameObject.SetActive(gameGlobalModel.ItemDic[1] <= 0 &&
-                                                level > (int)GameConst.NEWBIE_LEVEL_COUNT);
+            BtnAddStepBack.gameObject.SetActive(gameGlobalModel.ItemDic[1] <= 0 && BtnStepBack.transform.Find("ItemNumBg").gameObject.activeSelf);
             TxtRefreshNum.text = gameGlobalModel.ItemDic[1].ToString();
 
-            BtnAddRemove.gameObject.SetActive(gameGlobalModel.ItemDic[2] <= 0 &&
-                                              level > (int)UIGuideLevel.UIGuideLevelRemoveHide);
+            BtnAddRemove.gameObject.SetActive(gameGlobalModel.ItemDic[2] <= 0 && BtnRemoveHide.transform.Find("ItemNumBg").gameObject.activeSelf);
             TxtRemoveHideNum.text = gameGlobalModel.ItemDic[2].ToString();
 
-            BtnAddAddBottle.gameObject.SetActive(gameGlobalModel.ItemDic[3] <= 0 &&
-                                                 level > (int)GameConst.NEWBIE_LEVEL_COUNT);
+            BtnAddAddBottle.gameObject.SetActive(gameGlobalModel.ItemDic[3] <= 0 && BtnAddBottle.transform.Find("ItemNumBg").gameObject.activeSelf);
             TxtAddBottleNum.text = gameGlobalModel.ItemDic[3].ToString();
 
-            BtnAddHalfBottle.gameObject.SetActive(gameGlobalModel.ItemDic[4] <= 0 &&
-                                                  level > (int)GameConst.NEWBIE_LEVEL_COUNT);
+            BtnAddHalfBottle.gameObject.SetActive(gameGlobalModel.ItemDic[4] <= 0 && BtnHalfBottle.transform.Find("ItemNumBg").gameObject.activeSelf);
             TxtAddHalfBottleNum.text = gameGlobalModel.ItemDic[4].ToString();
 
-            BtnAddRemoveBottle.gameObject.SetActive(gameGlobalModel.ItemDic[5] <= 0 &&
-                                                    level > (int)UIGuideLevel.UIGuideLevelRemoveAll);
+            BtnAddRemoveBottle.gameObject.SetActive(gameGlobalModel.ItemDic[5] <= 0 && BtnRemoveAll.transform.Find("ItemNumBg").gameObject.activeSelf);
             TxtRemoveAllNum.text = gameGlobalModel.ItemDic[5].ToString();
         }
 
