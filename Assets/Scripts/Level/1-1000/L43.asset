@@ -104,22 +104,8 @@ MonoBehaviour:
     numCake: 4
     limitColor: 0
     isClearHide: 1
-    lockType: 0
-    BlackBottleList: 00000000
-    isBlackBottle: 0
-    CurtainHight: 0
-    isNearHide: 0
-    isFreeze: 0
-    isFinish: 0
-  - waterSet: 
-    hideTypes: 
-    waterItem: 
-    bombCounts: 
-    numCake: 4
-    limitColor: 0
-    isClearHide: 1
     lockType: 2
-    BlackBottleList: 
+    BlackBottleList: 00000000
     isBlackBottle: 0
     CurtainHight: 0
     isNearHide: 0
@@ -176,6 +162,20 @@ MonoBehaviour:
     isClearHide: 0
     lockType: 0
     BlackBottleList: 00000000
+    isBlackBottle: 0
+    CurtainHight: 0
+    isNearHide: 0
+    isFreeze: 0
+    isFinish: 0
+  - waterSet: 
+    hideTypes: 
+    waterItem: 
+    bombCounts: 
+    numCake: 4
+    limitColor: 0
+    isClearHide: 0
+    lockType: 0
+    BlackBottleList: 
     isBlackBottle: 0
     CurtainHight: 0
     isNearHide: 0
