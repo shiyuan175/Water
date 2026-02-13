@@ -420,7 +420,7 @@ namespace QFramework.Example
                     TopOnADManager.Instance.ShowVideoAd(() => { gameGlobalModel.AddItem(2, 1); }, null);
 #if UNITY_EDITOR
                     Debug.Log("模拟广告");
-                    gameGlobalModel.AddItem(2, 3);
+                    gameGlobalModel.AddItem(2, 1);
 #endif
                     return;
                 }
@@ -463,7 +463,7 @@ namespace QFramework.Example
                     TopOnADManager.Instance.ShowVideoAd(() => { gameGlobalModel.AddItem(4, 1); }, null);
 #if UNITY_EDITOR
                     Debug.Log("模拟广告");
-                    gameGlobalModel.AddItem(4, 2);
+                    gameGlobalModel.AddItem(4, 1);
 #endif
                     return;
                 }
