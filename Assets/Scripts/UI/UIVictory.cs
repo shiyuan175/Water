@@ -12,9 +12,9 @@ namespace Game.Water
 
     public partial class UIVictory : UIPanel, ICanSendEvent, ICanGetUtility, ICanGetModel
     {
-        //16关开始，每两关一个广告，50关之后，每关一个
-        private const int START_AD_LIMIT = 16;
-        private const int START_AD_LIMIT2 = 50;
+        //31开始 3关一个广告
+        private const int START_AD_LIMIT = 31;
+       
 
         private SaveDataUtility saveDataUtility;
         [SerializeField] private Sprite[] unlockSprites;
@@ -88,10 +88,7 @@ namespace Game.Water
 
             if (curLevel > START_AD_LIMIT)
             {
-                if (curLevel > START_AD_LIMIT2)
-                    TopOnADManager.Instance.ShowIntersAd(null, null);
-
-                else if (curLevel % 2 == 1)
+                if ((curLevel - START_AD_LIMIT) % 3 == 0)
                     TopOnADManager.Instance.ShowIntersAd(null, null);
             }
 

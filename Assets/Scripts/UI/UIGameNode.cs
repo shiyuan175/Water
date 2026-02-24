@@ -15,7 +15,7 @@ namespace Game.Water
     public partial class UIGameNode : UIPanel, IController, ICanSendEvent
     {
         private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
-
+        private const int RESET_BEGIN_AD_LEVEL = 31;
         [Serializable]
         public struct DifficultyStyle
         {
@@ -519,10 +519,10 @@ namespace Game.Water
 
         private void BtnResetOnClick()
         {
-            TopOnADManager.Instance.ShowIntersAd(null, () =>
+            var level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+            if (level >= RESET_BEGIN_AD_LEVEL)
             {
-                StartCoroutine(LevelManager.Instance.AdRewardCoroutine());
-            });
+                TopOnADManager.Instance.ShowIntersAd(null, () => { StartCoroutine(LevelManager.Instance.AdRewardCoroutine()); });
 #if UNITY_EDITOR
             Debug.Log("模拟广告");
             this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
@@ -530,6 +530,11 @@ namespace Game.Water
             if (UIKit.GetPanel<UIMask>())
                 UIKit.ClosePanel<UIMask>();
 #endif
+            }
+            else
+            {
+                StartCoroutine(LevelManager.Instance.AdRewardCoroutine());
+            }
         }
 
         private void OpenUIVictory()

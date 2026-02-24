@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using Game.Water;
 using QFramework;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 namespace Game.Water
 {
@@ -36,7 +38,7 @@ namespace Game.Water
         {
             //16个瓶子为上限
             if (LevelManager.Instance.nowBottles.Count >= 16
-                || LevelManager.Instance.levelId <= 5 ||
+                || LevelManager.Instance.levelId <= 4 ||
                 LevelManager.Instance.levelId == 11 ||
                 LevelManager.Instance.levelId == 20)
             {
@@ -60,7 +62,7 @@ namespace Game.Water
                 var topNode = LevelManager.Instance.topBottle[0].transform.parent;
                 mParTras.SetParent(topNode);
             }
-
+            
             LevelManager.Instance.UpdateTopLayoutSpcing();
             LevelManager.Instance.UpdateButtomLayoutSpcing();
         }
