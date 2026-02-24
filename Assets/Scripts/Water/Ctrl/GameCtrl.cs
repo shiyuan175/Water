@@ -43,7 +43,7 @@ namespace Game.Water
                 {
                     if (bottle.OnSelect(true))
                     {
-                        AudioKit.PlaySound("resources://Audio/SelectBottle");
+                        AudioKit.PlaySound("resources://Sound/WaterSound/SelectBottle");
                         FirstBottle = bottle;
                     }
 
@@ -104,7 +104,7 @@ namespace Game.Water
                         FirstBottle.MoveTo(SecondBottle);
                         FirstBottle = null;
                         SecondBottle = null;
-                        AudioKit.PlaySound("resources://Audio/PourWaterSound");
+                        AudioKit.PlaySound("resources://Sound/WaterSound/PourWaterSound");
                     }
                     else
                     {

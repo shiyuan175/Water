@@ -1,4 +1,4 @@
-using QFramework;
+﻿using QFramework;
 
 namespace Game.Water
 {
@@ -11,7 +11,7 @@ namespace Game.Water
     {
         public static void PlayButtonClickSound()
         {
-            AudioKit.PlaySound("resources://Audio/BtnSound");
+            AudioKit.PlaySound("resources://Sound/WaterSound/BtnSound");
         }
 
         //������Ӹ������Ч����

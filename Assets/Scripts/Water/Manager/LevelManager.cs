@@ -478,7 +478,7 @@ namespace Game.Water
             if (clearList.Contains(color))
                 isPlayFxAnim = true;
             yield return new WaitForSeconds(1f);
-            AudioKit.PlaySound("resources://Audio/BroomBullet");
+            AudioKit.PlaySound("resources://Sound/WaterSound/BroomBullet");
 
             nowBottles.ForEach(bottle => bottle.PlayBroomBullet(color, fromPos));
 
@@ -523,7 +523,7 @@ namespace Game.Water
         /// <returns></returns>
         public IEnumerator ShowMahoujinCoroutine()
         {
-            AudioKit.PlaySound("resources://Audio/MagicCircle");
+            AudioKit.PlaySound("resources://Sound/WaterSound/MagicCircle");
 
             isPlayFxAnim = true;
             mahoujinSpine.Show();
@@ -547,7 +547,7 @@ namespace Game.Water
         /// <param name="target"></param>
         public void ChangeColor(int from, int to, Transform target)
         {
-            AudioKit.PlaySound("resources://Audio/ChangeColor");
+            AudioKit.PlaySound("resources://Sound/WaterSound/ChangeColor");
             if (clearList.Contains(from))
             {
                 clearList.Remove(from);

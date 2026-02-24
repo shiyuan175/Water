@@ -1416,7 +1416,7 @@ namespace Game.Water
             if (!nowait)
             {
                 yield return new WaitForSeconds(2f);
-                AudioKit.PlaySound("resources://Audio/TengMan");
+                AudioKit.PlaySound("resources://Sound/WaterSound/TengMan");
             }
 
             var trackEntry = nearHide.AnimationState.SetAnimation(0, "attack", false);
@@ -1826,7 +1826,7 @@ namespace Game.Water
             isClearHide = false;
             isClearHideAnim = true;
             yield return new WaitForSeconds(1.5f);
-            AudioKit.PlaySound("resources://Audio/MagicCloth");
+            AudioKit.PlaySound("resources://Sound/WaterSound/MagicCloth");
 
             //加入事件
             TrackEntry trackEntry = null;
@@ -2000,7 +2000,7 @@ namespace Game.Water
             //藤曼底座
             if (isFreeze)
             {
-                AudioKit.PlaySound("resources://Audio/ThornBase");
+                AudioKit.PlaySound("resources://Sound/WaterSound/ThornBase");
                 freezeSpine.AnimationState.SetAnimation(0, "attack", false);
             }
 
@@ -2121,12 +2121,12 @@ namespace Game.Water
 
             //等待水倒进去
             yield return new WaitForSeconds(0.8f);
-            AudioKit.PlaySound("resources://Audio/Finish");
+            AudioKit.PlaySound("resources://Sound/WaterSound/Finish");
             StartCoroutine(PlayBottleCapSound());
 
             if (isFreeze)
             {
-                AudioKit.PlaySound("resources://Audio/ThornBase");
+                AudioKit.PlaySound("resources://Sound/WaterSound/ThornBase");
                 freezeSpine.AnimationState.SetAnimation(0, "attack", false);
             }
 
@@ -2164,7 +2164,7 @@ namespace Game.Water
         private IEnumerator PlayBottleCapSound()
         {
             yield return new WaitForSeconds(1f);
-            AudioKit.PlaySound("resources://Audio/BottleCap");
+            AudioKit.PlaySound("resources://Sound/WaterSound/BottleCap");
         }
 
         #endregion

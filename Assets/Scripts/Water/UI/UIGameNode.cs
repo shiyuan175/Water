@@ -545,7 +545,7 @@ namespace Game.Water
                 {
                     if (UIKit.GetPanel<UIMask>())
                         UIKit.ClosePanel<UIMask>();
-                    var sound = AudioKit.PlaySound("resources://Audio/Victory",volume: 0.7f);
+                    var sound = AudioKit.PlaySound("resources://Sound/WaterSound/Victory", volume: 0.7f);
                     UIKit.OpenPanel<UIVictory>();
                 }).Start(this);
             }

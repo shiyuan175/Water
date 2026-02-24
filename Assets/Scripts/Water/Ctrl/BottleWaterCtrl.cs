@@ -251,7 +251,7 @@ namespace Game.Water
             fireRuneGo.SetActive(true);
             fireRuneSpine.AnimationState.SetAnimation(0, "combine", false);
 
-            AudioKit.PlaySound("resources://Audio/FireBreakIce");
+            AudioKit.PlaySound("resources://Sound/WaterSound/FireBreakIce");
             yield return new WaitForSeconds(1.2f);
 
             var go = GameObject.Instantiate(fireRuneGo, transform);
