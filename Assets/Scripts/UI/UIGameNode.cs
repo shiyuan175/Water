@@ -547,5 +547,18 @@ namespace Game.Water
 
             mIsOpenUIVictory = true;
         }
+
+        public Sprite GetItemSprite(NormalRewardsType itemType)
+        {
+            return itemType switch
+            {
+                NormalRewardsType.StepBack => BtnStepBack.transform.Find("ImgItem").GetComponent<Image>().sprite,
+                NormalRewardsType.RemoveHide => BtnRemoveHide.transform.Find("ImgItem").GetComponent<Image>().sprite,
+                NormalRewardsType.AddOneBottle => BtnAddBottle.transform.Find("ImgItem").GetComponent<Image>().sprite,
+                NormalRewardsType.AddHalfBottle => BtnHalfBottle.transform.Find("ImgItem").GetComponent<Image>().sprite,
+                NormalRewardsType.RemoveAll => BtnRemoveAll.transform.Find("ImgItem").GetComponent<Image>().sprite,
+                _ => null
+            };
+        }
     }
 }

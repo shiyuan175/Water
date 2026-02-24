@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Game.Water;
 using QFramework;
 using UnityEngine;
@@ -14,7 +14,7 @@ namespace Game.Water
     public partial class UIPaidItemsGuide : UIPanel, ICanGetModel, ICanSendEvent
     {
         private const int DelItemCount = 1;
-        private readonly Dictionary<NormalRewardsType, string> PropRules = new Dictionary<NormalRewardsType, string>
+        private readonly Dictionary<NormalRewardsType, string> PropRules = new()
         {
             { NormalRewardsType.StepBack, "Take a step back" },
             { NormalRewardsType.RemoveHide, "Remove the black mark" },
@@ -86,6 +86,7 @@ namespace Game.Water
                 }
             }
         }
+
         private void InitUI()
         {
             //�ڵ�����
@@ -107,7 +108,7 @@ namespace Game.Water
 
             //�ı���ֵ
             TxtItemDetails_Red.text = PropRules[mData.PropType];
-            ImgItem.sprite = RewardUIManager.Instance.GetRewardSprite(mData.PropType);
+            ImgItem.sprite = UIKit.GetPanel<UIGameNode>().GetItemSprite(mData.PropType);
         }
 
         private void BindBtn()
