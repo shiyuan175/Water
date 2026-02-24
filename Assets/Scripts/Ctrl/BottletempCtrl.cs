@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -1384,32 +1384,6 @@ namespace Game.Water
 
         #endregion
 
-        #region 增加水块--魔法帽
-
-        /// <summary>
-        ///     增加颜色
-        /// </summary>
-        /// <returns></returns>
-        public void AddColor(int color, Vector3 fromPos)
-        {
-            if (waters.Count < maxNum)
-            {
-                waters.Add(color);
-                var fx = Instantiate(LevelManager.Instance.createFx[color - 1], fromPos, Quaternion.identity);
-                fx.transform.SetParent(LevelManager.Instance.gameCanvas);
-                //Debug.Log("fx " + waterImg[topIdx].transform.name);
-                var useIdx = topIdx;
-
-                var tween = fx.transform.DOMove(waterNode[useIdx].transform.position, 1f);
-                tween.OnComplete(() => { Destroy(fx); })
-                    .OnUpdate(() => { tween.SetTarget(waterNode[useIdx].transform.position); });
-
-                waterItems.Add(WaterItem.None);
-            }
-        }
-
-        #endregion
-
         #region 陶瓷瓶机制
 
         /// <summary>
@@ -1976,19 +1950,6 @@ namespace Game.Water
 
             SetBottleColor();
             // CheckFinish();
-        }
-
-        /// <summary>
-        ///     星星特效(去除黑水)
-        /// </summary>
-        public void StarSetHideShow()
-        {
-            for (var i = 0; i < hideTypes.Count; i++)
-                if (hideTypes[i] == HideWaterType.HideWater)
-                {
-                    waterImg[i].PlayStarBlackWaterEffect();
-                    hideTypes[i] = HideWaterType.None;
-                }
         }
 
         /// <summary>

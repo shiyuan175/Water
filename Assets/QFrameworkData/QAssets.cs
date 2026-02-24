@@ -14,10 +14,7 @@ namespace QAssetBundle
     public class Font
     {
         public const string BundleName = "font";
-        public const string DefaultFontAsset = "DefaultFontAsset";
         public const string FontAll = "FontAll";
-        public const string hanzi = "hanzi";
-        public const string KoCharacter = "KoCharacter";
         public const string red = "red";
         public const string SourceHanSansCNBold = "SourceHanSansCN-Bold";
     }

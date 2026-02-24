@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Reflection;
 using DG.Tweening;
@@ -24,7 +24,6 @@ namespace Game.Water
             thunderSpine,
             broomAfterSpine,
             fireRuneSpine,
-            starBlackWater,
             BombBlackWaterSpine,
             InWaterItem;
 
@@ -358,17 +357,6 @@ namespace Game.Water
 
                 }
             }
-        }
-
-        public void PlayStarBlackWaterEffect()
-        {
-            HideGo.SetActive(false);
-            starBlackWater.Show();
-            TrackEntry entry = starBlackWater.AnimationState.SetAnimation(0, "attack", false);
-            entry.Complete += (trackEntry) =>
-            {
-                starBlackWater.Hide();
-            };
         }
 
         /// <summary>

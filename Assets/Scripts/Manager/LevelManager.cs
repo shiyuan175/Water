@@ -34,7 +34,6 @@ namespace Game.Water
 
         public LevelCreateCtrl.BottleProperty emptyBottle = new();
         public Transform gameCanvas;
-        public List<GameObject> createFx = new List<GameObject>();
         public LevelCreateCtrl nowLevel;
         public Color ItemColor;
 
@@ -405,11 +404,6 @@ namespace Game.Water
                     ShowMahoujin();
                     break;
 
-                //添加单色(目前机制无使用)
-                case ItemType.MakeColorItem:
-                    StartCoroutine(AddColor(fromPos));
-                    break;
-
                 //黑水炸弹
                 case ItemType.BombBlackWater:
                     RandomHalfBlackWater();
@@ -543,62 +537,6 @@ namespace Game.Water
             RemoveAll();
             mahoujinSpine.Hide();
             isPlayFxAnim = false;
-        }
-
-        /// <summary>
-        /// 添加颜色(魔法帽)
-        /// </summary>
-        /// <param name="fromPos"></param>
-        /// <returns></returns>
-        IEnumerator AddColor(Vector3 fromPos)
-        {
-            AudioKit.PlaySound("resources://Audio/AddColor");
-
-            yield return new WaitForSeconds(1f);
-            var bottleList = GetMakeColorBottle();
-            var useBottles = new List<BottletempCtrl>();
-            int addIdx = 0;
-            while (hideColor.Count != 0)
-            {
-                int addColorIdx = UnityEngine.Random.Range(0, hideColor.Count);
-                int addColor = hideColor[addColorIdx];
-                var useBottle = bottleList[addIdx];
-                if (useBottle.waters.Count < useBottle.maxNum)
-                {
-                    useBottles.Add(useBottle);
-                    useBottle.AddColor(addColor, fromPos);
-                    hideColor.RemoveAt(addColorIdx);
-                    //Debug.Log("添加颜色 " + addColor);
-                }
-                else
-                {
-                    addIdx++;
-                }
-            }
-
-            foreach (var bottle in useBottles)
-            {
-                StartCoroutine(bottle.FinishHide());
-            }
-
-            UIKit.ClosePanel<UIMask>();
-        }
-
-        /// <summary>
-        /// 判断能加色的瓶子
-        /// </summary>
-        /// <returns></returns>
-        public List<BottletempCtrl> GetMakeColorBottle()
-        {
-            var ret = new List<BottletempCtrl>();
-            foreach (var bottle in nowBottles)
-            {
-                if (!bottle.isFreeze && bottle.waters.Count < 4 && !bottle.isClearHide && !bottle.isNearHide)
-                {
-                    ret.Add(bottle);
-                }
-            }
-            return ret;
         }
 
         /// <summary>
