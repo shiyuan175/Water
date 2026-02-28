@@ -252,6 +252,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f87f76483e142464496cbb7764a31340, type: 2}
   - {fileID: 11400000, guid: b1f675aeb6ab282478747886c357687c, type: 2}
   unlockSprites:
+  - {fileID: 21300000, guid: 36cc90c6145cb9b4ba56c681880a063c, type: 3}
   - {fileID: 21300000, guid: a76d46cc433feab469eeaea303fc2d48, type: 3}
   - {fileID: 21300000, guid: 6a996ae7c2771a14b9edde30747ae4d7, type: 3}
   - {fileID: 21300000, guid: 04e398c181aaed541809b4d181995cbe, type: 3}
@@ -262,7 +263,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8f3669342271c5543a54589781289ec3, type: 3}
   - {fileID: 21300000, guid: 8f0173d9b48b0344790801f8c978d52b, type: 3}
   - {fileID: 21300000, guid: e928c94528cbee845bff011a18b1e08b, type: 3}
-  - {fileID: 21300000, guid: 6a996ae7c2771a14b9edde30747ae4d7, type: 3}
+  - {fileID: 21300000, guid: 4c46db995592d534690d15cb6bf22536, type: 3}
   - {fileID: 21300000, guid: bc22ff3cf2971594b8ba24e972884778, type: 3}
   - {fileID: 21300000, guid: 03ac86a3c66e8df4480fb04fa47c97ac, type: 3}
   - {fileID: 21300000, guid: 08add5b3a6216fd488474e6598f7a24b, type: 3}
