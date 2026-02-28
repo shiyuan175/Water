@@ -19,7 +19,7 @@ namespace Game.Water
         private SaveDataUtility saveDataUtility;
         [SerializeField] private Sprite[] unlockSprites;
         private readonly int[] UNLOCKLEVEL = new int[]
-            { 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 121, 141, 161, 181, 201, 221, 301, 401 };
+            { 3, 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 121, 141, 161, 181, 201, 301, 401 };
 
         public Material TMPFont_red;
         public IArchitecture GetArchitecture()
