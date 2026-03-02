@@ -15,7 +15,7 @@ public class LevelObjectCreator : EditorWindow
     private string baseName = "Level";
     private int soStartNum = 1;
     private int soEndNum = 1;
-    private string folderPath = "Assets/Scripts/Level/1-1000";
+    private string folderPath = "Assets/Scripts/Water/Level/1-1000";
     #endregion
 
     #region LevelManager
