@@ -35,7 +35,7 @@ namespace QFramework.Example
         private const int REWARD_INTERVAL = 7;
 
         private readonly int[] UNLOCKLEVEL = new int[]
-            { 3, 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 121, 141, 161, 181, 201, 301, 401 };
+            { 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 121, 141, 161, 181, 201, 301, 401 };
 
         //17关开始，每两关一个广告，50关之后，每关一个
         private const int START_AD_LIMIT = 17;
