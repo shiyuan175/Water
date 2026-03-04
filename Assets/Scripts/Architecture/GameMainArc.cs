@@ -62,7 +62,6 @@ public class GameMainArc : Architecture<GameMainArc>
         //ResourceManager.Instance.LoadABPackage("uilevelmain_prefab");
         //ResourceManager.Instance.LoadFont();
         TextManager textManager = TextManager.Instance;
-        TenjinManager tenjinManager = TenjinManager.Instance;
         TopOnADManager topOnADManager = TopOnADManager.Instance;
         HealthManager healthManager = HealthManager.Instance;
         CountDownTimerManager.Instance.StartEasternMidnightTimer(GameDefine.GameConst.FIRST_LAUNCH_SIGN);

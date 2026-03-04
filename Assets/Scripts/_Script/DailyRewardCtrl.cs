@@ -16,7 +16,7 @@ public class DailyRewardCtrl : MonoBehaviour, ICanGetModel, ICanGetUtility
     private void OnEnable()
     {
         if (mGameGlobalModel == null) return;
-
+        
         var mClaimMark =
             (bool)mGameGlobalModel.GetFieldValue(mGameGlobalModel.DailyRewardJsonData, mDailyReward_ByGiftPack.ID);
         if (mClaimMark) mClaimBtn.interactable = false;

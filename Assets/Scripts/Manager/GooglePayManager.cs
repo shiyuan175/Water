@@ -4,7 +4,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
-
 public class GooglePayManager : MonoSingleton<GooglePayManager>, IDetailedStoreListener
 {
     IStoreController m_StoreController; // The Unity Purchasing system.
@@ -62,11 +61,11 @@ public class GooglePayManager : MonoSingleton<GooglePayManager>, IDetailedStoreL
         builder.AddProduct("dgpack_vip", ProductType.Consumable);
 
         UnityPurchasing.Initialize(this, builder);
-    }
-
+    }     
     //购买时调用的接口，外部只需调用这一个接口即可
     public void BuyProduct(string pruductid)
     {
+        Debug.Log(pruductid);
         m_StoreController.InitiatePurchase(m_StoreController.products.WithID(pruductid));
     }
 

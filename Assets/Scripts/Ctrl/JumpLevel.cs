@@ -21,7 +21,6 @@ public class JumpLevel : MonoBehaviour, ICanSendEvent, ICanGetUtility
     // Start is called before the first frame update
     void Start()
     {
-        
         button.onClick.AddListener(() =>
         {
             LevelManager.Instance.StartGame(int.Parse(inputField.text));
