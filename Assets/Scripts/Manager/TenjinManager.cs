@@ -1,10 +1,12 @@
-using QFramework;
+﻿using QFramework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TenjinManager: MonoSingleton<TenjinManager>
 {
+    BaseTenjin instance;
+
     public override void OnSingletonInit()
     {
         TenjinConnect();
@@ -21,7 +23,7 @@ public class TenjinManager: MonoSingleton<TenjinManager>
     public void TenjinConnect()
     {
         //Debug.Log("Tenjin StartConnect0");
-        BaseTenjin instance = Tenjin.getInstance("C3AFW296ESTHECCHFBLL1BTSS6DQKYVA");
+        instance = Tenjin.getInstance("C3AFW296ESTHECCHFBLL1BTSS6DQKYVA");
         //Debug.Log("Tenjin StartConnect1");
 
 #if UNITY_ANDROID
@@ -30,6 +32,7 @@ public class TenjinManager: MonoSingleton<TenjinManager>
         instance.SetAppStoreType(AppStoreType.googleplay);
         // Sends install/open event to Tenjin
         instance.Connect();
+        instance.SubscribeTopOnImpressions();
 #endif
     }
 }

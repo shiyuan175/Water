@@ -1,11 +1,9 @@
-using QFramework;
+﻿using QFramework;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using UnityEngine;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
-using UnityEngine.SocialPlatforms;
 
 [MonoSingletonPath("[Share]/ShareManager")]
 public class ShareManager : MonoSingleton<ShareManager>, ICanGetUtility, ICanSendEvent
