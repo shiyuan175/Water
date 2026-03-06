@@ -1,6 +1,7 @@
 ﻿using QFramework;
 using System;
 using System.Collections;
+using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
@@ -61,7 +62,21 @@ public class GooglePayManager : MonoSingleton<GooglePayManager>, IDetailedStoreL
         builder.AddProduct("dgpack_vip", ProductType.Consumable);
 
         UnityPurchasing.Initialize(this, builder);
-    }     
+    }
+
+    private async void Awake()
+    {
+        try
+        {
+            await UnityServices.InitializeAsync();
+            Debug.Log("UnityServices Initialized");
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
+    }
+
     //购买时调用的接口，外部只需调用这一个接口即可
     public void BuyProduct(string pruductid)
     {
