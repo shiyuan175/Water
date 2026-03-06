@@ -1,9 +1,11 @@
-using QFramework;
+﻿using QFramework;
 
 namespace Game.Water
 {
     public class TenjinManager: MonoSingleton<TenjinManager>
     {
+        BaseTenjin instance;
+
         public override void OnSingletonInit()
         {
             TenjinConnect();
@@ -20,7 +22,7 @@ namespace Game.Water
         public void TenjinConnect()
         {
             //Debug.Log("Tenjin StartConnect0");
-            BaseTenjin instance = Tenjin.getInstance("MFAFMW4JY4QGETYG3BTDD7XOAG5WIW3F");
+            instance = Tenjin.getInstance("MFAFMW4JY4QGETYG3BTDD7XOAG5WIW3F");
             //Debug.Log("Tenjin StartConnect1");
 
 #if UNITY_ANDROID
@@ -29,6 +31,7 @@ namespace Game.Water
             instance.SetAppStoreType(AppStoreType.googleplay);
             // Sends install/open event to Tenjin
             instance.Connect();
+            instance.SubscribeTopOnImpressions();
 #endif
         }
     }
