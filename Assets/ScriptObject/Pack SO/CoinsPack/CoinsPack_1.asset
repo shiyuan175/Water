@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41af467769a5a6c41b484ef48ed521f0, type: 3}
   m_Name: CoinsPack_1
   m_EditorClassIdentifier: 
-  PackID: gold_1
+  PackID: gold_1_b
   coins: 1000
   items: []
-  unlimitedHp: 0
-  removeAds: 0
+  specialsItem: []

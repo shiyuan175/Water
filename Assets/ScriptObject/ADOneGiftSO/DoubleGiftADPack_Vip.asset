@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41af467769a5a6c41b484ef48ed521f0, type: 3}
   m_Name: DoubleGiftADPack_Vip
   m_EditorClassIdentifier: 
-  PackID: dgpack_vip
+  PackID: dgpack_vip_b
   coins: 0
-  removeAdsForever: 0
   items:
   - normalRewardsType: 3
     quantity: 15
