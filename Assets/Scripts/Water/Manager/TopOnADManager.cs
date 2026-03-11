@@ -1,6 +1,7 @@
 ﻿using System;
 using AnyThinkAds.Api;
 using QFramework;
+using QFramework.Example;
 
 namespace Game.Water
 {
@@ -97,6 +98,7 @@ namespace Game.Water
                 return true;
             }
 
+            UIKit.OpenPanel<UIPopUpWindow>();
             return false;
         }
 
@@ -111,6 +113,8 @@ namespace Game.Water
                 intersCloseAction = onAdClose;
                 return true;
             }
+
+            UIKit.OpenPanel<UIPopUpWindow>();
             return false;
         }
     }
