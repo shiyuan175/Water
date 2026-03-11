@@ -7,15 +7,9 @@ namespace Game.Water
     [MonoSingletonPath("[Analytics]/TopOnADManager")]
     public class TopOnADManager: MonoSingleton<TopOnADManager>
     {
-        //ȫ�Զ����ز������ͼ������
-        private readonly string mPlacementId_rewardvideo_all = "b69718fcb63294"; //�������ID
+        private readonly string mPlacementId_rewardvideo_all = "b69718fcb63294"; 
+        private readonly string mPlacementId_interstitial_all = "b69718fcc0a9fb"; 
 
-        private readonly string mPlacementId_interstitial_all = "b69718fcc0a9fb"; //�������ID
-
-        //private readonly string mPlacementId_rewardvideo_all = "b1gfnjso5u3hej";      //�������ID
-        //private readonly string mPlacementId_interstitial_all = "b1gfnjso5u3p46";     //�������ID
-        //private readonly string mPlacementId_rewardvideo_all = "b1fn8aua8i1k5i";
-        //private readonly string mPlacementId_interstitial_all = "b1fn8aua8i1s42";
         private Action videoRewardAction;
         private Action videoCloseAction;
 
