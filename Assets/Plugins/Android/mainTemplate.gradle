@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+﻿apply plugin: 'com.android.library'
 **APPLY_PLUGINS**
 
 dependencies {
@@ -40,7 +40,7 @@ configurations.all {
 
 // Android Resolver Exclusions Start
 android {
-	namespace "com.unity3d.player"
+	namespace "com.Baolie.Water"
   packagingOptions {
       exclude ('/lib/armeabi/*' + '*')
       exclude ('/lib/mips/*' + '*')
