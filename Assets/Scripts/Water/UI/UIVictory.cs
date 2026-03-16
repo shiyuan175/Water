@@ -19,7 +19,7 @@ namespace Game.Water
         private SaveDataUtility saveDataUtility;
         [SerializeField] private Sprite[] unlockSprites;
         private readonly int[] UNLOCKLEVEL = new int[]
-            { 3, 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 121, 141, 161, 181, 201, 301, 401 };
+            { 3, 11, 31, 41, 51, 61, 71, 81, 91, 101, 141, 171, 161, 181, 201, 251, 321, 401 };
 
         public Material TMPFont_red;
         public IArchitecture GetArchitecture()
@@ -88,7 +88,7 @@ namespace Game.Water
 
             if (curLevel > START_AD_LIMIT)
             {
-                if ((curLevel - START_AD_LIMIT) % 3 == 0)
+                if ((curLevel - START_AD_LIMIT) % 2 == 0)
                     TopOnADManager.Instance.ShowIntersAd(null, null);
             }
 

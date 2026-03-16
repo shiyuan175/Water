@@ -14,48 +14,53 @@ namespace QAssetBundle
     public class Font
     {
         public const string BundleName = "font";
-        public const string FontAll = "FontAll";
-        public const string red = "red";
-        public const string SourceHanSansCNBold = "SourceHanSansCN-Bold";
+        public const string FONTALL = "FontAll";
+        public const string RED = "red";
+        public const string SOURCEHANSANSCNBOLD = "SourceHanSansCN-Bold";
     }
     public class Uigamenode_prefab
     {
         public const string BundleName = "uigamenode_prefab";
-        public const string UIGameNode = "UIGameNode";
+        public const string UIGAMENODE = "UIGameNode";
     }
     public class Uiguideanimpop_prefab
     {
         public const string BundleName = "uiguideanimpop_prefab";
-        public const string UIGuideAnimPop = "UIGuideAnimPop";
+        public const string UIGUIDEANIMPOP = "UIGuideAnimPop";
     }
     public class Uiguidelevel1_prefab
     {
         public const string BundleName = "uiguidelevel1_prefab";
-        public const string UIGuideLevel1And2 = "UIGuideLevel1And2";
+        public const string UIGUIDELEVEL1AND2 = "UIGuideLevel1And2";
     }
     public class Uimask_prefab
     {
         public const string BundleName = "uimask_prefab";
-        public const string UIMask = "UIMask";
+        public const string UIMASK = "UIMask";
     }
     public class Uipaiditemsguide_prefab
     {
         public const string BundleName = "uipaiditemsguide_prefab";
-        public const string UIPaidItemsGuide = "UIPaidItemsGuide";
+        public const string UIPAIDITEMSGUIDE = "UIPaidItemsGuide";
+    }
+    public class Uipopupwindow_prefab
+    {
+        public const string BundleName = "uipopupwindow_prefab";
+        public const string UIPOPUPWINDOW = "UIPopUpWindow";
     }
     public class Uipropmask_prefab
     {
         public const string BundleName = "uipropmask_prefab";
-        public const string UIPropMask = "UIPropMask";
+        public const string UIPROPMASK = "UIPropMask";
     }
     public class Uisetting_prefab
     {
         public const string BundleName = "uisetting_prefab";
-        public const string UISetting = "UISetting";
+        public const string UISETTING = "UISetting";
     }
     public class Uivictory_prefab
     {
         public const string BundleName = "uivictory_prefab";
-        public const string UIVictory = "UIVictory";
+        public const string UIVICTORY = "UIVictory";
     }
 }

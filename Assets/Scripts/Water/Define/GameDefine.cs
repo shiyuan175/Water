@@ -9,7 +9,7 @@ namespace Game.Water
     public static class GameConst
     {
         //新手关(前五关)
-        public const int NEWBIE_LEVEL_COUNT = 5;
+        public const int NEWBIE_LEVEL_COUNT = 0;
         public const int ITEM_COUNT = 5;
         //活动开启目标关卡
         public const int IN_GAME_RANK_BEGIN_LEVEL = 6; //游戏内段位       
@@ -24,8 +24,8 @@ namespace Game.Water
             {
                 /*{ 3, (3, -1, "Sort the gemstone color to lift the cloth") },
                 { 3, (3, -1, "Sort the gemstone color to lift the cloth") },*/
-                { 11, (0, -1, "Get the bomb to the surface before it explodes.") },
-                { 21, (0, -1, "Water with Fire Emblem can thaw ice after being crafted") },
+
+                { 11, (-10, -1, "White Cat helps you eliminate one black obstruction per step.") },
                 { 31, (0, -1, "The water bottle entangled by the vines cannot be moved") },
                 { 41, (2, -1, "When water bottles adjacent to a ceramic bottle are combined, the ceramic bottle will break") },
                 { 51, (2, -1, "Bottles with gemstone emblems can only be filled with water of the same color as the gemstone") },
@@ -33,13 +33,14 @@ namespace Game.Water
                 { 71, (0, 1, "Combining two brooms can remove water of the same color") },
                 { 81, (0, -1, "Each time you synthesize a water, all curtains drop one grid.") },
                 { 91, (0, -1, "When the grass ball is on the top water surface, it spawns grass covering the water tiles.") },
-                { 101, (0, -1, "The bomb will explode when the countdown ends. Please synthesize water with bombs as soon as possible.") },
-                { 121, (-10, -1, "White Cat helps you eliminate one black obstruction per step.") },
+                { 101, (0, -1, "Get the bomb to the surface before it explodes.") },
                 { 141, (-10, -1, "Black Cat spawns one black obstruction per subsequent step after 5 moves, until enough are created.") },
                 { 161, (1, -1, "A bottle is generated after synthesizing sparkling water.") },
+                { 171, (0, -1, "Water with Fire Emblem can thaw ice after being crafted") },
                 { 181, (1, 3, "Combining two potion bottles can change 4 water of the same color") },
                 { 201, (9, 11, "Two question mark balls synthesized spawn some black obstructions.") },
-                { 301, (0, 1, "Synthesizing a magic book can remove all negative effects") },
+                { 251, (0, -1, "The bomb will explode when the countdown ends. Please synthesize water with bombs as soon as possible.") },
+                { 321, (0, 1, "Synthesizing a magic book can remove all negative effects") },
                 { 401, (2, -1, "The black obstruction on the bottle never disappears; lifting the bottle reveals the water color") }
             };
     }

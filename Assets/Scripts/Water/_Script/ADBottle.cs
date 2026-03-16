@@ -38,7 +38,7 @@ namespace Game.Water
         {
             //16个瓶子为上限
             if (LevelManager.Instance.nowBottles.Count >= 16
-                || LevelManager.Instance.levelId <= 4 ||
+                || LevelManager.Instance.levelId <= 30 ||
                 LevelManager.Instance.levelId == 11 ||
                 LevelManager.Instance.levelId == 20)
             {

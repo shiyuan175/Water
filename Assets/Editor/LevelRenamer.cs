@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 /// <summary>
-/// ¹Ø¿¨ÖØÃüÃû¹¤¾ß£¬×¨ÃÅÓÃÓÚ½« L1-L100 ÖØÃüÃûÎª Level120-Level220
+/// å…³å¡é‡å‘½åå·¥å…·ï¼šä¸“é—¨ç”¨äºå°† L1-L100 é‡å‘½åä¸º Level120-Level220
 /// </summary>
 public class LevelRenamer : EditorWindow
 {
-    #region ÖØÃüÃûÅäÖÃ
-    private string sourceFolderPath = "Assets/Scripts/Level/";
+    #region å¯é…ç½®å‚æ•°
+
+    private string sourceFolderPath = "Assets/Scripts/Water/Level/";
     private string originalPrefix = "L";
     private string newPrefix = "Level";
     private int startOffset = 119; // L1 -> Level120 (1 + 119 = 120)
@@ -38,24 +39,24 @@ public class LevelRenamer : EditorWindow
         endNumber = EditorGUILayout.IntField("End Number:", endNumber);
 
         EditorGUILayout.Space();
-        GUILayout.Label($"ÖØÃüÃû¹æÔò: {originalPrefix}[1-100] ¡ú {newPrefix}[{120}-{220}]", EditorStyles.boldLabel);
-        EditorGUILayout.HelpBox($"Õâ½«°Ñ {originalPrefix}{startNumber}-{originalPrefix}{endNumber} ÖØÃüÃûÎª {newPrefix}{startNumber + startOffset}-{newPrefix}{endNumber + startOffset}", MessageType.Info);
+        GUILayout.Label($"é‡å‘½åè§„åˆ™: {originalPrefix}[1-100] è½¬æ¢ä¸º {newPrefix}[{120}-{220}]", EditorStyles.boldLabel);
+        EditorGUILayout.HelpBox($"è¿™å°†æŠŠ {originalPrefix}{startNumber}-{originalPrefix}{endNumber} é‡å‘½åä¸º {newPrefix}{startNumber + startOffset}-{newPrefix}{endNumber + startOffset}", MessageType.Info);
 
-        if (GUILayout.Button("Ö´ĞĞÖØÃüÃû", GUILayout.Height(30)))
+        if (GUILayout.Button("æ‰§è¡Œé‡å‘½å", GUILayout.Height(30)))
         {
             ExecuteRename();
         }
 
         EditorGUILayout.Space();
 
-        if (GUILayout.Button("Ô¤ÀÀÖØÃüÃû½á¹û"))
+        if (GUILayout.Button("é¢„è§ˆé‡å‘½åç»“æœ"))
         {
             PreviewRename();
         }
     }
 
     /// <summary>
-    /// Ô¤ÀÀÖØÃüÃû½á¹û
+    /// é¢„è§ˆé‡å‘½åç»“æœ
     /// </summary>
     private void PreviewRename()
     {
@@ -72,44 +73,44 @@ public class LevelRenamer : EditorWindow
             return;
         }
 
-        Debug.Log("=== Ô¤ÀÀÖØÃüÃû½á¹û ===");
+        Debug.Log("=== é¢„è§ˆé‡å‘½åç»“æœ ===");
 
         foreach (var guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
             string fileName = Path.GetFileNameWithoutExtension(path);
 
-            // ³¢ÊÔÆ¥ÅäÔ­Ê¼¸ñÊ½ L + Êı×Ö
+            // æ­£åˆ™åŒ¹é…åŸå§‹æ ¼å¼ L + æ•°å­—
             Match match = Regex.Match(fileName, $@"^{Regex.Escape(originalPrefix)}(\d+)$");
 
             if (match.Success)
             {
                 int currentNumber = int.Parse(match.Groups[1].Value);
 
-                // ¼ì²éÊı×ÖÊÇ·ñÔÚÖ¸¶¨·¶Î§ÄÚ
+                // æ£€æŸ¥æ•°å­—æ˜¯å¦åœ¨æŒ‡å®šèŒƒå›´å†…
                 if (currentNumber >= startNumber && currentNumber <= endNumber)
                 {
                     int newNumber = currentNumber + startOffset;
                     string newName = $"{newPrefix}{newNumber}";
 
-                    Debug.Log($"½«»áÖØÃüÃû: {fileName} ¡ú {newName}");
+                    Debug.Log($"å°†é‡å‘½å: {fileName} ä¸º {newName}");
                 }
                 else
                 {
-                    Debug.Log($"Ìø¹ı {fileName} (Êı×Ö²»ÔÚ·¶Î§ {startNumber}-{endNumber} ÄÚ)");
+                    Debug.Log($"è·³è¿‡ {fileName} (æ•°å­—ä¸åœ¨èŒƒå›´ {startNumber}-{endNumber} å†…)");
                 }
             }
             else
             {
-                Debug.Log($"Ìø¹ı {fileName} (¸ñÊ½²»Æ¥Åä)");
+                Debug.Log($"è·³è¿‡ {fileName} (æ ¼å¼ä¸åŒ¹é…)");
             }
         }
 
-        Debug.Log("=== Ô¤ÀÀ½áÊø ===");
+        Debug.Log("=== é¢„è§ˆç»“æŸ ===");
     }
 
     /// <summary>
-    /// Ö´ĞĞÖØÃüÃû²Ù×÷
+    /// æ‰§è¡Œé‡å‘½åæ“ä½œ
     /// </summary>
     private void ExecuteRename()
     {
@@ -130,7 +131,7 @@ public class LevelRenamer : EditorWindow
         int skipCount = 0;
         int errorCount = 0;
 
-        // ÏÈÊÕ¼¯ËùÓĞĞèÒªÖØÃüÃûµÄÎÄ¼şĞÅÏ¢
+        // æ”¶é›†æ‰€æœ‰éœ€è¦é‡å‘½åçš„æ–‡ä»¶ä¿¡æ¯
         var renameOperations = new List<RenameOperation>();
 
         foreach (var guid in guids)
@@ -162,26 +163,26 @@ public class LevelRenamer : EditorWindow
                 else
                 {
                     skipCount++;
-                    Debug.Log($"Ìø¹ı {fileName} (Êı×Ö²»ÔÚ·¶Î§ {startNumber}-{endNumber} ÄÚ)");
+                    Debug.Log($"è·³è¿‡ {fileName} (æ•°å­—ä¸åœ¨èŒƒå›´ {startNumber}-{endNumber} å†…)");
                 }
             }
             else
             {
                 skipCount++;
-                Debug.Log($"Ìø¹ı {fileName} (¸ñÊ½²»Æ¥Åä)");
+                Debug.Log($"è·³è¿‡ {fileName} (æ ¼å¼ä¸åŒ¹é…)");
             }
         }
 
-        // °´Êı×ÖÅÅĞò£¬È·±£ÓĞĞò´¦Àí
+        // æŒ‰æ•°å­—æ’åºä»¥ç¡®ä¿é¡ºåº
         renameOperations = renameOperations.OrderBy(op => op.Number).ToList();
 
-        // Ö´ĞĞÖØÃüÃû
+        // æ‰§è¡Œé‡å‘½å
         foreach (var operation in renameOperations)
         {
-            // ¼ì²éÄ¿±êÎÄ¼şÃûÊÇ·ñÒÑ´æÔÚ
+            // æ£€æŸ¥ç›®æ ‡æ–‡ä»¶æ˜¯å¦å·²å­˜åœ¨
             if (File.Exists(operation.NewPath) && operation.OriginalPath != operation.NewPath)
             {
-                Debug.LogError($"ÎŞ·¨ÖØÃüÃû {operation.OriginalName} ¡ú {operation.NewName}£¬Ä¿±êÎÄ¼şÒÑ´æÔÚ£¡");
+                Debug.LogError($"æ— æ³•é‡å‘½å {operation.OriginalName} ä¸º {operation.NewName}ï¼Œç›®æ ‡æ–‡ä»¶å·²å­˜åœ¨");
                 errorCount++;
                 continue;
             }
@@ -189,12 +190,12 @@ public class LevelRenamer : EditorWindow
             string error = AssetDatabase.RenameAsset(operation.OriginalPath, operation.NewName);
             if (!string.IsNullOrEmpty(error))
             {
-                Debug.LogError($"ÖØÃüÃûÊ§°Ü {operation.OriginalName}: {error}");
+                Debug.LogError($"é‡å‘½åå¤±è´¥ {operation.OriginalName}: {error}");
                 errorCount++;
             }
             else
             {
-                Debug.Log($"ÖØÃüÃû³É¹¦: {operation.OriginalName} ¡ú {operation.NewName}");
+                Debug.Log($"é‡å‘½åæˆåŠŸ: {operation.OriginalName} ä¸º {operation.NewName}");
                 successCount++;
             }
         }
@@ -202,18 +203,18 @@ public class LevelRenamer : EditorWindow
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
-        Debug.Log($"ÖØÃüÃûÍê³É£¡³É¹¦: {successCount}, Ìø¹ı: {skipCount}, Ê§°Ü: {errorCount}");
+        Debug.Log($"é‡å‘½åå®Œæˆï¼ŒæˆåŠŸ: {successCount}, è·³è¿‡: {skipCount}, å¤±è´¥: {errorCount}");
 
         if (successCount > 0)
         {
-            EditorUtility.DisplayDialog("ÖØÃüÃûÍê³É",
-                $"ÖØÃüÃû²Ù×÷Íê³É£¡\n³É¹¦: {successCount} ¸öÎÄ¼ş\nÌø¹ı: {skipCount} ¸öÎÄ¼ş\nÊ§°Ü: {errorCount} ¸öÎÄ¼ş",
-                "È·¶¨");
+            EditorUtility.DisplayDialog("é‡å‘½åå®Œæˆ",
+                $"é‡å‘½åæ“ä½œå·²å®Œæˆï¼\næˆåŠŸ: {successCount} ä¸ªæ–‡ä»¶\nè·³è¿‡: {skipCount} ä¸ªæ–‡ä»¶\nå¤±è´¥: {errorCount} ä¸ªæ–‡ä»¶",
+                "ç¡®å®š");
         }
     }
 
     /// <summary>
-    /// ÖØÃüÃû²Ù×÷µÄÊı¾İ½á¹¹
+    /// é‡å‘½åæ“ä½œçš„æ•°æ®ç»“æ„
     /// </summary>
     private struct RenameOperation
     {

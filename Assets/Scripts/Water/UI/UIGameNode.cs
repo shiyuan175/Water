@@ -16,6 +16,12 @@ namespace Game.Water
     {
         private const int GET_THE_LAST_NUMBER_OF_LEVEL = 10;
         private const int RESET_BEGIN_AD_LEVEL = 31;
+
+        //  重置几次播放广告
+        private const int RESET_NEED_AD_COUNT = 2;
+
+        // 临时数量计数
+        private int _resetNeedShowAd = 0;
         [Serializable]
         public struct DifficultyStyle
         {
@@ -212,7 +218,7 @@ namespace Game.Water
         {
             int level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
             TxtLevel.text = level.ToString();
-            BtnReset.gameObject.SetActive(level > 5);
+            BtnReset.gameObject.SetActive(level > 0);
 
             if (level < GET_THE_LAST_NUMBER_OF_LEVEL) return;
 
@@ -444,7 +450,7 @@ namespace Game.Water
                     return;
                 }
                 LevelManager.Instance.AddBottle(false, () =>
-                {
+                {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
                     gameGlobalModel.ReduceItem(3, 1);
                 });
             }
@@ -520,16 +526,20 @@ namespace Game.Water
         private void BtnResetOnClick()
         {
             var level = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
+            // 增加广告播放计数
+           
             if (level >= RESET_BEGIN_AD_LEVEL)
             {
-                TopOnADManager.Instance.ShowIntersAd(null, () => { StartCoroutine(LevelManager.Instance.AdRewardCoroutine()); });
-#if UNITY_EDITOR
-            Debug.Log("模拟广告");
-            this.GetModel<GameGlobalModel>().ResetCountinueWinNum();
-            LevelManager.Instance.StartGame(this.GetUtility<SaveDataUtility>().GetCurrentLevel());
-            if (UIKit.GetPanel<UIMask>())
-                UIKit.ClosePanel<UIMask>();
-#endif
+                _resetNeedShowAd++;
+                // 重置次数达到 播放广告
+                if (_resetNeedShowAd >= RESET_NEED_AD_COUNT)
+                    TopOnADManager.Instance.ShowIntersAd(null, () =>
+                    {
+                        StartCoroutine(LevelManager.Instance.AdRewardCoroutine());
+                        _resetNeedShowAd = 0;
+                    });
+                else
+                    StartCoroutine(LevelManager.Instance.AdRewardCoroutine());
             }
             else
             {
