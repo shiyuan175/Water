@@ -1,5 +1,0 @@
-<dependencies>
-    <androidPackages>
-        <androidPackage spec="com.google.android.gms:play-services-ads:23.2.0"/>
-    </androidPackages>
-</dependencies>

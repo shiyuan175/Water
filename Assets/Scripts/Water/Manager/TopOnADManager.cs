@@ -8,8 +8,8 @@ namespace Game.Water
     [MonoSingletonPath("[Analytics]/TopOnADManager")]
     public class TopOnADManager: MonoSingleton<TopOnADManager>
     {
-        private readonly string mPlacementId_rewardvideo_all = "b69718fcb63294"; 
-        private readonly string mPlacementId_interstitial_all = "b69718fcc0a9fb"; 
+        private readonly string mPlacementId_rewardvideo_all = "n69b91770a54c6"; 
+        private readonly string mPlacementId_interstitial_all = "n69b91770615d3"; 
 
         private Action videoRewardAction;
         private Action videoCloseAction;
@@ -20,7 +20,7 @@ namespace Game.Water
         public override void OnSingletonInit()
         {
             ATSDKAPI.setLogDebug(false);
-            ATSDKAPI.initSDK("a69718fa406b36", "ae758ec796d75f4ff2fada0e795426b39"); //AppID��AppKey
+            ATSDKAPI.initSDK("h69b91727e8551", "ab2f30359f33af3578f607633fae31fca"); //AppID��AppKey
 
             addAutoLoadAdPlacementID();
         }

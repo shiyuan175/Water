@@ -4,33 +4,29 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
-    implementation 'androidx.annotation:annotation:1.0.0' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/facebook/Editor/Dependencies.xml:4
-    implementation 'androidx.appcompat:appcompat:1.1.0' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/Editor/Dependencies.xml:6
-    implementation 'androidx.browser:browser:1.4.0' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/Editor/Dependencies.xml:7
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:12
-    implementation 'androidx.recyclerview:recyclerview:1.1.0' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/mintegral/Editor/Dependencies.xml:13
-    implementation 'com.applovin:applovin-sdk:12.6.0' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/applovin/Editor/Dependencies.xml:3
-    implementation 'com.facebook.android:audience-network-sdk:6.17.0' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/facebook/Editor/Dependencies.xml:3
-    // implementation 'com.google.android.gms:play-services-ads:23.0.0' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7
-    implementation 'com.google.android.gms:play-services-ads:23.2.0' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/admob/Editor/Dependencies.xml:3
-    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/tapjoy/Editor/Dependencies.xml:7
-    implementation 'com.google.android.gms:play-services-appset:16.0.2' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/ironsource/Editor/Dependencies.xml:7
-    implementation 'com.google.android.gms:play-services-basement:18.1.0' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/ironsource/Editor/Dependencies.xml:9
+    implementation 'androidx.appcompat:appcompat:1.6.1' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/Editor/Dependencies.xml:7
+    implementation 'androidx.browser:browser:1.4.0' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/Editor/Dependencies.xml:8
+    implementation 'androidx.recyclerview:recyclerview:1.1.0' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/gtm/Editor/Dependencies.xml:8
+    implementation 'com.anythink.sdk:adapter-tpn-admob:24.9.0.1.0' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/admob/Editor/Dependencies.xml:3
+    implementation 'com.anythink.sdk:adapter-tpn-ironsource:9.2.0.1.0' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/ironsource/Editor/Dependencies.xml:6
+    implementation 'com.anythink.sdk:adapter-tpn-mintegral:17.0.61.1.0' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/gtm/Editor/Dependencies.xml:6
+    implementation 'com.anythink.sdk:adapter-tpn-pangle:7.8.5.9.1.0' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/pangle/Editor/Dependencies.xml:6
+    implementation 'com.anythink.sdk:adapter-tpn-sdm:6.5.54.1.0' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/secmtp_base/sdm/Editor/Dependencies.xml:3
+    implementation 'com.anythink.sdk:adapter-tpn-unityads:4.16.1.1.0' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/unityads/Editor/Dependencies.xml:3
+    implementation 'com.anythink.sdk:core-tpn:6.5.52' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/Editor/Dependencies.xml:6
+    implementation 'com.google.android.gms:play-services-ads:24.9.0' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/admob/Editor/Dependencies.xml:4
+    // implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/ironsource/Editor/Dependencies.xml:9
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.2.0' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/pangle/Editor/Dependencies.xml:8
+    implementation 'com.google.android.gms:play-services-appset:16.0.2' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/ironsource/Editor/Dependencies.xml:8
+    implementation 'com.google.android.gms:play-services-basement:18.1.0' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/ironsource/Editor/Dependencies.xml:10
     implementation 'com.google.android.play:core-common:2.0.4' // Assets/GooglePlayPlugins/com.google.play.core/Editor/Dependencies.xml:3
     implementation 'com.google.android.play:review:2.0.0' // Assets/GooglePlayPlugins/com.google.play.review/Editor/Dependencies.xml:3
-    implementation 'com.google.android.ump:user-messaging-platform:2.2.0' // Assets/GoogleMobileAds/Editor/GoogleUmpDependencies.xml:7
-    implementation 'com.ironsource.sdk:mediationsdk:8.1.0' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/ironsource/Editor/Dependencies.xml:6
-    implementation 'com.mbridge.msdk.oversea:mbbanner:16.8.11' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/mintegral/Editor/Dependencies.xml:11
-    implementation 'com.mbridge.msdk.oversea:mbbid:16.8.11' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/mintegral/Editor/Dependencies.xml:12
-    implementation 'com.mbridge.msdk.oversea:mbnative:16.8.11' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/mintegral/Editor/Dependencies.xml:8
-    implementation 'com.mbridge.msdk.oversea:mbnativeadvanced:16.8.11' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/mintegral/Editor/Dependencies.xml:9
-    implementation 'com.mbridge.msdk.oversea:mbsplash:16.8.11' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/mintegral/Editor/Dependencies.xml:10
-    implementation 'com.mbridge.msdk.oversea:newinterstitial:16.8.11' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/mintegral/Editor/Dependencies.xml:7
-    implementation 'com.mbridge.msdk.oversea:reward:16.8.11' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/mintegral/Editor/Dependencies.xml:6
-    implementation 'com.tapjoy:tapjoy-android-sdk:12.10.0@aar' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/tapjoy/Editor/Dependencies.xml:6
+    implementation 'com.mbridge.msdk.oversea:mbridge_android_sdk:17.0.61' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/gtm/Editor/Dependencies.xml:7
+    implementation 'com.pangle.global:pag-sdk:7.8.5.9' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/pangle/Editor/Dependencies.xml:7
+    implementation 'com.smartdigimkttech.sdk:smartdigimkttech-sdk:6.5.54' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/secmtp_base/sdm/Editor/Dependencies.xml:4
     implementation 'com.tenjin:android-sdk:1.16.5' // Assets/Editor/Dependencies.xml:4
-    implementation 'com.android.installreferrer:installreferrer:2.2'
-    implementation 'com.unity3d.ads:unity-ads:4.12.0' // Assets/AnyThinkPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/unityads/Editor/Dependencies.xml:3
+    implementation 'com.unity3d.ads:unity-ads:4.16.1' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/unityads/Editor/Dependencies.xml:4
+    implementation 'com.unity3d.ads-mediation:mediation-sdk:9.2.0' // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/ironsource/Editor/Dependencies.xml:7
 // Android Resolver Dependencies End
 **DEPS**}
 
@@ -40,7 +36,6 @@ configurations.all {
 
 // Android Resolver Exclusions Start
 android {
-	namespace "com.unity3d.player"
   packagingOptions {
       exclude ('/lib/armeabi/*' + '*')
       exclude ('/lib/mips/*' + '*')
