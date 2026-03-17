@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "867644275951",
+    "project_id": "water-sort-lab",
+    "storage_bucket": "water-sort-lab.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867644275951:android:b4a3a9cf4f1bd33101ef1a",
+        "android_client_info": {
+          "package_name": "com.Baolie.WaterAd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEhWYYkQFCAMBBTbYiHAhVnOA5CACWlTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

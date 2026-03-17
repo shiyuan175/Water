@@ -30,6 +30,9 @@ dependencyResolutionManagement {
         maven {
             url "https://artifact.bytedance.com/repository/pangle" // Assets/TpnPlugin/AnyThinkAds/Plugins/Android/NonChina/mediation/pangle/Editor/Dependencies.xml:5
         }
+        maven {
+            url (unityProjectPath + "/Assets/GeneratedLocalRepo/Firebase/m2repository") // Assets/Firebase/Editor/AnalyticsDependencies.xml:21, Assets/Firebase/Editor/AppDependencies.xml:25
+        }
         mavenLocal()
 // Android Resolver Repos End
         flatDir {

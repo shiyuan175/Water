@@ -27,6 +27,7 @@ namespace Game.Water
         private void CreateInstance()
         {
             var tenjinManager = TenjinManager.Instance;
+            var fireBase = FirebaseManager.Instance;
             var topOnADManager = TopOnADManager.Instance;
             GameUtilityManager gameUtilityManager = GameUtilityManager.Instance;
         }
