@@ -64,6 +64,7 @@ public class GameMainArc : Architecture<GameMainArc>
         TextManager textManager = TextManager.Instance;
         ShareManager shareManager = ShareManager.Instance;
         TenjinManager tenjinManager = TenjinManager.Instance;
+        FirebaseManager firebaseManager = FirebaseManager.Instance;
         TopOnADManager topOnADManager = TopOnADManager.Instance;
         HealthManager healthManager = HealthManager.Instance;
         CountDownTimerManager.Instance.StartEasternMidnightTimer(GameDefine.GameConst.FIRST_LAUNCH_SIGN);

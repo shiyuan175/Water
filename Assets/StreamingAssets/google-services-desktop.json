@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "816567576317",
+    "project_id": "water-sort-magic-world-7fcd5",
+    "storage_bucket": "water-sort-magic-world-7fcd5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816567576317:android:a7fdfcb2ca1c9fd7b14094",
+        "android_client_info": {
+          "package_name": "com.Baolie.Water"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChjjMOzEjxgJY2Fflrwq2feLptNnkMgZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
