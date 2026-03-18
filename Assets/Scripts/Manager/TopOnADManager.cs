@@ -8,8 +8,8 @@ using UnityEngine;
 [MonoSingletonPath("[Analytics]/TopOnADManager")]
 public class TopOnADManager : MonoSingleton<TopOnADManager>
 {
-    private readonly string mPlacementId_rewardvideo_all = "b1gfnjso5u3hej";      //�������ID
-    private readonly string mPlacementId_interstitial_all = "b1gfnjso5u3p46";     //�������ID
+    private readonly string mPlacementId_rewardvideo_all = "n69b91783c099b";      //�������ID
+    private readonly string mPlacementId_interstitial_all = "n69b9178376ae0";     //�������ID
     //private readonly string mPlacementId_rewardvideo_all = "b1fn8aua8i1k5i";
     //private readonly string mPlacementId_interstitial_all = "b1fn8aua8i1s42";
     private Action videoRewardAction;
@@ -21,7 +21,7 @@ public class TopOnADManager : MonoSingleton<TopOnADManager>
     public override void OnSingletonInit()
     {
         ATSDKAPI.setLogDebug(false);
-        ATSDKAPI.initSDK("a68229c5f42e2b", "a82844bf085483dd3018ef16e347250e5");  //AppID��AppKey
+        ATSDKAPI.initSDK("h69b917279442c", "a3ada064f1d201982989c98ec302c24f7");  //AppID��AppKey
 
         addAutoLoadAdPlacementID();
     }
