@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Firebase.Crashlytics;
 using UnityEngine;
 using QFramework;
 using Firebase.Extensions;
@@ -24,6 +25,7 @@ public class FirebaseManager : MonoSingleton<FirebaseManager>
                 app = Firebase.FirebaseApp.Create();
 #else
                 app = Firebase.FirebaseApp.DefaultInstance;
+                Crashlytics.ReportUncaughtExceptionsAsFatal = true;
 #endif
             }
             else

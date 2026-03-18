@@ -27,7 +27,7 @@ namespace QFramework.Example
         private bool level2_Step1 = false;
         private bool level2_Step2 = false;
         private bool level2_Step3 = false;
-        //±ê¼ÇµÚ¶þ²½ÊÇ·ñÖ´ÐÐ¹ý
+        //ï¿½ï¿½ÇµÚ¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ö´ï¿½Ð¹ï¿½
         private bool alStep2 = false;
         private Button BtnLevel2_Step1;
         private Button BtnLevel2_Step2;
@@ -120,7 +120,7 @@ namespace QFramework.Example
                         BtnLevel2_Step2.onClick?.Invoke();
                         SpineHandle.Hide();
 
-                        //µÈ´ýµ¹ÍêË®
+                        //ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½Ë®
                         ActionKit.Delay(2.2f, () =>
                         {
                             GameUtilityManager.Instance.GetLocalPositionInCanvas(BtnLevel2_Step1.GetComponent<RectTransform>(), SpineHandle.GetComponent<RectTransform>());
@@ -156,7 +156,7 @@ namespace QFramework.Example
             }
             else if (mData.level == SECOND)
             {
-                TxtGuide.text = "Only pour water into the same colort";
+                TxtGuide.text = "Only pour water into the same color";
                 BtnLevel2_Step1 = LevelManager.Instance.nowBottles[1].bottle;
                 BtnLevel2_Step2 = LevelManager.Instance.nowBottles[0].bottle;
                 BtnLevel2_Step3 = LevelManager.Instance.nowBottles[2].bottle;
