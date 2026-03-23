@@ -97,8 +97,10 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
         InitBottle();
     }
 
-    private void Start()
+    private async void Start()
     {
+        await FirebaseManager.Instance.Init();
+
         //清空携带道具
         StringEventSystem.Global.Register("ClearTakeItem", () =>
         {
@@ -162,6 +164,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
             type = 1,
             iswin = null
         });
+        FirebaseManager.Instance.SendEvent(1, levelId);
+
         if (mLastLevel != levelId)
         {
             mEnterCount = 1;
@@ -759,6 +763,8 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
                 type = 2,
                 iswin = 1,
             });
+            FirebaseManager.Instance.SendEvent(2, levelId);
+
             this.GetUtility<SaveDataUtility>().SaveLevel(levelId + 1);
 
             if (levelId < 5)

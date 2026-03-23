@@ -16,8 +16,6 @@ public class GameMainArc : Architecture<GameMainArc>
         ActivityStart();
     }
     
-    
-
     private void RegisterModels()
     {
         RegisterModel(new GameGlobalModel());
@@ -54,13 +52,8 @@ public class GameMainArc : Architecture<GameMainArc>
     }
 
     //单例构建
-
     private void CreateInstance()
     {
-        //ResourceManager.Instance.LoadABPackage("uieveladdheart_prefab");
-        //ResourceManager.Instance.LoadABPackage("uilevelclear_prefab");
-        //ResourceManager.Instance.LoadABPackage("uilevelmain_prefab");
-        //ResourceManager.Instance.LoadFont();
         TextManager textManager = TextManager.Instance;
         ShareManager shareManager = ShareManager.Instance;
         TenjinManager tenjinManager = TenjinManager.Instance;
