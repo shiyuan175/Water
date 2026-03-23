@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Firebase;
 using Game.Water;
 using QFramework;
 using Spine.Unity;
@@ -92,8 +93,10 @@ namespace Game.Water
             saveDataUtility = this.GetUtility<SaveDataUtility>();
         }
 
-        private void Start()
+        private async void Start()
         {
+            await FirebaseManager.Instance.Init();
+
             emptyBottle.numCake = 4;
             levelId = this.GetUtility<SaveDataUtility>().GetCurrentLevel();
 
@@ -141,6 +144,8 @@ namespace Game.Water
             moveNum = 0;
 
             levelId = id;
+            FirebaseManager.Instance.SendEvent(1, levelId);
+
             LevelCreateCtrl levelInfo = levels[id - 1];
             nowLevel = levelInfo;
 
@@ -616,6 +621,8 @@ namespace Game.Water
                 UIKit.OpenPanel<UIMask>(UILevel.PopUI);
                 float waitTime = levelId < 5 ? 3f : 2f;
                 yield return new WaitForSeconds(waitTime);
+
+                FirebaseManager.Instance.SendEvent(2, levelId);
                 levelId = saveDataUtility.GetCurrentLevel();
                 saveDataUtility.SaveLevel(levelId + 1);
 
