@@ -2,6 +2,7 @@
 using AnyThinkAds.Api;
 using QFramework;
 using QFramework.Example;
+using UnityEngine;
 
 namespace Game.Water
 {
@@ -45,6 +46,8 @@ namespace Game.Water
 
         private void onAdIntersSClose(object sender, ATAdEventArgs e)
         {
+            TenjinManager.Instance.TopOnImpressionFromJSON(e.callbackInfo.getOriginJSONString());
+
             intersCloseAction?.Invoke();
             intersCloseAction = null;
         }
@@ -66,6 +69,9 @@ namespace Game.Water
 
         private void onAdVideoReward(object sender, ATAdEventArgs e)
         {
+            //var json = e.callbackInfo.getOriginJSONString();
+            //Debug.Log(json);
+            TenjinManager.Instance.TopOnImpressionFromJSON(e.callbackInfo.getOriginJSONString());
             videoRewardAction?.Invoke();
             videoCloseAction = null;
         }

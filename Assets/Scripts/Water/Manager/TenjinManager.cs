@@ -20,7 +20,7 @@ namespace Game.Water
             }
         }
 
-        public void TenjinConnect()
+        private void TenjinConnect()
         {
             instance = Tenjin.getInstance("MFAFMW4JY4QGETYG3BTDD7XOAG5WIW3F");
 
@@ -35,6 +35,11 @@ namespace Game.Water
                 mSubscribed = true;
             }
 #endif
+        }
+
+        public void TopOnImpressionFromJSON(string json)
+        {
+            instance.TopOnImpressionFromJSON(json);
         }
     }
 }
