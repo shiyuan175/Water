@@ -46,6 +46,7 @@ public class TopOnADManager : MonoSingleton<TopOnADManager>
 
     private void onAdIntersSClose(object sender, ATAdEventArgs e)
     {
+        TenjinManager.Instance.TopOnImpressionFromJSON(e.callbackInfo.getOriginJSONString());
         intersCloseAction?.Invoke();
         intersCloseAction = null;
     }
@@ -67,6 +68,7 @@ public class TopOnADManager : MonoSingleton<TopOnADManager>
 
     private void onAdVideoReward(object sender, ATAdEventArgs e)
     {
+        TenjinManager.Instance.TopOnImpressionFromJSON(e.callbackInfo.getOriginJSONString());
         videoRewardAction?.Invoke();
         videoCloseAction = null;
     }

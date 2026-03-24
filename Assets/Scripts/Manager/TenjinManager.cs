@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class TenjinManager: MonoSingleton<TenjinManager>
 {
-    BaseTenjin instance;
+    private BaseTenjin instance;
+    private bool mSubscribe = false;
 
     public override void OnSingletonInit()
     {
@@ -20,19 +21,25 @@ public class TenjinManager: MonoSingleton<TenjinManager>
         }
     }
 
-    public void TenjinConnect()
+    private void TenjinConnect()
     {
-        //Debug.Log("Tenjin StartConnect0");
         instance = Tenjin.getInstance("C3AFW296ESTHECCHFBLL1BTSS6DQKYVA");
-        //Debug.Log("Tenjin StartConnect1");
 
 #if UNITY_ANDROID
-        //Debug.Log("Tenjin StartConnect2");
 
         instance.SetAppStoreType(AppStoreType.googleplay);
-        // Sends install/open event to Tenjin
         instance.Connect();
-        instance.SubscribeTopOnImpressions();
+
+        if (!mSubscribe)
+        {
+            instance.SubscribeTopOnImpressions();
+            mSubscribe = true;
+        }
 #endif
+    }
+
+    public void TopOnImpressionFromJSON(string json)
+    {
+        instance.TopOnImpressionFromJSON(json);
     }
 }
