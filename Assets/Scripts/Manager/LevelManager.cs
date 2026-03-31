@@ -356,21 +356,22 @@ public class LevelManager : MonoBehaviour, IController, ICanSendEvent
     {
         nowBottles.Clear();
 
+        var topnum = nowLevel.topNum;
+        var bottomNum = nowLevel.bottomNum;
+
         for (int i = 0; i < topBottle.Count; i++)
         {
             var useBottle = topBottle[i];
-            var num = nowLevel.topNum;
-            useBottle.gameObject.SetActive(i < num);
-            if (i < num)
+            useBottle.gameObject.SetActive(i < topnum);
+            if (i < topnum)
                 nowBottles.Add(useBottle);
         }
 
         for (int i = 0; i < bottomBottle.Count; i++)
         {
             var useBottle = bottomBottle[i];
-            var num = nowLevel.bottomNum;
-            useBottle.gameObject.SetActive(i < num);
-            if (i < num)
+            useBottle.gameObject.SetActive(i < bottomNum);
+            if (i < bottomNum)
                 nowBottles.Add(useBottle);
         }
     }
