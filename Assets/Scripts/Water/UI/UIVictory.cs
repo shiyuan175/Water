@@ -36,15 +36,16 @@ namespace Game.Water
         protected override void OnOpen(IUIData uiData = null)
         {
             saveDataUtility = this.GetUtility<SaveDataUtility>();
+
+            BtnSkip.onClick.AddListener(() =>
+            {
+                UnlockNewItem();
+            });
         }
 
         protected override void OnShow()
         {
             ShowAnim();
-            BtnSkip.onClick.AddListener(() =>
-            {
-                UnlockNewItem();
-            });
             WaitClose();
         }
 

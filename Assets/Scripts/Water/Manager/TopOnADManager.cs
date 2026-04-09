@@ -73,7 +73,7 @@ namespace Game.Water
             //Debug.Log(json);
             TenjinManager.Instance.TopOnImpressionFromJSON(e.callbackInfo.getOriginJSONString());
             videoRewardAction?.Invoke();
-            videoCloseAction = null;
+            videoRewardAction = null;
         }
 
         private void onAdVideoClosedEvent(object sender, ATAdRewardEventArgs e)
