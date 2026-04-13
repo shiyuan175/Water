@@ -124,6 +124,13 @@ public class GooglePayManager : MonoSingleton<GooglePayManager>, IDetailedStoreL
         StringEventSystem.Global.Send(product.definition.id);
         StringEventSystem.Global.Send(GameDefine.GameConst.GIFT_PACK_ENTRY_STATE_CHANGED);
 
+        var productId = product.definition.id;
+        var receipt = product.receipt;
+        var price = product.metadata.localizedPrice;
+        var currencyCode = product.metadata.isoCurrencyCode;
+
+        TenjinManager.Instance.ReportIAPToTenjin(productId, currencyCode, price, receipt);
+
         //We return Complete, informing IAP that the processing on our side is done and the transaction can be closed.
         return PurchaseProcessingResult.Complete;
     }
