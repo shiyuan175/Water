@@ -4,6 +4,11 @@ namespace Game.Water
 {
     public class TenjinManager: MonoSingleton<TenjinManager>
     {
+        public enum TenjinCustomEvent
+        {
+            PassLevel
+        }
+
         private BaseTenjin instance;
         private bool mSubscribed = false;
 
@@ -40,6 +45,11 @@ namespace Game.Water
         public void TopOnImpressionFromJSON(string json)
         {
             instance.TopOnImpressionFromJSON(json);
+        }
+
+        public void SendCustomEvent(string eventName, string eventValue)
+        {
+            instance.SendEvent(eventName, eventValue);
         }
     }
 }

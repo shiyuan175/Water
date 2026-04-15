@@ -623,6 +623,10 @@ namespace Game.Water
                 yield return new WaitForSeconds(waitTime);
 
                 FirebaseManager.Instance.SendEvent(2, levelId);
+                if (levelId == 5)
+                    TenjinManager.Instance.SendCustomEvent(
+                        TenjinManager.TenjinCustomEvent.PassLevel.ToString(), levelId.ToString());
+
                 levelId = saveDataUtility.GetCurrentLevel();
                 saveDataUtility.SaveLevel(levelId + 1);
 
